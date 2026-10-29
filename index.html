@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202610291641"></script>
+<script src="/claude-shim.js?v=202610291650"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -2354,6 +2354,10 @@ function minutesByDay(){const m={};LOGS().forEach(l=>{m[l.d]=(m[l.d]||0)+l.m});r
 function metaPerf(n){let f=0,a=0;tasksOf(n).forEach(t=>{if(t.q){f+=t.q.f;a+=t.q.a}});return f?Math.round(a/f*100):null}
 function edStats(){const E=core().ed;let cov=0,st=0;ED.forEach((s,i)=>s.t.forEach((_,j)=>{const e=E[i+":"+j];if(e&&e.stud)st++;else if(e&&e.cov)cov++}));return{cov,st}}
 const prova=()=>(core().cron.find(c=>c.k==="prova")||{d:"2027-03-14"}).d;
+/* Sem data oficial de prova (pré-edital ou concurso sem edital): o painel usa uma data estimada só para o ritmo das metas,
+   mas mostra "∞ / a definir". Muda sozinho quando a data é informada no cronograma, quando o edital é incluído ou quando o catálogo traz a data. */
+const provaTBD=()=>{try{if(IS_TJ||!PLAN||PLAN.prova)return false;const c=core(),d=prova();if(!c.provaAuto){c.provaAuto=d;try{touch("core")}catch(e){}}return d===c.provaAuto}catch(e){return false}};
+const planTBD=p=>p&&p.id!=="tjsp"&&!p.prova&&(p.id===ACTIVE?provaTBD():true);
 const dueRevs=()=>REV().filter(r=>!r.done&&addDays(r.d0,OFF[r.step])<=today());
 
 /* ================= Cronômetro ================= */
@@ -3153,7 +3157,7 @@ function renderNav(){
   const c=core(),es=edStats(),PG=progData(),p=Math.round(PG.tot);
   $("av").style.setProperty("--p",p);$("avn").textContent=(c.cfg.name||"?").trim().charAt(0).toUpperCase()||"?";
   $("whoName").textContent=c.cfg.name||"Você";$("whoSub").textContent=(PG.src==="gj"?"Planejamento: ":"Edital estudado: ")+(PG.src==="gj"?pctTxt(PG.tot):p+"%");
-  const dp=dbet(today(),prova());$("miniDays").textContent=Math.max(0,dp);const mdt=$("miniDate");if(mdt)mdt.textContent=new Date(prova()+"T12:00").toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"});
+  const dp=dbet(today(),prova()),TBD=provaTBD();$("miniDays").textContent=TBD?"∞":Math.max(0,dp);const mdt=$("miniDate");if(mdt)mdt.textContent=TBD?"data a definir":new Date(prova()+"T12:00").toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"});
   const pt=$("ptabs");if(pt){const L=allPlans();pt.innerHTML=L.length>1?L.map(p=>`<span class="ptw ${p.id===ACTIVE?"on":""}"><button class="ptab" ${p.id===ACTIVE?'aria-current="page"':`data-a="plGo" data-id="${p.id}"`} title="${esc(pDesc(p))}"><span class="pm">${esc(planMark(p))}</span><span class="pn">${esc(pName(p))}</span></button><button class="ptx" data-a="plRm" data-id="${p.id}" aria-label="Remover o concurso ${esc(pName(p))}" title="Remover este concurso">${ic("close")}</button></span>`).join("")+`<button class="ptab add" data-a="npOpen" aria-label="Adicionar outro concurso">${ic("plus")}</button>`:"";pt.hidden=L.length<2}
   const ps=$("plSw");if(ps)ps.innerHTML=`${ic("swap")}<span>${PLANS.list.length||APP_LINK?"Trocar de concurso":"Adicionar outro concurso"}</span>`;
   const th=document.documentElement.dataset.theme,isDark=th?th==="dark":!matchMedia("(prefers-color-scheme: light)").matches;
@@ -3870,26 +3874,26 @@ function crestSVG0(sig){const t=sig.split(/\s+/).filter(Boolean),a=(t.length>1?t
    <text x="52" y="${70+fs/3}" text-anchor="middle" font-family="Unbounded,Figtree,sans-serif" font-weight="800" font-size="${fs}" fill="#fff">${esc(a)}</text>
    <path d="M30 96c8 6 14 8 22 9 8-1 14-3 22-9" stroke="#ffe08a" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`}
 function orgHero(){const I=orgInfo(),c=core(),sk=c.skin||{},td=today(),dp=dbet(td,I.prova);
-  const st=!I.i1&&!I.i0?{t:IS_TJ||PLAN.edUrl?"Ver edital":"Sem edital",c:"info"}:I.i0&&td<I.i0?{t:"Abrem "+dm(I.i0),c:"warn"}:I.i1&&td<=I.i1?{t:"Abertas",c:"ok"}:{t:"Encerradas",c:"bad"};
+  const st=!I.i1&&!I.i0?(provaTBD()?{t:"Não aberto",c:"warn"}:{t:IS_TJ||PLAN.edUrl?"Ver edital":"Sem edital",c:"info"}):I.i0&&td<I.i0?{t:"Abrem "+dm(I.i0),c:"warn"}:I.i1&&td<=I.i1?{t:"Abertas",c:"ok"}:{t:"Encerradas",c:"bad"};
   const per=I.i0||I.i1?(I.i0?dm(I.i0):"")+(I.i0&&I.i1?" a ":"")+(I.i1?(I.i0?"":"até ")+dm(I.i1):""):"—";
   const pg=progData(),base=[...c.metas.map(m=>m.start),td].sort()[0],span=Math.max(1,dbet(base,I.prova)),el=clamp(dbet(base,td)/span*100,0,100);
   const steps=I.cr.length?I.cr:[{d:I.prova,l:"Prova objetiva",k:"prova"}];const nx=steps.findIndex(x=>x.d>=td);
-  const rows=steps.map((x,i)=>{const past=x.d<td,isN=i===nx,n=dbet(td,x.d);return`<div class="ah-row ${past?"past":""} ${isN?"next":""}"><span class="n">${past?ic("check"):i+1}</span><span class="t"><span>${esc(x.l)}</span><small>${x.a?"de "+dm(x.a)+" a "+dm(x.d)+" · ":""}${past?"concluída":n===0?"é hoje":"em "+dias(n)}</small></span><span class="dt">${dmy(x.d)}</span></div>`}).join("");
+  const TBD=provaTBD(),tb=x=>TBD&&x.k==="prova";const rows=steps.map((x,i)=>{const past=x.d<td,isN=i===nx,n=dbet(td,x.d);return`<div class="ah-row ${past?"past":""} ${isN?"next":""}"><span class="n">${past?ic("check"):i+1}</span><span class="t"><span>${esc(x.l)}</span><small>${tb(x)?"data a definir":(x.a?"de "+dm(x.a)+" a "+dm(x.d)+" · ":"")+(past?"concluída":n===0?"é hoje":"em "+dias(n))}</small></span><span class="dt">${tb(x)?"∞":dmy(x.d)}</span></div>`}).join("");
   return`<section class="ah" aria-label="Seu concurso">
    <div class="card ah-org"><div class="ah-in"><div class="ah-l">${esc(I.sig)}<span class="ah-bars" aria-hidden="true"><i></i><i></i></span></div>
      <div class="ah-club"><div class="ah-crest">${sk.logo&&(sk.logo.id||sk.logo.url)?`<img src="${esc(skinUrl(sk.logo))}" alt="Logo do órgão" onerror="this.replaceWith(document.createRange().createContextualFragment(crestSVG(orgInfo().sig)))">`:crestSVG(I.sig)}</div>
       <div class="ah-nm"><b>${esc(I.org)}</b><span>${esc(I.cargo)}${I.banca?" · banca "+esc(I.banca):""}</span></div></div>
-     <div class="ah-stats"><div><small>Inscrições</small><b><span class="ah-chip ${st.c}">${st.t}</span></b></div><div><small>Período</small><b>${per}</b></div><div><small>Prova</small><b>${dmy(I.prova)}</b></div>
+     <div class="ah-stats"><div><small>Inscrições</small><b><span class="ah-chip ${st.c}">${st.t}</span></b></div><div><small>Período</small><b>${per}</b></div><div><small>Prova</small><b>${provaTBD()?"A definir":dmy(I.prova)}</b></div>
       <div><small>Vagas</small><b>${esc(I.vagas||"—")}</b></div><div><small>Remuneração</small><b>${esc(I.sal||"—")}</b></div><div><small>${pg.src==="gj"?"Planejamento":"Edital estudado"}</small><b>${pg.src==="gj"?pctTxt(pg.tot):Math.round(pg.tot)+"%"}</b></div></div>
      <div class="ah-up"><label class="btn sm ghost">${ic("plus")} ${sk.logo?"Trocar":"Enviar"} logo<input type="file" accept="image/*" data-skin="logo" hidden></label><label class="btn sm ghost">${ic("plus")} ${sk.bg?"Trocar":"Enviar"} foto do órgão<input type="file" accept="image/*" data-skin="bg" hidden></label>${sk.logo||sk.bg?`<button class="btn sm ghost" data-a="skinClr">Tirar imagens</button>`:""}</div></div></div>
    <div class="card ah-count"><div class="ah-in ah-cd"><div class="ah-l" style="width:100%">Contagem para a prova<span class="ah-bars" aria-hidden="true"><i></i><i></i></span></div>
      <div class="ah-num" id="ahCount">${cdHTML(I.prova)}</div>
-     <span class="muted small">${dp>0?"Prova em "+dmy(I.prova)+(IS_TJ?", à tarde":""):dp===0?"A prova é hoje. Boa prova!":"Prova realizada em "+dmy(I.prova)}</span>
+     <span class="muted small">${provaTBD()?"Prova sem data: quando o edital sair, a contagem começa sozinha":dp>0?"Prova em "+dmy(I.prova)+(IS_TJ?", à tarde":""):dp===0?"A prova é hoje. Boa prova!":"Prova realizada em "+dmy(I.prova)}</span>
      <div class="ah-pb" title="Tempo de preparação já percorrido"><i style="width:${el}%"></i></div><span class="muted small">${Math.round(el)}% do caminho até a prova · Meta ${pad(c.cur||1)} em andamento</span>
-     ${nx>=0?`<div class="ah-row next" style="width:100%;text-align:left"><span class="n">${ic("right")}</span><span class="t"><span>Próxima etapa: ${esc(steps[nx].l)}</span><small>${dbet(td,steps[nx].d)===0?"é hoje":"em "+dias(dbet(td,steps[nx].d))}</small></span><span class="dt">${dm(steps[nx].d)}</span></div>`:""}</div></div>
+     ${nx>=0?`<div class="ah-row next" style="width:100%;text-align:left"><span class="n">${ic("right")}</span><span class="t"><span>Próxima etapa: ${esc(steps[nx].l)}</span><small>${tb(steps[nx])?"data a definir":dbet(td,steps[nx].d)===0?"é hoje":"em "+dias(dbet(td,steps[nx].d))}</small></span><span class="dt">${tb(steps[nx])?"∞":dm(steps[nx].d)}</span></div>`:""}</div></div>
    <div class="card ah-road"><div class="ah-in"><div class="ah-l">Roteiro do concurso<span class="ah-bars" aria-hidden="true"><i></i><i></i></span></div><div class="ah-rd">${rows}</div>
      <button class="btn sm ghost" data-a="tab" data-t="concurso" style="justify-self:start">${ic("concurso")} Editar etapas e datas</button></div></div></section>`}
-function cdHTML(pv){const ms=Math.max(0,new Date(pv+"T13:00:00")-Date.now()),d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);
+function cdHTML(pv){if(provaTBD())return`<div class="d"><b>∞</b><small>dias</small></div><div class="tbd" style="display:grid;place-items:center;padding:0 10px"><b style="font-size:15px;line-height:1.2">Data a definir</b><small>aguardando o edital</small></div>`;const ms=Math.max(0,new Date(pv+"T13:00:00")-Date.now()),d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);
   return`<div class="d"><b>${d}</b><small>dias</small></div><div><b>${pad(h)}</b><small>horas</small></div><div><b>${pad(m)}</b><small>min</small></div>`}
 setInterval(()=>{const e=document.getElementById("ahCount");if(e)try{e.innerHTML=cdHTML(prova())}catch(x){}},30000);
 async function skinImg(file,kind){if(!file||!/^image\//.test(file.type)){toast("Escolha uma imagem (JPG, PNG ou WEBP)");return}
@@ -5441,7 +5445,7 @@ function vConcurso0(){
   return`<div class="hello"><h1>Concurso</h1><p>${IS_TJ?"Oficial de Justiça do TJSP · Edital 01/2026 · Fundação VUNESP · 132 vagas imediatas · R$ 9.856,95":esc([PLAN.name,PLAN.cargo,PLAN.orgao,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(" · "))}</p></div>
   ${plansCard()}
   ${edCard()}
-  <section class="card"><div class="hero-c"><div class="big">${Math.max(0,dp)}<small>dias até a prova</small></div><div style="display:grid;gap:8px;min-width:0">${IS_TJ?`<b style="font:600 18px var(--f-display)">${dmy(pv)}, à tarde, 5 horas de prova</b><span class="muted">Prova objetiva com 70 questões e discursiva com 2 questões de conhecimentos específicos, no mesmo dia, nas sedes das 10 RAJs.</span>`:`<b style="font:600 18px var(--f-display)">Prova em ${dmy(pv)}</b><span class="muted">${ED.length} matérias e ${TOT_TOP} assuntos no seu edital. Ajuste a data no cronograma abaixo.</span>`}
+  <section class="card"><div class="hero-c"><div class="big">${provaTBD()?"∞":Math.max(0,dp)}<small>${provaTBD()?"prova sem data":"dias até a prova"}</small></div><div style="display:grid;gap:8px;min-width:0">${IS_TJ?`<b style="font:600 18px var(--f-display)">${dmy(pv)}, à tarde, 5 horas de prova</b><span class="muted">Prova objetiva com 70 questões e discursiva com 2 questões de conhecimentos específicos, no mesmo dia, nas sedes das 10 RAJs.</span>`:provaTBD()?`<b style="font:600 18px var(--f-display)">Prova ainda sem data</b><span class="muted">${ED.length} matérias e ${TOT_TOP} assuntos. Quando o edital sair, inclua o edital ou informe a data no cronograma abaixo: a contagem começa sozinha.</span>`:`<b style="font:600 18px var(--f-display)">Prova em ${dmy(pv)}</b><span class="muted">${ED.length} matérias e ${TOT_TOP} assuntos no seu edital. Ajuste a data no cronograma abaixo.</span>`}
   <div class="track" aria-hidden="true"><span class="ln"></span><span class="done" style="width:${X(td)}%"></span>${pts}<span class="today" style="left:${X(td)}%"></span></div></div></div></section>
   ${pv24Card()}
   <div class="cc-grid"><section class="card"><div class="card-h"><h2>Cronograma</h2><span class="r muted small">confirme sempre no site da VUNESP</span></div>${rows}</section>
@@ -5927,7 +5931,7 @@ function plansCard(){
   const L=allPlans();
   return`<section class="card"><div class="card-h"><h2>Meus concursos</h2><span class="r muted small">cada um com edital, metas e progresso próprios</span></div><div class="card-b pll">
    ${L.map(p=>{const cur=p.id===ACTIVE;return`<div class="plr" aria-current="${cur}"><span class="mk">${esc(planMark(p))}</span><div class="nm"><b>${esc(pName(p))}</b><small>${esc(pDesc(p))}${p.prova?" · prova em "+dmy(p.prova):""} · ${p.ed.length} matérias</small></div>
-     ${cur?`<span class="chip ok">${ic("check")} Aberto agora</span>`:`<button class="btn sm pri" data-a="plGo" data-id="${p.id}">Abrir</button>`}
+     ${planTBD(p)?`<span class="chip warn" title="Concurso ainda sem edital aberto">Não aberto</span>`:""}${cur?(planTBD(p)?"":`<span class="chip ok">${ic("check")} Aberto agora</span>`):`<button class="btn sm pri" data-a="plGo" data-id="${p.id}">Abrir</button>`}
      ${p.id!=="tjsp"&&cur?`<button class="btn sm" data-a="npAdd">Adicionar matérias</button>`:""}${allPlans().length>1?`<button class="btn sm danger" data-a="plRm" data-id="${p.id}">${ic("trash")} Remover</button>`:""}</div>`}).join("")}
    <div class="row"><button class="btn" data-a="npOpen">${ic("plus")} Adicionar outro concurso</button></div>
    ${IS_TJ?"":`<details><summary class="muted small" style="cursor:pointer">Editar dados deste concurso</summary><div class="row" style="margin-top:10px;align-items:flex-end">
@@ -6028,19 +6032,19 @@ const PB={
 };
 const pbd=(...k)=>k.map(x=>{const p=PB[x];return [p[0],p[1],p[2].slice()]});
 const PRE=[
- {id:"pre-fiscal",o:"Pré-edital",n:"Área Fiscal – Auditor Fiscal (curso regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital preedital regular base auditor fiscal sefaz receita iss icms tributos area fiscal",
+ {id:"pre-fiscal",o:"Pré-edital",n:"Área Fiscal – Auditor Fiscal (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital preedital regular base auditor fiscal sefaz receita iss icms tributos area fiscal",
   cg:[{n:"Auditor Fiscal – matérias-base",s:"Auditor Fiscal (Regular)",ds:pbd("lp","rlm","mf","est","dc","da","dt","cont","aud","afo","eco","dciv","demp","ltrib")}]},
- {id:"pre-trib-aj",o:"Pré-edital",n:"Tribunais – Analista Judiciário, Área Judiciária (curso regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base tribunais tribunal analista judiciario area judiciaria tj trf trt tre",
+ {id:"pre-trib-aj",o:"Pré-edital",n:"Tribunais – Analista Judiciário, Área Judiciária (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base tribunais tribunal analista judiciario area judiciaria tj trf trt tre",
   cg:[{n:"Analista Judiciário – matérias-base",s:"Analista Judiciário (Regular)",ds:pbd("lp","rlm","dc","da","dciv","dpc","dp","dpp")}]},
- {id:"pre-trib-tj",o:"Pré-edital",n:"Tribunais – Técnico Judiciário (curso regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base tribunais tribunal tecnico judiciario escrevente tj trf trt tre",
+ {id:"pre-trib-tj",o:"Pré-edital",n:"Tribunais – Técnico Judiciário (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base tribunais tribunal tecnico judiciario escrevente tj trf trt tre",
   cg:[{n:"Técnico Judiciário – matérias-base",s:"Técnico Judiciário (Regular)",ds:pbd("lp","rlm","inf","dc","da","dpc","dpp")}]},
- {id:"pre-pol",o:"Pré-edital",n:"Área Policial – Agente, Escrivão e Investigador (curso regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base policial policia civil federal pf prf pc agente escrivao investigador",
+ {id:"pre-pol",o:"Pré-edital",n:"Área Policial – Agente, Escrivão e Investigador (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base policial policia civil federal pf prf pc agente escrivao investigador",
   cg:[{n:"Área Policial – matérias-base",s:"Área Policial (Regular)",ds:pbd("lp","rlm","inf","dc","da","dp","dpp","leg","dh","cnt0")}]},
- {id:"pre-ctrl",o:"Pré-edital",n:"Área de Controle – TCU, TCEs e CGU (curso regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base controle tcu tce tcm cgu auditor de controle externo",
+ {id:"pre-ctrl",o:"Pré-edital",n:"Área de Controle – TCU, TCEs e CGU (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base controle tcu tce tcm cgu auditor de controle externo",
   cg:[{n:"Área de Controle – matérias-base",s:"Área de Controle (Regular)",ds:pbd("lp","rlm","est","dc","da","afo","cpub","ctrl","audg","adm")}]},
- {id:"pre-banc",o:"Pré-edital",n:"Área Bancária – Banco do Brasil, Caixa e BNB (curso regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base bancaria banco do brasil caixa bnb escriturario tecnico bancario",
+ {id:"pre-banc",o:"Pré-edital",n:"Área Bancária – Banco do Brasil, Caixa e BNB (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base bancaria banco do brasil caixa bnb escriturario tecnico bancario",
   cg:[{n:"Área Bancária – matérias-base",s:"Área Bancária (Regular)",ds:pbd("lp","mat","mf","cban","vend","inf","ing")}]},
- {id:"pre-adm",o:"Pré-edital",n:"Área Administrativa – Agências, INSS e órgãos federais (curso regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base administrativa administrativo tecnico analista agencias inss ministerios",
+ {id:"pre-adm",o:"Pré-edital",n:"Área Administrativa – Agências, INSS e órgãos federais (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base administrativa administrativo tecnico analista agencias inss ministerios",
   cg:[{n:"Área Administrativa – matérias-base",s:"Área Administrativa (Regular)",ds:pbd("lp","rlm","inf","dc","da","adm","afo","etc")}]}
 ];
 CAT.push(...PRE);
