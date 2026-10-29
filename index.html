@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202610291650"></script>
+<script src="/claude-shim.js?v=202610291655"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -913,6 +913,11 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 .ah-stats b{font-size:14px;font-weight:700}
 .ah-up{display:flex;gap:8px;flex-wrap:wrap}.ah-up label{cursor:pointer}
 .ah-cd{display:grid;place-items:center;text-align:center;gap:10px;padding:18px 14px}
+.ah-num:has(.tbdx){align-items:stretch}
+.ah-num div.tbdx{flex:0 0 132px;width:132px;min-height:96px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:12px 8px;text-align:center}
+.ah-num div.tbdx b{font-size:40px;line-height:1;height:40px;display:flex;align-items:center}.ah-num div.tbdx b.t{font-size:20px;white-space:nowrap}
+.ah-num div.tbdx small{white-space:normal;line-height:1.25;max-width:100%}
+@media (max-width:420px){.ah-num div.tbdx{flex-basis:118px;width:118px}.ah-num div.tbdx b.t{font-size:18px}}
 .ah-num{display:flex;gap:10px;align-items:flex-end;justify-content:center}
 .ah-num div{display:grid;gap:2px;min-width:64px;padding:10px 6px;border-radius:12px;background:var(--sunk);border:1px solid var(--line)}
 .ah-num b{font:700 38px/1 var(--f-display);color:#fff;font-variant-numeric:tabular-nums}.ah-num small{font:600 10.5px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
@@ -3893,7 +3898,7 @@ function orgHero(){const I=orgInfo(),c=core(),sk=c.skin||{},td=today(),dp=dbet(t
      ${nx>=0?`<div class="ah-row next" style="width:100%;text-align:left"><span class="n">${ic("right")}</span><span class="t"><span>Próxima etapa: ${esc(steps[nx].l)}</span><small>${tb(steps[nx])?"data a definir":dbet(td,steps[nx].d)===0?"é hoje":"em "+dias(dbet(td,steps[nx].d))}</small></span><span class="dt">${tb(steps[nx])?"∞":dm(steps[nx].d)}</span></div>`:""}</div></div>
    <div class="card ah-road"><div class="ah-in"><div class="ah-l">Roteiro do concurso<span class="ah-bars" aria-hidden="true"><i></i><i></i></span></div><div class="ah-rd">${rows}</div>
      <button class="btn sm ghost" data-a="tab" data-t="concurso" style="justify-self:start">${ic("concurso")} Editar etapas e datas</button></div></div></section>`}
-function cdHTML(pv){if(provaTBD())return`<div class="d"><b>∞</b><small>dias</small></div><div class="tbd" style="display:grid;place-items:center;padding:0 10px"><b style="font-size:15px;line-height:1.2">Data a definir</b><small>aguardando o edital</small></div>`;const ms=Math.max(0,new Date(pv+"T13:00:00")-Date.now()),d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);
+function cdHTML(pv){if(provaTBD())return`<div class="d tbdx"><b>∞</b><small>dias</small></div><div class="d tbdx"><b class="t">A definir</b><small>aguardando edital</small></div>`;const ms=Math.max(0,new Date(pv+"T13:00:00")-Date.now()),d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);
   return`<div class="d"><b>${d}</b><small>dias</small></div><div><b>${pad(h)}</b><small>horas</small></div><div><b>${pad(m)}</b><small>min</small></div>`}
 setInterval(()=>{const e=document.getElementById("ahCount");if(e)try{e.innerHTML=cdHTML(prova())}catch(x){}},30000);
 async function skinImg(file,kind){if(!file||!/^image\//.test(file.type)){toast("Escolha uma imagem (JPG, PNG ou WEBP)");return}
