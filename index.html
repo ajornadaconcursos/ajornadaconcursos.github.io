@@ -1674,16 +1674,13 @@ async function pullImport(){if(!DB)return;try{const sn=await DB.doc(BASE+"imp").
 function obFresh(){try{const c=core();return !PLANS.onb&&!(PLANS.list||[]).length&&!PLANS.tjOff&&!(c.metas||[]).some(m=>tasksOf(m.n).some(t=>t.done||t.sp))&&!Object.keys(c.ed||{}).length&&!(c.cfg&&c.cfg.name)}catch(e){return false}}
 function obCheck(){if(obFresh()&&!UI.np&&!$("layer3").innerHTML.trim())obModal()}
 function obModal(){const c=core(),nm=(c.cfg&&c.cfg.name)||UI.obName||"";
-  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Boas-vindas"><div class="box npm" style="max-width:560px">
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Boas-vindas" style="background:var(--bg,#0f1020)"><div class="box npm" style="max-width:560px">
     <h3 style="margin:0">Boas-vindas à Jornada!</h3>
     <p class="muted" style="margin:6px 0 0">Vamos montar a sua trilha de estudos. Leva menos de um minuto.</p>
     <div class="field" style="margin-top:14px"><label for="obN">Como você quer ser chamado(a)?</label><input class="inp" id="obN" autocomplete="given-name" maxlength="40" value="${esc(nm)}" placeholder="Seu nome"></div>
     <p style="margin:16px 0 8px"><b>Qual concurso você vai estudar?</b></p>
-    <div style="display:grid;gap:10px">
-      <button class="btn pri" data-a="obMine" style="justify-content:flex-start;text-align:left;padding:14px 16px;height:auto;white-space:normal"><span>${ic("plus")}</span><span><b>Escolher ou montar o meu concurso</b><br><small style="opacity:.85;font-weight:500">Busque na base (SEFAZ, tribunais, polícias, CGU, TCEs…) ou cadastre as matérias do seu edital.</small></span></button>
-      <button class="btn" data-a="obTj" style="justify-content:flex-start;text-align:left;padding:14px 16px;height:auto;white-space:normal"><span>${ic("check")}</span><span><b>Oficial de Justiça TJSP</b><br><small class="muted" style="font-weight:500">Concurso já montado, com edital, metas e cronograma prontos.</small></span></button>
-    </div>
-    <p class="muted small" style="margin:14px 0 0">Você pode adicionar outros concursos depois, em “Trocar de concurso”.${document.getElementById("jx-fab")?" Já usava a Jornada e tem uma cópia dos dados? Escolha qualquer opção e depois use a engrenagem ⚙ → “Importar meus dados…”.":""}</p>
+    <button class="btn pri" data-a="obMine" style="width:100%;justify-content:flex-start;text-align:left;padding:14px 16px;height:auto;white-space:normal"><span>${ic("plus")}</span><span><b>Escolher ou montar o meu concurso</b><br><small style="opacity:.85;font-weight:500">Busque na base (SEFAZ, tribunais, polícias, CGU, TCEs…) ou cadastre as matérias do seu edital.</small></span></button>
+    <p class="muted small" style="margin:14px 0 0">Você pode adicionar outros concursos depois, em “Trocar de concurso”.${document.getElementById("jx-fab")?" Já usava a Jornada e tem uma cópia dos dados? Clique na engrenagem ⚙, no canto de baixo, e em “Importar meus dados…”.":""}</p>
   </div></div>`;setTimeout(()=>{const e=$("obN");if(e&&!e.value)e.focus()},40)}
 function obName(){const e=$("obN"),v=(e?e.value:"").trim().replace(/\s+/g," ").slice(0,40);UI.obName=v;if(v){const c=core();c.cfg=c.cfg||{};c.cfg.name=v;touch("core");PLANS.ui=Object.assign({},PLANS.ui,{name:v})}return v}
 /* Lista de concursos: salva neste navegador e na conta */
@@ -6006,7 +6003,7 @@ function npRead(){const N=UI.np;if(!N)return;const g=id=>{const e=$(id);return e
 function npModal(){
   const N=UI.np,subs=N.subs||[],ed=N.edit;
   const f=(k,l,ph,tp,fl)=>`<div class="field" style="flex:${fl||"1 1 160px"}"><label for="np_${k}">${l}</label><input class="inp" id="np_${k}" ${tp?`type="${tp}"`:""} value="${esc(N[k]||"")}" placeholder="${esc(ph||"")}"></div>`;
-  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Novo concurso"><div class="box npm">
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Novo concurso"${UI.obNew?' style="background:var(--bg,#0f1020)"':""}><div class="box npm">
    <h3 style="margin:0">${ed?"Adicionar matérias e assuntos a "+esc(PLAN.name):"Adicionar um concurso em paralelo"}</h3>
    ${ed?"":`<div class="catb"><label for="npQ" class="small"><b>Buscar concurso</b></label><input class="inp" id="npQ" autocomplete="off" placeholder="Comece a digitar: SEFAZ, auditor fiscal, CGU, TCE…" value="${esc(N.q||"")}"><div id="npRes" class="catl"></div></div>
    ${N.cat?`<div class="okb">${ic("check")} <b>${esc(N.orgao)}${N.banca?" · "+esc(N.banca):""}${N.prova?" · prova "+dmy(N.prova):""}</b></div>`:""}
@@ -6564,7 +6561,7 @@ Object.assign(A,{
   npParse(){npRead();const r=parseEdital(UI.np.txt);if(!r.length){toast("Não encontrei matérias nesse texto. Use uma matéria por linha: Matéria: assunto; assunto");return}
     const N=UI.np;if(N.cat&&N.subs.length){const base=N.subs;let hit=0;r.forEach(x=>{let best=null,bv=0;base.forEach(b=>{const v=cdice(nTok(b.n),nTok(x.n));if(v>bv){bv=v;best=b}});if(best&&bv>=.5){if(best.cat){best.t=[];best.cat=false}best.t=[...new Set([...best.t,...x.t])];best.q=best.q||x.q;hit++}else base.push(x)});N.subs=base;toast(hit+" matérias do edital receberam os assuntos colados")}
     else N.subs=r;npModal()},
-  catPick(el){const c=CAT.find(x=>x.id===el.dataset.id);if(!c)return;if(c.tj){if(PLANS.tjOff){PLANS.tjOff=0;savePlans().then(()=>switchPlan("tjsp"));return}toast("O Oficial de Justiça do TJSP já é o seu concurso principal no painel");return}if(c.cg.length>1){UI.np.pick=c.id;catResults();return}catApply(c,c.cg[0])},
+  catPick(el){const c=CAT.find(x=>x.id===el.dataset.id);if(!c)return;if(c.tj&&(PLANS.onb||UI.obNew)){catApply(c,c.cg[0]);UI.np.subs=ED_TJ.map(x=>({n:x.n,q:x.w||null,t:(x.t||[]).map(y=>Array.isArray(y)?y[0]:y)}));npModal();return}if(c.tj){if(PLANS.tjOff){PLANS.tjOff=0;savePlans().then(()=>switchPlan("tjsp"));return}toast("O Oficial de Justiça do TJSP já é o seu concurso principal no painel");return}if(c.cg.length>1){UI.np.pick=c.id;catResults();return}catApply(c,c.cg[0])},
   catCargo(el){const c=CAT.find(x=>x.id===UI.np.pick);if(c)catApply(c,c.cg[+el.dataset.i])},
   catBack(){UI.np.pick=null;catResults()},
   async npIA(){npRead();const N=UI.np,txt=(N.txt||"").trim();if(txt.length<20){toast("Cole o conteúdo programático primeiro");return}N.busy=true;npModal();
