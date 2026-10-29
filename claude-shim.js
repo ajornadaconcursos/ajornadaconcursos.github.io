@@ -189,10 +189,10 @@
   #jx-gate .jx-art .ring.b{stroke:rgba(196,79,210,.28);stroke-width:3}
   #jx-gate .jx-art .bigmark{opacity:.16}
   #jx-gate .jx-wrap{position:relative;min-height:100%;box-sizing:border-box;padding:22px 28px 28px;display:flex;flex-direction:column;gap:16px;max-width:520px}
-  #jx-gate .jx-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  #jx-gate .jx-top{display:flex;align-items:center;justify-content:center;gap:12px;padding:4px 0 2px}
   #jx-gate .jx-tile{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(150deg,#2b0f63,#170b38);box-shadow:0 0 0 1px rgba(160,107,255,.35),0 8px 24px rgba(123,60,255,.35)}
   #jx-gate .jx-logo{width:34px;height:34px}
-  #jx-gate .jx-name{font:700 20px Unbounded,Figtree,sans-serif;letter-spacing:.04em;margin-right:6px}
+  #jx-gate .jx-name{font:700 22px Unbounded,Figtree,sans-serif;letter-spacing:.06em}
   #jx-gate .jx-pill{border:0;border-radius:8px;padding:7px 12px;font:600 13px Figtree,sans-serif;color:#e6dcff;background:rgba(255,255,255,.08);cursor:pointer}
   #jx-gate .jx-pill[aria-pressed="true"]{background:linear-gradient(135deg,#7b3cff,#a06bff);color:#fff;box-shadow:0 4px 14px rgba(123,60,255,.45)}
   #jx-gate .jx-card{background:rgba(22,16,48,.80);backdrop-filter:blur(10px);border:1px solid rgba(160,107,255,.32);border-radius:14px;padding:22px 22px 20px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
@@ -217,12 +217,12 @@
   #jx-gate .jx-mini b{display:block;font:700 15px Unbounded,Figtree,sans-serif;color:#d9b8ff;margin-bottom:4px}
   #jx-gate .jx-mini span{font-size:13px;color:#c2b6df}
   #jx-gate .jx-mini:hover{border-color:rgba(255,143,182,.6)}
-  #jx-gate .jx-band{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#e9e2ff;color:#1b1140;border-radius:14px;padding:16px 20px}
+  #jx-gate .jx-band{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;background:#e9e2ff;color:#1b1140;border-radius:14px;padding:16px 20px}
   #jx-gate .jx-band b{font:800 22px Unbounded,Figtree,sans-serif;letter-spacing:.02em}
   #jx-gate .jx-band span{font:800 15px Barlow Condensed,Figtree,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-left:3px solid #ff5f8f;border-right:3px solid #ff5f8f}
   #jx-gate .jx-msg{color:#ffd27a}#jx-gate .jx-msg.ok{color:#8ff0a8}
   @media (max-width:900px){#jx-gate .jx-art{opacity:.35;right:-40vw;width:120vw}#jx-gate .jx-wrap{margin:0 auto}}
-  @media (max-width:420px){#jx-gate .jx-wrap{padding:16px}#jx-gate .jx-top{gap:8px}#jx-gate .jx-name{font-size:16px;margin-right:0}#jx-gate .jx-tile{width:38px;height:38px}#jx-gate .jx-logo{width:28px;height:28px}#jx-gate .jx-pill{padding:6px 9px;font-size:12.5px}#jx-gate .jx-duo{grid-template-columns:1fr}#jx-gate h1{font-size:19px}}
+  @media (max-width:420px){#jx-gate .jx-wrap{padding:16px}#jx-gate .jx-top{gap:10px}#jx-gate .jx-name{font-size:18px}#jx-gate .jx-tile{width:38px;height:38px}#jx-gate .jx-logo{width:28px;height:28px}#jx-gate .jx-duo{grid-template-columns:1fr}#jx-gate h1{font-size:19px}}
   .jx-msg{min-height:20px;margin-top:12px;font-size:13.5px;color:#ffc46b}.jx-msg.ok{color:#7ddc8a}
   #jx-fab{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:2147483500;width:34px;height:34px;border-radius:50%;border:1px solid rgba(127,140,160,.45);background:rgba(43,15,99,.85);color:#efe6ff;font:600 15px Figtree,sans-serif;cursor:pointer;opacity:.55;backdrop-filter:blur(6px)}
   #jx-fab:hover,#jx-fab:focus-visible{opacity:1}
@@ -263,7 +263,7 @@
         : mode === "cfg" ? [] : [["in", "Voltar para entrar", "Entre com o seu e-mail e a sua senha."], ["up", "Criar conta", "Primeira vez aqui? Cadastre-se."]];
     g.innerHTML = `${ART}<div class="jx-wrap">
       <div class="jx-top"><div class="jx-tile">${LOGO}</div><span class="jx-name">A JORNADA</span>
-        ${mode === "cfg" ? "" : `<button type="button" class="jx-pill" data-m="in" aria-pressed="${mode === "in"}">Entrar</button><button type="button" class="jx-pill" data-m="up" aria-pressed="${mode === "up"}">Criar conta</button>`}</div>
+</div>
       <form class="jx-card jx-hero" novalidate>
         <h1>${T0[0]}</h1><p class="jx-sub">${T0[1]}</p>
         ${em ? '<label for="jx-em">E-mail</label><div class="jx-in"><input id="jx-em" type="email" autocomplete="email" inputmode="email" required></div>' : ""}
