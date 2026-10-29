@@ -311,7 +311,7 @@
     const b = el('<button id="jx-fab" type="button" aria-label="Conta e dados" title="Conta e dados">⚙</button>'); document.body.appendChild(b);
     b.onclick = () => {
       const o = $("#jx-menu"); if (o) { o.remove(); return; }
-      const m = el(`<div id="jx-menu" role="menu"><div class="who">Conectado como ${EMAIL.replace(/[<>&]/g, "")}</div>
+      const m = el(`<div id="jx-menu" role="menu"><div class="who">Conectado como ${EMAIL.replace(/[<>&]/g, "")}</div>${TRIAL.txt ? `<div class="who" style="color:${TRIAL.left <= 2 ? "#ffd27a" : "#cbbfe8"}">${TRIAL.txt}</div>` : ""}
         <button role="menuitem" data-k="imp">Importar meus dados…</button>
         <button role="menuitem" data-k="exp">Baixar cópia dos meus dados</button>
         <button role="menuitem" data-k="reset">Apagar meus dados e recomeçar…</button>
@@ -435,6 +435,43 @@
     };
   }
 
+  /* ---------- teste grátis de 7 dias ----------
+     A data fica no Supabase (tabela perfis: teste_ate e plano), gravada no cadastro. A pessoa só lê a própria linha e não consegue mudar.
+     Com "plano" preenchido (ex.: pago, dono), o acesso é livre. Sem plano, depois de "teste_ate" o painel mostra a tela de teste encerrado. */
+  let TRIAL = { txt: "", left: 99 };
+  async function trialCheck(u) {
+    let p = null;
+    try { const { data } = await sb.from("perfis").select("plano,teste_ate").eq("user_id", u.id).maybeSingle(); p = data; } catch (e) { }
+    if (p && p.plano) { TRIAL = { txt: "", left: 99 }; return true; }
+    const end = new Date((p && p.teste_ate) || (new Date(u.created_at || Date.now()).getTime() + 7 * 864e5));
+    const ms = end - Date.now(), left = Math.ceil(ms / 864e5);
+    if (ms > 0) {
+      TRIAL = { left, txt: left <= 1 ? "Teste grátis: termina hoje" : `Teste grátis: faltam ${left} dias` };
+      try { const k = "jx-trial-" + new Date().toISOString().slice(0, 10); if (!localStorage.getItem(k)) { localStorage.setItem(k, "1"); setTimeout(() => trialToast(left), 1800); } } catch (e) { }
+      return true;
+    }
+    trialEnded(end); return false;
+  }
+  function trialToast(left) {
+    addCSS(); const t = el(`<div role="status" style="position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:2147483400;max-width:calc(100vw - 32px);background:#160f33;color:#f1ecff;border:1px solid rgba(160,107,255,.45);border-radius:12px;padding:12px 16px;font:600 14px Figtree,sans-serif;box-shadow:0 12px 34px rgba(0,0,0,.4)">Você está no teste grátis da Jornada: ${left <= 1 ? "ele termina hoje" : "faltam " + left + " dias"}.</div>`);
+    document.body.appendChild(t); setTimeout(() => t.remove(), 6500);
+  }
+  function trialEnded(end) {
+    hideSplash(); addCSS(); const old = $("#jx-gate"); if (old) old.remove();
+    const g = el('<div id="jx-gate" role="dialog" aria-modal="true" aria-label="Período de teste encerrado"></div>'); document.body.appendChild(g);
+    g.innerHTML = `${ART}<div class="jx-wrap">
+      <div class="jx-top"><div class="jx-tile">${LOGO}</div><span class="jx-name">A JORNADA</span></div>
+      <div class="jx-card jx-hero"><h1>Seu teste grátis terminou</h1>
+        <p class="jx-sub">Os 7 dias de teste acabaram em ${end.toLocaleDateString("pt-BR", { day: "numeric", month: "long" })}. Seus concursos, metas, progresso e PDFs continuam guardados: nada foi apagado.</p>
+        <p style="margin:0 0 6px;color:#e6dcff">Para continuar a sua Jornada, fale com a equipe da A Jornada para liberar o seu acesso. Assim que for liberado, é só entrar de novo.</p>
+        <div class="jx-row"><button class="jx-btn" type="button" data-k="exp">Baixar cópia dos meus dados</button></div>
+        <div class="jx-row" style="margin-top:10px"><button class="jx-btn ghost" type="button" data-k="out">Sair</button></div>
+        <div class="jx-msg" role="status" aria-live="polite"></div></div>
+      <div class="jx-band"><b>A JORNADA</b><span>Sua trilha até a aprovação</span></div></div>`;
+    g.querySelector('[data-k="exp"]').onclick = () => exportAll();
+    g.querySelector('[data-k="out"]').onclick = () => sb.auth.signOut().then(() => location.reload());
+  }
+
   /* ---------- início ---------- */
   async function start() {
     if (!SB_URL || !SB_KEY || !window.supabase || !window.supabase.createClient) { hideSplash(); gate("cfg", !window.supabase ? "A biblioteca do Supabase não carregou. Confira a internet." : ""); return; }
@@ -456,6 +493,8 @@
         localStorage.setItem("jx-owner", UID);
       } catch (e) { }
       const g = $("#jx-gate"); if (g) g.remove();
+      const ok = await trialCheck(s.user);
+      if (!ok) return;
       await swStart(); fab(); readyRes();
     };
     sb.auth.onAuthStateChange((ev, s) => { setTimeout(() => onSession(ev, s), 0); });
