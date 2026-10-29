@@ -314,9 +314,10 @@
       const m = el(`<div id="jx-menu" role="menu"><div class="who">Conectado como ${EMAIL.replace(/[<>&]/g, "")}</div>
         <button role="menuitem" data-k="imp">Importar meus dados…</button>
         <button role="menuitem" data-k="exp">Baixar cópia dos meus dados</button>
+        <button role="menuitem" data-k="reset">Apagar meus dados e recomeçar…</button>
         <button role="menuitem" data-k="out">Sair</button></div>`);
       document.body.appendChild(m);
-      m.onclick = e => { const k = e.target.dataset && e.target.dataset.k; if (!k) return; m.remove(); if (k === "imp") importDlg(); else if (k === "exp") exportAll(); else if (k === "out") sb.auth.signOut().then(() => location.reload()); };
+      m.onclick = e => { const k = e.target.dataset && e.target.dataset.k; if (!k) return; m.remove(); if (k === "imp") importDlg(); else if (k === "exp") exportAll(); else if (k === "reset") resetDlg(); else if (k === "out") sb.auth.signOut().then(() => location.reload()); };
       setTimeout(() => document.addEventListener("click", function h(ev) { if (!m.contains(ev.target) && ev.target !== b) { m.remove(); document.removeEventListener("click", h); } }), 0);
     };
   }
@@ -337,6 +338,39 @@
       const out = { app: "a-jornada", v: 1, uidOld: UID, exportedAt: new Date().toISOString(), docs };
       await downloads.save({ filename: "jornada-dados-" + new Date().toISOString().slice(0, 10) + ".json", data: new Blob([JSON.stringify(out)], { type: "application/json" }) });
     } catch (e) { alert("Não foi possível baixar agora: " + (e && e.message || e)); }
+  }
+  /* Recomeçar do zero: apaga TODOS os dados e PDFs desta conta (só desta) e volta para as boas-vindas */
+  function resetDlg() {
+    addCSS(); const old = $("#jx-imp"); if (old) old.remove();
+    const d = el(`<div id="jx-imp" role="dialog" aria-modal="true" aria-label="Apagar meus dados e recomeçar"><div class="jx-card">
+      <h2>Apagar meus dados e recomeçar</h2>
+      <p>Isto apaga <b>tudo</b> desta conta (${EMAIL.replace(/[<>&]/g, "")}): concursos, metas, progresso, revisões, resumos e PDFs. As outras contas não mudam.</p>
+      <p>Depois, a Jornada abre do zero e você escolhe o seu concurso. <b>Não dá para desfazer.</b> Se quiser guardar uma cópia antes, use “Baixar cópia dos meus dados”.</p>
+      <label for="jx-cf" style="display:block;font-size:13px;margin:10px 0 6px">Para confirmar, digite <b>APAGAR</b>:</label>
+      <input id="jx-cf" autocomplete="off" style="box-sizing:border-box;width:100%;padding:11px 13px;border-radius:10px;border:1px solid rgba(160,107,255,.35);background:rgba(10,7,26,.75);color:#f6f2ff;font:inherit">
+      <div class="jx-msg" role="status" aria-live="polite"></div>
+      <div class="jx-row"><button class="jx-btn ghost" type="button" data-k="x">Cancelar</button><button class="jx-btn" type="button" data-k="go" style="background:linear-gradient(135deg,#d93a5e,#ff5f8f)">Apagar tudo e recomeçar</button></div></div></div>`);
+    document.body.appendChild(d);
+    const say = t => { d.querySelector(".jx-msg").textContent = t; };
+    d.querySelector('[data-k="x"]').onclick = () => d.remove();
+    d.querySelector('[data-k="go"]').onclick = async () => {
+      if (d.querySelector("#jx-cf").value.trim().toUpperCase() !== "APAGAR") { say("Digite APAGAR para confirmar."); return; }
+      d.querySelectorAll("button").forEach(b => b.disabled = true); IMPORTING = true;
+      try {
+        say("Apagando os dados…");
+        const { error } = await T().delete().like("path", "data/users/" + UID + "/%"); if (error) throw pgErr(error);
+        say("Apagando os PDFs…");
+        for (let i = 0; i < 20; i++) {
+          const { data: fs, error: le } = await sb.storage.from(BUCKET).list(UID, { limit: 100 }); if (le) throw stErr(le);
+          if (!fs || !fs.length) break;
+          const { error: re } = await sb.storage.from(BUCKET).remove(fs.map(f => UID + "/" + f.name)); if (re) throw stErr(re);
+        }
+        Object.keys(localStorage).forEach(k => { if (!/^sb-.*-auth-token$/.test(k) && k !== "jx-owner") localStorage.removeItem(k); });
+        try { indexedDB.deleteDatabase("jornada-tjsp-pdfs"); } catch (e) { }
+        say("Pronto! Abrindo do zero…"); setTimeout(() => location.reload(), 900);
+      } catch (e) { IMPORTING = false; d.querySelectorAll("button").forEach(b => b.disabled = false); say("Não foi possível agora: " + (e && e.message || e)); }
+    };
+    setTimeout(() => d.querySelector("#jx-cf").focus(), 30);
   }
   function loadJSZip() { return window.JSZip ? Promise.resolve(window.JSZip) : new Promise((ok, no) => { const s = document.createElement("script"); s.src = "/jszip.min.js"; s.onload = () => ok(window.JSZip); s.onerror = no; document.head.appendChild(s); }); }
   const MIME = { pdf: "application/pdf", txt: "text/plain", png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp", gif: "image/gif", json: "application/json" };
