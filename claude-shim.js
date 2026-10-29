@@ -434,7 +434,7 @@
 
   /* ---------- início ---------- */
   async function start() {
-    if (!SB_URL || !SB_KEY || !window.supabase || !window.supabase.createClient) { gate("cfg", !window.supabase ? "A biblioteca do Supabase não carregou. Confira a internet." : ""); return; }
+    if (!SB_URL || !SB_KEY || !window.supabase || !window.supabase.createClient) { hideSplash(); gate("cfg", !window.supabase ? "A biblioteca do Supabase não carregou. Confira a internet." : ""); return; }
     sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
     let started = false;
     const onSession = async (ev, s) => {
@@ -459,5 +459,10 @@
     const { data } = await sb.auth.getSession();
     if (!/type=recovery/.test(location.hash)) onSession("INITIAL", data && data.session);
   }
+  /* Tela de abertura: cobre o painel até ele terminar de carregar os dados DESTA conta (nada de outro concurso aparece antes) */
+  let splashDone = false;
+  function hideSplash() { if (splashDone) return; splashDone = true; const sp = document.getElementById("jx-splash"); if (!sp) return; sp.classList.add("out"); setTimeout(() => sp.remove(), 320); }
+  window.addEventListener("jornada-ready", () => { if (UID) hideSplash(); });
+  READY.then(() => setTimeout(hideSplash, 15000));
   if (document.body) start(); else document.addEventListener("DOMContentLoaded", start);
 })();
