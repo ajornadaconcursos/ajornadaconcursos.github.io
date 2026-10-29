@@ -182,54 +182,118 @@
 
   /* ---------- tela de entrada e menu da conta ---------- */
   const CSS = `
-  #jx-gate{position:fixed;inset:0;z-index:2147483600;display:grid;place-items:center;padding:16px;background:radial-gradient(1200px 600px at 20% 0%,#16324a 0%,#0b0f14 60%);color:#e8eef5;font:15px/1.45 Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-  #jx-gate .jx-card{width:min(400px,100%);background:#111821;border:1px solid #233142;border-radius:16px;padding:28px 24px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
-  #jx-gate h1{font:700 22px Unbounded,Figtree,sans-serif;letter-spacing:.02em;margin:0 0 4px}
-  #jx-gate p{margin:0 0 18px;color:#9fb0c2}
-  #jx-gate label{display:block;font-size:13px;color:#9fb0c2;margin:12px 0 6px}
-  #jx-gate input{box-sizing:border-box;width:100%;padding:12px 14px;border-radius:10px;border:1px solid #2b3b4f;background:#0b1118;color:#e8eef5;font:inherit}
-  #jx-gate input:focus{outline:2px solid #3fa7ff;outline-offset:1px}
-  .jx-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:10px;border:0;background:#3fa7ff;color:#04121f;font:700 15px Figtree,sans-serif;cursor:pointer}
-  .jx-btn[disabled]{opacity:.6;cursor:wait}.jx-btn.ghost{background:transparent;color:#9fd0ff;border:1px solid #2b3b4f}
-  #jx-gate .jx-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}#jx-gate .jx-row .jx-btn{flex:1 1 140px}
-  #jx-gate .jx-links{display:flex;justify-content:space-between;gap:10px;margin-top:16px;font-size:13.5px;flex-wrap:wrap}
-  #jx-gate a,#jx-menu a{color:#9fd0ff;cursor:pointer;text-decoration:underline}
+  #jx-gate{position:fixed;inset:0;z-index:2147483600;overflow:auto;color:#f1ecff;font:15px/1.45 Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:radial-gradient(900px 620px at 78% 38%,rgba(160,107,255,.34),transparent 62%),radial-gradient(700px 480px at 96% 96%,rgba(255,95,143,.20),transparent 60%),radial-gradient(600px 400px at 0% 100%,rgba(123,60,255,.18),transparent 60%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%)}
+  #jx-gate .jx-art{position:fixed;right:-8vw;top:50%;transform:translateY(-50%);width:min(64vw,980px);aspect-ratio:1;pointer-events:none;opacity:.9}
+  #jx-gate .jx-art .ring{fill:none;stroke:rgba(255,255,255,.10);stroke-width:2}
+  #jx-gate .jx-art .ring.b{stroke:rgba(196,79,210,.28);stroke-width:3}
+  #jx-gate .jx-art .bigmark{opacity:.16}
+  #jx-gate .jx-wrap{position:relative;min-height:100%;box-sizing:border-box;padding:22px 28px 28px;display:flex;flex-direction:column;gap:16px;max-width:520px}
+  #jx-gate .jx-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  #jx-gate .jx-tile{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(150deg,#2b0f63,#170b38);box-shadow:0 0 0 1px rgba(160,107,255,.35),0 8px 24px rgba(123,60,255,.35)}
+  #jx-gate .jx-logo{width:34px;height:34px}
+  #jx-gate .jx-name{font:700 20px Unbounded,Figtree,sans-serif;letter-spacing:.04em;margin-right:6px}
+  #jx-gate .jx-pill{border:0;border-radius:8px;padding:7px 12px;font:600 13px Figtree,sans-serif;color:#e6dcff;background:rgba(255,255,255,.08);cursor:pointer}
+  #jx-gate .jx-pill[aria-pressed="true"]{background:linear-gradient(135deg,#7b3cff,#a06bff);color:#fff;box-shadow:0 4px 14px rgba(123,60,255,.45)}
+  #jx-gate .jx-card{background:rgba(22,16,48,.80);backdrop-filter:blur(10px);border:1px solid rgba(160,107,255,.32);border-radius:14px;padding:22px 22px 20px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+  #jx-gate .jx-hero{position:relative;overflow:hidden}
+  #jx-gate .jx-hero::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,#a06bff,#c44fd2,#ff5f8f)}
+  #jx-gate h1{margin:4px 0 2px;font:700 22px Unbounded,Figtree,sans-serif;background:linear-gradient(90deg,#d9b8ff,#ff8fb6);-webkit-background-clip:text;background-clip:text;color:transparent}
+  #jx-gate .jx-sub{margin:0 0 14px;color:#c9bde6;font-weight:600}
+  #jx-gate label{display:block;font-size:13px;font-weight:600;color:#cbbfe8;margin:12px 0 6px}
+  #jx-gate .jx-in{position:relative}
+  #jx-gate input{box-sizing:border-box;width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(160,107,255,.35);background:rgba(10,7,26,.75);color:#f6f2ff;font:inherit}
+  #jx-gate input.pw{padding-right:48px}
+  #jx-gate input:focus{outline:2px solid #a06bff;outline-offset:1px}
+  #jx-gate .jx-eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;border-radius:8px;background:transparent;color:#cbbfe8;cursor:pointer;display:grid;place-items:center}
+  #jx-gate .jx-eye:hover,#jx-gate .jx-eye:focus-visible{background:rgba(160,107,255,.18);color:#fff}
+  #jx-gate .jx-eye svg{width:20px;height:20px}
+  #jx-gate .jx-hint{font-size:12.5px;color:#a99cc9;margin-top:6px}
+  .jx-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:10px;border:0;background:linear-gradient(135deg,#7b3cff 0%,#c44fd2 55%,#ff5f8f 100%);color:#fff;font:700 15px Figtree,sans-serif;cursor:pointer;box-shadow:0 8px 22px rgba(196,79,210,.35)}
+  .jx-btn[disabled]{opacity:.6;cursor:wait}.jx-btn.ghost{background:transparent;color:#e0d4ff;border:1px solid rgba(160,107,255,.4);box-shadow:none}
+  #jx-gate .jx-row{display:flex;gap:10px;margin-top:18px}#jx-gate .jx-row .jx-btn{flex:1}
+  #jx-gate .jx-duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  #jx-gate .jx-mini{text-align:left;cursor:pointer;color:inherit;font:inherit;padding:16px}
+  #jx-gate .jx-mini b{display:block;font:700 15px Unbounded,Figtree,sans-serif;color:#d9b8ff;margin-bottom:4px}
+  #jx-gate .jx-mini span{font-size:13px;color:#c2b6df}
+  #jx-gate .jx-mini:hover{border-color:rgba(255,143,182,.6)}
+  #jx-gate .jx-band{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;background:#e9e2ff;color:#1b1140;border-radius:14px;padding:16px 20px}
+  #jx-gate .jx-band b{font:800 22px Unbounded,Figtree,sans-serif;letter-spacing:.02em}
+  #jx-gate .jx-band span{font:800 15px Barlow Condensed,Figtree,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-left:3px solid #ff5f8f;border-right:3px solid #ff5f8f}
+  #jx-gate .jx-msg{color:#ffd27a}#jx-gate .jx-msg.ok{color:#8ff0a8}
+  @media (max-width:900px){#jx-gate .jx-art{opacity:.35;right:-40vw;width:120vw}#jx-gate .jx-wrap{margin:0 auto}}
+  @media (max-width:420px){#jx-gate .jx-wrap{padding:16px}#jx-gate .jx-top{gap:8px}#jx-gate .jx-name{font-size:16px;margin-right:0}#jx-gate .jx-tile{width:38px;height:38px}#jx-gate .jx-logo{width:28px;height:28px}#jx-gate .jx-pill{padding:6px 9px;font-size:12.5px}#jx-gate .jx-duo{grid-template-columns:1fr}#jx-gate h1{font-size:19px}}
   .jx-msg{min-height:20px;margin-top:12px;font-size:13.5px;color:#ffc46b}.jx-msg.ok{color:#7ddc8a}
-  #jx-fab{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:2147483500;width:34px;height:34px;border-radius:50%;border:1px solid rgba(127,140,160,.45);background:rgba(17,24,33,.82);color:#cfe3f7;font:600 15px Figtree,sans-serif;cursor:pointer;opacity:.55;backdrop-filter:blur(6px)}
+  #jx-fab{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:2147483500;width:34px;height:34px;border-radius:50%;border:1px solid rgba(127,140,160,.45);background:rgba(43,15,99,.85);color:#efe6ff;font:600 15px Figtree,sans-serif;cursor:pointer;opacity:.55;backdrop-filter:blur(6px)}
   #jx-fab:hover,#jx-fab:focus-visible{opacity:1}
-  #jx-menu{position:fixed;left:10px;bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:2147483501;width:min(300px,calc(100vw - 20px));background:#111821;color:#e8eef5;border:1px solid #233142;border-radius:12px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.45);font:14px/1.4 Figtree,sans-serif}
+  #jx-menu{position:fixed;left:10px;bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:2147483501;width:min(300px,calc(100vw - 20px));background:#160f33;color:#f1ecff;border:1px solid rgba(160,107,255,.35);border-radius:12px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.45);font:14px/1.4 Figtree,sans-serif}
   #jx-menu .who{color:#9fb0c2;font-size:12.5px;margin:0 4px 8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   #jx-menu button{display:block;width:100%;text-align:left;background:transparent;border:0;color:inherit;padding:10px;border-radius:8px;font:inherit;cursor:pointer}
-  #jx-menu button:hover{background:#1a2532}
-  #jx-imp{position:fixed;inset:0;z-index:2147483602;display:grid;place-items:center;padding:16px;background:rgba(5,8,12,.72);color:#e8eef5;font:15px/1.45 Figtree,sans-serif}
-  #jx-imp .jx-card{width:min(520px,100%);background:#111821;border:1px solid #233142;border-radius:16px;padding:24px}
+  #jx-menu button:hover{background:rgba(160,107,255,.16)}
+  #jx-imp{position:fixed;inset:0;z-index:2147483602;display:grid;place-items:center;padding:16px;background:rgba(8,5,20,.78);color:#f1ecff;font:15px/1.45 Figtree,sans-serif}
+  #jx-imp .jx-card{width:min(520px,100%);background:#160f33;border:1px solid rgba(160,107,255,.35);border-radius:16px;padding:24px}
   #jx-imp h2{margin:0 0 8px;font:700 19px Unbounded,Figtree,sans-serif}#jx-imp p,#jx-imp li{color:#b8c6d4}#jx-imp ol{padding-left:20px}
-  #jx-imp .bar{height:8px;border-radius:4px;background:#1d2a38;overflow:hidden;margin-top:14px}#jx-imp .bar i{display:block;height:100%;width:0;background:#3fa7ff;transition:width .2s}
+  #jx-imp .bar{height:8px;border-radius:4px;background:#1d2a38;overflow:hidden;margin-top:14px}#jx-imp .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#7b3cff,#ff5f8f);transition:width .2s}
   #jx-imp .jx-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;justify-content:flex-end}`;
   const $ = s => document.querySelector(s);
   const el = (h) => { const d = document.createElement("div"); d.innerHTML = h.trim(); return d.firstChild; };
   function addCSS() { if ($("#jx-css")) return; const s = document.createElement("style"); s.id = "jx-css"; s.textContent = CSS; document.head.appendChild(s); }
 
+  const LOGO = "<svg class=\"jx-logo\" viewBox=\"0 0 48 48\" aria-hidden=\"true\"><defs><linearGradient id=\"g2L1jx\" gradientUnits=\"userSpaceOnUse\" x1=\"10\" y1=\"8\" x2=\"34\" y2=\"40\"><stop offset=\"0\" stop-color=\"#a06bff\"/><stop offset=\".5\" stop-color=\"#c44fd2\"/><stop offset=\"1\" stop-color=\"#ff5f8f\"/></linearGradient><linearGradient id=\"t2L1jx\" gradientUnits=\"userSpaceOnUse\" x1=\"4\" y1=\"2\" x2=\"44\" y2=\"46\"><stop offset=\"0\" stop-color=\"#7b3cff\"/><stop offset=\".55\" stop-color=\"#b53cc6\"/><stop offset=\"1\" stop-color=\"#ff5a8a\"/></linearGradient><linearGradient id=\"d2L1jx\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#2a2672\"/><stop offset=\"1\" stop-color=\"#0f0c29\"/></linearGradient><linearGradient id=\"au2L1jx\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#ffd98a\"/><stop offset=\"1\" stop-color=\"#f0a531\"/></linearGradient><linearGradient id=\"aus2L1jx\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#e59a2a\"/><stop offset=\"1\" stop-color=\"#b86e12\"/></linearGradient><radialGradient id=\"glow2L1jx\" cx=\".5\" cy=\".5\" r=\".5\"><stop offset=\"0\" stop-color=\"#c44fd2\" stop-opacity=\".55\"/><stop offset=\"1\" stop-color=\"#c44fd2\" stop-opacity=\"0\"/></radialGradient><clipPath id=\"c2L1jx\"><rect width=\"48\" height=\"48\" rx=\"13\"/></clipPath></defs><g clip-path=\"url(#c2L1jx)\"><rect width=\"48\" height=\"48\" fill=\"url(#d2L1jx)\"/><g fill=\"#fff\"><circle cx=\"7.5\" cy=\"8\" r=\".6\" opacity=\".8\"/><circle cx=\"20\" cy=\"5.5\" r=\".45\" opacity=\".6\"/><circle cx=\"42\" cy=\"22\" r=\".5\" opacity=\".6\"/><circle cx=\"6\" cy=\"22\" r=\".4\" opacity=\".5\"/><circle cx=\"40\" cy=\"31\" r=\".4\" opacity=\".5\"/></g><ellipse cx=\"24\" cy=\"26\" rx=\"18\" ry=\"17\" fill=\"url(#glow2L1jx)\"/><g class=\"ct\" transform=\"translate(2.2 -1.62)\"><g transform=\"translate(2.6 6) scale(.9)\"><path d=\"M20.5 12H28V34a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2v-3.5\" transform=\"translate(2.75 3.50)\" fill=\"none\" stroke=\"#2b0f63\" stroke-width=\"7.4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M20.5 12H28V34a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2v-3.5\" transform=\"translate(2.20 2.80)\" fill=\"none\" stroke=\"#2b0f63\" stroke-width=\"7.4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M20.5 12H28V34a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2v-3.5\" transform=\"translate(1.65 2.10)\" fill=\"none\" stroke=\"#2b0f63\" stroke-width=\"7.4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M20.5 12H28V34a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2v-3.5\" transform=\"translate(1.10 1.40)\" fill=\"none\" stroke=\"#2b0f63\" stroke-width=\"7.4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M20.5 12H28V34a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2v-3.5\" transform=\"translate(0.55 0.70)\" fill=\"none\" stroke=\"#2b0f63\" stroke-width=\"7.4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M20.5 12H28V34a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2v-3.5\" fill=\"none\" stroke=\"url(#g2L1jx)\" stroke-width=\"7.4\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M20.5 12H28V34a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2v-3.5\" transform=\"translate(-2.07 -2.07)\" fill=\"none\" stroke=\"#fff\" stroke-opacity=\".45\" stroke-width=\".8\" stroke-linejoin=\"round\" stroke-linecap=\"round\"/><path d=\"M28 15V34a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2v-3.5\" fill=\"none\" stroke=\"#fff\" stroke-opacity=\".95\" stroke-width=\"1.15\" stroke-linecap=\"round\" stroke-dasharray=\"2.2 2.3\"/><circle cx=\"12\" cy=\"32.5\" r=\"2.3\" fill=\"#ff5f8f\" stroke=\"#fff\" stroke-width=\"1\"/><circle cx=\"12\" cy=\"32.5\" r=\".8\" fill=\"#fff\"/></g><g transform=\"translate(25.3 13.9) scale(.62) translate(-25.3 -13.9)\"><line x1=\"25.3\" y1=\"13.9\" x2=\"25.3\" y2=\"2.8\" stroke=\"#f5b545\" stroke-width=\".75\" stroke-linecap=\"round\"/><circle cx=\"25.3\" cy=\"2.7\" r=\".75\" fill=\"url(#au2L1jx)\"/><g transform=\"translate(25.55 3.4) scale(.78) translate(-25.55 -3.4)\"><path d=\"M25.55 3.6c1.9-.9 3.6.6 5.5-.3s2.6-.8 2.6-.8v5.6s-.8 0-2.6.8-3.6-.7-5.5.3z\" fill=\"url(#aus2L1jx)\" transform=\"translate(.35 .55)\"/><path d=\"M25.55 3.6c1.9-.9 3.6.6 5.5-.3s2.6-.8 2.6-.8v5.6s-.8 0-2.6.8-3.6-.7-5.5.3z\" fill=\"url(#au2L1jx)\"/><path d=\"M25.55 3.6c1.9-.9 3.6.6 5.5-.3v2.8c-1.9.8-3.6-.7-5.5.3z\" fill=\"#fff\" opacity=\".22\"/></g></g><g transform=\"translate(21.35 8.799999999999999) scale(.26)\" opacity=\"0.6\"><rect x=\"3.2\" y=\"5.6\" width=\"4.6\" height=\"7.6\" rx=\"1.8\" fill=\"#2b0f63\"/><path d=\"M4.4 7.2h2.2\" stroke=\"#2b0f63\" stroke-width=\".8\" stroke-linecap=\"round\"/><g stroke=\"#2b0f63\" stroke-linecap=\"round\" fill=\"none\"><path d=\"M8.3 12.4 6.6 18.6\" stroke-width=\"2.6\"/><path d=\"M10.6 12.4 12.6 18.6\" stroke-width=\"2.6\"/><path d=\"M10.3 7.2 15.4 5.9\" stroke-width=\"2.1\"/><path d=\"M10.3 9.4 15.4 8.9\" stroke-width=\"2.1\"/></g><rect x=\"6.3\" y=\"5.2\" width=\"5.4\" height=\"8\" rx=\"2.5\" fill=\"#2b0f63\"/><path d=\"M6.6 9.6h4.8\" stroke=\"#2b0f63\" stroke-width=\"1.1\"/><rect x=\"4.9\" y=\"17.9\" width=\"3.3\" height=\"2.1\" rx=\".9\" fill=\"#2b0f63\"/><rect x=\"11.4\" y=\"17.9\" width=\"3.3\" height=\"2.1\" rx=\".9\" fill=\"#2b0f63\"/><circle cx=\"15.7\" cy=\"5.8\" r=\"1.05\" fill=\"#2b0f63\"/><circle cx=\"15.7\" cy=\"8.85\" r=\"1.05\" fill=\"#2b0f63\"/><circle cx=\"9.3\" cy=\"2.9\" r=\"2.5\" fill=\"#2b0f63\"/><path d=\"M6.7 2.6a2.6 2.6 0 0 1 5.2 0z\" fill=\"#2b0f63\"/><path d=\"M10.9 2.4h2.6a.6.6 0 0 1 0 1.1h-2.6z\" fill=\"#2b0f63\"/><circle cx=\"10.6\" cy=\"3.3\" r=\".35\" fill=\"#2b0f63\"/></g><g transform=\"translate(21 8.35) scale(.26)\" opacity=\"1\"><rect x=\"3.2\" y=\"5.6\" width=\"4.6\" height=\"7.6\" rx=\"1.8\" fill=\"#ff5f8f\"/><path d=\"M4.4 7.2h2.2\" stroke=\"#ffd0dd\" stroke-width=\".8\" stroke-linecap=\"round\"/><g stroke=\"#fff\" stroke-linecap=\"round\" fill=\"none\"><path d=\"M8.3 12.4 6.6 18.6\" stroke-width=\"2.6\"/><path d=\"M10.6 12.4 12.6 18.6\" stroke-width=\"2.6\"/><path d=\"M10.3 7.2 15.4 5.9\" stroke-width=\"2.1\"/><path d=\"M10.3 9.4 15.4 8.9\" stroke-width=\"2.1\"/></g><rect x=\"6.3\" y=\"5.2\" width=\"5.4\" height=\"8\" rx=\"2.5\" fill=\"#fff\"/><path d=\"M6.6 9.6h4.8\" stroke=\"#c44fd2\" stroke-width=\"1.1\"/><rect x=\"4.9\" y=\"17.9\" width=\"3.3\" height=\"2.1\" rx=\".9\" fill=\"#f5b545\"/><rect x=\"11.4\" y=\"17.9\" width=\"3.3\" height=\"2.1\" rx=\".9\" fill=\"#f5b545\"/><circle cx=\"15.7\" cy=\"5.8\" r=\"1.05\" fill=\"#ffe1c9\"/><circle cx=\"15.7\" cy=\"8.85\" r=\"1.05\" fill=\"#ffe1c9\"/><circle cx=\"9.3\" cy=\"2.9\" r=\"2.5\" fill=\"#ffe1c9\"/><path d=\"M6.7 2.6a2.6 2.6 0 0 1 5.2 0z\" fill=\"#7b3cff\"/><path d=\"M10.9 2.4h2.6a.6.6 0 0 1 0 1.1h-2.6z\" fill=\"#7b3cff\"/><circle cx=\"10.6\" cy=\"3.3\" r=\".35\" fill=\"#2b0f63\"/></g></g></g></svg>";
+  const EYE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+  const EYE_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 5.1A9.9 9.9 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6A17.4 17.4 0 0 0 2 12s3.6 7 10 7a9.6 9.6 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
+  const ART = `<svg class="jx-art" viewBox="0 0 1000 1000" aria-hidden="true"><circle class="ring" cx="500" cy="500" r="470"/><circle class="ring b" cx="500" cy="500" r="380"/><circle class="ring" cx="500" cy="500" r="300"/><circle class="ring" cx="500" cy="500" r="150"/><path class="ring" d="M30 500h940M500 30v940"/><g class="bigmark" transform="translate(290 290) scale(8.75)">${LOGO.replace(/<svg[^>]*>/, "").replace("</svg>", "").replace(/id="([^"]+)jx"/g, 'id="$1jxa"').replace(/url\(#([^)]+)jx\)/g, "url(#$1jxa)")}</g></svg>`;
+  function pwField(id, label, ac, hint) {
+    return `<label for="${id}">${label}</label><div class="jx-in"><input id="${id}" class="pw" type="password" minlength="6" autocomplete="${ac}" required><button type="button" class="jx-eye" data-eye="${id}" aria-label="Mostrar senha" aria-pressed="false" title="Mostrar senha">${EYE}</button></div>${hint ? `<div class="jx-hint">${hint}</div>` : ""}`;
+  }
   function gate(mode, msg) {
-    addCSS(); let g = $("#jx-gate"); if (!g) { g = el('<div id="jx-gate" role="dialog" aria-modal="true" aria-label="Entrar na Jornada"></div>'); document.body.appendChild(g); }
-    const T0 = { in: ["Entrar", "Acesse a sua Jornada de estudos."], up: ["Criar conta", "Crie o acesso com o seu e-mail."], reset: ["Recuperar senha", "Enviaremos um link para o seu e-mail."], newpw: ["Nova senha", "Escolha a nova senha de acesso."], cfg: ["Falta configurar", "Preencha o arquivo config.js com o endereço e a chave pública do seu Supabase."] }[mode];
-    const pw = mode === "in" || mode === "up" || mode === "newpw", em = mode !== "newpw" && mode !== "cfg";
-    g.innerHTML = `<form class="jx-card" novalidate>
-      <h1>A JORNADA</h1><p><b style="color:#e8eef5">${T0[0]}.</b> ${T0[1]}</p>
-      ${em ? '<label for="jx-em">E-mail</label><input id="jx-em" type="email" autocomplete="email" required>' : ""}
-      ${pw ? `<label for="jx-pw">Senha</label><input id="jx-pw" type="password" minlength="6" autocomplete="${mode === "in" ? "current-password" : "new-password"}" required>` : ""}
-      ${mode !== "cfg" ? `<div class="jx-row"><button class="jx-btn" type="submit">${{ in: "Entrar", up: "Criar conta", reset: "Enviar link", newpw: "Salvar senha" }[mode]}</button></div>` : ""}
-      <div class="jx-links">${mode === "in" ? '<a data-m="up">Criar conta</a><a data-m="reset">Esqueci a senha</a>' : mode === "cfg" ? "" : '<a data-m="in">Voltar para entrar</a>'}</div>
-      <div class="jx-msg" role="status" aria-live="polite">${msg || ""}</div></form>`;
-    g.querySelectorAll("a[data-m]").forEach(a => a.onclick = () => gate(a.dataset.m));
+    addCSS(); let g = $("#jx-gate"); if (!g) { g = el('<div id="jx-gate" role="dialog" aria-modal="true" aria-label="A Jornada: entrar ou criar conta"></div>'); document.body.appendChild(g); }
+    const T0 = {
+      in: ["Bem-vindo(a) de volta", "Entre para continuar a sua Jornada."],
+      up: ["Comece a sua jornada", "Crie a sua conta e monte o plano de estudos do seu concurso."],
+      reset: ["Recuperar a senha", "Enviaremos um link para o seu e-mail."],
+      newpw: ["Nova senha", "Escolha a nova senha de acesso."],
+      cfg: ["Falta configurar", "Preencha o arquivo config.js com o endereço e a chave pública do seu Supabase."]
+    }[mode];
+    const em = mode !== "newpw" && mode !== "cfg";
+    const pws = mode === "in" ? pwField("jx-pw", "Senha", "current-password")
+      : mode === "up" || mode === "newpw" ? pwField("jx-pw", mode === "up" ? "Crie uma senha" : "Nova senha", "new-password", "Pelo menos 6 caracteres.") + pwField("jx-pw2", "Confirme a senha", "new-password") : "";
+    const mini = mode === "in" ? [["up", "Criar conta", "Primeira vez aqui? Cadastre-se e escolha o seu concurso."], ["reset", "Esqueci a senha", "Receba um link no e-mail para criar outra."]]
+      : mode === "up" ? [["in", "Já tenho conta", "Entre com o seu e-mail e a sua senha."], ["reset", "Esqueci a senha", "Receba um link no e-mail para criar outra."]]
+        : mode === "cfg" ? [] : [["in", "Voltar para entrar", "Entre com o seu e-mail e a sua senha."], ["up", "Criar conta", "Primeira vez aqui? Cadastre-se."]];
+    g.innerHTML = `${ART}<div class="jx-wrap">
+      <div class="jx-top"><div class="jx-tile">${LOGO}</div><span class="jx-name">A JORNADA</span>
+        ${mode === "cfg" ? "" : `<button type="button" class="jx-pill" data-m="in" aria-pressed="${mode === "in"}">Entrar</button><button type="button" class="jx-pill" data-m="up" aria-pressed="${mode === "up"}">Criar conta</button>`}</div>
+      <form class="jx-card jx-hero" novalidate>
+        <h1>${T0[0]}</h1><p class="jx-sub">${T0[1]}</p>
+        ${em ? '<label for="jx-em">E-mail</label><div class="jx-in"><input id="jx-em" type="email" autocomplete="email" inputmode="email" required></div>' : ""}
+        ${pws}
+        ${mode !== "cfg" ? `<div class="jx-row"><button class="jx-btn" type="submit">${{ in: "Entrar", up: "Criar minha conta", reset: "Enviar link", newpw: "Salvar a nova senha" }[mode]}</button></div>` : ""}
+        <div class="jx-msg" role="status" aria-live="polite">${msg || ""}</div>
+      </form>
+      ${mini.length ? `<div class="jx-duo">${mini.map(([m, t, d]) => `<button type="button" class="jx-card jx-mini" data-m="${m}"><b>${t}</b><span>${d}</span></button>`).join("")}</div>` : ""}
+      <div class="jx-band"><b>A JORNADA</b><span>Sua trilha até a aprovação</span></div>
+    </div>`;
+    g.querySelectorAll("[data-m]").forEach(a => a.onclick = () => gate(a.dataset.m));
+    g.querySelectorAll("[data-eye]").forEach(b => b.onclick = () => {
+      const i = g.querySelector("#" + b.dataset.eye), show = i.type === "password";
+      i.type = show ? "text" : "password"; b.innerHTML = show ? EYE_OFF : EYE;
+      b.setAttribute("aria-pressed", String(show)); b.setAttribute("aria-label", show ? "Esconder senha" : "Mostrar senha"); b.title = b.getAttribute("aria-label"); i.focus();
+    });
     const f = g.querySelector("form"), say = (t, ok) => { const m = g.querySelector(".jx-msg"); m.textContent = t; m.className = "jx-msg" + (ok ? " ok" : ""); };
+    if (!f.querySelector("button[type=submit]")) return;
     f.onsubmit = async e => {
-      e.preventDefault(); const b = f.querySelector("button"); b.disabled = true; say("");
-      const email = (g.querySelector("#jx-em") || {}).value, password = (g.querySelector("#jx-pw") || {}).value;
+      e.preventDefault(); const b = f.querySelector("button[type=submit]"); say("");
+      const email = ((g.querySelector("#jx-em") || {}).value || "").trim(), password = (g.querySelector("#jx-pw") || {}).value || "", password2 = (g.querySelector("#jx-pw2") || {}).value;
+      if (em && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { say("Digite um e-mail válido."); g.querySelector("#jx-em").focus(); return; }
+      if ((mode === "up" || mode === "newpw") && password.length < 6) { say("A senha precisa ter pelo menos 6 caracteres."); g.querySelector("#jx-pw").focus(); return; }
+      if (password2 !== undefined && password !== password2) { say("As senhas não são iguais. Digite a mesma senha nos dois campos."); g.querySelector("#jx-pw2").focus(); return; }
+      if (mode === "in" && !password) { say("Digite a sua senha."); g.querySelector("#jx-pw").focus(); return; }
+      b.disabled = true;
       try {
         let r;
         if (mode === "in") r = await sb.auth.signInWithPassword({ email, password });
-        else if (mode === "up") { r = await sb.auth.signUp({ email, password, options: { emailRedirectTo: location.origin + location.pathname } }); if (!r.error && !r.data.session) { say("Conta criada. Confirme pelo link enviado ao seu e-mail e depois entre.", true); b.disabled = false; return; } }
+        else if (mode === "up") { r = await sb.auth.signUp({ email, password, options: { emailRedirectTo: location.origin + location.pathname } }); if (!r.error && !r.data.session) { gate("in", "Conta criada! Abra o e-mail que enviamos, clique no link de confirmação e depois entre aqui."); return; } }
         else if (mode === "reset") { r = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname }); if (!r.error) { say("Link enviado. Confira o seu e-mail.", true); b.disabled = false; return; } }
         else if (mode === "newpw") { r = await sb.auth.updateUser({ password }); if (!r.error) { say("Senha alterada.", true); setTimeout(() => location.replace(location.pathname), 900); return; } }
         if (r && r.error) throw r.error;
@@ -325,7 +389,7 @@
           if (bad) say(`${bad} arquivo(s) não subiram. Rode a importação de novo só com os .zip para completar.`);
         }
         /* o painel guarda uma cópia local; apaga para ele ler da nuvem os dados importados */
-        Object.keys(localStorage).forEach(k => { if (!/^sb-.*-auth-token$/.test(k)) localStorage.removeItem(k); });
+        Object.keys(localStorage).forEach(k => { if (!/^sb-.*-auth-token$/.test(k) && k !== "jx-owner") localStorage.removeItem(k); });
         say("Pronto! Recarregando…", true); bar(1); setTimeout(() => location.reload(), 1200);
       } catch (e) {
         IMPORTING = false; btns.forEach(b => b.disabled = false);
@@ -345,6 +409,15 @@
       TOKEN = s.access_token; swPost();
       if (started) return; started = true;
       UID = s.user.id; EMAIL = s.user.email || "";
+      try {
+        const own = localStorage.getItem("jx-owner"), appKeys = Object.keys(localStorage).filter(k => !/^sb-.*-auth-token$/.test(k) && k !== "jx-owner");
+        if (own !== UID && (own || appKeys.length)) {
+          appKeys.forEach(k => localStorage.removeItem(k));
+          try { indexedDB.deleteDatabase("jornada-tjsp-pdfs"); } catch (e) { }
+          localStorage.setItem("jx-owner", UID); location.reload(); return;
+        }
+        localStorage.setItem("jx-owner", UID);
+      } catch (e) { }
       const g = $("#jx-gate"); if (g) g.remove();
       await swStart(); fab(); readyRes();
     };

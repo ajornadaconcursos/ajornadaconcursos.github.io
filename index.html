@@ -1675,6 +1675,7 @@ function obFresh(){try{const c=core();return !PLANS.onb&&!(PLANS.list||[]).lengt
 function obCheck(){if(obFresh()&&!UI.np&&!$("layer3").innerHTML.trim())obModal()}
 function obModal(){const c=core(),nm=(c.cfg&&c.cfg.name)||UI.obName||"";
   $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Boas-vindas" style="background:var(--bg,#0f1020)"><div class="box npm" style="max-width:560px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><div style="width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(150deg,#2b0f63,#170b38);box-shadow:0 0 0 1px rgba(160,107,255,.35),0 8px 24px rgba(123,60,255,.35);flex:none">${(()=>{const m=$("brMark");return m?m.innerHTML.replace(/id="([^"]+)"/g,'id="$1ob"').replace(/url\(#([^)]+)\)/g,"url(#$1ob)").replace(/class="jlogo"/,'class="jlogo" style="width:40px;height:40px"'):""})()}</div><b style="font:700 20px Unbounded,Figtree,sans-serif;letter-spacing:.04em">A JORNADA</b></div>
     <h3 style="margin:0">Boas-vindas à Jornada!</h3>
     <p class="muted" style="margin:6px 0 0">Vamos montar a sua trilha de estudos. Leva menos de um minuto.</p>
     <div class="field" style="margin-top:14px"><label for="obN">Como você quer ser chamado(a)?</label><input class="inp" id="obN" autocomplete="given-name" maxlength="40" value="${esc(nm)}" placeholder="Seu nome"></div>
