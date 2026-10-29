@@ -345,7 +345,7 @@
     const d = el(`<div id="jx-imp" role="dialog" aria-modal="true" aria-label="Apagar meus dados e recomeçar"><div class="jx-card">
       <h2>Apagar meus dados e recomeçar</h2>
       <p>Isto apaga <b>tudo</b> desta conta (${EMAIL.replace(/[<>&]/g, "")}): concursos, metas, progresso, revisões, resumos e PDFs. As outras contas não mudam.</p>
-      <p>Depois, a Jornada abre do zero e você escolhe o seu concurso. <b>Não dá para desfazer.</b> Se quiser guardar uma cópia antes, use “Baixar cópia dos meus dados”.</p>
+      <p>Depois, você volta para a tela de entrada: entre de novo com o seu e-mail e a sua senha e escolha o seu concurso do zero. <b>Não dá para desfazer.</b> Se quiser guardar uma cópia antes, use “Baixar cópia dos meus dados”.</p>
       <label for="jx-cf" style="display:block;font-size:13px;margin:10px 0 6px">Para confirmar, digite <b>APAGAR</b>:</label>
       <input id="jx-cf" autocomplete="off" style="box-sizing:border-box;width:100%;padding:11px 13px;border-radius:10px;border:1px solid rgba(160,107,255,.35);background:rgba(10,7,26,.75);color:#f6f2ff;font:inherit">
       <div class="jx-msg" role="status" aria-live="polite"></div>
@@ -367,7 +367,10 @@
         }
         Object.keys(localStorage).forEach(k => { if (!/^sb-.*-auth-token$/.test(k) && k !== "jx-owner") localStorage.removeItem(k); });
         try { indexedDB.deleteDatabase("jornada-tjsp-pdfs"); } catch (e) { }
-        say("Pronto! Abrindo do zero…"); setTimeout(() => location.reload(), 900);
+        say("Pronto! Dados apagados. Entre de novo para escolher o seu concurso…");
+        try { sessionStorage.setItem("jx-msg", "Dados apagados. Entre de novo para começar do zero e escolher o seu concurso."); } catch (e) { }
+        try { await sb.auth.signOut(); } catch (e) { }
+        setTimeout(() => location.reload(), 900);
       } catch (e) { IMPORTING = false; d.querySelectorAll("button").forEach(b => b.disabled = false); say("Não foi possível agora: " + (e && e.message || e)); }
     };
     setTimeout(() => d.querySelector("#jx-cf").focus(), 30);
@@ -439,7 +442,7 @@
     let started = false;
     const onSession = async (ev, s) => {
       if (ev === "PASSWORD_RECOVERY") { gate("newpw"); return; }
-      if (!s) { if (started) location.reload(); else if (!$("#jx-gate")) gate("in"); return; }
+      if (!s) { if (started) location.reload(); else if (!$("#jx-gate")) { let m = ""; try { m = sessionStorage.getItem("jx-msg") || ""; sessionStorage.removeItem("jx-msg"); } catch (e) { } gate("in", m); const mm = $("#jx-gate .jx-msg"); if (m && mm) mm.className = "jx-msg ok"; } return; }
       TOKEN = s.access_token; swPost();
       if (started) return; started = true;
       UID = s.user.id; EMAIL = s.user.email || "";
