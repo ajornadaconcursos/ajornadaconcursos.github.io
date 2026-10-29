@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "headers": [
+    { "source": "/sw.js", "headers": [{ "key": "Cache-Control", "value": "no-cache" }, { "key": "Service-Worker-Allowed", "value": "/" }] },
+    { "source": "/(index.html|config.js|claude-shim.js)?", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }
+  ]
+}

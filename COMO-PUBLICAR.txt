@@ -1,0 +1,42 @@
+A JORNADA — SITE PRÓPRIO
+========================
+
+Já está pronto
+--------------
+• Supabase: projeto "A JORNADA - Sua Trilha Diária até Aprovação" (zbrgvbikmujbhhbcwscr),
+  com as tabelas docs, perfis e uso_ia, a pasta privada "arquivos" e as regras de segurança.
+• Função "ai" publicada no Supabase (conversa com a IA usando a sua chave e soma o consumo em uso_ia).
+• config.js já preenchido com o endereço e a chave pública do projeto.
+• Arquivos do site no repositório GitHub raphaelpassos87/A-Jornada.
+
+O que só você pode fazer (envolve senhas e chaves)
+--------------------------------------------------
+1. Chave da IA: em https://console.anthropic.com → "API Keys" → "Create Key", copie a chave.
+   No Supabase → Edge Functions → Secrets, adicione:
+     ANTHROPIC_API_KEY = a chave copiada
+     ALLOWED_EMAILS    = raphaelpassos87@gmail.com
+   e clique em "Save".
+2. Hospedagem: entre em https://vercel.com com "Continue with GitHub" → "Add New…" → "Project" →
+   importe o repositório A-Jornada → "Deploy" (não precisa mudar nenhuma opção).
+   Para usar o seu domínio: no projeto da Vercel → Settings → Domains → adicione o endereço principal.
+3. No Supabase → Authentication → URL Configuration, coloque em "Site URL" o endereço do site
+   (o da Vercel ou o seu domínio) e salve.
+
+Primeiro acesso
+---------------
+1. Abra o site → "Criar conta" com raphaelpassos87@gmail.com → confirme pelo e-mail → "Entrar".
+2. Engrenagem ⚙ (canto de baixo, à esquerda) → "Importar meus dados…" → selecione juntos
+   jornada-dados.json e os 7 arquivos jornada-pdfs-*.zip → "Importar". Deixe a aba aberta até "Pronto!".
+3. Depois, se quiser, feche novos cadastros: Supabase → Authentication → Sign In / Providers →
+   desligue "Allow new users to sign up".
+
+No celular: abra o site e use "Adicionar à tela de início".
+
+Bom saber
+---------
+• Plano gratuito do Supabase: 500 MB de dados e 1 GB de arquivos (seus PDFs usam ~560 MB).
+  Projetos gratuitos sem acesso por 7 dias são pausados; basta reativar no painel.
+• A IA é cobrada pela Anthropic conforme o uso; ponha um limite mensal em console.anthropic.com.
+  O consumo diário fica na tabela uso_ia do Supabase.
+• Atualizações: troque só o index.html no GitHub; a Vercel publica sozinha e os dados ficam intactos.
+• Cópia de segurança: ⚙ → "Baixar cópia dos meus dados".
