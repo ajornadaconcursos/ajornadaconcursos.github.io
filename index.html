@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021826"></script>
+<script src="/claude-shim.js?v=202611021840"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1636,6 +1636,20 @@ h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
 .qr-cq{margin:6px 0 0;padding:8px 10px;border-radius:10px;background:var(--sunk);border:1px solid var(--line);font-size:13px;line-height:1.5}
 .qr-cq b{color:var(--ok)}
 .edprev{border:1px solid var(--warn);background:var(--warn-soft);border-radius:12px;padding:10px 12px;line-height:1.5}
+
+/* ---------- Plano B do dia e check-in semanal ---------- */
+.pb-c,.ck-c{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:14px 16px;display:grid;gap:10px}
+.pb-c{border-left:5px solid var(--warn)}.ck-c{border-left:5px solid var(--lime)}
+.pb-h,.ck-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.pb-h h3,.ck-h h3{margin:0;font-size:16px}.pb-h .sp,.ck-h .sp{flex:1}
+.pb-l{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+.pb-l li{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 11px;border-radius:12px;background:var(--sunk);border:1px solid var(--line)}
+.pb-l li b{min-width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--raise);font-size:13px}
+.pb-l li span{flex:1 1 200px;line-height:1.45}
+.ck-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.ck-g div{background:var(--sunk);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.ck-g b{display:block;font:800 22px/1.1 var(--f-display,inherit)}.ck-g small{color:var(--mute)}
+.ck-l{margin:0;padding-left:18px;line-height:1.55}
+#jxUpd{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:2147483000;display:flex;gap:10px;align-items:center;background:var(--panel);color:var(--fg);border:1px solid var(--lime);border-radius:999px;padding:8px 10px 8px 16px;box-shadow:var(--shadow);font-size:14px;max-width:calc(100vw - 24px)}
 </style>
 
 <div class="app">
@@ -4494,6 +4508,43 @@ function rowsHTML(ts,locks,mbt,preview,all){
   });
   return`<div class="alist">${h}</div>`;
 }
+/* ---------- Plano B: dia com pouco tempo ----------
+   Não mexe na meta: mostra só o essencial do dia (o que protege o que já foi estudado e o que mais cai) */
+function planBHTML(r,ts){const c=core(),on=(c.planB||{})[today()];
+  if(!on)return`<div class="row" style="justify-content:flex-end;margin:-4px 0 8px"><button class="btn sm ghost" data-a="pbOn">${ic("rotina")} Hoje tenho pouco tempo</button></div>`;
+  const rv=dueRevs().length,ep=errPend(),nx=ts.find(t=>!t.done),rf=allRefs().filter(x=>!x.done&&refLeft(x)<=5).length;let n=0;const li=(txt,btn)=>`<li><b>${++n}</b><span>${txt}</span>${btn||""}</li>`;
+  return`<section class="pb-c" aria-label="Plano B do dia"><div class="pb-h"><span class="ico">${ic("target")}</span><h3>Plano B de hoje: o essencial em cerca de 1 hora</h3><span class="sp"></span><button class="btn sm ghost" data-a="pbOff">Voltar ao dia normal</button></div>
+   <ol class="pb-l">${rv?li(`<b style="all:unset;font-weight:700">${rv} revis${rv>1?"ões":"ão"} do dia</b>: são curtas e seguram o que você já estudou.`,`<button class="btn sm pri" data-a="gtab" data-t="revisoes">Revisar</button>`):""}
+    ${ep?li(`Refaça até 5 das ${ep} questões em Erradas.`,`<button class="btn sm" data-a="gtab" data-t="erradas">Abrir Erradas</button>`):""}
+    ${rf?li(`${rf} reforço${rf>1?"s":""} vencendo em até 5 dias.`,`<button class="btn sm" data-a="gtab" data-t="reforcos">Ver reforços</button>`):""}
+    ${nx?li(`${esc(taskTitle(nx))}: ${nx.ph==="T"||/teoria/i.test(taskTitle(nx))?"hoje faça só o passo 2 (O que cai aqui) e as questões; a leitura completa fica para amanhã.":"faça metade das questões e marque o resto para amanhã."}`,`<button class="btn sm" data-a="openT" data-id="${nx.id}">Abrir</button>`):""}
+    ${n?"":li("Nada pendente. Aproveite para ler o resumo da última aula.",`<button class="btn sm" data-a="gtab" data-t="resumos">Resumos</button>`)}</ol>
+   <span class="muted small">A meta não muda: o que ficar de fora hoje continua na fila, na mesma ordem.</span></section>`}
+/* ---------- check-in semanal: o ajuste de toda semana, feito pelo painel ---------- */
+function weekStats(){const td=today(),d0=addDays(td,-6),md=minutesByDay();let min=0;for(let i=0;i<7;i++)min+=md[addDays(td,-i)]||0;
+  const c=core(),plan=(c.cfg.hrs||3)*60*7;let tk=0;(c.metas||[]).forEach(m=>tasksOf(m.n).forEach(t=>{if(t.done&&t.done>=d0&&t.done<=td)tk++}));
+  const sub={};let q=0,ok=0;PDFS().forEach(p=>{const Z=qzDoc(p.id);if(!Z)return;Object.values(Z.ans||{}).forEach(a=>{if(!a||!a.d||a.d<d0||a.d>td)return;q++;if(a.ok)ok++;const S=sub[p.sid]=sub[p.sid]||{q:0,ok:0};S.q++;if(a.ok)S.ok++})});
+  const weak=Object.entries(sub).filter(([,v])=>v.q>=5).map(([k,v])=>({k,n:(SUB(k)||{}).n||k,p:Math.round(v.ok/v.q*100),q:v.q})).sort((a,b)=>a.p-b.p);
+  const r=curMeta();let late=0;if(r&&r.end&&r.end<td&&!r.done)late=dbet(r.end,td);
+  return{min,plan,tk,q,ok,acc:q?Math.round(ok/q*100):null,weak,late,rv:dueRevs().length,ep:errPend()}}
+function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(last,td)>=7,dow=new Date().getDay();if(!due||!(dow===0||dow===1||(last&&dbet(last,td)>=8)))return"";
+  const W=weekStats(),pct=W.plan?Math.round(W.min/W.plan*100):0,tips=[];
+  if(pct<70)tips.push(`Você estudou ${pct}% das horas planejadas. Se a semana que vem também for apertada, ajuste as horas na Rotina para o plano ficar real.`);
+  if(W.weak[0]&&W.weak[0].p<75)tips.push(`${esc(W.weak[0].n)} ficou em ${W.weak[0].p}% de acerto: priorize as questões e os reforços dessa matéria.`);
+  if(W.rv>15)tips.push(`Há ${W.rv} revisões acumuladas: comece cada dia por elas, 20 minutos.`);
+  if(W.ep>10)tips.push(`${W.ep} questões em Erradas: refaça 5 por dia.`);
+  if(W.late)tips.push(`A meta está ${W.late} dia${W.late>1?"s":""} atrasada: recalcule com o mentor para as próximas metas caberem até a prova.`);
+  if(!tips.length)tips.push("Semana no ritmo. Mantenha a ordem: revisões, teoria do dia e questões.");
+  return`<section class="ck-c" aria-label="Check-in da semana"><div class="ck-h"><span class="ico">${ic("desempenho")}</span><h3>Check-in da semana</h3><span class="muted small">últimos 7 dias</span><span class="sp"></span><button class="btn sm ghost" data-a="ckDone">Concluir check-in</button></div>
+   <div class="ck-g"><div><b>${fmtM(W.min)}</b><small>estudadas de ${fmtM(W.plan)} (${pct}%)</small></div><div><b>${W.tk}</b><small>atividades concluídas</small></div><div><b>${W.acc==null?"—":W.acc+"%"}</b><small>de acerto em ${W.q} questões</small></div><div><b>${W.rv}</b><small>revisões pendentes</small></div></div>
+   ${W.weak.length?`<span class="small"><b>Acerto por matéria:</b> ${W.weak.slice(0,5).map(x=>`${esc(x.n)} <b class="${x.p>=75?"okc":x.p>=50?"warnc":"badc"}">${x.p}%</b>`).join(" · ")}</span>`:""}
+   <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
+   <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
+/* ---------- aviso de versão nova da plataforma ---------- */
+const JX_BUILD="20261102184023";
+async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
+  if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
+setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
 function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
   let h=(SKIN()==="arena"?orgHero():`<div class="hello"><h1>Oi, ${name||"tudo pronto"}</h1><p>Acompanhe seu progresso e veja o que falta para cumprir a sua meta.</p></div>`)+edThinHTML();
@@ -4509,6 +4560,7 @@ function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
     return h;
   }
   const ts=tasksOf(r.n),dn=ts.filter(t=>t.done).length,st=metaStatus(r),locks=phaseLocks(ts),rem=remainingMetas(),tot=c.metas.length+rem,mbt=minutesByTask();
+  try{h+=checkinHTML()+planBHTML(r,ts)}catch(e){console.error(e)}
   const nowPh=null;
   const phases=PH.map(ph=>{const g=ts.filter(t=>t.ph===ph);if(!g.length)return"";const d=g.filter(t=>t.done).length;
     return`<div class="phase"><div class="t"><span class="dot" style="background:var(--ph${ph})"></span>${PHN[ph]}</div><div class="n">${d}<small> de ${g.length}</small></div><div class="bar"><i style="width:${d/g.length*100}%;background:var(--ph${ph})"></i></div><small class="muted">${fmtM(sum(g.map(t=>t.min)))} previstos</small></div>`}).join("");
@@ -7907,6 +7959,10 @@ const A={
   tutPlay(){TUTP.play=TUTP.play?0:1;const b=$("tuPlay");if(b)b.textContent=TUTP.play?"Pausar":"Assistir";if(TUTP.play){const ch=TUT.find(x=>x.id===(UI.tut||TUT[0].id))||TUT[0];tuShow(TUTP.s+1>=ch.st.length?0:TUTP.s+1,1);tuTick()}else clearTimeout(TUTP.t)},
   tutStep(el){TUTP.play=0;clearTimeout(TUTP.t);const b=$("tuPlay");if(b)b.textContent="Assistir";tuShow(TUTP.s+(+el.dataset.d),1)},
   tutJump(el){TUTP.play=0;clearTimeout(TUTP.t);const b=$("tuPlay");if(b)b.textContent="Assistir";tuShow(+el.dataset.s,1)},
+  pbOn(){const c=core();c.planB={[today()]:1};touch("core");render();toast("Plano B ligado só para hoje: o essencial em cerca de 1 hora")},
+  pbOff(){const c=core();c.planB={};touch("core");render()},
+  ckDone(){core().ck=today();touch("core");render();toast("Check-in da semana concluído")},
+  ckMentor(){core().ck=today();touch("core");A.mtOpen()},
   mtOpen(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const M=mentorStats();UI.mt={M,P:mentorAuto(M),busy:0};mentorModal()},
   mtClose(){UI.mt=null;$("layer3").innerHTML=""},
   async mtAI(){const X=UI.mt;if(!X||!SAMPLE)return;X.busy=1;mentorModal();try{X.P=await mentorAIPlan(X.M)}catch(e){toast("A IA não respondeu agora; ficou a análise automática")}X.busy=0;mentorModal()},
