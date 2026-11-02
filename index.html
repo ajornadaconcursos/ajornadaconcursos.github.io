@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611020702"></script>
+<script src="/claude-shim.js?v=202611020707"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1066,7 +1066,7 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 @media (max-width:560px){.rm-l{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 .noanim,.noanim>.av,.noanim>.box,.noanim>.drawer,.noanim .av,.noanim .box{animation:none!important}
-#view.noanim .segbar i,#view.noanim .jbar i{animation:none!important}
+#view.noanim .segbar i,#view.noanim .jbar i,#view.noanim .pv-b i,#view.noanim .sm-bar i,#view.noanim .ev-ch *,#view.noanim .px-b i{animation:none!important}
 .upm-r .cl-ok{display:flex;gap:5px;align-items:center;color:var(--ok);font-weight:600;margin-top:3px}.upm-r .cl-ok svg.i{width:14px;height:14px}
 .upm-r .cl-bad{display:block;color:var(--warn);font-weight:600;margin-top:3px}
 .pparts{display:grid;gap:6px;margin-top:10px}
@@ -2096,7 +2096,7 @@ async function stScan(p){const buf=await pdfBytes(p);if(!buf||!(await ensurePdfj
 function stTrim(S){if(!S)return S;S.hd=(S.hd||[]).slice(0,400).map(h=>({p:h.p,y:h.y,t:String(h.t).slice(0,70),l:h.l}));return S}
 function stSave(p,S){p.st=stTrim(S);p.ts=S.ts;PLC.clear();touch("pdf-"+p.id);alignKey="";simCache.key="";
   {const r1=curMeta(),md1=r1&&metaDoc(r1.n);if(md1&&md1.std)md1.std=0}
-  const r=curMeta();if(r&&!r.done&&!core().gj&&!started(r.n))replanCurrent();if(UI.pdMap===p.id)pdMapModal();render()}
+  const r=curMeta();if(r&&!r.done&&!core().gj&&!started(r.n))replanCurrent();if(UI.pdMap===p.id)pdMapModal();if(TAB==="meta"||TAB==="materiais"||UI.openT)render()}
 /* Divisão da aula: as partes automáticas e, se o aluno quiser, outro ponto de corte */
 function pdMapModal(){const p=pdf(UI.pdMap);if(!p){$("layer3").innerHTML="";return}
   const head=`<div class="ash"><h3 style="margin:0">${ic("list")} Divisão da teoria</h3><button class="ibtn" data-a="pdMapClose" aria-label="Fechar">${ic("close")}</button></div><p class="muted small" style="margin:0">${esc(auLabel(p.sid,p.aula))} · ${esc(p.name)}</p>`;
@@ -4713,6 +4713,7 @@ function structure(tot){
 }
 /* ---------- Aba Edital ---------- */
 /* ---------- Aba Incidência (matérias no concurso e assuntos por matéria) ---------- */
+document.addEventListener("toggle",e=>{const d=e.target;if(d&&d.classList&&d.classList.contains("pv-s")&&d.dataset.s){(UI.pvOpen=UI.pvOpen||{})[d.dataset.s]=d.open}},true);
 function vIncidencia(){const h=vProva().replace(/^<p class="muted" style="margin:0;max-width:75ch">[\s\S]*?<\/p>/,"");
   return`<div class="hello"><h1>Incidência</h1><p>Quanto cada matéria vale na prova${IS_TJ?" de Oficial de Justiça do TJSP":PLAN&&PLAN.name?" de "+esc(PLAN.name):""} e quais assuntos mais caem em cada matéria. A IA se baseia nessas informações para montar os seus resumos, os simulados e a prioridade das questões; o planejamento das metas também.</p></div>${h}`}
 /* ---------- Aba Estrutura da prova ---------- */
@@ -4741,7 +4742,7 @@ function vProva(){const T=qTot(),L=ED.map(s=>({s,q:qOf(s)})).sort((a,b)=>b.q-a.q
       :has?ord.map((o,i)=>`<div class="pv-t ${i<3&&!o.m?"hot":""} ${o.m?"miss":""}"><span class="rk">${o.m?"–":i+1}</span><span class="tt">${esc(o.t)}</span><span class="pv-b sm"><i style="width:${o.m?0:o.p/pm*100}%;background:${s.col}"></i></span><b>${o.m?"sem dado":pv1(o.p)+"%"}</b><small class="muted">${q&&!o.m&&!ord.some(z=>z.m)?"≈ "+pv1(o.p/100*q)+" q.":""}</small></div>`).join("")
       :`<p class="muted small" style="margin:0">Ainda sem dados de quanto cada um dos ${s.t.length} assuntos cai. Cole a estatística de um site de questões, use “Estimar com IA” ou ajuste você mesmo. Enquanto isso, todos os assuntos contam igual no planejamento.</p>`;
     const un=UI.pvUn&&UI.pvUn.sid===s.id&&UI.pvUn.l.length?`<p class="muted small" style="margin:0">Sem assunto correspondente no edital (ficaram de fora): ${UI.pvUn.l.map(esc).join("; ")}.</p>`:"";
-    return`<details class="card pv-s" ${k<2||ed||pa?"open":""}><summary class="card-h"><span class="code" style="border-color:${s.col}">${esc(s.c)}</span><h2>${esc(s.n)}</h2><span class="r muted small">${q} questões · ${pv1(T?q/T*100:0)}%${has?" · mais cai: <b>"+esc(top.t.length>48?top.t.slice(0,46)+"…":top.t)+"</b> ("+pv1(top.p)+"%)":""}</span></summary>
+    return`<details class="card pv-s" data-s="${s.id}" ${(UI.pvOpen&&s.id in UI.pvOpen?UI.pvOpen[s.id]:k<2)||ed||pa?"open":""}><summary class="card-h"><span class="code" style="border-color:${s.col}">${esc(s.c)}</span><h2>${esc(s.n)}</h2><span class="r muted small">${q} questões · ${pv1(T?q/T*100:0)}%${has?" · mais cai: <b>"+esc(top.t.length>48?top.t.slice(0,46)+"…":top.t)+"</b> ("+pv1(top.p)+"%)":""}</span></summary>
      <div class="card-b" style="display:grid;gap:8px">${has&&!ed&&!pa?`<span class="muted small pv-src">${srcL}</span>`:""}
       ${list}${ed||pa?"":un}
       ${ed||pa?"":`<div class="row" style="gap:8px"><button class="btn sm" data-a="pvPOpen" data-s="${s.id}">${ic("plus")} Colar dados de um site</button><button class="btn sm" data-a="pvAI" data-s="${s.id}" ${busy?"disabled":""}>${ic("bulb")} ${has?"Estimar com IA":"Estimar com IA"}</button><button class="btn sm" data-a="pvTEd" data-s="${s.id}">Ajustar porcentagens</button>${(core().inc||{})[s.id]?`<button class="btn sm ghost" data-a="pvTClr" data-s="${s.id}">${INC_SEED[s.id]?"Voltar à fonte original":"Limpar"}</button>`:""}</div>`}</div></details>`}).join("");
