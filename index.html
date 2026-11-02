@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021537"></script>
+<script src="/claude-shim.js?v=202611021545"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -3284,6 +3284,42 @@ function taskSumMd(t){const p=t.pdf?pdf(t.pdf):null,M=mentorOf(t);if(!p||!M)retu
   if(qq.length){out.push("## Caiu em questão");qq.forEach(h=>out.push("- "+h.t+" (p. "+h.p+")"))}
   if(t.bizu&&t.bizu.txt){out.push("## Bizu");out.push(t.bizu.txt)}
   return out.join("\n")}
+/* trava contra invenção: todo número que a IA escrever (artigo, prazo, valor, lei, súmula) precisa existir no material
+   usado. Referências de página e contagens de questões ficam de fora da conferência. */
+const gStrip=t=>String(t||"").replace(/\b(p|pág|pag|págs|pags|página|páginas)\.?\s*\d+(\s*(,|e|a|-|–|·)\s*\d+)*/gi," ").replace(/\d+\s*(questões|questão|questoes|questao|cards?|itens|ramos)\b/gi," ");
+const gNums=t=>[...new Set((gStrip(t).match(/\d+(?:[.,]\d+)*/g)||[]).map(x=>x.replace(/[.,]/g,"")).filter(Boolean))];
+function gMiss(out,src){const S=new Set(gNums(src));return gNums(out).filter(n=>!S.has(n))}
+const gOk=(out,src)=>!gMiss(out,src).length;
+/* mapa mental em PDF: página 1 com a visão geral (assunto e ramos); se o mapa for grande, uma página por ramo com tudo dele */
+async function mmToPdf(x){if(!window.PDFLib)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");if(!window.PDFLib)throw new Error("pdflib");
+  const {PDFDocument,StandardFonts,rgb}=PDFLib,doc=await PDFDocument.create(),F=await doc.embedFont(StandardFonts.Helvetica),FB=await doc.embedFont(StandardFonts.HelveticaBold);
+  const S=ED[EDI[x.sid]]||ED[0],hx=String(S.col||"#7c6cf0").replace("#",""),cc=hx.length===6?rgb(parseInt(hx.slice(0,2),16)/255,parseInt(hx.slice(2,4),16)/255,parseInt(hx.slice(4,6),16)/255):rgb(.48,.42,.94);
+  const W=842,H=595,M=34,ink=rgb(.12,.12,.14),gray=rgb(.45,.45,.5),line=rgb(.72,.72,.78);
+  const wrap=(t,f,sz,w)=>{const o=[];let l="";pdfSafe(t).split(/\s+/).forEach(wd=>{const tt=l?l+" "+wd:wd;if(f.widthOfTextAtSize(tt,sz)>w&&l){o.push(l);l=wd}else l=tt});if(l)o.push(l);return o.length?o:[""]};
+  const kids=n=>(n&&n.c||[]).filter(k=>k&&k.t);
+  /* desenha uma árvore da esquerda para a direita: colunas por nível, cada folha numa linha */
+  function drawTree(root,title,sub){const pg=doc.addPage([W,H]);pg.drawText(pdfSafe(title).slice(0,110),{x:M,y:H-M-6,size:15,font:FB,color:ink});if(sub)pg.drawText(pdfSafe(sub).slice(0,150),{x:M,y:H-M-22,size:9,font:F,color:gray});
+    const depth=(n,d)=>Math.max(d,...kids(n).map(k=>depth(k,d+1)));const D=depth(root,0),top=H-M-40,bot=M+14,cols=D+1;
+    const colW=(W-2*M)/cols,boxW=colW-18;let sz=10;
+    const lay=(n,d)=>{const ls=wrap(n.t,d===0?FB:F,sz,boxW-10),h=ls.length*sz*1.25+8;const ch=kids(n).map(k=>lay(k,d+1)),need=Math.max(h,ch.reduce((a,c)=>a+c.need,0)+Math.max(0,ch.length-1)*6);return{n,d,ls,h,ch,need}};
+    let T=lay(root,0);for(let k=0;k<6&&T.need>top-bot;k++){sz=Math.max(6,sz-1);T=lay(root,0)}
+    const sc=T.need>top-bot?(top-bot)/T.need:1;
+    const place=(t,y0)=>{const yc=y0-t.need*sc/2;let y=y0;t.ch.forEach(c=>{place(c,y);c.cy=y-c.need*sc/2;y-=(c.need+6)*sc});t.cy=yc};
+    place(T,top-((top-bot)-T.need*sc)/2);
+    const draw=t=>{const x0=M+t.d*colW,h=t.h*sc,y=t.cy-h/2,fs=sz*Math.min(1,sc+.15);
+      t.ch.forEach(c=>{const cx=M+c.d*colW;pg.drawLine({start:{x:x0+boxW,y:t.cy},end:{x:cx,y:c.cy},thickness:1,color:line});draw(c)});
+      if(t.d===0)pg.drawRectangle({x:x0,y,width:boxW,height:h,color:cc,borderColor:cc,borderWidth:1});
+      else pg.drawRectangle({x:x0,y,width:boxW,height:h,color:rgb(1,1,1),borderColor:t.d===1?cc:line,borderWidth:t.d===1?1.4:.8});
+      t.ls.forEach((l,i)=>pg.drawText(l,{x:x0+5,y:y+h-4-(i+1)*fs*1.2+1,size:fs,font:t.d<=1?FB:F,color:t.d===0?rgb(1,1,1):ink}))};
+    draw(T);return T}
+  const sub=S.n+" · "+(x.src?"base: "+({ambos:"resumos + esquemas",res:"resumos",esq:"esquemas"})[x.src]:"mapa da IA")+" · "+new Date().toLocaleDateString("pt-BR");
+  const count=n=>1+kids(n).reduce((a,k)=>a+count(k),0);
+  if(count(x.tree)<=40)drawTree(x.tree,x.title,sub);
+  else{drawTree({t:x.tree.t,c:kids(x.tree).map(k=>({t:k.t}))},x.title+" · visão geral",sub);kids(x.tree).forEach((k,i)=>drawTree(k,(i+1)+". "+k.t,x.title))}
+  const ps=doc.getPages();ps.forEach((p,i)=>p.drawText(pdfSafe("A JORNADA · mapa mental · pág. "+(i+1)+" de "+ps.length),{x:M,y:16,size:8,font:F,color:gray}));
+  return new Blob([await doc.save()],{type:"application/pdf"})}
+async function mmPdfDl(x){try{toast("Montando o PDF do mapa…");const b=await mmToPdf(x);const nm=(x.title||"Mapa mental").replace(/[\\/:*?"<>|]/g,"").slice(0,80)+".pdf";
+  await saveFile(nm,b)}catch(e){toast("Não consegui montar o PDF agora")}}
 async function mdToPdf(title,sub,md,foot){if(!window.PDFLib)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");if(!window.PDFLib)throw new Error("pdflib");
   const {PDFDocument,StandardFonts,rgb}=PDFLib,doc=await PDFDocument.create(),F=await doc.embedFont(StandardFonts.Helvetica),FB=await doc.embedFont(StandardFonts.HelveticaBold);
   const W=595,H=842,M=48,CW=W-2*M;let pg=doc.addPage([W,H]),y=H-M;const need=h=>{if(y-h<M+18){pg=doc.addPage([W,H]);y=H-M}};
@@ -3399,6 +3435,7 @@ async function qResAI(sid,c,bg){const key=resKey(sid,c);if(!SAMPLE||RES_BUSY.has
   try{const md=qResMd(sid,c,"full"),prompt=`Você é professor de cursinho para concursos (${IS_TJ?"Oficial de Justiça do TJSP, banca VUNESP":[PLAN.cargo||PLAN.name,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(", ")}).
 Abaixo está o resumo de uma aula montado a partir das QUESTÕES que cobraram cada ponto (do PDF da aula e do TEC). Reescreva de forma didática e clara para revisão.
 Regras obrigatórias:
+- NÃO acrescente nada que não esteja no texto abaixo: nenhum artigo, prazo, número, lei, súmula, exemplo ou conceito novo. Se faltar algo, deixe faltar.
 - Mantenha os mesmos títulos "## " dos assuntos, na mesma ordem, e todos os pontos. Não acrescente assuntos.
 - Para cada ponto: um item "- " com a regra explicada em 1 ou 2 frases, com **negrito** nas palavras-chave, terminando com a página e a contagem, ex.: "(p. 13 · 3 questões)".
 - Logo abaixo, em outro item, "Pegadinha:" se houver, em 1 frase.
@@ -3409,6 +3446,7 @@ Regras obrigatórias:
 ${md.slice(0,60000)}
 </resumo_pelas_questoes>`;
     const r=await SAMPLE(prompt,bg?{modelTier:"default"}:{modelTier:"default",onText:({text})=>{const o=$("rsOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
+    if(r&&r.text&&!gOk(r.text,md)){const R0=resGet(sid,c);R0.qaiRej={sig:X.sig,miss:gMiss(r.text,md).slice(0,8),at:Date.now()};touch(key);if(!bg)toast("A IA citou números que não estão no material; mantive o resumo montado das suas questões");return}
     if(r&&r.text){const R0=resGet(sid,c);R0.qai={txt:resClean(r.text),sig:X.sig,at:Date.now()};R0.txt=R0.qai.txt;R0.qsig=X.sig;R0.v=4;R0.upd=Date.now();touch(key);UI.rsAIv=1}
   }catch(e){if(!AI_OFF&&!bg)toast("Não consegui melhorar o resumo com a IA agora")}finally{RES_BUSY.delete(key);render()}}
 /* separa as questões de todos os PDFs em segundo plano (sem IA), um por vez, para cada aula já ter o seu caderno */
@@ -3429,14 +3467,14 @@ ${txt}
 </resumo>
 Crie de 8 a 12 cards sobre o que mais cai e as pegadinhas: pergunta curta na frente, resposta direta no verso (1 a 3 frases, com a página ou o artigo quando o resumo trouxer). Português do Brasil.
 Responda só com um array JSON: [{"f":"pergunta","b":"resposta"}]`,{modelTier:"default"});
-  let n=0;if(Array.isArray(arr))arr.slice(0,12).forEach(x=>{if(x&&x.f&&x.b){addCard({sid,tid:"",aula:c,f:String(x.f).slice(0,400),b:String(x.b).slice(0,900),src:"ia",pdf:true,lesson:1});n++}});
+  let n=0;if(Array.isArray(arr))arr.slice(0,12).forEach(x=>{if(x&&x.f&&x.b&&gOk(x.f+" "+x.b,txt)){addCard({sid,tid:"",aula:c,f:String(x.f).slice(0,400),b:String(x.b).slice(0,900),src:"ia",pdf:true,lesson:1});n++}});
   if(!n)throw{code:"formato"};return n}
 async function aiBgRun(){if(AIBG||!SAMPLE||AI_OFF||!resAIOn())return;AIBG=1;let made={r:0,c:0,m:0};
   try{for(const L of aiLessons()){if(!SAMPLE||AI_OFF)break;const{sid,c}=L,k=sid+"|"+c,lab=SUB(sid).n+" · "+auLabel(sid,c);
     try{qResSync(sid,c)}catch(e){}
     const X=qResData(sid,c);if(X.wait||(!X.groups.length&&!X.extra.length))continue;
     const R0=resDoc(sid,c);
-    if(!(R0&&R0.qai&&R0.qai.txt)&&!AIBG_FAIL.has("r"+k)){await qResAI(sid,c,1);const R1=resDoc(sid,c);if(R1&&R1.qai&&R1.qai.txt){made.r++;toast("IA: resumo pronto · "+lab)}else{AIBG_FAIL.add("r"+k);continue}await new Promise(r=>setTimeout(r,1500))}
+    if(!(R0&&R0.qai&&R0.qai.txt)&&!(R0&&R0.qaiRej&&R0.qaiRej.sig===X.sig)&&!AIBG_FAIL.has("r"+k)){await qResAI(sid,c,1);const R1=resDoc(sid,c);if(R1&&R1.qai&&R1.qai.txt){made.r++;toast("IA: resumo pronto · "+lab)}else{AIBG_FAIL.add("r"+k);continue}await new Promise(r=>setTimeout(r,1500))}
     if(!CARDS().some(x=>x.sid===sid&&x.aula===c&&x.src==="ia")&&!AIBG_FAIL.has("c"+k)){try{const n=await lessonCards(sid,c);made.c+=n;toast("IA: "+n+" cards criados · "+lab)}catch(e){AIBG_FAIL.add("c"+k)}await new Promise(r=>setTimeout(r,1500))}
     if(!MM().items.some(x=>x.sid===sid&&x.kind==="ai"&&x.aula===c)&&!AIBG_FAIL.has("m"+k)){try{const S=ED[EDI[sid]],g=await mmGenerate(S,null,"res","",c);mmPut({sid,kind:"ai",tree:g.tree,course:"ia",tp:null,src:"res",aula:c,title:auLabel(sid,c)+" · "+g.tree.t});made.m++;toast("IA: mapa mental pronto · "+lab)}catch(e){AIBG_FAIL.add("m"+k)}await new Promise(r=>setTimeout(r,1500))}
   }}finally{AIBG=0;if(made.r||made.c||made.m){try{render()}catch(e){}}}}
@@ -3756,10 +3794,10 @@ function vMapas(){const sid=UI.mmSid&&EDI[UI.mmSid]!=null?UI.mmSid:ED[0].id;UI.m
   const ctabs=`<div class="tabs2 ctab" role="group" aria-label="Curso"><button data-a="mmC" data-v="*" aria-pressed="${cur==="*"}">Todos · ${all.length}</button>${tabs.map(t=>`<button data-a="mmC" data-v="${esc(t.k)}" aria-pressed="${cur===t.k}">${esc(t.n)} · ${cnt(t.k)}</button>`).join("")}</div>`;
   const card=x=>{const tp=x.tp!=null&&S.t[x.tp]?S.t[x.tp][0]:"";const th=x.kind==="img"?`<img src="${esc(mmUrl(x))}" alt="" loading="lazy">`:x.kind==="ai"?`<span class="mm-ai">${ic("brain")}<small>${(x.tree&&x.tree.c||[]).length} ramos</small></span>`:x.kind==="pdf"?`<span class="mm-ai">${ic("materiais")}<small>PDF</small></span>`:`<span class="mm-ai">${ic("ext")}<small>Link</small></span>`;
     return`<button class="mm-card" data-a="mmView" data-id="${x.id}"><span class="mm-th">${th}</span><span class="mm-ct"><b>${esc(x.title)}</b><small>${esc(mmCN(sid,x.course))}${tp?" · "+esc(tp.length>50?tp.slice(0,48)+"…":tp):""}</small></span></button>`};
-  return`<div class="hello"><h1>Mapas Mentais</h1><p>Os mapas de cada matéria num lugar só, separados pelo curso de onde vieram. Envie imagens, PDFs ou links dos seus cursos, ou peça para a IA montar um mapa de um assunto do edital.</p></div>
+  return`<div class="hello"><h1>Mapas Mentais</h1><p>Os mapas de cada matéria num lugar só, separados pelo curso de onde vieram. Envie imagens, PDFs ou links dos seus cursos, ou peça para a IA montar um mapa a partir dos seus resumos e esquemas (só com o que está no seu material). Os mapas da IA podem ser baixados em PDF.</p></div>
   <div class="mm-top"><span><b>Envie uma pasta inteira</b> <span class="muted small">e cada arquivo vai para a matéria e o assunto certos, pelo nome da pasta ou do arquivo. Você confere antes de enviar. Também dá para arrastar a pasta até aqui.</span></span><label class="btn pri">${ic("cloud")} Escolher pasta<input type="file" class="mmDir" webkitdirectory multiple hidden></label><label class="btn">${ic("plus")} Vários arquivos<input type="file" class="mmDir" accept="image/*,application/pdf" multiple hidden></label></div>
   <div class="mm-subs" role="group" aria-label="Matéria">${chips}</div>
-  <section class="card"><div class="card-h"><span class="code" style="border-color:${S.col}">${esc(S.c)}</span><h2>${esc(S.n)}</h2><span class="r row" style="gap:8px"><span class="seg mm-vw" role="group" aria-label="Ver"><button data-a="mmVw" data-v="all" aria-pressed="${UI.mmVw!=="tp"}">Mapas</button><button data-a="mmVw" data-v="tp" aria-pressed="${UI.mmVw==="tp"}">Por assunto</button></span><button class="btn sm" data-a="mmAdd">${ic("plus")} Enviar mapa</button>${SAMPLE?`<button class="btn sm" data-a="mmFromRes" data-s="${S.id}" ${UI.mmBusy||!mmResumos(S.id,null).length?"disabled":""} title="${mmResumos(S.id,null).length?"Monta um mapa para cada resumo pronto desta matéria":"Esta matéria ainda não tem resumo pronto (aba Resumos)"}">${ic("brain")} Gerar dos meus resumos</button>`:""}<button class="btn sm pri" data-a="mmAI">${ic("bulb")} Gerar com IA</button></span></div>
+  <section class="card"><div class="card-h"><span class="code" style="border-color:${S.col}">${esc(S.c)}</span><h2>${esc(S.n)}</h2><span class="r row" style="gap:8px"><span class="seg mm-vw" role="group" aria-label="Ver"><button data-a="mmVw" data-v="all" aria-pressed="${UI.mmVw!=="tp"}">Mapas</button><button data-a="mmVw" data-v="tp" aria-pressed="${UI.mmVw==="tp"}">Por assunto</button></span><button class="btn sm" data-a="mmAdd">${ic("plus")} Enviar mapa</button>${SAMPLE?`<button class="btn sm" data-a="mmFromRes" data-s="${S.id}" ${UI.mmBusy||!mmResumos(S.id,null).length?"disabled":""} title="${mmResumos(S.id,null).length?"Monta um mapa para cada resumo pronto desta matéria":"Esta matéria ainda não tem resumo pronto (aba Resumos)"}">${ic("brain")} Gerar dos meus resumos</button>`:""}<button class="btn sm pri" data-a="mmAI">${ic("bulb")} Gerar com IA</button>${all.some(x=>x.kind==="ai")?`<button class="btn sm" data-a="mmPdfAll" data-s="${S.id}">${ic("dl")} Baixar mapas em PDF</button>`:""}</span></div>
    ${tabs.length?ctabs:""}
    <div class="card-b">${UI.mmVw==="tp"?mmTopicsHTML(S,cur==="*"?all:all.filter(x=>x.course===cur)):L.length?`<div class="mm-grid">${L.map(card).join("")}</div>`:`<p class="muted" style="margin:0">${all.length?"Nenhum mapa deste curso ainda.":"Nenhum mapa desta matéria ainda. Use “Adicionar mapa” para enviar os mapas dos seus cursos (Estratégia, Gran, Direção, o que você tiver) ou “Gerar com IA”."}</p>`}</div></section>`}
 function mmCourseField(sid,val){const CS=mmCourses(sid);
@@ -3779,7 +3817,7 @@ function mmViewer(x){const S=ED[EDI[x.sid]]||ED[0],tp=x.tp!=null&&S.t[x.tp]?S.t[
   $("layer3").innerHTML=`<div class="modal mm-modal" role="dialog" aria-modal="true" aria-label="${esc(x.title)}"><div class="box">
    <div class="vh"><h3>${esc(x.title)}<small class="muted">${esc(S.n)} · ${esc(mmCN(x.sid,x.course))}${x.src?" · base: "+({ambos:"resumos + esquemas",res:"resumos",esq:"esquemas"})[x.src]:""}${tp?" · "+esc(tp):""}</small></h3>
     ${x.kind==="img"||x.kind==="pdf"?`<a class="btn sm" href="${esc(mmUrl(x))}" target="_blank" rel="noopener" ${x.kind==="pdf"?'id="mmPdfA"':""}>${ic("ext")} Abrir em tela cheia</a>`:""}
-    <button class="btn sm ghost" data-a="mmDel" data-id="${x.id}">${ic("trash")} Excluir</button><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+    ${x.kind==="ai"?`<button class="btn sm pri" data-a="mmPdf" data-id="${x.id}">${ic("dl")} Baixar em PDF</button>`:""}<button class="btn sm ghost" data-a="mmDel" data-id="${x.id}">${ic("trash")} Excluir</button><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
    ${body}</div></div>`;
   if(x.kind==="pdf"){fetch(mmUrl(x)).then(r=>r.ok?r.blob():null).then(b=>{if(!b)return;const u=URL.createObjectURL(new Blob([b],{type:"application/pdf"})),f=$("mmPdf"),a=$("mmPdfA");if(f)f.src=u;if(a)a.href=u}).catch(()=>{})}}
 /* fontes do mapa: resumos produzidos (aba Resumos) e esquemas enviados (PDF ou imagem, aba Mapas Mentais) */
@@ -3799,7 +3837,7 @@ async function mmGenerate(S,tp,src,extra,aula){const au_=aula?auOf(S.id,aula):nu
   const fonte=src==="res"?"nos resumos do aluno":src==="esq"?"nos esquemas enviados pelo aluno":"nos resumos e nos esquemas do aluno";
   const prompt=`Crie um mapa mental de revisão para concurso público (${IS_TJ?"Fundação VUNESP, Oficial de Justiça do TJSP":[PLAN.banca,PLAN.cargo||PLAN.name].filter(Boolean).join(", ")}).
 Matéria: ${S.n}. Assunto: ${as}.
-Baseie o mapa SOMENTE ${fonte}${imgs.length?" (texto abaixo e imagens anexas)":""}. Junte o que se repete, não invente conteúdo que não está no material e organize pela lógica do assunto.
+Baseie o mapa SOMENTE ${fonte}. Não use conhecimento próprio: nenhum artigo, prazo, número ou conceito que não esteja no material${imgs.length?" (texto abaixo e imagens anexas)":""}. Junte o que se repete, não invente conteúdo que não está no material e organize pela lógica do assunto.
 <material>
 ${txt.slice(0,20000)}
 </material>
@@ -3807,7 +3845,8 @@ Regras: a raiz é o assunto; de 3 a 7 ramos; cada ramo com até 6 filhos; no má
 Responda só com JSON: {"t":"raiz","c":[{"t":"ramo","c":[{"t":"folha"}]}]}`;
   const o=await SAMPLE.json(prompt,imgs.length?{images:imgs,modelTier:"default"}:{modelTier:"default"});
   const clean=(n,d)=>n&&(n.t||n.text)?{t:String(n.t||n.text).slice(0,160),c:d<3&&Array.isArray(n.c||n.children)?(n.c||n.children).slice(0,8).map(k=>clean(k,d+1)).filter(Boolean):[]}:null;
-  const t=clean(o,0);if(!t||!t.c.length)throw new Error("formato");return{tree:t,nR,nE}}
+  let t=clean(o,0);if(!imgs.length&&t){const prune=n=>({t:n.t,c:(n.c||[]).filter(k=>gOk(k.t,txt)).map(prune)});t=prune(t)}
+  if(!t||!t.c.length)throw new Error("formato");return{tree:t,nR,nE}}
 function mmAddModal(){const sid=UI.mmSid,S=ED[EDI[sid]],f=UI.mmF||{};
   $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Adicionar mapa mental"><div class="box mm-add">
    <div class="vh"><h3>Adicionar mapa mental</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
@@ -3827,6 +3866,8 @@ function mmAIModal(){const sid=UI.mmSid,S=ED[EDI[sid]],b=UI.mmBusy,tv=UI.mmTp??"
    <div class="field"><span class="small" style="font-weight:600">Base do mapa</span><div class="mm-src" role="radiogroup">${MM_SRC.map(([k,l,d])=>{const c={ambos:nR+nE,res:nR,esq:nE}[k];return`<button role="radio" aria-checked="${src===k}" data-a="mmSrc" data-v="${k}"><b>${l}</b><small>${d}</small><span class="chip">${k==="ambos"?nR+" resumo"+(nR===1?"":"s")+" · "+nE+" esquema"+(nE===1?"":"s"):k==="res"?nR+" resumo"+(nR===1?"":"s"):nE+" esquema"+(nE===1?"":"s")}</span></button>`}).join("")}</div>
     ${n?"":`<span class="small" style="color:var(--warn)">${src==="esq"?"Nenhum esquema desta matéria ainda. Envie os PDFs em “Adicionar mapa”.":src==="res"?"Nenhum resumo pronto desta matéria ainda. Eles nascem na aba Resumos, ao carregar o PDF da aula.":"Ainda não há resumos nem esquemas desta matéria."} Você pode colar um texto abaixo.</span>`}</div>
    <div class="field"><label for="mmTx">Texto extra (opcional)</label><textarea class="inp" id="mmTx" rows="3" placeholder="Cole um trecho para entrar junto no mapa"></textarea></div>
+   <label class="small" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="mmPdfToo" ${core().mmPdf?"checked":""}> Também baixar o mapa em PDF quando ficar pronto</label>
+   <p class="small muted" style="margin:0">O mapa usa só o seu material: nada de conteúdo de fora. Itens com números que não estão no material são descartados.</p>
    <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn" data-a="volClose">Cancelar</button><button class="btn pri" data-a="mmGen" ${b?"disabled":""}>${ic("bulb")} ${b?"Montando o mapa…":"Gerar mapa"}</button></div></div></div>`}
 /* Mapas por assunto e envio de uma pasta inteira, distribuída por matéria e assunto */
 const MM_STOP=new Set(["direito","lingua","nocoes","nocao","geral","gerais","basicos","aula","aulas","mapa","mapas","mental","mentais","resumo","resumos","parte","esquema","esquemas","pdf","para","como","sobre","curso","cursos","material","materiais","revisao","modulo","capitulo","final","volume","versao","tjsp","edital"]);
@@ -5419,12 +5460,13 @@ let BZ_WARN=0;
 async function genBizu(t){
   if(AUX_BUSY.has("b"+t.id))return;AUX_BUSY.add("b"+t.id);renderDrawer();
   try{const C=auxCtx(t);let txt="";
-    if(SAMPLE){const mat=await srcText(t,30000),rd=t.aula?resDoc(t.sid,t.aula):null;
-      const prompt=`Você escreve o BIZU de uma atividade de estudo para candidato a Oficial de Justiça do TJ SP (banca VUNESP).
+    const mat0=SAMPLE?await srcText(t,30000):"",rd0=t.aula?resDoc(t.sid,t.aula):null;
+    if(SAMPLE&&(mat0||(rd0&&rd0.txt))){const mat=mat0,rd=rd0;
+      const prompt=`Você escreve o BIZU de uma atividade de estudo para candidato a ${dsCargo()} (banca ${dsBanca()}).
 ${C.head}
 Um bizu é um resumo CURTO (no máximo 220 palavras) só com o que mais cai em prova e as pegadinhas. Formato em texto simples:
 "## " para títulos (1 a 3 títulos), "- " para itens curtos, **negrito** para as palavras-chave, e comece com "ATENÇÃO:" os 1 ou 2 itens de maior incidência em prova. Se houver uma comparação clássica (ex.: direta x indireta), faça 2 itens lado a lado no formato "X: ... | Y: ...".
-${mat?"Use SOMENTE o conteúdo do material abaixo (páginas desta atividade). Não invente artigos nem números.\n<material>\n"+mat+"\n</material>":rd&&rd.txt?"Base: o resumo da aula abaixo.\n<resumo>\n"+rd.txt.slice(0,8000)+"\n</resumo>":"Sem PDF: use a letra da lei, citando o artigo."}`;
+${mat?"Use SOMENTE o conteúdo do material abaixo (páginas desta atividade). Não invente artigos nem números.\n<material>\n"+mat+"\n</material>":"Use SOMENTE o resumo da aula abaixo. Não invente artigos nem números.\n<resumo>\n"+String(rd&&rd.txt||"").slice(0,8000)+"\n</resumo>"}`;
       const r=await SAMPLE(prompt,{modelTier:"default",onText:({text})=>{const o=$("bzOut");if(o&&UI.openT===t.id)o.innerHTML=mdLite(text)}});txt=(r&&r.text||"").trim()}
     if(txt){t.bizu={txt,at:Date.now()};touch("m-"+(findTask(t.id)||{n:0}).n)}
   }catch(e){if(!BZ_WARN++)toast("A IA ainda não está disponível: o bizu foi montado com as questões do PDF destas páginas.")}
@@ -5433,13 +5475,17 @@ ${mat?"Use SOMENTE o conteúdo do material abaixo (páginas desta atividade). N�
 async function genFix(t){
   if(AUX_BUSY.has("f"+t.id))return;AUX_BUSY.add("f"+t.id);renderDrawer();
   try{const C=auxCtx(t);let L=[];
-    if(SAMPLE){const mat=await srcText(t,30000);
-      const prompt=`Crie 5 itens de FIXAÇÃO ATIVA no estilo Certo ou Errado (como a banca cobra) para candidato a Oficial de Justiça do TJ SP.
+    const matF=SAMPLE?await srcText(t,30000):"";
+    if(SAMPLE&&matF){const mat=matF;
+      const prompt=`Crie 5 itens de FIXAÇÃO ATIVA no estilo Certo ou Errado (como a banca cobra) para candidato a ${dsCargo()} (banca ${dsBanca()}).
 ${C.head}
 Cada item: uma afirmação curta começando pelo tema ("Sobre a X: ..."), metade certas e metade erradas (erradas com a pegadinha típica), e uma explicação de 1 a 2 frases com o artigo quando houver.
-${mat?"Use SOMENTE o conteúdo do material abaixo.\n<material>\n"+mat+"\n</material>":"Sem PDF: use a letra da lei."}
+Use SOMENTE o conteúdo do material abaixo; não invente artigos, prazos nem números.
+<material>
+${mat}
+</material>
 Responda só com um array JSON: [{"s":"Sobre ...: afirmação","v":true,"e":"explicação"}]`;
-      const arr=await SAMPLE.json(prompt,{modelTier:"default"});if(Array.isArray(arr))L=arr.filter(x=>x&&x.s).slice(0,8).map(x=>({s:String(x.s).slice(0,400),v:!!x.v,e:String(x.e||"").slice(0,500)}))}
+      const arr=await SAMPLE.json(prompt,{modelTier:"default"});if(Array.isArray(arr))L=arr.filter(x=>x&&x.s&&gOk(x.s+" "+(x.e||""),mat)).slice(0,8).map(x=>({s:String(x.s).slice(0,400),v:!!x.v,e:String(x.e||"").slice(0,500)}))}
     else{L=CARDS().filter(c=>c.tid===t.id||(c.sid===t.sid&&c.aula===t.aula)).slice(0,5).map(c=>({s:c.f,v:null,e:c.b}))}
     if(L.length){t.fix={L,at:Date.now()};touch("m-"+(findTask(t.id)||{n:0}).n)}else toast("Ainda não há material para a fixação desta atividade")
   }catch(e){toast(e&&e.code==="not_granted"?"Você não permitiu usar a IA para a fixação.":"Não consegui montar a fixação agora")}
@@ -6490,17 +6536,21 @@ async function makeCards(t,manual){
     const s=SUB(t.sid),a=t.aula?auOf(t.sid,t.aula):null,tps=uniq([...taskEdTopics(t),...refTopics(t)]).slice(0,10);
     const p=t.pdf?pdf(t.pdf):(t.aula?pdfOfAula(t.sid,t.aula):null);let txt="";
     if(p&&!p.raw){const pa=t.pa||1,pb=t.pb||teoEnd(p);txt=await pagesText(p,pa,Math.min(pb,pa+29))}
+    if(!txt&&t.aula){const rd=resDoc(t.sid,t.aula);if(rd&&rd.txt)txt=String(rd.txt).slice(0,14000)}
     let made=0;
-    if(SAMPLE){try{
+    if(SAMPLE&&txt){try{
       const prompt=`Você prepara cards de revisão (flashcards) para um candidato a ${dsCargo()} (banca ${dsBanca()}).
 Matéria: ${s.n}. ${a?"Aula: "+auLabel(t.sid,t.aula)+" – "+a.d+".":""}
 Atividade concluída: ${taskTitle(t)}.
 Assuntos: ${tps.join("; ")||s.n}.
-${txt?"Use SOMENTE o conteúdo do material abaixo (trecho do PDF estudado). Não invente artigos, prazos ou números que não estejam nele.\n<material>\n"+txt+"\n</material>":"Não há PDF disponível: use a letra da lei e o entendimento majoritário, citando o artigo quando houver."}
+Use SOMENTE o conteúdo do material abaixo (trecho do PDF estudado ou resumo da aula). Não invente artigos, prazos, números nem conceitos que não estejam nele; se o material não traz, não faça o card.
+<material>
+${txt}
+</material>
 Crie de 5 a 8 cards objetivos sobre os pontos que a ${dsBanca()} mais cobra (prazos, exceções, competências, literalidade da lei): pergunta curta na frente, resposta direta no verso (1 a 3 frases, com o artigo quando houver). Escreva em português do Brasil.
 Responda só com um array JSON, por exemplo: [{"f":"Qual o prazo...?","b":"15 dias (CPC, art. 335)."}]`;
       const arr=await SAMPLE.json(prompt,{modelTier:"default"});
-      if(Array.isArray(arr))arr.slice(0,10).forEach(x=>{if(x&&x.f&&x.b){addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:String(x.f).slice(0,400),b:String(x.b).slice(0,900),src:"ia",pdf:!!txt});made++}});
+      if(Array.isArray(arr))arr.slice(0,10).forEach(x=>{if(x&&x.f&&x.b&&gOk(x.f+" "+x.b,txt)){addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:String(x.f).slice(0,400),b:String(x.b).slice(0,900),src:"ia",pdf:!!txt});made++}});
     }catch(e){if(manual)toast(e&&e.code==="not_granted"?"Você não permitiu gerar cards com IA. Crie os seus abaixo.":"Não consegui gerar com IA agora. Tente de novo em instantes.")}}
     if(!made&&!manual){tps.slice(0,5).forEach(x=>{addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:"Sem consultar: quais são os pontos principais de “"+tShort(x)+"”?",b:"Confira nas suas anotações"+(p&&t.pa?" e no PDF, págs. "+t.pa+" a "+t.pb:"")+". Se esqueceu algo, marque “Esqueci” e reforce o resumo.",src:"auto"});made++})}
     t.cardsOk=1;touch("m-"+taskMeta(t));
@@ -8335,10 +8385,17 @@ Object.assign(A,{
   mmLink(){const u=(($("mmLk")||{}).value||"").trim(),co=mmReadCourse(),tp=($("mmTp")||{}).value,ti=(($("mmTi")||{}).value||"").trim();
     if(!/^https?:\/\/\S+$/i.test(u)){toast("Cole um link que comece com https://");return}if(!co){toast("Escolha o curso ou digite o nome dele");return}
     mmPut({kind:"link",url:u.slice(0,800),course:co,cn:co.startsWith("c:")?mmCN(UI.mmSid,co):"",tp:tp===""?null:+tp,title:ti||"Mapa mental"});$("layer3").innerHTML="";UI.mmC=co;render();toast("Link salvo")},
+  mmPdf(el){const x=MM().items.find(m=>m.id===el.dataset.id);if(x)mmPdfDl(x)},
+  async mmPdfAll(el){const sid=el.dataset.s,L=MM().items.filter(m=>m.sid===sid&&m.kind==="ai");if(!L.length){toast("Esta matéria ainda não tem mapas da IA");return}
+    try{toast("Montando o PDF com "+L.length+" mapa"+(L.length>1?"s":"")+"…");if(!window.PDFLib)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");const {PDFDocument}=PDFLib,out=await PDFDocument.create();
+      for(const x of L){const d=await PDFDocument.load(await (await mmToPdf(x)).arrayBuffer());(await out.copyPages(d,d.getPageIndices())).forEach(p=>out.addPage(p))}
+      const b=new Blob([await out.save()],{type:"application/pdf"}),nm="Mapas mentais - "+SUB(sid).n.replace(/[\\/:*?"<>|]/g,"").slice(0,60)+".pdf";
+      await saveFile(nm,b)}catch(e){toast("Não consegui montar o PDF agora")}},
   mmSrc(el){UI.mmSrc=el.dataset.v;const t=$("mmTp"),x=$("mmTx");if(t)UI.mmTp=t.value;const keep=x?x.value:"";mmAIModal();const y=$("mmTx");if(y)y.value=keep},
   async mmGen(){if(UI.mmBusy)return;const S=ED[EDI[UI.mmSid]],v=($("mmTp")||{}).value,tp=v===""?null:+v,txt=(($("mmTx")||{}).value||"").trim(),src=UI.mmSrc||"ambos";UI.mmTp=v;
     UI.mmBusy=1;const b=document.querySelector('[data-a="mmGen"]');if(b){b.disabled=true;b.textContent="Lendo o material e montando…"}
-    try{const r=await mmGenerate(S,tp,src,txt),x=mmPut({kind:"ai",tree:r.tree,course:"ia",tp,src,title:r.tree.t});UI.mmBusy=0;UI.mmC="ia";render();mmViewer(x);
+    const wantPdf=!!($("mmPdfToo")||{}).checked;if(!!core().mmPdf!==wantPdf){core().mmPdf=wantPdf;touch("core")}
+    try{const r=await mmGenerate(S,tp,src,txt),x=mmPut({kind:"ai",tree:r.tree,course:"ia",tp,src,title:r.tree.t});UI.mmBusy=0;UI.mmC="ia";render();mmViewer(x);if(wantPdf)mmPdfDl(x);
       toast("Mapa montado com "+[src!=="esq"?r.nR+" resumo"+(r.nR===1?"":"s"):"",src!=="res"?r.nE+" esquema"+(r.nE===1?"":"s"):"",txt?"o texto colado":""].filter(Boolean).join(" e "))}
     catch(e){UI.mmBusy=0;if($("layer3").innerHTML)mmAIModal();toast(e&&e.code==="vazio"?"Não há material nessa base. Escolha outra opção ou cole um texto.":"Não consegui montar o mapa agora. Tente de novo.")}}
 });
