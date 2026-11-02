@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202610291707"></script>
+<script src="/claude-shim.js?v=202611020559"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1391,6 +1391,7 @@ const IC={
   mapas:'<path d="M9.5 4a3 3 0 0 0-3 3v.2A3 3 0 0 0 4.5 10a3 3 0 0 0 1 2.2A3 3 0 0 0 6.5 17a3 3 0 0 0 3 3h.5V4z"/><path d="M14.5 4a3 3 0 0 1 3 3v.2a3 3 0 0 1 2 2.8 3 3 0 0 1-1 2.2 3 3 0 0 1-1 4.8 3 3 0 0 1-3 3H14V4z"/>',
   discursiva:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
   disc:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+  incidencia:'<path d="M4 20h16"/><rect x="5" y="11" width="3" height="7" rx="1"/><rect x="10.5" y="5" width="3" height="13" rx="1"/><rect x="16" y="8.5" width="3" height="9.5" rx="1"/>',
   prova:'<path d="M4 20h16"/><rect x="5" y="11" width="3" height="7" rx="1"/><rect x="10.5" y="5" width="3" height="13" rx="1"/><rect x="16" y="8.5" width="3" height="9.5" rx="1"/>',
   gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
   meta:'<path d="M5 21V4"/><path d="M5 4h11l-2 4 2 4H5"/>',
@@ -3140,18 +3141,17 @@ function pv24Card(){if(!IS_TJ)return"";const x=SMX().filter(y=>y.kind==="prova"&
 setInterval(()=>{const id=UI.smOpen;if(!id||TAB!=="simulados")return;const x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run"||!d.t0)return;const r=smLeft(d),el=$("smClk");if(el){el.textContent=smClock(r);el.classList.toggle("low",r<600)}if(r<=0)smFinish(id,true)},1000);
 
 {const _vm=vMeta;vMeta=function(){const h=_vm(),b=smBanner();if(!b)return h;const i=h.indexOf("</div>");return h.startsWith("<div class=\"hello\"")&&i>0?h.slice(0,i+6)+b+h.slice(i+6):b+h}}
-const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"]];
+const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"]];
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
-const NAV=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["materiais","Materiais"],["revisoes","Revisar"],["simulados","Simulados"],["discursiva","Discursiva e Redação"],["desempenho","Desempenho"],["concurso","Concurso"]];
+const NAV=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["revisoes","Revisar"],["simulados","Simulados"],["discursiva","Discursiva e Redação"],["desempenho","Desempenho"],["concurso","Concurso"]];
 const GROUPS={materiais:[["materiais","PDFs das aulas","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas Mentais","mapas"]],
-  revisoes:[["revisoes","Revisões","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"]],
-  concurso:[["concurso:geral","Visão geral","concurso"],["concurso:prova","Estrutura da prova","prova"]]};
+  revisoes:[["revisoes","Revisões","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"]]};
 const GP={};Object.entries(GROUPS).forEach(([g,L])=>L.forEach(([k])=>{GP[k.split(":")[0]]=g}));
-function gnavHTML(){const g=GP[TAB];if(!g)return"";const cur=TAB==="concurso"?"concurso:"+(UI.ctab==="prova"?"prova":"geral"):TAB,due=dueRevs().length,ep=errPend(),rf=allRefs().filter(x=>!x.done).length;
+function gnavHTML(){const g=GP[TAB];if(!g)return"";const cur=TAB,due=dueRevs().length,ep=errPend(),rf=allRefs().filter(x=>!x.done).length;
   const badge=k=>k==="revisoes"&&due?`<small>${due}</small>`:k==="erradas"&&ep?`<small>${ep}</small>`:k==="reforcos"&&rf?`<small>${rf}</small>`:"";
   return`<div class="ds-sub gnav" role="group" aria-label="Seções">${GROUPS[g].map(([k,l,i])=>`<button data-a="gtab" data-t="${k}" aria-pressed="${cur===k}">${ic(i)} ${l}${badge(k)}</button>`).join("")}</div>`}
 function vReforcos(){return`<div class="hello"><h1>Reforços</h1><p>Questões extras do TEC nos assuntos em que o acerto ficou abaixo de 75%. Cada reforço tem prazo de 30 dias e não trava a meta.</p></div>${refsHTML()}`}
-let UI0ctab=null;let TAB=(location.hash||"").replace("#","");if(TAB==="prova"){TAB="concurso";UI0ctab="prova"}if(!TABS.some(t=>t[0]===TAB))TAB="meta";
+let UI0ctab=null;let TAB=(location.hash||"").replace("#","");if(TAB==="prova"){TAB="incidencia"}if(!TABS.some(t=>t[0]===TAB))TAB="meta";
 const UI={filter:"todas",calM:null,openT:null,qform:null,pmap:null,pq:null,confirm:null,psub:"lp"};if(UI0ctab)UI.ctab=UI0ctab;
 try{if(localStorage.getItem("jornada-navc")==="1")document.documentElement.dataset.navc="1"}catch(e){}
 try{const j=sessionStorage.getItem("jornada-jtab");if(j){UI.jtab=j;sessionStorage.removeItem("jornada-jtab")}const m2=sessionStorage.getItem("jornada-rmode");if(m2){UI.rotMode=m2;sessionStorage.removeItem("jornada-rmode")}const d2=sessionStorage.getItem("jornada-pxday");if(d2){UI.pxDay=d2;sessionStorage.removeItem("jornada-pxday")}}catch(e){}
@@ -3186,7 +3186,7 @@ function render(){
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
-  const V={meta:vMeta,jornada:vJornada,edital:vEdital,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados}[TAB];
+  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados}[TAB];
   $("view").classList.toggle("noanim",render.lt===TAB);render.lt=TAB;$("view").innerHTML=gnavHTML()+V();brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));
   if(UI.openT)renderDrawer();
 }
@@ -4460,6 +4460,9 @@ function structure(tot){
   <p class="muted small" style="margin:0">Cada aula segue a ordem Teoria, Revisão, Mapeamento e Questões, um passo por meta. Toque numa meta para ver as atividades e abrir os comandos de cada uma.</p><div class="route">${stops}</div></div>`;
 }
 /* ---------- Aba Edital ---------- */
+/* ---------- Aba Incidência (matérias no concurso e assuntos por matéria) ---------- */
+function vIncidencia(){const h=vProva().replace(/^<p class="muted" style="margin:0;max-width:75ch">[\s\S]*?<\/p>/,"");
+  return`<div class="hello"><h1>Incidência</h1><p>Quanto cada matéria vale na prova${IS_TJ?" de Oficial de Justiça do TJSP":PLAN&&PLAN.name?" de "+esc(PLAN.name):""} e quais assuntos mais caem em cada matéria. A IA se baseia nessas informações para montar os seus resumos, os simulados e a prioridade das questões; o planejamento das metas também.</p></div>${h}`}
 /* ---------- Aba Estrutura da prova ---------- */
 const pv1=v=>(Math.round(v*10)/10).toString().replace(".",",");
 function vProva(){const T=qTot(),L=ED.map(s=>({s,q:qOf(s)})).sort((a,b)=>b.q-a.q||EDI[a.s.id]-EDI[b.s.id]),mx=Math.max(1,...L.map(x=>x.q)),c=core();
@@ -5435,7 +5438,7 @@ function tecCard(){
     <div class="tecl">${rows}</div></div></section>`;
 }
 /* a aba Concurso tem duas visões: o geral (cronograma, plano, níveis) e a Estrutura da prova */
-function vConcurso(){const t=UI.ctab==="prova"?"prova":"geral",tb="";
+function vConcurso(){const t="geral",tb="";
   if(t==="prova")return`<div class="hello"><h1>Concurso</h1><p>${IS_TJ?"Oficial de Justiça do TJSP · Edital 01/2026 · Fundação VUNESP":esc([PLAN.name,PLAN.cargo,PLAN.orgao,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(" · "))}</p></div>${tb}${vProva()}`;
   const h=vConcurso0(),i=h.indexOf("</div>");return i<0?tb+h:h.slice(0,i+6)+tb+h.slice(i+6)}
 function vConcurso0(){
@@ -5454,7 +5457,7 @@ function vConcurso0(){
   <div class="track" aria-hidden="true"><span class="ln"></span><span class="done" style="width:${X(td)}%"></span>${pts}<span class="today" style="left:${X(td)}%"></span></div></div></div></section>
   ${pv24Card()}
   <div class="cc-grid"><section class="card"><div class="card-h"><h2>Cronograma</h2><span class="r muted small">confirme sempre no site da VUNESP</span></div>${rows}</section>
-  <div class="cside">${IS_TJ?"":edCompCard()}<section class="card" ${IS_TJ?"":"hidden"}><div class="card-h"><h2>Prova</h2></div><div class="card-b" style="display:grid;gap:12px"><span class="muted">70 questões objetivas em 3 blocos e 2 discursivas. Quantas questões tem cada matéria, quanto vale e o que mais cai ficam em Estrutura da prova.</span><div class="row" style="gap:8px"><button class="btn pri" data-a="gtab" data-t="concurso:prova">${ic("prova")} Ver a estrutura da prova</button><a class="btn" href="#tecCard" data-a="goTec">${ic("ext")} Questões no TEC</a></div></div></section>
+  <div class="cside">${IS_TJ?"":edCompCard()}<section class="card" ${IS_TJ?"":"hidden"}><div class="card-h"><h2>Prova</h2></div><div class="card-b" style="display:grid;gap:12px"><span class="muted">70 questões objetivas em 3 blocos e 2 discursivas. Quantas questões tem cada matéria, quanto vale e o que mais cai ficam na aba Incidência.</span><div class="row" style="gap:8px"><button class="btn pri" data-a="gtab" data-t="incidencia">${ic("prova")} Ver a incidência</button><a class="btn" href="#tecCard" data-a="goTec">${ic("ext")} Questões no TEC</a></div></div></section>
   <section class="card cs-plan"><div class="card-h"><h2>Seu plano</h2></div><div class="card-b" style="display:grid;gap:14px">
    <div class="row"><div class="field" style="flex:1 1 180px"><label for="cfgName">Seu nome</label><input class="inp" id="cfgName" value="${esc(c.cfg.name)}" data-c="name"></div>
    <div class="field" style="flex:1 1 150px"><label for="cfgHrs">Horas de estudo por dia</label><select class="inp" id="cfgHrs" data-c="hrs">${[...Array(10)].map((_,i)=>`<option value="${i+1}" ${c.cfg.hrs===i+1?"selected":""}>${i+1} h</option>`).join("")}</select></div>
