@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611020905"></script>
+<script src="/claude-shim.js?v=202611020914"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -634,6 +634,9 @@ textarea.inp{min-height:84px;resize:vertical}
 .hlbox{display:grid;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--raise)}
 .hlbox .chip[aria-pressed="true"]{background:var(--acc,#7b3cff);color:#fff;border-color:transparent}
 .hl-leg{display:flex;flex-wrap:wrap;gap:10px;font-size:12.5px}.hl-leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.rd-pgi{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--fg2);white-space:nowrap}
+.rd-pgi .inp{width:64px;padding:5px 6px;text-align:center;font-weight:700;-moz-appearance:textfield}.rd-pgi .inp::-webkit-inner-spin-button{opacity:.6}
+.pdm-pg{width:84px;padding:6px 8px;text-align:center}
 .rd-s{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}.rd-s .inp{flex:1 1 240px;max-width:520px;padding:7px 12px}.rd-s #rdQi{min-width:90px}
 .pdm-r{display:grid;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--raise);line-height:1.5}
 button.apl-s{border:0;font:inherit;cursor:pointer}
@@ -2267,7 +2270,7 @@ function pdMapModal(){const p=pdf(UI.pdMap);if(!p){$("layer3").innerHTML="";retu
     let sel="";if(k<L.length-1){const lo=(k?L[k-1].b:o.a)+3,hi=(k+2<L.length?L[k+2].a:E)-3,C=[];
       (S.hd||[]).forEach(h=>{const x=psPos(h.p,h.y);if(x>=lo&&x<=hi)C.push(x)});for(let pg=Math.ceil(lo);pg<=hi;pg++)if(!C.some(x=>Math.abs(x-pg)<.12))C.push(pg);
       if(!C.some(x=>Math.abs(x-o.b)<.001))C.push(o.b);C.sort((a,b)=>a-b);
-      sel=`<label class="small muted" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">Corte desta parte <select class="inp" style="max-width:100%;flex:1 1 260px" data-c="pdCut" data-i="${k}">${C.map(x=>`<option value="${x.toFixed(3)}" ${Math.abs(x-o.b)<.001?"selected":""}>${esc(optLab(x))}</option>`).join("")}</select></label>`}
+      sel=`<label class="small muted" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">Corte desta parte <select class="inp" style="max-width:100%;flex:1 1 260px" data-c="pdCut" data-i="${k}">${C.map(x=>`<option value="${x.toFixed(3)}" ${Math.abs(x-o.b)<.001?"selected":""}>${esc(optLab(x))}</option>`).join("")}</select><span>ou digite a página:</span><input class="inp pdm-pg" type="number" inputmode="numeric" min="${Math.ceil(lo)}" max="${Math.floor(hi)}" placeholder="${Math.floor(o.b+1e-6)}" data-c="pdCutPg" data-i="${k}" data-lo="${lo}" data-hi="${hi}" aria-label="Página em que a parte ${k+2} começa" title="A parte ${k+1} termina antes desta página (de ${Math.ceil(lo)} a ${Math.floor(hi)})"></label>`}
     return`<div class="pdm-r"><div>${d}</div>${sel}</div>`}).join("");
   $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Divisão da teoria"><div class="box" style="width:min(680px,100%);max-height:calc(100vh - 40px);overflow:auto">${head}
     <p class="small" style="margin:0">A divisão é automática: partes de 15 a 18 páginas, começando onde o conteúdo começa (sem capa, índice e apresentação) e sempre parando antes de um novo tópico. Quando o próximo tópico está longe, a parte é dividida ao meio para não ficar cansativa. Só mude se quiser outro ponto de parada.</p>
@@ -2276,6 +2279,11 @@ function pdMapModal(){const p=pdf(UI.pdMap);if(!p){$("layer3").innerHTML="";retu
 function pdCutSet(k,x){const p=pdf(UI.pdMap);if(!stOk(p))return;const L=stPlan(p,null);const cuts=L.slice(0,k).map(o=>o.b);cuts.push(+x);p.cuts=cuts;PLC.clear();touch("pdf-"+p.id);
   alignKey="";simCache.key="";{const r1=curMeta(),md1=r1&&metaDoc(r1.n);if(md1&&md1.std)md1.std=0}pdMapModal();render();toast("Divisão ajustada. As próximas atividades desta aula seguem o novo corte")}
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="pdCut")pdCutSet(+el.dataset.i,el.value)});
+/* corte digitado: a parte termina antes da página digitada; se houver um tópico nessa página, para antes dele */
+function pdCutPg(el){const n=parseInt(el.value,10),lo=+el.dataset.lo,hi=+el.dataset.hi;if(!n)return;if(n<Math.ceil(lo)||n>Math.floor(hi)){toast("Para esta parte, digite uma página de "+Math.ceil(lo)+" a "+Math.floor(hi));el.value="";return}
+  const p=pdf(UI.pdMap),S=p&&p.st;let x=n;if(S){const h=(S.hd||[]).filter(h=>h.p===n&&h.l<3).sort((a,b)=>a.y-b.y)[0];if(h&&psPos(h.p,h.y)>=lo&&psPos(h.p,h.y)<=hi)x=psPos(h.p,h.y)}pdCutSet(+el.dataset.i,x)}
+document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="pdCutPg")pdCutPg(el)});
+document.addEventListener("keydown",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="pdCutPg"&&e.key==="Enter"){e.preventDefault();el.blur()}});
 
 const pdfsOf=sid=>PDFS().filter(p=>p.sid===sid).sort((a,b)=>natcmp(a.name,b.name));
 /* Aula fracionada (Domine TI, Jhoni Zini e outros cursos que dividem uma aula em vários PDFs): cada PDF é uma "parte"
@@ -2986,7 +2994,7 @@ const RD={doc:null,id:"",p:1,a:0,b:0,n:0};
 async function openReader(id,a,b){
   const p=pdf(id);if(!p){toast("Esse material foi removido");return}
   RD.id=id;RD.a=a||1;RD.b=b||p.pages;RD.p=a||1;RD.doc=null;RD.txt={};RD.q="";RD.hits=[];RD.hi=-1;
-  $("layer2").innerHTML=`<div class="reader" role="dialog" aria-modal="true" aria-label="Leitor de PDF"><div class="rd-h"><button class="ibtn" data-a="rdClose" aria-label="Fechar leitor">${ic("close")}</button><div class="ttl">${esc(p.name)}</div><span class="chip lime">Trecho: págs. ${RD.a} a ${RD.b}</span><button class="ibtn" data-a="aulaDl" data-s="${p.sid||""}" data-c="${p.aula||""}" data-id="${p.id}" aria-label="Baixar a aula inteira em PDF" title="Baixar a aula inteira em PDF">${ic("dl")}</button><button class="ibtn" data-a="rdPrev" aria-label="Página anterior">${ic("left")}</button><span class="small" id="rdPg">…</span><button class="ibtn" data-a="rdNext" aria-label="Próxima página">${ic("right")}</button></div><div class="rd-s"><input class="inp" id="rdQ" type="search" placeholder="Pesquisar no PDF (palavra ou trecho) e Enter" aria-label="Pesquisar no PDF" autocomplete="off"><span class="small muted" id="rdQi"></span><button class="ibtn" data-a="rdHit" data-d="-1" aria-label="Resultado anterior">${ic("left")}</button><button class="ibtn" data-a="rdHit" data-d="1" aria-label="Próximo resultado">${ic("right")}</button><span class="rd-mk"><b class="small">Marca-texto</b>${Object.entries(HLC).filter(([k])=>k!=="q").map(([k,[nm,col]])=>`<button class="rd-sw" data-a="rdMk" data-c="${k}" aria-pressed="${UI.rdMk===k}" title="${nm}: selecione o texto para marcar" style="--c:${col}"><i></i><span>${nm}</span></button>`).join("")}<button class="rd-sw" data-a="rdMk" data-c="x" aria-pressed="${UI.rdMk==="x"}" title="Borracha: toque numa marcação para apagar"><i style="background:repeating-linear-gradient(45deg,#ccc 0 3px,#fff 3px 6px)"></i><span>Borracha</span></button><span class="small muted" id="rdMkN"></span></span></div><div class="rd-range" id="rdBar"><i></i></div><div class="rd-b" id="rdBody"><p class="muted">Abrindo o PDF…</p></div></div>`;
+  $("layer2").innerHTML=`<div class="reader" role="dialog" aria-modal="true" aria-label="Leitor de PDF"><div class="rd-h"><button class="ibtn" data-a="rdClose" aria-label="Fechar leitor">${ic("close")}</button><div class="ttl">${esc(p.name)}</div><span class="chip lime">Trecho: págs. ${RD.a} a ${RD.b}</span><button class="ibtn" data-a="aulaDl" data-s="${p.sid||""}" data-c="${p.aula||""}" data-id="${p.id}" aria-label="Baixar a aula inteira em PDF" title="Baixar a aula inteira em PDF">${ic("dl")}</button><button class="ibtn" data-a="rdPrev" aria-label="Página anterior">${ic("left")}</button><label class="rd-pgi" title="Digite a página e tecle Enter">p. <input class="inp" id="rdPgI" type="number" inputmode="numeric" min="1" value="${RD.p||1}" aria-label="Ir para a página"> de <span id="rdPgN">…</span></label><button class="ibtn" data-a="rdNext" aria-label="Próxima página">${ic("right")}</button></div><div class="rd-s"><input class="inp" id="rdQ" type="search" placeholder="Pesquisar no PDF (palavra ou trecho) e Enter" aria-label="Pesquisar no PDF" autocomplete="off"><span class="small muted" id="rdQi"></span><button class="ibtn" data-a="rdHit" data-d="-1" aria-label="Resultado anterior">${ic("left")}</button><button class="ibtn" data-a="rdHit" data-d="1" aria-label="Próximo resultado">${ic("right")}</button><span class="rd-mk"><b class="small">Marca-texto</b>${Object.entries(HLC).filter(([k])=>k!=="q").map(([k,[nm,col]])=>`<button class="rd-sw" data-a="rdMk" data-c="${k}" aria-pressed="${UI.rdMk===k}" title="${nm}: selecione o texto para marcar" style="--c:${col}"><i></i><span>${nm}</span></button>`).join("")}<button class="rd-sw" data-a="rdMk" data-c="x" aria-pressed="${UI.rdMk==="x"}" title="Borracha: toque numa marcação para apagar"><i style="background:repeating-linear-gradient(45deg,#ccc 0 3px,#fff 3px 6px)"></i><span>Borracha</span></button><span class="small muted" id="rdMkN"></span></span></div><div class="rd-range" id="rdBar"><i></i></div><div class="rd-b" id="rdBody"><p class="muted">Abrindo o PDF…</p></div></div>`;
   try{
     const buf=await pdfBytes(p);
     if(!buf){$("rdBody").innerHTML=`<p class="muted">${inCloud(p)?"Não consegui baixar este PDF da sua conta agora. Confira a internet e tente de novo.":"Este PDF foi enviado em outro aparelho e o arquivo ainda não chegou à sua conta. Abra o painel no aparelho onde você enviou (com internet) para concluir o envio, ou envie o arquivo aqui de novo na aba Materiais."}</p>`;return}
@@ -3010,6 +3018,12 @@ document.addEventListener("mouseup",()=>{if(UI.rdMk&&document.querySelector("#rd
 document.addEventListener("touchend",()=>{if(UI.rdMk&&document.querySelector("#rdBody .rd-tl"))setTimeout(rdSelSave,250)});
 document.addEventListener("click",e=>{if(UI.rdMk!=="x")return;const s=e.target.closest&&e.target.closest("#rdBody .rd-tl span[data-h]");if(!s)return;const id=s.dataset.h,L=HLS(RD.id),i=L.findIndex(h=>h.id===id);if(i>=0){L.splice(i,1);touch("hl-"+RD.id);rdPaint();toast("Marcação apagada")}});
 function rdHitInfo(){const i=$("rdQi");if(i)i.textContent=RD.hits.length?(RD.hi+1)+" de "+RD.hits.length+" · p. "+RD.hits[RD.hi]:""}
+function rdGoTo(v){const n=parseInt(v,10),pi=$("rdPgI");if(!RD.doc)return;if(!n||n<1||n>RD.n){toast("Digite uma página de 1 a "+RD.n);if(pi)pi.value=RD.p;return}if(n!==RD.p){RD.p=n;drawPage()}if(pi)pi.blur()}
+document.addEventListener("keydown",e=>{const t=e.target;
+  if(t&&t.id==="rdPgI"){if(e.key==="Enter"){e.preventDefault();rdGoTo(t.value)}else if(e.key==="Escape"){t.value=RD.p;t.blur()}return}
+  if(RD.doc&&$("rdBody")&&(e.key==="ArrowRight"||e.key==="ArrowLeft"||e.key==="PageDown"||e.key==="PageUp")&&!(t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))){e.preventDefault();RD.p+=(e.key==="ArrowRight"||e.key==="PageDown")?1:-1;drawPage()}});
+document.addEventListener("change",e=>{const t=e.target;if(t&&t.id==="rdPgI")rdGoTo(t.value)});
+document.addEventListener("focusin",e=>{const t=e.target;if(t&&t.id==="rdPgI")setTimeout(()=>t.select(),0)});
 document.addEventListener("keydown",e=>{const t=e.target;if(!t||t.id!=="rdQ")return;if(e.key==="Enter"){e.preventDefault();const q=norm(t.value.trim());if(q&&q===RD.q&&RD.hits.length)A.rdHit({dataset:{d:e.shiftKey?-1:1}});else rdSearch(t.value)}else if(e.key==="Escape"){t.value="";rdSearch("")}});
 async function drawPage(){
   if(!RD.doc)return;
@@ -3029,7 +3043,7 @@ async function drawPage(){
       const sp=document.createElement("span");sp.textContent=it.str;sp.dataset.i=i;sp.style.cssText=`left:${tx[4]}px;top:${tx[5]-fh*.88}px;font-size:${fh}px;width:${Math.max(4,(it.width||0)*sc)}px;height:${fh*1.12}px`;tl.appendChild(sp)});
     wrapEl.appendChild(tl)}catch(e){}
   body.innerHTML="";body.appendChild(wrapEl);rdPaint();body.scrollTop=RD.q&&RD.hy!=null?Math.max(0,RD.hy-120):0;
-  $("rdPg").textContent="p. "+RD.p+" de "+RD.n;
+  {const pi=$("rdPgI");if(pi&&document.activeElement!==pi)pi.value=RD.p;if(pi)pi.max=RD.n;const pn=$("rdPgN");if(pn)pn.textContent=RD.n}
   const i=$("rdBar").firstChild;i.style.left=((RD.a-1)/RD.n*100)+"%";i.style.width=((RD.b-RD.a+1)/RD.n*100)+"%";
 }
 
@@ -4767,6 +4781,16 @@ async function srcText(t,max){
 }
 const AUX_BUSY=new Set();
 function auxCtx(t){const s=SUB(t.sid),au=t.aula?auOf(t.sid,t.aula):null,tps=uniq([...taskEdTopics(t),...refTopics(t)]).slice(0,10);return{s,au,tps,head:`Matéria: ${s.n}. ${au?"Aula: "+auLabel(t.sid,t.aula)+" – "+au.d+".":""} Atividade: ${taskTitle(t)}. Assuntos: ${tps.join("; ")||s.n}.`}}
+/* bizu sem IA: o que as questões do PDF cobram destas páginas, a incidência, as marcações do aluno e os assuntos */
+function bizuLocal(t){const M=mentorOf(t),p=t.pdf&&pdf(t.pdf);if(!M)return"";const out=[];
+  const inc=M.att.filter(x=>/^Cai muito/.test(x)),qa=M.att.filter(x=>/\(cobrado /.test(x)),oth=M.att.filter(x=>!/^Cai muito|\(cobrado /.test(x));
+  out.push("## O que cai destas páginas");inc.forEach(x=>out.push("- ATENÇÃO: "+x));
+  const L6=(qa.length?qa:oth).slice(0,6),cnt=x=>{const m=x.match(/em (\d+) questões/);return m?+m[1]:/\(cobrado/.test(x)?1:0},top=new Set(L6.map((x,i)=>[cnt(x),i]).filter(v=>v[0]>1||!qa.length).sort((a,b)=>b[0]-a[0]||a[1]-b[1]).slice(0,inc.length?1:2).map(v=>v[1]));
+  L6.forEach((x,i)=>{const m=x.match(/^p\. (\d+) – (.+?)(?: \((cobrado[^)]*)\))?$/);out.push("- "+(top.has(i)?"ATENÇÃO: ":"")+(m?"**p. "+m[1]+"** – "+m[2]+(m[3]?" ("+m[3]+")":""):x))});
+  if(p){const own=hlIn(p.id,t.pa,t.pb).filter(h=>h.c!=="q");if(own.length){out.push("## Suas marcações");own.slice(0,6).forEach(h=>out.push("- **"+HLC[h.c][0]+"**: "+h.t))}}
+  if(M.top.length){out.push("## Assuntos do trecho");out.push("- "+M.top.slice(0,7).map(x=>String(x).replace(/\s*\(p\. \d+\)/,"")).join(" · "))}
+  return out.length>1?out.join("\n"):""}
+let BZ_WARN=0;
 async function genBizu(t){
   if(AUX_BUSY.has("b"+t.id))return;AUX_BUSY.add("b"+t.id);renderDrawer();
   try{const C=auxCtx(t);let txt="";
@@ -4777,9 +4801,8 @@ Um bizu é um resumo CURTO (no máximo 220 palavras) só com o que mais cai em p
 "## " para títulos (1 a 3 títulos), "- " para itens curtos, **negrito** para as palavras-chave, e comece com "ATENÇÃO:" os 1 ou 2 itens de maior incidência em prova. Se houver uma comparação clássica (ex.: direta x indireta), faça 2 itens lado a lado no formato "X: ... | Y: ...".
 ${mat?"Use SOMENTE o conteúdo do material abaixo (páginas desta atividade). Não invente artigos nem números.\n<material>\n"+mat+"\n</material>":rd&&rd.txt?"Base: o resumo da aula abaixo.\n<resumo>\n"+rd.txt.slice(0,8000)+"\n</resumo>":"Sem PDF: use a letra da lei, citando o artigo."}`;
       const r=await SAMPLE(prompt,{modelTier:"default",onText:({text})=>{const o=$("bzOut");if(o&&UI.openT===t.id)o.innerHTML=mdLite(text)}});txt=(r&&r.text||"").trim()}
-    else{const rd=t.aula?resDoc(t.sid,t.aula):null;txt=rd&&rd.txt?rd.txt.split("\n").slice(0,16).join("\n"):"## Pontos de atenção\n"+C.tps.map(x=>"- "+x).join("\n")}
     if(txt){t.bizu={txt,at:Date.now()};touch("m-"+(findTask(t.id)||{n:0}).n)}
-  }catch(e){toast(e&&e.code==="not_granted"?"Você não permitiu usar a IA; o bizu fica no modo simples.":"Não consegui montar o bizu agora")}
+  }catch(e){if(!BZ_WARN++)toast("A IA ainda não está disponível: o bizu foi montado com as questões do PDF destas páginas.")}
   finally{AUX_BUSY.delete("b"+t.id);if(UI.openT===t.id)renderDrawer()}
 }
 async function genFix(t){
@@ -4864,7 +4887,9 @@ function renderDrawer0(){
         ${G.intro.map((x,j)=>`<p>${j===0?"<b>"+x+"</b>":x}</p>`).join("")}
         ${G.dica?`<div class="dica"><b>${ic("bulb")} Dica de estudo</b><span>${G.dica}</span></div>`:""}
         ${steps}</div></details>
-      <details class="sec" data-k="B" id="avB" open><summary>${ic("bulb")} Bizu</summary><div class="sb">${t.bizu&&t.bizu.txt?`<div class="rsout bizu" id="bzOut">${mdLite(t.bizu.txt)}</div><div class="row">${SAMPLE?`<button class="btn sm ghost" data-a="bzGen" data-id="${t.id}">${ic("reset")} Refazer bizu</button>`:""}</div>`:`<div class="rsout bizu" id="bzOut"><p class="muted">${AUX_BUSY.has("b"+t.id)?'<span class="spin"></span> Escrevendo o bizu…':"Um resumo curto do que mais cai sobre o trecho desta atividade, com os pontos de ATENÇÃO."}</p></div>${AUX_BUSY.has("b"+t.id)?"":`<button class="btn pri" data-a="bzGen" data-id="${t.id}">${ic("bulb")} Montar bizu</button>`}`}</div></details>
+      <details class="sec" data-k="B" id="avB" open><summary>${ic("bulb")} Bizu</summary><div class="sb">${(()=>{const ai=t.bizu&&t.bizu.txt,loc=ai?"":bizuLocal(t),busy=AUX_BUSY.has("b"+t.id);
+        return`<div class="rsout bizu" id="bzOut">${ai?mdLite(t.bizu.txt):loc?mdLite(loc):`<p class="muted">${busy?'<span class="spin"></span> Escrevendo o bizu…':"Abra o PDF desta aula em Materiais para o bizu ser montado com as questões destas páginas."}</p>`}</div>
+        <div class="row">${busy?(ai||loc?'<span class="muted small"><span class="spin"></span> A IA está escrevendo uma versão mais completa…</span>':""):SAMPLE?`<button class="btn sm ${ai?"ghost":""}" data-a="bzGen" data-id="${t.id}">${ic(ai?"reset":"bulb")} ${ai?"Refazer bizu":"Melhorar com a IA"}</button>`:""}${!ai&&loc&&!busy?'<span class="muted small">Montado sem IA: o que as questões do PDF cobram destas páginas, a incidência e as suas marcações.</span>':""}</div>`})()}</div></details>
       <details class="sec" data-k="F" id="avF" open><summary>${ic("brain")} Fixação Ativa</summary><div class="sb">${fixHTML(t)}</div></details>
       ${tform}${qform}
       ${t.ph==="T"&&t.pdf&&pdf(t.pdf)?tkSumHTML(t):""}
