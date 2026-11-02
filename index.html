@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021807"></script>
+<script src="/claude-shim.js?v=202611021813"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1596,6 +1596,33 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 @media (max-width:820px){.tu-wrap{grid-template-columns:1fr}.tu-menu{position:static;flex-direction:row;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}.tu-menu button{flex:none;white-space:nowrap}.tu-main{padding:14px}.tu-hb{grid-template-columns:96px 1fr 34px}}
 @media (prefers-reduced-motion:reduce){.tu-cur{display:none}.tu-scene *{transition:none!important;animation:none!important}}
 
+
+/* ---------- comentário da questão: cartão destacado, fácil de ler ---------- */
+.qzc{margin-top:4px;border:1px solid var(--line);border-left:5px solid var(--lime);border-radius:14px;background:var(--panel);overflow:hidden;animation:qzcIn .45s var(--ease-out)}
+.qzc.bad{border-left-color:var(--bad)}.qzc.ok{border-left-color:var(--ok)}
+@keyframes qzcIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.qzc-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;background:var(--raise);border-bottom:1px solid var(--line)}
+.qzc-h .ico{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--lime);color:var(--lime-ink);flex:none}
+.qzc-h .ico svg{width:16px;height:16px}
+.qzc-h b{font-size:15px}.qzc-h .sp{flex:1}
+.qzc-gab{display:flex;gap:8px;flex-wrap:wrap;padding:10px 14px 0}
+.qzc-gab span{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 11px;font-size:13px;font-weight:700;border:1px solid var(--line)}
+.qzc-gab .g{background:var(--ok-soft);border-color:var(--ok)}.qzc-gab .w{background:var(--bad-soft);border-color:var(--bad)}
+.qzc-b{padding:12px 16px 14px;font-size:15px;line-height:1.7;color:var(--fg);max-height:none}
+.qzc-b p{margin:0 0 10px}.qzc-b p:last-child{margin-bottom:0}
+.qzc-b .alt{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;padding:9px 10px;border-radius:10px;background:var(--sunk);margin:0 0 8px;border:1px solid transparent}
+.qzc-b .alt i{font-style:normal;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-weight:800;background:var(--raise);border:1px solid var(--line2)}
+.qzc-b .alt.g{border-color:var(--ok);background:var(--ok-soft)}.qzc-b .alt.g i{background:var(--ok);color:#fff;border-color:var(--ok)}
+.qzc-b .alt.w{border-color:var(--bad);background:var(--bad-soft)}.qzc-b .alt.w i{background:var(--bad);color:#fff;border-color:var(--bad)}
+.qzc-b .kw-ok{color:var(--ok);font-weight:800}.qzc-b .kw-bad{color:var(--bad);font-weight:800}.qzc-b .kw-at{color:var(--warn);font-weight:800}
+.qzc-b .law{font-weight:700;background:var(--raise);border:1px solid var(--line);border-radius:6px;padding:0 5px;white-space:nowrap}
+.qzc-more{border-top:1px dashed var(--line);margin:0 14px;padding:10px 0 12px}
+.qzc-more summary{cursor:pointer;font-weight:700;color:var(--lime-txt);list-style:none}
+.qzc-more summary::-webkit-details-marker{display:none}
+.qzc-x{margin:0 14px 14px;border-radius:12px;background:var(--sunk);border:1px solid var(--line);padding:12px 14px;font-size:14.5px;line-height:1.65}
+.qzc-x h4{margin:12px 0 4px;font-size:14px;color:var(--lime-txt)}.qzc-x h4:first-child{margin-top:0}
+.qzc-x ul{margin:4px 0;padding-left:20px}.qzc-x li{margin:3px 0}
+.qzc-act{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 14px}
 </style>
 
 <div class="app">
@@ -3476,7 +3503,9 @@ async function aiBgRun(){if(AIBG||!SAMPLE||AI_OFF||!resAIOn())return;AIBG=1;let 
     const R0=resDoc(sid,c);
     if(!(R0&&R0.qai&&R0.qai.txt)&&!(R0&&R0.qaiRej&&R0.qaiRej.sig===X.sig)&&!AIBG_FAIL.has("r"+k)){await qResAI(sid,c,1);const R1=resDoc(sid,c);if(R1&&R1.qai&&R1.qai.txt){made.r++;toast("IA: resumo pronto · "+lab)}else{AIBG_FAIL.add("r"+k);continue}await new Promise(r=>setTimeout(r,1500))}
     if(!CARDS().some(x=>x.sid===sid&&x.aula===c&&x.src==="ia")&&!AIBG_FAIL.has("c"+k)){try{const n=await lessonCards(sid,c);made.c+=n;toast("IA: "+n+" cards criados · "+lab)}catch(e){AIBG_FAIL.add("c"+k)}await new Promise(r=>setTimeout(r,1500))}
-    if(!MM().items.some(x=>x.sid===sid&&x.kind==="ai"&&x.aula===c)&&!AIBG_FAIL.has("m"+k)){try{const S=ED[EDI[sid]],g=await mmGenerate(S,null,"res","",c);mmPut({sid,kind:"ai",tree:g.tree,course:"ia",tp:null,src:"res",aula:c,title:auLabel(sid,c)+" · "+g.tree.t});made.m++;toast("IA: mapa mental pronto · "+lab)}catch(e){AIBG_FAIL.add("m"+k)}await new Promise(r=>setTimeout(r,1500))}
+    const oldMm=MM().items.find(x=>x.sid===sid&&x.kind==="ai"&&x.aula===c&&(x.v||0)<3);
+    if(oldMm&&!AIBG_FAIL.has("u"+k)){try{const S=ED[EDI[sid]],g=await mmGenerate(S,null,oldMm.src||"res","",c);oldMm.tree=g.tree;oldMm.title=auLabel(sid,c)+" · "+g.tree.t;oldMm.v=3;oldMm.ts=Date.now();touch("mm");made.m++;toast("IA: mapa mental refeito com conteúdo e exemplos · "+lab)}catch(e){AIBG_FAIL.add("u"+k)}await new Promise(r=>setTimeout(r,1500))}
+    if(!MM().items.some(x=>x.sid===sid&&x.kind==="ai"&&x.aula===c)&&!AIBG_FAIL.has("m"+k)){try{const S=ED[EDI[sid]],g=await mmGenerate(S,null,"res","",c);mmPut({sid,kind:"ai",tree:g.tree,course:"ia",tp:null,src:"res",aula:c,v:3,title:auLabel(sid,c)+" · "+g.tree.t});made.m++;toast("IA: mapa mental pronto · "+lab)}catch(e){AIBG_FAIL.add("m"+k)}await new Promise(r=>setTimeout(r,1500))}
   }}finally{AIBG=0;if(made.r||made.c||made.m){try{render()}catch(e){}}}}
 
 
@@ -3852,12 +3881,15 @@ Regras:
 - Cada folha é uma frase completa com o conteúdo: a definição, a regra, os requisitos, o prazo, a exceção, a diferença ou a pegadinha, com o artigo quando o material citar. Exemplo de folha boa: "Lei nova não atinge ato jurídico perfeito, direito adquirido e coisa julgada (art. 6º)". Exemplos de folha ruim: "Conceito de vigência", "Ver p. 12", "O PDF trata da aplicação da lei".
 - Quando houver lista (requisitos, espécies, hipóteses), faça um nó com o nome da lista e um filho para cada item, cada um explicado em poucas palavras.
 - Comece com "ATENÇÃO:" as folhas do que mais cai em prova ou do que o aluno errou.
+- Em cada ramo, inclua pelo menos uma folha de exemplo começando com "Ex.:". Use primeiro os exemplos do próprio material (casos, questões comentadas, situações do PDF). Se o material não tiver exemplo para o ramo, use um exemplo de fonte segura (a letra da lei, a doutrina clássica ou a jurisprudência consolidada) e marque assim: "Ex. (fonte externa – CTN, art. 176): …". Nunca invente fonte; se não houver exemplo seguro, deixe sem.
 - Até 4 níveis; cada ramo com até 7 filhos; folhas de até 28 palavras.${extraRule||""}
 Responda só com JSON: {"t":"raiz","c":[{"t":"ramo","c":[{"t":"folha com o conteúdo"}]}]}`;
   const clean=(n,d)=>n&&(n.t||n.text)?{t:String(n.t||n.text).slice(0,220),c:d<3&&Array.isArray(n.c||n.children)?(n.c||n.children).slice(0,9).map(k=>clean(k,d+1)).filter(Boolean):[]}:null;
   const leaves=n=>(n.c||[]).length?(n.c||[]).flatMap(leaves):[n];
   const ask=async r=>{const o=await SAMPLE.json(mk(r),imgs.length?{images:imgs,modelTier:"default"}:{modelTier:"default"});let t=clean(o,0);
-    if(!imgs.length&&t){const prune=n=>({t:n.t,c:(n.c||[]).filter(k=>gOk(k.t,txt)).map(prune)});t=prune(t)}
+    /* exemplos de fonte externa só ficam se citarem a fonte (lei, súmula, doutrina) */
+    const extOk=k=>/^ex\.?\s*\(fonte externa\s*[–-]\s*[^)]{3,}\)/i.test(k.t);
+    if(!imgs.length&&t){const prune=n=>({t:n.t,c:(n.c||[]).filter(k=>extOk(k)||gOk(k.t,txt)).map(prune)});t=prune(t)}
     if(t){const prune2=n=>({t:n.t,c:(n.c||[]).filter(k=>(k.c||[]).length||!mmPointer(k.t)).map(prune2)});t=prune2(t)}return t};
   let t=await ask("");
   /* mapa raso (poucas folhas com conteúdo): tenta de novo pedindo mais conteúdo */
@@ -5353,6 +5385,55 @@ ${txt}
 function rerenderQz(){if(UI.rsQzP)rsQzModal();if(UI.openT)renderDrawer();if(TAB==="materiais"||TAB==="resumos")render()}
 const qzStats=Z=>{const A=Object.values(Z&&Z.ans||{}),ok=A.filter(a=>a.ok).length;return{n:(Z&&Z.L||[]).length,f:A.length,ok,pct:A.length?Math.round(ok/A.length*100):0}};
 function qzNum(q){return q.seq>1?q.seq*1000+q.n:q.n}
+/* comentário da questão: destaca gabarito, alternativas, artigos de lei e palavras de alerta */
+function qzComFmt(txt,key,chosen){/* o PDF quebra a linha no meio da frase: junta tudo e só separa onde começa a análise de uma alternativa */
+  let h=esc(String(txt||"").trim().replace(/\r/g,"").replace(/\n(?=\s*(?:\(?[A-Ea-e]\)\s|Alternativa\s+[A-E]\b|Letra\s+[A-E]\b|Item\s+[IVX]+\b|Gabarito\b))/g,"\u0001").replace(/-\n(?=[a-zà-ú])/g,"").replace(/\s*\n\s*/g," ").replace(/\u0001/g,"\n"));
+  h=h.replace(/\b(art(?:igos?|s?\.)\s*\d+[º°o]?(?:[\s,]*(?:§|par[áa]grafo|inc(?:iso)?\.?|al[íi]nea)\s*[\w\dºª°]+)*(?:\s*(?:d[aeo]s?|,)\s*(?:CF|CTN|CC|CPC|CPP|CP|CLT|LINDB|Lei\s*(?:n[º°.]\s*)?[\d.\/]+))?)/gi,'<span class="law">$1</span>');
+  h=h.replace(/\b(Lei\s*(?:Complementar\s*)?n?[º°.]?\s*\d[\d.]*\/\d{2,4}|Súmula\s*(?:Vinculante\s*)?n?[º°.]?\s*\d+)/g,'<span class="law">$1</span>');
+  h=h.replace(/\b(gabarito|correta|correto|certa|certo|verdadeira)\b/gi,'<span class="kw-ok">$1</span>').replace(/\b(incorreta|incorreto|errada|errado|falsa|falso)\b/gi,'<span class="kw-bad">$1</span>').replace(/\b(atenção|cuidado|pegadinha|exceção|exceções|nunca|sempre|vedad[ao]s?|salvo)\b/gi,'<span class="kw-at">$1</span>');
+  /* quebra em blocos: linhas do PDF, ou análise por alternativa ("a)", "(B)", "Alternativa C", "Letra D") */
+  let parts=h.split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  if(parts.length<=1)parts=h.split(/\s(?=(?:\(?[A-Ea-e]\)\s)|(?:Alternativa\s+[A-E]\b)|(?:Letra\s+[A-E]\b)|(?:Item\s+[IVX]+\b))/);
+  const out=[];let buf=[];const flush=()=>{if(buf.length){out.push("<p>"+buf.join(" ")+"</p>");buf=[]}};
+  for(const pt of parts){const m=pt.match(/^(?:\(?([A-Ea-e])\)|Alternativa\s+([A-E])\b|Letra\s+([A-E])\b)[\s:.\-–]*(.*)$/);
+    if(m){flush();const L=(m[1]||m[2]||m[3]).toUpperCase(),cls=L===key?"g":L===chosen?"w":"";out.push(`<div class="alt ${cls}"><i>${L}</i><span>${m[4]||""}</span></div>`);continue}
+    /* parágrafos de 2 frases para não virar um bloco só */
+    const ss=pt.match(/[^.!?]+(?:[.!?]+|$)/g)||[pt];for(const x of ss){buf.push(x.trim());if(buf.length>=2)flush()}flush()}
+  flush();return out.join("")}
+const QZX_BUSY=new Set();
+async function qzExplain(pid,qid,auto){const p=qzP(pid),Z=qzDoc(pid);if(!p||!Z||!SAMPLE)return;const q=Z.L.find(x=>x.id===qid);if(!q)return;const key=pid+"|"+qid;if(QZX_BUSY.has(key))return;
+  Z.cx=Z.cx||{};if(Z.cx[qid]&&Z.cx[qid].txt)return;QZX_BUSY.add(key);rerenderQz();
+  try{const A=Z.ans[qid]||{},opts=q.ce?[["C","Certo"],["E","Errado"]]:(q.o||[]);let page="";if(q.p){try{page=await pagesText(p,Math.max(1,q.p-1),q.p+1,9000)}catch(e){}}
+    const src=[q.s,opts.map(([k,t])=>k+") "+t).join("\n"),q.c||"",page].join("\n\n");
+    const prompt=`Você é professor de cursinho para concursos (${dsCargo()}, banca ${dsBanca()}). Explique esta questão para o aluno de forma didática e completa, para ele entender de verdade e não errar de novo.
+Use SOMENTE o enunciado, as alternativas, o gabarito, o comentário do professor e o trecho da teoria abaixo. Não invente artigos, prazos, números nem conceitos.
+Formato (texto simples, com "## " nos títulos, "- " nos itens e **negrito** nas palavras-chave):
+## Por que a resposta é ${q.ce?(q.k==="C"?"Certo":"Errado"):"a letra "+q.k}
+(2 a 4 frases com a regra e onde ela está no material)
+${A.a&&!A.ok?`## Por que a ${q.ce?(A.a==="C"?"opção Certo":"opção Errado"):"letra "+A.a} está errada
+(1 a 3 frases mostrando exatamente o erro dessa alternativa)
+`:""}${q.ce?"":`## As outras alternativas
+(um item por alternativa: a letra e por que está certa ou errada, em 1 frase)
+`}## Regra para levar para a prova
+(2 ou 3 itens curtos)
+## Exemplo
+(1 exemplo concreto que aplica a regra. Use um exemplo do próprio material; se o material não tiver, crie um exemplo simples e marque com "(exemplo ilustrativo)", sem citar artigo, número ou fato que não esteja no material)
+<questao>
+${q.s}
+${opts.map(([k,t])=>k+") "+t).join("\n")}
+Gabarito: ${q.k}${A.a?" · Resposta do aluno: "+A.a:""}
+</questao>
+${q.c?`<comentario_do_professor>\n${String(q.c).slice(0,6000)}\n</comentario_do_professor>`:""}
+${page?`<teoria p. ${q.p}>\n${page}\n</teoria>`:""}`;
+    const r=await SAMPLE(prompt,{modelTier:"default"});const t=(r&&r.text||"").trim();
+    if(t&&gOk(t,src)){Z.cx[qid]={txt:t,at:Date.now()};touch("qz-"+p.id)}else if(t&&!auto)toast("A explicação citou algo fora do material; mantive só o comentário do professor")}
+  catch(e){if(!auto)toast("Não consegui montar a explicação agora")}finally{QZX_BUSY.delete(key);rerenderQz()}}
+function qzComHTML(p,q,A,Z){const cx=Z.cx&&Z.cx[q.id],busy=QZX_BUSY.has(p.id+"|"+q.id),lbl=p.ai?"Explicação":"Comentário do professor";if(!q.c&&!cx&&!SAMPLE)return"";
+  const kk=q.ce?(q.k==="C"?"Certo":"Errado"):q.k,ch=A&&A.a?(q.ce?(A.a==="C"?"Certo":"Errado"):A.a):"";
+  return`<section class="qzc ${A.ok?"ok":"bad"}" aria-label="${lbl}"><div class="qzc-h"><span class="ico">${ic("bulb")}</span><b>${lbl}</b><span class="sp"></span>${q.pg||q.p?`<button class="btn sm ghost" data-a="read" data-id="${p.id}" data-pa="${q.pg||q.p}" data-pb="${q.pg||q.p}">${ic("book")} Ver a teoria (p. ${q.pg||q.p})</button>`:""}</div>
+   ${q.k?`<div class="qzc-gab"><span class="g">${ic("check")} Gabarito: ${esc(kk)}</span>${ch&&!A.ok?`<span class="w">${ic("close")} Você marcou: ${esc(ch)}</span>`:""}</div>`:""}
+   ${q.c?`<div class="qzc-b">${qzComFmt(q.c,q.k,A&&!A.ok?A.a:"")}</div>`:`<div class="qzc-b"><p class="muted">O PDF não trouxe comentário para esta questão.</p></div>`}
+   ${cx?`<div class="qzc-x">${mdLite(cx.txt)}</div>`:SAMPLE?`<div class="qzc-act"><button class="btn sm pri" data-a="qzX" data-id="${p.id}" data-q="${q.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Montando a explicação…':ic("bulb")+" Explicar melhor: por que a certa é certa, onde errei e um exemplo"}</button></div>`:""}</section>`}
 function quizHTML(p,ctx,only){const Z=qzDoc(p.id),busy=QZ_BUSY.has(p.id);ctx=ctx||"m";
   /* questões montadas com a leitura antiga: monta de novo para pegar os gabaritos da página "Gabarito" (as respostas ficam) */
   if(Z&&Z.src==="pdf"&&(Z.pv||0)<2&&!busy&&!p.raw&&p.pages&&!QZ_RE.has(p.id)){QZ_RE.add(p.id);setTimeout(()=>buildQuiz(p,true),60)}
@@ -5380,7 +5461,7 @@ function quizHTML(p,ctx,only){const Z=qzDoc(p.id),busy=QZ_BUSY.has(p.id);ctx=ctx
    <div class="qgrid qz-g">${dots}</div>
    <div class="qz-q${fx?" fx "+(A.ok?"good":"bad"):""}${ent&&!fx?" enter":""}"><div class="qz-qh"><span class="code">${only?`Questão ${pos+1} de ${IX.length}`:`Questão ${q.n}${q.seq>1?" · lista "+q.seq:""}`}</span>${q.p?`<button class="btn sm ghost" data-a="read" data-id="${p.id}" data-pa="${q.p}" data-pb="${q.p}">${ic("book")} Ver no PDF (p. ${q.p})</button>`:""}</div>
     <p class="qz-s">${esc(q.s)}</p><div class="qz-os">${ob}</div>${A?"":`<div class="row qz-solve"><button class="btn pri" data-a="qzSolve" data-id="${p.id}" data-q="${q.id}" ${(UI.qzSel||{})[p.id+"|"+q.id]?"":"disabled"}>${ic("check")} Resolver questão</button><span class="muted small">Um clique seleciona a alternativa · dois cliques riscam (eliminam). A resposta só vale ao tocar em Resolver.</span></div>`}
-    ${A?`<div class="qz-r ${A.ok?"ok":"bad"}"><span class="qz-ri" aria-hidden="true">${ic(A.ok?"check":"close")}</span><b>${A.ok?"Acertou!":"Errou."}</b> ${q.k?`Gabarito: <b>${q.ce?(q.k==="C"?"Certo":"Errado"):"Letra "+q.k}</b>${q.kai?` <span class="chip warn" title="O PDF não trouxe o gabarito desta questão">gabarito inferido</span> ${esc(q.kf||"")}`:""}.`:(p.ai?"Sem gabarito.":"O PDF não trouxe o gabarito desta questão.")}${!A.ok?" Ela entrou em Erradas e nas revisões.":""}</div>${q.c?`<details class="qz-c"><summary>${p.ai?"Comentário"+(q.pg?" (p. "+q.pg+" do PDF)":""):"Comentário do professor"}</summary><p>${esc(q.c).replace(/\n/g,"<br>")}</p></details>`:""}`:""}
+    ${A?`<div class="qz-r ${A.ok?"ok":"bad"}"><span class="qz-ri" aria-hidden="true">${ic(A.ok?"check":"close")}</span><b>${A.ok?"Acertou!":"Errou."}</b> ${q.k?`Gabarito: <b>${q.ce?(q.k==="C"?"Certo":"Errado"):"Letra "+q.k}</b>${q.kai?` <span class="chip warn" title="O PDF não trouxe o gabarito desta questão">gabarito inferido</span> ${esc(q.kf||"")}`:""}.`:(p.ai?"Sem gabarito.":"O PDF não trouxe o gabarito desta questão.")}${!A.ok?" Ela entrou em Erradas e nas revisões.":""}</div>${qzComHTML(p,q,A,Z)}`:""}
     ${A&&!q.k?`<div class="row"><button class="btn sm" data-a="qzSelf" data-id="${p.id}" data-q="${q.id}" data-v="1">Acertei</button><button class="btn sm" data-a="qzSelf" data-id="${p.id}" data-q="${q.id}" data-v="0">Errei</button></div>`:""}
     <div class="row" style="justify-content:space-between"><button class="btn sm ghost" data-a="qzGo" data-id="${p.id}" data-i="${pos-1}" ${nav} ${pos?"":"disabled"}>← Anterior</button>${A?`<button class="btn sm ghost" data-a="qzUndo" data-id="${p.id}" data-q="${q.id}">Responder de novo</button>`:""}<button class="btn sm ${A?"pri":"ghost"}" data-a="qzGo" data-id="${p.id}" data-i="${pos+1}" ${nav} ${pos<IX.length-1?"":"disabled"}>${A?"Próxima →":"Pular →"}</button></div></div></div>`}
 function qzMark(p,q,ok){const Z=qzDoc(p.id);if(!Z)return;if(p.ai){if(!ok)addMiss(p.id+":"+q.n,p.name+" · questão "+q.n+(q.as?" ("+q.as+")":"")+(q.pg?" · ver p. "+q.pg+" do PDF":""),p.sid);return}const n=qzNum(q);p.qs=p.qs||[];let e=p.qs.find(x=>x.n===n);
@@ -8322,7 +8403,8 @@ Object.assign(A,{
   /* a resposta só conta aqui: resolve com a alternativa selecionada */
   qzSolve(el){const key=el.dataset.id+"|"+el.dataset.q,k=(UI.qzSel||{})[key];if(!k){toast("Selecione uma alternativa primeiro");return}
     delete UI.qzSel[key];UI.qzFx={q:el.dataset.q,t:Date.now()};UI.qzKeep=el.dataset.q;A.qzAns({dataset:{id:el.dataset.id,q:el.dataset.q,k}});
-    const Z=qzDoc(el.dataset.id),a=Z&&Z.ans[el.dataset.q];if(a)fxVib(a.ok?[18]:[35,45,35])},
+    const Z=qzDoc(el.dataset.id),a=Z&&Z.ans[el.dataset.q];if(a)fxVib(a.ok?[18]:[35,45,35]);if(a&&!a.ok&&SAMPLE&&resAIOn())setTimeout(()=>qzExplain(el.dataset.id,el.dataset.q,1),300)},
+  qzX(el){qzExplain(el.dataset.id,el.dataset.q,0)},
   qzAns(el){const p=qzP(el.dataset.id),Z=qzDoc(el.dataset.id);if(!p||!Z)return;const q=Z.L.find(x=>x.id===el.dataset.q);if(!q||Z.ans[q.id])return;const k=el.dataset.k;
     if(!q.k||q.k==="X"){Z.ans[q.id]={a:k,ok:q.k==="X",d:today(),self:1};if(q.k==="X")qzMark(p,q,true)}else{const ok=k===q.k;Z.ans[q.id]={a:k,ok,d:today()};qzMark(p,q,ok)}
     touch("qz-"+p.id);rerenderQz();mapQ(p,q)},
@@ -8404,7 +8486,7 @@ Object.assign(A,{
   mmPdf(el){const x=MM().items.find(m=>m.id===el.dataset.id);if(x)mmPdfDl(x)},
   async mmRedo(el){const x=MM().items.find(m=>m.id===el.dataset.id);if(!x||UI.mmBusy)return;if(!SAMPLE){toast("A IA não está disponível agora");return}const S=ED[EDI[x.sid]];if(!S)return;
     UI.mmBusy=1;mmViewer(x);toast("Lendo o material de novo e montando o mapa com o conteúdo…");
-    try{const g=x.aula?await mmGenerate(S,null,x.src||"res","",x.aula):await mmGenerate(S,x.tp,x.src||"ambos","",null);x.tree=g.tree;x.title=(x.aula?auLabel(x.sid,x.aula)+" · ":"")+g.tree.t;x.v=2;x.ts=Date.now();touch("mm");UI.mmBusy=0;render();mmViewer(x);toast("Mapa refeito com o conteúdo do material")}
+    try{const g=x.aula?await mmGenerate(S,null,x.src||"res","",x.aula):await mmGenerate(S,x.tp,x.src||"ambos","",null);x.tree=g.tree;x.title=(x.aula?auLabel(x.sid,x.aula)+" · ":"")+g.tree.t;x.v=3;x.ts=Date.now();touch("mm");UI.mmBusy=0;render();mmViewer(x);toast("Mapa refeito com o conteúdo do material")}
     catch(e){UI.mmBusy=0;mmViewer(x);toast(e&&e.code==="vazio"?"Não há material para este mapa":"Não consegui refazer o mapa agora. Tente de novo.")}},
   async mmPdfAll(el){const sid=el.dataset.s,L=MM().items.filter(m=>m.sid===sid&&m.kind==="ai");if(!L.length){toast("Esta matéria ainda não tem mapas da IA");return}
     try{toast("Montando o PDF com "+L.length+" mapa"+(L.length>1?"s":"")+"…");if(!window.PDFLib)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js");const {PDFDocument}=PDFLib,out=await PDFDocument.create();
@@ -8415,7 +8497,7 @@ Object.assign(A,{
   async mmGen(){if(UI.mmBusy)return;const S=ED[EDI[UI.mmSid]],v=($("mmTp")||{}).value,tp=v===""?null:+v,txt=(($("mmTx")||{}).value||"").trim(),src=UI.mmSrc||"ambos";UI.mmTp=v;
     UI.mmBusy=1;const b=document.querySelector('[data-a="mmGen"]');if(b){b.disabled=true;b.textContent="Lendo o material e montando…"}
     const wantPdf=!!($("mmPdfToo")||{}).checked;if(!!core().mmPdf!==wantPdf){core().mmPdf=wantPdf;touch("core")}
-    try{const r=await mmGenerate(S,tp,src,txt),x=mmPut({kind:"ai",tree:r.tree,course:"ia",tp,src,title:r.tree.t});UI.mmBusy=0;UI.mmC="ia";render();mmViewer(x);if(wantPdf)mmPdfDl(x);
+    try{const r=await mmGenerate(S,tp,src,txt),x=mmPut({kind:"ai",tree:r.tree,course:"ia",tp,src,v:3,title:r.tree.t});UI.mmBusy=0;UI.mmC="ia";render();mmViewer(x);if(wantPdf)mmPdfDl(x);
       toast("Mapa montado com "+[src!=="esq"?r.nR+" resumo"+(r.nR===1?"":"s"):"",src!=="res"?r.nE+" esquema"+(r.nE===1?"":"s"):"",txt?"o texto colado":""].filter(Boolean).join(" e "))}
     catch(e){UI.mmBusy=0;if($("layer3").innerHTML)mmAIModal();toast(e&&e.code==="vazio"?"Não há material nessa base. Escolha outra opção ou cole um texto.":"Não consegui montar o mapa agora. Tente de novo.")}}
 });
