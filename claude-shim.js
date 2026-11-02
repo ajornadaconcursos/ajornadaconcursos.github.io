@@ -128,7 +128,10 @@
       headers: { Authorization: "Bearer " + TOKEN, apikey: SB_KEY, "content-type": "application/json" },
       body: JSON.stringify({ messages, system: opts.system, tier: opts.modelTier || "default", stream, max_tokens: opts.maxTokens })
     });
-    if (!r.ok) { let m = ""; try { m = await r.text(); } catch (e) { } throw mkErr(httpCode(r.status), m || ("IA indisponível (" + r.status + ")")); }
+    if (!r.ok) { let m = ""; try { m = await r.text(); } catch (e) { }
+      /* IA ainda não configurada (sem a chave) ou teste encerrado: avisa o painel para seguir no modo sem IA */
+      if ((r.status === 500 && /ANTHROPIC_API_KEY/.test(m)) || r.status === 403) { try { window.dispatchEvent(new CustomEvent("jx-ai-off", { detail: { status: r.status } })) } catch (e) { } }
+      throw mkErr(httpCode(r.status), m || ("IA indisponível (" + r.status + ")")); }
     let text = "", stop = "";
     if (stream) {
       const rd = r.body.getReader(), dec = new TextDecoder(); let buf = "";

@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611020914"></script>
+<script src="/claude-shim.js?v=202611020943"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -776,6 +776,19 @@ table.tb{width:100%;border-collapse:collapse;font-size:14px}
 .av-rail button{width:40px;height:40px;border-radius:10px;border:1px solid transparent;background:none;color:var(--mute);display:grid;place-items:center}
 .av-rail button:hover{background:var(--lime-soft);color:var(--lime-txt)}
 .av-main{overflow:auto;padding:20px 24px 32px;display:grid;gap:14px;align-content:start;scroll-padding-top:12px}
+.av-body.av-simple{grid-template-columns:minmax(0,1fr)}.av-simple .av-main{max-width:860px;width:100%;margin:0 auto;padding-top:14px}
+.tst{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;position:sticky;top:-14px;z-index:3;padding:20px 0 10px;margin-top:-14px;background:linear-gradient(var(--panel),var(--panel)),var(--bg)}
+.tst-b{display:flex;align-items:center;gap:10px;text-align:left;padding:10px 12px;border-radius:12px;border:1.5px solid var(--line);background:linear-gradient(var(--raise),var(--raise)),var(--panel);color:var(--fg2);font:inherit;cursor:pointer;transition:border-color .18s,background-color .18s,color .18s;min-width:0}
+.tst-b i{flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;background:var(--line);color:var(--fg)}
+.tst-b span{display:grid;min-width:0}.tst-b b{font-size:14px;color:var(--fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tst-b small{font-size:12px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tst-b:hover{border-color:var(--lime)}.tst-b.on{border-color:var(--lime);background:linear-gradient(var(--lime-soft),var(--lime-soft)),var(--panel)}.tst-b.on i{background:var(--lime);color:#fff}
+.tsb{display:grid;gap:10px;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--raise)}
+.tsb h3{margin:0;font-size:19px}.tsb h4{margin:0;font-size:15px}.tsl{margin:0;padding-left:20px;display:grid;gap:4px}
+.tsb-read{border-color:color-mix(in srgb,var(--lime) 45%,var(--line))}.btn.lg{padding:12px 20px;font-size:15px}
+.tst-tip{margin:0;padding:10px 14px;border-radius:12px;background:var(--lime-soft);color:var(--fg);font-size:13.5px}
+.tsx>summary{cursor:pointer;font-weight:600;color:var(--fg2)}.tsx[open]>summary{margin-bottom:8px}
+.tst-nav{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:4px}
+@media (max-width:760px){.tst{top:-14px}.tst-b{flex-direction:column;align-items:flex-start;gap:4px;padding:8px}.tst-b small{display:none}.tst-b i{width:24px;height:24px}}
 .sec{border:1px solid var(--line);border-radius:var(--r-m);background:var(--panel)}
 .sec>summary{list-style:none;display:flex;align-items:center;gap:10px;padding:13px 16px;cursor:pointer;font-weight:600;background:var(--raise);border-radius:var(--r-m)}
 .sec[open]>summary{border-bottom:1px solid var(--line);border-radius:var(--r-m) var(--r-m) 0 0}
@@ -1700,6 +1713,8 @@ const curMeta=()=>core().metas.find(m=>m.n===core().cur);
 const lvl=i=>core().cfg.lvl[ED[i].id]||"Intermediário";
 
 const dirty=new Set();let saveT=0,DB=null,UID=null,BASE="",ASSETS=null,SAMPLE=null;const writing=new Set();
+/* sem a chave da IA (ou teste encerrado): desliga a IA nesta sessão e tudo segue no modo automático, sem erros repetidos */
+let AI_OFF=0;window.addEventListener("jx-ai-off",()=>{if(AI_OFF)return;AI_OFF=1;SAMPLE=null;setTimeout(()=>{toast("A IA ainda não está ativa: o painel segue no modo automático, com as questões do PDF.");try{render();if(UI.openT)renderDrawer()}catch(e){}},400)});
 function touch(k){if(k==="m-0")k="ref";try{undoRec(k)}catch(e){}dirty.add(k);dirty.add("core");core().upd=Date.now();clearTimeout(saveT);saveT=setTimeout(flush,650)}
 function saveLocal(){try{localStorage.setItem(LSK,JSON.stringify(D));return true}catch(e){return false}}
 /* Sincronização entre aparelhos (computador, celular, tablet): cada parte dos dados (meta, PDF, revisões…) tem sua
@@ -1794,7 +1809,7 @@ async function pullImport(){if(!DB)return;try{const sn=await DB.doc(BASE+"imp").
     await syncPlans();await syncRot();
     await pull(true);
     window.claude.use("assets").then(a=>{ASSETS=a;uploadPending().then(()=>setTimeout(ppMigrate,4000))}).catch(()=>{});
-    window.claude.use("sample").then(x=>{SAMPLE=IS_TJ||!x?x:(()=>{/* o namespace do sample é congelado: um Proxy que troca "json" quebra (TypeError). Usa um embrulho simples. */
+    window.claude.use("sample").then(x=>{if(AI_OFF)return;SAMPLE=IS_TJ||!x?x:(()=>{/* o namespace do sample é congelado: um Proxy que troca "json" quebra (TypeError). Usa um embrulho simples. */
       const bp=p=>typeof p==="string"?brand(p):Array.isArray(p)?p.map(m=>m&&typeof m.content==="string"?Object.assign({},m,{content:brand(m.content)}):m):p;
       const f=(p,o)=>x(bp(p),o);f.json=(p,o)=>x.json(bp(p),o);if(typeof x.limits==="function")f.limits=(...a)=>x.limits(...a);return f})();if(UI.openT)renderDrawer()}).catch(()=>{});
     importInbox();
@@ -4782,13 +4797,13 @@ async function srcText(t,max){
 const AUX_BUSY=new Set();
 function auxCtx(t){const s=SUB(t.sid),au=t.aula?auOf(t.sid,t.aula):null,tps=uniq([...taskEdTopics(t),...refTopics(t)]).slice(0,10);return{s,au,tps,head:`Matéria: ${s.n}. ${au?"Aula: "+auLabel(t.sid,t.aula)+" – "+au.d+".":""} Atividade: ${taskTitle(t)}. Assuntos: ${tps.join("; ")||s.n}.`}}
 /* bizu sem IA: o que as questões do PDF cobram destas páginas, a incidência, as marcações do aluno e os assuntos */
-function bizuLocal(t){const M=mentorOf(t),p=t.pdf&&pdf(t.pdf);if(!M)return"";const out=[];
+function bizuLocal(t,noTop){const M=mentorOf(t),p=t.pdf&&pdf(t.pdf);if(!M)return"";const out=[];
   const inc=M.att.filter(x=>/^Cai muito/.test(x)),qa=M.att.filter(x=>/\(cobrado /.test(x)),oth=M.att.filter(x=>!/^Cai muito|\(cobrado /.test(x));
   out.push("## O que cai destas páginas");inc.forEach(x=>out.push("- ATENÇÃO: "+x));
   const L6=(qa.length?qa:oth).slice(0,6),cnt=x=>{const m=x.match(/em (\d+) questões/);return m?+m[1]:/\(cobrado/.test(x)?1:0},top=new Set(L6.map((x,i)=>[cnt(x),i]).filter(v=>v[0]>1||!qa.length).sort((a,b)=>b[0]-a[0]||a[1]-b[1]).slice(0,inc.length?1:2).map(v=>v[1]));
   L6.forEach((x,i)=>{const m=x.match(/^p\. (\d+) – (.+?)(?: \((cobrado[^)]*)\))?$/);out.push("- "+(top.has(i)?"ATENÇÃO: ":"")+(m?"**p. "+m[1]+"** – "+m[2]+(m[3]?" ("+m[3]+")":""):x))});
   if(p){const own=hlIn(p.id,t.pa,t.pb).filter(h=>h.c!=="q");if(own.length){out.push("## Suas marcações");own.slice(0,6).forEach(h=>out.push("- **"+HLC[h.c][0]+"**: "+h.t))}}
-  if(M.top.length){out.push("## Assuntos do trecho");out.push("- "+M.top.slice(0,7).map(x=>String(x).replace(/\s*\(p\. \d+\)/,"")).join(" · "))}
+  if(!noTop&&M.top.length){out.push("## Assuntos do trecho");out.push("- "+M.top.slice(0,7).map(x=>String(x).replace(/\s*\(p\. \d+\)/,"")).join(" · "))}
   return out.length>1?out.join("\n"):""}
 let BZ_WARN=0;
 async function genBizu(t){
@@ -4837,6 +4852,31 @@ function renderDrawer(){try{const r=renderDrawer0();brandDom($("layer"));return 
     <div class="av-main" style="padding:18px"><h3 style="margin:0 0 8px">${esc(I.lab)}${I.d?" · "+esc(I.d):""}</h3>${I.pg?`<p class="rdline"><b>${esc(I.pg)}</b></p>`:""}<p class="muted small">Não consegui montar a tela completa desta atividade (${esc(String(e&&e.message||e))}). Os dados dela estão salvos.</p></div>
     <footer class="av-f"><div class="finb"><button class="btn fin" data-a="${t.ph==="Q"?"finQ":t.open?"finT":"fin"}" data-id="${t.id}">${ic("check")} Finalizar</button></div></footer></section></div>`;
   console.error(e)}}
+/* Tarefa de teoria em 3 passos, um de cada vez: 1 Ler · 2 O que cai aqui · 3 Questões */
+function tSteps(t,p,pa,pb,G,mat,tform){const st=((UI.tStep||{})[t.id])||1,M=mentorOf(t)||{top:[],att:[]},X=pdfQsFor(t)||{L:[]},Z=qzDoc(p.id);
+  const nq=X.L.length,nf=Z?X.L.filter(x=>Z.ans[x.q.id]).length:0,cs=CARDS().filter(c=>c.tid===t.id).length;
+  const tab=(k,lab,sub)=>`<button class="tst-b ${st===k?"on":""}" data-a="tStep" data-s="${k}" aria-current="${st===k?"step":"false"}"><i>${k}</i><span><b>${lab}</b><small>${sub}</small></span></button>`;
+  const head=`<nav class="tst" aria-label="Passos da atividade">${tab(1,"Ler","págs. "+pa+" a "+pb)}${tab(2,"O que cai aqui","resumo e cards")}${tab(3,"Questões",X.wait?"separando…":nq?nf+" de "+nq+" feitas":"sem questões")}</nav>`;
+  const nav=(b,f)=>`<div class="tst-nav">${b?`<button class="btn ghost" data-a="tStep" data-s="${st-1}">← ${b}</button>`:"<span></span>"}${f?`<button class="btn pri" data-a="tStep" data-s="${st+1}">${f} →</button>`:`<span class="muted small">Terminou? Toque em <b>Finalizar</b>, aqui embaixo.</span>`}</div>`;
+  let body="";
+  if(st===1){const n=hlIn(p.id,pa,pb).filter(h=>h.c!=="q").length;
+    body=`<section class="tsb tsb-read"><h3>Leia as páginas ${pa} a ${pb}</h3><p class="muted" style="margin:0">${esc(rdStop(t))}${t.min?" · cerca de "+fmtM(t.min):""}</p>
+      <div class="row"><button class="btn pri lg" data-a="read" data-id="${p.id}" data-pa="${pa}" data-pb="${pb}">${ic("book")} Abrir as páginas</button></div>
+      <p class="small muted" style="margin:0">${ic("bulb")} No leitor, use o <b>marca-texto</b> no que achar importante${n?` (você já marcou ${n})`:""}. As marcações aparecem no passo 2.</p></section>
+      ${M.top.length?`<section class="tsb"><h4>Assuntos destas páginas</h4><ul class="tsl">${M.top.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></section>`:""}
+      ${G.dica?`<p class="tst-tip">${ic("bulb")} ${G.dica}</p>`:""}
+      <details class="tsb tsx"><summary>Mais opções do material</summary>${platBox(t)}${mat}</details>`+nav("","Ver o que cai aqui")}
+  else if(st===2){const ai=t.bizu&&t.bizu.txt,loc=ai?"":bizuLocal(t,1),busy=AUX_BUSY.has("b"+t.id);
+    body=`<section class="tsb"><p class="muted small" style="margin:0">O que as questões do PDF cobram destas páginas${ai?", explicado pela IA":""}. Revise antes de ir para as questões.</p>
+      <div class="rsout bizu" id="bzOut">${ai?mdLite(t.bizu.txt):loc?mdLite(loc):`<p class="muted">${busy?'<span class="spin"></span> Escrevendo…':X.wait?'<span class="spin"></span> Lendo as questões do PDF…':"Ainda não há pontos para estas páginas."}</p>`}</div>
+      <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn sm" data-a="tkPdf" data-id="${t.id}">${ic("dl")} Baixar em PDF</button><button class="btn sm ghost" data-a="tkPages" data-id="${t.id}">${ic("dl")} Baixar só as págs. ${pa}–${pb}</button>${SAMPLE&&!busy?`<button class="btn sm ghost" data-a="bzGen" data-id="${t.id}">${ic(ai?"reset":"bulb")} ${ai?"Refazer com a IA":"Melhorar com a IA"}</button>`:""}${busy&&(ai||loc)?'<span class="muted small"><span class="spin"></span> A IA está escrevendo…</span>':""}</div></section>
+      <section class="tsb"><h4>Fixe com cards</h4><p class="muted small" style="margin:0">${cs?`Esta atividade tem ${cs} card${cs>1?"s":""}. Eles voltam nas revisões de 1, 7, 14, 30 e 60 dias.`:"Transforme os pontos acima e as suas marcações em cards: eles voltam nas revisões de 1, 7, 14, 30 e 60 dias."}</p>
+        <div class="row"><button class="btn sm" data-a="tkCards" data-id="${t.id}">${ic("brain")} ${cs?"Criar mais cards":"Criar cards destas páginas"}</button></div>
+        ${SAMPLE?`<details class="tsx"><summary>Treino rápido de Certo ou Errado</summary>${fixHTML(t)}</details>`:""}</section>
+      ${cs?cardsSec(t,()=>"").replace('id="avK" open','id="avK"').replace("Cards de revisão","Ver e editar os cards"):""}`+nav("Ler","Ir para as questões")}
+  else{body=`<section class="tsb" id="avPq">${X.wait?`<p class="muted" style="margin:0"><span class="spin"></span> Separando, entre todas as questões do PDF, as que cobram estas páginas…</p>`:nq?quizHTML(p,"t"+t.id,X.L.map(x=>x.i)):`<p class="muted" style="margin:0">Nenhuma questão do PDF cobra estas páginas. As demais ficam para a fase de questões da aula.</p>`}</section>
+      ${t.done&&t.aula&&!t.ref?`<details class="tsb tsx" id="avG"><summary>Mais questões das páginas que você estudou</summary>${qaiHTML(auTask(t.sid,t.aula))}</details>`:""}`+nav("O que cai aqui","")}
+  return`<div class="av-body av-simple"><div class="av-main">${head}${tform}${body}</div></div>`}
 function renderDrawer0(){
   const f=findTask(UI.openT);if(!f){UI.openT=null;$("layer").innerHTML="";return}
   const {t,n}=f,s=SUB(t.sid),ts=tasksOf(n),lk=phaseLocks(ts)[t.id],isCur=n===core().cur||!!t.ref,i=ts.indexOf(t),G=guide(t);
@@ -4844,7 +4884,7 @@ function renderDrawer0(){
   const keepOpen={};document.querySelectorAll(".av details[id]").forEach(d=>{keepOpen[d.id]=d.open});const op=(id,def)=>(id in keepOpen?keepOpen[id]:def)?"open":"";
   const steps=G.steps.map(x=>`<div><span class="hl">${x.h}</span>${x.items&&x.items.length?`<ul>${x.items.map(z=>`<li>${z}</li>`).join("")}</ul>`:""}</div>`).join("");
   const ap=t.aula?pdfOfAula(t.sid,t.aula):null,p=t.pdf?pdf(t.pdf):ap?ap:t.rpdf?pdf(t.rpdf):null,pa=t.pdf&&t.pa?t.pa:(p&&t.ph==='T'&&t.pa?t.pa:t.rpa||1),pb=t.pdf&&t.pb?t.pb:(p&&t.ph==='T'&&t.pb?t.pb:t.rpb||(p?p.pages:1));
-  const qz=t.quiz?PDFS().find(x=>x.sid===t.sid&&x.aula===t.quiz):null;
+  const qz=t.quiz?PDFS().find(x=>x.sid===t.sid&&x.aula===t.quiz):null,SIMPLE=t.ph==="T"&&!t.xo&&!t.ref&&!!(t.pdf&&pdf(t.pdf)&&t.pa);
   const mat=`${p?`<div class="mat"><div class="pdfic">PDF</div><div style="min-width:0"><b>${esc(p.name)}</b><div class="muted small">${t.pdf?"Trecho desta atividade":"Material de referência"}: págs. ${pa} a ${pb} de ${p.pages}</div></div></div><div class="row"><button class="btn pri" data-a="read" data-id="${p.id}" data-pa="${pa}" data-pb="${pb}">${ic("book")} Abrir páginas ${pa} a ${pb}</button><button class="btn" data-a="read" data-id="${p.id}" data-pa="1" data-pb="${p.pages}">${t.aula&&partsOf(t.sid,t.aula).length>1?"Parte "+(p.part||1)+" completa":"PDF completo"}</button><button class="btn" data-a="aulaDl" data-s="${t.sid}" data-c="${t.aula&&!String(t.aula).startsWith("x:")?t.aula:""}" data-id="${p.id}">${ic("dl")} Baixar a aula inteira</button></div>`:t.aula?`<p class="muted small" style="margin:0">Com o PDF desta aula no painel, as páginas exatas da atividade abrem aqui e a teoria é cortada por assunto.</p>`:""}
     ${t.quiz?(qz?`<div class="row"><button class="btn" data-a="read" data-id="${qz.id}" data-pa="1" data-pb="${qz.pages}">${ic("book")} Abrir o Quiz ${esc(t.quiz)}</button></div>`:`<p class="muted small" style="margin:0">Envie o PDF do Quiz Estratégico da Aula ${esc(t.quiz)} em Materiais para abri-lo aqui.</p>`):""}
     ${t.ph==="M"&&t.aula&&!String(t.aula).startsWith("x:")?(()=>{const xs=secSources(t.sid,t.aula,useMap);if(!xs.length)return"";return`<div class="tecb"><div class="tecb-h">${ic("list")} <b>Questões comentadas do outro olhar</b><span class="muted small">Extra desta atividade, sem aumentar a meta</span></div>${xs.map(x=>`<div class="row" style="align-items:center"><span style="flex:1 1 220px"><b>${esc(cName(x.a.course))} · Aula ${esc(x.a.c)}</b>${x.p.qc?` – págs. ${x.p.qc} a ${x.p.pages}`:""}</span><button class="btn sm" data-a="read" data-id="${x.p.id}" data-pa="${x.p.qc||1}" data-pb="${x.p.pages}">${ic("book")} Abrir questões</button></div>`).join("")}</div>`})():""}
@@ -4878,8 +4918,8 @@ function renderDrawer0(){
     <header class="av-h"><div class="crumb"><span class="ph ${t.ph}">${PHN[t.ph]}</span><b>${esc(s.n)}</b><span class="sep"></span><span class="tt" title="${esc(taskTitle(t))}">${esc(readInfo(t).lab||taskTitle(t))}${readInfo(t).d?" · "+esc(readInfo(t).d):""}</span></div>
       <div class="tools"><div class="atimer ${run?"run":""}" title="Tempo de estudo desta atividade">${ic("clock")}<b id="avClock">${hms(tsec.tot)}</b>${canTime?`<button class="ibtn" data-a="avPlay" data-id="${t.id}" aria-label="${run?"Pausar":"Iniciar"} o cronômetro desta atividade">${ic(run?"pause":"play")}</button><button class="ibtn" data-a="avReset" data-id="${t.id}" aria-label="Descartar a sessão atual" ${TM.tid===t.id&&elapsed()>0?"":"disabled"}>${ic("reset")}</button>`:""}</div>
       <button class="ibtn" data-a="openT" data-id="${prev?prev.id:""}" ${prev?"":"disabled"} aria-label="Atividade anterior">${ic("left")}</button><button class="ibtn" data-a="openT" data-id="${next?next.id:""}" ${next?"":"disabled"} aria-label="Próxima atividade">${ic("right")}</button><button class="ibtn" data-a="closeT" data-x="1" aria-label="Fechar">${ic("close")}</button></div></header>
-    ${(()=>{const I=readInfo(t);return I.pg?`<div class="rdbar">${ic("book")}<b>${t.ph==="T"&&t.pa?"Ler: ":""}${esc(I.pg)}</b><span class="muted small">${t.ph==="T"&&t.pa?rdStop(t):""}${t.min?" · previsto "+fmtM(t.min):""}</span></div>`:""})()}
-    <div class="av-body"><nav class="av-rail" aria-label="Seções da atividade">${[["A","list","Assuntos abordados"],["M","book","Material"],["C","target","Comando"],["B","bulb","Bizu"],["F","brain","Fixação Ativa"]].map(([k,i2,l])=>`<button data-a="avTab" data-k="${k}" title="${l}" aria-label="${l}" aria-pressed="${(["A","M","C","B","F"].includes(UI.avTab)?UI.avTab:"C")===k}">${ic(i2)}<span>${l}</span></button>`).join("")}</nav>
+    ${SIMPLE?"":(()=>{const I=readInfo(t);return I.pg?`<div class="rdbar">${ic("book")}<b>${t.ph==="T"&&t.pa?"Ler: ":""}${esc(I.pg)}</b><span class="muted small">${t.ph==="T"&&t.pa?rdStop(t):""}${t.min?" · previsto "+fmtM(t.min):""}</span></div>`:""})()}
+    ${SIMPLE?tSteps(t,p,pa,pb,G,mat,tform):`<div class="av-body"><nav class="av-rail" aria-label="Seções da atividade">${[["A","list","Assuntos abordados"],["M","book","Material"],["C","target","Comando"],["B","bulb","Bizu"],["F","brain","Fixação Ativa"]].map(([k,i2,l])=>`<button data-a="avTab" data-k="${k}" title="${l}" aria-label="${l}" aria-pressed="${(["A","M","C","B","F"].includes(UI.avTab)?UI.avTab:"C")===k}">${ic(i2)}<span>${l}</span></button>`).join("")}</nav>
     <div class="av-main" data-tab="${["A","M","C","B","F"].includes(UI.avTab)?UI.avTab:"C"}">
       <details class="sec" data-k="A" id="avA" open><summary>${ic("list")} Assuntos abordados <span class="n">${G.topics.length||1}</span></summary><div class="sb"><ul style="margin:0">${(G.topics.length?G.topics:[s.n]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></details>
       <details class="sec" data-k="M" id="avM" open><summary>${ic("book")} Material</summary><div class="sb">${platBox(t)}${mat}</div></details>
@@ -4906,7 +4946,7 @@ function renderDrawer0(){
         ${tqForm(t.sid,t.id,taskEdTopics(t),"dq")}</div></details>`:""}
       ${t.ref?`<details class="sec" data-k="A" id="avG" open><summary>${ic("target")} Sobre este reforço ${grauBars(t.grau)}</summary><div class="sb"><p class="muted small" style="margin:0">${t.pct!=null?`Criado em ${dm(t.created)} porque você acertou ${t.pct}% das questões${t.from?" de “"+esc(t.from)+"”":""} (abaixo de 75%).`:t.gj?`Reforço do seu planejamento no Guruja${t.grau?" (grau: "+GRAU[t.grau]+")":""}, sincronizado em ${dm(t.created)}: questões para fixar um assunto em que você teve dificuldade.`:`Reforço criado em ${dm(t.created)}.`} Prazo: ${dm(t.due)} (${refLeft(t)>=0?"faltam "+dias(refLeft(t)):"atrasado "+dias(-refLeft(t))}). Se ficar abaixo de 75% de novo, nasce outro reforço.</p></div></details>`:""}
       ${t.ref?"":cardsSec(t,op)}
-    </div></div>
+    </div></div>`}
     <footer class="av-f"><div class="meta">#${t.k} · Código: <b>${tcode(t)}</b> · Status: ${status}</div>
       ${t.done&&UI.finAsk!==t.id?`<div class="tin"><span class="lb">${ic("clock")} Tempo registrado: <b>${fmtM(Math.round(tsec.logged/60))}</b></span><button class="lnk" data-a="edOpen" data-id="${t.id}">Corrigir o tempo</button></div>`:""}
       ${UI.finAsk===t.id&&(isCur||t.done)?`<div class="tin" role="group" aria-label="Tempo estudado nesta atividade"><span class="lb">${ic("clock")} Tempo estudado<small>Registrado: ${fmtM(Math.round(tsec.logged/60))}</small></span><input class="inp" id="avHh" type="number" min="0" max="12" inputmode="numeric" placeholder="0" value="${tv0>=60?Math.floor(tv0/60):""}" aria-label="Horas"><span>h</span><input class="inp" id="avMm" type="number" min="0" max="59" inputmode="numeric" placeholder="00" value="${tv0?tv0%60:""}" aria-label="Minutos"><span>min</span>${t.done||lk?`<button class="btn" data-a="avSave" data-id="${t.id}">${ic("plus")} Salvar tempo</button>`:`<span class="muted small" style="flex-basis:100%">Quanto tempo você estudou nesta atividade? ${tsec.tot>tsec.logged?"Já preenchido com o cronômetro; ajuste se precisar.":"Preencha e confirme."}</span>`}</div>`:""}
@@ -6902,6 +6942,7 @@ const A={
   finAsk(el){UI.finAsk=el.dataset.id;renderDrawer();setTimeout(()=>{const h=$("avHh");if(h){h.closest(".av-f").scrollIntoView({block:"end"});h.focus()}},30)},
   finNo(el){UI.finAsk=null;UI.qform=null;UI.tform=null;if(UI.tmin)delete UI.tmin[el.dataset.id];renderDrawer()},
   closeT(el,e){if(e.target.closest("[data-stop]")&&!el.dataset.x)return;UI.openT=null;UI.qform=null;$("layer").innerHTML="";render()},
+  tStep(el){UI.tStep=UI.tStep||{};UI.tStep[UI.openT]=clamp(+el.dataset.s,1,3);renderDrawer();const m=document.querySelector(".av-main");if(m)m.scrollTop=0},
   avTab(el){UI.avTab=el.dataset.k;const f=findTask(UI.openT);renderDrawer();const m=document.querySelector(".av-main");if(m)m.scrollTop=0;
     if(f&&SAMPLE){if(UI.avTab==="B"&&!(f.t.bizu&&f.t.bizu.txt))genBizu(f.t);if(UI.avTab==="F"&&!(f.t.fix&&f.t.fix.L&&f.t.fix.L.length))genFix(f.t)}},
   bzGen(el){const f=findTask(el.dataset.id);if(f)genBizu(f.t)},
