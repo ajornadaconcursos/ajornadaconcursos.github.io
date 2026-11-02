@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611020943"></script>
+<script src="/claude-shim.js?v=202611021005"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -463,6 +463,8 @@ body.rt-drag,body.rt-drag *{cursor:grabbing!important}
   .sm-tt{flex-basis:100%}
 }
 
+.hello details.how{margin-top:8px;font-size:13.5px;line-height:1.5;color:var(--fg2,var(--fg))}.hello details.how>summary{cursor:pointer;display:inline-block;color:var(--mute);font-weight:600;list-style:none;padding:2px 0}.hello details.how>summary::-webkit-details-marker{display:none}.hello details.how>summary:hover{color:var(--lime-txt,var(--lime))}
+.hello details.how[open]>span{display:block;margin-top:6px;padding:9px 12px;border-left:3px solid var(--lime);background:color-mix(in srgb,var(--lime) 8%,transparent);border-radius:0 10px 10px 0}
 .hello p.how{margin-top:10px;color:var(--fg2,var(--fg));font-size:14px;line-height:1.5;padding:9px 12px;border-left:3px solid var(--lime);background:color-mix(in srgb,var(--lime) 8%,transparent);border-radius:0 10px 10px 0}
 .hello p.how b{color:var(--lime);margin-right:4px}
 .hello.how-only{margin-bottom:4px}
@@ -3676,9 +3678,11 @@ setInterval(()=>{const id=UI.smOpen;if(!id||TAB!=="simulados")return;const x=smG
 {const _vm=vMeta;vMeta=function(){const h=_vm(),b=smBanner();if(!b)return h;const i=h.indexOf("</div>");return h.startsWith("<div class=\"hello\"")&&i>0?h.slice(0,i+6)+b+h.slice(i+6):b+h}}
 const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"]];
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
-const NAV=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["revisoes","Revisar"],["simulados","Simulados"],["discursiva","Discursiva e Redação"],["desempenho","Desempenho"],["concurso","Concurso"]];
-const GROUPS={materiais:[["materiais","PDFs das aulas","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas Mentais","mapas"]],
-  revisoes:[["revisoes","Revisões","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"]]};
+/* Menu simples: 5 entradas. As telas de sempre continuam, agrupadas em abas dentro de cada entrada. */
+const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["rotina","Meu plano"],["desempenho","Desempenho"]];
+const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["discursiva","Discursiva e redação","discursiva"]],
+  revisoes:[["revisoes","Revisões do dia","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"]],
+  rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"]]};
 const GP={};Object.entries(GROUPS).forEach(([g,L])=>L.forEach(([k])=>{GP[k.split(":")[0]]=g}));
 function gnavHTML(){const g=GP[TAB];if(!g)return"";const cur=TAB,due=dueRevs().length,ep=errPend(),rf=allRefs().filter(x=>!x.done).length;
   const badge=k=>k==="revisoes"&&due?`<small>${due}</small>`:k==="erradas"&&ep?`<small>${ep}</small>`:k==="reforcos"&&rf?`<small>${rf}</small>`:"";
@@ -3701,7 +3705,7 @@ const HOW={
   desempenho:"Aqui você acompanha os resultados. Não há nada para preencher: os números vêm do cronômetro, das questões resolvidas e dos simulados.",
   concurso:"Aqui você cuida do concurso: troque ou adicione concursos, inclua o edital em PDF (o painel tira datas, matérias e assuntos) e acompanhe o cronograma até a prova.",
   compat:"Aqui você compara dois concursos: o painel mostra as matérias e os assuntos em comum para o estudo de um servir ao outro."};
-function howAttach(){const v=$("view"),t=HOW[TAB];if(!v||!t||v.querySelector(".how"))return;const p=document.createElement("p");p.className="how";p.innerHTML=`<b>Como usar</b> ${esc(t)}`;
+function howAttach(){const v=$("view"),t=HOW[TAB];if(!v||!t||v.querySelector(".how"))return;const p=document.createElement("details");p.className="how";p.innerHTML=`<summary>ⓘ Como usar esta tela</summary><span>${esc(t)}</span>`;
   const h=v.querySelector(".hello");if(h){h.appendChild(p);return}if(TAB!=="meta")return;const g=v.querySelector(".gnav");const w=document.createElement("div");w.className="hello how-only";w.appendChild(p);if(g)g.after(w);else v.prepend(w)}
 function vReforcos(){return`<div class="hello"><h1>Reforços</h1><p>Questões extras do TEC nos assuntos em que o acerto ficou abaixo de 75%. Cada reforço tem prazo de 30 dias e não trava a meta.</p></div>${refsHTML()}`}
 let UI0ctab=null;let TAB=(location.hash||"").replace("#","");if(TAB==="prova"){TAB="incidencia"}if(!TABS.some(t=>t[0]===TAB))TAB="meta";
@@ -6935,7 +6939,7 @@ document.addEventListener("focusin",e=>{const el=e.target.closest&&e.target.clos
 window.addEventListener("scroll",()=>{TIP.hidden=true},true);
 /* ================= Eventos ================= */
 const A={
-  tab(el){TAB=el.dataset.t;UI.openT=null;$("layer").innerHTML="";$("layer2").innerHTML="";try{history.replaceState(null,"","#"+TAB)}catch(e){}render();window.scrollTo(0,0)},
+  tab(el){const k=el.dataset.t;TAB=GROUPS[k]&&UI.gLast&&UI.gLast[k]&&(GP[TAB]!==k)?UI.gLast[k]:k;UI.openT=null;$("layer").innerHTML="";$("layer2").innerHTML="";try{history.replaceState(null,"","#"+TAB)}catch(e){}render();window.scrollTo(0,0)},
   start(){if(createMeta()){toast("Meta 01 criada. Comece pela Teoria.");render()}else toast("Não há tópicos pendentes para montar uma meta")},
   filter(el){UI.filter=el.dataset.f;render()},
   openT(el){if(!el.dataset.id)return;UI.openT=el.dataset.id;UI.qform=null;UI.finAsk=null;renderDrawer()},
@@ -6989,7 +6993,7 @@ const A={
   slotMove(el){const f=findTask(el.dataset.id);if(!f||!UI.slotDay)return;placeInDay(f.n,f.t,UI.slotDay,null);$("layer3").innerHTML="";toast("Atividade movida para "+dm(UI.slotDay));render()},
   slotNew(el){const n=addMore(+el.dataset.n||2,UI.slotDay);$("layer3").innerHTML="";toast(n?n+" atividade"+(n>1?"s":"")+" nova"+(n>1?"s":"")+" em "+dm(UI.slotDay):"Não há mais atividades para adicionar");render()},
   mtab(el){UI.mtab=el.dataset.v;render()},
-  gtab(el){const [t,c]=el.dataset.t.split(":");TAB=t;if(c)UI.ctab=c;UI.openT=null;$("layer").innerHTML="";try{history.replaceState(null,"","#"+TAB)}catch(e){}render();window.scrollTo(0,0)},
+  gtab(el){const [t,c]=el.dataset.t.split(":");TAB=t;UI.gLast=UI.gLast||{};if(GP[t])UI.gLast[GP[t]]=t;if(c)UI.ctab=c;UI.openT=null;$("layer").innerHTML="";try{history.replaceState(null,"","#"+TAB)}catch(e){}render();window.scrollTo(0,0)},
   async reread(el){const p=pdf(el.dataset.id);if(!p)return;el.disabled=true;el.textContent="Lendo…";await rereadPdf(p,false);render()},
   async rsPdf(el){const sid=UI.rsSid||ED[0].id,c=UI.rsAula;el.disabled=true;try{const b=await resumoPdf(sid,c);await saveFile("Resumo "+SUB(sid).c+" "+auLabel(sid,c).replace(/[^\w ]/g,"")+".pdf",b)}catch(e){toast("Não consegui montar o PDF do resumo agora")}el.disabled=false},
   async rsAulaPdf(){const p=pdfOfAula(UI.rsSid||ED[0].id,UI.rsAula);if(!p)return;const buf=await pdfBytes(p);if(!buf){toast("Este PDF não está salvo neste aparelho nem na sua conta");return}await saveFile(p.name,new Blob([buf],{type:"application/pdf"}))},
