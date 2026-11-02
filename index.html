@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021521"></script>
+<script src="/claude-shim.js?v=202611021527"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -3256,7 +3256,7 @@ function qResHTML(sid,c,view){const X=qResData(sid,c);
 const resAIOn=()=>core().resAI!==false;
 function qResSync(sid,c){const X=qResData(sid,c);if(X.wait&&!X.groups.length)return;const R0=resGet(sid,c);if(R0.qsig===X.sig&&R0.v>=4)return;
   if(!(R0.qai&&R0.qai.sig===X.sig))R0.txt=qResMd(sid,c,"full");else R0.txt=R0.qai.txt;R0.qsig=X.sig;R0.v=4;R0.upd=Date.now();touch(resKey(sid,c))}
-async function qResAI(sid,c){const key=resKey(sid,c);if(!SAMPLE||RES_BUSY.has(key))return;const X=qResData(sid,c);if(!X.groups.length&&!X.extra.length)return;RES_BUSY.add(key);render();
+async function qResAI(sid,c,bg){const key=resKey(sid,c);if(!SAMPLE||RES_BUSY.has(key))return;const X=qResData(sid,c);if(!X.groups.length&&!X.extra.length)return;RES_BUSY.add(key);render();
   try{const md=qResMd(sid,c,"full"),prompt=`Você é professor de cursinho para concursos (${IS_TJ?"Oficial de Justiça do TJSP, banca VUNESP":[PLAN.cargo||PLAN.name,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(", ")}).
 Abaixo está o resumo de uma aula montado a partir das QUESTÕES que cobraram cada ponto (do PDF da aula e do TEC). Reescreva de forma didática e clara para revisão.
 Regras obrigatórias:
@@ -3269,9 +3269,9 @@ Regras obrigatórias:
 <resumo_pelas_questoes>
 ${md.slice(0,60000)}
 </resumo_pelas_questoes>`;
-    const r=await SAMPLE(prompt,{modelTier:"default",onText:({text})=>{const o=$("rsOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
+    const r=await SAMPLE(prompt,bg?{modelTier:"default"}:{modelTier:"default",onText:({text})=>{const o=$("rsOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
     if(r&&r.text){const R0=resGet(sid,c);R0.qai={txt:resClean(r.text),sig:X.sig,at:Date.now()};R0.txt=R0.qai.txt;R0.qsig=X.sig;R0.v=4;R0.upd=Date.now();touch(key);UI.rsAIv=1}
-  }catch(e){if(!AI_OFF)toast("Não consegui melhorar o resumo com a IA agora")}finally{RES_BUSY.delete(key);render()}}
+  }catch(e){if(!AI_OFF&&!bg)toast("Não consegui melhorar o resumo com a IA agora")}finally{RES_BUSY.delete(key);render()}}
 /* separa as questões de todos os PDFs em segundo plano (sem IA), um por vez, para cada aula já ter o seu caderno */
 let QB_BG=0;async function qBgRun(){if(QB_BG)return;QB_BG=1;try{for(const p of PDFS()){if(p.raw||!p.pages)continue;
     if(!qzDoc(p.id)&&!QZ_BUSY.has(p.id)&&!QB_TRIED.has(p.id)){QB_TRIED.add(p.id);try{await buildQuiz(p)}catch(e){}await new Promise(r=>setTimeout(r,800))}
@@ -3297,7 +3297,7 @@ async function aiBgRun(){if(AIBG||!SAMPLE||AI_OFF||!resAIOn())return;AIBG=1;let 
     try{qResSync(sid,c)}catch(e){}
     const X=qResData(sid,c);if(X.wait||(!X.groups.length&&!X.extra.length))continue;
     const R0=resDoc(sid,c);
-    if(!(R0&&R0.qai&&R0.qai.txt)&&!AIBG_FAIL.has("r"+k)){await qResAI(sid,c);const R1=resDoc(sid,c);if(R1&&R1.qai&&R1.qai.txt){made.r++;toast("IA: resumo pronto · "+lab)}else{AIBG_FAIL.add("r"+k);continue}await new Promise(r=>setTimeout(r,1500))}
+    if(!(R0&&R0.qai&&R0.qai.txt)&&!AIBG_FAIL.has("r"+k)){await qResAI(sid,c,1);const R1=resDoc(sid,c);if(R1&&R1.qai&&R1.qai.txt){made.r++;toast("IA: resumo pronto · "+lab)}else{AIBG_FAIL.add("r"+k);continue}await new Promise(r=>setTimeout(r,1500))}
     if(!CARDS().some(x=>x.sid===sid&&x.aula===c&&x.src==="ia")&&!AIBG_FAIL.has("c"+k)){try{const n=await lessonCards(sid,c);made.c+=n;toast("IA: "+n+" cards criados · "+lab)}catch(e){AIBG_FAIL.add("c"+k)}await new Promise(r=>setTimeout(r,1500))}
     if(!MM().items.some(x=>x.sid===sid&&x.kind==="ai"&&x.aula===c)&&!AIBG_FAIL.has("m"+k)){try{const S=ED[EDI[sid]],g=await mmGenerate(S,null,"res","",c);mmPut({sid,kind:"ai",tree:g.tree,course:"ia",tp:null,src:"res",aula:c,title:auLabel(sid,c)+" · "+g.tree.t});made.m++;toast("IA: mapa mental pronto · "+lab)}catch(e){AIBG_FAIL.add("m"+k)}await new Promise(r=>setTimeout(r,1500))}
   }}finally{AIBG=0;if(made.r||made.c||made.m){try{render()}catch(e){}}}}
