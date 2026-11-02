@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021422"></script>
+<script src="/claude-shim.js?v=202611021511"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -2313,7 +2313,7 @@ function pdCutSet(k,x){const p=pdf(UI.pdMap);if(!stOk(p))return;const L=stPlan(p
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="pdCut")pdCutSet(+el.dataset.i,el.value)});
 document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset||(el.dataset.c!=="qfAs"&&el.dataset.c!=="qfBn"))return;const f=UI[el.dataset.k];if(!f)return;f[el.dataset.c==="qfAs"?"as":"bn"]=el.value;UI[el.dataset.pk]=0;UI.qzKeep=null;rerenderQz()});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="corte"){core().corte=clamp(+el.value||0,0,100);touch("core");render()}});
-document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="resAI"){core().resAI=el.checked;touch("core");render()}});
+document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="resAI"){core().resAI=el.checked;touch("core");render();if(el.checked)setTimeout(aiBgRun,500)}});
 /* corte digitado: a parte termina antes da página digitada; se houver um tópico nessa página, para antes dele */
 function pdCutPg(el){const n=parseInt(el.value,10),lo=+el.dataset.lo,hi=+el.dataset.hi;if(!n)return;if(n<Math.ceil(lo)||n>Math.floor(hi)){toast("Para esta parte, digite uma página de "+Math.ceil(lo)+" a "+Math.floor(hi));el.value="";return}
   const p=pdf(UI.pdMap),S=p&&p.st;let x=n;if(S){const h=(S.hd||[]).filter(h=>h.p===n&&h.l<3).sort((a,b)=>a.y-b.y)[0];if(h&&psPos(h.p,h.y)>=lo&&psPos(h.p,h.y)<=hi)x=psPos(h.p,h.y)}pdCutSet(+el.dataset.i,x)}
@@ -3238,6 +3238,7 @@ function qResHTML(sid,c,view){const X=qResData(sid,c);
     ${X.semQ.length?`<h3 class="qr-g">Assuntos da aula sem questões (ainda)</h3><p class="muted small" style="margin:0">Estão no material, mas nenhuma questão do PDF ou do TEC cobrou ainda. Não esqueça deles.</p><ul class="tsl">${X.semQ.map(h=>`<li>${esc(h.t)} <span class="muted small">(p. ${h.p})</span></li>`).join("")}</ul>`:""}
     ${X.wait?'<p class="muted small"><span class="spin"></span> Ainda separando questões de parte desta aula…</p>':""}</div>`}
 /* guarda o resumo atual em R0.txt (usado no PDF, mapa mental e resumão) sempre que entram questões ou respostas novas */
+const resAIOn=()=>core().resAI!==false;
 function qResSync(sid,c){const X=qResData(sid,c);if(X.wait&&!X.groups.length)return;const R0=resGet(sid,c);if(R0.qsig===X.sig&&R0.v>=4)return;
   if(!(R0.qai&&R0.qai.sig===X.sig))R0.txt=qResMd(sid,c,"full");else R0.txt=R0.qai.txt;R0.qsig=X.sig;R0.v=4;R0.upd=Date.now();touch(resKey(sid,c))}
 async function qResAI(sid,c){const key=resKey(sid,c);if(!SAMPLE||RES_BUSY.has(key))return;const X=qResData(sid,c);if(!X.groups.length&&!X.extra.length)return;RES_BUSY.add(key);render();
@@ -3260,7 +3261,31 @@ ${md.slice(0,60000)}
 let QB_BG=0;async function qBgRun(){if(QB_BG)return;QB_BG=1;try{for(const p of PDFS()){if(p.raw||!p.pages)continue;
     if(!qzDoc(p.id)&&!QZ_BUSY.has(p.id)&&!QB_TRIED.has(p.id)){QB_TRIED.add(p.id);try{await buildQuiz(p)}catch(e){}await new Promise(r=>setTimeout(r,800))}
     const Z=qzDoc(p.id);if(Z&&Z.L.length&&!qMapOk(p,Z)&&!QMAP_FAIL.has(p.id)){try{await qMapAll(p)}catch(e){}await new Promise(r=>setTimeout(r,800))}}}finally{QB_BG=0}}
-setTimeout(()=>{try{qBgRun()}catch(e){}},25000);
+setTimeout(()=>{try{qBgRun().finally(()=>setTimeout(aiBgRun,4000))}catch(e){}},25000);
+/* IA em segundo plano: para cada aula com PDF, uma por vez, monta o resumo com a IA, depois os cards e o mapa mental.
+   Só faz o que ainda falta; o que falhar não é tentado de novo até recarregar a página. */
+const AIBG_FAIL=new Set();let AIBG=0;
+function aiLessons(){const seen=new Set(),L=[];for(const p of PDFS()){if(p.raw||!p.sid||!p.aula)continue;const k=p.sid+"|"+p.aula;if(seen.has(k))continue;seen.add(k);L.push({sid:p.sid,c:p.aula,p})}return L}
+async function lessonCards(sid,c){const R0=resDoc(sid,c),txt=String(R0&&R0.txt||"").slice(0,14000);if(!txt.trim())throw{code:"vazio"};const s=SUB(sid),a=auOf(sid,c);
+  const arr=await SAMPLE.json(`Você prepara cards de revisão (flashcards) para um candidato a ${dsCargo()} (banca ${dsBanca()}).
+Matéria: ${s.n}. ${a?"Aula: "+auLabel(sid,c)+" – "+a.d+".":""}
+Use SOMENTE o resumo abaixo, que foi montado a partir das questões e do PDF da aula. Não invente artigos, prazos ou números.
+<resumo>
+${txt}
+</resumo>
+Crie de 8 a 12 cards sobre o que mais cai e as pegadinhas: pergunta curta na frente, resposta direta no verso (1 a 3 frases, com a página ou o artigo quando o resumo trouxer). Português do Brasil.
+Responda só com um array JSON: [{"f":"pergunta","b":"resposta"}]`,{modelTier:"default"});
+  let n=0;if(Array.isArray(arr))arr.slice(0,12).forEach(x=>{if(x&&x.f&&x.b){addCard({sid,tid:"",aula:c,f:String(x.f).slice(0,400),b:String(x.b).slice(0,900),src:"ia",pdf:true,lesson:1});n++}});
+  if(!n)throw{code:"formato"};return n}
+async function aiBgRun(){if(AIBG||!SAMPLE||AI_OFF||!resAIOn())return;AIBG=1;let made={r:0,c:0,m:0};
+  try{for(const L of aiLessons()){if(!SAMPLE||AI_OFF)break;const{sid,c}=L,k=sid+"|"+c,lab=SUB(sid).n+" · "+auLabel(sid,c);
+    try{qResSync(sid,c)}catch(e){}
+    const X=qResData(sid,c);if(X.wait||(!X.groups.length&&!X.extra.length))continue;
+    const R0=resDoc(sid,c);
+    if(!(R0&&R0.qai&&R0.qai.txt)&&!AIBG_FAIL.has("r"+k)){await qResAI(sid,c);const R1=resDoc(sid,c);if(R1&&R1.qai&&R1.qai.txt){made.r++;toast("IA: resumo pronto · "+lab)}else{AIBG_FAIL.add("r"+k);continue}await new Promise(r=>setTimeout(r,1500))}
+    if(!CARDS().some(x=>x.sid===sid&&x.aula===c&&x.src==="ia")&&!AIBG_FAIL.has("c"+k)){try{const n=await lessonCards(sid,c);made.c+=n;toast("IA: "+n+" cards criados · "+lab)}catch(e){AIBG_FAIL.add("c"+k)}await new Promise(r=>setTimeout(r,1500))}
+    if(!MM().items.some(x=>x.sid===sid&&x.kind==="ai"&&x.aula===c)&&!AIBG_FAIL.has("m"+k)){try{const S=ED[EDI[sid]],g=await mmGenerate(S,null,"res","",c);mmPut({sid,kind:"ai",tree:g.tree,course:"ia",tp:null,src:"res",aula:c,title:auLabel(sid,c)+" · "+g.tree.t});made.m++;toast("IA: mapa mental pronto · "+lab)}catch(e){AIBG_FAIL.add("m"+k)}await new Promise(r=>setTimeout(r,1500))}
+  }}finally{AIBG=0;if(made.r||made.c||made.m){try{render()}catch(e){}}}}
 
 
 
@@ -5641,7 +5666,7 @@ function rsAltView(sid,c,R0,vw){const key=resKey(sid,c);
 /* o resumo agora nasce das questões: qualquer pedido antigo de "gerar resumo" só atualiza o resumo pelas questões
    (sem custo); a IA reescreve quando o aluno pede ou quando a opção "Sempre melhorar com a IA" está ligada */
 async function genResumo(sid,c,newQ,auto){try{const R0=resGet(sid,c);R0.qsig="";qResSync(sid,c)}catch(e){}
-  if(SAMPLE&&core().resAI&&!AI_OFF){try{await qResAI(sid,c)}catch(e){}}if(TAB==="resumos")render()}
+  if(SAMPLE&&resAIOn()&&!AI_OFF){try{await qResAI(sid,c)}catch(e){}}if(TAB==="resumos")render()}
 async function genResumoOld(sid,c,newQ,auto){newQ=newQ||null;
   const key=resKey(sid,c);if(RES_BUSY.has(key))return;
   const s=SUB(sid),au=auOf(sid,c),p=pdfOfAula(sid,c);
@@ -5775,7 +5800,7 @@ function vResumos(){
   try{qResSync(sid,c)}catch(e){}
   const R0=resDoc(sid,c)||{txt:"",tq:[]},p=pdfOfAula(sid,c),au=auOf(sid,c),busy=RES_BUSY.has(key),vw=["full","cai","err","fin"].includes(UI.rsView)?UI.rsView:"full";
   const X=qResData(sid,c),aiOk=R0.qai&&R0.qai.txt,aiOld=aiOk&&R0.qai.sig!==X.sig,showAI=vw==="full"&&aiOk&&UI.rsAIv!==0;
-  if(SAMPLE&&core().resAI&&!busy&&(X.groups.length||X.extra.length)&&(!aiOk||aiOld)&&!X.wait)setTimeout(()=>qResAI(sid,c),50);
+  if(SAMPLE&&resAIOn()&&!busy&&(X.groups.length||X.extra.length)&&(!aiOk||aiOld)&&!X.wait)setTimeout(()=>qResAI(sid,c),50);
   const sopt=ED.map(s=>`<option value="${s.id}" ${s.id===sid?"selected":""}>${esc(s.n)}</option>`).join("");
   const aopt=L.map(a=>`<option value="${a.c}" ${a.c===c?"selected":""}>${esc(auLabel(sid,a.c))} · ${esc(a.d.slice(0,60))}${pdfOfAula(sid,a.c)?"":" · sem PDF"}</option>`).join("");
   const nE=qPtFlat(X).filter(x=>x.pt.qs.some(q=>q.err)).length;
@@ -5791,7 +5816,7 @@ function vResumos(){
       ${vw==="fin"?`<p class="muted small" style="margin:0">${cycleDone(sid,c)?"Ciclo da aula concluído (teoria, revisão, mapeamento e questões): este é o seu resumão para a véspera.":"Fica completo quando você fechar o ciclo da aula (teoria, revisão, mapeamento e questões). Já dá para ver com o que existe até agora."}</p>`:""}
       <div class="rsout" id="rsOut">${vw==="fin"?(qResumao(sid,c)?mdLite(qResumao(sid,c)):'<p class="muted">Ainda não há questões nesta aula para montar o resumão.</p>'):busy&&vw==="full"?'<p class="muted"><span class="spin"></span> A IA está escrevendo…</p>':showAI?mdLite(R0.qai.txt):qResHTML(sid,c,vw)}</div>
       <div class="row" style="gap:8px;flex-wrap:wrap">${SAMPLE&&(X.groups.length||X.extra.length)?`<button class="btn ${aiOk&&!aiOld?"ghost":"pri"} sm" data-a="rsAI" ${busy?"disabled":""}>${ic("bulb")} ${aiOk?(aiOld?"Atualizar com a IA":"Refazer com a IA"):"Melhorar com a IA"}</button>`:""}${vw==="fin"?`<button class="btn sm pri" data-a="rsResumaoPdf">${ic("dl")} Baixar o resumão em PDF</button>`:R0.txt?`<button class="btn sm" data-a="rsPdf">${ic("dl")} Baixar em PDF</button>`:""}${SAMPLE&&R0.txt?`<button class="btn sm ghost" data-a="mmFromRes" data-s="${sid}" data-c="${c}" ${UI.mmBusy?"disabled":""}>${ic("brain")} Mapa mental</button>`:""}${p?`<button class="btn sm ghost" data-a="rsQz">${ic("list")} Resolver as questões desta aula</button>`:""}</div>
-      ${SAMPLE?`<label class="small muted" style="display:flex;gap:8px;align-items:center"><input type="checkbox" data-c="resAI" ${core().resAI?"checked":""}> Sempre melhorar com a IA quando entrarem questões novas (cerca de US$ 0,25 por aula)</label>`:""}
+      ${SAMPLE?`<label class="small muted" style="display:flex;gap:8px;align-items:center"><input type="checkbox" data-c="resAI" ${resAIOn()?"checked":""}> Usar a IA: monta o resumo, os cards e o mapa mental de cada aula com PDF, sozinho e uma aula por vez (cerca de US$ 0,30 por aula)</label>`:""}
       ${rsHlBox(sid,c)}
     </div></section>
     <section class="card"><div class="card-h"><h2>Adicionar questão do TEC</h2></div><div class="card-b" style="display:grid;gap:10px">
@@ -6095,12 +6120,12 @@ async function makeCards(t,manual){
     if(p&&!p.raw){const pa=t.pa||1,pb=t.pb||teoEnd(p);txt=await pagesText(p,pa,Math.min(pb,pa+29))}
     let made=0;
     if(SAMPLE){try{
-      const prompt=`Você prepara cards de revisão (flashcards) para um candidato ao cargo de Oficial de Justiça do TJ SP (banca VUNESP, edital 2026).
+      const prompt=`Você prepara cards de revisão (flashcards) para um candidato a ${dsCargo()} (banca ${dsBanca()}).
 Matéria: ${s.n}. ${a?"Aula: "+auLabel(t.sid,t.aula)+" – "+a.d+".":""}
 Atividade concluída: ${taskTitle(t)}.
 Assuntos: ${tps.join("; ")||s.n}.
 ${txt?"Use SOMENTE o conteúdo do material abaixo (trecho do PDF estudado). Não invente artigos, prazos ou números que não estejam nele.\n<material>\n"+txt+"\n</material>":"Não há PDF disponível: use a letra da lei e o entendimento majoritário, citando o artigo quando houver."}
-Crie de 5 a 8 cards objetivos sobre os pontos que a VUNESP mais cobra (prazos, exceções, competências, literalidade da lei): pergunta curta na frente, resposta direta no verso (1 a 3 frases, com o artigo quando houver). Escreva em português do Brasil.
+Crie de 5 a 8 cards objetivos sobre os pontos que a ${dsBanca()} mais cobra (prazos, exceções, competências, literalidade da lei): pergunta curta na frente, resposta direta no verso (1 a 3 frases, com o artigo quando houver). Escreva em português do Brasil.
 Responda só com um array JSON, por exemplo: [{"f":"Qual o prazo...?","b":"15 dias (CPC, art. 335)."}]`;
       const arr=await SAMPLE.json(prompt,{modelTier:"default"});
       if(Array.isArray(arr))arr.slice(0,10).forEach(x=>{if(x&&x.f&&x.b){addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:String(x.f).slice(0,400),b:String(x.b).slice(0,900),src:"ia",pdf:!!txt});made++}});
