@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021354"></script>
+<script src="/claude-shim.js?v=202611021422"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -5065,6 +5065,42 @@ function renderDrawer(){try{const r=renderDrawer0();brandDom($("layer"));return 
     <div class="av-main" style="padding:18px"><h3 style="margin:0 0 8px">${esc(I.lab)}${I.d?" · "+esc(I.d):""}</h3>${I.pg?`<p class="rdline"><b>${esc(I.pg)}</b></p>`:""}<p class="muted small">Não consegui montar a tela completa desta atividade (${esc(String(e&&e.message||e))}). Os dados dela estão salvos.</p></div>
     <footer class="av-f"><div class="finb"><button class="btn fin" data-a="${t.ph==="Q"?"finQ":t.open?"finT":"fin"}" data-id="${t.id}">${ic("check")} Finalizar</button></div></footer></section></div>`;
   console.error(e)}}
+
+/* ===== Pedido do aluno sobre as páginas da tarefa =====
+   O aluno escreve o que quer (ex.: os tópicos de "Tenha atenção") e o mentor lê as páginas da tarefa e responde com
+   ênfase nesses pontos. Com IA: explicação didática, só com o texto das páginas e citando a página. Sem IA: para cada
+   tópico, as frases do próprio PDF que tratam dele, com a página. */
+const ASK_BUSY=new Set();
+function askTopics(q){return String(q||"").split(/\n|;|•|•/).map(x=>x.replace(/^[\s\-*–\d.)]+/,"").replace(/[.:]+$/,"").trim()).filter(x=>x.length>3&&!/^(aula\s|estude|tenha aten|leia |pare antes)/i.test(x))}
+async function askLocal(t,q){const p=t.pdf&&pdf(t.pdf);if(!p)return"";const T=await qdocTxt(p);if(!T)return"";const out=[],tops=askTopics(q);if(!tops.length)tops.push(q);
+  const pgs=Object.keys(T.pages).map(Number),inR=pgs.filter(g=>g>=t.pa&&g<=t.pb),all=pgs;
+  tops.forEach(tp=>{const K=new Set(pvTok(tp));if(!K.size)return;const sc=(L)=>L.flatMap(g=>qSent(T.pages[g]).map(x=>{const k=new Set(pvTok(x));let v=0;K.forEach(w=>{if(k.has(w))v++});return{g,x,v:v/K.size+(x.length<320?.05:0)}}));
+    let H=sc(inR).filter(h=>h.v>=.5).sort((a,b)=>b.v-a.v).slice(0,3);if(!H.length)H=sc(all).filter(h=>h.v>=.6).sort((a,b)=>b.v-a.v).slice(0,2);
+    out.push("## "+tp.replace(/^./,c=>c.toUpperCase()));if(!H.length)out.push("- Não encontrei este ponto no texto destas páginas.");H.sort((a,b)=>a.g-b.g).forEach(h=>out.push("- **p. "+h.g+"** – "+cut(h.x,420)))});
+  return out.join("\n")}
+async function askRun(t,ai){const q=($("askQ")||{}).value||"";if(!q.trim()){toast("Escreva o que você quer saber sobre estas páginas");return}if(ASK_BUSY.has(t.id))return;ASK_BUSY.add(t.id);t.ask={q,txt:"",at:Date.now(),ai:!!ai};renderDrawer();
+  try{let txt="";if(ai&&SAMPLE){const mat=await srcText(t,40000);
+      const prompt=`Você é um professor especialista em concursos (${IS_TJ?"Oficial de Justiça do TJSP, banca VUNESP":[PLAN.cargo||PLAN.name,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(", ")}).
+O aluno vai estudar as páginas ${t.pa} a ${t.pb} do PDF da ${t.aula?auLabel(t.sid,t.aula):"aula"} de ${SUB(t.sid).n}. Leia TODO o texto dessas páginas abaixo e atenda ao pedido dele, com ÊNFASE nos tópicos que ele listar.
+Para cada tópico pedido: um título "## ", a explicação clara e completa (o que é, requisitos, exceções e o que a banca costuma cobrar), com **negrito** nas palavras-chave e a página entre parênteses (p. X). Se houver comparação pedida (ex.: diferença entre dois institutos), faça itens lado a lado "X: ... | Y: ...".
+Depois, uma seção "## O resto destas páginas" com os outros pontos importantes, em itens curtos.
+Use SOMENTE o texto abaixo. Não invente artigos, prazos ou números; se algo não estiver no texto, diga que não está nestas páginas.
+<pedido_do_aluno>
+${q.slice(0,3000)}
+</pedido_do_aluno>
+<texto_das_paginas>
+${mat}
+</texto_das_paginas>`;
+      const r=await SAMPLE(prompt,{modelTier:"default",onText:({text})=>{const o=$("askOut");if(o&&UI.openT===t.id)o.innerHTML=mdLite(text)}});txt=(r&&r.text||"").trim()}
+    else txt=await askLocal(t,q);
+    t.ask={q,txt:txt||"Não consegui ler o texto destas páginas agora.",at:Date.now(),ai:!!(ai&&SAMPLE)};touch("m-"+(findTask(t.id)||{n:0}).n)}
+  catch(e){toast("Não consegui responder agora");t.ask.txt=""}finally{ASK_BUSY.delete(t.id);if(UI.openT===t.id)renderDrawer()}}
+function askHTML(t){const A=t.ask||{},busy=ASK_BUSY.has(t.id);
+  return`<section class="tsb" id="avAsk"><h4>${ic("bulb")} Peça ao mentor</h4><p class="muted small" style="margin:0">Escreva o que você quer sobre estas páginas. Por exemplo, cole os tópicos de “Tenha atenção”: o mentor lê todas as páginas da tarefa e dá ênfase a eles.</p>
+    <textarea class="inp" id="askQ" style="min-height:110px" placeholder="Ex.: Quero entender bem:&#10;- o que é a exclusão do crédito tributário;&#10;- o que é a isenção;&#10;- a diferença entre anistia e remissão.">${esc(A.q||"")}</textarea>
+    <div class="row" style="gap:8px;flex-wrap:wrap">${SAMPLE?`<button class="btn sm pri" data-a="askAI" data-id="${t.id}" ${busy?"disabled":""}>${ic("bulb")} Explicar com a IA</button>`:""}<button class="btn sm ${SAMPLE?"ghost":"pri"}" data-a="askPdf" data-id="${t.id}" ${busy?"disabled":""}>${ic("book")} Buscar no PDF${SAMPLE?" (sem IA)":""}</button>${A.txt?`<button class="btn sm ghost" data-a="askDl" data-id="${t.id}">${ic("dl")} Baixar em PDF</button>`:""}${busy?'<span class="muted small"><span class="spin"></span> Lendo as páginas…</span>':""}</div>
+    ${A.txt||busy?`<div class="rsout" id="askOut">${A.txt?mdLite(A.txt):""}</div>`:""}</section>`}
+
 /* Tarefa de teoria em 3 passos, um de cada vez: 1 Ler · 2 O que cai aqui · 3 Questões */
 function tSteps(t,p,pa,pb,G,mat,tform){const st=((UI.tStep||{})[t.id])||1,M=mentorOf(t)||{top:[],att:[]},X=pdfQsFor(t)||{L:[]},Z=qzDoc(p.id);
   const nq=X.L.length,nf=Z?X.L.filter(x=>Z.ans[x.q.id]).length:0,cs=CARDS().filter(c=>c.tid===t.id).length;
@@ -5086,6 +5122,7 @@ function tSteps(t,p,pa,pb,G,mat,tform){const st=((UI.tStep||{})[t.id])||1,M=ment
       <section class="tsb"><h4>Fixe com cards</h4><p class="muted small" style="margin:0">${cs?`Esta atividade tem ${cs} card${cs>1?"s":""}. Eles voltam nas revisões de 1, 7, 14, 30 e 60 dias.`:"Transforme os pontos acima e as suas marcações em cards: eles voltam nas revisões de 1, 7, 14, 30 e 60 dias."}</p>
         <div class="row"><button class="btn sm" data-a="tkCards" data-id="${t.id}">${ic("brain")} ${cs?"Criar mais cards":"Criar cards destas páginas"}</button></div>
         ${SAMPLE?`<details class="tsx"><summary>Treino rápido de Certo ou Errado</summary>${fixHTML(t)}</details>`:""}</section>
+      ${askHTML(t)}
       ${cs?cardsSec(t,()=>"").replace('id="avK" open','id="avK"').replace("Cards de revisão","Ver e editar os cards"):""}`+nav("Ler","Ir para as questões")}
   else{body=`<section class="tsb" id="avPq">${X.wait?`<p class="muted" style="margin:0"><span class="spin"></span> Separando, entre todas as questões do PDF, as que cobram estas páginas…</p>`:nq?quizHTML(p,"t"+t.id,X.L.map(x=>x.i)):`<p class="muted" style="margin:0">Nenhuma questão do PDF cobra estas páginas. As demais ficam para a fase de questões da aula.</p>`}</section>
       ${t.done&&t.aula&&!t.ref?`<details class="tsb tsx" id="avG"><summary>Mais questões das páginas que você estudou</summary>${qaiHTML(auTask(t.sid,t.aula))}</details>`:""}`+nav("O que cai aqui","")}
@@ -7286,6 +7323,9 @@ const A={
   async rsResumaoPdf(el){const sid=UI.rsSid||ED[0].id,c=UI.rsAula,md=qResumao(sid,c);if(!md)return;el.disabled=true;try{const b=await mdToPdf("Resumão final - "+SUB(sid).n,auLabel(sid,c),md.split("\n").slice(1).join("\n").replace(/☐/g,"[ ]"),"A JORNADA - "+SUB(sid).c);await saveFile("Resumao "+SUB(sid).c+" "+auLabel(sid,c).replace(/[^\w ]/g,"")+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}el.disabled=false},
   m85On(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const m=m85Build();const re=replanCurrent();render();toast("Plano para 85% ativo: "+m.fast.length+" aulas em leitura rápida"+(re?"; meta atual refeita":"")+".")},
   m85Off(){const c=core();if(c.m85)c.m85.on=0;touch("core");simCache.key="";replanCurrent();render();toast("Plano para 85% desligado")},
+  askAI(el){const f=findTask(el.dataset.id);if(f)askRun(f.t,true)},
+  askPdf(el){const f=findTask(el.dataset.id);if(f)askRun(f.t,false)},
+  async askDl(el){const f=findTask(el.dataset.id);if(!f||!f.t.ask||!f.t.ask.txt)return;const t=f.t;try{const b=await mdToPdf("Pedido ao mentor - "+SUB(t.sid).n,(t.aula?auLabel(t.sid,t.aula)+" - ":"")+"págs. "+t.pa+" a "+t.pb,t.ask.txt,"A JORNADA - "+SUB(t.sid).c);await saveFile("Mentor "+SUB(t.sid).c+" p"+t.pa+"-"+t.pb+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
   mtOpen(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const M=mentorStats();UI.mt={M,P:mentorAuto(M),busy:0};mentorModal()},
   mtClose(){UI.mt=null;$("layer3").innerHTML=""},
   async mtAI(){const X=UI.mt;if(!X||!SAMPLE)return;X.busy=1;mentorModal();try{X.P=await mentorAIPlan(X.M)}catch(e){toast("A IA não respondeu agora; ficou a análise automática")}X.busy=0;mentorModal()},
@@ -7489,7 +7529,7 @@ document.addEventListener("click",e=>{const el=e.target.closest("[data-a]");if(!
 let pickT=0,pickGone=false;
 const pickAway=()=>{pickGone=true};
 window.addEventListener("blur",pickAway);document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")pickAway()});
-document.addEventListener("click",e=>{const i=e.target.closest&&e.target.closest('input[type="file"]');if(!i)return;pickGone=false;clearTimeout(pickT);
+document.addEventListener("click",e=>{const i=e.target.closest&&e.target.closest('input[type="file"]');if(!i)return;if(window.self===window.top)return;pickGone=false;clearTimeout(pickT);
   pickT=setTimeout(()=>{if(pickGone||(i.files&&i.files.length)||$("layer3").innerHTML)return;
     upModal(`<div class="upm-ic warn" aria-hidden="true">${ic("close")}</div><h3>O seletor de arquivos não abriu</h3><p class="muted" style="margin:0">O app do Claude no celular não deixa o painel abrir seus arquivos. Abra este mesmo painel no navegador (Chrome ou Safari), envie os PDFs por lá e eles aparecem aqui sozinhos, já na aula certa.</p><div class="row" style="justify-content:center"><a class="btn pri" href="${APP_URL}" target="_blank" rel="noopener" data-a="cfNo">Abrir no navegador</a><button class="btn" data-a="cfNo">Agora não</button></div>`)},1600)},true);
 document.addEventListener("change",e=>{if(e.target&&e.target.type==="file"){pickGone=true;clearTimeout(pickT)}},true);
