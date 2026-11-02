@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021313"></script>
+<script src="/claude-shim.js?v=202611021318"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -104,7 +104,7 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .rt-pals{display:flex;flex-wrap:wrap;gap:8px}
 .rt-pal{display:grid;gap:1px;min-width:118px;padding:8px 12px 8px 12px;border-radius:10px;background:var(--c);border:1px solid color-mix(in srgb,var(--c) 70%,#000);box-shadow:0 1px 3px rgba(0,0,0,.25);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
 .rt-pal b{font:700 13px var(--f-display);color:var(--ink,#fff)}
-.rt-pal[data-k="y"],.rt-b[data-k="y"]{text-shadow:0 1px 2px rgba(80,20,50,.55)}.rt-pal small{color:var(--ink,#fff);opacity:.8;font-size:11px}
+.rt-pal,.rt-b,.wk-ev{text-shadow:0 1px 2px rgba(0,0,0,.38)}.rt-pal small{color:var(--ink,#fff);opacity:.8;font-size:11px}
 .rt-pal:hover{border-color:var(--c)}.rt-pal.moving{opacity:.5}
 .rt-c{position:relative;border-left:1px solid var(--line);background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% var(--px)}
 .rt-c.today{background-color:color-mix(in srgb,var(--lime) 5%,transparent)}.rt-c.over{background-color:color-mix(in srgb,var(--lime) 12%,transparent)}
@@ -6236,10 +6236,10 @@ const SLM=10,RS=120,RH0=4,SPH=60/SLM;
 (function(){let ch=false;const used=new Set(PLANS.list.map(p=>p.rc).filter(Boolean));PLANS.list.forEach(p=>{if(!p.rc){const c=[..."123456789"].find(x=>!used.has(x));if(c){p.rc=c;used.add(c);ch=true}}});if(ch){try{localStorage.setItem(PLK,JSON.stringify(PLANS))}catch(e){}}})();
 const MYC=IS_TJ?"s":(PLAN.rc||"1");
 /* estudo na rotina: Concurso 1 (foco principal) azul royal, Concurso 2 verde-azulado, outros concursos rosa escuro */
-const SCOL=["#1f4fd1","#0f9b8e","#a8285f","#a8285f","#a8285f","#a8285f","#a8285f"];
+const SCOL=["#4a6fd8","#3a9e94","#b5537e","#b5537e","#b5537e","#b5537e","#b5537e"];
 /* cores pensadas para a rotina: trabalho vermelho, refeição amarelo (energia), treino laranja, psicólogo rosa claro (cuidado),
    descanso roxo (relaxar), sono azul claro (calma), outros compromissos bege escuro */
-const RBASE=[["t","Trabalho","#d93a2f"],["a","Almoço / Refeição","#f5c518"],["g","Treino / Atividade Física","#f57c12"],["y","Psicólogo / Saúde Mental","#f7a8c8","#fff"],["l","Descanso / Livre / Outros","#2e6b34"],["z","Sono","#1e3f7a"],["o","Outros compromissos","#a8865c"],["d","Deslocamento","#7d8796"],["i","Intervalo","#e8b9a0"]];
+const RBASE=[["t","Trabalho","#d0625a"],["a","Almoço / Jantar / Refeição","#d4ac3c"],["g","Treino / Atividade Física","#e08a45"],["y","Psicólogo / Saúde Mental","#e39ab8"],["l","Descanso / Livre / Outros","#4f7f54"],["z","Sono","#3d5582"],["o","Outros compromissos","#b09474"],["d","Deslocamento","#8a93a0"],["i","Intervalo","#d4a28a"]];
 let RCAT=[],RCI={},SCODES=new Set(),SPLAN={};
 const pCode=p=>p.id==="tjsp"?"s":(p.rc||"1");
 const pShort=p=>p.id==="tjsp"?prot("Oficial de Justiça"):(p.cargo||p.name);
@@ -6459,7 +6459,7 @@ document.addEventListener("keydown",e=>{const el=e.target;if(!el||el.id!=="pxQ"|
 /* ===== Montar a rotina como num calendário: blocos de arrastar, mover e esticar ===== */
 const RTDEF={t:6,a:6,g:6,y:6,l:6,i:6,d:6,o:6,z:6},RTORD=["t","y","g","a","l","z","o","d","i"];
 const rtSp=()=>(UI.rtPx||40)/SPH;
-const inkK=(k,col)=>{const c=RCI[k];return c&&c[3]?c[3]:inkOn(col)};
+const inkK=(k,col)=>"#fff";
 function inkOn(h){const n=parseInt(String(h).slice(1),16);if(isNaN(n))return"#fff";return(.299*(n>>16&255)+.587*(n>>8&255)+.114*(n&255))>165?"#1d1d1f":"#fff"}
 function rtView(){rotCats();const R=ROT(),PX=UI.rtPx||40,sp=PX/SPH,multi=allPlans().length>1,wt=wdOf(today());
   const pal=[...[...SCODES,...EXC].map(k=>[k,RCI[k][1],RCI[k][2],6]),...RTORD.map(k=>[k,RCI[k][1],RCI[k][2],RTDEF[k]])]
