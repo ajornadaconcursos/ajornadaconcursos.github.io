@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021024"></script>
+<script src="/claude-shim.js?v=202611021313"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -514,6 +514,8 @@ textarea.inp{min-height:84px;resize:vertical}
 .code{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:6px;border:1px solid var(--line2);color:var(--fg2);background:var(--sunk);white-space:nowrap}
 .stars{color:var(--lime-txt);letter-spacing:1px;font-size:13px;white-space:nowrap}
 .stars s{text-decoration:none;color:var(--line2)}
+.stars.rl-l,.alist .arow .stars.rl-l{color:#2fbf5b}.stars.rl-m,.alist .arow .stars.rl-m{color:#f2c200}.stars.rl-h,.alist .arow .stars.rl-h{color:#ef4444}
+.stars.rl-l s,.stars.rl-m s,.stars.rl-h s,.alist .arow .stars.rl-l s,.alist .arow .stars.rl-m s,.alist .arow .stars.rl-h s{color:currentColor;opacity:.22}
 
 /* Mandado (meta atual) */
 .mandado{position:relative;overflow:hidden}
@@ -635,6 +637,7 @@ textarea.inp{min-height:84px;resize:vertical}
 @media(max-width:700px){.rd-sw span{display:none}}
 .hlbox{display:grid;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--raise)}
 .hlbox .chip[aria-pressed="true"]{background:var(--acc,#7b3cff);color:#fff;border-color:transparent}
+.qz-f{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.qz-f .inp.sm{width:auto;max-width:100%;padding:6px 10px;font-size:13px}
 .qr{display:grid;gap:10px}.qr-g{margin:10px 0 0;font-size:16px;color:var(--lime-txt,var(--lime))}.qr-g:first-child{margin-top:0}
 .qr-pt{display:grid;gap:6px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--raise)}.qr-pt.err{border-color:color-mix(in srgb,var(--bad) 55%,var(--line));box-shadow:inset 3px 0 0 var(--bad)}
 .qr-h{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.qr-pg{font-weight:700}.qr-n{font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--lime-soft);color:var(--lime-txt,var(--fg))}
@@ -1673,6 +1676,8 @@ const EDI=Object.fromEntries(ED.map((s,i)=>[s.id,i]));
 const SUB=id=>ED[EDI[id]]||ED[0];
 const TOT_TOP=sum(ED.map(s=>s.t.length));
 const stars=w=>w>=6?5:w>=5?4:3;
+/* cor de alerta da relevância: 1–2 verde (pouca), 3 amarelo (média), 4–5 vermelho (alta) */
+const relCls=n=>n>=4?"rl-h":n>=3?"rl-m":"rl-l";
 /* Relevância real (1 a 5): quanto a matéria pesa na prova, comparada com a que mais pesa, ajustada pela incidência
    dos assuntos da aula da atividade (aula de assunto que cai muito sobe; de assunto que quase não cai desce). */
 function relInfo(t){try{const S=SUB(t.sid),T=qTot()||1,mx=Math.max(1,...ED.map(qOf)),q=qOf(S),pct=q/T*100;let r=q/mx,au="";
@@ -2302,6 +2307,7 @@ function pdMapModal(){const p=pdf(UI.pdMap);if(!p){$("layer3").innerHTML="";retu
 function pdCutSet(k,x){const p=pdf(UI.pdMap);if(!stOk(p))return;const L=stPlan(p,null);const cuts=L.slice(0,k).map(o=>o.b);cuts.push(+x);p.cuts=cuts;PLC.clear();touch("pdf-"+p.id);
   alignKey="";simCache.key="";{const r1=curMeta(),md1=r1&&metaDoc(r1.n);if(md1&&md1.std)md1.std=0}pdMapModal();render();toast("Divisão ajustada. As próximas atividades desta aula seguem o novo corte")}
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="pdCut")pdCutSet(+el.dataset.i,el.value)});
+document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset||(el.dataset.c!=="qfAs"&&el.dataset.c!=="qfBn"))return;const f=UI[el.dataset.k];if(!f)return;f[el.dataset.c==="qfAs"?"as":"bn"]=el.value;UI[el.dataset.pk]=0;UI.qzKeep=null;rerenderQz()});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="resAI"){core().resAI=el.checked;touch("core");render()}});
 /* corte digitado: a parte termina antes da página digitada; se houver um tópico nessa página, para antes dele */
 function pdCutPg(el){const n=parseInt(el.value,10),lo=+el.dataset.lo,hi=+el.dataset.hi;if(!n)return;if(n<Math.ceil(lo)||n>Math.floor(hi)){toast("Para esta parte, digite uma página de "+Math.ceil(lo)+" a "+Math.floor(hi));el.value="";return}
@@ -3185,6 +3191,13 @@ function qResData(sid,c){const PS=partsOf(sid,c),R0=resDoc(sid,c)||{},cf=hlCfg()
   const own=cf.on?hlAula(sid,c).filter(h=>h.c!=="q"):[];
   return{groups,extra,semQ:semQ.filter(h=>!groups.some(g=>norm(g.t)===norm(h.t))),wait,nq,sig,own}}
 const QB_TRIED=new Set();
+const QH_C=new Map();
+/* as questões inéditas da IA só aparecem depois que o aluno fez todas as questões do caderno da aula */
+function qCadDone(t){const ps=[...new Set(aSet(t).flatMap(c=>partsOf(t.sid,c)))];if(!ps.length)return true;return ps.every(p=>{const Z=qzDoc(p.id);return Z&&Z.L.every(q=>Z.ans[q.id])})}
+function qHeads(p){const S=stOk(p)?p.st:null;if(!S)return[];let o=QH_C.get(p.id);if(o&&o.s===S)return o.H;
+  const H=(S.hd||[]).filter(h=>h.l<3&&h.t.length>=6&&!/^(assim|para a prova|na prova|veja|vejamos|exemplo|resumindo|aten|importante|observa|cuidado|esquema|quadro|tabela|apenas|confira)/i.test(norm(h.t))).map(h=>({t:h.t.replace(/^\d+(\.\d+)*\s*[-–.]\s*/,""),p:h.p,x:psPos(h.p,h.y)})).sort((a,b)=>a.x-b.x);
+  QH_C.set(p.id,{s:S,H});return H}
+function qAs(p,q){const Z=qzDoc(p.id),m=Z&&Z.map&&Z.map.q[q.id];if(!m)return"";let h=null;for(const x of qHeads(p)){if(x.x<=m.p+.6)h=x;else break}return h?h.t:""}
 function qPtFlat(D2){return[...D2.groups.map(g=>({g,f:0})),...D2.extra.map(g=>({g,f:1}))].flatMap(({g,f})=>g.pts.map(pt=>({g,pt,f})))}
 function qResMd(sid,c,view){const X=qResData(sid,c),out=[],au=auOf(sid,c);view=view||"full";
   out.push("## "+SUB(sid).n+" · "+auLabel(sid,c)+(au?" – "+au.d:""));
@@ -3196,6 +3209,14 @@ function qResMd(sid,c,view){const X=qResData(sid,c),out=[],au=auOf(sid,c);view=v
   X.extra.forEach(g=>{out.push("## "+g.t+" · fora do material (TEC)");g.pts.forEach(p=>pt(p,1))});
   if(X.own.length){out.push("## Suas marcações");X.own.slice(0,30).forEach(h=>out.push("- "+HLC[h.c][0]+" (p. "+h.p+"): "+h.t))}
   if(X.semQ.length){out.push("## Assuntos da aula sem questões (ainda)");X.semQ.forEach(h=>out.push("- "+h.t+" (p. "+h.p+")"))}
+  return out.join("\n")}
+/* resumão final: 1 a 2 páginas para a véspera, com o que mais cai, o que você errou e um checklist */
+function qResumao(sid,c){const X=qResData(sid,c),L=qPtFlat(X),out=[],au=auOf(sid,c);if(!L.length)return"";
+  out.push("## Resumão final · "+SUB(sid).n+" · "+auLabel(sid,c)+(au?" – "+au.d:""));
+  const top=L.slice().sort((a,b)=>b.pt.qs.length-a.pt.qs.length).slice(0,10),er=L.filter(x=>x.pt.qs.some(q=>q.err));
+  out.push("## O que mais cai");top.forEach(x=>{const pg=x.pt.qs.map(q=>q.peg).find(Boolean);out.push("- **"+cut(x.pt.s,230)+"** ("+(x.pt.p?"p. "+x.pt.p+" · ":"")+x.pt.qs.length+" quest"+(x.pt.qs.length>1?"ões":"ão")+")"+(pg?" Pegadinha: "+cut(pg,150):""))});
+  if(er.length){out.push("## O que você errou");er.slice(0,12).forEach(x=>out.push("- ATENÇÃO: "+cut(x.pt.s,200)+(x.pt.p?" (p. "+x.pt.p+")":"")))}
+  out.push("## Checklist de véspera");[...er,...top].filter((x,i,a)=>a.indexOf(x)===i).slice(0,15).forEach(x=>out.push("- ☐ "+cut(x.pt.s,120)));
   return out.join("\n")}
 function qResHTML(sid,c,view){const X=qResData(sid,c);
   if(!X.groups.length&&!X.extra.length)return`<p class="muted" style="margin:0">${X.wait?'<span class="spin"></span> Separando as questões desta aula e ligando cada uma à teoria…':"Ainda não há questões nesta aula. Envie o PDF em Estudar → Aulas e PDFs, ou adicione questões do TEC abaixo: o resumo nasce delas."}</p>`;
@@ -3877,7 +3898,7 @@ function rowsHTML(ts,locks,mbt,preview,all){
       <span class="ac-dn"><i style="background:${s.col}"></i>${esc(s.n)}</span>
       <span class="ac-tp"><b class="phd ${t.ph}"></b>${PHN[t.ph]}${t.grau?" "+grauBars(t.grau):""}</span>
       <span class="ttl">${esc(taskTitle(t))}</span>
-      <span class="stars" title="${esc(st0.tip)}">${"★".repeat(st)}<s>${"☆".repeat(5-st)}</s></span>
+      <span class="stars ${relCls(st)}" title="${esc(st0.tip)}">${"★".repeat(st)}<s>${"☆".repeat(5-st)}</s></span>
       <span class="tm" title="Previsto: ${fmtM(t.min)}${t.skip?" · ignorada":lk?" · bloqueada":""}">${fmtH(sp)}<small>${t.skip?"ignorada":lk?"bloqueada":"de "+fmtM(t.min)}</small></span>
       <span class="pf">${t.skip?"-":pfx}</span>
       <span class="ac-cd">${preview?"—":esc(tcode(t))}</span></button>`;
@@ -3938,7 +3959,7 @@ function refsHTML(){
   const L=allRefs().filter(x=>UI.rfAll||!x.done).sort((a,b)=>(!!a.done-!!b.done)||((a.meta||999)-(b.meta||999))||(a.due>b.due?1:-1)),mbt=minutesByTask();
   const head=`<div class="rhead" aria-hidden="true"><span></span><span>#</span><span>Disciplina</span><span>Grau</span><span>Título</span><span>Relevância</span><span>Tempo</span><span>Prazo</span></div>`;
   const rows=L.map((t,i)=>{const s=SUB(t.sid),lf=refLeft(t),sp=mbt[t.id]||t.gsp||0,st=core().gj&&t.rel?t.rel:relInfo(t).n;
-    return`<button class="rrow ${t.done?"done":""}" data-a="openT" data-id="${t.id}"><span class="sdot"></span><span class="num">${i+1}</span><span class="cl"><span class="code" style="border-color:${s.col}">${s.c}</span><span class="nm">${esc(s.n)}</span></span>${grauBars(t.grau)}<span class="ttl">${esc(taskTitle(t))}${t.done?"":t.meta?` <small class="chip">na Meta ${pad(t.meta)}</small>`:` <small class="chip">aguardando a próxima meta</small>`}</span><span class="stars">${"★".repeat(st)}<s>${"★".repeat(5-st)}</s></span><span class="tm">${sp?fmtM(sp):"00h00m"}</span><span class="dl ${t.done?"ok":lf<0?"bad":lf<=5?"warn":""}">${t.done?ic("check"):lf<0?"-"+(-lf)+"d":lf+"d"}</span></button>`}).join("");
+    return`<button class="rrow ${t.done?"done":""}" data-a="openT" data-id="${t.id}"><span class="sdot"></span><span class="num">${i+1}</span><span class="cl"><span class="code" style="border-color:${s.col}">${s.c}</span><span class="nm">${esc(s.n)}</span></span>${grauBars(t.grau)}<span class="ttl">${esc(taskTitle(t))}${t.done?"":t.meta?` <small class="chip">na Meta ${pad(t.meta)}</small>`:` <small class="chip">aguardando a próxima meta</small>`}</span><span class="stars ${relCls(st)}" title="Relevância ${st} de 5">${"★".repeat(st)}<s>${"★".repeat(5-st)}</s></span><span class="tm">${sp?fmtM(sp):"00h00m"}</span><span class="dl ${t.done?"ok":lf<0?"bad":lf<=5?"warn":""}">${t.done?ic("check"):lf<0?"-"+(-lf)+"d":lf+"d"}</span></button>`}).join("");
   return`<section class="card"><div class="cal-bar"><span class="muted small" style="flex:1">Quando você acerta menos de 75% num bloco de questões, nasce um reforço com questões do TEC sobre aquele assunto (10 questões entre 50% e 74%, 20 abaixo de 50%) e uma revisão rápida. Os reforços não se acumulam: cada meta nova recebe no máximo 2, os mais urgentes primeiro, e o resto espera a meta seguinte.</span><label class="small muted" style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-c="rfAll" ${UI.rfAll?"checked":""}> Mostrar concluídos</label></div>
     ${L.length?`<div class="rlist">${head}${rows}</div>`:`<div class="empty">Nenhum reforço pendente. Eles aparecem quando o acerto num bloco de questões fica abaixo de 75%.</div>`}</section>`;
 }
@@ -4799,7 +4820,15 @@ function quizHTML(p,ctx,only){const Z=qzDoc(p.id),busy=QZ_BUSY.has(p.id);ctx=ctx
     <div class="row">${busy?`<span class="muted small"><span class="spin"></span> Separando as questões do PDF…</span>`:`<button class="btn pri sm" data-a="qzBuild" data-id="${p.id}">${ic("list")} Montar as questões</button>`}</div></div>`;
   if(!Z.L.length)return`<div class="qz"><p class="muted small" style="margin:0">Não consegui separar as questões deste PDF automaticamente.</p><div class="row">${SAMPLE?`<button class="btn sm pri" data-a="qzAI" data-id="${p.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Montando…':ic("bulb")+" Montar com a IA"}</button>`:""}<button class="btn sm ghost" data-a="qzBuild" data-id="${p.id}" data-f="1">${ic("reset")} Tentar de novo</button></div></div>`;
   const miss=Z.L.filter(x=>!x.k).length,missBtn=miss&&SAMPLE&&!p.ai?`<div class="row qz-miss"><span class="muted small">${miss} quest${miss>1?"ões":"ão"} sem gabarito no PDF.</span><button class="btn sm" data-a="qzKeyAI" data-id="${p.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Conferindo…':ic("bulb")+" Completar gabaritos com fundamento"}</button></div>`:"";
-  const IX=only&&only.length?only:Z.L.map((_,k)=>k),key="qz:"+p.id+(only?"|"+ctx:""),S=qzStats({L:IX.map(k=>Z.L[k]),ans:Z.ans}),pos=clamp(UI[key]||0,0,IX.length-1),i=IX[pos],q=Z.L[i],A=Z.ans[q.id],opts=q.ce?[["C","Certo"],["E","Errado"]]:q.o,nav=`data-key="${key}" data-max="${IX.length}"`;
+  const fk="qf:"+p.id+ctx,FL=!only&&Z.L.length>6,f=FL?(UI[fk]||(UI[fk]={st:"all",as:"",bn:""})):null;
+  let IX=only&&only.length?only:Z.L.map((_,k)=>k);
+  if(f){IX=IX.filter(k=>{const q=Z.L[k],a=Z.ans[q.id];if(q.id===UI.qzKeep)return true;if(f.st==="todo"&&a)return false;if(f.st==="err"&&!(a&&!a.ok))return false;if(f.as&&qAs(p,q)!==f.as)return false;if(f.bn&&qMeta(q).banca!==f.bn)return false;return true})}
+  const fbar=f?(()=>{const HO=qHeads(p).map(h=>h.t),AS=[...new Set(Z.L.map(q=>qAs(p,q)).filter(Boolean))].sort((a,b)=>HO.indexOf(a)-HO.indexOf(b)),BN=[...new Set(Z.L.map(q=>qMeta(q).banca).filter(Boolean))],ne=Z.L.filter(q=>Z.ans[q.id]&&!Z.ans[q.id].ok).length,nt=Z.L.filter(q=>!Z.ans[q.id]).length;
+    return`<div class="qz-f"><div class="tabs2" role="group" aria-label="Quais questões">${[["all","Todas ("+Z.L.length+")"],["todo","Não feitas ("+nt+")"],["err","Erradas ("+ne+")"]].map(([k,l])=>`<button data-a="qfSt" data-k="${fk}" data-pk="qz:${p.id}|${ctx}" data-v="${k}" aria-pressed="${f.st===k}">${l}</button>`).join("")}</div>
+      ${AS.length>1?`<select class="inp sm" data-c="qfAs" data-k="${fk}" data-pk="qz:${p.id}|${ctx}" aria-label="Assunto"><option value="">Todos os assuntos</option>${AS.map(a=>`<option ${f.as===a?"selected":""}>${esc(a)}</option>`).join("")}</select>`:""}
+      ${BN.length>1?`<select class="inp sm" data-c="qfBn" data-k="${fk}" data-pk="qz:${p.id}|${ctx}" aria-label="Banca"><option value="">Todas as bancas</option>${BN.map(a=>`<option ${f.bn===a?"selected":""}>${esc(a)}</option>`).join("")}</select>`:""}</div>`})():"";
+  if(!IX.length)return`<div class="qz">${fbar}<p class="muted" style="margin:0">${f&&f.st==="err"?"Nenhuma questão errada com esses filtros.":f&&f.st==="todo"?"Você já fez todas as questões com esses filtros.":"Nenhuma questão com esses filtros."}</p></div>`;
+  const key="qz:"+p.id+(only||f?"|"+ctx:""),S=qzStats({L:IX.map(k=>Z.L[k]),ans:Z.ans}),pos=clamp(UI[key]||0,0,IX.length-1),i=IX[pos],q=Z.L[i],A=Z.ans[q.id],opts=q.ce?[["C","Certo"],["E","Errado"]]:q.o,nav=`data-key="${key}" data-max="${IX.length}"`;
   const fx=!!(A&&UI.qzFx&&UI.qzFx.q===q.id&&Date.now()-UI.qzFx.t<1500),lk="qzlast:"+p.id+ctx,ent=UI[lk]&&UI[lk]!==q.id;UI[lk]=q.id;
   const LL=IX.map(k=>Z.L[k]),multi=!only&&new Set(LL.map(x=>x.seq)).size>1;
   const dots=LL.map((x,k)=>{const a=Z.ans[x.id];return(multi&&(k===0||LL[k-1].seq!==x.seq)?`<span class="qz-sep">Lista ${[...new Set(LL.map(y=>y.seq))].indexOf(x.seq)+1}</span>`:"")+`<button class="${a?(a.ok?"ok":"err"):""} ${k===pos?"cur":""} ${k===pos&&fx?"fxd":""}" data-a="qzGo" data-id="${p.id}" data-i="${k}" ${nav} aria-label="Questão ${only?k+1:x.n}${a?(a.ok?", acertou":", errou"):""}">${only?k+1:x.n}</button>`}).join("");
@@ -4807,7 +4836,7 @@ function quizHTML(p,ctx,only){const Z=qzDoc(p.id),busy=QZ_BUSY.has(p.id);ctx=ctx
     const xs=(UI.qzX||{})[p.id+"|"+q.id]||[],x=xs.includes(k),sl=!A&&(UI.qzSel||{})[p.id+"|"+q.id]===k;
     return`<button class="qz-o ${cl} ${x?"x":""} ${sl?"sel":""}" aria-pressed="${sl}" data-a="qzPick" data-id="${p.id}" data-q="${q.id}" data-k="${k}" ${A?"disabled":""} title="${x?"Alternativa riscada · dois cliques para desfazer":"Um clique seleciona · dois cliques riscam a alternativa"}"><span class="qz-k">${q.ce?"":k}</span><span><span class="qz-t">${esc(txt)}</span></span></button>`}).join("");
   return`<div class="qz"><div class="qz-h"><b>${only?"Questões do PDF sobre estas páginas":p.tec?"Questões do TEC desta aula":p.ai?"Questões criadas para você":"Questões do PDF"}</b><span class="qz-sc">${S.f} de ${S.n} respondidas · <b class="${S.f?S.pct>=75?"okc":S.pct>=50?"warnc":"badc":""}">${S.pct}% de acertos</b></span></div>
-   ${missBtn}<div class="qz-bar" aria-hidden="true"><i class="ok" style="width:${S.n?S.ok/S.n*100:0}%"></i><i class="bad" style="width:${S.n?(S.f-S.ok)/S.n*100:0}%"></i></div>
+   ${fbar}${missBtn}<div class="qz-bar" aria-hidden="true"><i class="ok" style="width:${S.n?S.ok/S.n*100:0}%"></i><i class="bad" style="width:${S.n?(S.f-S.ok)/S.n*100:0}%"></i></div>
    <div class="qgrid qz-g">${dots}</div>
    <div class="qz-q${fx?" fx "+(A.ok?"good":"bad"):""}${ent&&!fx?" enter":""}"><div class="qz-qh"><span class="code">${only?`Questão ${pos+1} de ${IX.length}`:`Questão ${q.n}${q.seq>1?" · lista "+q.seq:""}`}</span>${q.p?`<button class="btn sm ghost" data-a="read" data-id="${p.id}" data-pa="${q.p}" data-pb="${q.p}">${ic("book")} Ver no PDF (p. ${q.p})</button>`:""}</div>
     <p class="qz-s">${esc(q.s)}</p><div class="qz-os">${ob}</div>${A?"":`<div class="row qz-solve"><button class="btn pri" data-a="qzSolve" data-id="${p.id}" data-q="${q.id}" ${(UI.qzSel||{})[p.id+"|"+q.id]?"":"disabled"}>${ic("check")} Resolver questão</button><span class="muted small">Um clique seleciona a alternativa · dois cliques riscam (eliminam). A resposta só vale ao tocar em Resolver.</span></div>`}
@@ -5034,10 +5063,10 @@ function renderDrawer0(){
       ${t.ph==="T"&&t.pdf?(()=>{const X=pdfQsFor(t);if(!X)return"";
         return`<details class="sec" data-k="C" id="avPq" open><summary>${ic("list")} Questões destas páginas <span class="n">${X.wait?"…":X.L.length}</span></summary><div class="sb">${X.wait?`<p class="muted small" style="margin:0"><span class="spin"></span> Separando, entre todas as questões do PDF, as que cobram estas páginas…</p>`:X.L.length?quizHTML(X.p,"t"+t.id,X.L.map(x=>x.i)):`<p class="muted small" style="margin:0">Nenhuma questão do PDF cobra estas páginas. As demais ficam para a fase de questões da aula.</p>`}</div></details>`})():""}
       ${t.ph==="T"&&t.done&&t.aula&&!t.ref?`<details class="sec" data-k="C" id="avG" open><summary>${ic("bulb")} Questões das páginas que você estudou <span class="n">${qzStats(qzDoc(qaiId(auTask(t.sid,t.aula)))).pct}%</span></summary><div class="sb">${qaiHTML(auTask(t.sid,t.aula))}</div></details>`:""}
-      ${t.ph==="Q"&&t.aula?`<details class="sec" data-k="C" id="avG" open><summary>${ic("bulb")} Questões das páginas que você estudou <span class="n">${qzStats(qzDoc(qaiId(t))).pct}%</span></summary><div class="sb">${qaiHTML(t)}</div></details>`:""}
+      ${t.ph==="Q"&&t.aula&&qCadDone(t)?`<details class="sec" data-k="C" id="avG" open><summary>${ic("bulb")} Questões das páginas que você estudou <span class="n">${qzStats(qzDoc(qaiId(t))).pct}%</span></summary><div class="sb">${qaiHTML(t)}</div></details>`:""}
       ${(t.ph==="Q"||t.ph==="M")?(()=>{const ps=[...new Set(aSet(t).flatMap(c=>partsOf(t.sid,c)))];if(t.pdf&&pdf(t.pdf)&&!ps.includes(pdf(t.pdf)))ps.unshift(pdf(t.pdf));if(!ps.length)return"";
         const cur=ps.find(x=>x.id===UI.qzP)||ps[0];if(!qzDoc(cur.id)&&!QZ_BUSY.has(cur.id)&&cur.pages&&!cur.raw)setTimeout(()=>buildQuiz(cur),30);
-        return`<details class="sec" data-k="C" id="avZ" open><summary>${ic("list")} Resolver as questões aqui <span class="n">${qzStats(qzDoc(cur.id)).pct}%</span></summary><div class="sb">${ps.length>1?`<div class="tabs2" role="group">${ps.map(x=>`<button data-a="qzPdf" data-id="${x.id}" aria-pressed="${x.id===cur.id}">${esc(x.aula?auLabel(x.sid,x.aula):pdfName(x.id))}</button>`).join("")}</div>`:""}${quizHTML(cur,"t")}</div></details>`})():""}
+        return`<details class="sec" data-k="C" id="avZ" open><summary>${ic("list")} Caderno de questões da aula <span class="n">${qzStats(qzDoc(cur.id)).pct}%</span></summary><div class="sb">${ps.length>1?`<div class="tabs2" role="group">${ps.map(x=>`<button data-a="qzPdf" data-id="${x.id}" aria-pressed="${x.id===cur.id}">${esc(x.aula?auLabel(x.sid,x.aula):pdfName(x.id))}</button>`).join("")}</div>`:""}${quizHTML(cur,"t")}</div></details>`})():""}
       ${(t.ph==="Q"||t.ph==="M")?`<details class="sec" data-k="M" id="avN" open><summary>${ic("target")} Questões do TEC para revisar <span class="n">${REV().filter(r=>r.tq&&r.tid===t.id).length}</span></summary><div class="sb">
         <p class="muted small" style="margin:0">Anote principalmente as questões que errar. Cada uma entra nas revisões de 1, 7, 14, 30 e 60 dias e vira um card.</p>
         ${REV().filter(r=>r.tq&&r.tid===t.id).map(r=>`<div class="tqi"><span class="chip ${r.kind==="err"?"bad":"warn"}">${TQK[r.kind]||"Anotada"}</span><div style="min-width:0"><b>${esc(r.label)}</b>${r.note?`<span>${esc(r.note)}</span>`:""}</div>${r.link?`<a class="btn sm" href="${esc(r.link)}" target="_blank" rel="noopener">${ic("ext")} TEC</a>`:""}</div>`).join("")}
@@ -5621,7 +5650,7 @@ function vResumos(){
   const c=UI.rsAula&&L.some(a=>a.c===UI.rsAula)?UI.rsAula:(L.find(a=>pdfOfAula(sid,a.c))||L[Math.min(progOf(sid).i,L.length-1)]||L[0]).c;
   UI.rsAula=c;const key=resKey(sid,c);UI.rsKey=key;
   try{qResSync(sid,c)}catch(e){}
-  const R0=resDoc(sid,c)||{txt:"",tq:[]},p=pdfOfAula(sid,c),au=auOf(sid,c),busy=RES_BUSY.has(key),vw=["full","cai","err"].includes(UI.rsView)?UI.rsView:"full";
+  const R0=resDoc(sid,c)||{txt:"",tq:[]},p=pdfOfAula(sid,c),au=auOf(sid,c),busy=RES_BUSY.has(key),vw=["full","cai","err","fin"].includes(UI.rsView)?UI.rsView:"full";
   const X=qResData(sid,c),aiOk=R0.qai&&R0.qai.txt,aiOld=aiOk&&R0.qai.sig!==X.sig,showAI=vw==="full"&&aiOk&&UI.rsAIv!==0;
   if(SAMPLE&&core().resAI&&!busy&&(X.groups.length||X.extra.length)&&(!aiOk||aiOld)&&!X.wait)setTimeout(()=>qResAI(sid,c),50);
   const sopt=ED.map(s=>`<option value="${s.id}" ${s.id===sid?"selected":""}>${esc(s.n)}</option>`).join("");
@@ -5634,10 +5663,11 @@ function vResumos(){
     <div class="field" style="flex:2 1 320px"><label for="rsA">Aula</label><select class="inp" id="rsA" data-c="rsAula">${aopt}</select></div></div></section>
   <div class="grid2 rsg"><section class="card"><div class="card-h"><h2>${esc(auLabel(sid,c))}${au?" · "+esc(au.d.slice(0,70)):""}</h2><span class="r muted small">${X.nq?X.nq+" questões":""}</span></div>
     <div class="card-b" style="display:grid;gap:12px">
-      <div class="row" style="gap:6px;flex-wrap:wrap"><div class="tabs2" role="group" aria-label="Como ver o resumo">${[["full","Completo"],["cai","Só o que cai"],["err","Só o que eu errei"+(nE?" ("+nE+")":"")]].map(([k,l])=>`<button data-a="rsView" data-v="${k}" aria-pressed="${vw===k}">${l}</button>`).join("")}</div></div>
+      <div class="row" style="gap:6px;flex-wrap:wrap"><div class="tabs2" role="group" aria-label="Como ver o resumo">${[["full","Completo"],["cai","Só o que cai"],["err","Só o que eu errei"+(nE?" ("+nE+")":"")],["fin","Resumão final"+(cycleDone(sid,c)?" ✓":"")]].map(([k,l])=>`<button data-a="rsView" data-v="${k}" aria-pressed="${vw===k}">${l}</button>`).join("")}</div></div>
       ${vw==="full"&&aiOk?`<div class="row" style="gap:6px"><div class="tabs2" role="group" aria-label="Versão"><button data-a="rsAIv" data-v="1" aria-pressed="${showAI}">Explicado pela IA</button><button data-a="rsAIv" data-v="0" aria-pressed="${!showAI}">Direto das questões</button></div>${aiOld&&!busy?`<span class="muted small">Há questões novas desde a versão da IA.</span>`:""}</div>`:""}
-      <div class="rsout" id="rsOut">${busy&&vw==="full"?'<p class="muted"><span class="spin"></span> A IA está escrevendo…</p>':showAI?mdLite(R0.qai.txt):qResHTML(sid,c,vw)}</div>
-      <div class="row" style="gap:8px;flex-wrap:wrap">${SAMPLE&&(X.groups.length||X.extra.length)?`<button class="btn ${aiOk&&!aiOld?"ghost":"pri"} sm" data-a="rsAI" ${busy?"disabled":""}>${ic("bulb")} ${aiOk?(aiOld?"Atualizar com a IA":"Refazer com a IA"):"Melhorar com a IA"}</button>`:""}${R0.txt?`<button class="btn sm" data-a="rsPdf">${ic("dl")} Baixar em PDF</button>`:""}${SAMPLE&&R0.txt?`<button class="btn sm ghost" data-a="mmFromRes" data-s="${sid}" data-c="${c}" ${UI.mmBusy?"disabled":""}>${ic("brain")} Mapa mental</button>`:""}${p?`<button class="btn sm ghost" data-a="rsQz">${ic("list")} Resolver as questões desta aula</button>`:""}</div>
+      ${vw==="fin"?`<p class="muted small" style="margin:0">${cycleDone(sid,c)?"Ciclo da aula concluído (teoria, revisão, mapeamento e questões): este é o seu resumão para a véspera.":"Fica completo quando você fechar o ciclo da aula (teoria, revisão, mapeamento e questões). Já dá para ver com o que existe até agora."}</p>`:""}
+      <div class="rsout" id="rsOut">${vw==="fin"?(qResumao(sid,c)?mdLite(qResumao(sid,c)):'<p class="muted">Ainda não há questões nesta aula para montar o resumão.</p>'):busy&&vw==="full"?'<p class="muted"><span class="spin"></span> A IA está escrevendo…</p>':showAI?mdLite(R0.qai.txt):qResHTML(sid,c,vw)}</div>
+      <div class="row" style="gap:8px;flex-wrap:wrap">${SAMPLE&&(X.groups.length||X.extra.length)?`<button class="btn ${aiOk&&!aiOld?"ghost":"pri"} sm" data-a="rsAI" ${busy?"disabled":""}>${ic("bulb")} ${aiOk?(aiOld?"Atualizar com a IA":"Refazer com a IA"):"Melhorar com a IA"}</button>`:""}${vw==="fin"?`<button class="btn sm pri" data-a="rsResumaoPdf">${ic("dl")} Baixar o resumão em PDF</button>`:R0.txt?`<button class="btn sm" data-a="rsPdf">${ic("dl")} Baixar em PDF</button>`:""}${SAMPLE&&R0.txt?`<button class="btn sm ghost" data-a="mmFromRes" data-s="${sid}" data-c="${c}" ${UI.mmBusy?"disabled":""}>${ic("brain")} Mapa mental</button>`:""}${p?`<button class="btn sm ghost" data-a="rsQz">${ic("list")} Resolver as questões desta aula</button>`:""}</div>
       ${SAMPLE?`<label class="small muted" style="display:flex;gap:8px;align-items:center"><input type="checkbox" data-c="resAI" ${core().resAI?"checked":""}> Sempre melhorar com a IA quando entrarem questões novas (cerca de US$ 0,25 por aula)</label>`:""}
       ${rsHlBox(sid,c)}
     </div></section>
@@ -7097,6 +7127,8 @@ const A={
   async rsAulaPdf(){const p=pdfOfAula(UI.rsSid||ED[0].id,UI.rsAula);if(!p)return;const buf=await pdfBytes(p);if(!buf){toast("Este PDF não está salvo neste aparelho nem na sua conta");return}await saveFile(p.name,new Blob([buf],{type:"application/pdf"}))},
   rsGen(){genResumo(UI.rsSid||ED[0].id,UI.rsAula,null)},
   rsView(el){UI.rsView=el.dataset.v;render()},
+  async rsResumaoPdf(el){const sid=UI.rsSid||ED[0].id,c=UI.rsAula,md=qResumao(sid,c);if(!md)return;el.disabled=true;try{const b=await mdToPdf("Resumão final - "+SUB(sid).n,auLabel(sid,c),md.split("\n").slice(1).join("\n").replace(/☐/g,"[ ]"),"A JORNADA - "+SUB(sid).c);await saveFile("Resumao "+SUB(sid).c+" "+auLabel(sid,c).replace(/[^\w ]/g,"")+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}el.disabled=false},
+  qfSt(el){const f=UI[el.dataset.k];if(!f)return;f.st=el.dataset.v;UI[el.dataset.pk]=0;UI.qzKeep=null;rerenderQz()},
   rsAIv(el){UI.rsAIv=+el.dataset.v;render()},
   rsAI(){qResAI(UI.rsSid||ED[0].id,UI.rsAula)},
   rsPg(el){const p=pdfOfAula(UI.rsSid||ED[0].id,UI.rsAula);if(p)openReader(p.id,+el.dataset.p,+el.dataset.p)},
@@ -7605,7 +7637,7 @@ Object.assign(A,{
       (Array.isArray(a)?a:[]).forEach(r=>{const q=Z.L.find(x=>x.id===r.id);const k=String(r.k||"").toUpperCase().trim();if(!q||q.k||/baixa/i.test(r.conf||""))return;if(q.ce?!/^[CE]$/.test(k):!q.o.some(o=>o[0]===k))return;q.k=k;q.kai=1;q.kf=String(r.f||"").slice(0,240);n++});
       touch("qz-"+id);toast(n?n+" gabarito"+(n>1?"s":"")+" completado"+(n>1?"s":"")+" com fundamento. Os que geraram dúvida ficaram sem gabarito.":"Não consegui concluir com segurança. As questões continuam sem gabarito.")}
     catch(e){toast("Não consegui conferir os gabaritos agora")}finally{QZ_BUSY.delete(id);rerenderQz()}},
-  qzGo(el){const Z=qzDoc(el.dataset.id);if(!Z)return;UI[el.dataset.key||("qz:"+el.dataset.id)]=clamp(+el.dataset.i,0,(+el.dataset.max||Z.L.length)-1);rerenderQz()},
+  qzGo(el){const Z=qzDoc(el.dataset.id);if(!Z)return;UI.qzKeep=null;UI[el.dataset.key||("qz:"+el.dataset.id)]=clamp(+el.dataset.i,0,(+el.dataset.max||Z.L.length)-1);rerenderQz()},
   /* Alternativa: um clique responde; dois cliques riscam (eliminam) ou tiram o risco. O clique simples espera um instante
      para não responder sem querer quando a intenção era riscar. Alternativa riscada não responde com um clique. */
   qzPick(el,e){const key=el.dataset.id+"|"+el.dataset.q,k=el.dataset.k;UI.qzX=UI.qzX||{};UI.qzSel=UI.qzSel||{};clearTimeout(A.qzPick.t);
@@ -7619,7 +7651,7 @@ Object.assign(A,{
     UI.qzSel[key]=UI.qzSel[key]===k?null:k;paint();if(UI.qzSel[key]){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");fxVib(8)}},
   /* a resposta só conta aqui: resolve com a alternativa selecionada */
   qzSolve(el){const key=el.dataset.id+"|"+el.dataset.q,k=(UI.qzSel||{})[key];if(!k){toast("Selecione uma alternativa primeiro");return}
-    delete UI.qzSel[key];UI.qzFx={q:el.dataset.q,t:Date.now()};A.qzAns({dataset:{id:el.dataset.id,q:el.dataset.q,k}});
+    delete UI.qzSel[key];UI.qzFx={q:el.dataset.q,t:Date.now()};UI.qzKeep=el.dataset.q;A.qzAns({dataset:{id:el.dataset.id,q:el.dataset.q,k}});
     const Z=qzDoc(el.dataset.id),a=Z&&Z.ans[el.dataset.q];if(a)fxVib(a.ok?[18]:[35,45,35])},
   qzAns(el){const p=qzP(el.dataset.id),Z=qzDoc(el.dataset.id);if(!p||!Z)return;const q=Z.L.find(x=>x.id===el.dataset.q);if(!q||Z.ans[q.id])return;const k=el.dataset.k;
     if(!q.k||q.k==="X"){Z.ans[q.id]={a:k,ok:q.k==="X",d:today(),self:1};if(q.k==="X")qzMark(p,q,true)}else{const ok=k===q.k;Z.ans[q.id]={a:k,ok,d:today()};qzMark(p,q,ok)}
