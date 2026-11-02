@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021005"></script>
+<script src="/claude-shim.js?v=202611021024"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -635,6 +635,12 @@ textarea.inp{min-height:84px;resize:vertical}
 @media(max-width:700px){.rd-sw span{display:none}}
 .hlbox{display:grid;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--raise)}
 .hlbox .chip[aria-pressed="true"]{background:var(--acc,#7b3cff);color:#fff;border-color:transparent}
+.qr{display:grid;gap:10px}.qr-g{margin:10px 0 0;font-size:16px;color:var(--lime-txt,var(--lime))}.qr-g:first-child{margin-top:0}
+.qr-pt{display:grid;gap:6px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--raise)}.qr-pt.err{border-color:color-mix(in srgb,var(--bad) 55%,var(--line));box-shadow:inset 3px 0 0 var(--bad)}
+.qr-h{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.qr-pg{font-weight:700}.qr-n{font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--lime-soft);color:var(--lime-txt,var(--fg))}
+.qr-s{margin:0;line-height:1.55}.qr-peg{margin:0;font-size:13.5px;color:var(--fg2)}.qr-peg b{color:var(--warn,#e0a020)}
+.qr-qs>summary{cursor:pointer;font-size:12.5px;color:var(--mute);font-weight:600}.qr-q{display:flex;gap:6px;align-items:flex-start;flex-wrap:wrap;font-size:13px;padding:6px 0;border-top:1px dashed var(--line)}.qr-q>span:last-child{flex:1 1 260px}
+.qr-t{margin-top:4px}
 .hl-leg{display:flex;flex-wrap:wrap;gap:10px;font-size:12.5px}.hl-leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
 .rd-pgi{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--fg2);white-space:nowrap}
 .rd-pgi .inp{width:64px;padding:5px 6px;text-align:center;font-weight:700;-moz-appearance:textfield}.rd-pgi .inp::-webkit-inner-spin-button{opacity:.6}
@@ -2189,7 +2195,7 @@ async function qMapAll(p){const Z=qzDoc(p.id);if(!Z||!Z.L.length||QMAP_BUSY.has(
       pages.forEach(pg=>S[pg].forEach(x=>{if(x.k.size>=6){let c=0;x.k.forEach(w=>{if(QS.has(w))c++});if(c/x.k.size>.8)return}let v=0,n=0;x.k.forEach(w=>{if(Q.has(w)){v+=idf(w);n++}});if(n>=3&&(!best||v>best.v))best={v,p:pg,s:x.s}}));
       if(best&&best.v>=5)out[q.id]={p:best.p,s:best.s.length>240?best.s.slice(0,best.s.lastIndexOf(" ",236))+"…":best.s}});
     Z.map={v:1,n:Z.L.length,q:out};touch("qz-"+p.id)}catch(e){QMAP_FAIL.add(p.id)}finally{QMAP_BUSY.delete(p.id)}
-  if(UI.openT)renderDrawer()}
+  if(UI.openT)renderDrawer();else if(TAB==="resumos")render()}
 const qMapOk=(p,Z)=>Z&&Z.map&&Z.map.v===1&&Z.map.n===Z.L.length;
 function pdfQsFor(t){const p=t.pdf?pdf(t.pdf):null;if(!p||t.ph!=="T"||!t.pa)return null;const Z=qzDoc(p.id);
   if(!Z){if(!QZ_BUSY.has(p.id)&&p.pages&&!p.raw)setTimeout(()=>buildQuiz(p),40);return{p,L:[],wait:1}}
@@ -2296,6 +2302,7 @@ function pdMapModal(){const p=pdf(UI.pdMap);if(!p){$("layer3").innerHTML="";retu
 function pdCutSet(k,x){const p=pdf(UI.pdMap);if(!stOk(p))return;const L=stPlan(p,null);const cuts=L.slice(0,k).map(o=>o.b);cuts.push(+x);p.cuts=cuts;PLC.clear();touch("pdf-"+p.id);
   alignKey="";simCache.key="";{const r1=curMeta(),md1=r1&&metaDoc(r1.n);if(md1&&md1.std)md1.std=0}pdMapModal();render();toast("Divisão ajustada. As próximas atividades desta aula seguem o novo corte")}
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="pdCut")pdCutSet(+el.dataset.i,el.value)});
+document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="resAI"){core().resAI=el.checked;touch("core");render()}});
 /* corte digitado: a parte termina antes da página digitada; se houver um tópico nessa página, para antes dele */
 function pdCutPg(el){const n=parseInt(el.value,10),lo=+el.dataset.lo,hi=+el.dataset.hi;if(!n)return;if(n<Math.ceil(lo)||n>Math.floor(hi)){toast("Para esta parte, digite uma página de "+Math.ceil(lo)+" a "+Math.floor(hi));el.value="";return}
   const p=pdf(UI.pdMap),S=p&&p.st;let x=n;if(S){const h=(S.hd||[]).filter(h=>h.p===n&&h.l<3).sort((a,b)=>a.y-b.y)[0];if(h&&psPos(h.p,h.y)>=lo&&psPos(h.p,h.y)<=hi)x=psPos(h.p,h.y)}pdCutSet(+el.dataset.i,x)}
@@ -3140,6 +3147,93 @@ async function mapQ(p,q){try{if(!p||p.raw||!q)return;const L=HLS(p.id);if(L.some
   Object.entries(T.pages).forEach(([pg,items])=>{for(let i=0;i<items.length;i++){const txt=(items[i]+" "+(items[i+1]||"")+" "+(items[i+2]||""));if(txt.replace(/\s/g,"").length<25||/assinale|julgue|marque a|itens corret|alternativa (correta|incorreta|correspondente)|\(\s*\)|^\s*[a-e]\)\s/i.test(txt))continue;const tk=new Set(pvTok(txt));let v=0;tk.forEach(k=>{if(W.has(k))v++});if(!best||v>best.v)best={v,p:+pg,i,txt}}});
   if(!best||best.v<4)return;const ix=[best.i,best.i+1,best.i+2].filter(i=>(T.pages[best.p][i]||"").trim());
   L.push({id:uid(),p:best.p,c:"q",ix,t:best.txt.replace(/\s+/g," ").trim().slice(0,240),qid:q.id,qn:q.n,auto:1,at:today()});touch("hl-"+p.id);if(RD.doc&&RD.id===p.id)drawPage()}catch(e){}}
+
+
+/* ================= Resumo nascido das questões =================
+   Cada ponto do resumo vem de uma ou mais questões (do PDF ou do TEC): a regra (frase da teoria, com a página),
+   como caiu, a pegadinha (do comentário) e quantas questões cobraram. Os pontos ficam agrupados pelos assuntos da aula.
+   O que o aluno errou sobe e ganha a marca "você errou". Assuntos sem questões ficam listados no fim. */
+const QB_RE=/^\s*\(([^()]{2,90})\)\s*/;
+function qMeta(q){const m=String(q.s||"").match(QB_RE),inn=m?m[1]:"",ano=(inn.match(/(?:19|20)\d{2}/)||[""])[0],banca=inn?inn.split(/[\/\-–]/)[0].trim():"";return{banca,ano,stem:String(q.s||"").replace(QB_RE,"").trim()}}
+function qPeg(c){const L=String(c||"").replace(/\s+/g," ").split(/(?<=[.;!?])\s+/);const x=L.find(t=>t.length>=30&&t.length<=300&&/(errad|incorret|equivoc|pegadinha|cuidado|aten[çc][ãa]o|exceto|salvo|ressalva|n[ãa]o se aplica|ao contr[áa]rio|apenas|somente|vedad)/i.test(t)&&!/^(gabarito|letra|alternativa [a-e]\b)/i.test(t));return x||""}
+function qAns(q){if(!q.k||q.k==="X")return"";if(q.ce)return q.k==="C"?"Certo":"Errado";const o=(q.o||[]).find(o=>o[0]===q.k);return"letra "+q.k+(o?": "+String(o[1]).replace(/\s+/g," ").slice(0,160):"")}
+const cut=(t,n)=>{t=String(t||"").replace(/\s+/g," ").trim();return t.length>n?t.slice(0,t.lastIndexOf(" ",n-2)>n*.6?t.lastIndexOf(" ",n-2):n-1)+"…":t};
+function qResData(sid,c){const PS=partsOf(sid,c),R0=resDoc(sid,c)||{},cf=hlCfg();let wait=0,nq=0;const G=new Map(),order=[],semQ=[],extra=[];
+  const grp=(key,t,p)=>{if(!G.has(key)){G.set(key,{t,p,pts:[]});order.push(key)}return G.get(key)};
+  PS.forEach(p=>{const Z=qzDoc(p.id);if(!Z){if(!QZ_BUSY.has(p.id)&&!QB_TRIED.has(p.id)){QB_TRIED.add(p.id);setTimeout(()=>buildQuiz(p),30)}wait=1;return}
+    if(!Z.L.length)return;if(!qMapOk(p,Z)){if(!QMAP_FAIL.has(p.id)){setTimeout(()=>qMapAll(p),30);wait=1;return}}
+    const S=stOk(p)?p.st:null,H=S?(S.hd||[]).filter(h=>h.l<3&&h.t.length>=6&&!/^(assim|para a prova|na prova|veja|vejamos|exemplo|resumindo|aten|importante|observa|cuidado|esquema|quadro|tabela|apenas|confira)/i.test(norm(h.t))).map(h=>({t:h.t.replace(/^\d+(\.\d+)*\s*[-–.]\s*/,""),p:h.p,x:psPos(h.p,h.y)})).sort((a,b)=>a.x-b.x):[];
+    const used=new Set();
+    Z.L.forEach(q=>{nq++;const m=Z.map&&Z.map.q[q.id],a=Z.ans[q.id],M=qMeta(q);let h=null;
+      if(m){for(const x of H){if(x.x<=m.p+.6)h=x;else break}}
+      const g=m?(h?grp(p.id+"|"+norm(h.t),h.t,h.p):grp(p.id+"|_",SUB(sid).n,m.p)):grp("_outras","Outras questões da aula",9999);if(h)used.add(norm(h.t));
+      const regra=m?m.s:cut(String(q.c||"").split(/(?<=[.;!?])\s+/).find(t=>t.length>40&&!/^(gabarito|letra|coment)/i.test(t))||"",260);
+      let pt=g.pts.find(x=>x.s===regra);if(!pt){pt={s:regra,p:m?m.p:q.p||0,qs:[],src:"PDF"};g.pts.push(pt)}
+      pt.qs.push({n:q.n,src:"PDF",stem:cut(M.stem,170),ans:qAns(q),peg:cut(qPeg(q.c),240),err:!!(a&&!a.ok),done:!!a,banca:M.banca,ano:M.ano})});
+    H.forEach(h=>{if(!used.has(norm(h.t))&&!semQ.some(x=>norm(x.t)===norm(h.t)))semQ.push(h)})});
+  /* questões do TEC: reforçam um ponto do PDF, entram no assunto certo ou ficam como "fora do material" */
+  const tec=[...(R0.tecQs||[]).map(q=>({n:q.n,as:q.as,cob:q.cob,ans:q.r,why:q.pq,err:q.res==="erro",done:q.res!=="?"})),...(R0.tq||[]).map(q=>({n:q.n,as:q.as,cob:cut(q.q,170),ans:cut(q.gab,120),why:cut(q.com,260),err:q.k==="err",done:true}))];
+  const allPts=[...G.values()].flatMap(g=>g.pts.map(pt=>({g,pt,k:new Set(pvTok(pt.s))})));
+  tec.forEach(t=>{nq++;const k=new Set(pvTok((t.as||"")+" "+(t.cob||"")+" "+(t.why||"")));let best=null;allPts.forEach(x=>{let v=0;x.k.forEach(w=>{if(k.has(w))v++});if(v>=4&&(!best||v>best.v))best={v,x}});
+    const qq={n:t.n,src:"TEC",stem:cut(t.cob,170),ans:t.ans,peg:cut(t.why,240),err:t.err,done:t.done};
+    if(best){best.x.pt.qs.push(qq);return}
+    let hg=null;[...G.values()].forEach(g=>{const hk=new Set(pvTok(g.t));let v=0;hk.forEach(w=>{if(k.has(w))v++});if(v>=2&&(!hg||v>hg.v))hg={v,g}});
+    if(hg){hg.g.pts.push({s:cut(t.why||t.cob,260),p:0,qs:[qq],src:"TEC"});return}
+    const key="tec|"+norm(t.as||"Outros assuntos").slice(0,40);let e=extra.find(x=>x.key===key);if(!e){e={key,t:t.as||"Outros assuntos",pts:[]};extra.push(e)}e.pts.push({s:cut(t.why||t.cob,260),p:0,qs:[qq],src:"TEC"})});
+  const groups=order.map(k=>G.get(k)).filter(g=>g.pts.length).sort((a,b)=>a.p-b.p);groups.forEach(g=>g.pts.sort((a,b)=>(b.qs.some(q=>q.err)-a.qs.some(q=>q.err))||b.qs.length-a.qs.length||a.p-b.p));
+  const sig=[nq,...PS.map(p=>{const Z=qzDoc(p.id);return Z?Object.keys(Z.ans||{}).length+"/"+Object.values(Z.ans||{}).filter(a=>!a.ok).length:"-"}),tec.length].join(":");
+  const own=cf.on?hlAula(sid,c).filter(h=>h.c!=="q"):[];
+  return{groups,extra,semQ:semQ.filter(h=>!groups.some(g=>norm(g.t)===norm(h.t))),wait,nq,sig,own}}
+const QB_TRIED=new Set();
+function qPtFlat(D2){return[...D2.groups.map(g=>({g,f:0})),...D2.extra.map(g=>({g,f:1}))].flatMap(({g,f})=>g.pts.map(pt=>({g,pt,f})))}
+function qResMd(sid,c,view){const X=qResData(sid,c),out=[],au=auOf(sid,c);view=view||"full";
+  out.push("## "+SUB(sid).n+" · "+auLabel(sid,c)+(au?" – "+au.d:""));
+  const pt=(p,f)=>{const n=p.qs.length,er=p.qs.filter(q=>q.err);out.push("- "+(er.length?"ATENÇÃO: você errou · ":"")+(p.p?"**p. "+p.p+"** – ":"")+p.s+" ("+n+" quest"+(n>1?"ões":"ão")+(f?" · fora do material · TEC":"")+")");
+    const q=p.qs[0];if(q.stem)out.push("  Como caiu: "+q.stem+(q.ans?" → "+q.ans:""));const pg=p.qs.map(x=>x.peg).find(Boolean);if(pg)out.push("  Pegadinha: "+pg)};
+  if(view==="cai"){out.push("## O que mais cai");qPtFlat(X).sort((a,b)=>b.pt.qs.length-a.pt.qs.length).slice(0,15).forEach(x=>pt(x.pt,x.f));return out.join("\n")}
+  if(view==="err"){const L=qPtFlat(X).filter(x=>x.pt.qs.some(q=>q.err));out.push("## O que você errou");if(!L.length)out.push("- Nenhum erro registrado nesta aula ainda.");L.forEach(x=>pt(x.pt,x.f));return out.join("\n")}
+  X.groups.forEach(g=>{out.push("## "+g.t+(g.p&&g.p<9999?" (p. "+g.p+")":""));g.pts.forEach(p=>pt(p,0))});
+  X.extra.forEach(g=>{out.push("## "+g.t+" · fora do material (TEC)");g.pts.forEach(p=>pt(p,1))});
+  if(X.own.length){out.push("## Suas marcações");X.own.slice(0,30).forEach(h=>out.push("- "+HLC[h.c][0]+" (p. "+h.p+"): "+h.t))}
+  if(X.semQ.length){out.push("## Assuntos da aula sem questões (ainda)");X.semQ.forEach(h=>out.push("- "+h.t+" (p. "+h.p+")"))}
+  return out.join("\n")}
+function qResHTML(sid,c,view){const X=qResData(sid,c);
+  if(!X.groups.length&&!X.extra.length)return`<p class="muted" style="margin:0">${X.wait?'<span class="spin"></span> Separando as questões desta aula e ligando cada uma à teoria…':"Ainda não há questões nesta aula. Envie o PDF em Estudar → Aulas e PDFs, ou adicione questões do TEC abaixo: o resumo nasce delas."}</p>`;
+  const qb=q=>`<div class="qr-q"><span class="chip ${q.src==="TEC"?"warn":""}">${q.src}${q.n?" "+esc(String(q.n)):""}${q.banca?" · "+esc(q.banca)+(q.ano?" "+q.ano:""):""}</span>${q.err?'<span class="chip bad">você errou</span>':q.done?'<span class="chip ok">feita</span>':""}<span>${esc(q.stem)}${q.ans?` <b>→ ${esc(q.ans)}</b>`:""}</span></div>`;
+  const pt=(p,f)=>{const er=p.qs.some(q=>q.err),pg=p.qs.map(x=>x.peg).find(Boolean),n=p.qs.length;
+    return`<div class="qr-pt ${er?"err":""}"><div class="qr-h">${p.p?`<button class="lnk qr-pg" data-a="rsPg" data-p="${p.p}" title="Abrir o PDF nesta página">p. ${p.p}</button>`:""}<span class="qr-n" title="Questões que cobraram este ponto">${n} ${n>1?"questões":"questão"}</span>${f?'<span class="chip warn">fora do material · TEC</span>':""}</div>
+      <p class="qr-s">${esc(p.s)}</p>${pg?`<p class="qr-peg"><b>Pegadinha:</b> ${esc(pg)}</p>`:""}<details class="qr-qs"><summary>Como caiu (${n})</summary>${p.qs.map(qb).join("")}</details></div>`};
+  if(view==="cai"){const L=qPtFlat(X).sort((a,b)=>b.pt.qs.length-a.pt.qs.length).slice(0,15);return`<div class="qr">${L.map(x=>`<div class="qr-t small muted">${esc(x.g.t)}</div>`+pt(x.pt,x.f)).join("")}</div>`}
+  if(view==="err"){const L=qPtFlat(X).filter(x=>x.pt.qs.some(q=>q.err));return L.length?`<div class="qr">${L.map(x=>`<div class="qr-t small muted">${esc(x.g.t)}</div>`+pt(x.pt,x.f)).join("")}</div>`:`<p class="muted" style="margin:0">Nenhum erro nesta aula ainda. Quando você errar uma questão, o ponto dela aparece aqui.</p>`}
+  return`<div class="qr">${X.groups.map(g=>`<h3 class="qr-g">${esc(g.t)}${g.p&&g.p<9999?` <small class="muted">p. ${g.p}</small>`:""}</h3>${g.pts.map(p=>pt(p,0)).join("")}`).join("")}
+    ${X.extra.map(g=>`<h3 class="qr-g">${esc(g.t)} <small class="muted">fora do material · TEC</small></h3>${g.pts.map(p=>pt(p,1)).join("")}`).join("")}
+    ${X.own.length?`<h3 class="qr-g">Suas marcações</h3><ul class="tsl">${X.own.slice(0,30).map(h=>`<li><b>${HLC[h.c][0]}</b> (p. ${h.p}): ${esc(h.t)}</li>`).join("")}</ul>`:""}
+    ${X.semQ.length?`<h3 class="qr-g">Assuntos da aula sem questões (ainda)</h3><p class="muted small" style="margin:0">Estão no material, mas nenhuma questão do PDF ou do TEC cobrou ainda. Não esqueça deles.</p><ul class="tsl">${X.semQ.map(h=>`<li>${esc(h.t)} <span class="muted small">(p. ${h.p})</span></li>`).join("")}</ul>`:""}
+    ${X.wait?'<p class="muted small"><span class="spin"></span> Ainda separando questões de parte desta aula…</p>':""}</div>`}
+/* guarda o resumo atual em R0.txt (usado no PDF, mapa mental e resumão) sempre que entram questões ou respostas novas */
+function qResSync(sid,c){const X=qResData(sid,c);if(X.wait&&!X.groups.length)return;const R0=resGet(sid,c);if(R0.qsig===X.sig&&R0.v>=4)return;
+  if(!(R0.qai&&R0.qai.sig===X.sig))R0.txt=qResMd(sid,c,"full");else R0.txt=R0.qai.txt;R0.qsig=X.sig;R0.v=4;R0.upd=Date.now();touch(resKey(sid,c))}
+async function qResAI(sid,c){const key=resKey(sid,c);if(!SAMPLE||RES_BUSY.has(key))return;const X=qResData(sid,c);if(!X.groups.length&&!X.extra.length)return;RES_BUSY.add(key);render();
+  try{const md=qResMd(sid,c,"full"),prompt=`Você é professor de cursinho para concursos (${IS_TJ?"Oficial de Justiça do TJSP, banca VUNESP":[PLAN.cargo||PLAN.name,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(", ")}).
+Abaixo está o resumo de uma aula montado a partir das QUESTÕES que cobraram cada ponto (do PDF da aula e do TEC). Reescreva de forma didática e clara para revisão.
+Regras obrigatórias:
+- Mantenha os mesmos títulos "## " dos assuntos, na mesma ordem, e todos os pontos. Não acrescente assuntos.
+- Para cada ponto: um item "- " com a regra explicada em 1 ou 2 frases, com **negrito** nas palavras-chave, terminando com a página e a contagem, ex.: "(p. 13 · 3 questões)".
+- Logo abaixo, em outro item, "Pegadinha:" se houver, em 1 frase.
+- Mantenha "ATENÇÃO: você errou" nos pontos que têm essa marca, e "fora do material · TEC" onde houver.
+- Use SOMENTE o conteúdo abaixo (regras, questões, gabaritos e comentários). Não invente artigos, prazos ou números. Nos pontos do TEC, pode citar o artigo de lei que o próprio comentário citar.
+- Mantenha as seções "Suas marcações" e "Assuntos da aula sem questões (ainda)" como estão, se existirem.
+<resumo_pelas_questoes>
+${md.slice(0,60000)}
+</resumo_pelas_questoes>`;
+    const r=await SAMPLE(prompt,{modelTier:"default",onText:({text})=>{const o=$("rsOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
+    if(r&&r.text){const R0=resGet(sid,c);R0.qai={txt:resClean(r.text),sig:X.sig,at:Date.now()};R0.txt=R0.qai.txt;R0.qsig=X.sig;R0.v=4;R0.upd=Date.now();touch(key);UI.rsAIv=1}
+  }catch(e){if(!AI_OFF)toast("Não consegui melhorar o resumo com a IA agora")}finally{RES_BUSY.delete(key);render()}}
+/* separa as questões de todos os PDFs em segundo plano (sem IA), um por vez, para cada aula já ter o seu caderno */
+let QB_BG=0;async function qBgRun(){if(QB_BG)return;QB_BG=1;try{for(const p of PDFS()){if(p.raw||!p.pages)continue;
+    if(!qzDoc(p.id)&&!QZ_BUSY.has(p.id)&&!QB_TRIED.has(p.id)){QB_TRIED.add(p.id);try{await buildQuiz(p)}catch(e){}await new Promise(r=>setTimeout(r,800))}
+    const Z=qzDoc(p.id);if(Z&&Z.L.length&&!qMapOk(p,Z)&&!QMAP_FAIL.has(p.id)){try{await qMapAll(p)}catch(e){}await new Promise(r=>setTimeout(r,800))}}}finally{QB_BG=0}}
+setTimeout(()=>{try{qBgRun()}catch(e){}},25000);
 
 /* ================= Navegação e renderização ================= */
 /* ================= Discursiva e Redação ================= */
@@ -5207,7 +5301,7 @@ async function pdfDigest(p,ctx,tot,prog){const a=p.qc&&p.qc>1?p.qc:1,ch=await pa
   await Promise.all([run(),run(),run()]);return{qs:qMerge(R.filter(Boolean).flat()),chunks:ch.length,fail:ch.length-R.filter(Boolean).length}}
 const resClean=t=>String(t).split("\n").filter(l=>!/(material|pdf|texto|trecho|quest[aã]o|lista|conte[uú]do)[^.\n]{0,60}(cortad|truncad|incomplet)/i.test(l)).join("\n").trim();
 function resOld(){return Object.keys(D).filter(k=>k.startsWith("res-")&&D[k]&&D[k].txt&&D[k].sid&&D[k].aula&&(D[k].v||1)<RES_V&&EDI[D[k].sid]!==undefined&&pdfOfAula(D[k].sid,D[k].aula)).map(k=>D[k])}
-function resOldCard(){if(!SAMPLE)return"";const L=resOld(),b=UI.rsAll;if(!L.length&&!b)return"";
+function resOldCard(){return"";const L=resOld(),b=UI.rsAll;if(!L.length&&!b)return"";
   return`<section class="card"><div class="card-b row" style="gap:10px;align-items:center"><span style="flex:1 1 260px"><b>${b?"Refazendo os resumos: "+b.d+" de "+b.n:L.length+" resumo"+(L.length>1?"s":"")+" no método antigo"}</b><br><span class="muted small">O método novo lê o PDF inteiro, questão por questão, sem cortar nada, junta com as questões do TEC que você colou e completa com o que costuma cair e o material não trouxe.${b?" Pode continuar usando o painel, mas não feche a página.":""}</span></span>${b?"":`<button class="btn pri" data-a="rsRedoAll">${ic("bulb")} Refazer todos agora</button>`}</div></section>`}
 /* ---------- Aba Resumos ---------- */
 const resKey=(sid,c)=>"res-"+sid+"-"+String(c).replace(/[^\w]/g,"_");
@@ -5392,7 +5486,11 @@ function rsAltView(sid,c,R0,vw){const key=resKey(sid,c);
    <div class="rsout" id="rsFinOut">${F?mdLite(F.txt):`<p class="muted">${cy?"O ciclo desta aula está completo.":"O resumo direcionado sai sozinho quando você fecha o ciclo desta aula: teoria, revisão, mapeamento e questões."} Ele junta o resumo completo, os pontos de cada tarefa, as questões do TEC e os seus erros num resumo curto para a revisão final.${R0&&R0.txt?" Se quiser, gere agora.":" Antes, é preciso ter o resumo completo da aula."}</p>`}</div>
    ${F?`<span class="muted small">Gerado em ${new Date(F.at).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</span>`:""}`}
 
-async function genResumo(sid,c,newQ,auto){newQ=newQ||null;
+/* o resumo agora nasce das questões: qualquer pedido antigo de "gerar resumo" só atualiza o resumo pelas questões
+   (sem custo); a IA reescreve quando o aluno pede ou quando a opção "Sempre melhorar com a IA" está ligada */
+async function genResumo(sid,c,newQ,auto){try{const R0=resGet(sid,c);R0.qsig="";qResSync(sid,c)}catch(e){}
+  if(SAMPLE&&core().resAI&&!AI_OFF){try{await qResAI(sid,c)}catch(e){}}if(TAB==="resumos")render()}
+async function genResumoOld(sid,c,newQ,auto){newQ=newQ||null;
   const key=resKey(sid,c);if(RES_BUSY.has(key))return;
   const s=SUB(sid),au=auOf(sid,c),p=pdfOfAula(sid,c);
   if(!p&&!newQ){toast("Envie o PDF desta aula em Materiais: o resumo é montado a partir dele");return}
@@ -5519,30 +5617,30 @@ async function resumoPdf(sid,c,kind){
 }
 function vResumos(){
   const sid=UI.rsSid&&ED.some(s=>s.id===UI.rsSid)?UI.rsSid:(ED.find(s=>AU(s.id).length)||ED[0]).id,L=AU(sid);UI.rsSid=sid;
-  if(!L.length)return`<div class="hello"><h1>Resumos</h1><p>Ainda não há aulas cadastradas para esta matéria. Envie os PDFs em Materiais.</p></div>`;
-  const c=UI.rsAula&&L.some(a=>a.c===UI.rsAula)?UI.rsAula:(L.find(a=>resDoc(sid,a.c)&&resDoc(sid,a.c).txt)||L[Math.min(progOf(sid).i,L.length-1)]||L[0]).c;
+  if(!L.length)return`<div class="hello"><h1>Resumos</h1><p>Ainda não há aulas cadastradas para esta matéria. Envie os PDFs em Estudar → Aulas e PDFs.</p></div>`;
+  const c=UI.rsAula&&L.some(a=>a.c===UI.rsAula)?UI.rsAula:(L.find(a=>pdfOfAula(sid,a.c))||L[Math.min(progOf(sid).i,L.length-1)]||L[0]).c;
   UI.rsAula=c;const key=resKey(sid,c);UI.rsKey=key;
-  const R0=resDoc(sid,c)||{txt:"",tq:[]},p=pdfOfAula(sid,c),au=auOf(sid,c),busy=RES_BUSY.has(key);
+  try{qResSync(sid,c)}catch(e){}
+  const R0=resDoc(sid,c)||{txt:"",tq:[]},p=pdfOfAula(sid,c),au=auOf(sid,c),busy=RES_BUSY.has(key),vw=["full","cai","err"].includes(UI.rsView)?UI.rsView:"full";
+  const X=qResData(sid,c),aiOk=R0.qai&&R0.qai.txt,aiOld=aiOk&&R0.qai.sig!==X.sig,showAI=vw==="full"&&aiOk&&UI.rsAIv!==0;
+  if(SAMPLE&&core().resAI&&!busy&&(X.groups.length||X.extra.length)&&(!aiOk||aiOld)&&!X.wait)setTimeout(()=>qResAI(sid,c),50);
   const sopt=ED.map(s=>`<option value="${s.id}" ${s.id===sid?"selected":""}>${esc(s.n)}</option>`).join("");
-  const aopt=L.map(a=>`<option value="${a.c}" ${a.c===c?"selected":""}>${esc(auLabel(sid,a.c))} · ${esc(a.d.slice(0,60))}${resDoc(sid,a.c)&&resDoc(sid,a.c).txt?" · resumo pronto":pdfOfAula(sid,a.c)?" · PDF carregado":""}</option>`).join("");
-  const all=Object.keys(D).filter(k=>k.startsWith("res-")&&D[k]&&D[k].txt).map(k=>D[k]);
-  const secAvail=p?secSources(sid,c,useRes).map(x=>cName(x.a.course)+" · Aula "+x.a.c):[],newSec=R0.txt&&secAvail.some(n=>!(R0.secs||[]).includes(n));
-  const src=[p?(p.qc?`questões do PDF (págs. ${p.qc} a ${p.pages})`:"PDF da aula"):"",(R0.secs||[]).length?"outro olhar: "+R0.secs.join(", "):"",(R0.tq||[]).length?R0.tq.length+" questão(ões) do TEC":""].filter(Boolean).join(" · ");
+  const aopt=L.map(a=>`<option value="${a.c}" ${a.c===c?"selected":""}>${esc(auLabel(sid,a.c))} · ${esc(a.d.slice(0,60))}${pdfOfAula(sid,a.c)?"":" · sem PDF"}</option>`).join("");
+  const nE=qPtFlat(X).filter(x=>x.pt.qs.some(q=>q.err)).length;
   const tqs=(R0.tq||[]).map(q=>`<details class="fc"><summary>${q.as?"["+esc(q.as)+"] ":""}Questão ${esc(q.n||"do TEC")}</summary><div class="bk">${q.q?`<p style="margin:0 0 6px">${esc(q.q)}</p>`:""}${q.gab?`<p style="margin:0 0 6px"><b>Gabarito:</b> ${esc(q.gab)}</p>`:""}${q.com?`<p style="margin:0">${esc(q.com)}</p>`:""}</div><div class="fm"><span>${q.d?dm(q.d):""}${q.link?` · <a href="${esc(q.link)}" target="_blank" rel="noopener">Abrir no TEC</a>`:""}</span><button class="lnk" data-a="rsDelQ" data-id="${q.id}">Remover</button></div></details>`).join("");
-  return`<div class="hello"><h1>Resumos</h1><p>O resumo de cada aula cresce em etapas: os pontos importantes de cada atividade concluída, o resumo completo do PDF inteiro quando a teoria termina, o direcionamento pelas questões do TEC e, ao fechar o ciclo, o resumo direcionado para a revisão final, que você baixa em PDF.</p></div>${resOldCard()}
+  return`<div class="hello"><h1>Resumos</h1><p>O resumo de cada aula nasce das questões: cada ponto mostra a regra (com a página do PDF), como caiu, a pegadinha e quantas questões cobraram. Questões do TEC entram no mesmo resumo, e o que você errar sobe para o topo.</p></div>
   <section class="card"><div class="card-b row" style="align-items:flex-end">
     <div class="field" style="flex:1 1 220px"><label for="rsS">Matéria</label><select class="inp" id="rsS" data-c="rsSid">${sopt}</select></div>
-    <div class="field" style="flex:2 1 320px"><label for="rsA">Aula</label><select class="inp" id="rsA" data-c="rsAula">${aopt}</select></div></div>
-    ${all.length?`<div class="card-b" style="border-top:1px solid var(--line);padding-block:10px"><span class="muted small">Resumos prontos: </span>${all.map(x=>`<button class="chip" data-a="rsGo" data-s="${x.sid}" data-c="${x.aula}" style="cursor:pointer;margin:2px">${SUB(x.sid).c} · ${esc(auLabel(x.sid,x.aula))}</button>`).join("")}</div>`:""}</section>
-  <div class="grid2 rsg"><section class="card"><div class="card-h"><h2>${esc(auLabel(sid,c))}${au?" · "+esc(au.d.slice(0,70)):""}</h2></div>
-    <div class="card-b" style="display:grid;gap:12px">${rsHlBox(sid,c)}${rsStages(sid,c,R0)}${(UI.rsView||"full")!=="full"?rsAltView(sid,c,R0,UI.rsView):`
-      <div class="row">${!p?`<button class="btn" data-a="tab" data-t="materiais">${ic("materiais")} Enviar o PDF desta aula</button>`:SAMPLE?`<button class="btn pri" data-a="rsGen" ${busy?"disabled":""}>${ic("bulb")} ${R0.txt?"Refazer o resumo":"Gerar resumo"}</button>`:`<button class="btn pri" data-a="rsGen">${ic("plus")} Montar resumo simples</button>`}${R0.txt?`<button class="btn" data-a="rsEdit">${ic("list")} ${UI.rsEdit===key?"Fechar edição":"Editar"}</button><button class="btn" data-a="rsPdf">${ic("book")} Baixar resumo em PDF</button>${SAMPLE?`<button class="btn" data-a="mmFromRes" data-s="${sid}" data-c="${c}" ${UI.mmBusy?"disabled":""}>${ic("brain")} Gerar mapa mental deste resumo</button>`:""}`:""}${p?`<button class="btn ghost" data-a="rsAulaPdf">${ic("materiais")} Baixar PDF da aula</button>`:""}${p?`<button class="btn" data-a="rsQz">${ic("list")} Resolver as questões desta aula</button>`:""}<span class="muted small">${busy?'<span class="spin"></span> Escrevendo o resumo…':src?"Baseado em: "+src:p?"":"Sem PDF desta aula: envie em Materiais para o resumo usar as questões comentadas."}</span></div>
-      ${R0.txt&&p&&SAMPLE&&(R0.v||1)<RES_V&&!busy?`<div class="pwarn"><b>${ic("bulb")} Resumo mais direcionado disponível</b><span>Toque em “Refazer o resumo”: agora a IA lê o PDF inteiro, questão por questão, sem cortar nada, junta com as questões do TEC e completa com o que costuma cair e o material não trouxe.</span></div>`:""}
-      ${newSec&&!busy?`<div class="pwarn"><b>${ic("book")} Novo material secundário disponível</b><span>${esc(secAvail.filter(n=>!(R0.secs||[]).includes(n)).join(", "))} tem PDF desta aula. Toque em “Refazer o resumo” para juntar os dois olhares.</span></div>`:""}
-      ${UI.rsEdit===key?`<textarea class="inp" id="rsTx" style="min-height:360px;font-family:inherit">${esc(R0.txt)}</textarea><div class="row"><button class="btn pri" data-a="rsSave">${ic("check")} Salvar</button></div>`:`<div class="rsout" id="rsOut">${R0.txt?mdLite(R0.txt):`<p class="muted">${!p?"O resumo é montado sozinho quando o PDF desta aula é carregado em Materiais, a partir da lista de questões comentadas.":SAMPLE?"Toque em “Gerar resumo”: a IA lê a lista de questões comentadas do PDF desta aula e organiza as regras, pegadinhas e prazos cobrados.":"Sem IA disponível nesta visualização: o resumo simples lista as questões do PDF e as do TEC que você colar."}</p>`}</div>`}
-      ${R0.upd?`<span class="muted small">Atualizado em ${new Date(R0.upd).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})}</span>`:""}`}
+    <div class="field" style="flex:2 1 320px"><label for="rsA">Aula</label><select class="inp" id="rsA" data-c="rsAula">${aopt}</select></div></div></section>
+  <div class="grid2 rsg"><section class="card"><div class="card-h"><h2>${esc(auLabel(sid,c))}${au?" · "+esc(au.d.slice(0,70)):""}</h2><span class="r muted small">${X.nq?X.nq+" questões":""}</span></div>
+    <div class="card-b" style="display:grid;gap:12px">
+      <div class="row" style="gap:6px;flex-wrap:wrap"><div class="tabs2" role="group" aria-label="Como ver o resumo">${[["full","Completo"],["cai","Só o que cai"],["err","Só o que eu errei"+(nE?" ("+nE+")":"")]].map(([k,l])=>`<button data-a="rsView" data-v="${k}" aria-pressed="${vw===k}">${l}</button>`).join("")}</div></div>
+      ${vw==="full"&&aiOk?`<div class="row" style="gap:6px"><div class="tabs2" role="group" aria-label="Versão"><button data-a="rsAIv" data-v="1" aria-pressed="${showAI}">Explicado pela IA</button><button data-a="rsAIv" data-v="0" aria-pressed="${!showAI}">Direto das questões</button></div>${aiOld&&!busy?`<span class="muted small">Há questões novas desde a versão da IA.</span>`:""}</div>`:""}
+      <div class="rsout" id="rsOut">${busy&&vw==="full"?'<p class="muted"><span class="spin"></span> A IA está escrevendo…</p>':showAI?mdLite(R0.qai.txt):qResHTML(sid,c,vw)}</div>
+      <div class="row" style="gap:8px;flex-wrap:wrap">${SAMPLE&&(X.groups.length||X.extra.length)?`<button class="btn ${aiOk&&!aiOld?"ghost":"pri"} sm" data-a="rsAI" ${busy?"disabled":""}>${ic("bulb")} ${aiOk?(aiOld?"Atualizar com a IA":"Refazer com a IA"):"Melhorar com a IA"}</button>`:""}${R0.txt?`<button class="btn sm" data-a="rsPdf">${ic("dl")} Baixar em PDF</button>`:""}${SAMPLE&&R0.txt?`<button class="btn sm ghost" data-a="mmFromRes" data-s="${sid}" data-c="${c}" ${UI.mmBusy?"disabled":""}>${ic("brain")} Mapa mental</button>`:""}${p?`<button class="btn sm ghost" data-a="rsQz">${ic("list")} Resolver as questões desta aula</button>`:""}</div>
+      ${SAMPLE?`<label class="small muted" style="display:flex;gap:8px;align-items:center"><input type="checkbox" data-c="resAI" ${core().resAI?"checked":""}> Sempre melhorar com a IA quando entrarem questões novas (cerca de US$ 0,25 por aula)</label>`:""}
+      ${rsHlBox(sid,c)}
     </div></section>
-    <section class="card" id="rsQai"><div class="card-h"><h2>Questões das páginas que você estudou</h2></div><div class="card-b">${qaiHTML(auTask(sid,c))}</div></section>
     <section class="card"><div class="card-h"><h2>Adicionar questão do TEC</h2></div><div class="card-b" style="display:grid;gap:10px">
       ${tqUniHTML({sid,c})}
       ${tqs?`<div style="display:grid;gap:8px;margin-top:6px"><b class="small">Questões do TEC neste resumo (${R0.tq.length})</b>${tqs}</div>`:""}
@@ -6999,6 +7097,9 @@ const A={
   async rsAulaPdf(){const p=pdfOfAula(UI.rsSid||ED[0].id,UI.rsAula);if(!p)return;const buf=await pdfBytes(p);if(!buf){toast("Este PDF não está salvo neste aparelho nem na sua conta");return}await saveFile(p.name,new Blob([buf],{type:"application/pdf"}))},
   rsGen(){genResumo(UI.rsSid||ED[0].id,UI.rsAula,null)},
   rsView(el){UI.rsView=el.dataset.v;render()},
+  rsAIv(el){UI.rsAIv=+el.dataset.v;render()},
+  rsAI(){qResAI(UI.rsSid||ED[0].id,UI.rsAula)},
+  rsPg(el){const p=pdfOfAula(UI.rsSid||ED[0].id,UI.rsAula);if(p)openReader(p.id,+el.dataset.p,+el.dataset.p)},
   tecQz(el){tecQzBuild(el.dataset.s,el.dataset.c)},
   qaiGen(el){const f=findQT(el.dataset.id);if(f)buildQuizGen(f.t)},
   tfCopy(el){const f=findTask(el.dataset.id);if(!f)return;const tx=tecFiltro(f.t).txt;try{navigator.clipboard.writeText(tx).then(()=>toast("Filtro copiado"),()=>toast("Selecione o texto do filtro e copie"))}catch(e){toast("Selecione o texto do filtro e copie")}},
