@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021527"></script>
+<script src="/claude-shim.js?v=202611021537"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1458,6 +1458,144 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 .btn,.ibtn,.mtabs button,.ptab,.rpal,.tabs2 button,.seg button,.fmgo,.cc,.wk-chip,.rt-pal,.slotr,.catr{transition:transform .22s var(--ease-out),background-color .2s ease,border-color .2s ease,color .2s ease,box-shadow .22s ease,opacity .2s ease}
 .btn:active,.ibtn:active,.mtabs button:active,.ptab:active,.rpal:active,.tabs2 button:active,.seg button:active,.fmgo:active,.slotr:active,.catr:active{transform:scale(.96)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* ---------- Tutorial ---------- */
+.tu-wrap{display:grid;grid-template-columns:250px minmax(0,1fr);gap:16px;align-items:start}
+.tu-menu{display:flex;flex-direction:column;gap:4px;position:sticky;top:8px}
+.tu-menu button{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid transparent;background:transparent;color:var(--fg2);padding:9px 10px;border-radius:12px;font:inherit;cursor:pointer}
+.tu-menu button .i,.tu-menu button svg{width:18px;height:18px;flex:none}
+.tu-menu button small{display:inline-block;min-width:18px;color:var(--mute);font-variant-numeric:tabular-nums;margin-right:4px}
+.tu-menu button:hover{background:var(--raise)}
+.tu-menu button[aria-current="true"]{background:var(--raise);border-color:var(--line);color:var(--fg);font-weight:700}
+.tu-main{padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tu-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.tu-head h2{margin:0;font-size:20px}
+.tu-why{margin:0;line-height:1.55;color:var(--fg2)}
+.tu-stage{position:relative;border:1px solid var(--line);border-radius:16px;background:var(--sunk);padding:18px 16px 64px;min-height:250px;overflow:hidden}
+.tu-scene{position:relative;max-width:520px;margin:0 auto}
+.tu-say{position:absolute;left:12px;right:12px;bottom:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:9px 12px;font-size:13.5px;line-height:1.4;color:var(--fg);box-shadow:var(--shadow)}
+.tu-say.in{animation:tuIn .45s var(--ease-out)}
+@keyframes tuIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tu-cur{position:absolute;left:30px;top:30px;width:22px;height:22px;z-index:5;pointer-events:none;transition:left .7s var(--ease-out),top .7s var(--ease-out);filter:drop-shadow(0 2px 3px rgba(0,0,0,.35))}
+.tu-cur svg{width:22px;height:22px;fill:#fff;stroke:#111;stroke-width:1.4}
+.tu-cur::after{content:"";position:absolute;left:-9px;top:-9px;width:22px;height:22px;border-radius:50%;border:2px solid var(--lime);opacity:0}
+.tu-cur.clk::after{animation:tuClk .6s ease-out}
+@keyframes tuClk{from{opacity:.9;transform:scale(.3)}to{opacity:0;transform:scale(1.8)}}
+.tu-scene .focus{outline:2px solid var(--lime);outline-offset:3px;border-radius:8px;transition:outline-color .3s}
+.tu-scene .pulse{animation:tuPulse .5s var(--ease-spring)}
+@keyframes tuPulse{50%{transform:scale(.96)}}
+.tu-ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tu-dots{display:flex;gap:6px;margin-left:6px}
+.tu-dots i{width:9px;height:9px;border-radius:50%;background:var(--line2);cursor:pointer;transition:background .3s,transform .3s}
+.tu-dots i.on{background:var(--lime);transform:scale(1.3)}
+.tu-steps-l{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px;line-height:1.45;color:var(--fg2)}
+.tu-steps-l li{cursor:pointer;padding:2px 4px;border-radius:6px}
+.tu-steps-l li.on{color:var(--fg);font-weight:600;background:var(--raise)}
+.tu-tips{border-top:1px solid var(--line);padding-top:10px}
+.tu-tips h3{display:flex;align-items:center;gap:6px;font-size:15px;margin:0 0 6px}
+.tu-tips h3 svg{width:18px;height:18px}
+.tu-tips ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px;line-height:1.45}
+.tu-foot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+/* peças das cenas */
+.tu-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--fg)}
+.tu-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tu-lbl{color:var(--mute);font-size:12px}
+.tu-inp{flex:1;min-width:120px;height:30px;border:1px solid var(--line);border-radius:8px;background:var(--sunk);display:flex;align-items:center;padding:0 10px;color:var(--fg)}
+.tu-inp em{font-style:normal}.tu-inp em::after{content:"|";opacity:.5;animation:tuBl 1s steps(1) infinite}
+.tu-inp.wide{flex:1 1 100%}
+@keyframes tuBl{50%{opacity:0}}
+.tu-btn{align-self:flex-start;border:0;border-radius:10px;background:var(--lime);color:var(--lime-ink);font:inherit;font-weight:700;padding:8px 12px}
+.tu-btn.sm{padding:5px 10px;font-size:12px}.tu-btn.ghost{background:var(--raise);color:var(--fg);border:1px solid var(--line)}
+.tu-chip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--raise)}
+.tu-chip.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--fg)}
+.tu-res,.tu-list,.tu-file,.tu-parts,.tu-exp,.tu-ref,.tu-score,.tu-gauge,.tu-steps,.tu-cap2{opacity:0;transform:translateY(6px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}
+.tu-res.on,.tu-list.on,.tu-file.on,.tu-parts.on,.tu-exp.on,.tu-ref.on,.tu-score.on,.tu-gauge.on,.tu-steps.on,.tu-cap2.on{opacity:1;transform:none}
+.tu-res{display:flex;gap:6px;flex-wrap:wrap}
+.tu-bar,.tu-prog{height:8px;border-radius:99px;background:var(--line);overflow:hidden;flex:1;min-width:80px}
+.tu-bar i,.tu-prog i{display:block;height:100%;width:0;background:var(--lime);border-radius:99px;transition:width 1.1s var(--ease-out)}
+.tu-bar i.on{width:100%}.tu-prog i.on{width:var(--w,34%)}.tu-prog.bad i{background:var(--bad)}
+.tu-list{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.tu-flow{display:flex;align-items:center;flex-wrap:wrap;gap:6px;justify-content:center}
+.tu-node{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 8px;border-radius:12px;border:1px solid var(--line);background:var(--panel);min-width:72px;font-size:12px;color:var(--mute);transition:all .4s var(--ease-out)}
+.tu-node b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--raise);color:var(--fg)}
+.tu-node.on{color:var(--fg);border-color:var(--lime);transform:translateY(-3px)}.tu-node.on b{background:var(--lime);color:var(--lime-ink)}
+.tu-arr{width:14px;height:2px;background:var(--line2)}
+.tu-cap2{text-align:center;margin-top:12px;font-weight:700;color:var(--lime-txt)}
+.tu-week{display:flex;flex-direction:column;gap:10px}
+.tu-pal{display:flex;gap:8px;flex-wrap:wrap}
+.tu-blk{display:inline-block;width:84px;padding:6px 0;text-align:center;border-radius:8px;color:#fff;font-size:12px;font-weight:700;position:relative;z-index:2}
+.tu-blk.est{background:#7c6cf0}.tu-blk.trab{background:#5b8fd9}.tu-blk.ref{background:#d99a4e}
+.tu-days{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tu-day{display:flex;flex-direction:column;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px}
+.tu-day small{color:var(--mute);text-align:center}
+.tu-day i{display:block;height:27px;border-radius:8px;border:1px dashed var(--line2);width:84px;max-width:100%}
+.tu-tot{font-size:13px;opacity:.6;transition:opacity .4s}.tu-tot.on{opacity:1}
+.tu-hb{display:grid;grid-template-columns:130px 1fr 34px;align-items:center;gap:8px}
+.tu-hb i{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.tu-hb s{display:block;height:100%;width:0;background:var(--lime);border-radius:99px;transition:width 1.1s var(--ease-out)}
+.tu-hb s.on{width:var(--w)}
+.tu-star{font-style:normal;font-size:16px;opacity:.15;transition:opacity .4s,transform .4s var(--ease-spring)}
+.tu-star.on{opacity:1;transform:scale(1.25)}.tu-star.r{color:#e5484d}.tu-star.y{color:#e8b43c}.tu-star.g{color:#3fb27f}
+.tu-drop{border:2px dashed var(--line2);border-radius:12px;padding:16px;text-align:center;color:var(--mute);font-weight:700}
+.tu-parts{display:flex;gap:6px;flex-wrap:wrap}.tu-parts span{border-radius:8px;background:var(--raise);border:1px solid var(--line);padding:4px 8px}
+.tu-task{display:flex;align-items:center;gap:8px;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--sunk);transition:opacity .4s}
+.tu-ck{width:16px;height:16px;border-radius:5px;border:2px solid var(--line2);flex:none;position:relative;transition:all .3s}
+.tu-ck.on,.tu-task.on .tu-ck{background:var(--ok);border-color:var(--ok)}
+.tu-ck.on::after,.tu-task.on .tu-ck::after{content:"";position:absolute;left:4px;top:0;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.tu-task.on{text-decoration:line-through;opacity:.75}
+.tu-x{font-style:normal;color:var(--bad);font-weight:800;width:16px;text-align:center}
+.tu-steps{display:flex;gap:6px;flex-wrap:wrap;padding-left:24px}
+.tu-steps span{border-radius:999px;border:1px solid var(--line);padding:3px 9px;color:var(--mute);transition:all .35s}
+.tu-steps span.on{background:var(--lime);border-color:var(--lime);color:var(--lime-ink)}
+.tu-pdf{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.tu-tb{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--line)}
+.tu-dot{width:16px;height:16px;border-radius:50%;border:2px solid transparent}.tu-dot.y{background:#ffd43b}.tu-dot.g{background:#51cf66}.tu-dot.p{background:#f783ac}.tu-dot.on{border-color:var(--fg)}
+.tu-pg{margin-left:auto;color:var(--mute);font-size:12px}.tu-pg em{font-style:normal;color:var(--fg);font-weight:700;border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+.tu-page{background:#fff;margin:10px;border-radius:6px;padding:14px;display:flex;flex-direction:column;gap:9px}
+.tu-page i{display:block;height:8px;border-radius:4px;background:#d9d9de;width:92%}.tu-page i.s{width:60%}
+.tu-page i.hl{transition:box-shadow .6s,background .6s}.tu-page i.hl.on{background:#c9c9d0;box-shadow:0 0 0 5px rgba(255,212,59,.75)}
+.tu-q{margin:0;font-weight:600;line-height:1.4}
+.tu-opt{padding:7px 10px;border-radius:9px;border:1px solid var(--line);background:var(--sunk);transition:all .35s}
+.tu-opt.on{border-color:var(--lime)}
+.tu-scene:has(.tu-exp.on) .tu-opt[data-k="o1"]{background:var(--bad-soft);border-color:var(--bad)}
+.tu-scene .tu-opt[data-k="o2"].on{background:var(--ok-soft);border-color:var(--ok);font-weight:700}
+.tu-exp{border-left:3px solid var(--bad);padding:6px 10px;background:var(--bad-soft);border-radius:6px;line-height:1.4}
+.tu-tabs{display:flex;gap:4px;flex-wrap:wrap}.tu-tabs span{padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--mute);font-size:12px;transition:all .3s}
+.tu-tabs span.on{background:var(--raise);color:var(--fg);border-color:var(--lime)}
+.tu-pt{border:1px solid var(--line);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:3px;line-height:1.4;transition:background .5s}
+.tu-pt small{color:var(--mute)}.tu-pt em{font-style:normal;color:var(--warn)}.tu-pt.bad{border-color:var(--bad)}.tu-pt.on{background:var(--raise)}
+.tu-sw{width:34px;height:20px;border-radius:99px;background:var(--line2);position:relative;transition:background .3s}
+.tu-sw i{position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:left .3s var(--ease-out)}
+.tu-sw.on{background:var(--lime)}.tu-sw.on i{left:16px}
+.tu-mm{width:100%;max-width:420px;display:block;margin:0 auto}
+.tu-mm rect{fill:var(--panel);stroke:var(--lime);stroke-width:1.5}.tu-mm text{fill:var(--fg);font-size:12px;text-anchor:middle;font-weight:700}
+.tu-mm g[data-k]{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.7);transition:opacity .5s,transform .5s var(--ease-spring)}
+.tu-mm g.on{opacity:1;transform:none}
+.tu-mm .tu-ln path{stroke:var(--line2);stroke-width:2;fill:none;stroke-dasharray:140;stroke-dashoffset:140;transition:stroke-dashoffset 1s var(--ease-out)}
+.tu-mm .tu-ln{transform:none!important}.tu-mm .tu-ln.on path{stroke-dashoffset:0}
+.tu-fc{position:relative;height:84px;perspective:600px}
+.tu-fc .f,.tu-fc .b{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:8px;border-radius:12px;border:1px solid var(--line);background:var(--raise);backface-visibility:hidden;transition:transform .6s var(--ease-out);line-height:1.35;font-weight:600}
+.tu-fc .b{transform:rotateY(180deg);background:var(--ok-soft)}
+.tu-fc.on .f{transform:rotateY(-180deg)}.tu-fc.on .b{transform:none}
+.tu-cyc{display:flex;gap:6px}.tu-cyc span{flex:1;text-align:center;padding:4px 0;border-radius:8px;background:var(--raise);color:var(--mute);font-size:12px;transition:all .35s}
+.tu-cyc span.on{background:var(--lime);color:var(--lime-ink);font-weight:700}
+.tu-ref{border:1px solid var(--warn);background:var(--warn-soft);border-radius:10px;padding:8px 10px;font-weight:600}
+.tu-clock{font-variant-numeric:tabular-nums;font-weight:800;margin-left:auto;transition:color .3s}.tu-clock.on{color:var(--lime-txt)}.tu-clock.big{font-size:18px}
+.tu-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.tu-grid i{height:18px;border-radius:5px;border:1px solid var(--line);background:var(--sunk);transition:background .3s}
+.tu-grid i.on{background:var(--lime);border-color:var(--lime)}
+.tu-score{font-size:14px}
+.tu-txt{min-height:54px;border:1px solid var(--line);border-radius:10px;background:var(--sunk);padding:8px 10px;line-height:1.45}
+.tu-txt em{font-style:normal}
+.tu-big{font-size:18px;font-weight:800;color:var(--lime-txt)}
+.tu-gauge{display:flex;align-items:baseline;gap:6px;font-size:26px;font-weight:800}.tu-gauge small{font-size:12px;font-weight:500;color:var(--mute)}
+.tu-seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}.tu-seg span{padding:4px 10px;font-size:12px;color:var(--mute);transition:all .3s}
+.tu-seg span.on{background:var(--raise);color:var(--fg);font-weight:700}
+.tu-play{width:32px;height:32px;border-radius:50%;border:0;background:var(--lime);color:var(--lime-ink);font-weight:800}
+.tu-inp.on{border-color:var(--lime)}
+@media (max-width:820px){.tu-wrap{grid-template-columns:1fr}.tu-menu{position:static;flex-direction:row;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}.tu-menu button{flex:none;white-space:nowrap}.tu-main{padding:14px}.tu-hb{grid-template-columns:96px 1fr 34px}}
+@media (prefers-reduced-motion:reduce){.tu-cur{display:none}.tu-scene *{transition:none!important;animation:none!important}}
+
 </style>
 
 <div class="app">
@@ -1525,6 +1663,7 @@ const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
 const natcmp=(a,b)=>a.localeCompare(b,"pt-BR",{numeric:true,sensitivity:"base"});
 const pct=(a,b)=>b?Math.round(a/b*1000)/10:0;
 const IC={
+  tutorial:'<circle cx="12" cy="12" r="8.5"/><path d="M10 8.8v6.4l5.2-3.2z"/>',
   dl:'<path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/>',
   simulados:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="m8.5 12 2 2 4-4.5"/><path d="M9 17.5h6"/>',
   mapas:'<path d="M9.5 4a3 3 0 0 0-3 3v.2A3 3 0 0 0 4.5 10a3 3 0 0 0 1 2.2A3 3 0 0 0 6.5 17a3 3 0 0 0 3 3h.5V4z"/><path d="M14.5 4a3 3 0 0 1 3 3v.2a3 3 0 0 1 2 2.8 3 3 0 0 1-1 2.2 3 3 0 0 1-1 4.8 3 3 0 0 1-3 3H14V4z"/>',
@@ -3917,10 +4056,10 @@ function pv24Card(){if(!IS_TJ)return"";const x=SMX().filter(y=>y.kind==="prova"&
 setInterval(()=>{const id=UI.smOpen;if(!id||TAB!=="simulados")return;const x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run"||!d.t0)return;const r=smLeft(d),el=$("smClk");if(el){el.textContent=smClock(r);el.classList.toggle("low",r<600)}if(r<=0)smFinish(id,true)},1000);
 
 {const _vm=vMeta;vMeta=function(){const h=_vm(),b=smBanner();if(!b)return h;const i=h.indexOf("</div>");return h.startsWith("<div class=\"hello\"")&&i>0?h.slice(0,i+6)+b+h.slice(i+6):b+h}}
-const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"]];
+const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"]];
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
 /* Menu simples: 5 entradas. As telas de sempre continuam, agrupadas em abas dentro de cada entrada. */
-const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["rotina","Meu plano"],["desempenho","Desempenho"]];
+const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
 const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["discursiva","Discursiva e redação","discursiva"]],
   revisoes:[["revisoes","Revisões do dia","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"]],
   rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"]]};
@@ -3945,6 +4084,7 @@ const HOW={
   discursiva:"Aqui você treina a parte escrita: escolha discursiva ou redação, escreva (ou envie a foto da folha) e receba a nota e a correção da IA, quesito por quesito.",
   desempenho:"Aqui você acompanha os resultados. Não há nada para preencher: os números vêm do cronômetro, das questões resolvidas e dos simulados.",
   concurso:"Aqui você cuida do concurso: troque ou adicione concursos, inclua o edital em PDF (o painel tira datas, matérias e assuntos) e acompanhe o cronograma até a prova.",
+  tutorial:"Aqui você aprende a usar cada função da plataforma: escolha um tema, assista à animação e leia as dicas. Use “Ir para esta tela” para praticar na hora.",
   compat:"Aqui você compara dois concursos: o painel mostra as matérias e os assuntos em comum para o estudo de um servir ao outro."};
 function howAttach(){const v=$("view"),t=HOW[TAB];if(!v||!t||v.querySelector(".how"))return;const p=document.createElement("details");p.className="how";p.innerHTML=`<summary>ⓘ Como usar esta tela</summary><span>${esc(t)}</span>`;
   const h=v.querySelector(".hello");if(h){h.appendChild(p);return}if(TAB!=="meta")return;const g=v.querySelector(".gnav");const w=document.createElement("div");w.className="hello how-only";w.appendChild(p);if(g)g.after(w);else v.prepend(w)}
@@ -3977,6 +4117,223 @@ function renderTimerSel(){
   $("tAct").value=ts.some(t=>t.id===TM.tid&&!t.done)?TM.tid:"";
   $("tAct").disabled=TM.run;
 }
+/* ================= Tutorial: cada função da plataforma em uma animação, com o passo a passo e dicas ================= */
+/* cada cena é uma tela simplificada; cada passo leva o cursor até um elemento (k), mostra a legenda (c),
+   liga estados (on), digita textos (ty), move blocos (mv) e conta números (n) */
+const TUT=[
+ {id:"inicio",t:"Roteiro da aprovação",ic:"meta",go:"meta",
+  p:"Antes de tudo, o caminho completo. A A Jornada funciona em ciclo: você configura uma vez (concurso, rotina, PDFs) e, todo dia, cumpre a meta, revisa e acompanha o desempenho. O painel ajusta o resto sozinho.",
+  s:`<div class="tu-flow">${["Concurso","Rotina","PDFs","Meta do dia","Revisar","Desempenho"].map((x,i)=>`<div class="tu-node" data-k="n${i}"><b>${i+1}</b><span>${x}</span></div>`).join('<i class="tu-arr"></i>')}</div><div class="tu-cap2" data-k="loop">↻ todo dia: Meta → Revisar → Desempenho</div>`,
+  st:[{k:"n0",on:["n0"],c:"Escolha o concurso e envie o edital: o painel tira matérias, assuntos e a data da prova."},
+      {k:"n1",on:["n1"],c:"Monte a rotina da semana: os horários de estudo dizem quanto cabe em cada dia."},
+      {k:"n2",on:["n2"],c:"Envie o PDF de cada aula: viram atividades, questões, resumos, cards e mapas."},
+      {k:"n3",on:["n3"],c:"Todo dia, abra Hoje e cumpra as atividades da meta, uma por vez."},
+      {k:"n4",on:["n4"],c:"Faça as revisões do dia: é o que fixa o conteúdo até a prova."},
+      {k:"n5",on:["n5","loop"],c:"Acompanhe o Desempenho e recalcule com o mentor quando atrasar. Repita o ciclo."}],
+  d:["Configure as três primeiras etapas no primeiro dia. Depois, o seu trabalho diário é só Hoje + Revisar.","Constância vence intensidade: cumprir a meta de 3 h todos os dias rende mais que 10 h num domingo.","Se a vida apertar, não pule as revisões: elas são curtas e protegem o que você já estudou."]},
+
+ {id:"concurso",t:"Concurso e edital",ic:"concurso",go:"concurso",
+  p:"É o ponto de partida. Aqui você escolhe o concurso (há centenas de órgãos na busca), envia o edital em PDF e o painel monta o plano com as matérias, os assuntos e a data da prova. Dá para ter mais de um concurso e ver a compatibilidade entre eles.",
+  s:`<div class="tu-card"><div class="tu-row"><span class="tu-lbl">Concurso</span><span class="tu-inp" data-k="busca"><em data-k="bt"></em></span></div>
+     <div class="tu-res" data-k="res"><span class="tu-chip">SEFAZ · Auditor Fiscal</span><span class="tu-chip ok" data-k="cmp">87% compatível com o principal</span></div>
+     <button class="tu-btn" data-k="ed">Enviar edital (PDF)</button><div class="tu-bar"><i data-k="bar"></i></div>
+     <ul class="tu-list" data-k="lst"><li>📅 Data da prova lida do edital</li><li>📚 <b data-k="nm">0</b> matérias</li><li>🧩 <b data-k="na">0</b> assuntos</li></ul></div>`,
+  st:[{k:"busca",ty:["bt","sefaz auditor"],c:"Digite o órgão ou o cargo na busca: aparecem os concursos e o quanto cada um combina com o seu principal."},
+      {k:"res",on:["res"],c:"Escolha o concurso. O selo de compatibilidade mostra quanto do estudo de um serve para o outro."},
+      {k:"ed",on:["bar"],c:"Envie o edital em PDF. O painel lê o arquivo sozinho."},
+      {k:"lst",on:["lst"],n:[["nm",12],["na",184]],c:"Pronto: matérias, assuntos e data da prova entram no plano. As metas são criadas a partir disso."}],
+  d:["Envie o edital oficial: é dele que saem os assuntos riscados no Edital e a prioridade das metas.","Enquanto o edital não sai, use o anterior (pré-edital). Quando o novo sair, troque e o painel readequa.","Estudando para dois concursos? Adicione os dois e priorize as matérias em comum."]},
+
+ {id:"rotina",t:"Rotina da semana",ic:"rotina",go:"rotina",
+  p:"Aqui você diz quando estuda. Arraste os blocos (estudo, trabalho, refeição, treino, descanso, sono) para os dias e horários. Com a rotina pronta, o painel encaixa as atividades da meta exatamente nos seus tempos de estudo, sem passar do que cabe no dia.",
+  s:`<div class="tu-week"><div class="tu-pal"><span class="tu-blk est" data-k="b1">Estudo</span><span class="tu-blk trab" data-k="b2">Trabalho</span><span class="tu-blk ref" data-k="b3">Almoço</span></div>
+     <div class="tu-days">${["Seg","Ter","Qua"].map((d,i)=>`<div class="tu-day"><small>${d}</small><i data-k="s${i}a"></i><i data-k="s${i}b"></i><i data-k="s${i}c"></i></div>`).join("")}</div>
+     <div class="tu-tot" data-k="tot">Estudo por dia: <b data-k="h">0</b> h</div></div>`,
+  st:[{k:"b2",mv:["b2","s0a"],c:"Arraste o Trabalho para o horário em que você trabalha."},
+      {k:"b3",mv:["b3","s0b"],c:"Coloque as refeições: elas também contam como pausa."},
+      {k:"b1",mv:["b1","s0c"],n:[["h",3]],c:"Arraste o Estudo para os horários livres. O total de horas por dia aparece embaixo."},
+      {k:"tot",on:["tot"],c:"Pronto: as metas passam a caber nessas horas. Mudou a semana? Ajuste os blocos e o plano acompanha."}],
+  d:["Seja realista: é melhor planejar 3 h e cumprir do que planejar 6 h e falhar.","Reserve um bloco curto para as revisões logo no início do estudo: o cérebro está descansado.","Durma: o sono é quando a memória do dia se consolida."]},
+
+ {id:"incidencia",t:"Incidência dos assuntos",ic:"incidencia",go:"incidencia",
+  p:"Nem tudo cai igual. Aqui você informa o quanto cada assunto é cobrado (cole a estatística do TEC ou do QConcursos, ou use “Estimar com IA”). Com isso o painel coloca primeiro o que mais cai, dá mais questões e mais revisões para esses assuntos, e marca as estrelas de relevância (verde, amarelo, vermelho).",
+  s:`<div class="tu-card"><div class="tu-row"><b>Direito Tributário</b><button class="tu-btn sm" data-k="ia">Estimar com IA</button></div>
+     ${[["Crédito tributário",92,"r"],["Obrigação tributária",70,"y"],["Competência",48,"y"],["Taxas",18,"g"]].map(([n,v,c],i)=>`<div class="tu-hb"><span>${n}</span><i><s data-k="h${i}" style="--w:${v}%"></s></i><em class="tu-star ${c}" data-k="st${i}">★</em></div>`).join("")}</div>`,
+  st:[{k:"ia",on:["h0","h1","h2","h3"],c:"Toque em “Estimar com IA” ou cole a estatística do site de questões."},
+      {k:"h0",on:["st0"],c:"Assunto que mais cai ganha estrela vermelha: alta relevância, vem antes e com mais questões."},
+      {k:"h2",on:["st1","st2"],c:"Amarelo é relevância média."},
+      {k:"h3",on:["st3"],c:"Verde é o que menos cai: pode virar leitura rápida se o tempo apertar."}],
+  d:["Use a estatística real do TEC filtrada pela sua banca: é o dado mais confiável.","Assuntos vermelhos merecem os seus melhores horários e as questões extras.","Atualize a incidência quando sair edital novo ou mudar a banca."]},
+
+ {id:"pdfs",t:"Aulas e PDFs",ic:"materiais",go:"materiais",
+  p:"Envie o PDF de cada aula do seu curso. O painel acha onde a teoria começa e termina, pula capa, apresentação e índice, divide a teoria em partes de 15 a 18 páginas (uma atividade cada) e separa as questões do PDF, ligando cada questão ao trecho da teoria que ela cobra.",
+  s:`<div class="tu-card"><div class="tu-drop" data-k="drop">⬆ Enviar PDF da aula</div><div class="tu-file" data-k="file">📄 Aula 10 – Exclusão do Crédito Tributário.pdf <small>79 págs.</small></div>
+     <div class="tu-parts" data-k="parts"><span>págs. 3–18</span><span>19–35</span><span>36–52</span></div>
+     <div class="tu-row"><span class="tu-chip ok" data-k="qs">✓ <b data-k="nq">0</b> questões separadas e ligadas à teoria</span></div></div>`,
+  st:[{k:"drop",c:"Toque em Enviar e escolha o PDF da aula (funciona no celular e no computador)."},
+      {k:"file",on:["file"],c:"O arquivo entra na matéria e na aula certas."},
+      {k:"parts",on:["parts"],c:"A teoria vira atividades de 15 a 18 páginas, que entram nas metas."},
+      {k:"qs",on:["qs"],n:[["nq",38]],c:"As questões do PDF são separadas e cada uma é ligada à página da teoria que cobra."}],
+  d:["Envie os PDFs das próximas aulas com antecedência: assim a meta nunca fica sem material.","Use sempre a versão completa da aula (com questões comentadas): é dela que nascem o resumo e os cards.","PDFs ficam na sua conta: abra no celular, no tablet ou no computador."]},
+
+ {id:"hoje",t:"Hoje: a meta do dia",ic:"meta",go:"meta",
+  p:"É a tela do dia a dia. A meta tem as atividades que cabem na sua rotina. Cada atividade de teoria tem 3 passos: Ler (as páginas certas), O que cai aqui (o resumo do trecho e os cards) e Questões (só as daquele trecho). Ao terminar, toque em Finalizar. A próxima meta abre quando esta é cumprida.",
+  s:`<div class="tu-card"><div class="tu-row"><b>Meta 03</b><span class="tu-prog"><i data-k="mp"></i></span><small data-k="mt">0 de 3</small></div>
+     <div class="tu-task" data-k="t1"><i class="tu-ck" data-k="c1"></i>Teoria · Tributário · págs. 3 a 18</div>
+     <div class="tu-steps" data-k="sp"><span data-k="p1">1 Ler</span><span data-k="p2">2 O que cai aqui</span><span data-k="p3">3 Questões</span></div>
+     <div class="tu-task"><i class="tu-ck"></i>Questões · Português</div><div class="tu-task"><i class="tu-ck"></i>Revisão · Constitucional</div>
+     <button class="tu-btn" data-k="fin">Finalizar atividade</button></div>`,
+  st:[{k:"t1",on:["sp"],c:"Toque na atividade: abrem os 3 passos."},
+      {k:"p1",on:["p1"],c:"Passo 1, Ler: abre o PDF exatamente nas páginas da atividade, com marca-texto."},
+      {k:"p2",on:["p2"],c:"Passo 2, O que cai aqui: o resumo do trecho, montado pelas questões, e os cards."},
+      {k:"p3",on:["p3"],c:"Passo 3, Questões: só as questões daquele trecho, para resolver ali mesmo."},
+      {k:"fin",on:["c1","mp"],n:[["mt",1]],c:"Toque em Finalizar. A atividade é riscada, entra nas revisões e a meta avança."}],
+  d:["Faça as atividades na ordem: elas foram encaixadas pela prioridade e pelo tempo do dia.","Não pule o passo 3: resolver logo depois de ler é o que mais aumenta o acerto.","Use “Continuar” no topo: ele abre direto a próxima atividade pendente."]},
+
+ {id:"leitor",t:"Leitor, marca-texto e páginas",ic:"book",go:"materiais",
+  p:"O leitor abre o PDF na página certa. Use o marca-texto com cores (cada cor tem um sentido) e digite o número da página para pular direto, sem passar uma por uma. O que você marca entra no resumo da aula quando “Marcações no resumo” está ligado.",
+  s:`<div class="tu-pdf"><div class="tu-tb"><span class="tu-dot y" data-k="cy"></span><span class="tu-dot g"></span><span class="tu-dot p"></span><span class="tu-pg">pág. <em data-k="pg">3</em> / 79</span></div>
+     <div class="tu-page"><i></i><i data-k="l2" class="hl"></i><i></i><i data-k="l4" class="hl"></i><i class="s"></i><i></i></div></div>`,
+  st:[{k:"cy",on:["cy"],c:"Escolha a cor do marca-texto: amarelo para o importante, verde para definições, rosa para dúvidas."},
+      {k:"l2",on:["l2"],c:"Passe o dedo ou o mouse sobre o trecho: ele fica marcado e é salvo na sua conta."},
+      {k:"l4",on:["l4"],c:"Marque o que a banca costuma cobrar: prazos, exceções e listas."},
+      {k:"pg",ty:["pg","12"],c:"Digite a página e confirme para pular direto para ela."}],
+  d:["Marque pouco: se tudo está amarelo, nada se destaca na revisão.","Rosa (dúvida) vira lembrete: volte nesses trechos antes das questões.","As marcações aparecem no passo 2 e no resumo da aula."]},
+
+ {id:"questoes",t:"Caixa de questões",ic:"check",go:"meta",
+  p:"As questões do PDF (e as que você trouxer do TEC) aparecem numa caixa para resolver ali mesmo, só as do trecho estudado. Você escolhe a alternativa, vê na hora se acertou, lê o comentário e a página da teoria. Erros e chutes vão sozinhos para Erradas e reforçam o resumo.",
+  s:`<div class="tu-card"><p class="tu-q">Q12. A anistia abrange as infrações cometidas após a vigência da lei que a concede?</p>
+     ${["Sim, sempre.","Sim, se a lei disser.","Não: só as anteriores à lei.","Depende do tributo."].map((o,i)=>`<div class="tu-opt" data-k="o${i}">${"ABCD"[i]}) ${o}</div>`).join("")}
+     <div class="tu-exp" data-k="exp">✘ Resposta certa: C. A anistia só alcança infrações anteriores à lei (CTN, art. 180). <b>p. 41</b> · foi para Erradas</div></div>`,
+  st:[{k:"o1",on:["o1"],c:"Escolha a alternativa que você acha certa."},
+      {k:"o2",on:["o2","exp"],c:"O painel mostra na hora: a sua em vermelho, a certa em verde, com o comentário e a página da teoria."},
+      {k:"exp",c:"A questão errada vai para Erradas e o ponto dela sobe no resumo, marcado “você errou”."}],
+  d:["Responda antes de olhar o comentário, mesmo sem certeza: o erro ensina mais que a leitura.","Marque “chutei” quando acertar sem saber: o painel trata como dúvida e traz de volta.","Leve as questões erradas do TEC para o resumo: elas viram pegadinhas na revisão."]},
+
+ {id:"resumos",t:"Resumos da aula",ic:"resumos",go:"resumos",
+  p:"O resumo nasce das questões: cada ponto mostra a regra (com a página do PDF), quantas questões cobraram, como caiu e a pegadinha. Com a IA ligada, ele é reescrito de forma didática. Você pode ver só o que mais cai, só o que errou, gerar o resumão final de véspera, adicionar questões do TEC e baixar em PDF.",
+  s:`<div class="tu-card"><div class="tu-tabs"><span class="on">Completo</span><span data-k="tc">Só o que cai</span><span data-k="te">Só o que errei</span><span data-k="tr">Resumão final</span></div>
+     <div class="tu-pt" data-k="pt1"><small>p. 3 · 4 questões</small>A exclusão do crédito não dispensa as obrigações acessórias.<em>Pegadinha: art. 175, parágrafo único.</em></div>
+     <div class="tu-pt bad" data-k="pt2"><small>p. 41 · 3 questões · você errou</small>A anistia só alcança infrações anteriores à lei.</div>
+     <div class="tu-row"><span class="tu-sw" data-k="ia"><i></i></span><small>Usar a IA</small><button class="tu-btn sm" data-k="pdf">Baixar em PDF</button></div></div>`,
+  st:[{k:"pt1",c:"Cada ponto traz a regra, a página do PDF, quantas questões cobraram e a pegadinha."},
+      {k:"ia",on:["ia","pt1"],c:"Com “Usar a IA” ligado, o resumo, os cards e o mapa mental de cada aula são feitos sozinhos."},
+      {k:"te",on:["te"],c:"“Só o que errei” mostra os pontos em que você caiu: é a revisão mais valiosa."},
+      {k:"tr",on:["tr"],c:"“Resumão final” cabe em 1 a 2 páginas, com checklist para a véspera da prova."},
+      {k:"pdf",c:"Baixe em PDF para ler no celular ou imprimir."}],
+  d:["Leia o resumo da aula no dia seguinte ao estudo: é a primeira revisão.","Na reta final, estude pelo “Só o que cai” e pelo “Só o que errei”.","Cole questões do TEC na caixa ao lado: o resumo cresce com o que a banca cobra fora do PDF."]},
+
+ {id:"mapas",t:"Mapas mentais",ic:"mapas",go:"mapas",
+  p:"Os mapas mentais organizam a aula num só olhar: assunto no centro, ramos com conceitos, artigos, prazos e exceções. A IA monta um mapa por aula a partir do resumo, e você também pode enviar os mapas do seu curso (imagem, PDF ou link). Tudo fica separado por matéria e assunto do edital.",
+  s:`<svg class="tu-mm" viewBox="0 0 320 170" aria-hidden="true"><g class="tu-ln" data-k="l"><path d="M160 85 L60 35"/><path d="M160 85 L60 135"/><path d="M160 85 L260 35"/><path d="M160 85 L260 135"/></g>
+     <g data-k="r"><rect x="110" y="68" width="100" height="34" rx="17"/><text x="160" y="90">Exclusão</text></g>
+     <g data-k="a"><rect x="10" y="20" width="96" height="30" rx="8"/><text x="58" y="40">Isenção</text></g><g data-k="b"><rect x="214" y="20" width="96" height="30" rx="8"/><text x="262" y="40">Anistia</text></g>
+     <g data-k="c"><rect x="10" y="120" width="96" height="30" rx="8"/><text x="58" y="140">Art. 175</text></g><g data-k="d"><rect x="214" y="120" width="96" height="30" rx="8"/><text x="262" y="140">Pegadinhas</text></g></svg>`,
+  st:[{k:"r",on:["r"],c:"No centro, o assunto da aula."},
+      {k:"a",on:["l","a","b"],c:"Os ramos trazem os conceitos principais, só do que está no seu material."},
+      {k:"d",on:["c","d"],c:"E os detalhes que a banca cobra: artigos, prazos, exceções e pegadinhas."}],
+  d:["Revise pelo mapa antes de dormir: 2 minutos por aula.","Tente reconstruir o mapa de memória e depois compare: é revisão ativa.","Envie também os mapas do seu curso: eles ficam junto, por assunto."]},
+
+ {id:"revisoes",t:"Revisões e cards",ic:"revisoes",go:"revisoes",
+  p:"Aqui ficam as revisões do dia: cards de pergunta e resposta e as questões que voltaram. O ciclo é de 1, 7, 14, 30 e 60 dias: quando você lembra, o próximo intervalo fica maior; quando esquece, a revisão volta mais cedo. É o que garante que você chegue na prova lembrando do que estudou no começo.",
+  s:`<div class="tu-card"><div class="tu-fc" data-k="fc"><div class="f">Qual o alcance temporal da anistia?</div><div class="b">Só infrações anteriores à lei que a concede (CTN, art. 180).</div></div>
+     <div class="tu-row"><button class="tu-btn ghost" data-k="no">Esqueci</button><button class="tu-btn" data-k="ok">Lembrei</button></div>
+     <div class="tu-cyc">${[1,7,14,30,60].map((d,i)=>`<span data-k="d${i}">${d}d</span>`).join("")}</div></div>`,
+  st:[{k:"fc",on:["d0"],c:"Leia a pergunta e tente responder de cabeça, sem olhar."},
+      {k:"fc",on:["fc"],c:"Toque no card para virar e conferir a resposta."},
+      {k:"ok",on:["d1"],c:"Lembrou? O card só volta daqui a 7 dias, depois 14, 30 e 60."},
+      {k:"no",c:"Esqueceu? Ele volta amanhã. Seja honesto: o ciclo só funciona assim."}],
+  d:["Zere as revisões todo dia antes de teoria nova.","Responda em voz alta ou escreva: lembrar é diferente de reconhecer.","O número vermelho no menu Revisar mostra quantas estão pendentes."]},
+
+ {id:"erradas",t:"Erradas e reforços",ic:"erradas",go:"erradas",
+  p:"Toda questão que você erra ou chuta (do PDF, do TEC ou dos simulados) entra sozinha em Erradas, para refazer. Quando uma matéria fica abaixo de 75% de acerto, nasce um reforço: questões extras daquele assunto, com 30 dias de prazo, sem travar a meta.",
+  s:`<div class="tu-card"><div class="tu-task" data-k="e1"><i class="tu-x">✘</i>Q12 · Anistia · Tributário</div><div class="tu-task" data-k="e2"><i class="tu-x">?</i>Q07 · Isenção onerosa · chutei</div>
+     <div class="tu-row"><b>Tributário</b><span class="tu-prog bad"><i data-k="ac" style="--w:68%"></i></span><small>68% de acerto</small></div>
+     <div class="tu-ref" data-k="rf">⚑ Reforço: 15 questões de Exclusão do crédito · prazo de 30 dias</div></div>`,
+  st:[{k:"e1",on:["e1"],c:"A questão errada já está aqui, pronta para refazer."},
+      {k:"e2",on:["e2"],c:"As que você chutou também entram: acertar sem saber não conta."},
+      {k:"ac",on:["ac"],c:"A matéria caiu abaixo de 75% de acerto…"},
+      {k:"rf",on:["rf"],c:"…e o painel cria um reforço com questões extras, com 30 dias de prazo."}],
+  d:["Refaça as erradas depois de 1 dia, não na hora: assim você testa a memória de verdade.","Leia o comentário e escreva com as suas palavras por que errou.","Cumpra os reforços dentro do prazo: são eles que puxam a matéria fraca para cima."]},
+
+ {id:"simulados",t:"Simulados",ic:"simulados",go:"simulados",
+  p:"Os simulados são liberados ao longo do plano e treinam a prova de verdade: tempo marcado, gabarito e correção comentada. Os erros vão para Erradas e a matéria abaixo de 75% ganha reforço.",
+  s:`<div class="tu-card"><div class="tu-row"><b>Simulado 02</b><span class="tu-clock" data-k="clk">03:30:00</span></div>
+     <div class="tu-grid">${Array.from({length:20},(_,i)=>`<i data-k="g${i}"></i>`).join("")}</div>
+     <div class="tu-score" data-k="sc">Resultado: <b data-k="pc">0</b>% · 3 matérias com reforço</div></div>`,
+  st:[{k:"clk",on:["clk"],c:"Comece quando tiver o tempo inteiro livre: o relógio corre como na prova."},
+      {k:"g8",on:["g0","g1","g2","g3","g4","g5","g6","g7","g8","g9","g10","g11"],c:"Responda no cartão. Pule as difíceis e volte depois, como na prova."},
+      {k:"sc",on:["sc"],n:[["pc",78]],c:"Veja a nota e a correção comentada. Os erros já foram para Erradas."}],
+  d:["Faça os simulados no mesmo horário da prova, sem pausas.","Depois, gaste mais tempo corrigindo do que respondendo.","Compare a nota com o corte do concurso no Desempenho."]},
+
+ {id:"discursiva",t:"Discursiva e redação",ic:"discursiva",go:"discursiva",
+  p:"Para concursos com prova escrita. Escolha discursiva ou redação, escreva no painel (ou envie a foto da folha) e a IA corrige quesito por quesito, com nota, o que faltou e como melhorar.",
+  s:`<div class="tu-card"><div class="tu-txt" data-k="tx"><em data-k="tt"></em></div><button class="tu-btn" data-k="go">Corrigir</button>
+     <div class="tu-list" data-k="nt"><div>Conteúdo <b>3,5 / 4</b></div><div>Estrutura <b>2,5 / 3</b></div><div>Língua <b>2 / 3</b></div><div class="tu-big">Nota 8,0</div></div></div>`,
+  st:[{k:"tx",ty:["tt","A anistia, prevista no art. 180 do CTN, exclui o crédito relativo a penalidades…"],c:"Escreva a resposta como na prova (ou envie a foto da folha)."},
+      {k:"go",on:["nt"],c:"Toque em Corrigir: a IA dá a nota por quesito e explica o que faltou."}],
+  d:["Treine pelo menos uma discursiva por semana na reta final.","Reescreva a mesma questão depois da correção: é assim que a nota sobe.","Cuidado com o limite de linhas: o painel conta para você."]},
+
+ {id:"desempenho",t:"Desempenho, mentor e projeção",ic:"desempenho",go:"desempenho",
+  p:"O Desempenho mostra horas estudadas, acerto por matéria e evolução. Em Hoje, “Recalcular com o mentor” analisa o seu ritmo, refaz as próximas metas até a prova e projeta a sua nota. O “Plano para 85%” ajusta o planejamento dentro das suas horas por dia.",
+  s:`<div class="tu-card">${[["Tributário",68],["Português",84],["Constitucional",79]].map(([n,v],i)=>`<div class="tu-hb"><span>${n}</span><i><s data-k="d${i}" style="--w:${v}%"></s></i><em>${v}%</em></div>`).join("")}
+     <button class="tu-btn" data-k="mt">Recalcular com o mentor</button><div class="tu-gauge" data-k="ga"><b data-k="gp">0</b>%<small>projeção de acerto na prova</small></div></div>`,
+  st:[{k:"d0",on:["d0","d1","d2"],c:"Veja o acerto de cada matéria: a mais baixa é a sua prioridade."},
+      {k:"mt",on:["ga"],n:[["gp",76]],c:"O mentor recalcula as metas até a prova e projeta a sua nota se você cumprir o plano."},
+      {k:"ga",c:"Ative o “Plano para 85%” para o painel puxar mais questões e reforços nas matérias fracas, sem passar das suas horas."}],
+  d:["Recalcule com o mentor sempre que atrasar mais de 2 dias.","Olhe a projeção uma vez por semana, não todo dia: o que importa é a tendência.","Matéria abaixo de 75% merece mais questões, não mais teoria."]},
+
+ {id:"cronometro",t:"Cronômetro e Pomodoro",ic:"rotina",go:"meta",
+  p:"No topo da tela fica o cronômetro. Escolha a atividade, toque no play e estude: o tempo entra no Desempenho e na atividade. O modo Pomodoro alterna 25 minutos de foco e 5 de pausa.",
+  s:`<div class="tu-card"><div class="tu-row"><span class="tu-seg"><span class="on" data-k="cr">Cronômetro</span><span data-k="po">Pomodoro</span></span><span class="tu-clock big" data-k="ck"><em data-k="cv">00:00:00</em></span><button class="tu-play" data-k="pl">▶</button></div>
+     <div class="tu-row"><span class="tu-inp wide" data-k="sel">Teoria · Tributário · págs. 3 a 18</span></div></div>`,
+  st:[{k:"sel",on:["sel"],c:"Escolha a atividade que vai estudar."},
+      {k:"pl",on:["ck"],c:"Toque no play: o tempo conta e vai para o Desempenho."},
+      {k:"po",on:["po"],c:"Prefere blocos? Use o Pomodoro: 25 minutos de foco, 5 de pausa."}],
+  d:["Celular longe durante o Pomodoro: a pausa é a hora de olhar mensagens.","O tempo registrado é o seu termômetro: compare com as horas da rotina.","Esqueceu de ligar? Ajuste o tempo depois na própria atividade."]},
+
+ {id:"edital",t:"Edital e Jornada",ic:"edital",go:"edital",
+  p:"No Edital, cada assunto é riscado quando a teoria é concluída: você vê na hora quanto do edital já foi estudado. Na Jornada, ficam o caminho das metas até a prova, o calendário dos dias estudados e a sequência de dias seguidos.",
+  s:`<div class="tu-card">${["Crédito tributário","Exclusão do crédito","Suspensão do crédito","Extinção do crédito"].map((x,i)=>`<div class="tu-task" data-k="e${i}"><i class="tu-ck"></i>${x}</div>`).join("")}
+     <div class="tu-row"><span class="tu-prog"><i data-k="ep" style="--w:50%"></i></span><small>Edital estudado: <b data-k="en">0</b>%</small></div></div>`,
+  st:[{k:"e0",on:["e0"],c:"Concluiu a teoria? O assunto é riscado sozinho no Edital."},
+      {k:"e1",on:["e1","ep"],n:[["en",50]],c:"A barra mostra quanto do edital você já estudou."},
+      {k:"en",c:"Na Jornada, veja os dias estudados e a sua sequência: não quebre a corrente."}],
+  d:["Antes da prova, todo assunto vermelho do edital precisa estar riscado.","Use a Jornada para ver se o ritmo da semana está no caminho da data da prova."]}
+];
+const TUT_MIN_STEP=3400;
+let TUTP={i:0,s:0,play:1,t:0};
+function vTutorial(){const id=UI.tut||TUT[0].id,ch=TUT.find(x=>x.id===id)||TUT[0];
+  return`<div class="hello"><h1>Tutorial</h1><p>Cada função da A Jornada em uma animação curta, com o passo a passo e dicas para você usar a plataforma do jeito que mais aproxima a aprovação. Escolha um tema ou siga na ordem.</p></div>
+  <div class="tu-wrap"><nav class="tu-menu" aria-label="Temas do tutorial">${TUT.map((x,i)=>`<button data-a="tutGo" data-id="${x.id}" aria-current="${x.id===ch.id}">${ic(x.ic)}<span><small>${i+1}</small>${esc(x.t)}</span></button>`).join("")}</nav>
+  <section class="tu-main card" aria-live="polite"><div class="tu-head"><h2>${esc(ch.t)}</h2><button class="btn sm" data-a="gtab" data-t="${ch.go}">Ir para esta tela →</button></div>
+   <p class="tu-why"><b>Para que serve.</b> ${esc(ch.p)}</p>
+   <div class="tu-stage" id="tuStage"><div class="tu-scene" id="tuScene">${ch.s}</div><i class="tu-cur" id="tuCur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3l14 8-6.5 1.5L9 19z"/></svg></i><div class="tu-say" id="tuSay"></div></div>
+   <div class="tu-ctl"><button class="btn sm ghost" data-a="tutStep" data-d="-1" aria-label="Passo anterior">←</button><button class="btn sm" data-a="tutPlay" id="tuPlay">${TUTP.play?"Pausar":"Assistir"}</button><button class="btn sm ghost" data-a="tutStep" data-d="1" aria-label="Próximo passo">→</button><span class="tu-dots" id="tuDots">${ch.st.map((_,i)=>`<i data-a="tutJump" data-s="${i}"></i>`).join("")}</span></div>
+   <ol class="tu-steps-l" id="tuList">${ch.st.map((x,i)=>`<li data-a="tutJump" data-s="${i}">${esc(x.c)}</li>`).join("")}</ol>
+   <div class="tu-tips"><h3>${ic("bulb")} Dicas para a aprovação</h3><ul>${ch.d.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+   <div class="tu-foot">${TUT.indexOf(ch)>0?`<button class="btn ghost" data-a="tutGo" data-id="${TUT[TUT.indexOf(ch)-1].id}">← ${esc(TUT[TUT.indexOf(ch)-1].t)}</button>`:"<span></span>"}${TUT.indexOf(ch)<TUT.length-1?`<button class="btn pri" data-a="tutGo" data-id="${TUT[TUT.indexOf(ch)+1].id}">${esc(TUT[TUT.indexOf(ch)+1].t)} →</button>`:""}</div>
+  </section></div>`}
+const tuRM=()=>{try{return matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){return false}};
+function tuEl(k){const sc=$("tuScene");return sc?sc.querySelector(`[data-k="${k}"]`):null}
+/* aplica todos os passos até s (assim, voltar ou pular para um passo mostra a tela certa) */
+function tuShow(s,anim){const ch=TUT.find(x=>x.id===(UI.tut||TUT[0].id))||TUT[0],sc=$("tuScene");if(!sc)return;
+  s=Math.max(0,Math.min(ch.st.length-1,s));TUTP.s=s;sc.innerHTML=ch.s;
+  for(let i=0;i<=s;i++){const x=ch.st[i],last=i===s&&anim;
+    (x.on||[]).forEach(k=>{const e=tuEl(k);if(e)e.classList.add("on")});
+    if(x.ty){const e=tuEl(x.ty[0]);if(e){if(last&&!tuRM()){let j=0;const txt=x.ty[1];e.textContent="";const tk=()=>{if(!$("tuScene")||TUTP.s!==s)return;e.textContent=txt.slice(0,++j);if(j<txt.length)setTimeout(tk,45)};setTimeout(tk,600)}else e.textContent=x.ty[1]}}
+    if(x.n)x.n.forEach(([k,v])=>{const e=tuEl(k);if(!e)return;if(last&&!tuRM()){const t0=performance.now();const f=t=>{if(TUTP.s!==s||!e.isConnected)return;const p=Math.min(1,(t-t0)/900);e.textContent=Math.round(v*p);if(p<1)requestAnimationFrame(f)};setTimeout(()=>requestAnimationFrame(f),500)}else e.textContent=v});
+    if(x.mv){const a=tuEl(x.mv[0]),b=tuEl(x.mv[1]);if(a&&b){const ra=a.getBoundingClientRect(),rb=b.getBoundingClientRect();const tr=`translate(${rb.left-ra.left}px,${rb.top-ra.top}px)`;
+      if(last&&!tuRM()){setTimeout(()=>{a.style.transition="transform .9s var(--ease-out)";a.style.transform=tr;a.classList.add("moved")},700)}else{a.style.transform=tr;a.classList.add("moved")}}}}
+  const x=ch.st[s],say=$("tuSay");if(say){say.textContent=(s+1)+". "+x.c;say.classList.remove("in");void say.offsetWidth;say.classList.add("in")}
+  document.querySelectorAll("#tuDots i").forEach((d,i)=>d.classList.toggle("on",i===s));document.querySelectorAll("#tuList li").forEach((d,i)=>d.classList.toggle("on",i===s));
+  const cur=$("tuCur"),st=$("tuStage"),tg=tuEl(x.k);
+  if(cur&&st&&tg){const rs=st.getBoundingClientRect(),rt=tg.getBoundingClientRect();cur.style.left=(rt.left-rs.left+Math.min(rt.width/2,60))+"px";cur.style.top=(rt.top-rs.top+rt.height/2)+"px";cur.classList.remove("clk");
+    tg.classList.add("focus");if(anim&&!tuRM())setTimeout(()=>{cur.classList.add("clk");tg.classList.add("pulse")},450)}}
+function tuTick(){clearTimeout(TUTP.t);if(!$("tuScene")||!TUTP.play)return;const ch=TUT.find(x=>x.id===(UI.tut||TUT[0].id))||TUT[0];
+  TUTP.t=setTimeout(()=>{if(!$("tuScene"))return;const n=TUTP.s+1>=ch.st.length?0:TUTP.s+1;if(n===0){TUTP.t=setTimeout(()=>{tuShow(0,1);tuTick()},1600);return}tuShow(n,1);tuTick()},TUT_MIN_STEP+(ch.st[TUTP.s].c.length>110?1200:0))}
+function tuStart(){TUTP.play=tuRM()?0:TUTP.play;const same=TUTP.ch===(UI.tut||TUT[0].id);TUTP.ch=UI.tut||TUT[0].id;requestAnimationFrame(()=>{tuShow(same?TUTP.s:0,!same);tuTick();const b=$("tuPlay");if(b)b.textContent=TUTP.play?"Pausar":"Assistir"})}
+
 function render(){
   try{const rm=localStorage.getItem("jornada-rm-msg");if(rm&&READY){localStorage.removeItem("jornada-rm-msg");setTimeout(()=>okPop("Concurso removido",rm+" saiu da plataforma. Os outros concursos foram readequados."),300)}}catch(e){}
   if(READY&&core().edPending){const c=core(),n=c.edPending.n||0,src=c.edPending.src||"importação";delete c.edPending;touch("core");setTimeout(()=>{try{recalcAfterEdital()}catch(e){}render();toast(n+" assuntos marcados como estudados a partir do "+src+". As metas foram recalculadas")},50)}
@@ -3984,8 +4341,8 @@ function render(){
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
-  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados}[TAB];
-  $("view").classList.toggle("noanim",render.lt===TAB);render.lt=TAB;$("view").innerHTML=gnavHTML()+V();try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));
+  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial}[TAB];
+  $("view").classList.toggle("noanim",render.lt===TAB);render.lt=TAB;$("view").innerHTML=gnavHTML()+V();try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
   if(UI.openT)renderDrawer();
 }
 /* concordância no singular quando o número é 1 */
@@ -7366,6 +7723,10 @@ const A={
   askAI(el){const f=findTask(el.dataset.id);if(f)askRun(f.t,true)},
   askPdf(el){const f=findTask(el.dataset.id);if(f)askRun(f.t,false)},
   async askDl(el){const f=findTask(el.dataset.id);if(!f||!f.t.ask||!f.t.ask.txt)return;const t=f.t;try{const b=await mdToPdf("Pedido ao mentor - "+SUB(t.sid).n,(t.aula?auLabel(t.sid,t.aula)+" - ":"")+"págs. "+t.pa+" a "+t.pb,t.ask.txt,"A JORNADA - "+SUB(t.sid).c);await saveFile("Mentor "+SUB(t.sid).c+" p"+t.pa+"-"+t.pb+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
+  tutGo(el){UI.tut=el.dataset.id;TUTP.s=0;TUTP.play=1;render();const m=$("view").querySelector(".tu-main");if(m&&innerWidth<820)m.scrollIntoView({behavior:"smooth",block:"start"})},
+  tutPlay(){TUTP.play=TUTP.play?0:1;const b=$("tuPlay");if(b)b.textContent=TUTP.play?"Pausar":"Assistir";if(TUTP.play){const ch=TUT.find(x=>x.id===(UI.tut||TUT[0].id))||TUT[0];tuShow(TUTP.s+1>=ch.st.length?0:TUTP.s+1,1);tuTick()}else clearTimeout(TUTP.t)},
+  tutStep(el){TUTP.play=0;clearTimeout(TUTP.t);const b=$("tuPlay");if(b)b.textContent="Assistir";tuShow(TUTP.s+(+el.dataset.d),1)},
+  tutJump(el){TUTP.play=0;clearTimeout(TUTP.t);const b=$("tuPlay");if(b)b.textContent="Assistir";tuShow(+el.dataset.s,1)},
   mtOpen(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const M=mentorStats();UI.mt={M,P:mentorAuto(M),busy:0};mentorModal()},
   mtClose(){UI.mt=null;$("layer3").innerHTML=""},
   async mtAI(){const X=UI.mt;if(!X||!SAMPLE)return;X.busy=1;mentorModal();try{X.P=await mentorAIPlan(X.M)}catch(e){toast("A IA não respondeu agora; ficou a análise automática")}X.busy=0;mentorModal()},
