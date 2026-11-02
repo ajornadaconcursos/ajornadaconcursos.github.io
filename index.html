@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021335"></script>
+<script src="/claude-shim.js?v=202611021341"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -2312,6 +2312,7 @@ function pdCutSet(k,x){const p=pdf(UI.pdMap);if(!stOk(p))return;const L=stPlan(p
   alignKey="";simCache.key="";{const r1=curMeta(),md1=r1&&metaDoc(r1.n);if(md1&&md1.std)md1.std=0}pdMapModal();render();toast("Divisão ajustada. As próximas atividades desta aula seguem o novo corte")}
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="pdCut")pdCutSet(+el.dataset.i,el.value)});
 document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset||(el.dataset.c!=="qfAs"&&el.dataset.c!=="qfBn"))return;const f=UI[el.dataset.k];if(!f)return;f[el.dataset.c==="qfAs"?"as":"bn"]=el.value;UI[el.dataset.pk]=0;UI.qzKeep=null;rerenderQz()});
+document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="corte"){core().corte=clamp(+el.value||0,0,100);touch("core");render()}});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="resAI"){core().resAI=el.checked;touch("core");render()}});
 /* corte digitado: a parte termina antes da página digitada; se houver um tópico nessa página, para antes dele */
 function pdCutPg(el){const n=parseInt(el.value,10),lo=+el.dataset.lo,hi=+el.dataset.hi;if(!n)return;if(n<Math.ceil(lo)||n>Math.floor(hi)){toast("Para esta parte, digite uma página de "+Math.ceil(lo)+" a "+Math.floor(hi));el.value="";return}
@@ -2467,7 +2468,7 @@ function planMeta(ctx,sim){
   /* 2) teoria nas vagas restantes */
   const tgt=clamp(Math.round(B/NT()/MINPG),3,15),wmin=clamp(r5(tgt*MINPG),15,60);
   const cnt=ctx.cnt,used=new Set();
-  const W=sid=>{const i=EDI[sid],L=AU(sid),pr=ctx.prog[sid];return Math.max(.5,qOf(ED[i]))*LVS[lvl(i)].m*auRel(sid,pr&&L[pr.i])};
+  const W=sid=>{const i=EDI[sid],L=AU(sid),pr=ctx.prog[sid];return Math.max(.5,qOf(ED[i]))*LVS[lvl(i)].m*auRel(sid,pr&&L[pr.i])*mwOf(sid)};
   const takeT=(sid,want)=>{
     const L=AU(sid),pr=ctx.prog[sid];let n=0;
     const done=au=>{pushPend(pOut,sid,au,ctx.xq);pr.i++;pr.pg=1};
@@ -3260,6 +3261,62 @@ let QB_BG=0;async function qBgRun(){if(QB_BG)return;QB_BG=1;try{for(const p of P
     const Z=qzDoc(p.id);if(Z&&Z.L.length&&!qMapOk(p,Z)&&!QMAP_FAIL.has(p.id)){try{await qMapAll(p)}catch(e){}await new Promise(r=>setTimeout(r,800))}}}finally{QB_BG=0}}
 setTimeout(()=>{try{qBgRun()}catch(e){}},25000);
 
+
+/* ================= Mentor: recalcula as próximas metas até a prova e projeta o acerto =================
+   O mentor olha cada matéria (peso na prova, quanto do edital já foi estudado, acerto nas questões, aulas que faltam)
+   e o tempo até a prova, e dá a cada matéria uma prioridade (0,6 a 1,6). O planejamento usa essa prioridade para
+   distribuir a teoria das próximas metas. Com a IA, a análise é feita por ela; sem IA, por regras fixas. */
+const mwOf=sid=>{const m=core().mw;const v=m&&m.w&&m.w[sid];return v>0?clamp(+v,.6,1.6):1};
+const daysToExam=()=>{try{return Math.round((Date.parse(prova())-Date.parse(today()))/864e5)}catch(e){return 0}};
+function perfAll(){try{return dData({a:0,b:1e9,sid:""}).bys}catch(e){return{}}}
+function covOf(sid){const S=ED[EDI[sid]],P=incOf(sid),C=core();if(!S)return{now:0,plan:0};let now=0,plan=0;const inAula=new Set(AU(sid).flatMap(a=>a.tp||[]));
+  S.t.forEach((_,j)=>{const w=P[j]||0,st=C.ed&&C.ed[EDI[sid]+":"+j]&&C.ed[EDI[sid]+":"+j].stud;if(st)now+=w;if(st||inAula.has(j))plan+=w});return{now:Math.min(100,now),plan:Math.min(100,plan)}}
+function mentorStats(){const B=perfAll(),c=core(),T=qTot()||1,dl=daysToExam(),need=remainingMetas(),avail=Math.max(0,Math.floor(Math.max(0,dl-7)/Math.max(1,c.cfg.dias)));
+  const L=ED.map(S=>{const b=B[S.id]||{f:0,a:0},cv=covOf(S.id),pr=progOf(S.id),na=AU(S.id).length;return{sid:S.id,n:S.n,c:S.c,q:qOf(S),share:qOf(S)/T*100,cov:cv.now,covPlan:cv.plan,left:Math.max(0,na-pr.i),aulas:na,f:b.f,acc:b.f?b.a/b.f*100:null,lv:lvl(EDI[S.id]),w0:mwOf(S.id)}});
+  return{L,dl,need,avail,ratio:need?Math.min(1,avail/need):1,hrs:c.cfg.hrs,dias:c.cfg.dias}}
+function mentorAuto(M){const avg=100/Math.max(1,M.L.length),w={},why={};
+  M.L.forEach(x=>{let v=1;const R=[];
+    if(x.acc!=null&&x.f>=10){if(x.acc<60){v+=.3;R.push("acerto baixo ("+Math.round(x.acc)+"%)")}else if(x.acc<70){v+=.15;R.push("acerto abaixo de 70%")}else if(x.acc>=85&&x.f>=20){v-=.15;R.push("acerto alto, pode reduzir o ritmo")}}
+    if(x.share>avg*1.2&&x.cov<35){v+=.2;R.push("pesa muito na prova e ainda falta bastante do edital")}
+    else if(x.share<avg*.6&&x.cov>60){v-=.15;R.push("pesa pouco e já está bem adiantada")}
+    if(M.ratio<1&&x.share<avg*.5){v-=.1;R.push("o tempo não cobre tudo: matéria de pouco peso perde espaço")}
+    w[x.sid]=Math.round(clamp(v,.6,1.6)*100)/100;why[x.sid]=R.join("; ")||"ritmo mantido"});
+  return{w,why,resumo:M.ratio<1?`No ritmo atual faltam ${M.need} metas e até a prova cabem cerca de ${M.avail}. O mentor concentrou o tempo nas matérias que mais pesam e nas que você mais erra.`:`O planejamento cabe até a prova (${M.need} metas para ${M.avail} disponíveis). O mentor ajustou a prioridade pelo seu acerto e pelo peso de cada matéria.`,src:"auto"}}
+async function mentorAIPlan(M){const rows=M.L.map(x=>`${x.sid} | ${x.n} | ${x.q} questões (${pv1(x.share)}% da prova) | edital estudado ${Math.round(x.cov)}% | aulas restantes ${x.left}/${x.aulas} | acerto ${x.acc==null?"sem dados":Math.round(x.acc)+"% em "+x.f+" questões"} | nível ${x.lv}`).join("\n");
+  const prompt=`Você é um mentor especialista em aprovação em concursos públicos (${IS_TJ?"Oficial de Justiça do TJSP, banca VUNESP":[PLAN.cargo||PLAN.name,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(", ")}).
+Faltam ${M.dl} dias para a prova. O aluno estuda ${M.hrs} h por dia, em metas de ${M.dias} dias. No ritmo atual faltam ${M.need} metas para concluir todas as aulas e até a prova cabem cerca de ${M.avail} metas (deixando a última semana para revisão).
+Situação por matéria (id | matéria | peso | edital estudado | aulas restantes | acerto | nível):
+${rows}
+Defina a PRIORIDADE de cada matéria para as próximas metas, de 0.6 (menos tempo) a 1.6 (mais tempo), sendo 1 o ritmo normal. Priorize o que mais pesa na prova, o que o aluno mais erra e o que ainda falta estudar; se o tempo não cobrir tudo, diga o que sacrificar.
+Responda só com JSON: {"w":{"id":1.2,...},"motivo":{"id":"até 15 palavras",...},"resumo":"2 a 3 frases com a estratégia até a prova","alerta":"1 frase, ou vazio"}`;
+  const r=await SAMPLE.json(prompt,{modelTier:"default"});if(!r||typeof r!=="object"||!r.w)throw new Error("formato");
+  const w={},why={};M.L.forEach(x=>{const v=+r.w[x.sid];w[x.sid]=v>0?Math.round(clamp(v,.6,1.6)*100)/100:1;why[x.sid]=String((r.motivo||{})[x.sid]||"").slice(0,140)});
+  return{w,why,resumo:String(r.resumo||"").slice(0,600),alerta:String(r.alerta||"").slice(0,240),src:"ia"}}
+function mentorModal(){const X=UI.mt;if(!X){$("layer3").innerHTML="";return}const M=X.M,P=X.P;
+  const rows=M.L.map(x=>{const nw=P?P.w[x.sid]:x.w0,d=nw-x.w0,ar=Math.abs(d)<.05?"=":d>0?"▲":"▼";return`<tr><td><span class="code" style="margin-right:6px">${esc(x.c)}</span>${esc(x.n)}</td><td>${x.q}</td><td>${Math.round(x.cov)}%</td><td>${x.acc==null?"–":Math.round(x.acc)+"%"}</td><td>${x.left}/${x.aulas}</td><td><b class="${d>.04?"badc":d<-.04?"okc":""}">${ar} ${nw.toFixed(2).replace(".",",")}</b></td><td class="small muted">${esc(P?P.why[x.sid]||"":"")}</td></tr>`}).join("");
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Mentor"><div class="box" style="width:min(900px,96vw);max-height:92vh;overflow:auto;display:grid;gap:12px">
+    <div class="row" style="justify-content:space-between"><h3 style="margin:0">${ic("bulb")} Mentor · recalcular até a prova</h3><button class="ibtn" data-a="mtClose" aria-label="Fechar">${ic("close")}</button></div>
+    <p class="muted small" style="margin:0">Faltam <b>${M.dl}</b> dias para a prova · ${M.hrs} h por dia · no ritmo atual faltam <b>${M.need}</b> metas e cabem cerca de <b>${M.avail}</b> (com a última semana livre para revisão).</p>
+    ${X.busy?'<p class="muted"><span class="spin"></span> O mentor está analisando…</p>':P?`<div class="tsb" style="gap:6px"><b>${P.src==="ia"?"Análise do mentor (IA)":"Análise do mentor"}</b><span>${esc(P.resumo)}</span>${P.alerta?`<span class="badc small">${esc(P.alerta)}</span>`:""}</div>`:""}
+    <div class="tbw"><table class="tb"><thead><tr><th>Matéria</th><th>Questões</th><th>Edital estudado</th><th>Acerto</th><th>Aulas restantes</th><th>Prioridade</th><th>Motivo</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <div class="row" style="justify-content:flex-end;gap:8px">${SAMPLE&&!X.busy&&(!P||P.src!=="ia")?`<button class="btn" data-a="mtAI">${ic("bulb")} Pedir a análise da IA</button>`:""}<button class="btn ghost" data-a="mtClose">Cancelar</button><button class="btn pri" data-a="mtApply" ${P&&!X.busy?"":"disabled"}>${ic("check")} Aplicar ao planejamento</button></div>
+    <p class="muted small" style="margin:0">Aplicar muda a distribuição da teoria nas próximas metas (e na meta atual, se ela ainda não começou). O que você já fez não muda.</p></div></div>`}
+/* projeção do acerto na prova, se o planejamento for cumprido */
+function projData(){const M=mentorStats(),cebr=/cebraspe|cespe/i.test(dsBanca()),chance=cebr?0:(/fcc|fgv|vunesp/i.test(dsBanca())?.2:.22);
+  const L=M.L.map(x=>{const covF=Math.min(100,x.cov+(x.covPlan-x.cov)*M.ratio)/100;const base=x.acc!=null&&x.f>=10?x.acc/100:.72,acc=clamp(base+.05,.4,.93);
+    const e=(a)=>x.q*(covF*a+(1-covF)*chance);return Object.assign({},x,{covF,acc,exp:e(acc),lo:e(clamp(acc-.1,.3,.9)),hi:e(clamp(acc+.07,.4,.96))})});
+  const Q=sum(L.map(x=>x.q))||1;return{M,L,Q,cebr,chance,exp:sum(L.map(x=>x.exp)),lo:sum(L.map(x=>x.lo)),hi:sum(L.map(x=>x.hi))}}
+function projHTML(){try{const X=projData();if(!X.L.length)return"";const pc=v=>Math.round(v/X.Q*100),c=core(),corte=+c.corte||0;
+  const gain=X.L.map(x=>({x,g:x.q*((1-x.covF)*(x.acc-X.chance)+x.covF*Math.min(.08,.93-x.acc))})).sort((a,b)=>b.g-a.g).slice(0,3).filter(v=>v.g>.3);
+  return`<section class="card"><div class="card-h"><h2>Projeção de acerto na prova</h2><span class="r muted small">cumprindo todas as tarefas até a prova</span></div><div class="card-b" style="display:grid;gap:12px">
+    <div class="row" style="gap:18px;align-items:center;flex-wrap:wrap"><div><div style="font:800 44px/1 var(--f-display);color:var(--lime-txt,var(--lime))">${pc(X.exp)}%</div><span class="muted small">cerca de ${Math.round(X.exp)} de ${X.Q} questões${X.cebr?" (líquido, já descontando erros)":""}</span></div>
+      <div class="small"><b>Faixa provável:</b> ${pc(X.lo)}% a ${pc(X.hi)}%<br><span class="muted">${X.M.ratio<1?`O tempo cobre cerca de ${Math.round(X.M.ratio*100)}% das aulas que faltam.`:"O tempo até a prova cobre todas as aulas do plano."}</span>${corte?`<br><b class="${pc(X.exp)>=corte?"okc":"badc"}">${pc(X.exp)>=corte?"Acima":"Abaixo"} da nota de corte informada (${corte}%)</b>`:""}</div>
+      <label class="small muted" style="display:flex;gap:6px;align-items:center;margin-left:auto">Nota de corte (%) <input class="inp sm" type="number" min="0" max="100" style="width:80px" data-c="corte" value="${corte||""}" placeholder="ex.: 70"></label></div>
+    <div class="tbw"><table class="tb"><thead><tr><th>Matéria</th><th>Questões</th><th>Edital coberto na prova</th><th>Acerto esperado no que estudou</th><th>Acertos previstos</th></tr></thead><tbody>${X.L.map(x=>`<tr><td>${esc(x.n)}</td><td>${x.q}</td><td>${Math.round(x.covF*100)}%</td><td>${Math.round(x.acc*100)}%${x.acc!=null&&x.f>=10?"":' <span class="muted small">(estimado)</span>'}</td><td><b>${x.exp.toFixed(1).replace(".",",")}</b> de ${x.q}</td></tr>`).join("")}</tbody></table></div>
+    ${gain.length?`<p class="small" style="margin:0"><b>Onde ganhar mais pontos:</b> ${gain.map(v=>esc(v.x.n)+" (+"+v.g.toFixed(1).replace(".",",")+" questões possíveis)").join(" · ")}</p>`:""}
+    <p class="muted small" style="margin:0">Como é calculado: para cada matéria, a parte do edital que estará estudada na data da prova (pelo seu planejamento e pela incidência dos assuntos) vezes o seu acerto nas questões já resolvidas (com um ganho pelas revisões; sem dados, 72%), mais o chute no que ficar de fora${X.cebr?" (no Cebraspe o chute vale zero, porque o erro anula um acerto)":" ("+Math.round(X.chance*100)+"% numa questão de múltipla escolha)"}. É uma estimativa: quanto mais questões você resolver, mais fiel ela fica.</p>
+    <div class="row"><button class="btn sm" data-a="mtOpen">${ic("bulb")} Recalcular as metas com o mentor</button></div></div></section>`}catch(e){return""}}
+
 /* ================= Navegação e renderização ================= */
 /* ================= Discursiva e Redação ================= */
 const DISC=()=>{const d=D.disc||(D.disc={items:[]});d.items=d.items||[];d.cur=d.cur||{};d.dr=d.dr||{};d.lim=d.lim||{};return d};
@@ -3948,7 +4005,7 @@ function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   h+=kpiBlock();
   const mv=UI.mview||"lista";
   h+=`<div class="mvt" role="group" aria-label="Visualização da meta"><button data-a="mview" data-v="lista" aria-pressed="${mv==="lista"}">${ic("list")} Lista</button><button data-a="mview" data-v="cal" aria-pressed="${mv==="cal"}">${ic("concurso")} Calendário</button>
-    <span class="sp"></span><button class="btn sm pri" data-a="asOpen">${ic("bulb")} Assistente de planejamento</button>${c.gj?`<button class="btn sm" data-a="gjOpen">${ic("ext")} Sincronizar com o Guruja</button>`:r.done?"":`<button class="btn sm" data-a="more2">${ic("plus")} Adicionar 2 atividades</button>`}</div>`;
+    <span class="sp"></span><button class="btn sm pri" data-a="asOpen">${ic("bulb")} Assistente de planejamento</button><button class="btn sm" data-a="mtOpen">${ic("bulb")} Recalcular com o mentor</button>${c.gj?`<button class="btn sm" data-a="gjOpen">${ic("ext")} Sincronizar com o Guruja</button>`:r.done?"":`<button class="btn sm" data-a="more2">${ic("plus")} Adicionar 2 atividades</button>`}</div>`;
   const RF=allRefs().filter(x=>!x.done),rfLate=RF.filter(x=>refLeft(x)<=5).length,mt=UI.mtab||"atv";
   h+=`<div class="mst" role="group" aria-label="Atividades ou reforços"><button data-a="mtab" data-v="atv" aria-pressed="${mt==="atv"}">Atividades | ${ts.length}</button><button data-a="gtab" data-t="reforcos" title="Os reforços ficam em Revisar">Reforços | ${RF.length}${rfLate?' <span class="bang" title="Reforço perto do prazo">!</span>':""} ›</button>${mt==="atv"&&mv!=="cal"?`<span class="sp"></span><select class="inp mfilt" data-c="mfilt" aria-label="Filtrar atividades"><option value="todas" ${UI.filter==="todas"?"selected":""}>Todas · ${ts.length}</option><option value="pend" ${UI.filter==="pend"?"selected":""}>Pendentes · ${ts.length-ts.filter(t=>t.done).length}</option><option value="feitas" ${UI.filter==="feitas"?"selected":""}>Cumpridas · ${ts.filter(t=>t.done).length}</option></select>`:""}</div>`;
   if(mv==="cal")h+=calHTML(r,ts,locks);
@@ -6178,7 +6235,7 @@ function vDesempenho(){
   let tm=`<div class="cempty" style="height:340px">${dv==="tempo"?"Registre tempo de estudo para ver a distribuição.":"Registre questões para ver a distribuição."}</div>`;
   if(tv>0){const mxv=Math.max(...items.map(i=>i.v)),rs=squarify(items,0,0,1000,640);
     tm=`<div class="tmap">${rs.map(r=>{const k=Math.round(35+65*r.v/mxv),dark=k>=60,big=r.w>150&&r.h>90;return`<div tabindex="0" data-tip="${esc(r.s.n)}|${dv==="tempo"?fmtH(r.v):r.v+" questões"}|${(r.v/tv*100).toFixed(1).replace(".",",")}% do total" style="left:${r.x/10}%;top:${r.y/6.4}%;width:${r.w/10}%;height:${r.h/6.4}%;background:color-mix(in srgb,var(--lime) ${k}%,var(--raise));color:${dark?"var(--lime-ink)":"var(--fg)"}">${r.w>70&&r.h>40?r.s.c:""}${big?`<small>${(r.v/tv*100).toFixed(1).replace(".",",")}%</small>`:""}</div>`}).join("")}</div>`}
-  return`<div class="hello"><h1>Desempenho</h1><p>Aqui você acompanha seu desempenho em cada disciplina, as questões resolvidas e o tempo estudado.</p></div>
+  return`<div class="hello"><h1>Desempenho</h1><p>Aqui você acompanha seu desempenho em cada disciplina, as questões resolvidas e o tempo estudado.</p></div>${projHTML()}
   <div class="filters"><div class="field"><label for="dA">Da meta</label><select class="inp" id="dA" data-c="dA">${mopt(F.a)}</select></div><div class="field"><label for="dB">Até a meta</label><select class="inp" id="dB" data-c="dB">${mopt(F.b)}</select></div><div class="field" style="flex:0 1 280px"><label for="dS">Disciplinas</label><select class="inp" id="dS" data-c="dS">${sopt}</select></div></div>
   <div class="dgrid">${kp}<section class="card"><div class="tbw"><table class="tb"><thead><tr>${th("n","Disciplina")}${th("f","Questões")}${th("a","Acertos")}${th("p","Desempenho")}${th("ta","Tempo por atividade")}${th("tr","Tempo por revisão")}${th("m","Tempo de estudo")}</tr></thead><tbody>${rows}</tbody><tfoot><tr><td>Total</td><td>${T.f}</td><td>${T.a}</td><td>${T.f?tp.toFixed(1).replace(".",",")+"%":"–"}</td><td>${avgA(T)}</td><td>${avgR(T)}</td><td>${fmtH(T.min)}</td></tr></tfoot></table></div></section></div>
   <div class="dgrid2">
@@ -7202,6 +7259,11 @@ const A={
   rsGen(){genResumo(UI.rsSid||ED[0].id,UI.rsAula,null)},
   rsView(el){UI.rsView=el.dataset.v;render()},
   async rsResumaoPdf(el){const sid=UI.rsSid||ED[0].id,c=UI.rsAula,md=qResumao(sid,c);if(!md)return;el.disabled=true;try{const b=await mdToPdf("Resumão final - "+SUB(sid).n,auLabel(sid,c),md.split("\n").slice(1).join("\n").replace(/☐/g,"[ ]"),"A JORNADA - "+SUB(sid).c);await saveFile("Resumao "+SUB(sid).c+" "+auLabel(sid,c).replace(/[^\w ]/g,"")+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}el.disabled=false},
+  mtOpen(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const M=mentorStats();UI.mt={M,P:mentorAuto(M),busy:0};mentorModal()},
+  mtClose(){UI.mt=null;$("layer3").innerHTML=""},
+  async mtAI(){const X=UI.mt;if(!X||!SAMPLE)return;X.busy=1;mentorModal();try{X.P=await mentorAIPlan(X.M)}catch(e){toast("A IA não respondeu agora; ficou a análise automática")}X.busy=0;mentorModal()},
+  mtApply(){const X=UI.mt;if(!X||!X.P)return;const c=core();c.mw={w:X.P.w,why:X.P.why,resumo:X.P.resumo,src:X.P.src,at:today()};delete c.nextDraft;touch("core");simCache.key="";
+    const re=replanCurrent();UI.mt=null;$("layer3").innerHTML="";render();toast(re?"Meta atual e próximas metas recalculadas pelo mentor":"Próximas metas recalculadas pelo mentor (a meta atual já começou e fica como está)")},
   qfSt(el){const f=UI[el.dataset.k];if(!f)return;f.st=el.dataset.v;UI[el.dataset.pk]=0;UI.qzKeep=null;rerenderQz()},
   rsAIv(el){UI.rsAIv=+el.dataset.v;render()},
   rsAI(){qResAI(UI.rsSid||ED[0].id,UI.rsAula)},
