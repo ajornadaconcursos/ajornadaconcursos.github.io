@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611020707"></script>
+<script src="/claude-shim.js?v=202611020730"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -188,8 +188,8 @@ body.rt-drag,body.rt-drag *{cursor:grabbing!important}
 .px-row .btn{flex:none}.px-ok{font-size:12px;color:var(--ok);display:inline-flex;gap:4px;align-items:center;flex:none}.px-ok svg.i{width:14px;height:14px}
 .px-x{position:static;opacity:.7;flex:none}.px-x:hover{opacity:1}
 .px-big{display:flex;gap:16px;align-items:center;padding:14px;border:1px solid var(--line);border-radius:var(--r-m);background:var(--raise)}
-.px-big>b{--p:0;flex:none;width:86px;height:86px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-size:22px;background:radial-gradient(closest-side,var(--raise) 76%,transparent 78%),conic-gradient(var(--ok) calc(var(--p)*1%),var(--line) 0);transition:background .4s}
-.px-big span{display:grid;gap:4px}.px-big small{color:var(--mute)}
+.px-big>b{--p:0;flex:none;width:96px;height:96px;border-radius:50%;display:flex;align-items:center;justify-content:center;gap:1px;font-family:var(--f-display);font-size:24px;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;background:radial-gradient(closest-side,var(--raise) 76%,transparent 78%),conic-gradient(var(--ok) calc(var(--p)*1%),var(--line) 0);transition:background .4s}
+.px-big>b small{font-size:14px;font-weight:600;color:var(--fg2);margin-left:1px;transform:translateY(2px)}.px-big span{display:grid;gap:4px}.px-big small{color:var(--mute)}
 .px-k{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:6px 14px;font-size:13px}.px-k span{display:flex;align-items:center;gap:8px}.px-k b{margin-left:auto}.px-k i,.px-lg i{width:10px;height:10px;border-radius:3px;flex:none;display:inline-block}
 .px-tl{display:grid;gap:6px;padding:12px;border:1px solid var(--line);border-radius:var(--r-m)}.px-ln{display:grid;grid-template-columns:60px 1fr;align-items:center;gap:8px}.px-ln small{color:var(--mute)}
 .px-ln>div{position:relative;height:22px;border-radius:6px;background:var(--sunk)}.px-ln>div i{position:absolute;top:0;bottom:0;border-radius:5px;transform-origin:left;animation:pxGrow .45s ease both}.px-ln i.p{opacity:.55;background-image:repeating-linear-gradient(45deg,transparent 0 5px,rgba(255,255,255,.18) 5px 10px)!important}
@@ -211,7 +211,7 @@ body.rt-drag,body.rt-drag *{cursor:grabbing!important}
 .ev-h i{position:absolute;left:50%;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;background:var(--ok);opacity:0;transition:opacity .15s}.ev-h:hover i,.ev-h.on i{opacity:1}
 .px-lg i.ev-lp{background:none;border-top:2px dashed var(--mute);height:0;border-radius:0}
 .px-wk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;height:170px}.px-col{display:grid;grid-template-rows:1fr auto auto;gap:3px;justify-items:center;background:none;border:1px solid transparent;border-radius:var(--r-m);padding:6px 2px;cursor:pointer;color:inherit;min-width:0}
-.px-col.on{border-color:var(--line2);background:var(--raise)}.px-col b{font-size:12px}.px-col small{font-size:11px;color:var(--mute)}
+.px-col.on{border-color:var(--line2);background:var(--raise)}.px-col b{font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.1}.px-col b small{font-size:9.5px;font-weight:600;color:var(--fg2);margin-left:1px}.px-col small{font-size:11px;color:var(--mute)}
 .px-bars{display:flex;align-items:flex-end;gap:3px;height:100%;width:100%;justify-content:center}.px-bars>*{width:38%;max-width:18px;border-radius:4px 4px 2px 2px;animation:pxUp .5s ease both;transform-origin:bottom}
 .px-bars i.pl,.px-lg i.pl{background:var(--line2)}.px-bars .re{display:flex;flex-direction:column-reverse;overflow:hidden}.px-bars .re i{display:block;min-height:0}.px-bars i.ok{background:var(--ok)}.px-bars i.oth{background:var(--warn)}.px-bars i.out{background:#5b8def}
 @keyframes pxUp{from{transform:scaleY(0)}}.px-lg{display:flex;flex-wrap:wrap;gap:12px}.px-lg span{display:inline-flex;gap:6px;align-items:center}
@@ -622,6 +622,7 @@ textarea.inp{min-height:84px;resize:vertical}
 .modal{position:fixed;inset:0;z-index:70;background:rgba(5,10,16,.6);display:grid;place-items:center;padding:20px;animation:fade .18s ease}
 .modal .box{width:min(460px,100%);background:var(--panel);border:1px solid var(--line);border-radius:var(--r-l);padding:20px;display:grid;gap:14px;box-shadow:var(--shadow)}
 .modal .box h3{font-size:18px}
+.rd-s{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}.rd-s .inp{flex:1 1 240px;max-width:520px;padding:7px 12px}.rd-s #rdQi{min-width:90px}
 .pdm-r{display:grid;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--raise);line-height:1.5}
 button.apl-s{border:0;font:inherit;cursor:pointer}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:80;background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:14px;box-shadow:var(--shadow);max-width:calc(100% - 32px);width:max-content}
@@ -1044,6 +1045,12 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 .qz-k{font-weight:700;min-width:16px}
 .qz-o{user-select:none;-webkit-user-select:none;touch-action:manipulation}
 .qz-o.x>span:last-child{text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--bad);opacity:.5}.qz-o.x .qz-k{opacity:.45;text-decoration:line-through}
+.qz-o.sel{border-color:var(--lime);background:color-mix(in srgb,var(--lime) 16%,var(--raise));box-shadow:0 0 0 1px var(--lime)}
+.qz-solve{align-items:center;gap:12px;margin-top:10px}
+.qz-miss{align-items:center;gap:10px;margin:6px 0}
+.trd{margin-top:10px;padding:12px 14px;border-radius:12px;border:1px solid color-mix(in srgb,var(--lime) 35%,var(--line));background:color-mix(in srgb,var(--lime) 7%,transparent);display:grid;gap:8px}.trd-h{display:flex;align-items:center;gap:8px;font-size:14px}.trd ul{margin:0;padding-left:20px;display:grid;gap:4px;font-size:13.5px;line-height:1.5}
+.pq-l{display:grid;gap:6px;margin:8px 0 12px}.pq-i{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;text-align:left;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:var(--raise);color:inherit;font:inherit;font-size:13.5px;cursor:pointer}.pq-i span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--fg2)}.pq-i.ok{border-left:4px solid var(--ok)}.pq-i.err{border-left:4px solid var(--bad)}
+.sm-alt{user-select:none;-webkit-user-select:none;touch-action:manipulation}.sm-alt.x{border-style:dashed;background:transparent;opacity:.55;text-decoration:line-through;text-decoration-color:var(--bad);text-decoration-thickness:2px}
 .qz-o.x:not(.right):not(.wrong){background:transparent;border-style:dashed}
 .qz-tip{margin:6px 0 0}
 .qz-o.right{border-color:var(--ok);background:var(--ok-soft)}.qz-o.right .qz-k{color:var(--ok)}
@@ -1926,7 +1933,7 @@ function AU(sid){const mc=mainCourse(sid);if(mc&&mc.aulas&&mc.aulas.length)retur
 const auOf=(sid,c)=>String(c).startsWith("x:")?compAula(sid,c):(AU(sid).find(x=>x.c===c)||null);
 const auLabel=(sid,c)=>{const a=auOf(sid,c);if(String(c).startsWith("x:"))return a?cName(a.course)+" · Aula "+a.code:"Aula";return c==="U"?"Aula Única":a&&a.f==="t"?"Tópico "+c.slice(1):"Aula "+c};
 const daLabel=(sid,c)=>{const a=auOf(sid,c);return(a&&a.f==="t"?"do ":"da ")+auLabel(sid,c)};
-const teoEnd=p=>p.st&&p.st.v===3?p.st.te:(p.qc&&p.qc>3?p.qc-1:p.pages);
+const teoEnd=p=>p.st&&p.st.v>=3?p.st.te:(p.qc&&p.qc>3?p.qc-1:p.pages);
 /* ================= Divisão da teoria pelos títulos reais do PDF =================
    O painel lê o tamanho e a fonte de cada linha, acha os títulos e subtítulos dentro das páginas (não só no índice),
    pula capa, índice e apresentação, para antes das questões e divide a teoria em partes de 15 a 18 páginas,
@@ -1939,6 +1946,9 @@ function richLines(tc,H){const rows=[];let cur=null;
   const n=s.replace(/\s/g,"").length;if(n){const let_=/[A-Za-zÀ-ú]/.test(s);if(h>cur.h&&let_)cur.h=h;cur.fc[it.fontName]=(cur.fc[it.fontName]||0)+n;if(!cur.f0)cur.f0=it.fontName;if(let_&&!cur.fl)cur.fl=it.fontName;if(cur.x>x)cur.x=x}}
  return rows.map(r=>({t:r.t.replace(/[​­]/g,"").replace(/\s+/g," ").trim(),y:+(1-r.y/H).toFixed(3),h:+r.h.toFixed(1),f:r.fl||r.f0||"",fc:r.fc,x:Math.round(r.x)})).filter(r=>r.t)}
 
+/* ===== Estrutura do PDF de teoria: títulos reais, início e fim da teoria, e divisão em partes =====
+   Entrada: pages=[{p,L:[{t,y,h,f,fc,x}]}] (y = posição de 0 no topo a 1 no rodapé), ol = marcadores do PDF [{p,d,t}].
+   Mesma função no painel e nos testes. */
 /* ===== Estrutura do PDF de teoria: títulos reais, início e fim da teoria, e divisão em partes =====
    Entrada: pages=[{p,L:[{t,y,h,f,fc,x}]}] (y = posição de 0 no topo a 1 no rodapé), ol = marcadores do PDF [{p,d,t}].
    Mesma função no painel e nos testes. */
@@ -2037,7 +2047,8 @@ function pdfStruct(pages,ol,oq){const n=pages.length;if(!n)return null;const st=
   {const tot=psPos(end.p,end.y)-psPos(start.p,start.y);const z=H.find(h=>PS_END.test(PS_NORM(h.t))&&psPos(h.p,h.y)>psPos(start.p,start.y)+tot*.6&&psPos(h.p,h.y)<psPos(end.p,end.y));
    const more=z&&psPos(end.p,end.y)-psPos(z.p,z.y)>=3&&H.some(h=>h.l<=Math.max(1,z.l)&&psPos(h.p,h.y)>psPos(z.p,z.y)+.01&&psPos(h.p,h.y)<psPos(end.p,end.y)-.01&&!PS_END.test(PS_NORM(h.t)));if(z&&!more)end={p:z.p,y:z.y}}
   const hd=H.filter(h=>(h.p>start.p||h.p===start.p&&h.y>=start.y-.001)&&(h.p<end.p||h.p===end.p&&h.y<end.y-.001)&&!PS_PRES.test(PS_NORM(h.t))&&!PS_END.test(PS_NORM(h.t))).map(h=>({p:h.p,y:+h.y.toFixed(3),t:h.t,l:h.l}));
-  return{v:3,ts:start.p,tsy:+(start.y||0).toFixed(3),te:end.y<=.08?end.p-1:end.p,tey:end.y<=.08?1:+end.y.toFixed(3),qc:q?q.p:0,hd:hd.slice(0,500),bh:st.bh}}
+  let hl=[];try{hl=psHigh(pages,st,junk,psPos(start.p,start.y||0),psPos(end.p,end.y))}catch(e){}
+  return{v:4,hl,ts:start.p,tsy:+(start.y||0).toFixed(3),te:end.y<=.08?end.p-1:end.p,tey:end.y<=.08?1:+end.y.toFixed(3),qc:q?q.p:0,hd:hd.slice(0,500),bh:st.bh}}
 /* ===== Divisão em partes: 15 a 18 páginas, cortando antes de um título; sem título por perto, partes iguais (nunca mais de 18) ===== */
 var PG_LO=15,PG_HI=18;
 function psPos(p,y){return p+(y||0)}
@@ -2065,9 +2076,83 @@ function psPart(S,a,b,o){const pa=Math.floor(a+1e-6),yb=b-Math.floor(b),pbRaw=Ma
   const hb=nx&&nx.y<=.12&&endsAtPageEnd;
   return{a,b,pa,pb,ya:+(a-pa).toFixed(3),yb:endsAtPageEnd?null:+(b-pb).toFixed(3),n:Math.max(1,Math.round(b-a)),s0:s0?s0.t:"",cont:!s0&&cur?cur.t:"",nx:nx?nx.t:"",mid:!!(o&&o.pe&&!nx),last:false,man:!!(o&&o.man)}}
 
+/* ===== Destaques do professor em cada página: quadros (Atenção, Importante, Cuidado…), frases em negrito, prazos e exceções ===== */
+var PS_BOX=/^(aten[cç][aã]o|importante|cuidado|observa[cç][aã]o|obs\.?|anote|se liga|pegadinha|dica|fique (atento|de olho)|memorize|lembre-se|n[aã]o confunda|resumindo|em resumo|esquematizando|jurisprud[eê]ncia|s[uú]mula|tese|caiu em prova|na prova|aprofundando|nota)\b\s*[:!–—-]?\s*/i;
+var PS_TRIG=/\b(prazo|dias?|horas?|meses|anos?|salvo|exceto|ressalvad|vedad|proibid|n[aã]o se aplica|n[aã]o pode|somente|apenas|obrigat[oó]ri|facultativ|dever[aá]|poder[aá]|nul[oa]|anul[aá]vel|competente|compet[eê]ncia|requisitos?|hip[oó]teses?|art\.|arts\.|lei n|s[uú]mula|stf|stj|tema \d|regra|exce[cç][aã]o)\b/i;
+function psHigh(pages,st,junk,A,E){const bf=st.bf,bh=st.bh,out=[];
+  pages.forEach(pg=>{if(pg.p<Math.floor(A)||pg.p>Math.ceil(E))return;const L=pg.L.filter(l=>!junk(l)&&l.h>0).sort((a,b)=>a.y-b.y);const used=new Set();
+    const pos=l=>pg.p+l.y;
+    for(let i=0;i<L.length;i++){if(used.has(i))continue;const l=L[i];if(pos(l)<A-.01||pos(l)>E+.01)continue;const t=l.t.replace(PS_BUL,"").trim();if(psLetters(t)<12)continue;
+      if(/[=+×÷√∑]|[\u{1D400}-\u{1D7FF}]/u.test(t))continue;
+      if(!/^[A-ZÁ-ÚÀÂÊÔÃÕÇ0-9"“(]/.test(t)&&!PS_BOX.test(t))continue;
+      if(psCaps(t)>.7&&!/[a-zà-ú]{4}/.test(t))continue;
+      const tot=Object.values(l.fc||{}).reduce((a,b)=>a+b,0)||1,emph=1-((l.fc||{})[bf]||0)/tot;
+      let k=0;const box=PS_BOX.test(t);
+      if(box)k=3;else if(emph>=.45&&Math.abs(l.h-bh)<=bh*.25&&psLetters(t)>=18)k=2;else if(PS_TRIG.test(t)&&/\d/.test(t)&&/\b(dias?|horas?|meses|anos?)\b/i.test(t))k=1;
+      if(!k)continue;
+      /* junta a frase: segue as linhas de baixo até o ponto final (máx. 4 linhas) */
+      let txt=t,j=i;while(j+1<L.length&&j-i<3&&!/[.!?;:]\s*$/.test(txt)&&Math.abs(L[j+1].h-l.h)<1.2&&L[j+1].y-L[j].y<.05){j++;used.add(j);txt+=" "+L[j].t.replace(PS_BUL,"").trim()}
+      txt=txt.replace(/\s+/g," ").trim();if(box)txt=txt.replace(PS_BOX,m=>m.trim().replace(/[:!–—-]+$/,"")+": ");
+      if(txt.length<25)continue;if(txt.length>200)txt=txt.slice(0,txt.lastIndexOf(" ",197))+"…";
+      const sc=k+(PS_TRIG.test(txt)?1:0)+(/\b(art\.|lei n|s[uú]mula|stf|stj)\b/i.test(txt)?.5:0);
+      out.push({p:pg.p,y:+l.y.toFixed(3),t:txt,s:+sc.toFixed(1)})}});
+  /* sem repetição e no máximo 6 por página */
+  const seen=new Set(),byP={};return out.filter(h=>{const k=PS_NORM(h.t).slice(0,60);if(seen.has(k))return false;seen.add(k);byP[h.p]=(byP[h.p]||0)+1;return byP[h.p]<=6}).slice(0,300)}
+
+
+
+
+/* ===== Mentor da atividade de teoria: o que estas páginas tratam e no que prestar atenção =====
+   Assuntos abordados: os títulos reais das páginas da atividade, na ordem do PDF.
+   Tenha atenção: o que mais cai daquele trecho (incidência do edital) e o que o professor destacou nessas páginas
+   (quadros de Atenção/Importante/Cuidado, frases em negrito, prazos e exceções). Com a IA ligada, um mentor reescreve os dois
+   a partir do texto das páginas e fica guardado na atividade. */
+function pdfQsFor(t){const p=t.pdf?pdf(t.pdf):null;if(!p||t.ph!=="T"||!t.pa)return null;const Z=qzDoc(p.id);
+  if(!Z){if(!QZ_BUSY.has(p.id)&&p.pages&&!p.raw)setTimeout(()=>buildQuiz(p),40);return{p,L:[],wait:1}}
+  const M=mentorOf(t)||{top:[],att:[]},w={};
+  const add=(txt,v)=>pvTok(txt).forEach(k=>{w[k]=Math.max(w[k]||0,v)});M.top.forEach(x=>add(String(x).replace(/\(p\. \d+\)|continuação de/g,""),2));M.att.forEach(x=>add(x,1));
+  try{const Sx=ED[EDI[t.sid]];Object.entries(p.hits||{}).forEach(([k,pg])=>{if(+k.split(":")[0]!==EDI[t.sid]||!pg.some(g=>g>=t.pa&&g<=t.pb))return;const tp=Sx.t[+k.split(":")[1]];if(tp)(tp[1]||[]).forEach(x=>add(x,2))})}catch(e){}
+  const sc=Z.L.map((q,i)=>{const T=new Set(pvTok(q.s+" "+(q.c||"")));let v=0;T.forEach(k=>{if(w[k])v+=w[k]});return{q,i,v}}).filter(x=>x.v>=4).sort((a,b)=>b.v-a.v).slice(0,8).sort((a,b)=>a.i-b.i);
+  return{p,L:sc}}
+function mentorOf(t){const p=t.pdf?pdf(t.pdf):null;if(t.ph!=="T"||!stOk(p)||!t.pa||!t.pb)return null;
+  if(t.mt&&t.mt.pa===t.pa&&t.mt.pb===t.pb&&t.mt.top&&t.mt.att)return{top:t.mt.top,att:t.mt.att,ai:1};
+  const S=p.st,a=t.pa+(t.ya||0),b=tNextPos(t),inR=(pg,y)=>{const x=psPos(pg,y||0);return x>=a-.01&&x<b-.005};
+  const H=(S.hd||[]).filter(h=>inR(h.p,h.y)),main=H.filter(h=>h.l<3),cur=psHeadBefore(S,a);
+  const top=[];if(cur&&!psHeadAt(S,a))top.push("continuação de "+cur.t);
+  /* só títulos de verdade: fora "Assim", "Para a prova", "Veja" e repetidos */
+  const seenT=new Set(),good=h=>{const n=norm(h.t).replace(/[^a-z0-9 ]/g,"").trim();if(seenT.has(n))return false;seenT.add(n);return n.length>=6&&!/^(assim|para a prova|na prova|veja|vejamos|exemplo|resumindo|em resumo|atencao|importante|observacao|obs|nota|dica|cuidado|esquema|quadro|tabela)\b/.test(n)&&(n.split(" ").length>=2||psCaps(h.t)>.8)};
+  (main.length>=2?main:H).filter(good).slice(0,10).forEach(h=>top.push(h.t+" (p. "+h.p+")"));
+  const att=[];const sb=SUB(t.sid);
+  /* o que mais cai deste trecho, pela incidência dos assuntos do edital que aparecem nessas páginas */
+  try{const Sx=ED[EDI[t.sid]];if(Sx&&incHas(t.sid)&&p.hits){const P=incOf(t.sid),avg=100/Math.max(1,P.length);
+    const js=Object.entries(p.hits).filter(([k,pg])=>+k.split(":")[0]===EDI[t.sid]&&pg.some(g=>g>=t.pa&&g<=t.pb)).map(([k])=>+k.split(":")[1]).filter(j=>Sx.t[j]);
+    js.sort((x,y)=>P[y]-P[x]).slice(0,2).forEach(j=>{if(P[j]>=avg)att.push("Cai muito na prova: "+tShort(Sx.t[j][0])+" (cerca de "+pv1(P[j])+"% das questões de "+sb.n+")")})}}catch(e){}
+  /* destaques do professor nessas páginas, os mais fortes primeiro, mostrados na ordem do PDF */
+  const hl=(S.hl||[]).filter(h=>inR(h.p,h.y)).sort((x,y)=>y.s-x.s||x.p-y.p).slice(0,Math.max(3,6-att.length)).sort((x,y)=>x.p-y.p||x.y-y.y);
+  hl.forEach(h=>att.push("p. "+h.p+" – "+h.t));
+  if(!att.length)main.slice(0,4).forEach(h=>att.push(h.t+" (p. "+h.p+"): conceito, requisitos e exceções"));
+  return{top:top.length?top:refTopics(t),att}}
+const MT_BUSY=new Set();
+async function mentorAI(t){if(!SAMPLE||MT_BUSY.has(t.id))return;const p=t.pdf?pdf(t.pdf):null;if(!p||!t.pa||!t.pb)return;MT_BUSY.add(t.id);
+  try{const txt=await srcText(t,26000);if(!txt||txt.length<400)return;const base=mentorOf(Object.assign({},t,{mt:null}))||{top:[],att:[]},sb=SUB(t.sid),au=t.aula?auOf(t.sid,t.aula):null;
+    const prompt=`Você é um mentor especialista em concursos públicos (${IS_TJ?"Oficial de Justiça do TJSP, banca VUNESP":[PLAN.cargo||PLAN.name,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(", ")}).
+O aluno vai estudar as páginas ${t.pa} a ${t.pb} do PDF da ${au?auLabel(t.sid,t.aula)+" ("+au.d+")":"aula"} de ${sb.n}.
+Leia o texto dessas páginas e responda, específico para ESTE trecho (nada genérico, nada que não esteja no texto):
+1) "abordados": os assuntos tratados nessas páginas, na ordem em que aparecem (3 a 8 itens curtos, até 10 palavras cada, com a página entre parênteses).
+2) "atencao": o que o aluno deve dar mais atenção nessas páginas para a prova (3 a 6 itens, até 25 palavras cada): a regra e a exceção, prazos, requisitos, distinções que a banca troca, artigos de lei citados. Comece cada item pela página (ex.: "p. 13 – ...").
+Indícios já identificados no PDF (use se forem relevantes): ${base.att.slice(0,6).join(" | ").slice(0,1500)}
+<paginas>
+${txt}
+</paginas>
+Responda só com JSON: {"abordados":["..."],"atencao":["..."]}`;
+    const o=await SAMPLE.json(prompt,{modelTier:"default"});
+    const A=Array.isArray(o&&o.abordados)?o.abordados.map(x=>String(x).trim()).filter(Boolean).slice(0,8):[],B=Array.isArray(o&&o.atencao)?o.atencao.map(x=>String(x).trim()).filter(Boolean).slice(0,6):[];
+    if(A.length&&B.length){const f=findTask(t.id);const tt=f?f.t:t;tt.mt={pa:t.pa,pb:t.pb,top:A,att:B,at:Date.now()};touch("m-"+(f?f.n:core().cur));if(UI.openT===t.id)renderDrawer()}}
+  catch(e){}finally{MT_BUSY.delete(t.id)}}
 
 const tNextPos=t=>t.yb!=null&&t.yb>0?t.pb+t.yb:t.pb+1;
-const stOk=p=>!!(p&&p.st&&p.st.v===3&&p.st.hd);
+const stOk=p=>!!(p&&p.st&&p.st.v>=3&&p.st.hd);
+const stNeeds=p=>!(p&&p.st&&p.st.v>=4);
 const PLC=new Map();
 function stPlan(p,from){const S=p.st,k=p.id+"|"+(from==null?"":(+from).toFixed(3))+"|"+JSON.stringify(p.cuts||[])+"|"+S.hd.length+"|"+S.te+"|"+S.ts;let v=PLC.get(k);if(!v){v=partPlan(S,from,p.cuts);if(PLC.size>400)PLC.clear();PLC.set(k,v)}return v}
 function stChunk(p,a){const S=p.st,A0=psPos(S.ts,S.tsy);let A=Math.max(+a||0,A0);
@@ -2093,7 +2178,7 @@ async function stScan(p){const buf=await pdfBytes(p);if(!buf||!(await ensurePdfj
   const doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise;const ol=await outlineOf(doc),RP=[];
   for(let i=1;i<=doc.numPages;i++){const pg=await doc.getPage(i);RP.push({p:i,L:richLines(await pg.getTextContent(),pg.getViewport({scale:1}).height)});try{pg.cleanup()}catch(e){}}
   try{doc.destroy()}catch(e){}const S=pdfStruct(RP,ol,p.qc);if(!S)throw new Error("st");stSave(p,S)}
-function stTrim(S){if(!S)return S;S.hd=(S.hd||[]).slice(0,400).map(h=>({p:h.p,y:h.y,t:String(h.t).slice(0,70),l:h.l}));return S}
+function stTrim(S){if(!S)return S;S.hd=(S.hd||[]).slice(0,400).map(h=>({p:h.p,y:h.y,t:String(h.t).slice(0,70),l:h.l}));S.hl=(S.hl||[]).slice(0,300).map(h=>({p:h.p,y:h.y,t:String(h.t).slice(0,200),s:h.s}));return S}
 function stSave(p,S){p.st=stTrim(S);p.ts=S.ts;PLC.clear();touch("pdf-"+p.id);alignKey="";simCache.key="";
   {const r1=curMeta(),md1=r1&&metaDoc(r1.n);if(md1&&md1.std)md1.std=0}
   const r=curMeta();if(r&&!r.done&&!core().gj&&!started(r.n))replanCurrent();if(UI.pdMap===p.id)pdMapModal();if(TAB==="meta"||TAB==="materiais"||UI.openT)render()}
@@ -2623,14 +2708,21 @@ function startTick(){clearInterval(tickI);if(TM.run)tickI=setInterval(drawClock,
 /* "Editar desempenho": troca o tempo registrado da atividade pelo valor informado */
 function setTaskMin(tid,m,d){Object.keys(D).filter(k=>k.startsWith("log-")&&D[k]&&Array.isArray(D[k].items)).forEach(k=>{const n=D[k].items.length;D[k].items=D[k].items.filter(x=>x.t!==tid);if(D[k].items.length!==n)touch(k)});
   if(m>=1){const t=allTasks().find(x=>x.id===tid),k="log-"+d.slice(0,7);D[k]=D[k]||{items:[]};D[k].items.push({d,m,s:t?t.sid:"",t:tid});touch(k)}}
-function logMinutes(m,tid,clk){
+function logMinutes(m,tid,clk,sid){
   if(m<1)return;
   const t=allTasks().find(x=>x.id===tid),d=today(),k="log-"+d.slice(0,7);
-  D[k]=D[k]||{items:[]};const it={d,m,s:t?t.sid:"",t:tid||""};if(clk){const n=new Date(),e=((n.getHours()*60+n.getMinutes())-RH0*60+1440)%1440;if(e-m>=0){it.e=e}}D[k].items.push(it);touch(k);
+  D[k]=D[k]||{items:[]};const it={d,m,s:t?t.sid:(sid||""),t:tid||""};if(clk){const n=new Date(),e=((n.getHours()*60+n.getMinutes())-RH0*60+1440)%1440;if(e-m>=0){it.e=e}}D[k].items.push(it);touch(k);
 }
 function stopTimer(auto,quiet){
   const m=Math.round(elapsed()/60000),tid=TM.tid;
   TM.run=false;TM.acc=0;TM.t0=0;saveTM();clearInterval(tickI);
+  /* estudo livre (sem atividade): pergunta antes de registrar */
+  if(!tid&&!auto&&!quiet&&m>=1){UI.fl={m};const n=new Date(),st=new Date(n.getTime()-m*60000),hm=x=>pad(x.getHours())+":"+pad(x.getMinutes());
+    $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Registrar estudo livre"><div class="box"><h3 style="margin:0">Registrar este estudo?</h3>
+      <p style="margin:0">Você estudou <b>${m} min</b> no estudo livre (${hm(st)} às ${hm(n)}), sem atividade da meta.</p>
+      <div class="field"><label for="flS">Matéria</label><select class="inp" id="flS"><option value="">Estudo geral (sem matéria)</option>${ED.map(x=>`<option value="${x.id}">${esc(x.n)}</option>`).join("")}</select></div>
+      <p class="muted small" style="margin:0">Registrado, ele entra em Planejei x Estudei e no Desempenho. Se não quiser, descarte.</p>
+      <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn" data-a="flDrop">Descartar</button><button class="btn pri" data-a="flSave">${ic("check")} Registrar</button></div></div></div>`;render();return}
   logMinutes(m,tid,1);
   if(!quiet)toast(auto?"Pomodoro concluído: "+m+" min registrados. Faça uma pausa de 5 minutos.":m>=1?m+" min registrados":"Menos de 1 minuto: nada foi registrado");
   render();
@@ -2819,8 +2911,8 @@ let upMsg="";function setUp(m){upMsg=m;const t=$("upmTx");if(t&&m)t.textContent=
 const RD={doc:null,id:"",p:1,a:0,b:0,n:0};
 async function openReader(id,a,b){
   const p=pdf(id);if(!p){toast("Esse material foi removido");return}
-  RD.id=id;RD.a=a||1;RD.b=b||p.pages;RD.p=a||1;RD.doc=null;
-  $("layer2").innerHTML=`<div class="reader" role="dialog" aria-modal="true" aria-label="Leitor de PDF"><div class="rd-h"><button class="ibtn" data-a="rdClose" aria-label="Fechar leitor">${ic("close")}</button><div class="ttl">${esc(p.name)}</div><span class="chip lime">Trecho: págs. ${RD.a} a ${RD.b}</span><button class="ibtn" data-a="aulaDl" data-s="${p.sid||""}" data-c="${p.aula||""}" data-id="${p.id}" aria-label="Baixar a aula inteira em PDF" title="Baixar a aula inteira em PDF">${ic("dl")}</button><button class="ibtn" data-a="rdPrev" aria-label="Página anterior">${ic("left")}</button><span class="small" id="rdPg">…</span><button class="ibtn" data-a="rdNext" aria-label="Próxima página">${ic("right")}</button></div><div class="rd-range" id="rdBar"><i></i></div><div class="rd-b" id="rdBody"><p class="muted">Abrindo o PDF…</p></div></div>`;
+  RD.id=id;RD.a=a||1;RD.b=b||p.pages;RD.p=a||1;RD.doc=null;RD.txt={};RD.q="";RD.hits=[];RD.hi=-1;
+  $("layer2").innerHTML=`<div class="reader" role="dialog" aria-modal="true" aria-label="Leitor de PDF"><div class="rd-h"><button class="ibtn" data-a="rdClose" aria-label="Fechar leitor">${ic("close")}</button><div class="ttl">${esc(p.name)}</div><span class="chip lime">Trecho: págs. ${RD.a} a ${RD.b}</span><button class="ibtn" data-a="aulaDl" data-s="${p.sid||""}" data-c="${p.aula||""}" data-id="${p.id}" aria-label="Baixar a aula inteira em PDF" title="Baixar a aula inteira em PDF">${ic("dl")}</button><button class="ibtn" data-a="rdPrev" aria-label="Página anterior">${ic("left")}</button><span class="small" id="rdPg">…</span><button class="ibtn" data-a="rdNext" aria-label="Próxima página">${ic("right")}</button></div><div class="rd-s"><input class="inp" id="rdQ" type="search" placeholder="Pesquisar no PDF (palavra ou trecho) e Enter" aria-label="Pesquisar no PDF" autocomplete="off"><span class="small muted" id="rdQi"></span><button class="ibtn" data-a="rdHit" data-d="-1" aria-label="Resultado anterior">${ic("left")}</button><button class="ibtn" data-a="rdHit" data-d="1" aria-label="Próximo resultado">${ic("right")}</button></div><div class="rd-range" id="rdBar"><i></i></div><div class="rd-b" id="rdBody"><p class="muted">Abrindo o PDF…</p></div></div>`;
   try{
     const buf=await pdfBytes(p);
     if(!buf){$("rdBody").innerHTML=`<p class="muted">${inCloud(p)?"Não consegui baixar este PDF da sua conta agora. Confira a internet e tente de novo.":"Este PDF foi enviado em outro aparelho e o arquivo ainda não chegou à sua conta. Abra o painel no aparelho onde você enviou (com internet) para concluir o envio, ou envie o arquivo aqui de novo na aba Materiais."}</p>`;return}
@@ -2828,6 +2920,14 @@ async function openReader(id,a,b){
     RD.doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise;RD.n=RD.doc.numPages;drawPage();
   }catch(e){const b=$("rdBody");if(b)b.innerHTML=`<p class="muted">Não consegui abrir o PDF aqui. Recarregue a página e tente de novo.</p>`}
 }
+async function rdSearch(q){q=norm(String(q||"").trim());const info=$("rdQi");RD.q=q;RD.hits=[];RD.hi=-1;if(!q||q.length<2||!RD.doc){if(info)info.textContent="";drawPage();return}
+  if(info)info.textContent="procurando…";
+  for(let i=1;i<=RD.n;i++){if(RD.txt[i]==null){try{const tc=await(await RD.doc.getPage(i)).getTextContent();RD.txt[i]=norm(tc.items.map(x=>x.str).join(" ")).replace(/\s+/g," ")}catch(e){RD.txt[i]=""}}
+    if(RD.q!==q)return;if(RD.txt[i].includes(q))RD.hits.push(i)}
+  if(!RD.hits.length){if(info)info.textContent="nada encontrado";drawPage();return}
+  RD.hi=Math.max(0,RD.hits.findIndex(p=>p>=RD.p));RD.p=RD.hits[RD.hi];rdHitInfo();drawPage()}
+function rdHitInfo(){const i=$("rdQi");if(i)i.textContent=RD.hits.length?(RD.hi+1)+" de "+RD.hits.length+" · p. "+RD.hits[RD.hi]:""}
+document.addEventListener("keydown",e=>{const t=e.target;if(!t||t.id!=="rdQ")return;if(e.key==="Enter"){e.preventDefault();const q=norm(t.value.trim());if(q&&q===RD.q&&RD.hits.length)A.rdHit({dataset:{d:e.shiftKey?-1:1}});else rdSearch(t.value)}else if(e.key==="Escape"){t.value="";rdSearch("")}});
 async function drawPage(){
   if(!RD.doc)return;
   RD.p=clamp(RD.p,1,RD.n);
@@ -2835,7 +2935,12 @@ async function drawPage(){
   const w=Math.min(body.clientWidth-24,980),v1=page.getViewport({scale:1}),sc=w/v1.width,dpr=Math.min(2,window.devicePixelRatio||1),vp=page.getViewport({scale:sc*dpr});
   const cv=document.createElement("canvas");cv.width=vp.width;cv.height=vp.height;cv.style.width=(vp.width/dpr)+"px";
   await page.render({canvasContext:cv.getContext("2d"),viewport:vp}).promise;
-  body.innerHTML="";body.appendChild(cv);body.scrollTop=0;
+  /* destaca na página as palavras pesquisadas */
+  if(RD.q){try{const tc=await page.getTextContent(),ctx=cv.getContext("2d");ctx.fillStyle="rgba(255,200,0,.38)";let first=null;
+    tc.items.forEach(it=>{if(typeof it.str!=="string"||!norm(it.str).includes(RD.q))return;const h=Math.hypot(it.transform[2],it.transform[3])||10;
+      const r=vp.convertToViewportRectangle([it.transform[4],it.transform[5]-h*.25,it.transform[4]+(it.width||0),it.transform[5]+h*.9]);const x=Math.min(r[0],r[2]),y=Math.min(r[1],r[3]);ctx.fillRect(x,y,Math.abs(r[2]-r[0]),Math.abs(r[3]-r[1]));if(first==null)first=y/dpr})
+    RD.hy=first}catch(e){}}
+  body.innerHTML="";body.appendChild(cv);body.scrollTop=RD.q&&RD.hy!=null?Math.max(0,RD.hy-120):0;
   $("rdPg").textContent="p. "+RD.p+" de "+RD.n;
   const i=$("rdBar").firstChild;i.style.left=((RD.a-1)/RD.n*100)+"%";i.style.width=((RD.b-RD.a+1)/RD.n*100)+"%";
 }
@@ -3361,7 +3466,7 @@ function smRunView(id){const x=smGet(id),d=smDoc(id),done=x.st==="done",pv=x.kin
   if(pv)body=`<section class="card"><div class="card-h"><h2>Folha de respostas</h2>${done?"":`<a class="r btn sm" href="${PV24.url}" target="_blank" rel="noopener">${ic("ext")} Prova em PDF</a>`}</div><div class="card-b sm-sheet">${idx.map(n=>{const a=d.ans[n];return`<div class="sm-sl ${done?(a===ok(n)?"ok":"bad"):""}" id="smq${n}"><span class="n">${pad(n)}</span>${[..."ABCDE"].map(l=>`<button class="sm-bb ${done&&l===ok(n)?"right":""}" data-a="smAns" data-id="${id}" data-i="${n}" data-l="${l}" aria-pressed="${a===l}" ${done||x.st!=="run"?"disabled":""}>${l}</button>`).join("")}</div>`}).join("")}</div></section>`;
   else{let lastTx=-1;body=d.qs.map((q,i)=>{const a=d.ans[i],S=SUB(q.sid),pre=q.tx!=null&&q.tx!==lastTx?(lastTx=q.tx,`<section class="card sm-txt"><div class="card-b"><small class="muted">Leia o texto para responder às questões de Língua Portuguesa.</small><div class="sm-tx">${esc(d.txts[q.tx]).replace(/\n/g,"<br>")}</div></div></section>`):"";
     return pre+`<section class="card sm-q ${done?(a==="ABCDE"[q.ok]?"ok":"bad"):""}" id="smq${i}"><div class="card-b"><div class="sm-qh"><b>Questão ${i+1}</b><span class="code" style="border-color:${S.col}">${S.c}</span><small class="muted">${esc(tShort(ED[EDI[q.sid]].t[q.tp][0]))}</small></div><p class="sm-en">${esc(q.en).replace(/\n/g,"<br>")}</p>
-     <div class="sm-alts">${q.alt.map((t,j)=>{const l="ABCDE"[j];return`<button class="sm-alt ${done&&j===q.ok?"right":""} ${done&&a===l&&j!==q.ok?"wrong":""}" data-a="smAns" data-id="${id}" data-i="${i}" data-l="${l}" aria-pressed="${a===l}" ${done||x.st!=="run"?"disabled":""}><b>(${l})</b> ${esc(t)}</button>`}).join("")}</div>
+     <div class="sm-alts">${q.alt.map((t,j)=>{const l="ABCDE"[j];return`<button class="sm-alt ${done&&j===q.ok?"right":""} ${done&&a===l&&j!==q.ok?"wrong":""} ${((UI.smX||{})[id+"|"+i]||[]).includes(l)?"x":""}" title="Um clique seleciona · dois cliques riscam" data-a="smAns" data-id="${id}" data-i="${i}" data-l="${l}" aria-pressed="${a===l}" ${done||x.st!=="run"?"disabled":""}><b>(${l})</b> ${esc(t)}</button>`}).join("")}</div>
      ${done?`<div class="sm-exp"><b>${a==="ABCDE"[q.ok]?"Acertou":a?"Errou: você marcou "+a:"Em branco"}. Gabarito: ${"ABCDE"[q.ok]}.</b> ${esc(q.exp||"")}</div>`:""}</div></section>`}).join("")}
   return`${bar}${head}<details class="card sm-nav" ${UI.smNav!==false?"open":""}><summary class="card-b"><b>Mapa das questões</b></summary><div class="card-b">${nav}</div></details>${!done&&!d.t0&&x.st!=="run"&&!pv?"":body}${done?"":`<div class="row" style="justify-content:flex-end;margin-top:12px"><button class="btn pri" data-a="smEnd" data-id="${id}" ${x.st==="run"?"":"disabled"}>Entregar simulado</button></div>`}`}
 function smBanner(){try{const st=smStatus();if(!st.mini.length&&!st.gDue)return"";
@@ -3599,7 +3704,8 @@ function refTopics(t){
   return[];
 }
 function guide(t){
-  const s=SUB(t.sid),G={intro:[],dica:"",steps:[]},tp=refTopics(t),E=x=>esc(x),li=a=>a.map(E);
+  const MT=mentorOf(t);if(MT&&!MT.ai&&SAMPLE&&!t.done&&UI.openT===t.id)setTimeout(()=>mentorAI(t),50);
+  const s=SUB(t.sid),G={intro:[],dica:"",steps:[]},tp=MT?MT.att:refTopics(t),E=x=>esc(x),li=a=>a.map(E);
   const greet=["Olá, futuro aprovado! Tudo pronto para mais uma atividade?","Olá, futuro aprovado!","Olá, futuro Oficial de Justiça! Vamos para mais uma etapa?"][(t.k||0)%3];
   const lei=LEI[t.sid];
   const dica=lei?`Tenha ${lei} (lei seca) em mãos e vá marcando os pontos principais. Isso ajuda a fixar o conteúdo e facilita na hora das revisões.`:t.sid==="lp"?"Para cada regra, escreva um exemplo seu na margem. Na VUNESP, a regra quase sempre aparece aplicada a um trecho de texto.":t.sid==="mrl"?"Refaça os exemplos resolvidos sem olhar a resolução antes de seguir para o próximo.":t.sid==="atu"?"Anote datas, números e nomes: as questões de atualidades da VUNESP costumam cobrar o fato e o seu contexto.":/inform|tecnolog|\bti\b|dados|software/i.test(s.n)?"Se puder, teste os comandos e conceitos no próprio computador enquanto lê.":/contab|custos|afo|financ|estat|matem|racioc|econom/i.test(s.n)?"Refaça os exemplos e exercícios resolvidos sem olhar a resolução antes de seguir: nessas matérias a prova cobra o cálculo, não só o conceito.":/direito|legisla|lei|tribut/i.test(s.n)?"Tenha a lei seca em mãos e marque os artigos citados no PDF: prazos, exceções e competências são os pontos mais cobrados.":/portug|l[ií]ngua|reda[cç]/i.test(s.n)?"Para cada regra, escreva um exemplo seu na margem: a banca costuma cobrar a regra aplicada a um trecho de texto.":"Marque no PDF os pontos que caem em prova e anote as exceções: eles viram seus cards de revisão.";
@@ -3627,6 +3733,7 @@ function guide(t){
       else if(!t.pa)G.steps.push({h:"1) TEORIA – estude os assuntos indicados a seguir:",items:[`<b>${E(lab)}</b> – ${E(dd)}. Estude a teoria desta aula no material do seu curso, sem contar o índice e a apresentação, até o início da lista de questões. Envie o PDF da aula em Materiais para o painel indicar as páginas exatas (partes de 15 a 18 páginas).`]});
       else G.steps.push({h:"1) TEORIA – estude os assuntos indicados a seguir:",items:[`<b>${E(lab)}</b> – Estude da pág. ${t.pa} até a pág. ${t.pb} do PDF da aula, sem contar o índice e a apresentação do curso. Não pare no meio de um assunto nem de uma questão: se for preciso, avance até o fim dele. Se a teoria acabar antes (quando começarem as questões comentadas), pare ali.`]});
       G.steps.push(att(d));
+      {const X=pdfQsFor(t);if(X&&X.L&&X.L.length)G.steps.push({h:"3) Questões do PDF sobre este trecho:",items:[`Logo depois da leitura, resolva as ${X.L.length} questões do próprio PDF que cobram estas páginas (questões ${X.L.map(x=>x.q.n).join(", ")}), na seção “Questões do PDF sobre estas páginas”.`]})}
       if(t.open)G.steps.push({h:"3) Ao finalizar, informe a página em que parou e se a teoria da aula terminou.",items:["Quando a teoria da aula termina, a revisão, o mapeamento das questões e as questões da aula entram na meta seguinte.","Envie o PDF desta aula em Materiais para as metas cortarem a teoria por assunto, em partes de 15 a 18 páginas."]});
       else G.steps.push({h:'3) <span class="opt">(OPCIONAL)</span> Monte cards de revisão com os pontos que marcou.',items:["O desempenho na resolução dos cards não precisa ser registrado."]});
     }else{
@@ -3660,7 +3767,7 @@ function guide(t){
     G.steps.push({h:`${n++}) Confira o comentário das questões que errou e, se necessário, aprimore seu material de revisão.`});
     G.steps.push({h:`${n++}) Ao finalizar, registre quantas questões fez, quantas acertou e os assuntos que errou: eles entram nas revisões de 1, 7, 14, 30 e 60 dias.`});
   }
-  G.topics=tp;return G;
+  G.topics=MT?MT.top:tp;return G;
 }
 function cardsSec(t,op){
   const cs=CARDS().filter(c=>c.tid===t.id),busy=CARD_BUSY.has(t.id);
@@ -4298,7 +4405,7 @@ function scanWanted(){const c=core(),W=new Set();const r=curMeta();if(r)tasksOf(
   REFS().filter(x=>!x.done).forEach(x=>aSet(x).forEach(a=>W.add(x.sid+"|"+a)));return W}
 const SCAN_NO=new Set();
 async function rescanPdfs(){if(SCAN_BUSY||!PULLED&&DB)return;const W=scanWanted();
-  {const q=PDFS().find(x=>!x.raw&&x.pages>0&&(x.scan||0)>=2&&!stOk(x)&&!ST_NO.has(x.id)&&!SCAN_NO.has(x.id)&&(W.has("id:"+x.id)||W.has(x.sid+"|"+x.aula)));
+  {const q=PDFS().find(x=>!x.raw&&x.pages>0&&(x.scan||0)>=2&&stNeeds(x)&&!ST_NO.has(x.id)&&!SCAN_NO.has(x.id)&&(W.has("id:"+x.id)||W.has(x.sid+"|"+x.aula)));
    if(q){SCAN_BUSY=true;try{await stScan(q)}catch(e){ST_NO.add(q.id)}finally{SCAN_BUSY=false;setTimeout(()=>rescanPdfs(),1500)}return}}const p=PDFS().find(x=>!x.raw&&x.pages>0&&(x.scan||0)<2&&!SCAN_NO.has(x.id)&&(W.has("id:"+x.id)||W.has(x.sid+"|"+x.aula)));if(!p)return;SCAN_BUSY=true;
   try{const R=await pdfLinesAll(p,1,p.pages);const T0=tocFromPages(R.pages,p.pages);
     const tq=T0.filter(x=>x.p>(p.ts||1)+2&&/^(questoes|lista de questoes|exercicios|bateria|simulado)/.test(norm(x.t))).map(x=>x.p);
@@ -4325,7 +4432,7 @@ function gjLinkAll(){const c=core();if(!c.gj)return;const r=curMeta();if(!r)retu
    Errou: a questão entra em Erradas e nas revisões, como no mapa de questões. */
 const qzDoc=id=>D["qz-"+id]||null;
 function qzTask(t){const ps=[...new Set([t.pdf,...aSet(t).flatMap(c=>partsOf(t.sid,c).map(p=>p.id)),...(t.ph==="Q"?["ai-"+t.id,...aSet(t).map(c=>"ai-au~"+t.sid+"~"+c),...aSet(t).map(c=>"tec-"+t.sid+"~"+c)].filter(id=>qzDoc(id)):[])].filter(Boolean))];let f=0,ok=0;ps.forEach(id=>{const S=qzStats(qzDoc(id));f+=S.f;ok+=S.ok});return{f,ok,pct:f?Math.round(ok/f*100):0}}
-const QZ_BUSY=new Set();
+const QZ_BUSY=new Set(),QZ_RE=new Set();
 async function pdfLinesAll(p,a,b){const buf=await pdfBytes(p);if(!buf||!(await ensurePdfjs()))throw new Error("pdf");
   const doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise;const out=[];
   for(let i=Math.max(1,a);i<=Math.min(b,doc.numPages);i++){const tc=await(await doc.getPage(i)).getTextContent();const lines=[];let cur="",y=null;
@@ -4339,11 +4446,15 @@ function parseQuiz(pages){
   const rep=Math.max(3,pages.length*.3),keep=l=>/^(comentarios?|gabarito|resolucao)\b/.test(norm(l))||/^\(?[a-e]\)/i.test(l),junk=l=>!keep(l)&&freq[l.replace(/\d+/g,"#")]>=rep||/^\d{1,4}$/.test(l)||/^==\w+==$/.test(l)||/^\d{11}\s*-\s/.test(l)||/www\.[a-z]+\.com/i.test(l)&&l.length<70;
   const L=[];pages.forEach(pg=>pg.L.forEach(l=>{if(!junk(l))L.push({p:pg.p,t:l})}));
   const NUM=/^(\d{1,3})\s*[.)–-]\s*(.*)$/,BANCA=/^\(?\s*(cebraspe|cespe|fgv|fcc|vunesp|cesgranrio|ibfc|idecan|quadrix|aocp|instituto|consulplan|iades|fundatec|ibade|objetiva|fumarc|esaf|fafipa|fepese|ufpr|nc-ufpr|selecon|avança|cetro|funcab|ieses|fundep|access|legalle|omni|iades|cespe\/unb|banca|quest[aã]o|in[eé]dita|\w+\/)/i;
-  const SEC=t=>{const n=norm(t).replace(/\s+/g," ").replace(/^q uestoes c omentadas/,"questoes comentadas").replace(/\b(\w) (?=\w{3,})/g,"$1");return/^(lista\s+de\s+questoes|questoes\s+sem\s+coment)/.test(n)?"lista":/^gabarito\s*$/.test(n)?"gab":/^questoes\s+comentadas|^questoes\s*$/.test(n)?"com":""};
-  const Q=[];let cur=null,mode="com",seq=0,last=0;
+  const SEC=t=>{const n=norm(t).replace(/\s+/g," ").replace(/^q uestoes c omentadas/,"questoes comentadas").replace(/\b(\w) (?=\w{3,})/g,"$1");return/^(lista\s+de\s+questoes|questoes\s+sem\s+coment)/.test(n)?"lista":/^gabaritos?\s*$/.test(n)?"gab":/^questoes\s+comentadas|^questoes\s*$/.test(n)?"com":""};
+  const Q=[];let cur=null,mode="com",seq=0,last=0,gSeq=0;const GAB={};let gNums=null;
   const close=()=>{if(cur){Q.push(cur);cur=null}};
-  for(let i=0;i<L.length;i++){const {p,t}=L[i];const sc=SEC(t);if(sc&&t.length<40){close();mode=sc;last=0;if(sc!=="gab")seq++;continue}
-    if(mode==="gab"){continue}
+  for(let i=0;i<L.length;i++){const {p,t}=L[i];const sc=SEC(t);if(sc&&t.length<40){close();mode=sc;last=0;if(sc!=="gab")seq++;else gSeq=seq;continue}
+    if(mode==="gab"){/* página de gabarito: "1. LETRA B", "01 – C", "1-B 2-C" ou números numa linha e letras na de baixo */
+      const G=GAB[gSeq]=GAB[gSeq]||{};const re=/(\d{1,3})\s*[.)\-–:]?\s*(?:letra\s*|alternativa\s*)?\b([A-E]|certo|errado|correto|correta|errada|incorreto|anulada)\b/gi;let m2,hit=0;
+      while((m2=re.exec(t))){const v=m2[2];G[+m2[1]]=v.length===1?v.toUpperCase():/^(certo|correto|correta)$/i.test(v)?"C":/anul/i.test(v)?"X":"E";hit++}
+      if(!hit){if(/^(\d{1,3}\s+){2,}\d{1,3}$/.test(t.trim()))gNums=t.trim().split(/\s+/).map(Number);else if(gNums&&/^([A-E]\s+){2,}[A-E]$/i.test(t.trim())){t.trim().split(/\s+/).forEach((v,k)=>{if(gNums[k])G[gNums[k]]=v.toUpperCase()});gNums=null}}
+      continue}
     const m=t.match(NUM);
     if(m){const n=+m[1];let rest=m[2];if(!rest&&L[i+1])rest="";
       const nextT=rest||((L[i+1]||{}).t||"");const ok=(n===last+1||n===1&&last>0||last===0&&n<=3)&&(BANCA.test(nextT)||/\/\d{4}\)?/.test(nextT.slice(0,90)));
@@ -4351,12 +4462,14 @@ function parseQuiz(pages){
     if(!cur)continue;
     const tn=norm(t);
     if(/^comentarios?\s*:?/.test(tn)||/^resolucao\s*:?/.test(tn)){cur.part="c";const r=t.replace(/^\S+\s*:?\s*/,"");if(r&&!/^comentarios?:?$/i.test(norm(r)))cur.cm.push(r);continue}
-    const g=tn.match(/^gabarito\s*:?\s*(?:letra\s*)?([A-E])\b\.?\s*$/i)||tn.match(/^gabarito\s*:?\s*(certo|errado|correto|correta|errada|incorreto|anulada)\b/i)||tn.match(/^gabarito\s*:?\s*letra\s*([a-e])\b/i);
+    const g=tn.match(/^gabarito\s*(?:oficial|preliminar|definitivo)?\s*[:.\-–]?\s*(?:(?:e a |a )?(?:letra|alternativa|opcao|resposta)\s*)?([A-E])\b\.?\s*\)?\s*$/i)||tn.match(/^gabarito\s*[:.\-–]?\s*(?:o item (?:esta|e)\s*)?(certo|errado|correto|correta|errada|incorreto|anulada)\b/i)||tn.match(/^gabarito\s*[:.\-–]?\s*(?:letra|alternativa|opcao)\s*([a-e])\b/i)||tn.match(/^(?:resposta|alternativa correta)\s*[:.\-–]?\s*(?:letra\s*)?([a-e])\b/i);
     if(g){cur.ans=g[1].length===1?g[1].toUpperCase():/^(certo|correto|correta)$/i.test(g[1])?"C":/anul/i.test(g[1])?"X":"E";cur.part="g";continue}
     if(cur.part==="s"){const o=t.match(/^\(?([a-eA-E])\)\s*(.*)$/);if(o&&(cur.op.length===0?/^a$/i.test(o[1]):o[1].toLowerCase().charCodeAt(0)===97+cur.op.length)){cur.op.push([o[1].toUpperCase(),o[2]]);continue}
       if(cur.op.length)cur.op[cur.op.length-1][1]+=" "+t;else cur.st.push(t)}
     else if(cur.part==="c")cur.cm.push(t)}
   close();
+  /* gabarito da página "Gabarito" vale para a lista logo antes dela */
+  Q.forEach(q=>{if(!q.ans){const G=GAB[q.seq]||GAB[Object.keys(GAB).length===1?Object.keys(GAB)[0]:-1];if(G&&G[q.n])q.ans=G[q.n]}});
   /* a mesma questão aparece comentada e depois na lista: fica a versão comentada */
   const key=q=>norm(q.st.join(" ")+" "+q.op.map(o=>o[1]).join(" ")).replace(/[^a-z0-9]/g,"").slice(0,900);const seen=new Map(),out=[];
   Q.forEach(q=>{if(!q.st.length)return;const k=key(q);const ex=seen.get(k);if(ex){if(!ex.ans&&q.ans)ex.ans=q.ans;if(!ex.cm.length&&q.cm.length)ex.cm=q.cm;return}seen.set(k,q);out.push(q)});
@@ -4367,7 +4480,7 @@ async function buildQuiz(p,force){if(QZ_BUSY.has(p.id))return;if(qzDoc(p.id)&&!f
   try{const R=await pdfLinesAll(p,Math.max(1,Math.min(p.qc||1,(p.ts||1)+2)),p.pages||9999);const q0=qcFromPages(R.pages);
     if(q0&&q0!==p.qc){p.qc=q0;touch("pdf-"+p.id)}
     const pgs=R.pages.filter(x=>x.p>=(p.qc||1)-1);let L=parseQuiz(pgs);
-    const old=qzDoc(p.id);D["qz-"+p.id]={v:1,pid:p.id,at:Date.now(),L,ans:old&&old.ans||{},src:"pdf"};touch("qz-"+p.id);
+    const old=qzDoc(p.id);D["qz-"+p.id]={v:1,pv:2,pid:p.id,at:Date.now(),L,ans:old&&old.ans||{},src:"pdf"};touch("qz-"+p.id);
     toast(L.length?L.length+" questões prontas para resolver aqui ("+L.filter(q=>q.k).length+" com gabarito)":"Não consegui separar as questões deste PDF"+(SAMPLE?". Tente montar com a IA":""))}
   catch(e){toast("Não consegui abrir este PDF para montar as questões")}
   finally{QZ_BUSY.delete(p.id);rerenderQz()}}
@@ -4388,21 +4501,24 @@ function rerenderQz(){if(UI.openT)renderDrawer();if(TAB==="materiais"||TAB==="re
 const qzStats=Z=>{const A=Object.values(Z&&Z.ans||{}),ok=A.filter(a=>a.ok).length;return{n:(Z&&Z.L||[]).length,f:A.length,ok,pct:A.length?Math.round(ok/A.length*100):0}};
 function qzNum(q){return q.seq>1?q.seq*1000+q.n:q.n}
 function quizHTML(p,ctx){const Z=qzDoc(p.id),busy=QZ_BUSY.has(p.id);ctx=ctx||"m";
+  /* questões montadas com a leitura antiga: monta de novo para pegar os gabaritos da página "Gabarito" (as respostas ficam) */
+  if(Z&&Z.src==="pdf"&&(Z.pv||0)<2&&!busy&&!p.raw&&p.pages&&!QZ_RE.has(p.id)){QZ_RE.add(p.id);setTimeout(()=>buildQuiz(p,true),60)}
   if(!Z)return`<div class="qz"><div class="qz-h"><b>Resolver as questões aqui</b></div><p class="muted small" style="margin:0">O painel separa as questões do PDF com o enunciado completo e as alternativas. Você responde aqui e vê na hora se acertou.</p>
     <div class="row">${busy?`<span class="muted small"><span class="spin"></span> Separando as questões do PDF…</span>`:`<button class="btn pri sm" data-a="qzBuild" data-id="${p.id}">${ic("list")} Montar as questões</button>`}</div></div>`;
   if(!Z.L.length)return`<div class="qz"><p class="muted small" style="margin:0">Não consegui separar as questões deste PDF automaticamente.</p><div class="row">${SAMPLE?`<button class="btn sm pri" data-a="qzAI" data-id="${p.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Montando…':ic("bulb")+" Montar com a IA"}</button>`:""}<button class="btn sm ghost" data-a="qzBuild" data-id="${p.id}" data-f="1">${ic("reset")} Tentar de novo</button></div></div>`;
+  const miss=Z.L.filter(x=>!x.k).length,missBtn=miss&&SAMPLE&&!p.ai?`<div class="row qz-miss"><span class="muted small">${miss} quest${miss>1?"ões":"ão"} sem gabarito no PDF.</span><button class="btn sm" data-a="qzKeyAI" data-id="${p.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Conferindo…':ic("bulb")+" Completar gabaritos com fundamento"}</button></div>`:"";
   const S=qzStats(Z),key="qz:"+p.id,i=clamp(UI[key]||0,0,Z.L.length-1),q=Z.L[i],A=Z.ans[q.id],opts=q.ce?[["C","Certo"],["E","Errado"]]:q.o;
   const multi=new Set(Z.L.map(x=>x.seq)).size>1;
   const dots=Z.L.map((x,k)=>{const a=Z.ans[x.id];return(multi&&(k===0||Z.L[k-1].seq!==x.seq)?`<span class="qz-sep">Lista ${[...new Set(Z.L.map(y=>y.seq))].indexOf(x.seq)+1}</span>`:"")+`<button class="${a?(a.ok?"ok":"err"):""} ${k===i?"cur":""}" data-a="qzGo" data-id="${p.id}" data-i="${k}" aria-label="Questão ${x.n}${a?(a.ok?", acertou":", errou"):""}">${x.n}</button>`}).join("");
   const ob=opts.map(([k,txt])=>{let cl="";if(A){if(q.k&&k===q.k)cl="right";if(A.a===k&&!A.ok)cl="wrong";if(A.a===k&&A.ok)cl="right"}
-    const xs=(UI.qzX||{})[p.id+"|"+q.id]||[],x=xs.includes(k);
-    return`<button class="qz-o ${cl} ${x?"x":""}" data-a="qzPick" data-id="${p.id}" data-q="${q.id}" data-k="${k}" ${A?"disabled":""} title="${x?"Alternativa riscada · dois cliques para desfazer":"Um clique responde · dois cliques riscam a alternativa"}"><span class="qz-k">${q.ce?"":k}</span><span>${esc(txt)}</span></button>`}).join("");
+    const xs=(UI.qzX||{})[p.id+"|"+q.id]||[],x=xs.includes(k),sl=!A&&(UI.qzSel||{})[p.id+"|"+q.id]===k;
+    return`<button class="qz-o ${cl} ${x?"x":""} ${sl?"sel":""}" aria-pressed="${sl}" data-a="qzPick" data-id="${p.id}" data-q="${q.id}" data-k="${k}" ${A?"disabled":""} title="${x?"Alternativa riscada · dois cliques para desfazer":"Um clique seleciona · dois cliques riscam a alternativa"}"><span class="qz-k">${q.ce?"":k}</span><span>${esc(txt)}</span></button>`}).join("");
   return`<div class="qz"><div class="qz-h"><b>${p.tec?"Questões do TEC desta aula":p.ai?"Questões criadas para você":"Questões do PDF"}</b><span class="qz-sc">${S.f} de ${S.n} respondidas · <b class="${S.f?S.pct>=75?"okc":S.pct>=50?"warnc":"badc":""}">${S.pct}% de acertos</b></span></div>
-   <div class="qz-bar" aria-hidden="true"><i class="ok" style="width:${S.n?S.ok/S.n*100:0}%"></i><i class="bad" style="width:${S.n?(S.f-S.ok)/S.n*100:0}%"></i></div>
+   ${missBtn}<div class="qz-bar" aria-hidden="true"><i class="ok" style="width:${S.n?S.ok/S.n*100:0}%"></i><i class="bad" style="width:${S.n?(S.f-S.ok)/S.n*100:0}%"></i></div>
    <div class="qgrid qz-g">${dots}</div>
    <div class="qz-q"><div class="qz-qh"><span class="code">Questão ${q.n}${q.seq>1?" · lista "+q.seq:""}</span>${q.p?`<button class="btn sm ghost" data-a="read" data-id="${p.id}" data-pa="${q.p}" data-pb="${q.p}">${ic("book")} Ver no PDF (p. ${q.p})</button>`:""}</div>
-    <p class="qz-s">${esc(q.s)}</p><div class="qz-os">${ob}</div>${A?"":`<p class="qz-tip muted small">Dica: dê dois cliques numa alternativa para riscá-la (eliminar). Dois cliques de novo tiram o risco.</p>`}
-    ${A?`<div class="qz-r ${A.ok?"ok":"bad"}"><b>${A.ok?"Acertou!":"Errou."}</b> ${q.k?`Gabarito: <b>${q.ce?(q.k==="C"?"Certo":"Errado"):"Letra "+q.k}</b>.`:(p.ai?"Sem gabarito.":"O PDF não trouxe o gabarito desta questão.")}${!A.ok?" Ela entrou em Erradas e nas revisões.":""}</div>${q.c?`<details class="qz-c"><summary>${p.ai?"Comentário"+(q.pg?" (p. "+q.pg+" do PDF)":""):"Comentário do professor"}</summary><p>${esc(q.c).replace(/\n/g,"<br>")}</p></details>`:""}`:""}
+    <p class="qz-s">${esc(q.s)}</p><div class="qz-os">${ob}</div>${A?"":`<div class="row qz-solve"><button class="btn pri" data-a="qzSolve" data-id="${p.id}" data-q="${q.id}" ${(UI.qzSel||{})[p.id+"|"+q.id]?"":"disabled"}>${ic("check")} Resolver questão</button><span class="muted small">Um clique seleciona a alternativa · dois cliques riscam (eliminam). A resposta só vale ao tocar em Resolver.</span></div>`}
+    ${A?`<div class="qz-r ${A.ok?"ok":"bad"}"><b>${A.ok?"Acertou!":"Errou."}</b> ${q.k?`Gabarito: <b>${q.ce?(q.k==="C"?"Certo":"Errado"):"Letra "+q.k}</b>${q.kai?` <span class="chip warn" title="O PDF não trouxe o gabarito desta questão">gabarito inferido</span> ${esc(q.kf||"")}`:""}.`:(p.ai?"Sem gabarito.":"O PDF não trouxe o gabarito desta questão.")}${!A.ok?" Ela entrou em Erradas e nas revisões.":""}</div>${q.c?`<details class="qz-c"><summary>${p.ai?"Comentário"+(q.pg?" (p. "+q.pg+" do PDF)":""):"Comentário do professor"}</summary><p>${esc(q.c).replace(/\n/g,"<br>")}</p></details>`:""}`:""}
     ${A&&!q.k?`<div class="row"><button class="btn sm" data-a="qzSelf" data-id="${p.id}" data-q="${q.id}" data-v="1">Acertei</button><button class="btn sm" data-a="qzSelf" data-id="${p.id}" data-q="${q.id}" data-v="0">Errei</button></div>`:""}
     <div class="row" style="justify-content:space-between"><button class="btn sm ghost" data-a="qzGo" data-id="${p.id}" data-i="${i-1}" ${i?"":"disabled"}>← Anterior</button>${A?`<button class="btn sm ghost" data-a="qzUndo" data-id="${p.id}" data-q="${q.id}">Responder de novo</button>`:""}<button class="btn sm ${A?"pri":"ghost"}" data-a="qzGo" data-id="${p.id}" data-i="${i+1}" ${i<Z.L.length-1?"":"disabled"}>${A?"Próxima →":"Pular →"}</button></div></div></div>`}
 function qzMark(p,q,ok){const Z=qzDoc(p.id);if(!Z)return;if(p.ai){if(!ok)addMiss(p.id+":"+q.n,p.name+" · questão "+q.n+(q.as?" ("+q.as+")":"")+(q.pg?" · ver p. "+q.pg+" do PDF":""),p.sid);return}const n=qzNum(q);p.qs=p.qs||[];let e=p.qs.find(x=>x.n===n);
@@ -4585,6 +4701,8 @@ function renderDrawer0(){
       <details class="sec" data-k="B" id="avB" open><summary>${ic("bulb")} Bizu</summary><div class="sb">${t.bizu&&t.bizu.txt?`<div class="rsout bizu" id="bzOut">${mdLite(t.bizu.txt)}</div><div class="row">${SAMPLE?`<button class="btn sm ghost" data-a="bzGen" data-id="${t.id}">${ic("reset")} Refazer bizu</button>`:""}</div>`:`<div class="rsout bizu" id="bzOut"><p class="muted">${AUX_BUSY.has("b"+t.id)?'<span class="spin"></span> Escrevendo o bizu…':"Um resumo curto do que mais cai sobre o trecho desta atividade, com os pontos de ATENÇÃO."}</p></div>${AUX_BUSY.has("b"+t.id)?"":`<button class="btn pri" data-a="bzGen" data-id="${t.id}">${ic("bulb")} Montar bizu</button>`}`}</div></details>
       <details class="sec" data-k="F" id="avF" open><summary>${ic("brain")} Fixação Ativa</summary><div class="sb">${fixHTML(t)}</div></details>
       ${tform}${qform}
+      ${t.ph==="T"&&t.pdf?(()=>{const X=pdfQsFor(t);if(!X)return"";const k="qz:"+X.p.id;if(X.L.length&&UI.pqT!==t.id){UI.pqT=t.id;UI[k]=X.L[0].i}
+        return`<details class="sec" data-k="C" id="avPq" open><summary>${ic("list")} Questões do PDF sobre estas páginas <span class="n">${X.L.length}</span></summary><div class="sb">${X.wait?`<p class="muted small" style="margin:0"><span class="spin"></span> Separando as questões do PDF…</p>`:X.L.length?`<p class="muted small" style="margin:0">Resolva logo depois da leitura: são as questões do próprio PDF que cobram o que está nestas páginas.</p><div class="pq-l">${X.L.map(x=>`<button class="pq-i ${(qzDoc(X.p.id).ans||{})[x.q.id]?((qzDoc(X.p.id).ans[x.q.id].ok)?"ok":"err"):""}" data-a="qzGo" data-id="${X.p.id}" data-i="${x.i}"><b>Questão ${x.q.n}</b><span>${esc(x.q.s.slice(0,110))}…</span></button>`).join("")}</div>${quizHTML(X.p,"t")}`:`<p class="muted small" style="margin:0">O PDF não tem questões ligadas a estas páginas. Elas aparecem na fase de questões da aula.</p>`}</div></details>`})():""}
       ${t.ph==="T"&&t.done&&t.aula&&!t.ref?`<details class="sec" data-k="C" id="avG" open><summary>${ic("bulb")} Questões das páginas que você estudou <span class="n">${qzStats(qzDoc(qaiId(auTask(t.sid,t.aula)))).pct}%</span></summary><div class="sb">${qaiHTML(auTask(t.sid,t.aula))}</div></details>`:""}
       ${t.ph==="Q"&&t.aula?`<details class="sec" data-k="C" id="avG" open><summary>${ic("bulb")} Questões das páginas que você estudou <span class="n">${qzStats(qzDoc(qaiId(t))).pct}%</span></summary><div class="sb">${qaiHTML(t)}</div></details>`:""}
       ${(t.ph==="Q"||t.ph==="M")?(()=>{const ps=[...new Set(aSet(t).flatMap(c=>partsOf(t.sid,c)))];if(t.pdf&&pdf(t.pdf)&&!ps.includes(pdf(t.pdf)))ps.unshift(pdf(t.pdf));if(!ps.length)return"";
@@ -4718,6 +4836,25 @@ function vIncidencia(){const h=vProva().replace(/^<p class="muted" style="margin
   return`<div class="hello"><h1>Incidência</h1><p>Quanto cada matéria vale na prova${IS_TJ?" de Oficial de Justiça do TJSP":PLAN&&PLAN.name?" de "+esc(PLAN.name):""} e quais assuntos mais caem em cada matéria. A IA se baseia nessas informações para montar os seus resumos, os simulados e a prioridade das questões; o planejamento das metas também.</p></div>${h}`}
 /* ---------- Aba Estrutura da prova ---------- */
 const pv1=v=>(Math.round(v*10)/10).toString().replace(".",",");
+/* Tendências da banca em cada matéria: o que os números mostram (concentração, os que mais caem, os que quase não caem)
+   e, com a IA, como a banca costuma cobrar esses assuntos (padrões, pegadinhas recorrentes, assuntos em alta). */
+function trendHTML(s,ord){const ok=ord.filter(o=>!o.m&&o.p>0);if(!ok.length)return"";const tot=ok.reduce((a,o)=>a+o.p,0)||1;
+  let acc=0,k=0;for(const o of ok){acc+=o.p;k++;if(acc/tot>=.6)break}
+  const low=ok.filter(o=>o.p/tot*100<3),T=(core().trend||{})[s.id],busy=UI.trBusy===s.id,bn=IS_TJ?"VUNESP":(PLAN.banca||"banca");
+  const pts=[`<b>${k} de ${ok.length}</b> assuntos concentram <b>${pv1(acc/tot*100)}%</b> das questões de ${esc(s.n)}: comece e revise por eles.`,
+    `Mais cobrados: ${ok.slice(0,3).map(o=>`<b>${esc(tShort(o.t))}</b> (${pv1(o.p/tot*100)}%)`).join(", ")}.`];
+  if(low.length)pts.push(`Quase não caem (menos de 3% cada): ${low.length} assunto${low.length>1?"s":""}. Estude, mas sem gastar revisão demais.`);
+  return`<div class="trd"><b class="trd-h">${ic("bulb")} Tendências da ${esc(bn)} em ${esc(s.n)}</b><ul>${pts.map(x=>`<li>${x}</li>`).join("")}${T&&T.l?T.l.map(x=>`<li>${esc(x)}</li>`).join(""):""}</ul>
+   ${SAMPLE?`<div class="row"><button class="btn sm" data-a="trGen" data-s="${s.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Analisando…':ic("bulb")+(T?" Atualizar padrões da banca":" Ver padrões da banca")}</button>${T?`<span class="muted small">Análise de ${dm(T.at)}</span>`:""}</div>`:""}</div>`}
+async function trendGen(sid){const S=ED[EDI[sid]];if(!S||!SAMPLE)return;const P=incShow(sid),ok=S.t.map((t,j)=>({t:t[0],p:P[j]})).filter(o=>o.p>0).sort((a,b)=>b.p-a.p).slice(0,15);
+  const bn=IS_TJ?"Fundação VUNESP":(PLAN.banca||"banca não informada"),cg=IS_TJ?"Oficial de Justiça do TJSP":[PLAN.cargo||PLAN.name,PLAN.orgao].filter(Boolean).join(" · ");
+  const prompt=`Você é especialista em concursos públicos no Brasil. Banca: ${bn}. Cargo: ${cg}. Matéria: ${S.n}.
+Incidência dos assuntos (porcentagem das questões da matéria):
+${ok.map(o=>"- "+o.t+": "+pv1(o.p)+"%").join("\n")}
+Com base no histórico de provas desta banca, aponte as TENDÊNCIAS e os PADRÕES de cobrança nesta matéria: como a banca cobra os assuntos que mais caem (letra da lei, jurisprudência, casos práticos, conceitos), pegadinhas recorrentes e assuntos em alta. Seja específico para esta banca e esta matéria; se não houver base segura para algo, não diga.
+Responda só com JSON: {"l":["4 a 6 frases curtas, até 30 palavras cada"]}`;
+  const o=await SAMPLE.json(prompt,{modelTier:"default"});const l=Array.isArray(o&&o.l)?o.l.map(x=>String(x).trim()).filter(Boolean).slice(0,6):[];if(!l.length)throw new Error("formato");
+  const C=core();C.trend=C.trend||{};C.trend[sid]={l,at:today()};touch("core")}
 function vProva(){const T=qTot(),L=ED.map(s=>({s,q:qOf(s)})).sort((a,b)=>b.q-a.q||EDI[a.s.id]-EDI[b.s.id]),mx=Math.max(1,...L.map(x=>x.q)),c=core();
   const r=curMeta(),ts=r?tasksOf(r.n).filter(t=>!t.ref&&!t.extra):[],tc={};ts.forEach(t=>{tc[t.sid]=(tc[t.sid]||0)+1});
   const nInc=ED.filter(s=>incHas(s.id)).length,qe=!!UI.pvQ,busy=UI.pvBusy;
@@ -4744,7 +4881,7 @@ function vProva(){const T=qTot(),L=ED.map(s=>({s,q:qOf(s)})).sort((a,b)=>b.q-a.q
     const un=UI.pvUn&&UI.pvUn.sid===s.id&&UI.pvUn.l.length?`<p class="muted small" style="margin:0">Sem assunto correspondente no edital (ficaram de fora): ${UI.pvUn.l.map(esc).join("; ")}.</p>`:"";
     return`<details class="card pv-s" data-s="${s.id}" ${(UI.pvOpen&&s.id in UI.pvOpen?UI.pvOpen[s.id]:k<2)||ed||pa?"open":""}><summary class="card-h"><span class="code" style="border-color:${s.col}">${esc(s.c)}</span><h2>${esc(s.n)}</h2><span class="r muted small">${q} questões · ${pv1(T?q/T*100:0)}%${has?" · mais cai: <b>"+esc(top.t.length>48?top.t.slice(0,46)+"…":top.t)+"</b> ("+pv1(top.p)+"%)":""}</span></summary>
      <div class="card-b" style="display:grid;gap:8px">${has&&!ed&&!pa?`<span class="muted small pv-src">${srcL}</span>`:""}
-      ${list}${ed||pa?"":un}
+      ${list}${ed||pa||!has?"":trendHTML(s,ord)}${ed||pa?"":un}
       ${ed||pa?"":`<div class="row" style="gap:8px"><button class="btn sm" data-a="pvPOpen" data-s="${s.id}">${ic("plus")} Colar dados de um site</button><button class="btn sm" data-a="pvAI" data-s="${s.id}" ${busy?"disabled":""}>${ic("bulb")} ${has?"Estimar com IA":"Estimar com IA"}</button><button class="btn sm" data-a="pvTEd" data-s="${s.id}">Ajustar porcentagens</button>${(core().inc||{})[s.id]?`<button class="btn sm ghost" data-a="pvTClr" data-s="${s.id}">${INC_SEED[s.id]?"Voltar à fonte original":"Limpar"}</button>`:""}</div>`}</div></details>`}).join("");
   return`<p class="muted" style="margin:0;max-width:75ch">Quanto cada matéria vale na prova e quais assuntos mais caem. O planejamento automático usa estes números: matéria com mais questões recebe mais teoria, e as aulas dos assuntos que mais caem passam na frente.</p>
   <div class="cmp-k"><div class="kb"><b>${T}</b><span>questões objetivas${IS_TJ?" + 2 discursivas":""}</span></div><div class="kb"><b>${ED.length}</b><span>matérias no edital</span></div>
@@ -5197,7 +5334,7 @@ const UNDO_LB={fin:"Atividade concluída",saveQ:"Questões registradas",saveT:"L
   skDay:"Atividade remarcada",skNext:"Atividade passada para a próxima meta",avSave:"Tempo salvo",timeT:"Tempo alterado",delPdf:"PDF removido",partUse:"PDF usado como parte",partMv:"Ordem das partes",pfix:"PDF corrigido",
   reread:"PDF lido de novo",rok:"Revisão feita",rerr:"Revisão reiniciada",radd:"Erro registrado",tqAdd:"Questão anotada",topic:"Assunto do edital marcado",topicAll:"Matéria do edital marcada",cOk:"Card revisado",cBad:"Card revisado",
   cAdd:"Card criado",cDel:"Card removido",crsDel:"Curso removido",cGen:"Cards criados",slotPick:"Atividade escolhida",slotMove:"Atividade movida",slotNew:"Atividade adicionada",mvOrd:"Ordem das atividades",mvDay:"Dia da atividade",
-  erOk:"Erro revisado",erBad:"Erro revisado",erUndo:"Erro reaberto",erRef:"Reforço criado",alSave:"Alerta salvo",alDel:"Alerta removido",qzAns:"Resposta marcada",qzPick:"Resposta marcada",qzSelf:"Resposta marcada",qzUndo:"Resposta desmarcada",
+  erOk:"Erro revisado",erBad:"Erro revisado",erUndo:"Erro reaberto",erRef:"Reforço criado",alSave:"Alerta salvo",alDel:"Alerta removido",qzAns:"Resposta marcada",qzPick:"Alternativa selecionada",qzSolve:"Questão resolvida",smX:"Alternativa riscada",qzSelf:"Resposta marcada",qzUndo:"Resposta desmarcada",
   qzBuild:"Questões montadas",qzAI:"Questões montadas",rsDelQ:"Questão removida do resumo",cImp:"Curso vinculado",cEdit:"Curso alterado",cMain:"Curso principal trocado",cSwap:"Curso trocado",cSwapGo:"Curso trocado",cFlag:"Uso do curso alterado",
   cMetas:"Uso do curso alterado",impDel:"Aula removida",rotCat:"Rotina alterada",rotPaint:"Rotina alterada",rotDay:"Rotina alterada",rfSet:"Rotina alterada",rotUse:"Rotina aplicada",bkK:"Bloco alterado",bkSetD:"Bloco alterado",
   blkK:"Bloco alterado",rqFin:"Atividade concluída",tmSet:"Tempo alterado",tmDay:"Tempo alterado",rotMode:"Rotina alterada",ciSave:"Anotação salva",fxAns:"Fixação respondida",bzGen:"Bizu gerado",fxGen:"Fixação gerada",
@@ -5834,7 +5971,7 @@ const pxT=m=>mT(m);
 /* minuto a minuto (a partir das 04:00): matéria planejada ("*" = estudo sem matéria definida) */
 function pxPlan(d){const P=new Array(1440).fill(null);rotBlocks(wdOf(d)).forEach(([a,b])=>{for(let i=a*SLM;i<b*SLM;i++)P[i]="*"});
   rotAgenda(d).out.forEach(({t,segs})=>segs.forEach(([a,b])=>{for(let i=Math.max(0,a);i<Math.min(1440,b);i++)P[i]=t.sid}));return P}
-const pxAuto=d=>LOGS().filter(x=>x.d===d&&x.e!=null&&x.m>=1).map(x=>({a:Math.max(0,x.e-x.m),b:x.e,sid:x.s||""}));
+const pxAuto=d=>{const k="log-"+String(d).slice(0,7),L=(D[k]&&D[k].items)||[];return L.map((x,i)=>({x,i})).filter(({x})=>x.d===d&&x.e!=null&&x.m>=1).map(({x,i})=>({a:Math.max(0,x.e-x.m),b:x.e,sid:x.s||"",lk:k,li:i,auto:x.t?1:0}))};
 function pxReal(d){const R=new Array(1440).fill(null);pxAuto(d).forEach(x=>{for(let i=x.a;i<Math.min(1440,x.b);i++)R[i]=x.sid||"*"});REAL().filter(x=>x.d===d).forEach(x=>{for(let i=x.a;i<Math.min(1440,x.b);i++)R[i]=x.sid||"*"});return R}
 function pxCmp(d){const P=pxPlan(d),R=pxReal(d);let pl=0,re=0,ok=0,oth=0,out=0;
   for(let i=0;i<1440;i++){if(P[i])pl++;if(R[i])re++;if(P[i]&&R[i]){if(P[i]==="*"||R[i]==="*"||P[i]===R[i])ok++;else oth++}else if(R[i])out++}
@@ -5849,14 +5986,14 @@ function pxView(){const td=today(),d=UI.pxDay||td,C=pxCmp(d);
   const recs=REAL().filter(x=>x.d===d).sort((a,b)=>a.a-b.a);
   const planRows=PS.length?PS.map(([a,b,k])=>{const done=C.R.slice(a,b).filter(Boolean).length>=(b-a)*.9;return`<div class="px-row"><i style="background:${pxCol(k)}"></i><span class="tm">${pxT(a)}–${pxT(b)}</span><b>${esc(pxNm(k))}</b>${done?`<span class="px-ok">${ic("check")} registrado</span>`:`<button class="btn sm" data-a="pxDid" data-d="${d}" data-s="${a}" data-e="${b}" data-k="${k}">${ic("check")} Cumpri</button>`}</div>`}).join(""):`<p class="muted small">Nada planejado para este dia. Monte os tempos de estudo em “Montar minha rotina”.</p>`;
   const au=pxAuto(d),all2=[...recs.map(x=>Object.assign({m:1},x)),...au].sort((a,b)=>a.a-b.a);
-  const recRows=all2.length?all2.map(x=>`<div class="px-row"><i style="background:${pxCol(x.sid)}"></i><span class="tm">${pxT(x.a)}–${pxT(x.b)}</span><b>${esc(pxNm(x.sid))}</b>${x.auto?`<span class="px-auto" title="Entrou sozinho quando você marcou a atividade como cumprida">${ic("check")} atividade</span>`:""}${x.m?`<button class="rt-x px-x" data-a="pxDel" data-id="${x.id}" aria-label="Apagar registro" title="Apagar registro">×</button>`:`<span class="px-auto" title="Vem do cronômetro. Para corrigir, registre por cima ou use Editar na atividade">${ic("clock")} cronômetro</span>`}</div>`).join(""):`<p class="muted small">Ainda nada registrado neste dia. O tempo do cronômetro entra aqui sozinho.</p>`;
+  const recRows=all2.length?all2.map(x=>`<div class="px-row"><i style="background:${pxCol(x.sid)}"></i><span class="tm">${pxT(x.a)}–${pxT(x.b)}</span><b>${esc(pxNm(x.sid))}</b>${x.auto?`<span class="px-auto" title="Entrou sozinho quando você marcou a atividade como cumprida">${ic("check")} atividade</span>`:""}${x.m?`<button class="rt-x px-x" data-a="pxDel" data-id="${x.id}" aria-label="Apagar registro" title="Apagar registro">×</button>`:`<span class="px-auto" title="Veio do cronômetro">${ic("clock")} cronômetro</span><button class="rt-x px-x" data-a="pxLogDel" data-k="${x.lk}" data-i="${x.li}" aria-label="Excluir este registro do cronômetro" title="Excluir este registro">×</button>`}</div>`).join(""):`<p class="muted small">Ainda nada registrado neste dia. O tempo do cronômetro entra aqui sozinho.</p>`;
   // linha do tempo do dia
   const used=[...PS,...RS2];let lo=used.length?Math.min(...used.map(s=>s[0])):120,hi=used.length?Math.max(...used.map(s=>s[1])):600;lo=Math.floor(lo/60)*60;hi=Math.max(lo+120,Math.ceil(hi/60)*60);const sp=hi-lo;
   const lane=(S,cls)=>S.map(([a,b,k])=>`<i class="${cls}" style="left:${(a-lo)/sp*100}%;width:${(b-a)/sp*100}%;background:${pxCol(k)}" title="${pxT(a)}–${pxT(b)} · ${esc(pxNm(k))}"></i>`).join("");
   const ticks=[];for(let m=lo;m<=hi;m+=sp>480?120:60)ticks.push(`<span style="left:${(m-lo)/sp*100}%">${pxT(m).slice(0,2)}h</span>`);
   // semana
   const wk=[...Array(7)].map((_,k)=>addDays(d,k-6)).map(x=>({x,c:x===d?C:pxCmp(x)}));const mx=Math.max(60,...wk.map(o=>Math.max(o.c.pl,o.c.re)));
-  const bars=wk.map(({x,c})=>`<button class="px-col ${x===d?"on":""}" data-a="pxDay" data-d="${x}" title="${dm(x)} · planejado ${fmtHs(c.pl)} · estudado ${fmtHs(c.re)} · no plano ${c.pct}%"><span class="px-bars"><i class="pl" style="height:${c.pl/mx*100}%"></i><span class="re" style="height:${c.re/mx*100}%"><i class="ok" style="flex:${c.ok}"></i><i class="oth" style="flex:${c.oth}"></i><i class="out" style="flex:${c.out}"></i></span></span><b>${c.pl||c.re?c.pct+"%":"–"}</b><small>${RWS[wdOf(x)]}</small></button>`).join("");
+  const bars=wk.map(({x,c})=>`<button class="px-col ${x===d?"on":""}" data-a="pxDay" data-d="${x}" title="${dm(x)} · planejado ${fmtHs(c.pl)} · estudado ${fmtHs(c.re)} · no plano ${c.pct}%"><span class="px-bars"><i class="pl" style="height:${c.pl/mx*100}%"></i><span class="re" style="height:${c.re/mx*100}%"><i class="ok" style="flex:${c.ok}"></i><i class="oth" style="flex:${c.oth}"></i><i class="out" style="flex:${c.out}"></i></span></span><b class="px-pc">${c.pl||c.re?c.pct+"<small>%</small>":"–"}</b><small>${RWS[wdOf(x)]}</small></button>`).join("");
   const wPl=wk.reduce((a,o)=>a+o.c.pl,0),wOk=wk.reduce((a,o)=>a+o.c.ok,0),wRe=wk.reduce((a,o)=>a+o.c.re,0);
   const msg=!C.pl&&!C.re?"Registre o que estudou para ver a comparação.":C.pct>=90?"Muito perto do que você planejou. Excelente!":C.pct>=70?"Boa parte do plano foi cumprida.":C.pct>=40?"Metade do caminho. Veja onde o dia fugiu do plano.":"O dia fugiu bastante do plano. Ajuste a rotina se isso se repetir.";
   const plT=`<div class="tabs2 jpt px-pl" role="group" aria-label="Trocar o concurso">${allPlans().map(p=>`<button data-a="plHere" data-id="${p.id}" aria-pressed="${p.id===ACTIVE}" title="${esc(planLabel(p))}"><span class="mk">${esc(planMark(p))}</span>${esc(pName(p))}</button>`).join("")}<button data-a="npOpen" aria-label="Adicionar outro concurso" title="Adicionar outro concurso">${ic("plus")}</button></div>`;
@@ -5870,7 +6007,7 @@ function pxView(){const td=today(),d=UI.pxDay||td,C=pxCmp(d);
      <h3>Planejado</h3><div class="px-list">${planRows}</div>
     </div>
     <div class="px-res">
-     <div class="px-big"><b style="--p:${C.pct}">${C.pl||C.re?C.pct+"%":"–"}</b><span><strong>do planejado cumprido</strong><small>${msg}</small></span></div>
+     <div class="px-big"><b style="--p:${Math.min(100,C.pct)}">${C.pl||C.re?C.pct+"<small>%</small>":"–"}</b><span><strong>do planejado cumprido</strong><small>${msg}</small></span></div>
      <div class="px-k"><span><i style="background:var(--line2)"></i>Planejado <b>${fmtHs(C.pl)}</b></span><span><i style="background:var(--ok)"></i>No horário e matéria certos <b>${fmtHs(C.ok)}</b></span><span><i style="background:var(--warn)"></i>Outra matéria no horário <b>${fmtHs(C.oth)}</b></span><span><i style="background:#5b8def"></i>Fora do horário <b>${fmtHs(C.out)}</b></span><span><i style="background:var(--bad)"></i>Faltou <b>${fmtHs(Math.max(0,C.miss))}</b></span></div>
      <div class="px-tl"><div class="px-ln"><small>Planejei</small><div>${lane(PS,"p")}</div></div><div class="px-ln"><small>Estudei</small><div>${lane(RS2,"r")}</div></div><div class="px-tk">${ticks.join("")}</div></div>
      <h3>Últimos 7 dias <span class="muted small">· ${wPl?Math.round(wOk/wPl*100)+"% do planejado · ":""}${fmtHs(wRe)} estudadas de ${fmtHs(wPl)} planejadas</span></h3>
@@ -6755,6 +6892,8 @@ const A={
   timeT(el){TM.tid=el.dataset.id;if(!TM.run){TM.run=true;TM.t0=Date.now()}saveTM();startTick();toast("Cronômetro iniciado nesta atividade");render()},
   read(el){openReader(el.dataset.id,+el.dataset.pa,+el.dataset.pb)},
   rdClose(){RD.doc=null;$("layer2").innerHTML=""},
+  /* pesquisa no PDF: vai de resultado em resultado (páginas com a palavra) */
+  rdHit(el){if(!RD.hits.length){const i=$("rdQ");if(i&&i.value.trim())rdSearch(i.value);return}RD.hi=(RD.hi+(+el.dataset.d)+RD.hits.length)%RD.hits.length;RD.p=RD.hits[RD.hi];rdHitInfo();drawPage()},
   rdPrev(){RD.p--;drawPage()},rdNext(){RD.p++;drawPage()},
   mode(el){if(TM.run){toast("Pause o relógio para trocar o modo");return}TM.mode=el.dataset.m;TM.acc=0;saveTM();drawClock()},
   tgo(){if(TM.run){TM.acc=elapsed();TM.run=false}else{TM.tid=$("tAct").value;TM.run=true;TM.t0=Date.now()}saveTM();startTick();drawClock();$("tAct").disabled=TM.run;if(UI.openT)renderDrawer()},
@@ -6985,6 +7124,7 @@ Object.assign(A,{
   rotMode(el){UI.rotMode=el.dataset.v;render()},
   ctab(el){UI.ctab=el.dataset.v;render();window.scrollTo(0,0)},
   pvQEd(){UI.pvQ=!UI.pvQ;render()},
+  async trGen(el){const sid=el.dataset.s;if(UI.trBusy)return;UI.trBusy=sid;render();try{await trendGen(sid);toast("Padrões da banca atualizados")}catch(e){toast("Não consegui analisar agora")}finally{UI.trBusy=null;render()}},
   pvQReset(){const C=core();delete C.qw;touch("core");simCache.key="";toast("Questões voltaram ao que está no edital");render()},
   pvTEd(el){UI.pvT=el.dataset.s;render();setTimeout(()=>{const i=$("pvt0");if(i)i.focus()},40)},
   pvTCancel(){UI.pvT=null;UI.pvP=null;render()},
@@ -7037,6 +7177,10 @@ Object.assign(A,{
     if(pxPush(d,a,b,sid)){toast("Registrado: "+pxT(a)+"–"+pxT(b)+" · "+pxNm(sid));render();const n=$("pxQ");if(n&&q&&q.value)n.focus()}},
   pxDid(el){const d=el.dataset.d,a=+el.dataset.s,b=+el.dataset.e,k=el.dataset.k;if(pxPush(d,a,b,k==="*"?"":k)){toast("Marcado como cumprido.");render()}},
   pxDel(el){D.real.items=REAL().filter(x=>x.id!==el.dataset.id);touch("real");render()},
+  pxLogDel(el){const k=el.dataset.k,i=+el.dataset.i,L=D[k]&&D[k].items;if(!L||!L[i])return;askConfirm("Excluir este registro do cronômetro?","Os "+L[i].m+" min saem do Planejei x Estudei e do Desempenho. Dá para desfazer.","Excluir",()=>{L.splice(i,1);touch(k);render();toast("Registro excluído")})},
+  /* estudo livre no cronômetro: o aluno decide se registra e em qual matéria */
+  flSave(){const F=UI.fl;if(!F)return;const sid=($("flS")||{}).value||"";logMinutes(F.m,"",1,sid);UI.fl=null;$("layer3").innerHTML="";toast(F.m+" min de estudo registrados");render()},
+  flDrop(){UI.fl=null;$("layer3").innerHTML="";toast("Estudo livre descartado: nada foi registrado");render()},
   wkZoom(el){UI.wkPx=clamp(WPX()+(+el.dataset.v)*12,30,96);render()},
   rtCopy(el){rtCopyAt(+el.dataset.w,+el.dataset.s)},
   rtPaste(){rtPaste()},
@@ -7091,13 +7235,29 @@ Object.assign(A,{
   qzPdf(el){UI.qzP=el.dataset.id;renderDrawer()},
   qzBuild(el){const p=pdf(el.dataset.id);if(p)buildQuiz(p,!!el.dataset.f)},
   qzAI(el){const p=pdf(el.dataset.id);if(p)buildQuizAI(p)},
+  /* sem gabarito no PDF: a IA resolve pela doutrina e pela lei, com fundamento; quando não tem certeza, deixa sem gabarito */
+  async qzKeyAI(el){const id=el.dataset.id,p=qzP(id),Z=qzDoc(id);if(!p||!Z||!SAMPLE||QZ_BUSY.has(id))return;const L=Z.L.filter(q=>!q.k).slice(0,30);if(!L.length)return;
+    QZ_BUSY.add(id);rerenderQz();const sb=SUB(p.sid),NL="\n";
+    try{const qs=L.map(q=>"### id="+q.id+NL+q.s+NL+(q.ce?"(Certo ou Errado)":q.o.map(([k,v])=>"("+k+") "+v).join(NL))+(q.c?NL+"Comentário do PDF: "+q.c.slice(0,500):"")).join(NL+NL).slice(0,24000);
+      const prompt="Você é professor de "+sb.n+" para concursos públicos. Resolva as questões abaixo, que vieram de um PDF de curso sem o gabarito."+NL+
+        "Responda pelos fundamentos da matéria (lei, Constituição, doutrina majoritária e jurisprudência consolidada do STF/STJ). Não invente: se a questão depender de algo que você não sabe com segurança, use \"conf\":\"baixa\"."+NL+qs+NL+
+        "Responda só com JSON: [{\"id\":\"q1\",\"k\":\"A\",\"f\":\"fundamento em até 25 palavras (artigo, súmula ou regra)\",\"conf\":\"alta|média|baixa\"}] (para Certo/Errado use \"C\" ou \"E\").";
+      const a=await SAMPLE.json(prompt,{modelTier:"complex"});let n=0;
+      (Array.isArray(a)?a:[]).forEach(r=>{const q=Z.L.find(x=>x.id===r.id);const k=String(r.k||"").toUpperCase().trim();if(!q||q.k||/baixa/i.test(r.conf||""))return;if(q.ce?!/^[CE]$/.test(k):!q.o.some(o=>o[0]===k))return;q.k=k;q.kai=1;q.kf=String(r.f||"").slice(0,240);n++});
+      touch("qz-"+id);toast(n?n+" gabarito"+(n>1?"s":"")+" completado"+(n>1?"s":"")+" com fundamento. Os que geraram dúvida ficaram sem gabarito.":"Não consegui concluir com segurança. As questões continuam sem gabarito.")}
+    catch(e){toast("Não consegui conferir os gabaritos agora")}finally{QZ_BUSY.delete(id);rerenderQz()}},
   qzGo(el){const Z=qzDoc(el.dataset.id);if(!Z)return;UI["qz:"+el.dataset.id]=clamp(+el.dataset.i,0,Z.L.length-1);rerenderQz()},
   /* Alternativa: um clique responde; dois cliques riscam (eliminam) ou tiram o risco. O clique simples espera um instante
      para não responder sem querer quando a intenção era riscar. Alternativa riscada não responde com um clique. */
   qzPick(el,e){const key=el.dataset.id+"|"+el.dataset.q,k=el.dataset.k;UI.qzX=UI.qzX||{};clearTimeout(A.qzPick.t);
-    if(e&&e.detail>=2){const L=UI.qzX[key]=UI.qzX[key]||[],i=L.indexOf(k);if(i>=0)L.splice(i,1);else L.push(k);el.classList.toggle("x",i<0);el.title=i<0?"Alternativa riscada · dois cliques para desfazer":"Um clique responde · dois cliques riscam a alternativa";return}
+    if(e&&e.detail>=2){const L=UI.qzX[key]=UI.qzX[key]||[],i=L.indexOf(k);if(i>=0)L.splice(i,1);else L.push(k);el.classList.toggle("x",i<0);if(i<0&&UI.qzSel&&UI.qzSel[key]===k){UI.qzSel[key]=null;el.classList.remove("sel");el.setAttribute("aria-pressed","false");const sb=document.querySelector(`[data-a="qzSolve"][data-id="${el.dataset.id}"][data-q="${el.dataset.q}"]`);if(sb)sb.disabled=true}el.title=i<0?"Alternativa riscada · dois cliques para desfazer":"Um clique responde · dois cliques riscam a alternativa";return}
     if((UI.qzX[key]||[]).includes(k)){toast("Alternativa riscada. Dê dois cliques para tirar o risco.");return}
-    A.qzPick.t=setTimeout(()=>{if(document.body.contains(el)&&!el.disabled)A.qzAns(el)},260)},
+    A.qzPick.t=setTimeout(()=>{if(!document.body.contains(el)||el.disabled)return;UI.qzSel=UI.qzSel||{};UI.qzSel[key]=UI.qzSel[key]===k?null:k;
+      el.parentNode.querySelectorAll(".qz-o").forEach(b=>{const on=UI.qzSel[key]===b.dataset.k;b.classList.toggle("sel",on);b.setAttribute("aria-pressed",String(on))});
+      const sb=document.querySelector(`[data-a="qzSolve"][data-id="${el.dataset.id}"][data-q="${el.dataset.q}"]`);if(sb)sb.disabled=!UI.qzSel[key]},240)},
+  /* a resposta só conta aqui: resolve com a alternativa selecionada */
+  qzSolve(el){const key=el.dataset.id+"|"+el.dataset.q,k=(UI.qzSel||{})[key];if(!k){toast("Selecione uma alternativa primeiro");return}
+    delete UI.qzSel[key];A.qzAns({dataset:{id:el.dataset.id,q:el.dataset.q,k}})},
   qzAns(el){const p=qzP(el.dataset.id),Z=qzDoc(el.dataset.id);if(!p||!Z)return;const q=Z.L.find(x=>x.id===el.dataset.q);if(!q||Z.ans[q.id])return;const k=el.dataset.k;
     if(!q.k||q.k==="X"){Z.ans[q.id]={a:k,ok:q.k==="X",d:today(),self:1};if(q.k==="X")qzMark(p,q,true)}else{const ok=k===q.k;Z.ans[q.id]={a:k,ok,d:today()};qzMark(p,q,ok)}
     touch("qz-"+p.id);rerenderQz()},
@@ -7226,7 +7386,11 @@ Object.assign(A,{
   smBack(){const x=UI.smOpen&&smGet(UI.smOpen),d=x&&smDoc(x.id);if(x&&d&&d.t0){d.el=(d.el||0)+(Date.now()-d.t0)/1000;d.t0=null;touch("sim-"+x.id);toast("Simulado pausado. Continue quando quiser.")}UI.smOpen=null;render();window.scrollTo(0,0)},
   smStart(el){const x=smGet(el.dataset.id),d=smDoc(el.dataset.id);if(!x||!d)return;d.t0=Date.now();if(x.st!=="run"){x.st="run";x.started=today();touch("simx")}touch("sim-"+x.id);render()},
   smPause(el){const d=smDoc(el.dataset.id);if(!d||!d.t0)return;d.el=(d.el||0)+(Date.now()-d.t0)/1000;d.t0=null;touch("sim-"+el.dataset.id);render()},
-  smAns(el){const id=el.dataset.id,x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run")return;const i=el.dataset.i,l=el.dataset.l;
+  smAns(el,e){const id=el.dataset.id,x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run")return;const i=el.dataset.i,l=el.dataset.l,key=id+"|"+i;UI.smX=UI.smX||{};clearTimeout(A.smAns.t);
+    if(e&&e.detail>=2){const L=UI.smX[key]=UI.smX[key]||[],j=L.indexOf(l);if(j>=0)L.splice(j,1);else L.push(l);el.classList.toggle("x",j<0);if(j<0&&d.ans[i]===l){delete d.ans[i];touch("sim-"+id);el.setAttribute("aria-pressed","false");const g=$("smg"+i);if(g)g.classList.remove("on")}return}
+    if((UI.smX[key]||[]).includes(l)){toast("Alternativa riscada. Dê dois cliques para tirar o risco.");return}
+    A.smAns.t=setTimeout(()=>A.smPick(el),240)},
+  smPick(el){const id=el.dataset.id,x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run")return;const i=el.dataset.i,l=el.dataset.l;
     if(d.ans[i]===l)delete d.ans[i];else d.ans[i]=l;touch("sim-"+id);
     el.parentNode.querySelectorAll("[data-l]").forEach(b=>b.setAttribute("aria-pressed",String(d.ans[i]===b.dataset.l)));
     const g=$("smg"+i);if(g)g.classList.toggle("on",!!d.ans[i]);const c=$("smCnt");if(c)c.textContent=Object.keys(d.ans).length+" de "+(x.kind==="prova"?PV24.n:d.qs.length)+" respondidas"},
