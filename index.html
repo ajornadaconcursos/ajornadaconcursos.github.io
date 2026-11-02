@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611020730"></script>
+<script src="/claude-shim.js?v=202611020737"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -102,8 +102,8 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .rt-c .rt-b{padding-right:46px}.rt-cp{position:absolute;top:3px;right:24px;width:18px;height:18px;padding:0;border:0;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.22);color:inherit;cursor:pointer;opacity:.75;z-index:3}.rt-cp svg.i{width:11px;height:11px}.rt-cp:hover{opacity:1;background:rgba(0,0,0,.45)}.rt-b.sel{outline:2px solid var(--fg);outline-offset:1px;z-index:4}.wk-ev .wk-ck{right:24px}.wk-c .wk-ev{padding-right:46px}
 .rt-top{display:grid;gap:10px}
 .rt-pals{display:flex;flex-wrap:wrap;gap:8px}
-.rt-pal{display:grid;gap:1px;min-width:118px;padding:8px 12px 8px 10px;border-radius:10px;background:color-mix(in srgb,var(--c) 16%,var(--raise));border:1px solid color-mix(in srgb,var(--c) 40%,transparent);border-left:5px solid var(--c);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
-.rt-pal b{font:700 13px var(--f-display);color:var(--fg)}.rt-pal small{color:var(--mute);font-size:11px}
+.rt-pal{display:grid;gap:1px;min-width:118px;padding:8px 12px 8px 12px;border-radius:10px;background:var(--c);border:1px solid color-mix(in srgb,var(--c) 70%,#000);box-shadow:0 1px 3px rgba(0,0,0,.25);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.rt-pal b{font:700 13px var(--f-display);color:var(--ink,#fff)}.rt-pal small{color:var(--ink,#fff);opacity:.8;font-size:11px}
 .rt-pal:hover{border-color:var(--c)}.rt-pal.moving{opacity:.5}
 .rt-c{position:relative;border-left:1px solid var(--line);background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% var(--px)}
 .rt-c.today{background-color:color-mix(in srgb,var(--lime) 5%,transparent)}.rt-c.over{background-color:color-mix(in srgb,var(--lime) 12%,transparent)}
@@ -237,9 +237,9 @@ body.rt-drag,body.rt-drag *{cursor:grabbing!important}
 .wk-c{position:relative;border-left:1px solid var(--line);background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% var(--px)}
 .wk-c.off{background-color:color-mix(in srgb,var(--fg) 4%,transparent)}.wk-c.today{background-color:color-mix(in srgb,var(--lime) 5%,transparent)}
 .wk-c.over{background-color:color-mix(in srgb,var(--lime) 12%,transparent)}
-.wk-bg{position:absolute;left:0;right:0;background:color-mix(in srgb,var(--c) 16%,transparent);border-top:1px solid color-mix(in srgb,var(--c) 45%,transparent)}
-.wk-bg.st{background:color-mix(in srgb,var(--c) 10%,transparent);border-left:3px solid var(--c)}
-.wk-bg span{position:absolute;right:4px;top:2px;font-size:9.5px;font-weight:600;color:color-mix(in srgb,var(--c) 75%,var(--fg));opacity:.85;pointer-events:none}
+.wk-bg{position:absolute;left:0;right:0;background:color-mix(in srgb,var(--c) 30%,transparent);border-top:1px solid color-mix(in srgb,var(--c) 70%,transparent);border-left:4px solid var(--c)}
+.wk-bg.st{background:color-mix(in srgb,var(--c) 18%,transparent);border-left:4px solid var(--c)}
+.wk-bg span{position:absolute;right:4px;top:2px;font-size:10px;font-weight:700;color:color-mix(in srgb,var(--c) 55%,var(--fg));pointer-events:none}
 .wk-ev{position:absolute;left:4px;right:4px;border-radius:7px;background:var(--c);color:#fff;padding:3px 24px 3px 6px;overflow:hidden;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;box-shadow:0 1px 3px rgba(0,0,0,.18);z-index:2;font-size:11px;line-height:1.25}
 .wk-ev .l1{display:flex;gap:5px;align-items:baseline;white-space:nowrap}.wk-ev .l1 b{font:700 12px var(--f-display)}.wk-ev .l2{opacity:.92;white-space:nowrap;font-variant-numeric:tabular-nums}
 .wk-ev .pl{background:rgba(255,255,255,.28);color:#fff}
@@ -1073,7 +1073,9 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 @media (max-width:560px){.rm-l{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 .noanim,.noanim>.av,.noanim>.box,.noanim>.drawer,.noanim .av,.noanim .box{animation:none!important}
-#view.noanim .segbar i,#view.noanim .jbar i,#view.noanim .pv-b i,#view.noanim .sm-bar i,#view.noanim .ev-ch *,#view.noanim .px-b i{animation:none!important}
+#view .pv-s.pv-go .pv-b i{animation:pxGrow2 .7s cubic-bezier(.2,.8,.2,1) both!important}
+@keyframes pxGrow2{from{transform:scaleX(0)}}
+#view.noanim .segbar i,#view.noanim .jbar i,#view.noanim .pv-s:not(.pv-go) .pv-b i,#view.noanim .pv-tb .pv-b i,#view.noanim .sm-bar i,#view.noanim .ev-ch *,#view.noanim .px-b i{animation:none!important}
 .upm-r .cl-ok{display:flex;gap:5px;align-items:center;color:var(--ok);font-weight:600;margin-top:3px}.upm-r .cl-ok svg.i{width:14px;height:14px}
 .upm-r .cl-bad{display:block;color:var(--warn);font-weight:600;margin-top:3px}
 .pparts{display:grid;gap:6px;margin-top:10px}
@@ -4831,7 +4833,8 @@ function structure(tot){
 }
 /* ---------- Aba Edital ---------- */
 /* ---------- Aba Incidência (matérias no concurso e assuntos por matéria) ---------- */
-document.addEventListener("toggle",e=>{const d=e.target;if(d&&d.classList&&d.classList.contains("pv-s")&&d.dataset.s){(UI.pvOpen=UI.pvOpen||{})[d.dataset.s]=d.open}},true);
+document.addEventListener("toggle",e=>{const d=e.target;if(d&&d.classList&&d.classList.contains("pv-s")&&d.dataset.s){(UI.pvOpen=UI.pvOpen||{})[d.dataset.s]=d.open;
+  if(d.open){d.classList.remove("pv-go");void d.offsetWidth;d.classList.add("pv-go")}}},true);
 function vIncidencia(){const h=vProva().replace(/^<p class="muted" style="margin:0;max-width:75ch">[\s\S]*?<\/p>/,"");
   return`<div class="hello"><h1>Incidência</h1><p>Quanto cada matéria vale na prova${IS_TJ?" de Oficial de Justiça do TJSP":PLAN&&PLAN.name?" de "+esc(PLAN.name):""} e quais assuntos mais caem em cada matéria. A IA se baseia nessas informações para montar os seus resumos, os simulados e a prioridade das questões; o planejamento das metas também.</p></div>${h}`}
 /* ---------- Aba Estrutura da prova ---------- */
@@ -5869,16 +5872,16 @@ const SLM=10,RS=120,RH0=4,SPH=60/SLM;
 (function(){let ch=false;const used=new Set(PLANS.list.map(p=>p.rc).filter(Boolean));PLANS.list.forEach(p=>{if(!p.rc){const c=[..."123456789"].find(x=>!used.has(x));if(c){p.rc=c;used.add(c);ch=true}}});if(ch){try{localStorage.setItem(PLK,JSON.stringify(PLANS))}catch(e){}}})();
 const MYC=IS_TJ?"s":(PLAN.rc||"1");
 /* estudo na rotina: Concurso 1 (foco principal) azul royal, Concurso 2 verde-azulado, outros concursos rosa escuro */
-const SCOL=["#2a5bd7","#14968c","#b0306a","#5b4fc4","#3d7d3a","#8a6d1f","#c8553d"];
+const SCOL=["#1f4fd1","#0f9b8e","#a8285f","#a8285f","#a8285f","#a8285f","#a8285f"];
 /* cores pensadas para a rotina: trabalho vermelho, refeição amarelo (energia), treino laranja, psicólogo rosa claro (cuidado),
    descanso roxo (relaxar), sono azul claro (calma), outros compromissos bege escuro */
-const RBASE=[["t","Trabalho","#d0453a"],["a","Refeição / almoço","#f2c230"],["g","Treino / atividade física","#f08a24"],["y","Psicólogo / saúde mental","#f4a6c6"],["l","Descanso / livre","#8b5cf6"],["d","Deslocamento","#7d8796"],["z","Sono","#8cc8f0"],["o","Outros compromissos","#9c7a4f"],["i","Intervalo","#e8b9a0"]];
+const RBASE=[["t","Trabalho","#d93a2f"],["a","Almoço / Refeição","#f5c518"],["g","Treino / Atividade Física","#f57c12"],["y","Psicólogo / Saúde Mental","#f7a8c8"],["l","Descanso / Livre / Outros","#7c3aed"],["z","Sono","#8ecdf5"],["o","Outros compromissos","#a8865c"],["d","Deslocamento","#7d8796"],["i","Intervalo","#e8b9a0"]];
 let RCAT=[],RCI={},SCODES=new Set(),SPLAN={};
 const pCode=p=>p.id==="tjsp"?"s":(p.rc||"1");
 const pShort=p=>p.id==="tjsp"?prot("Oficial de Justiça"):(p.cargo||p.name);
-function rotCats(){const L=allPlans();SPLAN={};const st=L.map((p,k)=>{const c=pCode(p);SPLAN[c]=p;return[c,L.length>1?"Estudo · "+pShort(p):"Estudo",SCOL[k%SCOL.length]]});
+function rotCats(){const L=allPlans();SPLAN={};const st=L.map((p,k)=>{const c=pCode(p);SPLAN[c]=p;const nm=k===0?"Concurso 1 (Foco Principal)":k===1?"Concurso 2 (Segundo Foco)":"Outro concurso";return[c,L.length>1?nm+" · "+pShort(p):nm,SCOL[Math.min(k,SCOL.length-1)]]});
   /* horários de estudo do outro concurso (que agora fica no outro aplicativo) continuam aparecendo na rotina */
-  const ex=[];try{const known=new Set([...st.map(x=>x[0]),...RBASE.map(x=>x[0]),"."]);new Set(ROT().d.join("")).forEach(c=>{if(!known.has(c))ex.push([c,"Estudo · "+(c==="s"?"Oficial de Justiça":"outro concurso"),"#b0306a"])})}catch(e){}
+  const ex=[];try{const known=new Set([...st.map(x=>x[0]),...RBASE.map(x=>x[0]),"."]);new Set(ROT().d.join("")).forEach(c=>{if(!known.has(c))ex.push([c,"Outro concurso"+(c==="s"?" · Oficial de Justiça":""),"#a8285f"])})}catch(e){}
   RCAT=[...st,...RBASE,...ex];RCI=Object.fromEntries(RCAT.map(x=>[x[0],x]));SCODES=new Set(st.map(x=>x[0]))}
 rotCats();
 const RWN=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"],RWS=["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"];
@@ -6084,12 +6087,12 @@ document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.d
 document.addEventListener("keydown",e=>{const el=e.target;if(!el||el.id!=="pxQ"||e.key!=="Enter")return;e.preventDefault();A.pxAdd()});
 
 /* ===== Montar a rotina como num calendário: blocos de arrastar, mover e esticar ===== */
-const RTDEF={t:6,a:6,g:6,y:6,l:6,i:6,d:6,o:6,z:6},RTORD=["t","a","g","y","l","i","d","o","z"];
+const RTDEF={t:6,a:6,g:6,y:6,l:6,i:6,d:6,o:6,z:6},RTORD=["t","y","g","a","l","z","o","d","i"];
 const rtSp=()=>(UI.rtPx||40)/SPH;
 function inkOn(h){const n=parseInt(String(h).slice(1),16);if(isNaN(n))return"#fff";return(.299*(n>>16&255)+.587*(n>>8&255)+.114*(n&255))>165?"#1d1d1f":"#fff"}
 function rtView(){rotCats();const R=ROT(),PX=UI.rtPx||40,sp=PX/SPH,multi=allPlans().length>1,wt=wdOf(today());
-  const pal=[...[...SCODES].map(k=>[k,multi?"Estudo · "+planMark(SPLAN[k]):"Tempo de estudo",RCI[k][2],6]),...RTORD.map(k=>[k,RCI[k][1],RCI[k][2],RTDEF[k]])]
-    .map(([k,l,col,len])=>`<div class="rt-pal" data-k="${k}" data-len="${len}" style="--c:${col}" role="button" tabindex="0" aria-label="Arrastar ${esc(l)} para o quadro"><b>${esc(l)}</b><small>${durL(len*SLM)}</small></div>`).join("");
+  const pal=[...[...SCODES].map(k=>[k,RCI[k][1],RCI[k][2],6]),...RTORD.map(k=>[k,RCI[k][1],RCI[k][2],RTDEF[k]])]
+    .map(([k,l,col,len])=>`<div class="rt-pal" data-k="${k}" data-len="${len}" style="--c:${col};--ink:${inkOn(col)}" role="button" tabindex="0" aria-label="Arrastar ${esc(l)} para o quadro"><b>${esc(l)}</b><small>${durL(len*SLM)}</small></div>`).join("");
   const hours=[...Array(RS/SPH+1)].map((_,h)=>`<div class="wk-hl" style="top:${h*PX}px"><span>${pad((RH0+h)%24)}:00</span></div>`).join("");
   const cols=RWS.map((_,w)=>{const x=R.d[w],cnt={};let i=0,h="";
     while(i<RS){let j=i;while(j<RS&&x[j]===x[i])j++;const C=RCI[x[i]];
