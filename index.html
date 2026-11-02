@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611020813"></script>
+<script src="/claude-shim.js?v=202611020849"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1068,7 +1068,33 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 .qz-o.right{border-color:var(--ok);background:var(--ok-soft)}.qz-o.right .qz-k{color:var(--ok)}
 .qz-o.wrong{border-color:var(--bad);background:var(--bad-soft)}.qz-o.wrong .qz-k{color:var(--bad)}
 .qz-r{padding:10px 12px;border-radius:10px;font-size:13.5px}.qz-r.ok{background:var(--ok-soft);color:var(--fg)}.qz-r.bad{background:var(--bad-soft);color:var(--fg)}
-.qz-r.ok b:first-child{color:var(--ok)}.qz-r.bad b:first-child{color:var(--bad)}
+.qz-r.ok>b:first-of-type{color:var(--ok)}.qz-r.bad>b:first-of-type{color:var(--bad)}
+/* fluidez ao selecionar, riscar e resolver */
+.qz-o,.sm-alt{transition:border-color .18s ease,background-color .18s ease,box-shadow .2s ease,transform .14s ease,opacity .25s ease}
+.qz-o:active:not([disabled]),.sm-alt:active:not(:disabled){transform:scale(.985)}
+.qz-o .qz-k{transition:color .18s,transform .2s}.qz-o.sel .qz-k{transform:scale(1.12);color:var(--lime)}
+.qz-o.pop,.sm-alt.pop{animation:qzPop .3s cubic-bezier(.3,1.6,.5,1)}
+@keyframes qzPop{0%{transform:scale(.97)}55%{transform:scale(1.018)}100%{transform:scale(1)}}
+.qz-t{background:linear-gradient(var(--bad),var(--bad)) no-repeat 0 60%/0 2px;transition:background-size .32s ease}
+.qz-o.x>span:last-child{text-decoration:none!important;opacity:.5}.qz-o.x .qz-t{background-size:100% 2px}
+.sm-alt.x{transition:opacity .3s,background-color .2s}
+.qz-solve .btn.ready{animation:qzReady .35s ease}@keyframes qzReady{0%{transform:scale(.96)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+.qz-o[disabled]:not(.right):not(.wrong){opacity:.6}
+.qz-ri{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;margin-right:7px;vertical-align:-6px;color:#fff}.qz-ri svg{width:14px;height:14px}
+.qz-r.ok .qz-ri{background:var(--ok)}.qz-r.bad .qz-ri{background:var(--bad)}
+.qz-q.fx .qz-o.right{animation:qzRight .7s ease}.qz-q.fx.bad .qz-o.right{animation-delay:.42s;animation-fill-mode:both}
+@keyframes qzRight{0%{transform:scale(1);box-shadow:0 0 0 0 color-mix(in srgb,var(--ok) 45%,transparent)}35%{transform:scale(1.025);box-shadow:0 0 0 7px color-mix(in srgb,var(--ok) 28%,transparent)}100%{transform:scale(1);box-shadow:0 0 0 12px transparent}}
+.qz-q.fx .qz-o.wrong{animation:qzShake .45s ease}
+@keyframes qzShake{0%,100%{transform:translateX(0)}18%{transform:translateX(-7px)}36%{transform:translateX(6px)}54%{transform:translateX(-4px)}72%{transform:translateX(3px)}}
+.qz-q.fx .qz-o[disabled]:not(.right):not(.wrong){animation:qzDim .4s ease both}@keyframes qzDim{from{opacity:1}to{opacity:.6}}
+.qz-q.fx .qz-r{animation:qzIn .42s cubic-bezier(.2,.9,.3,1.2) .12s both}.qz-q.fx.bad .qz-r{animation-delay:.5s}
+@keyframes qzIn{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:none}}
+.qz-q.fx .qz-ri{animation:qzBurst .5s cubic-bezier(.3,1.8,.5,1) .25s both}.qz-q.fx.bad .qz-ri{animation-delay:.6s}
+@keyframes qzBurst{from{transform:scale(0) rotate(-40deg)}to{transform:scale(1) rotate(0)}}
+.qz-q.fx .qz-c{animation:qzIn .4s ease .35s both}
+.qz-g button.fxd{animation:qzPop .45s cubic-bezier(.3,1.6,.5,1) .3s both}
+.qz-q.enter{animation:qzEnter .28s ease}@keyframes qzEnter{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.qz-o,.sm-alt,.qz-q,.qz-q *,.qz-g button,.qz-solve .btn{animation:none!important;transition:none!important}}
 .qz-c summary{cursor:pointer;font-size:13px;color:var(--lime-txt)}.qz-c p{font-size:13.5px;line-height:1.55;color:var(--fg2)}
 
 .ptw{display:inline-flex;align-items:stretch;flex:none;position:relative}
@@ -3000,6 +3026,9 @@ function hlPrompt(sid,c){const L=hlAula(sid,c),cf=hlCfg(),own=L.filter(h=>h.c!==
     x+=cf.mode==="puro"?"Monte o resumo SOMENTE a partir das marcações do aluno, organizadas pelos assuntos da aula e explicadas de forma clara. Não acrescente pontos que ele não marcou.":"Inclua obrigatoriamente cada ponto marcado pelo aluno no assunto certo do resumo e sinalize com (marcado por você)."}
   return x}
 /* resumo sem IA: estrutura real da aula, o que mais cai, destaques do professor, marcações e trechos cobrados */
+function fxVib(p){try{if(navigator.vibrate&&!matchMedia("(prefers-reduced-motion: reduce)").matches)navigator.vibrate(p)}catch(e){}}
+function smPaint(el,x,d,i){el.parentNode.querySelectorAll("[data-l]").forEach(b=>b.setAttribute("aria-pressed",String(d.ans[i]===b.dataset.l)));
+  const g=$("smg"+i);if(g)g.classList.toggle("on",!!d.ans[i]);const c=$("smCnt");if(c)c.textContent=Object.keys(d.ans).length+" de "+(x.kind==="prova"?PV24.n:d.qs.length)+" respondidas"}
 function rsHlBox(sid,c){const cf=hlCfg(),L=hlAula(sid,c),own=L.filter(h=>h.c!=="q").length,qq=L.length-own;
   return`<div class="hlbox"><div class="row" style="justify-content:space-between;gap:10px"><b>${ic("bulb")} Marcações no resumo</b><button class="btn sm ${cf.on?"pri":""}" data-a="hlSet" data-k="on" aria-pressed="${cf.on}">${cf.on?"Ligado":"Desligado"}</button></div>
   <span class="muted small">${cf.on?"As suas marcações do PDF entram no resumo desta e das outras aulas.":"Desligado: o resumo é automático, pelo que mais cai. Ligue para incluir o que você marcou com o marca-texto."} Nesta aula: ${own} marcação(ões) suas e ${qq} trecho(s) em laranja das questões resolvidas${qq?" (esses sempre entram)":""}.</span>
@@ -4619,17 +4648,18 @@ function quizHTML(p,ctx){const Z=qzDoc(p.id),busy=QZ_BUSY.has(p.id);ctx=ctx||"m"
   if(!Z.L.length)return`<div class="qz"><p class="muted small" style="margin:0">Não consegui separar as questões deste PDF automaticamente.</p><div class="row">${SAMPLE?`<button class="btn sm pri" data-a="qzAI" data-id="${p.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Montando…':ic("bulb")+" Montar com a IA"}</button>`:""}<button class="btn sm ghost" data-a="qzBuild" data-id="${p.id}" data-f="1">${ic("reset")} Tentar de novo</button></div></div>`;
   const miss=Z.L.filter(x=>!x.k).length,missBtn=miss&&SAMPLE&&!p.ai?`<div class="row qz-miss"><span class="muted small">${miss} quest${miss>1?"ões":"ão"} sem gabarito no PDF.</span><button class="btn sm" data-a="qzKeyAI" data-id="${p.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Conferindo…':ic("bulb")+" Completar gabaritos com fundamento"}</button></div>`:"";
   const S=qzStats(Z),key="qz:"+p.id,i=clamp(UI[key]||0,0,Z.L.length-1),q=Z.L[i],A=Z.ans[q.id],opts=q.ce?[["C","Certo"],["E","Errado"]]:q.o;
+  const fx=!!(A&&UI.qzFx&&UI.qzFx.q===q.id&&Date.now()-UI.qzFx.t<1500),lk="qzlast:"+p.id+ctx,ent=UI[lk]&&UI[lk]!==q.id;UI[lk]=q.id;
   const multi=new Set(Z.L.map(x=>x.seq)).size>1;
-  const dots=Z.L.map((x,k)=>{const a=Z.ans[x.id];return(multi&&(k===0||Z.L[k-1].seq!==x.seq)?`<span class="qz-sep">Lista ${[...new Set(Z.L.map(y=>y.seq))].indexOf(x.seq)+1}</span>`:"")+`<button class="${a?(a.ok?"ok":"err"):""} ${k===i?"cur":""}" data-a="qzGo" data-id="${p.id}" data-i="${k}" aria-label="Questão ${x.n}${a?(a.ok?", acertou":", errou"):""}">${x.n}</button>`}).join("");
+  const dots=Z.L.map((x,k)=>{const a=Z.ans[x.id];return(multi&&(k===0||Z.L[k-1].seq!==x.seq)?`<span class="qz-sep">Lista ${[...new Set(Z.L.map(y=>y.seq))].indexOf(x.seq)+1}</span>`:"")+`<button class="${a?(a.ok?"ok":"err"):""} ${k===i?"cur":""} ${k===i&&fx?"fxd":""}" data-a="qzGo" data-id="${p.id}" data-i="${k}" aria-label="Questão ${x.n}${a?(a.ok?", acertou":", errou"):""}">${x.n}</button>`}).join("");
   const ob=opts.map(([k,txt])=>{let cl="";if(A){if(q.k&&k===q.k)cl="right";if(A.a===k&&!A.ok)cl="wrong";if(A.a===k&&A.ok)cl="right"}
     const xs=(UI.qzX||{})[p.id+"|"+q.id]||[],x=xs.includes(k),sl=!A&&(UI.qzSel||{})[p.id+"|"+q.id]===k;
-    return`<button class="qz-o ${cl} ${x?"x":""} ${sl?"sel":""}" aria-pressed="${sl}" data-a="qzPick" data-id="${p.id}" data-q="${q.id}" data-k="${k}" ${A?"disabled":""} title="${x?"Alternativa riscada · dois cliques para desfazer":"Um clique seleciona · dois cliques riscam a alternativa"}"><span class="qz-k">${q.ce?"":k}</span><span>${esc(txt)}</span></button>`}).join("");
+    return`<button class="qz-o ${cl} ${x?"x":""} ${sl?"sel":""}" aria-pressed="${sl}" data-a="qzPick" data-id="${p.id}" data-q="${q.id}" data-k="${k}" ${A?"disabled":""} title="${x?"Alternativa riscada · dois cliques para desfazer":"Um clique seleciona · dois cliques riscam a alternativa"}"><span class="qz-k">${q.ce?"":k}</span><span><span class="qz-t">${esc(txt)}</span></span></button>`}).join("");
   return`<div class="qz"><div class="qz-h"><b>${p.tec?"Questões do TEC desta aula":p.ai?"Questões criadas para você":"Questões do PDF"}</b><span class="qz-sc">${S.f} de ${S.n} respondidas · <b class="${S.f?S.pct>=75?"okc":S.pct>=50?"warnc":"badc":""}">${S.pct}% de acertos</b></span></div>
    ${missBtn}<div class="qz-bar" aria-hidden="true"><i class="ok" style="width:${S.n?S.ok/S.n*100:0}%"></i><i class="bad" style="width:${S.n?(S.f-S.ok)/S.n*100:0}%"></i></div>
    <div class="qgrid qz-g">${dots}</div>
-   <div class="qz-q"><div class="qz-qh"><span class="code">Questão ${q.n}${q.seq>1?" · lista "+q.seq:""}</span>${q.p?`<button class="btn sm ghost" data-a="read" data-id="${p.id}" data-pa="${q.p}" data-pb="${q.p}">${ic("book")} Ver no PDF (p. ${q.p})</button>`:""}</div>
+   <div class="qz-q${fx?" fx "+(A.ok?"good":"bad"):""}${ent&&!fx?" enter":""}"><div class="qz-qh"><span class="code">Questão ${q.n}${q.seq>1?" · lista "+q.seq:""}</span>${q.p?`<button class="btn sm ghost" data-a="read" data-id="${p.id}" data-pa="${q.p}" data-pb="${q.p}">${ic("book")} Ver no PDF (p. ${q.p})</button>`:""}</div>
     <p class="qz-s">${esc(q.s)}</p><div class="qz-os">${ob}</div>${A?"":`<div class="row qz-solve"><button class="btn pri" data-a="qzSolve" data-id="${p.id}" data-q="${q.id}" ${(UI.qzSel||{})[p.id+"|"+q.id]?"":"disabled"}>${ic("check")} Resolver questão</button><span class="muted small">Um clique seleciona a alternativa · dois cliques riscam (eliminam). A resposta só vale ao tocar em Resolver.</span></div>`}
-    ${A?`<div class="qz-r ${A.ok?"ok":"bad"}"><b>${A.ok?"Acertou!":"Errou."}</b> ${q.k?`Gabarito: <b>${q.ce?(q.k==="C"?"Certo":"Errado"):"Letra "+q.k}</b>${q.kai?` <span class="chip warn" title="O PDF não trouxe o gabarito desta questão">gabarito inferido</span> ${esc(q.kf||"")}`:""}.`:(p.ai?"Sem gabarito.":"O PDF não trouxe o gabarito desta questão.")}${!A.ok?" Ela entrou em Erradas e nas revisões.":""}</div>${q.c?`<details class="qz-c"><summary>${p.ai?"Comentário"+(q.pg?" (p. "+q.pg+" do PDF)":""):"Comentário do professor"}</summary><p>${esc(q.c).replace(/\n/g,"<br>")}</p></details>`:""}`:""}
+    ${A?`<div class="qz-r ${A.ok?"ok":"bad"}"><span class="qz-ri" aria-hidden="true">${ic(A.ok?"check":"close")}</span><b>${A.ok?"Acertou!":"Errou."}</b> ${q.k?`Gabarito: <b>${q.ce?(q.k==="C"?"Certo":"Errado"):"Letra "+q.k}</b>${q.kai?` <span class="chip warn" title="O PDF não trouxe o gabarito desta questão">gabarito inferido</span> ${esc(q.kf||"")}`:""}.`:(p.ai?"Sem gabarito.":"O PDF não trouxe o gabarito desta questão.")}${!A.ok?" Ela entrou em Erradas e nas revisões.":""}</div>${q.c?`<details class="qz-c"><summary>${p.ai?"Comentário"+(q.pg?" (p. "+q.pg+" do PDF)":""):"Comentário do professor"}</summary><p>${esc(q.c).replace(/\n/g,"<br>")}</p></details>`:""}`:""}
     ${A&&!q.k?`<div class="row"><button class="btn sm" data-a="qzSelf" data-id="${p.id}" data-q="${q.id}" data-v="1">Acertei</button><button class="btn sm" data-a="qzSelf" data-id="${p.id}" data-q="${q.id}" data-v="0">Errei</button></div>`:""}
     <div class="row" style="justify-content:space-between"><button class="btn sm ghost" data-a="qzGo" data-id="${p.id}" data-i="${i-1}" ${i?"":"disabled"}>← Anterior</button>${A?`<button class="btn sm ghost" data-a="qzUndo" data-id="${p.id}" data-q="${q.id}">Responder de novo</button>`:""}<button class="btn sm ${A?"pri":"ghost"}" data-a="qzGo" data-id="${p.id}" data-i="${i+1}" ${i<Z.L.length-1?"":"disabled"}>${A?"Próxima →":"Pular →"}</button></div></div></div>`}
 function qzMark(p,q,ok){const Z=qzDoc(p.id);if(!Z)return;if(p.ai){if(!ok)addMiss(p.id+":"+q.n,p.name+" · questão "+q.n+(q.as?" ("+q.as+")":"")+(q.pg?" · ver p. "+q.pg+" do PDF":""),p.sid);return}const n=qzNum(q);p.qs=p.qs||[];let e=p.qs.find(x=>x.n===n);
@@ -7382,15 +7412,19 @@ Object.assign(A,{
   qzGo(el){const Z=qzDoc(el.dataset.id);if(!Z)return;UI["qz:"+el.dataset.id]=clamp(+el.dataset.i,0,Z.L.length-1);rerenderQz()},
   /* Alternativa: um clique responde; dois cliques riscam (eliminam) ou tiram o risco. O clique simples espera um instante
      para não responder sem querer quando a intenção era riscar. Alternativa riscada não responde com um clique. */
-  qzPick(el,e){const key=el.dataset.id+"|"+el.dataset.q,k=el.dataset.k;UI.qzX=UI.qzX||{};clearTimeout(A.qzPick.t);
-    if(e&&e.detail>=2){const L=UI.qzX[key]=UI.qzX[key]||[],i=L.indexOf(k);if(i>=0)L.splice(i,1);else L.push(k);el.classList.toggle("x",i<0);if(i<0&&UI.qzSel&&UI.qzSel[key]===k){UI.qzSel[key]=null;el.classList.remove("sel");el.setAttribute("aria-pressed","false");const sb=document.querySelector(`[data-a="qzSolve"][data-id="${el.dataset.id}"][data-q="${el.dataset.q}"]`);if(sb)sb.disabled=true}el.title=i<0?"Alternativa riscada · dois cliques para desfazer":"Um clique responde · dois cliques riscam a alternativa";return}
-    if((UI.qzX[key]||[]).includes(k)){toast("Alternativa riscada. Dê dois cliques para tirar o risco.");return}
-    A.qzPick.t=setTimeout(()=>{if(!document.body.contains(el)||el.disabled)return;UI.qzSel=UI.qzSel||{};UI.qzSel[key]=UI.qzSel[key]===k?null:k;
-      el.parentNode.querySelectorAll(".qz-o").forEach(b=>{const on=UI.qzSel[key]===b.dataset.k;b.classList.toggle("sel",on);b.setAttribute("aria-pressed",String(on))});
-      const sb=document.querySelector(`[data-a="qzSolve"][data-id="${el.dataset.id}"][data-q="${el.dataset.q}"]`);if(sb)sb.disabled=!UI.qzSel[key]},240)},
+  qzPick(el,e){const key=el.dataset.id+"|"+el.dataset.q,k=el.dataset.k;UI.qzX=UI.qzX||{};UI.qzSel=UI.qzSel||{};clearTimeout(A.qzPick.t);
+    const paint=()=>{el.parentNode.querySelectorAll(".qz-o").forEach(b=>{const on=UI.qzSel[key]===b.dataset.k;b.classList.toggle("sel",on);b.setAttribute("aria-pressed",String(on))});
+      const sb=document.querySelector(`[data-a="qzSolve"][data-id="${el.dataset.id}"][data-q="${el.dataset.q}"]`);if(sb){sb.disabled=!UI.qzSel[key];sb.classList.toggle("ready",!!UI.qzSel[key])}};
+    if(e&&e.detail>=2){const pv=A.qzPick.pv;if(pv&&pv.key===key)UI.qzSel[key]=pv.v;
+      const L=UI.qzX[key]=UI.qzX[key]||[],j=L.indexOf(k);if(j>=0)L.splice(j,1);else L.push(k);if(j<0&&UI.qzSel[key]===k)UI.qzSel[key]=null;
+      el.classList.toggle("x",j<0);el.classList.remove("pop");el.title=j<0?"Alternativa riscada · dois cliques para desfazer":"Um clique seleciona · dois cliques riscam a alternativa";paint();fxVib(6);return}
+    A.qzPick.pv={key,v:UI.qzSel[key]||null};
+    if((UI.qzX[key]||[]).includes(k)){A.qzPick.t=setTimeout(()=>toast("Alternativa riscada. Dê dois cliques para tirar o risco."),280);return}
+    UI.qzSel[key]=UI.qzSel[key]===k?null:k;paint();if(UI.qzSel[key]){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");fxVib(8)}},
   /* a resposta só conta aqui: resolve com a alternativa selecionada */
   qzSolve(el){const key=el.dataset.id+"|"+el.dataset.q,k=(UI.qzSel||{})[key];if(!k){toast("Selecione uma alternativa primeiro");return}
-    delete UI.qzSel[key];A.qzAns({dataset:{id:el.dataset.id,q:el.dataset.q,k}})},
+    delete UI.qzSel[key];UI.qzFx={q:el.dataset.q,t:Date.now()};A.qzAns({dataset:{id:el.dataset.id,q:el.dataset.q,k}});
+    const Z=qzDoc(el.dataset.id),a=Z&&Z.ans[el.dataset.q];if(a)fxVib(a.ok?[18]:[35,45,35])},
   qzAns(el){const p=qzP(el.dataset.id),Z=qzDoc(el.dataset.id);if(!p||!Z)return;const q=Z.L.find(x=>x.id===el.dataset.q);if(!q||Z.ans[q.id])return;const k=el.dataset.k;
     if(!q.k||q.k==="X"){Z.ans[q.id]={a:k,ok:q.k==="X",d:today(),self:1};if(q.k==="X")qzMark(p,q,true)}else{const ok=k===q.k;Z.ans[q.id]={a:k,ok,d:today()};qzMark(p,q,ok)}
     touch("qz-"+p.id);rerenderQz();mapQ(p,q)},
@@ -7520,13 +7554,14 @@ Object.assign(A,{
   smStart(el){const x=smGet(el.dataset.id),d=smDoc(el.dataset.id);if(!x||!d)return;d.t0=Date.now();if(x.st!=="run"){x.st="run";x.started=today();touch("simx")}touch("sim-"+x.id);render()},
   smPause(el){const d=smDoc(el.dataset.id);if(!d||!d.t0)return;d.el=(d.el||0)+(Date.now()-d.t0)/1000;d.t0=null;touch("sim-"+el.dataset.id);render()},
   smAns(el,e){const id=el.dataset.id,x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run")return;const i=el.dataset.i,l=el.dataset.l,key=id+"|"+i;UI.smX=UI.smX||{};clearTimeout(A.smAns.t);
-    if(e&&e.detail>=2){const L=UI.smX[key]=UI.smX[key]||[],j=L.indexOf(l);if(j>=0)L.splice(j,1);else L.push(l);el.classList.toggle("x",j<0);if(j<0&&d.ans[i]===l){delete d.ans[i];touch("sim-"+id);el.setAttribute("aria-pressed","false");const g=$("smg"+i);if(g)g.classList.remove("on")}return}
-    if((UI.smX[key]||[]).includes(l)){toast("Alternativa riscada. Dê dois cliques para tirar o risco.");return}
-    A.smAns.t=setTimeout(()=>A.smPick(el),240)},
+    if(e&&e.detail>=2){const pv=A.smAns.pv;if(pv&&pv.key===key){if(pv.v)d.ans[i]=pv.v;else delete d.ans[i]}
+      const L=UI.smX[key]=UI.smX[key]||[],j=L.indexOf(l);if(j>=0)L.splice(j,1);else L.push(l);el.classList.toggle("x",j<0);el.classList.remove("pop");if(j<0&&d.ans[i]===l)delete d.ans[i];touch("sim-"+id);smPaint(el,x,d,i);fxVib(6);return}
+    A.smAns.pv={key,v:d.ans[i]||null};
+    if((UI.smX[key]||[]).includes(l)){A.smAns.t=setTimeout(()=>toast("Alternativa riscada. Dê dois cliques para tirar o risco."),280);return}
+    A.smPick(el);if(d.ans[i]===l){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");fxVib(8)}},
   smPick(el){const id=el.dataset.id,x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run")return;const i=el.dataset.i,l=el.dataset.l;
     if(d.ans[i]===l)delete d.ans[i];else d.ans[i]=l;touch("sim-"+id);
-    el.parentNode.querySelectorAll("[data-l]").forEach(b=>b.setAttribute("aria-pressed",String(d.ans[i]===b.dataset.l)));
-    const g=$("smg"+i);if(g)g.classList.toggle("on",!!d.ans[i]);const c=$("smCnt");if(c)c.textContent=Object.keys(d.ans).length+" de "+(x.kind==="prova"?PV24.n:d.qs.length)+" respondidas"},
+    smPaint(el,x,d,i)},
   smEnd(el){const id=el.dataset.id,x=smGet(id),d=smDoc(id);if(!x||!d)return;const N=x.kind==="prova"?PV24.n:d.qs.length,b=N-Object.keys(d.ans).length;
     if(!confirm(b?"Ainda há "+b+" em branco. Entregar mesmo assim?":"Entregar o simulado e ver a correção?"))return;smFinish(id)},
   smDel(el){const id=el.dataset.id,x=smGet(id);if(!x)return;if(!confirm("Excluir este simulado e a nota dele? Os reforços já criados continuam."))return;
