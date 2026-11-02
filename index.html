@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611020559"></script>
+<script src="/claude-shim.js?v=202611020646"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -559,6 +559,8 @@ textarea.inp{min-height:84px;resize:vertical}
 .modal{position:fixed;inset:0;z-index:70;background:rgba(5,10,16,.6);display:grid;place-items:center;padding:20px;animation:fade .18s ease}
 .modal .box{width:min(460px,100%);background:var(--panel);border:1px solid var(--line);border-radius:var(--r-l);padding:20px;display:grid;gap:14px;box-shadow:var(--shadow)}
 .modal .box h3{font-size:18px}
+.pdm-r{display:grid;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--raise);line-height:1.5}
+button.apl-s{border:0;font:inherit;cursor:pointer}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:80;background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;font-size:14px;box-shadow:var(--shadow);max-width:calc(100% - 32px);width:max-content}
 @keyframes fade{from{opacity:0}}
 @keyframes slide{from{transform:translateX(30px);opacity:.4}}
@@ -1861,7 +1863,198 @@ function AU(sid){const mc=mainCourse(sid);if(mc&&mc.aulas&&mc.aulas.length)retur
 const auOf=(sid,c)=>String(c).startsWith("x:")?compAula(sid,c):(AU(sid).find(x=>x.c===c)||null);
 const auLabel=(sid,c)=>{const a=auOf(sid,c);if(String(c).startsWith("x:"))return a?cName(a.course)+" · Aula "+a.code:"Aula";return c==="U"?"Aula Única":a&&a.f==="t"?"Tópico "+c.slice(1):"Aula "+c};
 const daLabel=(sid,c)=>{const a=auOf(sid,c);return(a&&a.f==="t"?"do ":"da ")+auLabel(sid,c)};
-const teoEnd=p=>p.qc&&p.qc>3?p.qc-1:p.pages;
+const teoEnd=p=>p.st&&p.st.v===3?p.st.te:(p.qc&&p.qc>3?p.qc-1:p.pages);
+/* ================= Divisão da teoria pelos títulos reais do PDF =================
+   O painel lê o tamanho e a fonte de cada linha, acha os títulos e subtítulos dentro das páginas (não só no índice),
+   pula capa, índice e apresentação, para antes das questões e divide a teoria em partes de 15 a 18 páginas,
+   sempre parando antes de um novo tópico. Sem tópico por perto, divide em partes iguais (nunca mais de 18). */
+// MESMA lógica que vai para o painel: agrupa itens do pdf.js em linhas com tamanho e fonte
+function richLines(tc,H){const rows=[];let cur=null;
+ for(const it of tc.items){if(typeof it.str!=="string")continue;const s=it.str;const y=it.transform[5],x=it.transform[4],h=Math.hypot(it.transform[2],it.transform[3])||Math.abs(it.transform[0])||10;
+  if(!cur||Math.abs(y-cur.y)>Math.max(3,h*.4)){cur={y,x,h:0,t:"",fc:{},xe:null};rows.push(cur)}
+  const gap=cur.xe===null?0:x-cur.xe;if(cur.t&&!/\s$/.test(cur.t)&&!/^\s/.test(s)&&(gap>h*.18||gap<-h))cur.t+=" ";cur.t+=s;cur.xe=x+(it.width||0);
+  const n=s.replace(/\s/g,"").length;if(n){const let_=/[A-Za-zÀ-ú]/.test(s);if(h>cur.h&&let_)cur.h=h;cur.fc[it.fontName]=(cur.fc[it.fontName]||0)+n;if(!cur.f0)cur.f0=it.fontName;if(let_&&!cur.fl)cur.fl=it.fontName;if(cur.x>x)cur.x=x}}
+ return rows.map(r=>({t:r.t.replace(/[​­]/g,"").replace(/\s+/g," ").trim(),y:+(1-r.y/H).toFixed(3),h:+r.h.toFixed(1),f:r.fl||r.f0||"",fc:r.fc,x:Math.round(r.x)})).filter(r=>r.t)}
+
+/* ===== Estrutura do PDF de teoria: títulos reais, início e fim da teoria, e divisão em partes =====
+   Entrada: pages=[{p,L:[{t,y,h,f,fc,x}]}] (y = posição de 0 no topo a 1 no rodapé), ol = marcadores do PDF [{p,d,t}].
+   Mesma função no painel e nos testes. */
+var PS_NORM=s=>String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+var PS_PRES=/^(\d+[.)-]?\s*)?(apresenta[cç][aã]o|sobre o (professor|curso|autor)|metodologia|cronograma|como (estudar|usar|aproveitar)|conhe[cç]a|boas[- ]vindas|nossa (metodologia|equipe)|o curso|do curso|estrutura do curso|informa[cç][oõ]es (sobre o curso|iniciais do curso)|redes sociais|contato|sum[aá]rio|[ií]ndice)\b/i;
+var PS_QC=/^(\d+(\.\d+)*\s*[.)–-]?\s*)?(lista(s)? de quest|quest[aãoõ]{1,2}(es)? comentad|quest[oõ]es de (concursos|provas)|quest[oõ]es (cebraspe|cespe|fgv|fcc|vunesp|cesgranrio|diversas|objetivas|propostas|sem coment|para treinar|de fixa)|exerc[ií]cios (comentados|propostos|de fixa)|bateria de quest|gabaritos?\s*(das quest[oõ]es|oficial)?\s*$|quest[oõ]es\s*$)/i;
+var PS_CALL=/^(ex|exs|e\.g|anote|aten[cç][aã]o|importante|observa[cç][aã]o|obs|dica|cuidado|exemplo|exemplos|se liga|fique atento|esquematizando|esquema|resumindo|em resumo|para fixar|veja|note|nota|lembre-se|aprofundando|jurisprud[eê]ncia|caiu em prova|pegadinha|mnem[oô]nico|tome nota|hora de praticar|stj|stf|cf|cpc|cpp|cp|art|arts|lei|constitui[cç][aã]o federal|c[oó]digo (civil|penal|de processo)|decreto|s[uú]mula|tese|enunciado|quadro|tabela|figura|fonte|n[ií]vel|[oó]rg[aã]o|fun[cç][aã]o|por qu[eê]|gabarito|coment[aá]rios?|resposta|resolu[cç][aã]o|vamos l[aá])\b/i;
+var PS_END=/^(\d+[.)-]?\s*)?(e por hoje|considera[cç][oõ]es finais|encerramento|at[eé] a pr[oó]xima|bons estudos|finalizando|conclus[aã]o da aula|chegamos ao (fim|final))/i;
+function psStats(pages){const sz={},fn={};let tot=0;
+  pages.forEach(pg=>{if(pg.p<=2&&pages.length>6)return;pg.L.forEach(l=>{const n=l.t.replace(/\s/g,"").length;if(n<20)return;const k=Math.round(l.h*2)/2;sz[k]=(sz[k]||0)+n;const f=psMainFont(l);fn[f]=(fn[f]||0)+n;tot+=n})});
+  const top=o=>Object.entries(o).sort((a,b)=>b[1]-a[1])[0]||["10",0];
+  return{bh:+top(sz)[0]||10,bf:top(fn)[0]}}
+function psMainFont(l){let b="",m=-1;for(const k in l.fc||{})if(l.fc[k]>m){m=l.fc[k];b=k}return b||l.f}
+function psJunk(pages){const fr={},n=pages.length;pages.forEach(pg=>{const S=new Set(pg.L.map(l=>l.t.replace(/\d+/g,"#").slice(0,60)));S.forEach(k=>{fr[k]=(fr[k]||0)+1})});
+  const rep=Math.max(3,n*.25);return l=>fr[l.t.replace(/\d+/g,"#").slice(0,60)]>=rep||/^\d{1,4}$/.test(l.t)||/^==\w+==$/.test(l.t)||/^\d{11}\s*-\s/.test(l.t)||/www\.|\.com\.br/i.test(l.t)&&l.t.length<80||/^p[aá]g(ina)?\.?\s*\d+/i.test(l.t)}
+function psLetters(s){return(String(s).match(/[A-Za-zÀ-ú]/g)||[]).length}
+function psCaps(s){const L=String(s).match(/[A-Za-zÀ-ú]/g)||[];if(!L.length)return 0;return L.filter(c=>c===c.toUpperCase()&&c!==c.toLowerCase()).length/L.length}
+function psClean(t){return String(t).replace(/\s*\.{3,}\s*\d*\s*$/,"").replace(/\s+/g," ").replace(/^[-–•·\s]+/,"").trim().slice(0,90)}
+/* títulos encontrados no corpo do texto */
+var PS_BUL=/^[-•▪■□●○◆◇➢➤►▶✓✔❖❑⮚⦁*·-]+\s*/;
+function psHeads(pages,st,junk){const bh=st.bh,bf=st.bf,out=[];
+  const isBodyF=f=>f===bf;
+  let prose=null;
+  pages.forEach(pg=>{const L=pg.L.filter(l=>!junk(l)&&l.h>0).sort((a,b)=>a.y-b.y);const cand=[];
+    const xs=L.filter(l=>Math.abs(l.h-bh)<=bh*.18&&l.t.length>=60).map(l=>l.x).sort((a,b)=>a-b),mx=xs.length?xs[Math.floor(xs.length*.2)]:0;
+    prose=l=>l&&!junk(l)&&Math.abs(l.h-bh)<=bh*.18&&l.t.length>=45&&psCaps(l.t)<.6&&(!xs.length||Math.abs(l.x-mx)<=90);
+    /* entrelinha normal da página: separa título solto de linha que continua um parágrafo */
+    const gaps=[];for(let i=1;i<L.length;i++){const g=L[i].y-L[i-1].y;if(g>0&&g<.06&&prose(L[i])&&prose(L[i-1]))gaps.push(g)}gaps.sort((a,b)=>a-b);const lead=gaps.length?gaps[Math.floor(gaps.length/2)]:.022;
+    for(let i=0;i<L.length;i++){const l=L[i],bul=PS_BUL.test(l.t),t=l.t.replace(PS_BUL,""),r=l.h/bh,mf=psMainFont(l),lt=psLetters(t);if(lt<3||t.length>120)continue;
+      if(/\.{4,}\s*\d+\s*$/.test(t))continue;
+      const nx=L[i+1],pv=L[i-1],gapB=pv?l.y-pv.y:1,gapA=nx?nx.y-l.y:1;
+      const cont=nx&&/^[a-zà-ú(]/.test(nx.t.replace(PS_BUL,""))&&gapA<=lead*1.35;     /* frase que segue na linha de baixo: destaque, não título */
+      const contPrev=pv&&gapB<=lead*1.35&&!/[.:!?]\s*$/.test(pv.t)&&Math.abs(pv.h-l.h)<.6;
+      const words=t.split(/\s+/).length,num=/^(\d{1,2}(\.\d{1,2}){0,3}|[IVX]{1,4})\s*[.)–-]?\s+\S/.test(t)&&!/^\d{1,3}\s*[.)–-]\s*(letra|alternativa|certo|errado|anulad|gabarito|\(?[a-e]\))/i.test(t);
+      if(/[=+×÷√∑≤≥<>]|[\u{1D400}-\u{1D7FF}]/u.test(t)||/^[—–"“'‘]/.test(t))continue;
+      const afterNum=t.replace(/^(\d{1,2}(\.\d{1,2}){0,3}|[IVXLC]{1,6})\s*[.)–-]?\s*/,"");
+      if(/^([IVXLC]{1,6}|\d{1,3}|[a-z])\s*[.)–-]\s*[a-zà-ú]/.test(t)||/\((inclu[ií]d|reda[cç][aã]o|revogad|vide|vig[eê]ncia)/i.test(t)||/;\s*(e|ou)?$/.test(t)||/^(art\.?|§|par[aá]grafo)\s*\d/i.test(t))continue;
+      if(/^\(?\s*\d{0,3}\s*[.)–-]?\s*\(?(vunesp|fcc|fgv|cespe|cebraspe|cesgranrio|ibfc|idecan|quadrix|aocp|consulplan|iades|fundatec|ibade|objetiva|fumarc|esaf|instituto|banca)\b/i.test(t))continue;
+      const nb=(l.fc&&l.fc[bf])||0,tot=Object.values(l.fc||{}).reduce((a,b)=>a+b,0)||1,own=1-nb/tot;  /* parte da linha que não está na fonte do texto */
+      let k=0;
+      if(!cont&&!bul&&r>=1.28&&words<=18&&!/[,;]$/.test(t))k=r>=1.45?1:2;
+      else if(!cont&&!bul&&r>=1.07&&own>=.7&&words<=16&&!/[,;:]$/.test(t)&&(num||psCaps(t)>=.6||t.length<=80))k=2;
+      else if(!cont&&!bul&&own>=.85&&!isBodyF(mf)&&words<=12&&t.length<=80&&/^[A-ZÁ-Ú0-9]/.test(t)&&!/[,;:]$/.test(t)&&(gapB>=lead*1.45||!pv)&&!contPrev&&(num||psCaps(t)>=.6||/^(d[aoe]s?|na|no|em|sobre|conceito|introdu|natureza|princ[ií]pios?|requisitos|efeitos|esp[eé]cies|classifica|hip[oó]teses|procedimento|compet[eê]ncia|disposi)/i.test(t)||words<=6))k=2;
+      if(k){if(PS_CALL.test(PS_NORM(t).replace(/^[\d.\s)–-]+/,""))&&!num)continue;cand.push({i,l,k,r,tt:t})}
+      else{/* termo em destaque no começo da linha: "INTIMAÇÃO – Após a citação…" */
+        const m=t.match(/^((?:\d{1,2}[.)]\s*)?[A-ZÁÉÍÓÚÂÊÔÃÕÇ][A-ZÁÉÍÓÚÂÊÔÃÕÇ0-9 ,/()ºª]{3,70}?)\s*[–—:-]\s*(\S.*)$/);
+        if(m&&!isBodyF(l.f)&&psLetters(m[1].replace(/\b[IVXLC]+\b/g,""))>=4&&psCaps(m[1])>=.9&&/[a-zà-ú]{3}/.test(m[2])&&!PS_CALL.test(PS_NORM(m[1]).replace(/^[\d.\s)]+/,"")))cand.push({i,l,k:3,r,tt:m[1]})}}
+    /* títulos em várias linhas viram um só; bloco com mais de 3 linhas é quadro de destaque, não título */
+    const G=[];cand.forEach(c=>{const g=G[G.length-1];if(g&&c.k<3&&g.k<3&&c.i===g.last+1&&Math.abs(c.l.h-g.l.h)<.6&&psMainFont(c.l)===psMainFont(g.l)){g.last=c.i;g.n++;g.t+=" "+c.tt}else G.push({...c,last:c.i,n:1,t:c.tt})});
+    const byF={};G.forEach(g=>{if(g.k<3){const key=psMainFont(g.l)+"|"+Math.round(g.l.h);byF[key]=(byF[key]||0)+1}});
+    G.forEach(g=>{if(g.n>3)return;if(g.k<3&&byF[psMainFont(g.l)+"|"+Math.round(g.l.h)]>6)return;
+      if(g.k<3&&g.r<1.45){/* precisa vir texto corrido logo depois (descarta rótulos de esquema e figura) */
+        let ok=false;for(let j=g.last+1;j<=g.last+5&&j<L.length;j++){if(prose(L[j])){ok=true;break}if(L[j].h>=bh*1.28)break}
+        if(!ok&&g.last>=L.length-2)ok=true;if(!ok)return}
+      /* título que abre a página: o corte é no começo dela */
+      const above=L.slice(0,g.i).some(x=>x.t.length>3);
+      out.push({p:pg.p,y:above?g.l.y:0,t:psClean(g.t),l:g.k,h:g.l.h})})});
+  return out}
+/* marcadores do PDF e índice: ganham nível 1 e a posição do título no corpo, quando ele é achado */
+function psMerge(H,ol,toc){const key=s=>PS_NORM(s).replace(/[^a-z0-9]/g,"").slice(0,40);
+  const add=(e,lv)=>{if(!e.p)return;const k=key(e.t);if(k.length<3)return;
+    const m=H.find(h=>h.p===e.p&&(key(h.t).startsWith(k.slice(0,18))||k.startsWith(key(h.t).slice(0,18))));
+    if(m){m.l=Math.min(m.l,lv);m.src=1}else H.push({p:e.p,y:0,t:psClean(e.t),l:lv,src:1})};
+  (ol||[]).forEach(o=>add(o,o.d?2:1));(toc||[]).forEach(o=>add(o,1));
+  H.sort((a,b)=>a.p-b.p||a.y-b.y);return H.filter((h,i)=>!(i&&H[i-1].p===h.p&&Math.abs(H[i-1].y-h.y)<.01))}
+function psToc(pages,n){const out=[];pages.slice(0,8).forEach(pg=>{const L=pg.L.map(l=>l.t),isT=/indice|sumario/.test(PS_NORM(L.slice(0,6).join(" ")))||L.filter(l=>/\.{5,}\s*\d{1,3}$/.test(l)).length>=4;if(!isT)return;
+  for(let i=0;i<L.length;i++){const raw=L[i],dotted=/\.{3,}/.test(raw),l=raw.replace(/\.{3,}/g," ").replace(/\s+/g," ").trim();if(!l)continue;let m=dotted?l.match(/^(.{4,140}?)\s+(\d{1,3})$/):null;let t=m?m[1]:"",pn=m?+m[2]:0;
+    if(!m&&/[A-Za-zÀ-ú]{3}/.test(l)){for(let j=i+1;j<=i+3&&j<L.length;j++){const x=L[j].replace(/^\.+\s*/,"");if(/^\d{1,3}$/.test(x)){t=l;pn=+x;break}if(/[A-Za-zÀ-ú]{3}/.test(L[j]))break}}
+    t=t.replace(/^\s*(\d{1,2}(\.\d+)*\s*[).-]|[IVX]{1,4}\s*[-.)])\s*/,"").trim();if(t&&pn>pg.p&&pn<=n&&!/indice|sumario/.test(PS_NORM(t)))out.push({p:pn,t:t.slice(0,90)})}});return out}
+/* estrutura completa */
+function pdfStruct(pages,ol,oq){const n=pages.length;if(!n)return null;const st=psStats(pages),junk=psJunk(pages),toc=psToc(pages,n);
+  let H=psMerge(psHeads(pages,st,junk),ol,toc);
+  const isTocPg=pg=>{const L=pg.L.map(l=>l.t);return(/indice|sumario/.test(PS_NORM(L.slice(0,6).join(" ")))&&L.filter(l=>/\.{3,}\s*\d{1,3}$|\s\d{1,3}$/.test(l)).length>=3)||L.filter(l=>/\.{5,}\s*\d{1,3}$/.test(l)).length>=6};
+  const txtLen=pg=>pg.L.filter(l=>!junk(l)).reduce((a,l)=>a+l.t.length,0);
+  /* fim da teoria: o primeiro título de questões/gabarito depois do começo */
+  let q=null;for(const h of H){if(h.p>2&&h.l<3&&PS_QC.test(PS_NORM(h.t).replace(/\s+/g," ")))
+    {q=h;break}}
+  if(!q){for(const pg of pages){if(pg.p<=3)continue;const L=pg.L.filter(l=>!junk(l));for(const l of L.slice(0,8)){if(l.t.length<90&&(l.h>=st.bh*1.12||psMainFont(l)!==st.bf)&&PS_QC.test(PS_NORM(l.t))&&!/\.{4,}/.test(l.t)){q={p:pg.p,y:l.y,t:l.t};break}}if(q)break}}
+  /* início das questões que a leitura antiga achou (pela lista de questões): vale quando vem antes e a página tem cara de questão */
+  if(oq&&oq>3&&(!q||oq<q.p)){const mk=p=>(pages[p-1]&&pages[p-1].L||[]).some(l=>/^(gabarito|coment[aá]rios?\b|resposta|\(?\s*(vunesp|fcc|fgv|cespe|cebraspe|cesgranrio|ibfc|idecan|quadrix|aocp|consulplan|iades|fundatec|in[eé]dita)\b|\d{1,3}\s*[.)–-]\s*\(?\s*(vunesp|fcc|fgv|cespe|cebraspe|cesgranrio|ibfc|idecan|quadrix|aocp|consulplan|iades|fundatec|in[eé]dita|\d{4}))/i.test(l.t));
+    if(mk(oq)||mk(oq+1))q={p:oq,y:0,t:"Questões"}}
+  /* começo da teoria: pula capa, índice e apresentação (do curso, do professor) */
+  let p0=1;for(const pg of pages){if(pg.p>12)break;if((pg.p===1&&txtLen(pg)<900)||isTocPg(pg)){p0=pg.p+1;continue}break}
+  let start=null,presLv=0,presH=0,presP=0;
+  for(const h of H){if(h.p<p0)continue;if(q&&(h.p>q.p||h.p===q.p&&h.y>=q.y))break;const nt=PS_NORM(h.t);
+    if(/^(\d+[.)-]?\s*)?(sum[aá]rio|[ií]ndice)\b/.test(nt))continue;
+    if(PS_PRES.test(nt)){if(!presLv||h.l<=presLv){presLv=h.l;presH=h.h||99;presP=h.p}continue}
+    if(presLv&&h.p>presP+4)presLv=0;
+    if(presLv&&(h.l>presLv||(h.h||0)<presH*.75))continue;
+    if(h.l===3&&!presLv&&!start){/* termo em destaque antes de qualquer título: ainda pode ser apresentação */}
+    start=h;break}
+  if(!start)start={p:p0,y:0,t:""};
+  if(start.p-p0>12&&!presLv)start={p:p0,y:0,t:""};
+  let end=q?{p:q.p,y:q.y}:{p:n,y:1};
+  /* fecho da aula ("E por hoje, é isso!", "Considerações finais") perto do fim: a teoria acaba ali */
+  {const tot=psPos(end.p,end.y)-psPos(start.p,start.y);const z=H.find(h=>PS_END.test(PS_NORM(h.t))&&psPos(h.p,h.y)>psPos(start.p,start.y)+tot*.6&&psPos(h.p,h.y)<psPos(end.p,end.y));
+   const more=z&&psPos(end.p,end.y)-psPos(z.p,z.y)>=3&&H.some(h=>h.l<=Math.max(1,z.l)&&psPos(h.p,h.y)>psPos(z.p,z.y)+.01&&psPos(h.p,h.y)<psPos(end.p,end.y)-.01&&!PS_END.test(PS_NORM(h.t)));if(z&&!more)end={p:z.p,y:z.y}}
+  const hd=H.filter(h=>(h.p>start.p||h.p===start.p&&h.y>=start.y-.001)&&(h.p<end.p||h.p===end.p&&h.y<end.y-.001)&&!PS_PRES.test(PS_NORM(h.t))&&!PS_END.test(PS_NORM(h.t))).map(h=>({p:h.p,y:+h.y.toFixed(3),t:h.t,l:h.l}));
+  return{v:3,ts:start.p,tsy:+(start.y||0).toFixed(3),te:end.y<=.08?end.p-1:end.p,tey:end.y<=.08?1:+end.y.toFixed(3),qc:q?q.p:0,hd:hd.slice(0,500),bh:st.bh}}
+/* ===== Divisão em partes: 15 a 18 páginas, cortando antes de um título; sem título por perto, partes iguais (nunca mais de 18) ===== */
+var PG_LO=15,PG_HI=18;
+function psPos(p,y){return p+(y||0)}
+function partPlan(S,from,cuts){if(!S)return[];const A=from!=null?from:psPos(S.ts,S.tsy),E=psPos(S.te,S.tey>=1?1:S.tey);if(!(E>A+.05))return[];
+  /* cortes que o aluno escolheu: cada trecho entre eles é dividido sozinho */
+  const M=(cuts||[]).filter(x=>x>A+.3&&x<E-.3).sort((x,y)=>x-y);const out=[];let a=A;
+  [...M,E].forEach((b,i)=>{const seg=psSeg(S,a,b,i<M.length);seg.forEach(o=>out.push(o));a=b});
+  if(out.length)out[out.length-1].last=true;return out}
+function psSeg(S,A,E,man){
+  /* pontos de corte possíveis: cada título (força pelo nível) e o fim de cada página (corte no meio de um assunto) */
+  const P=[];(S.hd||[]).forEach(h=>{const x=psPos(h.p,h.y);if(x>A+.5&&x<E-.3)P.push({x,c:Math.max(0,(h.l===1?0:h.l===2?.6:1.4)-(h.y===0?1:0)),h})});
+  for(let k=Math.ceil(A);k<E;k++){if(k>A+.5&&k<E-.3&&!P.some(o=>Math.abs(o.x-k)<.12))P.push({x:k,c:4.5,pe:1})}
+  P.sort((a,b)=>a.x-b.x);P.push({x:E,c:0,end:1,man,h:man?psHeadAt(S,E):null});
+  const len=L=>L>=PG_LO&&L<=PG_HI?0:L>PG_HI?(L>PG_HI+.6?1e4:20):L>=10?(PG_LO-L)*.9:L>=6?4.5+(10-L)*1.6:40;
+  const N=P.length,best=new Array(N).fill(Infinity),prev=new Array(N).fill(-1);
+  for(let j=0;j<N;j++){const Lj=P[j].x-A;best[j]=(P[j].end&&Lj<=PG_HI+.6?0:len(Lj))+P[j].c;
+    for(let i=0;i<j;i++){if(!isFinite(best[i]))continue;const L=P[j].x-P[i].x;if(L<3||L>PG_HI+.6)continue;const c=best[i]+len(L)+P[j].c+.2;if(c<best[j]){best[j]=c;prev[j]=i}}}
+  const seq=[];let j=N-1;while(j>=0){seq.unshift(j);j=prev[j]}
+  const out=[];let a=A;seq.forEach(k=>{const o=P[k];out.push(psPart(S,a,o.x,o));a=o.x});return out}
+function psHeadAt(S,x){return(S.hd||[]).find(h=>Math.abs(psPos(h.p,h.y)-x)<.02)||null}
+function psHeadBefore(S,x){let r=null;(S.hd||[]).forEach(h=>{if(psPos(h.p,h.y)<=x+.001&&h.l<3)r=h});return r}
+function psPart(S,a,b,o){const pa=Math.floor(a+1e-6),yb=b-Math.floor(b),pbRaw=Math.floor(b-1e-6);
+  const endsAtPageEnd=Math.abs(b-Math.round(b))<.001,pb=endsAtPageEnd?Math.round(b)-1:Math.floor(b);
+  const s0=psHeadAt(S,a),cur=s0||psHeadBefore(S,a),nx=o&&o.h?o.h:(endsAtPageEnd?psHeadAt(S,Math.round(b)):null);
+  const hb=nx&&nx.y<=.12&&endsAtPageEnd;
+  return{a,b,pa,pb,ya:+(a-pa).toFixed(3),yb:endsAtPageEnd?null:+(b-pb).toFixed(3),n:Math.max(1,Math.round(b-a)),s0:s0?s0.t:"",cont:!s0&&cur?cur.t:"",nx:nx?nx.t:"",mid:!!(o&&o.pe&&!nx),last:false,man:!!(o&&o.man)}}
+
+
+const tNextPos=t=>t.yb!=null&&t.yb>0?t.pb+t.yb:t.pb+1;
+const stOk=p=>!!(p&&p.st&&p.st.v===3&&p.st.hd);
+const PLC=new Map();
+function stPlan(p,from){const S=p.st,k=p.id+"|"+(from==null?"":(+from).toFixed(3))+"|"+JSON.stringify(p.cuts||[])+"|"+S.hd.length+"|"+S.te+"|"+S.ts;let v=PLC.get(k);if(!v){v=partPlan(S,from,p.cuts);if(PLC.size>400)PLC.clear();PLC.set(k,v)}return v}
+function stChunk(p,a){const S=p.st,A0=psPos(S.ts,S.tsy);let A=Math.max(+a||0,A0);
+  const full=stPlan(p,null);let x=full.find(o=>Math.abs(o.a-A)<.02);
+  if(!x&&Math.abs(A-Math.round(A))<.001)x=full.find(o=>o.pa===A&&o.ya<=.15);
+  if(!x)x=stPlan(p,A)[0];if(!x)return null;
+  return{a:x.pa,b:x.pb,ya:x.ya||0,yb:x.yb,n:x.n,next:x.last?S.te+1:x.b}}
+/* texto da atividade de teoria: onde começa, onde para e quantas páginas */
+/* faixa de leitura no topo da atividade: onde parar */
+function rdStop(t){const p=t.pdf?pdf(t.pdf):null;if(stOk(p)&&t.pb){const S=p.st,b=tNextPos(t),E=psPos(S.te,S.tey>=1?1:S.tey),hb=psHeadAt(S,b);
+    if(b>=E-.02)return"sem índice e apresentação, até o fim da teoria";if(hb)return"sem índice e apresentação · pare antes de "+hb.t;return"sem índice e apresentação · o assunto continua na próxima parte"}
+  return"sem contar índice e apresentação, terminando no fim de um assunto"}
+function stDesc(p,t,lab){if(!stOk(p)||!t.pa||!t.pb)return null;const S=p.st,a=t.pa+(t.ya||0),b=tNextPos(t),E=psPos(S.te,S.tey>=1?1:S.tey);
+  const h0=psHeadAt(S,a),cur=h0||psHeadBefore(S,a),hb=psHeadAt(S,b),last=b>=E-.02,n=Math.max(1,Math.round(b-a));
+  let x=`<b>${esc(lab)}</b> – Estude da pág. ${t.pa}`;
+  x+=h0?` (${t.ya?"no meio da página, ":""}tópico <b>${esc(h0.t)}</b>)`:cur?` (continuação de <b>${esc(cur.t)}</b>)`:t.ya?" (do meio da página)":"";
+  if(last)x+=` até a pág. ${Math.min(t.pb,S.te)}, onde termina a teoria${S.qc?" (as questões começam em seguida)":""}`;
+  else if(hb)x+=t.yb!=null?` até a pág. ${t.pb}, parando antes do tópico <b>${esc(hb.t)}</b> (no meio da pág. ${t.pb})`:` até a pág. ${t.pb}, parando antes do tópico <b>${esc(hb.t)}</b> (que abre a pág. ${t.pb+1})`;
+  else x+=` até o fim da pág. ${t.pb} (o assunto continua na próxima parte)`;
+  return x+`. São ${n} página${n>1?"s":""}.`}
+const ST_NO=new Set();
+async function stScan(p){const buf=await pdfBytes(p);if(!buf||!(await ensurePdfjs()))throw new Error("pdf");
+  const doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise;const ol=await outlineOf(doc),RP=[];
+  for(let i=1;i<=doc.numPages;i++){const pg=await doc.getPage(i);RP.push({p:i,L:richLines(await pg.getTextContent(),pg.getViewport({scale:1}).height)});try{pg.cleanup()}catch(e){}}
+  try{doc.destroy()}catch(e){}const S=pdfStruct(RP,ol,p.qc);if(!S)throw new Error("st");stSave(p,S)}
+function stTrim(S){if(!S)return S;S.hd=(S.hd||[]).slice(0,400).map(h=>({p:h.p,y:h.y,t:String(h.t).slice(0,70),l:h.l}));return S}
+function stSave(p,S){p.st=stTrim(S);p.ts=S.ts;PLC.clear();touch("pdf-"+p.id);alignKey="";simCache.key="";
+  {const r1=curMeta(),md1=r1&&metaDoc(r1.n);if(md1&&md1.std)md1.std=0}
+  const r=curMeta();if(r&&!r.done&&!core().gj&&!started(r.n))replanCurrent();if(UI.pdMap===p.id)pdMapModal();render()}
+/* Divisão da aula: as partes automáticas e, se o aluno quiser, outro ponto de corte */
+function pdMapModal(){const p=pdf(UI.pdMap);if(!p){$("layer3").innerHTML="";return}
+  const head=`<div class="ash"><h3 style="margin:0">${ic("list")} Divisão da teoria</h3><button class="ibtn" data-a="pdMapClose" aria-label="Fechar">${ic("close")}</button></div><p class="muted small" style="margin:0">${esc(auLabel(p.sid,p.aula))} · ${esc(p.name)}</p>`;
+  if(!stOk(p)){$("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Divisão da teoria"><div class="box" style="width:min(640px,100%)">${head}<p style="margin:0">${ST_NO.has(p.id)?"Não consegui ler os títulos deste PDF agora. A divisão segue pelo número de páginas.":"Lendo os títulos do PDF para dividir a teoria…"}</p></div></div>`;
+    if(!ST_NO.has(p.id)&&!SCAN_BUSY){SCAN_BUSY=true;stScan(p).catch(()=>{ST_NO.add(p.id);pdMapModal()}).finally(()=>{SCAN_BUSY=false})}return}
+  const S=p.st,L=stPlan(p,null),E=psPos(S.te,S.tey>=1?1:S.tey);
+  const optLab=x=>{const h=psHeadAt(S,x);return h?`pág. ${Math.floor(x+1e-6)}${h.y?" (meio)":""} · antes de ${h.t}`:`fim da pág. ${Math.round(x)-1} (no meio do assunto)`};
+  const rows=L.map((o,k)=>{const d=stDesc(p,{pa:o.pa,pb:o.pb,ya:o.ya,yb:o.yb},"Parte "+(k+1));
+    let sel="";if(k<L.length-1){const lo=(k?L[k-1].b:o.a)+3,hi=(k+2<L.length?L[k+2].a:E)-3,C=[];
+      (S.hd||[]).forEach(h=>{const x=psPos(h.p,h.y);if(x>=lo&&x<=hi)C.push(x)});for(let pg=Math.ceil(lo);pg<=hi;pg++)if(!C.some(x=>Math.abs(x-pg)<.12))C.push(pg);
+      if(!C.some(x=>Math.abs(x-o.b)<.001))C.push(o.b);C.sort((a,b)=>a-b);
+      sel=`<label class="small muted" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">Corte desta parte <select class="inp" style="max-width:100%;flex:1 1 260px" data-c="pdCut" data-i="${k}">${C.map(x=>`<option value="${x.toFixed(3)}" ${Math.abs(x-o.b)<.001?"selected":""}>${esc(optLab(x))}</option>`).join("")}</select></label>`}
+    return`<div class="pdm-r"><div>${d}</div>${sel}</div>`}).join("");
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Divisão da teoria"><div class="box" style="width:min(680px,100%);max-height:calc(100vh - 40px);overflow:auto">${head}
+    <p class="small" style="margin:0">A divisão é automática: partes de 15 a 18 páginas, começando onde o conteúdo começa (sem capa, índice e apresentação) e sempre parando antes de um novo tópico. Quando o próximo tópico está longe, a parte é dividida ao meio para não ficar cansativa. Só mude se quiser outro ponto de parada.</p>
+    <div style="display:grid;gap:10px">${rows}</div>
+    <div class="row" style="justify-content:flex-end;gap:8px">${p.cuts&&p.cuts.length?`<button class="btn" data-a="pdAuto">Voltar ao automático</button>`:""}<button class="btn pri" data-a="pdMapClose">Pronto</button></div></div></div>`}
+function pdCutSet(k,x){const p=pdf(UI.pdMap);if(!stOk(p))return;const L=stPlan(p,null);const cuts=L.slice(0,k).map(o=>o.b);cuts.push(+x);p.cuts=cuts;PLC.clear();touch("pdf-"+p.id);
+  alignKey="";simCache.key="";{const r1=curMeta(),md1=r1&&metaDoc(r1.n);if(md1&&md1.std)md1.std=0}pdMapModal();render();toast("Divisão ajustada. As próximas atividades desta aula seguem o novo corte")}
+document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="pdCut")pdCutSet(+el.dataset.i,el.value)});
+
 const pdfsOf=sid=>PDFS().filter(p=>p.sid===sid).sort((a,b)=>natcmp(a.name,b.name));
 /* Aula fracionada (Domine TI, Jhoni Zini e outros cursos que dividem uma aula em vários PDFs): cada PDF é uma "parte"
    da mesma aula. As partes são lidas em sequência (Parte 1, depois Parte 2…) como se fossem um só material: a teoria de
@@ -1906,7 +2099,9 @@ const MAXPG=18,MINLEFT=4;
    terminando onde começa o próximo assunto e nunca dentro da lista de questões. Sobra de até 18 páginas vira uma parte só;
    sobra de 19 a 30 é dividida ao meio (no fim de um assunto), para não deixar uma parte minúscula no final. */
 const PG_MIN=15,PG_MAX=18,PG_ONE=22;
-function chunk15(p,a,tgt){
+function chunk15(p,a,tgt){if(stOk(p)){try{const r=stChunk(p,a);if(r)return r}catch(e){console.error(e)}}
+  const r=chunkPg(p,Math.floor(+a||1),tgt);return{a:r.a,b:r.b,ya:0,yb:null,n:r.b-r.a+1,next:r.b+1}}
+function chunkPg(p,a,tgt){
   const st0=p.ts||1;if(a<st0)a=st0;const end=teoEnd(p),rem=end-a+1;
   /* quantas partes ainda cabem: o número que deixa cada parte mais perto de 15 a 18 páginas */
   if(rem<=PG_ONE)return{a,b:end};
@@ -2047,8 +2242,8 @@ function planMeta(ctx,sim){
         const V=vParts(sid,au.c),loc=vAt(V,pr.pg);
         if(!loc){done(au);continue}
         const r=chunk15(loc.p,loc.a,tgt);
-        mk({ph:"T",sid,aula:au.c,pdf:loc.p.id,pa:r.a,pb:r.b,min:r5((r.b-r.a+1)*MINPG)});n++;
-        pr.pg=loc.off+r.b+1;if(!vAt(V,pr.pg))done(au);
+        mk(Object.assign({ph:"T",sid,aula:au.c,pdf:loc.p.id,pa:r.a,pb:r.b,min:r5(r.n*MINPG)},r.ya?{ya:r.ya}:{},r.yb!=null?{yb:r.yb}:{}));n++;
+        pr.pg=loc.off+r.next;if(!vAt(V,pr.pg))done(au);
       }else{
         if(sim&&pr.pg>EST_PG){done(au);continue}
         const a=pr.pg===1?3:pr.pg,b=sim?Math.min(a+15,EST_PG):a+15;
@@ -2093,7 +2288,7 @@ function applyPick(ctx,t){
   if(t.ph==="T"){
     ctx.cnt[sid]=(ctx.cnt[sid]||0)+1;
     if(t.whole){pr.i=idx+1;pr.pg=1;push(t.aula);return}
-    if(t.pdf){const p=pdf(t.pdf);if(p&&t.pb>=teoEnd(p)&&isLastPart(sid,t.aula,p.id)){pr.i=idx+1;pr.pg=1;push(t.aula)}else{pr.i=idx;pr.pg=(p?vOff(sid,t.aula,p.id):0)+t.pb+1}return}
+    if(t.pdf){const p=pdf(t.pdf);if(p&&t.pb>=teoEnd(p)&&isLastPart(sid,t.aula,p.id)){pr.i=idx+1;pr.pg=1;push(t.aula)}else{pr.i=idx;pr.pg=(p?vOff(sid,t.aula,p.id):0)+tNextPos(t)}return}
     pr.i=idx;pr.pg=t.pb+1;return;
   }
   if(t.gen)return;
@@ -2253,7 +2448,8 @@ function metaStatus(r){
 
 /* ================= Textos das atividades ================= */
 const pdfName=id=>{const p=pdf(id);return p?p.name.replace(/\.pdf$/i,""):"Material removido"};
-const secAt=(id,a)=>{const p=pdf(id);if(!p)return"";const s=(p.secs||[]).filter(x=>x.p<=a&&!isQSec(x.t)).pop();return s?s.t:""};
+const secsOf=p=>stOk(p)?p.st.hd.filter(h=>h.l<3):(p.secs||[]);
+const secAt=(id,a)=>{const p=pdf(id);if(!p)return"";const s=secsOf(p).filter(x=>x.p<=a&&!isQSec(x.t)).pop();return s?s.t:""};
 const topicName=k=>{if(!k)return"";const [i,j]=k.split(":").map(Number);return ED[i]&&ED[i].t[j]?ED[i].t[j][0]:""};
 function refTitle(o){
   if(o.aula){const a=auOf(o.sid,o.aula);return auLabel(o.sid,o.aula)+(a?" · "+a.d:"")}
@@ -2437,12 +2633,12 @@ function ensurePdfjs(){
 async function extractPdf(buf,sid,onp){
   if(!(await ensurePdfjs()))throw new Error("leitor");
   const doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise;
-  const n=doc.numPages,heads=[],LP=[],TXT=[];
+  const n=doc.numPages,heads=[],LP=[],TXT=[],RP=[];
   const ol=await outlineOf(doc);let qc=0;
   ol.forEach(o=>{if(!qc&&o.p>2&&QC.test(o.t))qc=o.p});
   for(let p=1;p<=n;p++){
     if(onp)onp(p,n);
-    const tc=await(await doc.getPage(p)).getTextContent();
+    const pg_=await doc.getPage(p),tc=await pg_.getTextContent();try{RP.push({p,L:richLines(tc,pg_.getViewport({scale:1}).height)})}catch(e){}
     const lines=[];let cur="",y=null;
     for(const it of tc.items){if(typeof it.str!=="string")continue;const yy=it.transform[5];if(y!==null&&Math.abs(yy-y)>3){lines.push(cur);cur=""}y=yy;cur+=it.str+" "}
     lines.push(cur);
@@ -2480,7 +2676,8 @@ async function extractPdf(buf,sid,onp){
   for(let pi=0;pi<n;pi++){(LP[pi]||[]).forEach(l=>{if(QS.test(l))open=true;else if(open&&QE.test(l))open=false});if(open)qo.push(pi+1);if(qc&&pi+1>=qc-1)open=false}
   {const T0=tocFromPages(LP.slice(0,8).map((L,i)=>({p:i+1,L})),n);if(!qc){const tq=T0.filter(x=>x.p>ts+2&&/^(questoes|lista de questoes|exercicios|bateria|simulado)/.test(norm(x.t))).map(x=>x.p);if(tq.length)qc=Math.min(...tq)}
    const tc=T0.filter(x=>x.p>=ts&&(!qc||x.p<qc));const th=secs.filter(x=>x.p>=ts&&(!qc||x.p<qc));if(tc.length>=2&&th.length<tc.length)secs=[...tc,...secs.filter(x=>!(x.p>=ts&&(!qc||x.p<qc)))].sort((a,b)=>a.p-b.p)}
-  return{pages:n,secs:secs.slice(0,300),qc,qs:qs.slice(0,400),hits,ts,qo:qo.slice(0,400),chk:{sscore,tcount,aulaNo}};
+  let st=null;try{st=stTrim(pdfStruct(RP,ol,qc));if(st&&st.ts)ts=st.ts}catch(e){console.error(e)}
+  return{pages:n,secs:secs.slice(0,300),qc,qs:qs.slice(0,400),hits,ts,qo:qo.slice(0,400),st,chk:{sscore,tcount,aulaNo}};
 }
 function detectAula(sid,name){{const q=name.match(/(?:extra|quiz)[^\d]*(\d)\s*[.,]\s*(\d)/i)||name.match(/aula\s*(\d)\s*[.,]\s*(\d)\b/i);if(q&&(QUIZ[sid]||[]).includes(q[1]+"."+q[2]))return q[1]+"."+q[2]}if(/aula\s*[úu]nica/i.test(name)&&AU(sid).some(a=>a.c==="U"))return"U";const m=name.match(/aula[\s_\-–.]*(\d{1,2})(?:\s*\.\s*(\d)(?!\d))?/i);if(!m)return"";const c=m[2]?(+m[1])+"."+m[2]:pad(+m[1]);return AU(sid).some(a=>a.c===c)||(QUIZ[sid]||[]).includes(c)?c:""}
 async function addPdfs(files,sid,aulaSel,assetId){
@@ -2499,7 +2696,7 @@ async function addPdfs(files,sid,aulaSel,assetId){
     {const same=aula&&pdfsOf(sid).find(q=>q.aula===aula&&q.size===f.size&&(q.pages||0)===(info.pages||0));if(same){RES.push({raw:1,name:f.name,where:SUB(sid).n+" · "+auLabel(sid,aula),msg:"Este mesmo PDF já está nesta aula ("+same.name+"). Não foi adicionado de novo."});continue}}
     const id=uid();
     const pno=aula?(partNo(f.name)||nextPart(sid,aula)):0;
-    D["pdf-"+id]={id,name:f.name,sid,aula,part:pno||undefined,raw:raw?1:0,pv:2,scan:raw?0:2,ts:info.ts||1,qo:info.qo||[],pages:info.pages,cur:1,qc:info.qc,secs:info.secs,qs:info.qs,hits:info.hits,asset:assetId||"",size:f.size,added:today()};
+    D["pdf-"+id]={id,name:f.name,sid,aula,part:pno||undefined,raw:raw?1:0,pv:2,scan:raw?0:2,ts:info.ts||1,qo:info.qo||[],pages:info.pages,cur:1,qc:info.qc,secs:info.secs,qs:info.qs,hits:info.hits,asset:assetId||"",size:f.size,added:today()};if(info.st)D["pdf-"+id].st=info.st;
     await idbPut(id,new Blob([buf],{type:"application/pdf"}));LOCALP.add(id);
     const E=core().ed;let nc=0;Object.entries(info.hits).forEach(([k,pgs])=>{if(!E[k]||!E[k].cov){E[k]=Object.assign(E[k]||{},{cov:{id,name:f.name,pg:pgs[0]}});nc++}});
     const au=aula?auOf(sid,aula):null;if(au)au.tp.forEach(j=>{const k=EDI[sid]+":"+j;if(!E[k]||!E[k].cov){E[k]=Object.assign(E[k]||{},{cov:{id,name:f.name,pg:1}});nc++}});
@@ -2508,7 +2705,7 @@ async function addPdfs(files,sid,aulaSel,assetId){
     if(raw){RES.push({raw:1,pid:id,name:f.name,where,msg:"Arquivo guardado, mas não consegui ler as páginas (PDF protegido ou leitor indisponível). As metas desta aula seguem pela página que você informar."});continue}
     if(aula)NEWP.push({sid,aula});
     const warns=pdfWarnings(D["pdf-"+id],info,sid,aula);if(warns.length){D["pdf-"+id].warn=warns;touch("pdf-"+id)}
-    RES.push({ok:1,pid:id,warns,name:f.name,where,msg:`${info.pages} páginas lidas · teoria até a p. ${info.qc?info.qc-1:info.pages} · ${info.qs.length} questões mapeadas · ${nc} tópico${nc===1?"":"s"} do edital riscado${nc===1?"":"s"}${aula?"":". Escolha a aula deste PDF na lista da matéria."}`});
+    RES.push({ok:1,pid:id,warns,name:f.name,where,msg:`${info.pages} páginas lidas · teoria da p. ${info.st?info.st.ts:info.ts||1} à ${info.st?info.st.te:info.qc?info.qc-1:info.pages}${info.st?" em "+stPlan(D["pdf-"+id],null).length+" partes":""} · ${info.qs.length} questões mapeadas · ${nc} tópico${nc===1?"":"s"} do edital riscado${nc===1?"":"s"}${aula?"":". Escolha a aula deste PDF na lista da matéria."}`});
   }
   if(!files.some(f=>PDFS().some(p=>p.raw&&p.name===f.name)))setUp("");
   if(added){
@@ -2542,7 +2739,7 @@ async function autoResumos(L){if(!SAMPLE)return;const sids=new Set();
 /* Releitura de PDFs que ficaram "páginas não lidas" */
 async function rereadPdf(p,quiet){
   try{const buf=await pdfBytes(p);if(!buf)return false;const info=await extractPdf(buf,p.sid);
-    Object.assign(p,{raw:0,pv:2,ts:info.ts||1,qo:info.qo||[],pages:info.pages,qc:info.qc,secs:info.secs,qs:info.qs,hits:info.hits});
+    Object.assign(p,{raw:0,pv:2,ts:info.ts||1,qo:info.qo||[],pages:info.pages,qc:info.qc,secs:info.secs,qs:info.qs,hits:info.hits});if(info.st){p.st=info.st;PLC.clear()}
     const E=core().ed;Object.entries(info.hits).forEach(([k,pgs])=>{if(!E[k]||!E[k].cov)E[k]=Object.assign(E[k]||{},{cov:{id:p.id,name:p.name,pg:pgs[0]}})});
     touch("pdf-"+p.id);simCache.key="";const r=curMeta();if(r&&!r.done&&!started(r.n))replanCurrent();
     if(!quiet)toast(p.name+": "+info.pages+" páginas lidas, conteúdo absorvido");if(p.aula)autoResumos([{sid:p.sid,aula:p.aula}]);return true}
@@ -3327,9 +3524,9 @@ function nextCard(r,rem){
 /* ---------- Tela da atividade ---------- */
 function findTask(id){for(const k of metaKeys()){const t=(D[k].tasks||[]).find(x=>x.id===id);if(t)return{t,n:D[k].n}}const r=REFS().find(x=>x.id===id);if(r)return{t:r,n:0};return null}
 const LEI={dpen:"o Código Penal",dpp:"o Código de Processo Penal",dpc:"o Código de Processo Civil",dcon:"a Constituição Federal",dadm:"a Lei 10.261/68 e a Lei 8.429/92",dciv:"o Código Civil e a LINDB",lesp:"as leis do edital e as Normas da Corregedoria",atu:"a Lei 13.146/2015"};
-const secsIn=(id,a,b)=>{const p=pdf(id);return p?(p.secs||[]).filter(s=>s.p>=a&&s.p<=b):[]};
+const secsIn=(id,a,b)=>{const p=pdf(id);return p?secsOf(p).filter(s=>s.p>=a&&s.p<=b):[]};
 const isQSec=t=>/^\s*\(?\d{1,3}\s*[.)\-–]\s*\(?\s*[A-ZÀ-Ú]{2,}[^a-z]{0,12}\//.test(t)||/\/\s*20\d\d\s*\)?\s*$/.test(t)||/^(\d+[.)]\s*)?(letra\s+[a-e]|correta|errada|gabarito)\b/i.test(t);
-const secNext=(id,b)=>{const p=pdf(id);return p?(p.secs||[]).find(s=>s.p>b&&!isQSec(s.t))||null:null};
+const secNext=(id,b)=>{const p=pdf(id);return p?secsOf(p).find(s=>s.p>b&&!isQSec(s.t))||null:null};
 const aulaOf=id=>{const n=pdfName(id),m=n.match(/aula\s*\d+/i);return m?"Aula "+m[0].replace(/aula\s*/i,""):n};
 const uniq=a=>[...new Set(a.filter(Boolean))];
 function refTopics(t){
@@ -3369,7 +3566,7 @@ function guide(t){
     }else if(au){
       const p=t.pdf?pdf(t.pdf):null,s0=p?secAt(t.pdf,t.pa):"",nx=p?secNext(t.pdf,t.pb):null;
       const dd=String(d).replace(/[\s.;:,]+$/,"");G.intro.push((!t.pa||t.pa<=((p&&p.ts)||3))?`Hoje vamos iniciar a <b>${E(lab)}</b> – <b>${E(dd)}</b>. Fique atento, pois esse conteúdo ajuda a entender bastante assunto que veremos lá na frente.`:`Hoje vamos continuar o estudo da <b>${E(lab)}</b> (${E(dd)})${s0?", a partir de <b>"+E(s0)+"</b>":""}.`,"Vamos lá!");
-      if(p)G.steps.push({h:"1) TEORIA – estude os assuntos indicados a seguir:",items:[`<b>${E(lab)}</b> – Estude da pág. ${t.pa}${s0?" (tópico <b>"+E(s0)+"</b>)":""} até a pág. ${t.pb}${nx?" (pare antes do tópico <b>"+E(nx.t)+"</b>)":""}.`]});
+      if(p)G.steps.push({h:"1) TEORIA – estude os assuntos indicados a seguir:",items:[stDesc(p,t,lab)||`<b>${E(lab)}</b> – Estude da pág. ${t.pa}${s0?" (tópico <b>"+E(s0)+"</b>)":""} até a pág. ${t.pb}${nx?" (pare antes do tópico <b>"+E(nx.t)+"</b>)":""}.`]});
       else if(!t.pa)G.steps.push({h:"1) TEORIA – estude os assuntos indicados a seguir:",items:[`<b>${E(lab)}</b> – ${E(dd)}. Estude a teoria desta aula no material do seu curso, sem contar o índice e a apresentação, até o início da lista de questões. Envie o PDF da aula em Materiais para o painel indicar as páginas exatas (partes de 15 a 18 páginas).`]});
       else G.steps.push({h:"1) TEORIA – estude os assuntos indicados a seguir:",items:[`<b>${E(lab)}</b> – Estude da pág. ${t.pa} até a pág. ${t.pb} do PDF da aula, sem contar o índice e a apresentação do curso. Não pare no meio de um assunto nem de uma questão: se for preciso, avance até o fim dele. Se a teoria acabar antes (quando começarem as questões comentadas), pare ali.`]});
       G.steps.push(att(d));
@@ -3652,9 +3849,9 @@ function asProgBefore(i){const ctx=asCtx0();(UI.as?UI.as.rows:[]).slice(0,i).for
 function asNextAula(sid,prg){const L=AU(sid),pr=(prg&&prg[sid])||progOf(sid);return(L[Math.min(pr.i,L.length-1)]||L[0]||{}).c||""}
 function asMake(ph,sid,aula,keep,prg){const i=EDI[sid],z=rmqSize(i),au=aula?auOf(sid,aula):null,P=au?aulaPlan(sid,aula):null,t={ph,sid,aula:aula||"",min:30};
   if(ph==="T"){let x=null;const pr=(prg&&prg[sid])||progOf(sid),L=AU(sid);
-    if(au&&L[pr.i]&&L[pr.i].c===aula){const loc=vAt(vParts(sid,aula),pr.pg);if(loc){const r=chunk15(loc.p,loc.a,tgtPages());x={pdf:loc.p.id,pa:r.a,pb:r.b}}}
+    if(au&&L[pr.i]&&L[pr.i].c===aula){const loc=vAt(vParts(sid,aula),pr.pg);if(loc){const r=chunk15(loc.p,loc.a,tgtPages());x=Object.assign({pdf:loc.p.id,pa:r.a,pb:r.b,_n:r.n},r.ya?{ya:r.ya}:{},r.yb!=null?{yb:r.yb}:{})}}
     if(!x&&P&&P.T.length&&P.T[0].pa)x={pdf:P.T[0].pdf||(P.p&&P.p.id),pa:P.T[0].pa,pb:P.T[0].pb};
-    if(x){Object.assign(t,x);t.min=r5((t.pb-t.pa+1)*MINPG)}else if(au&&(au.f==="v"||au.f==="t")){t.whole=1;t.min=au.f==="v"?45:60}else{t.pa=3;t.pb=18;t.open=1;t.min=r5(16*MINPG)}}
+    if(x){const nn=x._n;delete x._n;Object.assign(t,x);t.min=r5((nn||t.pb-t.pa+1)*MINPG)}else if(au&&(au.f==="v"||au.f==="t")){t.whole=1;t.min=au.f==="v"?45:60}else{t.pa=3;t.pb=18;t.open=1;t.min=r5(16*MINPG)}}
   else if(ph==="R"){t.min=au&&au.f==="v"?20:z.R;if(P&&P.p)t.pdf=P.p.id}
   else if(ph==="M"){t.min=z.M;if(P&&P.M&&P.M.pa){t.pdf=P.M.pdf||P.p.id;t.pa=P.M.pa;t.pb=P.M.pb}}
   else{t.nq=z.nq;t.min=z.Q;if(au&&au.q)t.quiz=au.q}
@@ -3668,7 +3865,7 @@ function asOpen(target){const c=core(),r=curMeta();if(!r&&!c.gj){toast("Ainda n�
 function asSig(t){return[t.ph,t.sid,t.aula||"",t.pdf||"",t.pa||0,t.pb||0,t.nq||0].join("|")}
 function asWarn(t){const W=[];const p=t.pdf?pdf(t.pdf):null;
   if((t.ph==="T"||t.ph==="M")&&t.pa&&t.pb){if(t.pb<t.pa)W.push("página final antes da inicial");if(p&&t.pb>p.pages)W.push("o PDF tem "+p.pages+" páginas");
-    if(t.ph==="T"&&p&&!t.open){const n=t.pb-t.pa+1;if(n>22)W.push(n+" páginas: o padrão é de 15 a 18");if(t.pb>teoEnd(p))W.push("entra na lista de questões (p. "+(teoEnd(p)+1)+")")}}
+    if(t.ph==="T"&&p&&!t.open){const n=t.pb-t.pa+1;if(n>19)W.push(n+" páginas: o padrão é de 15 a 18");if(t.pb>teoEnd(p))W.push("entra na lista de questões (p. "+(teoEnd(p)+1)+")")}}
   if(!(t.min>0))W.push("sem tempo");return W}
 function asModal(){const S=UI.as;if(!S){$("layer3").innerHTML="";return}const c=core(),r=curMeta(),cfg=c.cfg,gj=!!c.gj;
   const days=S.tg==="cur"&&r?metaDays(r):[];const B=cfg.hrs*cfg.dias*60,tot=sum(S.rows.filter(t=>!t.skip).map(t=>+t.min||0));
@@ -3778,7 +3975,7 @@ Responda só com JSON: {"atividades":[{"tipo":"T","sid":"","aula":"","min":0,"qu
   asFromStructure(list,"no planejamento colado")}
 function asSetField(i,f,v){const S=UI.as,t=S.rows[i];if(!t||t.done)return;
   if(f==="ph"||f==="sid"||f==="aula"){const prg=asProgBefore(i),ph=f==="ph"?v:t.ph,sid=f==="sid"?v:t.sid,aula=f==="aula"?v:(f==="sid"?asNextAula(v,prg):t.aula);const keep=Object.assign({},t);if(f!=="aula"){delete keep.gcode;delete keep.gt;delete keep.gid}S.rows[i]=asMake(ph,sid,aula,keep,prg)}
-  else if(f==="pa"||f==="pb"||f==="nq"||f==="min"){const n=Math.max(0,parseInt(v,10)||0);t[f]=n;if((f==="pa"||f==="pb")&&t.ph==="T"&&t.pa&&t.pb>=t.pa)t.min=r5((t.pb-t.pa+1)*MINPG);if(f==="nq"&&t.ph==="Q")t.min=Math.max(5,n*MINQ)}
+  else if(f==="pa"||f==="pb"||f==="nq"||f==="min"){const n=Math.max(0,parseInt(v,10)||0);t[f]=n;if(f==="pa")delete t.ya;if(f==="pb")delete t.yb;if((f==="pa"||f==="pb")&&t.ph==="T"&&t.pa&&t.pb>=t.pa)t.min=r5((t.pb-t.pa+1)*MINPG);if(f==="nq"&&t.ph==="Q")t.min=Math.max(5,n*MINQ)}
   else if(f==="day"){if(v)t.day=v;else delete t.day}}
 function asReplay(ctx,t){if(t.ph==="T"&&!t.aula)return;if(t.acc){ctx.rq=ctx.rq||{};aSet(t).forEach(a=>{const k=t.sid+":"+a;ctx.rq[k]=(ctx.rq[k]||0)+1});return}applyPick(ctx,t)}
 function asApply(){const S=UI.as;if(!S)return;const c=core();
@@ -3963,15 +4160,15 @@ function guessQc(p){const n=p.pages||0;if(n<8)return 0;
 function tgtPages(){const cfg=core().cfg;return clamp(Math.round(cfg.hrs*cfg.dias*60/NT()/MINPG),3,15)}
 function aulaPlan(sid,c){const au=auOf(sid,c);if(!au)return null;const i=EDI[sid];if(i===undefined)return null;
   const p=pdfOfAula(sid,c),z=rmqSize(i),tgt=tgtPages(),T=[],PS=partsOf(sid,c);let est=false;
-  if(p&&p.pages>0){PS.forEach((q,qi)=>{let a=q.ts||1;const e=teoEnd(q);let g=0;while(a<=e&&g<60){const r=chunk15(q,a,tgt);T.push({pdf:q.id,part:PS.length>1?qi+1:0,pa:r.a,pb:r.b,min:r5((r.b-r.a+1)*MINPG)});a=r.b+1;g++}})}
+  if(p&&p.pages>0){PS.forEach((q,qi)=>{let a=q.ts||1;const e=teoEnd(q);let g=0;while(a<=e&&g<60){const r=chunk15(q,a,tgt);T.push({pdf:q.id,part:PS.length>1?qi+1:0,pa:r.a,pb:r.b,ya:r.ya||0,yb:r.yb,min:r5(r.n*MINPG)});a=r.next;g++}})}
   else if(au.f!=="v"){est=true;const n=Math.max(1,Math.round(EST_PG/Math.max(8,tgt+3)));for(let k=0;k<n;k++)T.push({est:1,min:r5(EST_PG/n*MINPG)})}
   else T.push({video:1,min:45});
   const MS=PS.filter(q=>q.qc).map(q=>({pdf:q.id,part:PS.length>1?PS.indexOf(q)+1:0,pa:q.qc,pb:q.pages,min:z.M}));
   const M=au.f==="v"?null:MS.length?MS[0]:{min:z.M,est:!p};
   return{au,p,PS,T,est,R:{min:au.f==="v"?20:z.R},M,MS,Q:{nq:z.nq,min:z.Q},tgt}}
 function planHTML(sid,c){const P=aulaPlan(sid,c);if(!P||!P.au.tp.length&&!P.p)return"";
-  const tt=P.T.map((x,k)=>x.video?`<span class="apl-s T">Videoaula</span>`:x.est?`<span class="apl-s T">Teoria ${k+1}</span>`:`<span class="apl-s T" title="${x.min} min">Teoria ${k+1} <b>${x.part?"Parte "+x.part+" · ":""}págs. ${x.pa}–${x.pb}</b></span>`).join("");
-  return`<div class="apl"><span class="apl-l">${P.est?"Plano estimado (o PDF ajusta as páginas)":"Plano da aula"}</span>${tt}<span class="apl-ar">→</span><span class="apl-s R">Revisão <b>${P.R.min} min</b></span>${P.M?`<span class="apl-ar">→</span>`+(P.MS&&P.MS.length>1?P.MS.map(m=>`<span class="apl-s M">Mapeamento <b>Parte ${m.part} · págs. ${m.pa}–${m.pb}</b></span>`).join(""):`<span class="apl-s M">Mapeamento ${P.M.pa?`<b>${P.M.part?"Parte "+P.M.part+" · ":""}págs. ${P.M.pa}–${P.M.pb}</b>`:`<b>${P.M.min} min</b>`}</span>`):""}<span class="apl-ar">→</span><span class="apl-s Q">Questões <b>${P.Q.nq}</b></span></div>`}
+  const tt=P.T.map((x,k)=>x.video?`<span class="apl-s T">Videoaula</span>`:x.est?`<span class="apl-s T">Teoria ${k+1}</span>`:`<button type="button" class="apl-s T" data-a="pdMap" data-id="${x.pdf}" title="${x.min} min · ver a divisão">Teoria ${k+1} <b>${x.part?"Parte "+x.part+" · ":""}págs. ${x.pa}–${x.pb}</b></button>`).join("");
+  return`<div class="apl"><span class="apl-l">${P.est?"Plano estimado (o PDF ajusta as páginas)":"Plano da aula"}</span>${tt}${P.p&&!P.est?`<button type="button" class="btn sm ghost" data-a="pdMap" data-id="${P.p.id}" style="padding:2px 8px">${ic("list")} Ver divisão</button>`:""}<span class="apl-ar">→</span><span class="apl-s R">Revisão <b>${P.R.min} min</b></span>${P.M?`<span class="apl-ar">→</span>`+(P.MS&&P.MS.length>1?P.MS.map(m=>`<span class="apl-s M">Mapeamento <b>Parte ${m.part} · págs. ${m.pa}–${m.pb}</b></span>`).join(""):`<span class="apl-s M">Mapeamento ${P.M.pa?`<b>${P.M.part?"Parte "+P.M.part+" · ":""}págs. ${P.M.pa}–${P.M.pb}</b>`:`<b>${P.M.min} min</b>`}</span>`):""}<span class="apl-ar">→</span><span class="apl-s Q">Questões <b>${P.Q.nq}</b></span></div>`}
 
 
 /* Contabilidade do Guruja: as "aulas" são os vídeos do Silvio Sande (aula N = vídeo N-1). Ajuste feito uma vez. */
@@ -4016,9 +4213,9 @@ function nqMig(){const c=core();if(!IS_TJ||c.nqMig)return;const logged=new Set(L
 function restdMeta(){const c=core();if(c.gj)return;const r=curMeta();if(!r||r.done)return;const md=metaDoc(r.n);if(!md||md.std>=1)return;
   const logged=new Set(LOGS().map(l=>l.t));const G={};let ch=false;
   (md.tasks||[]).forEach(t=>{if(t.ph!=="T"||t.done||!t.pdf||!t.pa||t.xo||logged.has(t.id))return;(G[t.sid+"|"+t.aula+"|"+t.pdf]=G[t.sid+"|"+t.aula+"|"+t.pdf]||[]).push(t)});
-  Object.values(G).forEach(L=>{L.sort((a,b)=>a.pa-b.pa);const p=pdf(L[0].pdf);if(!p||p.raw)return;const oldEnd=L[L.length-1].pb;let a=L[0].pa;
-    L.forEach(t=>{if(a>teoEnd(p)){return}const x=chunk15(p,a);if(x.a!==t.pa||x.b!==t.pb){t.pa=x.a;t.pb=x.b;t.min=r5((x.b-x.a+1)*MINPG);ch=true}a=x.b+1});
-    const pr=(c.prog||{})[L[0].sid],off=vOff(L[0].sid,L[0].aula,p.id);if(pr&&pr.pg===off+oldEnd+1&&AU(L[0].sid)[pr.i]&&AU(L[0].sid)[pr.i].c===L[0].aula){pr.pg=off+a;ch=true}
+  Object.values(G).forEach(L=>{L.sort((a,b)=>a.pa-b.pa);const p=pdf(L[0].pdf);if(!p||p.raw)return;const oldNext=tNextPos(L[L.length-1]);let a=L[0].pa+(L[0].ya||0);
+    L.forEach(t=>{if(a>teoEnd(p)){return}const x=chunk15(p,a);if(x.a!==t.pa||x.b!==t.pb||(x.ya||0)!==(t.ya||0)||(x.yb==null?null:x.yb)!==(t.yb==null?null:t.yb)){t.pa=x.a;t.pb=x.b;if(x.ya)t.ya=x.ya;else delete t.ya;if(x.yb!=null)t.yb=x.yb;else delete t.yb;t.min=r5(x.n*MINPG);ch=true}a=x.next});
+    const pr=(c.prog||{})[L[0].sid],off=vOff(L[0].sid,L[0].aula,p.id);if(pr&&Math.abs(pr.pg-(off+oldNext))<.002&&AU(L[0].sid)[pr.i]&&AU(L[0].sid)[pr.i].c===L[0].aula){pr.pg=off+a;ch=true}
     if(a>teoEnd(p)&&pr&&AU(L[0].sid)[pr.i]&&AU(L[0].sid)[pr.i].c===L[0].aula&&pr.pg<=off+teoEnd(p)){pr.pg=off+a;ch=true}});
   md.std=1;touch("m-"+r.n);if(ch){touch("core");simCache.key=""}}
 let alignKey="";
@@ -4047,7 +4244,9 @@ function scanWanted(){const c=core(),W=new Set();const r=curMeta();if(r)tasksOf(
   ED.forEach(sb=>{const pr=(c.prog||{})[sb.id]||{i:0},L=AU(sb.id);for(let k=pr.i;k<Math.min(L.length,pr.i+2);k++)W.add(sb.id+"|"+L[k].c)});(c.pend||[]).forEach(x=>W.add(x.sid+"|"+x.c));
   REFS().filter(x=>!x.done).forEach(x=>aSet(x).forEach(a=>W.add(x.sid+"|"+a)));return W}
 const SCAN_NO=new Set();
-async function rescanPdfs(){if(SCAN_BUSY||!PULLED&&DB)return;const W=scanWanted();const p=PDFS().find(x=>!x.raw&&x.pages>0&&(x.scan||0)<2&&!SCAN_NO.has(x.id)&&(W.has("id:"+x.id)||W.has(x.sid+"|"+x.aula)));if(!p)return;SCAN_BUSY=true;
+async function rescanPdfs(){if(SCAN_BUSY||!PULLED&&DB)return;const W=scanWanted();
+  {const q=PDFS().find(x=>!x.raw&&x.pages>0&&(x.scan||0)>=2&&!stOk(x)&&!ST_NO.has(x.id)&&!SCAN_NO.has(x.id)&&(W.has("id:"+x.id)||W.has(x.sid+"|"+x.aula)));
+   if(q){SCAN_BUSY=true;try{await stScan(q)}catch(e){ST_NO.add(q.id)}finally{SCAN_BUSY=false;setTimeout(()=>rescanPdfs(),1500)}return}}const p=PDFS().find(x=>!x.raw&&x.pages>0&&(x.scan||0)<2&&!SCAN_NO.has(x.id)&&(W.has("id:"+x.id)||W.has(x.sid+"|"+x.aula)));if(!p)return;SCAN_BUSY=true;
   try{const R=await pdfLinesAll(p,1,p.pages);const T0=tocFromPages(R.pages,p.pages);
     const tq=T0.filter(x=>x.p>(p.ts||1)+2&&/^(questoes|lista de questoes|exercicios|bateria|simulado)/.test(norm(x.t))).map(x=>x.p);
     const q0=qcFromPages(R.pages.filter(x=>x.p>(p.ts||1)+2))||(tq.length?Math.min(...tq):0);
@@ -4321,7 +4520,7 @@ function renderDrawer0(){
     <header class="av-h"><div class="crumb"><span class="ph ${t.ph}">${PHN[t.ph]}</span><b>${esc(s.n)}</b><span class="sep"></span><span class="tt" title="${esc(taskTitle(t))}">${esc(readInfo(t).lab||taskTitle(t))}${readInfo(t).d?" · "+esc(readInfo(t).d):""}</span></div>
       <div class="tools"><div class="atimer ${run?"run":""}" title="Tempo de estudo desta atividade">${ic("clock")}<b id="avClock">${hms(tsec.tot)}</b>${canTime?`<button class="ibtn" data-a="avPlay" data-id="${t.id}" aria-label="${run?"Pausar":"Iniciar"} o cronômetro desta atividade">${ic(run?"pause":"play")}</button><button class="ibtn" data-a="avReset" data-id="${t.id}" aria-label="Descartar a sessão atual" ${TM.tid===t.id&&elapsed()>0?"":"disabled"}>${ic("reset")}</button>`:""}</div>
       <button class="ibtn" data-a="openT" data-id="${prev?prev.id:""}" ${prev?"":"disabled"} aria-label="Atividade anterior">${ic("left")}</button><button class="ibtn" data-a="openT" data-id="${next?next.id:""}" ${next?"":"disabled"} aria-label="Próxima atividade">${ic("right")}</button><button class="ibtn" data-a="closeT" data-x="1" aria-label="Fechar">${ic("close")}</button></div></header>
-    ${(()=>{const I=readInfo(t);return I.pg?`<div class="rdbar">${ic("book")}<b>${t.ph==="T"&&t.pa?"Ler: ":""}${esc(I.pg)}</b><span class="muted small">${t.ph==="T"&&t.pa?"sem contar índice e apresentação, terminando no fim de um assunto":""}${t.min?" · previsto "+fmtM(t.min):""}</span></div>`:""})()}
+    ${(()=>{const I=readInfo(t);return I.pg?`<div class="rdbar">${ic("book")}<b>${t.ph==="T"&&t.pa?"Ler: ":""}${esc(I.pg)}</b><span class="muted small">${t.ph==="T"&&t.pa?rdStop(t):""}${t.min?" · previsto "+fmtM(t.min):""}</span></div>`:""})()}
     <div class="av-body"><nav class="av-rail" aria-label="Seções da atividade">${[["A","list","Assuntos abordados"],["M","book","Material"],["C","target","Comando"],["B","bulb","Bizu"],["F","brain","Fixação Ativa"]].map(([k,i2,l])=>`<button data-a="avTab" data-k="${k}" title="${l}" aria-label="${l}" aria-pressed="${(["A","M","C","B","F"].includes(UI.avTab)?UI.avTab:"C")===k}">${ic(i2)}<span>${l}</span></button>`).join("")}</nav>
     <div class="av-main" data-tab="${["A","M","C","B","F"].includes(UI.avTab)?UI.avTab:"C"}">
       <details class="sec" data-k="A" id="avA" open><summary>${ic("list")} Assuntos abordados <span class="n">${G.topics.length||1}</span></summary><div class="sb"><ul style="margin:0">${(G.topics.length?G.topics:[s.n]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></details>
@@ -6744,6 +6943,9 @@ document.addEventListener("drop",e=>{const c=e.target.closest&&e.target.closest(
   if(setTaskTime(id,d,sl)){render();toast(SUB(f.t.sid).c+" fixada em "+RWS[wdOf(d)]+" "+dm(d)+" às "+slotT(sl))}});
 
 Object.assign(A,{
+  pdMap(el){UI.pdMap=el.dataset.id;pdMapModal()},
+  pdMapClose(){UI.pdMap=null;$("layer3").innerHTML=""},
+  pdAuto(){const p=pdf(UI.pdMap);if(!p)return;delete p.cuts;PLC.clear();touch("pdf-"+p.id);alignKey="";simCache.key="";{const r1=curMeta(),md1=r1&&metaDoc(r1.n);if(md1&&md1.std)md1.std=0}pdMapModal();render();toast("Divisão automática de volta")},
   rotMode(el){UI.rotMode=el.dataset.v;render()},
   ctab(el){UI.ctab=el.dataset.v;render();window.scrollTo(0,0)},
   pvQEd(){UI.pvQ=!UI.pvQ;render()},
