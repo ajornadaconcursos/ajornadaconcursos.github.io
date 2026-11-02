@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611020849"></script>
+<script src="/claude-shim.js?v=202611020905"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -2156,15 +2156,39 @@ function psHigh(pages,st,junk,A,E){const bf=st.bf,bh=st.bh,out=[];
    Tenha atenção: o que mais cai daquele trecho (incidência do edital) e o que o professor destacou nessas páginas
    (quadros de Atenção/Importante/Cuidado, frases em negrito, prazos e exceções). Com a IA ligada, um mentor reescreve os dois
    a partir do texto das páginas e fica guardado na atividade. */
+/* Cada questão do PDF é ligada à frase da teoria que ela cobra (texto real das páginas, palavras raras pesam mais).
+   Assim a tarefa de teoria mostra só as questões das suas páginas, e os pontos de atenção saem do que as questões cobram. */
+const QMAP_BUSY=new Set(),QMAP_FAIL=new Set();
+const QJUNK=/a seguir (listad|indicad|relacionad|transcrit)|seguintes (assertivas|afirma|itens|cl[aá]usulas|proposi)|^considere|\bno caso hipot|cobrad[oa]s? em prova|gabarito|est[aá] (correta|incorreta|certa|errada)|a alternativa [a-e]\b|alternativas? [a-e] (e|est)|quest[aã]o (est|anterior|seguinte)|\(\s*[A-Z][^()]{1,60}\d{4}\s*\)|^\s*(i|ii|iii|iv|v)\s*[.)–-]\s|assinale|julgue|marque a|itens corret|alternativa (correta|incorreta|correspondente)|\(\s*\)|^\s*[a-e]\)\s|^(coment[aá]rios?|gabarito|resposta|letra [a-e]\b|[a-e]\s*[:.\-–]\s*(certa|errada|correta|incorreta|certo|errado))|^\(?[A-Z]{2,}[A-Za-z\/ -]{0,30}[-–\/ ]\d{4}\)/i;
+function qSent(items){return items.join(" ").replace(/\s+/g," ").replace(/\s+([,.;:)])/g,"$1").replace(/([(])\s+/g,"$1").replace(/([a-zà-ú])\s+-\s+([a-zà-ú])/g,"$1-$2").split(/(?<=[.;!?])\s+(?=[A-ZÁ-ÚÀÂÊÔÃÕÇ0-9"“(])/).map(x=>x.trim().replace(/^(\d{1,3}\s+){1,3}(?=[A-ZÁ-Ú§])/,"")).filter(x=>x.length>=35&&!QJUNK.test(x))}
+async function qMapAll(p){const Z=qzDoc(p.id);if(!Z||!Z.L.length||QMAP_BUSY.has(p.id))return;QMAP_BUSY.add(p.id);
+  try{const T=await qdocTxt(p);if(!T){QMAP_FAIL.add(p.id);return}const pages=Object.keys(T.pages).map(Number),S={},df={};
+    pages.forEach(pg=>{S[pg]=qSent(T.pages[pg]).map(x=>({s:x,k:new Set(pvTok(x))}));const u=new Set();S[pg].forEach(x=>x.k.forEach(w=>u.add(w)));u.forEach(w=>df[w]=(df[w]||0)+1)});
+    const N=pages.length||1,idf=w=>Math.log((N+1)/((df[w]||0)+.5)),out={};
+    Z.L.forEach(q=>{const right=q.k&&q.o?((q.o.find(o=>o[0]===q.k)||[])[1]||""):"",Q=new Set(pvTok(q.s+" "+right+" "+String(q.c||"").slice(0,900))),QS=new Set(pvTok(q.s+" "+(q.o||[]).map(o=>o[1]).join(" ")));let best=null;
+      pages.forEach(pg=>S[pg].forEach(x=>{if(x.k.size>=6){let c=0;x.k.forEach(w=>{if(QS.has(w))c++});if(c/x.k.size>.8)return}let v=0,n=0;x.k.forEach(w=>{if(Q.has(w)){v+=idf(w);n++}});if(n>=3&&(!best||v>best.v))best={v,p:pg,s:x.s}}));
+      if(best&&best.v>=5)out[q.id]={p:best.p,s:best.s.length>240?best.s.slice(0,best.s.lastIndexOf(" ",236))+"…":best.s}});
+    Z.map={v:1,n:Z.L.length,q:out};touch("qz-"+p.id)}catch(e){QMAP_FAIL.add(p.id)}finally{QMAP_BUSY.delete(p.id)}
+  if(UI.openT)renderDrawer()}
+const qMapOk=(p,Z)=>Z&&Z.map&&Z.map.v===1&&Z.map.n===Z.L.length;
 function pdfQsFor(t){const p=t.pdf?pdf(t.pdf):null;if(!p||t.ph!=="T"||!t.pa)return null;const Z=qzDoc(p.id);
   if(!Z){if(!QZ_BUSY.has(p.id)&&p.pages&&!p.raw)setTimeout(()=>buildQuiz(p),40);return{p,L:[],wait:1}}
-  const M=mentorOf(t)||{top:[],att:[]},w={};
-  const add=(txt,v)=>pvTok(txt).forEach(k=>{w[k]=Math.max(w[k]||0,v)});M.top.forEach(x=>add(String(x).replace(/\(p\. \d+\)|continuação de/g,""),2));M.att.forEach(x=>add(x,1));
-  try{const Sx=ED[EDI[t.sid]];Object.entries(p.hits||{}).forEach(([k,pg])=>{if(+k.split(":")[0]!==EDI[t.sid]||!pg.some(g=>g>=t.pa&&g<=t.pb))return;const tp=Sx.t[+k.split(":")[1]];if(tp)(tp[1]||[]).forEach(x=>add(x,2))})}catch(e){}
+  if(qMapOk(p,Z))return{p,L:Z.L.map((q,i)=>({q,i,m:Z.map.q[q.id]})).filter(x=>x.m&&x.m.p>=t.pa&&x.m.p<=t.pb)};
+  if(!QMAP_FAIL.has(p.id)&&Z.L.length){setTimeout(()=>qMapAll(p),40);return{p,L:[],wait:1}}
+  return pdfQsOld(t,p,Z)}
+/* sem o PDF no aparelho: aproxima pelos títulos e assuntos destas páginas */
+function pdfQsOld(t,p,Z){const M=mentorOf(t)||{top:[],att:[]},w={};
+  const add=(txt,v)=>pvTok(txt).forEach(k=>{w[k]=Math.max(w[k]||0,v)});M.top.forEach(x=>add(String(x).replace(/\(p\. \d+\)|continuação de/g,""),2));
   const sc=Z.L.map((q,i)=>{const T=new Set(pvTok(q.s+" "+(q.c||"")));let v=0;T.forEach(k=>{if(w[k])v+=w[k]});return{q,i,v}}).filter(x=>x.v>=4).sort((a,b)=>b.v-a.v).slice(0,8).sort((a,b)=>a.i-b.i);
   return{p,L:sc}}
+/* pontos de atenção tirados das questões do PDF que cobram estas páginas: a frase da teoria + qual questão cobrou */
+function qAttFor(t,p){const Z=p&&qzDoc(p.id);if(!qMapOk(p,Z))return[];const G=new Map();
+  Z.L.forEach(q=>{const m=Z.map.q[q.id];if(!m||m.p<t.pa||m.p>t.pb)return;const k=m.s;if(!G.has(k))G.set(k,{p:m.p,s:m.s,q:[]});G.get(k).q.push(q)});
+  return[...G.values()].sort((a,b)=>b.q.length-a.q.length||a.p-b.p).slice(0,7).sort((a,b)=>a.p-b.p).map(g=>{const q=g.q[0],ce=q.ce,gab=q.k&&q.k!=="X"?(ce?(q.k==="C"?"Certo":"Errado"):"letra "+q.k):"";
+    return"p. "+g.p+" – "+g.s+" (cobrado "+(g.q.length>1?"em "+g.q.length+" questões do PDF":"na questão "+q.n+" do PDF"+(gab?", gabarito "+gab:""))+")"})}
 function mentorOf(t){const p=t.pdf?pdf(t.pdf):null;if(t.ph!=="T"||!stOk(p)||!t.pa||!t.pb)return null;
-  if(t.mt&&t.mt.pa===t.pa&&t.mt.pb===t.pb&&t.mt.top&&t.mt.att)return{top:t.mt.top,att:t.mt.att,ai:1};
+  const qa=qAttFor(t,p);
+  if(t.mt&&t.mt.pa===t.pa&&t.mt.pb===t.pb&&t.mt.top&&t.mt.att)return{top:t.mt.top,att:qa.length?qa:t.mt.att,ai:1,q:qa.length};
   const S=p.st,a=t.pa+(t.ya||0),b=tNextPos(t),inR=(pg,y)=>{const x=psPos(pg,y||0);return x>=a-.01&&x<b-.005};
   const H=(S.hd||[]).filter(h=>inR(h.p,h.y)),main=H.filter(h=>h.l<3),cur=psHeadBefore(S,a);
   const top=[];if(cur&&!psHeadAt(S,a))top.push("continuação de "+cur.t);
@@ -2177,10 +2201,11 @@ function mentorOf(t){const p=t.pdf?pdf(t.pdf):null;if(t.ph!=="T"||!stOk(p)||!t.p
     const js=Object.entries(p.hits).filter(([k,pg])=>+k.split(":")[0]===EDI[t.sid]&&pg.some(g=>g>=t.pa&&g<=t.pb)).map(([k])=>+k.split(":")[1]).filter(j=>Sx.t[j]);
     js.sort((x,y)=>P[y]-P[x]).slice(0,2).forEach(j=>{if(P[j]>=avg)att.push("Cai muito na prova: "+tShort(Sx.t[j][0])+" (cerca de "+pv1(P[j])+"% das questões de "+sb.n+")")})}}catch(e){}
   /* destaques do professor nessas páginas, os mais fortes primeiro, mostrados na ordem do PDF */
-  const hl=(S.hl||[]).filter(h=>inR(h.p,h.y)).sort((x,y)=>y.s-x.s||x.p-y.p).slice(0,Math.max(3,6-att.length)).sort((x,y)=>x.p-y.p||x.y-y.y);
+  qa.forEach(x=>att.push(x));
+  const hl=(S.hl||[]).filter(h=>inR(h.p,h.y)&&!QJUNK.test(h.t)&&/^[A-ZÁ-ÚÀÂÊÔÃÕÇ0-9"“]/.test(h.t)&&!/:\s*$/.test(h.t)).sort((x,y)=>y.s-x.s||x.p-y.p).slice(0,qa.length>=3?0:Math.max(2,5-att.length)).sort((x,y)=>x.p-y.p||x.y-y.y);
   hl.forEach(h=>att.push("p. "+h.p+" – "+h.t));
   if(!att.length)main.slice(0,4).forEach(h=>att.push(h.t+" (p. "+h.p+"): conceito, requisitos e exceções"));
-  return{top:top.length?top:refTopics(t),att}}
+  return{top:top.length?top:refTopics(t),att,q:qa.length}}
 const MT_BUSY=new Set();
 async function mentorAI(t){if(!SAMPLE||MT_BUSY.has(t.id))return;const p=t.pdf?pdf(t.pdf):null;if(!p||!t.pa||!t.pb)return;MT_BUSY.add(t.id);
   try{const txt=await srcText(t,26000);if(!txt||txt.length<400)return;const base=mentorOf(Object.assign({},t,{mt:null}))||{top:[],att:[]},sb=SUB(t.sid),au=t.aula?auOf(t.sid,t.aula):null;
@@ -3873,7 +3898,7 @@ function guide(t){
       else if(!t.pa)G.steps.push({h:"1) TEORIA – estude os assuntos indicados a seguir:",items:[`<b>${E(lab)}</b> – ${E(dd)}. Estude a teoria desta aula no material do seu curso, sem contar o índice e a apresentação, até o início da lista de questões. Envie o PDF da aula em Materiais para o painel indicar as páginas exatas (partes de 15 a 18 páginas).`]});
       else G.steps.push({h:"1) TEORIA – estude os assuntos indicados a seguir:",items:[`<b>${E(lab)}</b> – Estude da pág. ${t.pa} até a pág. ${t.pb} do PDF da aula, sem contar o índice e a apresentação do curso. Não pare no meio de um assunto nem de uma questão: se for preciso, avance até o fim dele. Se a teoria acabar antes (quando começarem as questões comentadas), pare ali.`]});
       G.steps.push(att(d));
-      {const X=pdfQsFor(t);if(X&&X.L&&X.L.length)G.steps.push({h:"3) Questões do PDF sobre este trecho:",items:[`Logo depois da leitura, resolva as ${X.L.length} questões do próprio PDF que cobram estas páginas (questões ${X.L.map(x=>x.q.n).join(", ")}), na seção “Questões do PDF sobre estas páginas”.`]})}
+      {const X=pdfQsFor(t);if(X&&X.L&&X.L.length)G.steps.push({h:"3) Questões do PDF sobre este trecho:",items:["Logo depois da leitura, resolva na caixa de questões abaixo: ela traz só as questões do próprio PDF que cobram estas páginas."]})}
       if(t.open)G.steps.push({h:"3) Ao finalizar, informe a página em que parou e se a teoria da aula terminou.",items:["Quando a teoria da aula termina, a revisão, o mapeamento das questões e as questões da aula entram na meta seguinte.","Envie o PDF desta aula em Materiais para as metas cortarem a teoria por assunto, em partes de 15 a 18 páginas."]});
       else G.steps.push({h:'3) <span class="opt">(OPCIONAL)</span> Monte cards de revisão com os pontos que marcou.',items:["O desempenho na resolução dos cards não precisa ser registrado."]});
     }else{
@@ -4640,28 +4665,28 @@ ${txt}
 function rerenderQz(){if(UI.rsQzP)rsQzModal();if(UI.openT)renderDrawer();if(TAB==="materiais"||TAB==="resumos")render()}
 const qzStats=Z=>{const A=Object.values(Z&&Z.ans||{}),ok=A.filter(a=>a.ok).length;return{n:(Z&&Z.L||[]).length,f:A.length,ok,pct:A.length?Math.round(ok/A.length*100):0}};
 function qzNum(q){return q.seq>1?q.seq*1000+q.n:q.n}
-function quizHTML(p,ctx){const Z=qzDoc(p.id),busy=QZ_BUSY.has(p.id);ctx=ctx||"m";
+function quizHTML(p,ctx,only){const Z=qzDoc(p.id),busy=QZ_BUSY.has(p.id);ctx=ctx||"m";
   /* questões montadas com a leitura antiga: monta de novo para pegar os gabaritos da página "Gabarito" (as respostas ficam) */
   if(Z&&Z.src==="pdf"&&(Z.pv||0)<2&&!busy&&!p.raw&&p.pages&&!QZ_RE.has(p.id)){QZ_RE.add(p.id);setTimeout(()=>buildQuiz(p,true),60)}
   if(!Z)return`<div class="qz"><div class="qz-h"><b>Resolver as questões aqui</b></div><p class="muted small" style="margin:0">O painel separa as questões do PDF com o enunciado completo e as alternativas. Você responde aqui e vê na hora se acertou.</p>
     <div class="row">${busy?`<span class="muted small"><span class="spin"></span> Separando as questões do PDF…</span>`:`<button class="btn pri sm" data-a="qzBuild" data-id="${p.id}">${ic("list")} Montar as questões</button>`}</div></div>`;
   if(!Z.L.length)return`<div class="qz"><p class="muted small" style="margin:0">Não consegui separar as questões deste PDF automaticamente.</p><div class="row">${SAMPLE?`<button class="btn sm pri" data-a="qzAI" data-id="${p.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Montando…':ic("bulb")+" Montar com a IA"}</button>`:""}<button class="btn sm ghost" data-a="qzBuild" data-id="${p.id}" data-f="1">${ic("reset")} Tentar de novo</button></div></div>`;
   const miss=Z.L.filter(x=>!x.k).length,missBtn=miss&&SAMPLE&&!p.ai?`<div class="row qz-miss"><span class="muted small">${miss} quest${miss>1?"ões":"ão"} sem gabarito no PDF.</span><button class="btn sm" data-a="qzKeyAI" data-id="${p.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Conferindo…':ic("bulb")+" Completar gabaritos com fundamento"}</button></div>`:"";
-  const S=qzStats(Z),key="qz:"+p.id,i=clamp(UI[key]||0,0,Z.L.length-1),q=Z.L[i],A=Z.ans[q.id],opts=q.ce?[["C","Certo"],["E","Errado"]]:q.o;
+  const IX=only&&only.length?only:Z.L.map((_,k)=>k),key="qz:"+p.id+(only?"|"+ctx:""),S=qzStats({L:IX.map(k=>Z.L[k]),ans:Z.ans}),pos=clamp(UI[key]||0,0,IX.length-1),i=IX[pos],q=Z.L[i],A=Z.ans[q.id],opts=q.ce?[["C","Certo"],["E","Errado"]]:q.o,nav=`data-key="${key}" data-max="${IX.length}"`;
   const fx=!!(A&&UI.qzFx&&UI.qzFx.q===q.id&&Date.now()-UI.qzFx.t<1500),lk="qzlast:"+p.id+ctx,ent=UI[lk]&&UI[lk]!==q.id;UI[lk]=q.id;
-  const multi=new Set(Z.L.map(x=>x.seq)).size>1;
-  const dots=Z.L.map((x,k)=>{const a=Z.ans[x.id];return(multi&&(k===0||Z.L[k-1].seq!==x.seq)?`<span class="qz-sep">Lista ${[...new Set(Z.L.map(y=>y.seq))].indexOf(x.seq)+1}</span>`:"")+`<button class="${a?(a.ok?"ok":"err"):""} ${k===i?"cur":""} ${k===i&&fx?"fxd":""}" data-a="qzGo" data-id="${p.id}" data-i="${k}" aria-label="Questão ${x.n}${a?(a.ok?", acertou":", errou"):""}">${x.n}</button>`}).join("");
+  const LL=IX.map(k=>Z.L[k]),multi=!only&&new Set(LL.map(x=>x.seq)).size>1;
+  const dots=LL.map((x,k)=>{const a=Z.ans[x.id];return(multi&&(k===0||LL[k-1].seq!==x.seq)?`<span class="qz-sep">Lista ${[...new Set(LL.map(y=>y.seq))].indexOf(x.seq)+1}</span>`:"")+`<button class="${a?(a.ok?"ok":"err"):""} ${k===pos?"cur":""} ${k===pos&&fx?"fxd":""}" data-a="qzGo" data-id="${p.id}" data-i="${k}" ${nav} aria-label="Questão ${only?k+1:x.n}${a?(a.ok?", acertou":", errou"):""}">${only?k+1:x.n}</button>`}).join("");
   const ob=opts.map(([k,txt])=>{let cl="";if(A){if(q.k&&k===q.k)cl="right";if(A.a===k&&!A.ok)cl="wrong";if(A.a===k&&A.ok)cl="right"}
     const xs=(UI.qzX||{})[p.id+"|"+q.id]||[],x=xs.includes(k),sl=!A&&(UI.qzSel||{})[p.id+"|"+q.id]===k;
     return`<button class="qz-o ${cl} ${x?"x":""} ${sl?"sel":""}" aria-pressed="${sl}" data-a="qzPick" data-id="${p.id}" data-q="${q.id}" data-k="${k}" ${A?"disabled":""} title="${x?"Alternativa riscada · dois cliques para desfazer":"Um clique seleciona · dois cliques riscam a alternativa"}"><span class="qz-k">${q.ce?"":k}</span><span><span class="qz-t">${esc(txt)}</span></span></button>`}).join("");
-  return`<div class="qz"><div class="qz-h"><b>${p.tec?"Questões do TEC desta aula":p.ai?"Questões criadas para você":"Questões do PDF"}</b><span class="qz-sc">${S.f} de ${S.n} respondidas · <b class="${S.f?S.pct>=75?"okc":S.pct>=50?"warnc":"badc":""}">${S.pct}% de acertos</b></span></div>
+  return`<div class="qz"><div class="qz-h"><b>${only?"Questões do PDF sobre estas páginas":p.tec?"Questões do TEC desta aula":p.ai?"Questões criadas para você":"Questões do PDF"}</b><span class="qz-sc">${S.f} de ${S.n} respondidas · <b class="${S.f?S.pct>=75?"okc":S.pct>=50?"warnc":"badc":""}">${S.pct}% de acertos</b></span></div>
    ${missBtn}<div class="qz-bar" aria-hidden="true"><i class="ok" style="width:${S.n?S.ok/S.n*100:0}%"></i><i class="bad" style="width:${S.n?(S.f-S.ok)/S.n*100:0}%"></i></div>
    <div class="qgrid qz-g">${dots}</div>
-   <div class="qz-q${fx?" fx "+(A.ok?"good":"bad"):""}${ent&&!fx?" enter":""}"><div class="qz-qh"><span class="code">Questão ${q.n}${q.seq>1?" · lista "+q.seq:""}</span>${q.p?`<button class="btn sm ghost" data-a="read" data-id="${p.id}" data-pa="${q.p}" data-pb="${q.p}">${ic("book")} Ver no PDF (p. ${q.p})</button>`:""}</div>
+   <div class="qz-q${fx?" fx "+(A.ok?"good":"bad"):""}${ent&&!fx?" enter":""}"><div class="qz-qh"><span class="code">${only?`Questão ${pos+1} de ${IX.length}`:`Questão ${q.n}${q.seq>1?" · lista "+q.seq:""}`}</span>${q.p?`<button class="btn sm ghost" data-a="read" data-id="${p.id}" data-pa="${q.p}" data-pb="${q.p}">${ic("book")} Ver no PDF (p. ${q.p})</button>`:""}</div>
     <p class="qz-s">${esc(q.s)}</p><div class="qz-os">${ob}</div>${A?"":`<div class="row qz-solve"><button class="btn pri" data-a="qzSolve" data-id="${p.id}" data-q="${q.id}" ${(UI.qzSel||{})[p.id+"|"+q.id]?"":"disabled"}>${ic("check")} Resolver questão</button><span class="muted small">Um clique seleciona a alternativa · dois cliques riscam (eliminam). A resposta só vale ao tocar em Resolver.</span></div>`}
     ${A?`<div class="qz-r ${A.ok?"ok":"bad"}"><span class="qz-ri" aria-hidden="true">${ic(A.ok?"check":"close")}</span><b>${A.ok?"Acertou!":"Errou."}</b> ${q.k?`Gabarito: <b>${q.ce?(q.k==="C"?"Certo":"Errado"):"Letra "+q.k}</b>${q.kai?` <span class="chip warn" title="O PDF não trouxe o gabarito desta questão">gabarito inferido</span> ${esc(q.kf||"")}`:""}.`:(p.ai?"Sem gabarito.":"O PDF não trouxe o gabarito desta questão.")}${!A.ok?" Ela entrou em Erradas e nas revisões.":""}</div>${q.c?`<details class="qz-c"><summary>${p.ai?"Comentário"+(q.pg?" (p. "+q.pg+" do PDF)":""):"Comentário do professor"}</summary><p>${esc(q.c).replace(/\n/g,"<br>")}</p></details>`:""}`:""}
     ${A&&!q.k?`<div class="row"><button class="btn sm" data-a="qzSelf" data-id="${p.id}" data-q="${q.id}" data-v="1">Acertei</button><button class="btn sm" data-a="qzSelf" data-id="${p.id}" data-q="${q.id}" data-v="0">Errei</button></div>`:""}
-    <div class="row" style="justify-content:space-between"><button class="btn sm ghost" data-a="qzGo" data-id="${p.id}" data-i="${i-1}" ${i?"":"disabled"}>← Anterior</button>${A?`<button class="btn sm ghost" data-a="qzUndo" data-id="${p.id}" data-q="${q.id}">Responder de novo</button>`:""}<button class="btn sm ${A?"pri":"ghost"}" data-a="qzGo" data-id="${p.id}" data-i="${i+1}" ${i<Z.L.length-1?"":"disabled"}>${A?"Próxima →":"Pular →"}</button></div></div></div>`}
+    <div class="row" style="justify-content:space-between"><button class="btn sm ghost" data-a="qzGo" data-id="${p.id}" data-i="${pos-1}" ${nav} ${pos?"":"disabled"}>← Anterior</button>${A?`<button class="btn sm ghost" data-a="qzUndo" data-id="${p.id}" data-q="${q.id}">Responder de novo</button>`:""}<button class="btn sm ${A?"pri":"ghost"}" data-a="qzGo" data-id="${p.id}" data-i="${pos+1}" ${nav} ${pos<IX.length-1?"":"disabled"}>${A?"Próxima →":"Pular →"}</button></div></div></div>`}
 function qzMark(p,q,ok){const Z=qzDoc(p.id);if(!Z)return;if(p.ai){if(!ok)addMiss(p.id+":"+q.n,p.name+" · questão "+q.n+(q.as?" ("+q.as+")":"")+(q.pg?" · ver p. "+q.pg+" do PDF":""),p.sid);return}const n=qzNum(q);p.qs=p.qs||[];let e=p.qs.find(x=>x.n===n);
   if(!e){e={n,p:q.p||1,t:q.s.slice(0,140),st:""};p.qs.push(e)}e.st=ok?"ok":"err";e.d=today();touch("pdf-"+p.id);
   if(!ok)addMiss(p.id+":"+n,p.name.replace(/\.pdf$/i,"")+" · questão "+q.n+(q.seq>1?" (lista "+q.seq+")":"")+(q.p?" (p. "+q.p+")":""),p.sid)}
@@ -4843,8 +4868,8 @@ function renderDrawer0(){
       <details class="sec" data-k="F" id="avF" open><summary>${ic("brain")} Fixação Ativa</summary><div class="sb">${fixHTML(t)}</div></details>
       ${tform}${qform}
       ${t.ph==="T"&&t.pdf&&pdf(t.pdf)?tkSumHTML(t):""}
-      ${t.ph==="T"&&t.pdf?(()=>{const X=pdfQsFor(t);if(!X)return"";const k="qz:"+X.p.id;if(X.L.length&&UI.pqT!==t.id){UI.pqT=t.id;UI[k]=X.L[0].i}
-        return`<details class="sec" data-k="C" id="avPq" open><summary>${ic("list")} Questões do PDF sobre estas páginas <span class="n">${X.L.length}</span></summary><div class="sb">${X.wait?`<p class="muted small" style="margin:0"><span class="spin"></span> Separando as questões do PDF…</p>`:X.L.length?`<p class="muted small" style="margin:0">Resolva logo depois da leitura: são as questões do próprio PDF que cobram o que está nestas páginas.</p><div class="pq-l">${X.L.map(x=>`<button class="pq-i ${(qzDoc(X.p.id).ans||{})[x.q.id]?((qzDoc(X.p.id).ans[x.q.id].ok)?"ok":"err"):""}" data-a="qzGo" data-id="${X.p.id}" data-i="${x.i}"><b>Questão ${x.q.n}</b><span>${esc(x.q.s.slice(0,110))}…</span></button>`).join("")}</div>${quizHTML(X.p,"t")}`:`<p class="muted small" style="margin:0">O PDF não tem questões ligadas a estas páginas. Elas aparecem na fase de questões da aula.</p>`}</div></details>`})():""}
+      ${t.ph==="T"&&t.pdf?(()=>{const X=pdfQsFor(t);if(!X)return"";
+        return`<details class="sec" data-k="C" id="avPq" open><summary>${ic("list")} Questões destas páginas <span class="n">${X.wait?"…":X.L.length}</span></summary><div class="sb">${X.wait?`<p class="muted small" style="margin:0"><span class="spin"></span> Separando, entre todas as questões do PDF, as que cobram estas páginas…</p>`:X.L.length?quizHTML(X.p,"t"+t.id,X.L.map(x=>x.i)):`<p class="muted small" style="margin:0">Nenhuma questão do PDF cobra estas páginas. As demais ficam para a fase de questões da aula.</p>`}</div></details>`})():""}
       ${t.ph==="T"&&t.done&&t.aula&&!t.ref?`<details class="sec" data-k="C" id="avG" open><summary>${ic("bulb")} Questões das páginas que você estudou <span class="n">${qzStats(qzDoc(qaiId(auTask(t.sid,t.aula)))).pct}%</span></summary><div class="sb">${qaiHTML(auTask(t.sid,t.aula))}</div></details>`:""}
       ${t.ph==="Q"&&t.aula?`<details class="sec" data-k="C" id="avG" open><summary>${ic("bulb")} Questões das páginas que você estudou <span class="n">${qzStats(qzDoc(qaiId(t))).pct}%</span></summary><div class="sb">${qaiHTML(t)}</div></details>`:""}
       ${(t.ph==="Q"||t.ph==="M")?(()=>{const ps=[...new Set(aSet(t).flatMap(c=>partsOf(t.sid,c)))];if(t.pdf&&pdf(t.pdf)&&!ps.includes(pdf(t.pdf)))ps.unshift(pdf(t.pdf));if(!ps.length)return"";
@@ -7409,7 +7434,7 @@ Object.assign(A,{
       (Array.isArray(a)?a:[]).forEach(r=>{const q=Z.L.find(x=>x.id===r.id);const k=String(r.k||"").toUpperCase().trim();if(!q||q.k||/baixa/i.test(r.conf||""))return;if(q.ce?!/^[CE]$/.test(k):!q.o.some(o=>o[0]===k))return;q.k=k;q.kai=1;q.kf=String(r.f||"").slice(0,240);n++});
       touch("qz-"+id);toast(n?n+" gabarito"+(n>1?"s":"")+" completado"+(n>1?"s":"")+" com fundamento. Os que geraram dúvida ficaram sem gabarito.":"Não consegui concluir com segurança. As questões continuam sem gabarito.")}
     catch(e){toast("Não consegui conferir os gabaritos agora")}finally{QZ_BUSY.delete(id);rerenderQz()}},
-  qzGo(el){const Z=qzDoc(el.dataset.id);if(!Z)return;UI["qz:"+el.dataset.id]=clamp(+el.dataset.i,0,Z.L.length-1);rerenderQz()},
+  qzGo(el){const Z=qzDoc(el.dataset.id);if(!Z)return;UI[el.dataset.key||("qz:"+el.dataset.id)]=clamp(+el.dataset.i,0,(+el.dataset.max||Z.L.length)-1);rerenderQz()},
   /* Alternativa: um clique responde; dois cliques riscam (eliminam) ou tiram o risco. O clique simples espera um instante
      para não responder sem querer quando a intenção era riscar. Alternativa riscada não responde com um clique. */
   qzPick(el,e){const key=el.dataset.id+"|"+el.dataset.q,k=el.dataset.k;UI.qzX=UI.qzX||{};UI.qzSel=UI.qzSel||{};clearTimeout(A.qzPick.t);
