@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021813"></script>
+<script src="/claude-shim.js?v=202611021823"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1623,6 +1623,19 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 .qzc-x h4{margin:12px 0 4px;font-size:14px;color:var(--lime-txt)}.qzc-x h4:first-child{margin-top:0}
 .qzc-x ul{margin:4px 0;padding-left:20px}.qzc-x li{margin:3px 0}
 .qzc-act{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 14px}
+
+/* ---------- tipografia: sem palavras espaçadas, linhas equilibradas, tudo alinhado ---------- */
+body{word-spacing:normal;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
+p,li,small,.muted,.small,.qr-s,.qz-t,.qzc-b,.tu-why,.how span{text-wrap:pretty;text-align:left;hyphens:manual;word-spacing:normal}
+h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
+.qz-s,.ds-en{white-space:normal}
+.qz-s p,.ds-en p{margin:0 0 10px}.qz-s p:last-child,.ds-en p:last-child{margin-bottom:0}
+.btn,.chip,button{word-spacing:normal}
+.qr-lb{display:block;font-size:11.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--lime-txt);margin:2px 0 2px}
+.qr-as{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--fg2);background:var(--raise);border:1px solid var(--line);border-radius:999px;padding:2px 10px;margin-bottom:4px}
+.qr-cq{margin:6px 0 0;padding:8px 10px;border-radius:10px;background:var(--sunk);border:1px solid var(--line);font-size:13px;line-height:1.5}
+.qr-cq b{color:var(--ok)}
+.edprev{border:1px solid var(--warn);background:var(--warn-soft);border-radius:12px;padding:10px 12px;line-height:1.5}
 </style>
 
 <div class="app">
@@ -3395,7 +3408,7 @@ function qResData(sid,c){const PS=partsOf(sid,c),R0=resDoc(sid,c)||{},cf=hlCfg()
     const used=new Set();
     Z.L.forEach(q=>{nq++;const m=Z.map&&Z.map.q[q.id],a=Z.ans[q.id],M=qMeta(q);let h=null;
       if(m){for(const x of H){if(x.x<=m.p+.6)h=x;else break}}
-      const g=m?(h?grp(p.id+"|"+norm(h.t),h.t,h.p):grp(p.id+"|_",SUB(sid).n,m.p)):grp("_outras","Outras questões da aula",9999);if(h)used.add(norm(h.t));
+      const auT=(auOf(sid,c)||{}).d,g=m?(h?grp(p.id+"|"+norm(h.t),h.t,h.p):grp(p.id+"|_",auT?String(auT).replace(/^Assunto:\s*/i,"").replace(/\.$/,""):SUB(sid).n,m.p)):grp("_outras","Outras questões da aula",9999);if(h)used.add(norm(h.t));
       const regra=m?m.s:cut(String(q.c||"").split(/(?<=[.;!?])\s+/).find(t=>t.length>40&&!/^(gabarito|letra|coment)/i.test(t))||"",260);
       let pt=g.pts.find(x=>x.s===regra);if(!pt){pt={s:regra,p:m?m.p:q.p||0,qs:[],src:"PDF"};g.pts.push(pt)}
       pt.qs.push({n:q.n,src:"PDF",stem:cut(M.stem,170),ans:qAns(q),peg:cut(qPeg(q.c),240),err:!!(a&&!a.ok),done:!!a,banca:M.banca,ano:M.ano})});
@@ -3425,10 +3438,10 @@ function qPtFlat(D2){return[...D2.groups.map(g=>({g,f:0})),...D2.extra.map(g=>({
 function qResMd(sid,c,view){const X=qResData(sid,c),out=[],au=auOf(sid,c);view=view||"full";
   out.push("## "+SUB(sid).n+" · "+auLabel(sid,c)+(au?" – "+au.d:""));
   const pt=(p,f)=>{const n=p.qs.length,er=p.qs.filter(q=>q.err);out.push("- "+(er.length?"ATENÇÃO: você errou · ":"")+(p.p?"**p. "+p.p+"** – ":"")+p.s+" ("+n+" quest"+(n>1?"ões":"ão")+(f?" · fora do material · TEC":"")+")");
-    const q=p.qs[0];if(q.stem)out.push("  Como caiu: "+q.stem+(q.ans?" → "+q.ans:""));const pg=p.qs.map(x=>x.peg).find(Boolean);if(pg)out.push("  Pegadinha: "+pg)};
+    p.qs.slice(0,view==="full"?2:1).forEach(q=>{if(q.stem)out.push("  Como caiu: "+q.stem+(q.ans?" → "+q.ans:""))});const pg=p.qs.map(x=>x.peg).find(Boolean);if(pg)out.push("  Pegadinha: "+pg)};
   if(view==="cai"){out.push("## O que mais cai");qPtFlat(X).sort((a,b)=>b.pt.qs.length-a.pt.qs.length).slice(0,15).forEach(x=>pt(x.pt,x.f));return out.join("\n")}
   if(view==="err"){const L=qPtFlat(X).filter(x=>x.pt.qs.some(q=>q.err));out.push("## O que você errou");if(!L.length)out.push("- Nenhum erro registrado nesta aula ainda.");L.forEach(x=>pt(x.pt,x.f));return out.join("\n")}
-  X.groups.forEach(g=>{out.push("## "+g.t+(g.p&&g.p<9999?" (p. "+g.p+")":""));g.pts.forEach(p=>pt(p,0))});
+  X.groups.forEach(g=>{out.push("## Assunto: "+g.t+(g.p&&g.p<9999?" (p. "+g.p+")":""));g.pts.forEach(p=>pt(p,0))});
   X.extra.forEach(g=>{out.push("## "+g.t+" · fora do material (TEC)");g.pts.forEach(p=>pt(p,1))});
   if(X.own.length){out.push("## Suas marcações");X.own.slice(0,30).forEach(h=>out.push("- "+HLC[h.c][0]+" (p. "+h.p+"): "+h.t))}
   if(X.semQ.length){out.push("## Assuntos da aula sem questões (ainda)");X.semQ.forEach(h=>out.push("- "+h.t+" (p. "+h.p+")"))}
@@ -3437,8 +3450,9 @@ function qResMd(sid,c,view){const X=qResData(sid,c),out=[],au=auOf(sid,c);view=v
 function qResumao(sid,c){const X=qResData(sid,c),L=qPtFlat(X),out=[],au=auOf(sid,c);if(!L.length)return"";
   out.push("## Resumão final · "+SUB(sid).n+" · "+auLabel(sid,c)+(au?" – "+au.d:""));
   const top=L.slice().sort((a,b)=>b.pt.qs.length-a.pt.qs.length).slice(0,10),er=L.filter(x=>x.pt.qs.some(q=>q.err));
-  out.push("## O que mais cai");top.forEach(x=>{const pg=x.pt.qs.map(q=>q.peg).find(Boolean);out.push("- **"+cut(x.pt.s,230)+"** ("+(x.pt.p?"p. "+x.pt.p+" · ":"")+x.pt.qs.length+" quest"+(x.pt.qs.length>1?"ões":"ão")+")"+(pg?" Pegadinha: "+cut(pg,150):""))});
-  if(er.length){out.push("## O que você errou");er.slice(0,12).forEach(x=>out.push("- ATENÇÃO: "+cut(x.pt.s,200)+(x.pt.p?" (p. "+x.pt.p+")":"")))}
+  out.push("## O que mais cai");top.forEach(x=>{const pg=x.pt.qs.map(q=>q.peg).find(Boolean),q0=x.pt.qs.find(q=>q.stem);out.push("- **Assunto: "+x.g.t+"** · "+x.pt.qs.length+" quest"+(x.pt.qs.length>1?"ões":"ão")+(x.pt.p?" · p. "+x.pt.p:""));
+    out.push("  - Base para acertar: "+cut(x.pt.s,260));if(q0)out.push("  - Questão: "+cut(q0.stem,200)+(q0.ans?" → "+q0.ans:""));if(pg)out.push("  - Pegadinha: "+cut(pg,150))});
+  if(er.length){out.push("## O que você errou");er.slice(0,12).forEach(x=>{const q0=x.pt.qs.find(q=>q.err&&q.stem)||x.pt.qs[0];out.push("- ATENÇÃO · Assunto: "+x.g.t);if(q0&&q0.stem)out.push("  - Questão: "+cut(q0.stem,200)+(q0.ans?" → "+q0.ans:""));out.push("  - Base para acertar: "+cut(x.pt.s,240)+(x.pt.p?" (p. "+x.pt.p+")":""))})}
   out.push("## Checklist de véspera");[...er,...top].filter((x,i,a)=>a.indexOf(x)===i).slice(0,15).forEach(x=>out.push("- ☐ "+cut(x.pt.s,120)));
   return out.join("\n")}
 function qResHTML(sid,c,view){const X=qResData(sid,c);
@@ -3446,10 +3460,10 @@ function qResHTML(sid,c,view){const X=qResData(sid,c);
   const qb=q=>`<div class="qr-q"><span class="chip ${q.src==="TEC"?"warn":""}">${q.src}${q.n?" "+esc(String(q.n)):""}${q.banca?" · "+esc(q.banca)+(q.ano?" "+q.ano:""):""}</span>${q.err?'<span class="chip bad">você errou</span>':q.done?'<span class="chip ok">feita</span>':""}<span>${esc(q.stem)}${q.ans?` <b>→ ${esc(q.ans)}</b>`:""}</span></div>`;
   const pt=(p,f)=>{const er=p.qs.some(q=>q.err),pg=p.qs.map(x=>x.peg).find(Boolean),n=p.qs.length;
     return`<div class="qr-pt ${er?"err":""}"><div class="qr-h">${p.p?`<button class="lnk qr-pg" data-a="rsPg" data-p="${p.p}" title="Abrir o PDF nesta página">p. ${p.p}</button>`:""}<span class="qr-n" title="Questões que cobraram este ponto">${n} ${n>1?"questões":"questão"}</span>${f?'<span class="chip warn">fora do material · TEC</span>':""}</div>
-      <p class="qr-s">${esc(p.s)}</p>${pg?`<p class="qr-peg"><b>Pegadinha:</b> ${esc(pg)}</p>`:""}<details class="qr-qs"><summary>Como caiu (${n})</summary>${p.qs.map(qb).join("")}</details></div>`};
+      <span class="qr-lb">O que você precisa saber</span><p class="qr-s">${esc(p.s)}</p>${p.qs[0]&&p.qs[0].stem?`<p class="qr-cq"><span class="qr-lb" style="margin-top:0">Como caiu</span>${esc(p.qs[0].stem)}${p.qs[0].ans?` <b>→ ${esc(p.qs[0].ans)}</b>`:""}</p>`:""}${pg?`<p class="qr-peg"><b>Pegadinha:</b> ${esc(pg)}</p>`:""}<details class="qr-qs"><summary>Como caiu (${n})</summary>${p.qs.map(qb).join("")}</details></div>`};
   if(view==="cai"){const L=qPtFlat(X).sort((a,b)=>b.pt.qs.length-a.pt.qs.length).slice(0,15);return`<div class="qr">${L.map(x=>`<div class="qr-t small muted">${esc(x.g.t)}</div>`+pt(x.pt,x.f)).join("")}</div>`}
   if(view==="err"){const L=qPtFlat(X).filter(x=>x.pt.qs.some(q=>q.err));return L.length?`<div class="qr">${L.map(x=>`<div class="qr-t small muted">${esc(x.g.t)}</div>`+pt(x.pt,x.f)).join("")}</div>`:`<p class="muted" style="margin:0">Nenhum erro nesta aula ainda. Quando você errar uma questão, o ponto dela aparece aqui.</p>`}
-  return`<div class="qr">${X.groups.map(g=>`<h3 class="qr-g">${esc(g.t)}${g.p&&g.p<9999?` <small class="muted">p. ${g.p}</small>`:""}</h3>${g.pts.map(p=>pt(p,0)).join("")}`).join("")}
+  return`<div class="qr">${X.groups.map(g=>`<h3 class="qr-g"><span class="qr-as">Assunto</span> ${esc(g.t)}${g.p&&g.p<9999?` <small class="muted">p. ${g.p}</small>`:""}</h3>${g.pts.map(p=>pt(p,0)).join("")}`).join("")}
     ${X.extra.map(g=>`<h3 class="qr-g">${esc(g.t)} <small class="muted">fora do material · TEC</small></h3>${g.pts.map(p=>pt(p,1)).join("")}`).join("")}
     ${X.own.length?`<h3 class="qr-g">Suas marcações</h3><ul class="tsl">${X.own.slice(0,30).map(h=>`<li><b>${HLC[h.c][0]}</b> (p. ${h.p}): ${esc(h.t)}</li>`).join("")}</ul>`:""}
     ${X.semQ.length?`<h3 class="qr-g">Assuntos da aula sem questões (ainda)</h3><p class="muted small" style="margin:0">Estão no material, mas nenhuma questão do PDF ou do TEC cobrou ainda. Não esqueça deles.</p><ul class="tsl">${X.semQ.map(h=>`<li>${esc(h.t)} <span class="muted small">(p. ${h.p})</span></li>`).join("")}</ul>`:""}
@@ -3464,7 +3478,10 @@ Abaixo está o resumo de uma aula montado a partir das QUESTÕES que cobraram ca
 Regras obrigatórias:
 - NÃO acrescente nada que não esteja no texto abaixo: nenhum artigo, prazo, número, lei, súmula, exemplo ou conceito novo. Se faltar algo, deixe faltar.
 - Mantenha os mesmos títulos "## " dos assuntos, na mesma ordem, e todos os pontos. Não acrescente assuntos.
-- Para cada ponto: um item "- " com a regra explicada em 1 ou 2 frases, com **negrito** nas palavras-chave, terminando com a página e a contagem, ex.: "(p. 13 · 3 questões)".
+- Cada título "## Assunto: …" diz de que assunto se trata. Mantenha esse formato.
+- Para cada ponto, nesta ordem:
+  - "- **O que você precisa saber:** " + o CONTEÚDO que dá base para acertar: a regra, o conceito, o artigo de lei ou, em Língua Portuguesa (interpretação de texto), a técnica ou a regra gramatical que resolve a questão, explicada em 1 a 3 frases, com **negrito** nas palavras-chave, terminando com a página e a contagem, ex.: "(p. 13 · 3 questões)". Nunca repita só o enunciado da questão no lugar do conteúdo.
+  - "  - **Como caiu:** " + a questão resumida em 1 frase e a resposta certa.
 - Logo abaixo, em outro item, "Pegadinha:" se houver, em 1 frase.
 - Mantenha "ATENÇÃO: você errou" nos pontos que têm essa marca, e "fora do material · TEC" onde houver.
 - Use SOMENTE o conteúdo abaixo (regras, questões, gabaritos e comentários). Não invente artigos, prazos ou números. Nos pontos do TEC, pode citar o artigo de lei que o próprio comentário citar.
@@ -3474,7 +3491,7 @@ ${md.slice(0,60000)}
 </resumo_pelas_questoes>`;
     const r=await SAMPLE(prompt,bg?{modelTier:"default"}:{modelTier:"default",onText:({text})=>{const o=$("rsOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
     if(r&&r.text&&!gOk(r.text,md)){const R0=resGet(sid,c);R0.qaiRej={sig:X.sig,miss:gMiss(r.text,md).slice(0,8),at:Date.now()};touch(key);if(!bg)toast("A IA citou números que não estão no material; mantive o resumo montado das suas questões");return}
-    if(r&&r.text){const R0=resGet(sid,c);R0.qai={txt:resClean(r.text),sig:X.sig,at:Date.now()};R0.txt=R0.qai.txt;R0.qsig=X.sig;R0.v=4;R0.upd=Date.now();touch(key);UI.rsAIv=1}
+    if(r&&r.text){const R0=resGet(sid,c);R0.qai={txt:resClean(r.text),sig:X.sig,at:Date.now(),f:2};R0.txt=R0.qai.txt;R0.qsig=X.sig;R0.v=4;R0.upd=Date.now();touch(key);UI.rsAIv=1}
   }catch(e){if(!AI_OFF&&!bg)toast("Não consegui melhorar o resumo com a IA agora")}finally{RES_BUSY.delete(key);render()}}
 /* separa as questões de todos os PDFs em segundo plano (sem IA), um por vez, para cada aula já ter o seu caderno */
 let QB_BG=0;async function qBgRun(){if(QB_BG)return;QB_BG=1;try{for(const p of PDFS()){if(p.raw||!p.pages)continue;
@@ -3501,7 +3518,7 @@ async function aiBgRun(){if(AIBG||!SAMPLE||AI_OFF||!resAIOn())return;AIBG=1;let 
     try{qResSync(sid,c)}catch(e){}
     const X=qResData(sid,c);if(X.wait||(!X.groups.length&&!X.extra.length))continue;
     const R0=resDoc(sid,c);
-    if(!(R0&&R0.qai&&R0.qai.txt)&&!(R0&&R0.qaiRej&&R0.qaiRej.sig===X.sig)&&!AIBG_FAIL.has("r"+k)){await qResAI(sid,c,1);const R1=resDoc(sid,c);if(R1&&R1.qai&&R1.qai.txt){made.r++;toast("IA: resumo pronto · "+lab)}else{AIBG_FAIL.add("r"+k);continue}await new Promise(r=>setTimeout(r,1500))}
+    if(!(R0&&R0.qai&&R0.qai.txt&&R0.qai.f>=2)&&!(R0&&R0.qaiRej&&R0.qaiRej.sig===X.sig)&&!AIBG_FAIL.has("r"+k)){await qResAI(sid,c,1);const R1=resDoc(sid,c);if(R1&&R1.qai&&R1.qai.txt&&R1.qai.f>=2){made.r++;toast("IA: resumo pronto · "+lab)}else{AIBG_FAIL.add("r"+k);continue}await new Promise(r=>setTimeout(r,1500))}
     if(!CARDS().some(x=>x.sid===sid&&x.aula===c&&x.src==="ia")&&!AIBG_FAIL.has("c"+k)){try{const n=await lessonCards(sid,c);made.c+=n;toast("IA: "+n+" cards criados · "+lab)}catch(e){AIBG_FAIL.add("c"+k)}await new Promise(r=>setTimeout(r,1500))}
     const oldMm=MM().items.find(x=>x.sid===sid&&x.kind==="ai"&&x.aula===c&&(x.v||0)<3);
     if(oldMm&&!AIBG_FAIL.has("u"+k)){try{const S=ED[EDI[sid]],g=await mmGenerate(S,null,oldMm.src||"res","",c);oldMm.tree=g.tree;oldMm.title=auLabel(sid,c)+" · "+g.tree.t;oldMm.v=3;oldMm.ts=Date.now();touch("mm");made.m++;toast("IA: mapa mental refeito com conteúdo e exemplos · "+lab)}catch(e){AIBG_FAIL.add("u"+k)}await new Promise(r=>setTimeout(r,1500))}
@@ -5386,6 +5403,15 @@ function rerenderQz(){if(UI.rsQzP)rsQzModal();if(UI.openT)renderDrawer();if(TAB=
 const qzStats=Z=>{const A=Object.values(Z&&Z.ans||{}),ok=A.filter(a=>a.ok).length;return{n:(Z&&Z.L||[]).length,f:A.length,ok,pct:A.length?Math.round(ok/A.length*100):0}};
 function qzNum(q){return q.seq>1?q.seq*1000+q.n:q.n}
 /* comentário da questão: destaca gabarito, alternativas, artigos de lei e palavras de alerta */
+/* texto vindo do PDF: junta as linhas quebradas no meio da frase, tira espaços duplos e hifenização de fim de linha; mantém os parágrafos */
+function pdfPara(t){t=String(t||"").replace(/\r/g,"").replace(/[ \t\u00a0]+/g," ").replace(/-\n(?=[a-zà-ú])/g,"");
+  const L=t.split("\n").map(x=>x.trim());const out=[];let cur="";
+  L.forEach((x,i)=>{if(!x){if(cur){out.push(cur);cur=""}return}
+    const brk=cur&&(/[.!?:;"”»)]$/.test(cur)&&/^([A-ZÀ-Ú"“«(\d]|[IVX]+[.)-]|[a-e]\))/.test(x)&&(cur.length<70||/^[IVX]+[.)-]|^\d+[.)]\s|^[a-e]\)/.test(x)||/[.!?]["”»)]?$/.test(cur)&&x.length>0&&L[i-1]&&L[i-1].length<55));
+    const title=cur&&cur.length<40&&!/[.,;:!?]$/.test(cur)&&/^[A-ZÀ-Ú"“]/.test(x)&&/^([A-ZÀ-Ú][^ ]*)( [A-ZÀ-ÚIVX\d][^ ]*){0,4}$/.test(cur);
+    if(brk||title){out.push(cur);cur=x}else cur=cur?cur+" "+x:x});if(cur)out.push(cur);
+  return out.map(x=>x.replace(/\s+([,.;:!?])/g,"$1").replace(/\s{2,}/g," ").trim()).filter(Boolean)}
+const pdfParaHTML=t=>pdfPara(t).map(x=>"<p>"+esc(x)+"</p>").join("");
 function qzComFmt(txt,key,chosen){/* o PDF quebra a linha no meio da frase: junta tudo e só separa onde começa a análise de uma alternativa */
   let h=esc(String(txt||"").trim().replace(/\r/g,"").replace(/\n(?=\s*(?:\(?[A-Ea-e]\)\s|Alternativa\s+[A-E]\b|Letra\s+[A-E]\b|Item\s+[IVX]+\b|Gabarito\b))/g,"\u0001").replace(/-\n(?=[a-zà-ú])/g,"").replace(/\s*\n\s*/g," ").replace(/\u0001/g,"\n"));
   h=h.replace(/\b(art(?:igos?|s?\.)\s*\d+[º°o]?(?:[\s,]*(?:§|par[áa]grafo|inc(?:iso)?\.?|al[íi]nea)\s*[\w\dºª°]+)*(?:\s*(?:d[aeo]s?|,)\s*(?:CF|CTN|CC|CPC|CPP|CP|CLT|LINDB|Lei\s*(?:n[º°.]\s*)?[\d.\/]+))?)/gi,'<span class="law">$1</span>');
@@ -5455,12 +5481,12 @@ function quizHTML(p,ctx,only){const Z=qzDoc(p.id),busy=QZ_BUSY.has(p.id);ctx=ctx
   const dots=LL.map((x,k)=>{const a=Z.ans[x.id];return(multi&&(k===0||LL[k-1].seq!==x.seq)?`<span class="qz-sep">Lista ${[...new Set(LL.map(y=>y.seq))].indexOf(x.seq)+1}</span>`:"")+`<button class="${a?(a.ok?"ok":"err"):""} ${k===pos?"cur":""} ${k===pos&&fx?"fxd":""}" data-a="qzGo" data-id="${p.id}" data-i="${k}" ${nav} aria-label="Questão ${only?k+1:x.n}${a?(a.ok?", acertou":", errou"):""}">${only?k+1:x.n}</button>`}).join("");
   const ob=opts.map(([k,txt])=>{let cl="";if(A){if(q.k&&k===q.k)cl="right";if(A.a===k&&!A.ok)cl="wrong";if(A.a===k&&A.ok)cl="right"}
     const xs=(UI.qzX||{})[p.id+"|"+q.id]||[],x=xs.includes(k),sl=!A&&(UI.qzSel||{})[p.id+"|"+q.id]===k;
-    return`<button class="qz-o ${cl} ${x?"x":""} ${sl?"sel":""}" aria-pressed="${sl}" data-a="qzPick" data-id="${p.id}" data-q="${q.id}" data-k="${k}" ${A?"disabled":""} title="${x?"Alternativa riscada · dois cliques para desfazer":"Um clique seleciona · dois cliques riscam a alternativa"}"><span class="qz-k">${q.ce?"":k}</span><span><span class="qz-t">${esc(txt)}</span></span></button>`}).join("");
+    return`<button class="qz-o ${cl} ${x?"x":""} ${sl?"sel":""}" aria-pressed="${sl}" data-a="qzPick" data-id="${p.id}" data-q="${q.id}" data-k="${k}" ${A?"disabled":""} title="${x?"Alternativa riscada · dois cliques para desfazer":"Um clique seleciona · dois cliques riscam a alternativa"}"><span class="qz-k">${q.ce?"":k}</span><span><span class="qz-t">${esc(pdfPara(txt).join(" "))}</span></span></button>`}).join("");
   return`<div class="qz"><div class="qz-h"><b>${only?"Questões do PDF sobre estas páginas":p.tec?"Questões do TEC desta aula":p.ai?"Questões criadas para você":"Questões do PDF"}</b><span class="qz-sc">${S.f} de ${S.n} respondidas · <b class="${S.f?S.pct>=75?"okc":S.pct>=50?"warnc":"badc":""}">${S.pct}% de acertos</b></span></div>
    ${fbar}${missBtn}<div class="qz-bar" aria-hidden="true"><i class="ok" style="width:${S.n?S.ok/S.n*100:0}%"></i><i class="bad" style="width:${S.n?(S.f-S.ok)/S.n*100:0}%"></i></div>
    <div class="qgrid qz-g">${dots}</div>
    <div class="qz-q${fx?" fx "+(A.ok?"good":"bad"):""}${ent&&!fx?" enter":""}"><div class="qz-qh"><span class="code">${only?`Questão ${pos+1} de ${IX.length}`:`Questão ${q.n}${q.seq>1?" · lista "+q.seq:""}`}</span>${q.p?`<button class="btn sm ghost" data-a="read" data-id="${p.id}" data-pa="${q.p}" data-pb="${q.p}">${ic("book")} Ver no PDF (p. ${q.p})</button>`:""}</div>
-    <p class="qz-s">${esc(q.s)}</p><div class="qz-os">${ob}</div>${A?"":`<div class="row qz-solve"><button class="btn pri" data-a="qzSolve" data-id="${p.id}" data-q="${q.id}" ${(UI.qzSel||{})[p.id+"|"+q.id]?"":"disabled"}>${ic("check")} Resolver questão</button><span class="muted small">Um clique seleciona a alternativa · dois cliques riscam (eliminam). A resposta só vale ao tocar em Resolver.</span></div>`}
+    <div class="qz-s">${pdfParaHTML(q.s)}</div><div class="qz-os">${ob}</div>${A?"":`<div class="row qz-solve"><button class="btn pri" data-a="qzSolve" data-id="${p.id}" data-q="${q.id}" ${(UI.qzSel||{})[p.id+"|"+q.id]?"":"disabled"}>${ic("check")} Resolver questão</button><span class="muted small">Um clique seleciona a alternativa · dois cliques riscam (eliminam). A resposta só vale ao tocar em Resolver.</span></div>`}
     ${A?`<div class="qz-r ${A.ok?"ok":"bad"}"><span class="qz-ri" aria-hidden="true">${ic(A.ok?"check":"close")}</span><b>${A.ok?"Acertou!":"Errou."}</b> ${q.k?`Gabarito: <b>${q.ce?(q.k==="C"?"Certo":"Errado"):"Letra "+q.k}</b>${q.kai?` <span class="chip warn" title="O PDF não trouxe o gabarito desta questão">gabarito inferido</span> ${esc(q.kf||"")}`:""}.`:(p.ai?"Sem gabarito.":"O PDF não trouxe o gabarito desta questão.")}${!A.ok?" Ela entrou em Erradas e nas revisões.":""}</div>${qzComHTML(p,q,A,Z)}`:""}
     ${A&&!q.k?`<div class="row"><button class="btn sm" data-a="qzSelf" data-id="${p.id}" data-q="${q.id}" data-v="1">Acertei</button><button class="btn sm" data-a="qzSelf" data-id="${p.id}" data-q="${q.id}" data-v="0">Errei</button></div>`:""}
     <div class="row" style="justify-content:space-between"><button class="btn sm ghost" data-a="qzGo" data-id="${p.id}" data-i="${pos-1}" ${nav} ${pos?"":"disabled"}>← Anterior</button>${A?`<button class="btn sm ghost" data-a="qzUndo" data-id="${p.id}" data-q="${q.id}">Responder de novo</button>`:""}<button class="btn sm ${A?"pri":"ghost"}" data-a="qzGo" data-id="${p.id}" data-i="${pos+1}" ${nav} ${pos<IX.length-1?"":"disabled"}>${A?"Próxima →":"Pular →"}</button></div></div></div>`}
@@ -6145,7 +6171,7 @@ O aluno já fez o ciclo completo desta aula (teoria, revisão, mapeamento e ques
 Escreva em português do Brasil, em texto simples: "## " para seções, "- " para itens, **negrito** para palavras-chave, e comece com "ATENÇÃO:" os itens de maior incidência. Sem tabelas, sem HTML. Nunca diga que o material está cortado.
 Organize assim:
 ## Seu desempenho nesta aula: acertos, onde errou e o que isso indica (2 a 4 itens).
-## O que você precisa dominar: os assuntos que mais caem, do mais para o menos cobrado; em cada um, a regra, o artigo ou súmula e o detalhe que a banca explora.
+## O que você precisa dominar: os assuntos que mais caem, do mais para o menos cobrado. Em cada item: "**Assunto:** …", depois "Questão:" (a questão resumida e a resposta) e "Base para acertar:" (o conteúdo, a regra, o artigo de lei ou súmula que consolida o conhecimento; em interpretação de texto, a técnica ou a regra gramatical que resolve a questão), e o detalhe que a banca explora.
 ## Onde você errou e a regra certa: um item por erro ou assunto fraco.
 ## Pegadinhas da ${dsBanca()} nesta aula.
 ## Prazos e números para decorar.
@@ -6871,7 +6897,7 @@ function vConcurso0(){
   const X=d=>clamp(dbet(base,d)/span*100,0,100);
   const lbl={ins0:"Inscrições",pag:"Boleto",def:"Deferimento",prova:"Prova"};let alt=false;
   const pts=cr.filter(x=>lbl[x.k]).map(x=>{alt=!alt;return`<span class="pt ${x.d<=td?"past":""} ${x.k==="prova"?"big2":""}" style="left:${X(x.d)}%" title="${esc(x.l)}: ${dm(x.d)}"></span><span class="lb ${alt?"":"alt"}" style="left:${clamp(X(x.d),6,94)}%">${lbl[x.k]} ${dm(x.d)}</span>`}).join("");
-  const rows=cr.map(x=>{const n=dbet(td,x.d);return`<div class="crow"><div class="k">${esc(x.l)}<small>${x.a?"de "+dm(x.a)+" a "+dm(x.d)+" · ":""}${n>0?"faltam "+dias(n):n===0?"é hoje":"já passou"}</small></div><span class="chip ${n<0?"":n<=7?"warn":"lime"}">${dmy(x.d)}</span><input class="inp when" type="date" value="${x.d}" data-c="cron" data-k="${x.k}" aria-label="Alterar data: ${esc(x.l)}"></div>`}).join("");
+  const TBDc=provaTBD();const rows=cr.map(x=>{const n=dbet(td,x.d),tb=TBDc&&x.k==="prova";return`<div class="crow"><div class="k">${esc(x.l)}<small>${tb?"data a definir · ∞ dias":(x.a?"de "+dm(x.a)+" a "+dm(x.d)+" · ":"")+(n>0?"faltam "+dias(n):n===0?"é hoje":"já passou")}</small></div><span class="chip ${tb?"":n<0?"":n<=7?"warn":"lime"}">${tb?"—":dmy(x.d)}</span><input class="inp when" type="date" value="${x.d}" data-c="cron" data-k="${x.k}" aria-label="Alterar data: ${esc(x.l)}"></div>`}).join("");
   const lv=ED.map((s,i)=>`<div class="lvl"><span><span class="code" style="margin-right:8px;border-color:${s.col}">${s.c}</span>${esc(s.n)}</span><select class="inp" style="width:auto" data-c="lvl" data-s="${s.id}" aria-label="Nível em ${esc(s.n)}">${Object.keys(LVS).map(l=>`<option ${lvl(i)===l?"selected":""}>${l}</option>`).join("")}</select></div>`).join("");
   const r=curMeta(),canRe=r&&!r.done&&!started(r.n);
   return`<div class="hello"><h1>Concurso</h1><p>${IS_TJ?"Oficial de Justiça do TJSP · Edital 01/2026 · Fundação VUNESP · 132 vagas imediatas · R$ 9.856,95":esc([PLAN.name,PLAN.cargo,PLAN.orgao,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(" · "))}</p></div>
@@ -7634,7 +7660,7 @@ Trecho:
     const o=out.find(y=>norm(y.n)===norm(n)||cdice(nTok(y.n),nTok(n))>=.75);if(o)t.forEach(s=>{if(!o.t.some(z=>norm(z)===norm(s)))o.t.push(s)});else out.push({n,q:null,t:[...new Set(t)]})});
   return out}
 
-function edtOpenM(){UI.edx={st:"pick"};edModal()}
+function edtOpenM(prev){UI.edx={st:"pick",prev:!!prev};edModal()}
 async function edStart(buf,name,size){const X=UI.edx={st:"read",p:0,n:0,file:{name:String(name||"edital.pdf").slice(0,120),size:size||0}};edModal();
   try{const r=await edPdfText(buf,(p,n)=>{X.p=p;X.n=n;if(p%5===0||p===n)edModal()});X.file.pages=r.n;
     if(ASSETS&&size){upTry(new Blob([buf],{type:"application/pdf"})).then(u=>{if(u&&u.id){X.file.id=u.id;const E=edE();if(E&&E.file&&E.file.name===X.file.name&&!E.file.id){E.file.id=u.id;touch("core")}}}).catch(()=>{X.file.upErr=1})}
@@ -7652,13 +7678,13 @@ async function edRun(cargo){const X=UI.edx;if(!X||!X.txt)return;const S=edSplit(
   ((I.prova||{}).materias||[]).forEach(m=>{if(!m||!m.n||!(+m.q>0))return;const s=edMatch(m.n,X.subs);if(s&&!s.q)s.q=+m.q});
   if(!X.info&&!X.subs.length){X.st="err";X.msg=X.aiErr==="rate_limited"?"A IA está ocupada agora. Espere um minuto e tente de novo.":"Não consegui tirar os dados deste edital. Tente de novo ou cole só o conteúdo programático em “Adicionar matérias”.";edModal();return}
   X.st="review";edDefaults();edModal()}
-function edDefaults(){const X=UI.edx,I=X.info||{};X.sel={dados:!!(I.orgao||I.banca||(I.cargos||[]).length),cron:!!(I.cron||[]).some(c=>c&&edOk(c.d)),prova:!!(I.prova&&((I.prova.materias||[]).length||I.prova.disc||edOk(I.prova.data))),subs:!IS_TJ&&!!(X.subs||[]).length}}
+function edDefaults(){const X=UI.edx,I=X.info||{};X.sel={dados:!!(I.orgao||I.banca||(I.cargos||[]).length),cron:!X.prev&&!!(I.cron||[]).some(c=>c&&edOk(c.d)),prova:!!(I.prova&&((I.prova.materias||[]).length||I.prova.disc||edOk(I.prova.data))),subs:!IS_TJ&&!!(X.subs||[]).length}}
 function edRead(){const X=UI.edx;if(!X||!X.sel)return;["dados","cron","prova","subs"].forEach(k=>{const e=$("edS_"+k);if(e)X.sel[k]=e.checked})}
 
 function edModal(){const X=UI.edx;if(!X)return;
   const box=b=>`<div class="modal" role="dialog" aria-modal="true" aria-label="Edital do concurso"><div class="box npm" style="max-width:760px">${b}</div></div>`;
   const close=`<button class="btn" data-a="edtClose">Fechar</button>`;
-  if(X.st==="pick"){$("layer3").innerHTML=box(`<h3 style="margin:0">Incluir o edital do concurso</h3>
+  if(X.st==="pick"){$("layer3").innerHTML=box(`<h3 style="margin:0">${X.prev?"Usar o último edital como base":"Incluir o edital do concurso"}</h3>${X.prev?`<p class="edprev small" style="margin:0"><b>Edital anterior.</b> Enquanto o edital novo não sai, o plano segue as matérias e os assuntos do último edital publicado. As datas dele não entram (a prova continua “a definir”). Quando o novo sair, use “Incluir o edital”: o painel ajusta o plano sozinho e o que você já estudou continua contando.</p>`:""}
     <p class="muted" style="margin:0">Envie o PDF do edital. O app lê o texto e tira os dados: órgão, banca, cargo, vagas, salário, datas do cronograma, estrutura da prova (questões por matéria, notas mínimas, discursiva) e o conteúdo programático com matérias e assuntos. Antes de mudar qualquer coisa, você revisa e escolhe o que aplicar.</p>
     <label class="btn pri" style="justify-self:start;cursor:pointer">${ic("edital")} Escolher o PDF do edital<input type="file" accept="application/pdf,.pdf" data-c="edFile" hidden></label>
     <details ${X.paste?"open":""}><summary class="muted small" style="cursor:pointer">O edital não está em PDF? Cole o texto</summary><div style="display:grid;gap:8px;margin-top:8px"><textarea class="inp" id="edTxt" rows="8" placeholder="Cole aqui o texto completo do edital (ou ao menos o cronograma, a estrutura da prova e o conteúdo programático)."></textarea><button class="btn" data-a="edtPaste" style="justify-self:start">Ler este texto</button></div></details>
@@ -7669,7 +7695,7 @@ function edModal(){const X=UI.edx;if(!X)return;
     $("layer3").innerHTML=box(`<h3 style="margin:0">Lendo o edital</h3><span class="muted small">${esc(X.file?X.file.name:"Texto colado")}</span><div class="pbar" style="height:8px;border-radius:6px;background:var(--line);overflow:hidden"><i style="display:block;height:100%;width:${Math.round(pc)}%;background:var(--accent,#3f9cea);transition:width .4s"></i></div><b>${t}</b><span class="muted small">Um edital grande leva de 1 a 3 minutos. Deixe esta janela aberta.</span>`);return}
   if(X.st==="err"){$("layer3").innerHTML=box(`<h3 style="margin:0">Edital do concurso</h3><p class="pwarn" style="margin:0">${esc(X.msg||"Algo deu errado.")}</p><div class="row" style="justify-content:flex-end"><button class="btn" data-a="edtAgain">Tentar outro arquivo</button>${close}</div>`);return}
   /* revisão */
-  const I=X.info||{},P=I.prova||{},C=(I.cron||[]).filter(c=>c&&edOk(c.d)).sort((a,b)=>a.d>b.d?1:-1),S=X.subs||[],cg=I.cargos||[];
+  const I=X.info||{},P=I.prova||{},C=(I.cron||[]).filter(c=>c&&edOk(c.d)).sort((a,b)=>a.d>b.d?1:-1),S=X.subs||[],cg=I.cargos||[];if(X.prev)X.sel.cron=false;
   const ck=(k,l,dis)=>`<label class="row" style="gap:8px;align-items:center;cursor:pointer"><input type="checkbox" id="edS_${k}" ${X.sel[k]?"checked":""} ${dis?"disabled":""}><b>${l}</b></label>`;
   const kv=(k,v)=>v?`<div class="row" style="gap:8px;justify-content:space-between"><span class="muted small">${k}</span><span class="small" style="text-align:right;max-width:65%">${esc(String(v))}</span></div>`:"";
   const cur=cg.find(c=>norm(c.n)===norm(X.cargo))||cg[0]||{};
@@ -7690,9 +7716,9 @@ function edModal(){const X=UI.edx;if(!X)return;
    ${I.obs?`<p class="muted small" style="margin:0">${esc(I.obs)}</p>`:""}
    <div class="row" style="justify-content:flex-end"><button class="btn" data-a="edtClose">Cancelar</button><button class="btn pri" data-a="edtApply">Aplicar o que está marcado</button></div>`)}
 
-async function edtApplyM(){edRead();const X=UI.edx;if(!X)return;const I=X.info||{},P=I.prova||{},c=core(),sel=X.sel;let reload=false;const msg=[];
+async function edtApplyM(){edRead();const X=UI.edx;if(!X)return;const I=X.info||{},P=I.prova||{},c=core(),sel=X.sel;let reload=false;const msg=[];if(X.prev)sel.cron=false;const wasPrev=!!(c.edital&&c.edital.prev)&&!X.prev;
   const cg=(I.cargos||[]).find(z=>norm(z.n)===norm(X.cargo))||(I.cargos||[])[0]||{};
-  c.edital={at:today(),file:X.file||null,cargo:X.cargo||"",info:{orgao:I.orgao||"",orgaoNome:I.orgaoNome||"",banca:I.banca||"",edital:I.edital||"",vagas:cg.vagas||"",salario:cg.salario||"",req:cg.req||"",taxa:I.taxa||"",obs:I.obs||"",cargos:(I.cargos||[]).map(z=>z.n).slice(0,30)},prova:I.prova||null,ap:{...sel},nSubs:(X.subs||[]).length};
+  c.edital={at:today(),prev:!!X.prev,file:X.file||null,cargo:X.cargo||"",info:{orgao:I.orgao||"",orgaoNome:I.orgaoNome||"",banca:I.banca||"",edital:I.edital||"",vagas:cg.vagas||"",salario:cg.salario||"",req:cg.req||"",taxa:I.taxa||"",obs:I.obs||"",cargos:(I.cargos||[]).map(z=>z.n).slice(0,30)},prova:I.prova||null,ap:{...sel},nSubs:(X.subs||[]).length};
   if(sel.dados&&!IS_TJ){if(I.orgao)PLAN.orgao=String(I.orgao).slice(0,30);if(I.banca)PLAN.banca=String(I.banca).slice(0,40);if(X.cargo)PLAN.cargo=String(X.cargo).slice(0,80);msg.push("dados")}
   if(sel.cron){const C=(I.cron||[]).filter(x=>x&&edOk(x.d)).sort((a,b)=>a.d>b.d?1:-1),used=new Set(),L=[];
     C.forEach(x=>{let k=EDK[x.k]?x.k:"o";if(used.has(k)||k==="o"){let n=1;while(used.has(k+n))n++;k=(k==="o"?"o":k)+n}used.add(k);L.push({k,l:String(x.l||EDK[x.k]||"Evento").slice(0,90),...(x.a&&edOk(x.a)&&x.a<x.d?{a:x.a}:{}),d:x.d})});
@@ -7703,15 +7729,22 @@ async function edtApplyM(){edRead();const X=UI.edx;if(!X)return;const I=X.info||
   if(sel.subs&&!IS_TJ&&(X.subs||[]).length){const used=new Set(ED.map(x=>x.c)),extra=[];let add=0,addS=0;
     X.subs.forEach(x=>{const o=PLAN.ed.find(y=>norm(y.n)===norm(x.n))||edMatch(x.n,PLAN.ed);if(o){x.t.forEach(t=>{if(!o.t.some(y=>norm(y[0])===norm(t))){o.t.push([t,kwOf(t)]);add++}})}else extra.push(x)});
     const ns=makeSubs(extra,PLAN.ed.reduce((m,x)=>Math.max(m,+String(x.id).replace(/\D/g,"")||0),0),used);ns.forEach(x=>{PLAN.ed.push(x);addS++;add+=x.t.length});
-    if(add){reload=true;msg.push(addS+" matérias novas e "+add+" assuntos")}}
+    if(add){reload=true;msg.push(addS+" matérias novas e "+add+" assuntos")}
+    /* edital atual chegando depois do anterior: assuntos que saíram do edital ficam com incidência zero (vão para o fim da fila);
+       nada é apagado, então o que você já estudou continua contando */
+    if(wasPrev){let off=0;c.inc=c.inc||{};PLAN.ed.forEach(S0=>{const nx=X.subs.find(x=>norm(x.n)===norm(S0.n))||edMatch(S0.n,X.subs);if(!nx)return;const keep=new Set(nx.t.map(norm));
+      const miss=S0.t.map((t,i)=>keep.has(norm(t[0]))||nx.t.some(y=>pvTok(y).filter(w=>pvTok(t[0]).includes(w)).length>=2)?-1:i).filter(i=>i>=0);if(!miss.length)return;
+      const I0=c.inc[S0.id]||{p:S0.t.map(()=>100/S0.t.length),src:"edital",at:today()};I0.p=S0.t.map((_,i)=>miss.includes(i)?0:(I0.p[i]>0?I0.p[i]:100/S0.t.length));c.inc[S0.id]=I0;off+=miss.length});
+      if(off)msg.push(off+" assuntos do edital anterior saíram do novo (ficaram por último; o que você estudou continua valendo)");simCache.key=""}}
   if(!IS_TJ)await savePlans();touch("core");UI.edx=null;$("layer3").innerHTML="";
   toast(msg.length?"Edital aplicado: "+msg.join(", ")+(reload?". Recarregando…":""):"Edital guardado. Nada foi alterado no plano.");
   if(reload)setTimeout(()=>switchPlanReload(),700);else render()}
 
 function edCard(){const E=edE();
-  if(!E)return`<section class="card"><div class="card-h"><h2>Edital do concurso</h2></div><div class="card-b row" style="gap:12px;align-items:center"><span class="muted small" style="flex:1 1 300px">Envie o PDF do edital e o app tira sozinho as datas, a estrutura da prova, as matérias e os assuntos. Você revisa antes de aplicar.</span><button class="btn pri" data-a="edtOpen">${ic("edital")} Incluir o edital</button></div></section>`;
+  const prevBox=!IS_TJ&&provaTBD()&&!(E&&!E.prev)?`<div class="edprev small" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span style="flex:1 1 280px">${E&&E.prev?`<b>Base atual: edital anterior</b>${E.info&&E.info.edital?" ("+esc(E.info.edital)+")":""}. Quando o novo edital sair, inclua-o aqui: o plano se ajusta e o que você já estudou continua contando.`:`<b>Sem edital aberto.</b> Use o último edital publicado como base: o estudo segue as matérias e os assuntos dele e se ajusta sozinho quando o novo sair.`}</span><button class="btn sm" data-a="edtPrev">${ic("edital")} ${E&&E.prev?"Trocar o edital anterior":"Usar o último edital"}</button></div>`:"";
+  if(!E)return`${prevBox}<section class="card"><div class="card-h"><h2>Edital do concurso</h2></div><div class="card-b row" style="gap:12px;align-items:center"><span class="muted small" style="flex:1 1 300px">Envie o PDF do edital e o app tira sozinho as datas, a estrutura da prova, as matérias e os assuntos. Você revisa antes de aplicar.</span><button class="btn pri" data-a="edtOpen">${ic("edital")} Incluir o edital</button></div></section>`;
   const I=E.info||{},P=E.prova||{},kv=(k,v)=>v?`<div class="row" style="gap:8px;justify-content:space-between"><span class="muted small">${k}</span><span class="small" style="text-align:right;max-width:65%">${esc(String(v))}</span></div>`:"";
-  return`<section class="card"><div class="card-h"><h2>Edital do concurso</h2><span class="r muted small">lido em ${dmy(E.at)}</span></div><div class="card-b" style="display:grid;gap:6px">
+  return`${prevBox}<section class="card"><div class="card-h"><h2>Edital do concurso${E.prev?' <span class="chip warn">anterior · base até sair o novo</span>':""}</h2><span class="r muted small">lido em ${dmy(E.at)}</span></div><div class="card-b" style="display:grid;gap:6px">
    ${E.file?kv("Arquivo",E.file.name+(E.file.pages?" · "+E.file.pages+" páginas":"")):""}${kv("Órgão",[I.orgao,I.orgaoNome].filter(Boolean).join(" · "))}${kv("Banca",I.banca)}${kv("Edital",I.edital)}${kv("Cargo",E.cargo)}${kv("Vagas",I.vagas)}${kv("Remuneração",I.salario)}${kv("Requisitos",I.req)}${kv("Taxa",I.taxa)}
    ${kv("Prova",[edOk(P.data)?dmy(P.data):"",P.turno,P.duracao].filter(Boolean).join(" · "))}${kv("Objetivas",[P.obj?P.obj+" questões":"",P.tipo].filter(Boolean).join(" · "))}${kv("Nota mínima",P.min)}
    ${P.disc?kv("Discursiva",[P.disc.qtd?P.disc.qtd+" "+(P.disc.tipo||"questões"):P.disc.tipo,P.disc.linhas,P.disc.pontos?P.disc.pontos+" pontos":"",P.disc.min?"mínimo "+P.disc.min:""].filter(Boolean).join(" · ")):""}${kv("Outras etapas",P.etapas)}
@@ -8198,6 +8231,7 @@ Object.assign(A,{
   edtPaste(){const t=($("edTxt")||{value:""}).value.trim();if(t.length<300){toast("Cole o texto do edital primeiro");return}UI.edx={st:"ai1",txt:t,file:null};edRun()},
   edtCargo(){const s=$("edCg");if(!s||!UI.edx)return;edRead();edRun(s.value)},
   edtApply(){edtApplyM()},
+  edtPrev(){edtOpenM(true)},
   rotCat(el){UI.rotCat=el.dataset.k;render()},
   rotPaint(el){UI.rotPaint=el.dataset.v!=="0";render()},
   rotDay(el){UI.rotDay=el.dataset.d;render()},
