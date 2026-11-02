@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021323"></script>
+<script src="/claude-shim.js?v=202611021335"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1678,15 +1678,19 @@ const TOT_TOP=sum(ED.map(s=>s.t.length));
 const stars=w=>w>=6?5:w>=5?4:3;
 /* cor de alerta da relevância: 1–2 verde (pouca), 3 amarelo (média), 4–5 vermelho (alta) */
 const relCls=n=>n>=4?"rl-h":n>=3?"rl-m":"rl-l";
-/* Relevância real (1 a 5): quanto a matéria pesa na prova, comparada com a que mais pesa, ajustada pela incidência
-   dos assuntos da aula da atividade (aula de assunto que cai muito sobe; de assunto que quase não cai desce). */
-function relInfo(t){try{const S=SUB(t.sid),T=qTot()||1,mx=Math.max(1,...ED.map(qOf)),q=qOf(S),pct=q/T*100;let r=q/mx,au="";
-    const a=t.aula?auOf(t.sid,t.aula):null;
-    if(a&&a.tp&&a.tp.length&&incHas(t.sid)){const P=incOf(t.sid),avg=100/P.length,v=a.tp.reduce((x,j)=>x+(P[j]||0),0);const f=Math.max(.6,Math.min(1.45,Math.sqrt(v/avg/a.tp.length)));r*=f;
-      au=" · assuntos desta aula: "+pv1(v)+"% das questões de "+S.n+(f>1.05?" (acima da média)":f<.95?" (abaixo da média)":"")}
-    const n=Math.max(1,Math.min(5,Math.round(r*5)));
-    const rk=ED.map(x=>qOf(x)).sort((a,b)=>b-a).indexOf(q)+1;
-    return{n,tip:`Relevância ${n} de 5 · ${S.n}: ${q} questões, ${pv1(pct)}% da prova (${rk}ª matéria em peso)${au}`}}catch(e){return{n:3,tip:"Relevância"}}}
+/* Relevância (1 a 5) do CONTEÚDO da atividade, não da matéria: quanto os assuntos destas páginas caem dentro da
+   matéria (incidência), comparado com a média dos assuntos. Sem incidência, usa quantas questões do PDF cobram
+   estas páginas, comparado com a média da aula. 1–2 pouca · 3 média · 4–5 alta. */
+function relInfo(t){try{const S=SUB(t.sid),Sx=ED[EDI[t.sid]],p=t.pdf?pdf(t.pdf):null,a=t.aula?auOf(t.sid,t.aula):null;
+    const lvl=r=>r<.6?1:r<.9?2:r<1.3?3:r<2?4:5;
+    let js=[];if(p&&p.hits&&t.pa&&t.pb)js=Object.entries(p.hits).filter(([k,pg])=>+k.split(":")[0]===EDI[t.sid]&&pg.some(g=>g>=t.pa&&g<=t.pb)).map(([k])=>+k.split(":")[1]).filter(j=>Sx&&Sx.t[j]);
+    if(!js.length&&a&&a.tp)js=a.tp.slice();if(!js.length&&t.topic!=null&&Sx&&Sx.t[t.topic])js=[t.topic];
+    const nm=js.slice(0,3).map(j=>tShort(Sx.t[j][0])).join("; ");
+    if(js.length&&incHas(t.sid)){const P=incOf(t.sid),avg=100/Math.max(1,P.length),v=Math.max(...js.map(j=>P[j]||0)),n=lvl(v/avg);
+      return{n,tip:`Relevância ${n} de 5 · conteúdo: ${nm} · cerca de ${pv1(v)}% das questões de ${S.n} (a média de um assunto é ${pv1(avg)}%)`}}
+    const Z=p&&qzDoc(p.id);if(Z&&Z.map&&Z.map.v===1&&t.pa&&t.pb){const M=Object.values(Z.map.q),here=M.filter(m=>m.p>=t.pa&&m.p<=t.pb).length,pgs=Math.max(1,(teoEnd(p)||p.pages)-((stOk(p)?p.st.ts:p.ts)||1)+1),
+      dens=here/Math.max(1,t.pb-t.pa+1),avgD=M.length/pgs;if(M.length){const n=lvl(avgD?dens/avgD:1);return{n,tip:`Relevância ${n} de 5 · ${here} questões do PDF cobram estas páginas (média da aula: ${pv1(avgD*(t.pb-t.pa+1))} para um trecho deste tamanho)${nm?" · conteúdo: "+nm:""}`}}}
+    return{n:3,tip:`Relevância média (sem dados ainda)${nm?" · conteúdo: "+nm:""}. Informe a incidência dos assuntos em Meu plano → Incidência para a relevância ficar exata.`}}catch(e){return{n:3,tip:"Relevância"}}}
 const DEF_CRON=[
  {k:"red1",l:"Pedido de redução da taxa (50%)",a:"2026-10-28",d:"2026-10-30"},
  {k:"ins0",l:"Início das inscrições, às 10h",d:"2026-10-28"},
@@ -3889,7 +3893,7 @@ function rowsHTML(ts,locks,mbt,preview,all){
   if(!ts.length)return`<div class="empty">Nenhuma atividade aqui.</div>`;
   const F=UI.filter,list=(preview||all)?ts:ts.filter(t=>F==="todas"||(F==="pend"?!t.done:!!t.done));
   if(!list.length)return`<div class="empty">Nenhuma atividade ${F==="pend"?"pendente":"cumprida"}.</div>`;
-  let h=`<div class="ahead" aria-hidden="true"><span></span><span>#</span><span>Disciplina</span><span>Tipo</span><span>Título</span><span title="Relevância real: quanto a matéria pesa na prova (comparada com a que mais pesa) e quanto os assuntos da aula caem. Passe o mouse nas estrelas para ver os números.">Relevância <span class="ainfo">i</span></span><span>Tempo</span><span>Desempenho</span><span>Código</span></div>`,last="";
+  let h=`<div class="ahead" aria-hidden="true"><span></span><span>#</span><span>Disciplina</span><span>Tipo</span><span>Título</span><span title="Relevância do conteúdo desta atividade: quanto os assuntos destas páginas caem na prova (incidência), ou quantas questões do PDF cobram estas páginas. Verde: pouca · amarelo: média · vermelho: alta. Passe o mouse nas estrelas para ver os números.">Relevância <span class="ainfo">i</span></span><span>Tempo</span><span>Desempenho</span><span>Código</span></div>`,last="";
   list.forEach(t=>{
     const s=SUB(t.sid),lk=locks[t.id],sp=mbt[t.id]||t.gsp||0,pf=t.q&&t.q.f?Math.round(t.q.a/t.q.f*100)+"%":"–",st0=core().gj&&t.rel?{n:t.rel,tip:"Relevância "+t.rel+" de 5 (Guruja)"}:relInfo(t),st=st0.n;
     const pfx=t.q&&t.q.f?Math.round(t.q.a/t.q.f*100)+"%":(()=>{try{const z=t.ph==="Q"||t.ph==="M"?qzTask(t):null;return z&&z.f?z.pct+"%":"-"}catch(e){return"-"}})();
