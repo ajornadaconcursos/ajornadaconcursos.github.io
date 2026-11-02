@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021511"></script>
+<script src="/claude-shim.js?v=202611021521"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1741,6 +1741,16 @@ function saveLocal(){try{localStorage.setItem(LSK,JSON.stringify(D));return true
 const SKIPK=new Set(["plans","rotina","imp","idx"]),LASTS={};let IDXC={},PULLING=false,PULLED=false;
 const strip=o=>{if(!o||typeof o!=="object")return JSON.stringify(o);const c=Object.assign({},o);delete c._u;delete c.upd;return JSON.stringify(c)};
 const docU=(o,remote,k)=>o?(o._u||(remote?(k==="core"?o.upd:0)||1:0)):0;
+/* partes grandes (ex.: o caderno de questões de um PDF longo) vão para a nuvem divididas em pedaços "k~0", "k~1"…;
+   o doc "k" guarda só quantos pedaços são. Os pedaços são gravados antes, então quem lê nunca encontra um pedaço faltando. */
+const CHUNK=200000;
+async function dbPut(k,body){const s=JSON.stringify(body);if(s.length<=240000){await DB.doc(BASE+k).set(body);return}
+  const n=Math.ceil(s.length/CHUNK);for(let i=0;i<n;i++)await DB.doc(BASE+k+"~"+i).set({s:s.slice(i*CHUNK,(i+1)*CHUNK),_part:i,_u:body._u});
+  await DB.doc(BASE+k).set({_big:n,_u:body._u,_len:s.length})}
+/* junta os pedaços; devolve undefined se algum ainda estiver sendo gravado (aí a parte fica para a próxima sincronização) */
+async function dbJoin(k,r,get){if(!r||!r._big)return r;let s="";for(let i=0;i<r._big;i++){let c=null;try{c=await get(k+"~"+i)}catch(e){}if(!c||c._u!==r._u||typeof c.s!=="string")return undefined;s+=c.s}
+  try{const o=JSON.parse(s);o._u=r._u;return o}catch(e){return undefined}}
+const dbGet=async id=>{const sn=await DB.doc(BASE+id).get();return sn.exists?JSON.parse(JSON.stringify(sn.data())):null};
 async function flush(){
   const okL=saveLocal();
   if(!DB||!PULLED){setSync(okL?"local":"err",okL?(DB?"Conectando à sua conta…":"Salvo neste navegador"):"Não foi possível salvar neste navegador");return}
@@ -1753,13 +1763,13 @@ async function flush(){
     let st="";if(D[k]!==undefined){st=strip(D[k]);if(st===LASTS[k])continue;D[k]._u=Math.max(Date.now(),(D[k]._u||0)+1)}
     writing.add(k);
     try{if(D[k]===undefined){await DB.doc(BASE+k).delete();ix[k]=-Date.now();delete LASTS[k]}
-      else{const body=JSON.parse(JSON.stringify(D[k])),u=body._u;if(JSON.stringify(body).length>250000){big=true;throw{code:"too_big"}}await DB.doc(BASE+k).set(body);ix[k]=u;LASTS[k]=st}}
+      else{const body=JSON.parse(JSON.stringify(D[k])),u=body._u;if(JSON.stringify(body).length>3000000){big=true;throw{code:"too_big"}}await dbPut(k,body);ix[k]=u;LASTS[k]=st}}
     catch(e){bad=true;if(!(e&&e.code==="too_big"))dirty.add(k);if(e&&e.code==="quota_exceeded")toast("O espaço de dados na nuvem acabou. Remova PDFs que não usa mais.")}
     finally{writing.delete(k)}
   }
   if(Object.keys(ix).length){Object.assign(IDXC,ix);try{await DB.doc(BASE+"idx").update(ix)}catch(e){try{const sn=await DB.doc(BASE+"idx").get();await DB.doc(BASE+"idx").set(Object.assign(sn.exists?sn.data():{},ix))}catch(e2){}}}
   saveLocal();
-  if(big)toast("Uma parte dos dados ficou grande demais para a nuvem. Avise o suporte.");
+  if(big)toast("Uma parte dos dados está grande demais para a nuvem. Ela continua salva neste aparelho.");
   if(dirty.size){clearTimeout(saveT);saveT=setTimeout(flush,bad?5000:900)}
   setSync(bad?"err":"ok",bad?"Sem conexão, tentando de novo":"Salvo na sua conta");
 }
@@ -1786,16 +1796,21 @@ async function pull(first){
     if(!PULLED||!is.exists){
       const q=await DB.collection(BASE.slice(0,-1)).get();const R={};
       q.docs.forEach(d=>{if(!SKIPK.has(d.id))R[d.id]=JSON.parse(JSON.stringify(d.data()))});
-      for(const k of new Set([...Object.keys(R),...Object.keys(D)]))got+=mergeKey(k,R[k],I,is.exists);
+      const skipJ=new Set();
+      for(const k of Object.keys(R)){if(k.includes("~"))continue;if(R[k]&&R[k]._big){const o=await dbJoin(k,R[k],id=>R[id]||null);if(o===undefined)skipJ.add(k);else R[k]=o}}
+      Object.keys(R).forEach(k=>{if(k.includes("~"))delete R[k]});
+      for(const k of new Set([...Object.keys(R),...Object.keys(D)]))if(!skipJ.has(k))got+=mergeKey(k,R[k],I,is.exists);
       if(!is.exists){const ix={};Object.keys(D).forEach(k=>{if(!SKIPK.has(k)&&D[k]&&R[k]){D[k]._u=D[k]._u||1;ix[k]=D[k]._u}});try{await DB.doc(BASE+"idx").set(ix);Object.assign(I,ix)}catch(e){}}
     }else{
       const ch=Object.keys(I).filter(k=>I[k]!==IDXC[k]&&!SKIPK.has(k));
       for(const k of ch){if(I[k]<0){got+=mergeKey(k,null,I,true);continue}
         const l=D[k];if(l&&(l._u||0)>=I[k])continue;
-        try{const sn=await DB.doc(BASE+k).get();got+=mergeKey(k,sn.exists?JSON.parse(JSON.stringify(sn.data())):null,I,true)}catch(e){}}
+        try{let r=await dbGet(k);if(r&&r._big){r=await dbJoin(k,r,dbGet);if(r===undefined)continue}got+=mergeKey(k,r,I,true)}catch(e){}}
     }
     IDXC=Object.assign({},I);const fst=!PULLED;PULLED=true;if(got&&UND&&!UND.cur)snapAll();
     if(got){saveLocal();simCache.key="";try{gjLinkKey="";alignKey=""}catch(e){}render();if(UI.openT)try{renderDrawer()}catch(e){}if(!first&&!fst)toast("Dados atualizados com o outro aparelho")}
+    /* partes que antes ficaram fora da nuvem por tamanho: envia de novo, agora em pedaços */
+    Object.keys(D).forEach(k=>{if(!SKIPK.has(k)&&D[k]&&typeof D[k]==="object"&&!(IDXC[k]>=(D[k]._u||0))&&JSON.stringify(D[k]).length>240000)dirty.add(k)});
     if(dirty.size)await flush();
     setSync("ok","Salvo na sua conta");
     await pullImport();
