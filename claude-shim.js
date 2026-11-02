@@ -166,6 +166,14 @@
   };
   const API = { db, user, assets, sample, downloads };
   window.claude = Object.freeze({ use: async name => { await READY; return API[name] || null; } });
+  /* funções extras do servidor (lei seca: busca e texto oficial do Planalto) */
+  window.jxFn = async body => {
+    await READY;
+    const r = await nativeFetch(SB_URL + "/functions/v1/ai", { method: "POST", headers: { Authorization: "Bearer " + TOKEN, apikey: SB_KEY, "content-type": "application/json" }, body: JSON.stringify(body || {}) });
+    const t = await r.text(); let j = null; try { j = JSON.parse(t); } catch (e) { }
+    if (!r.ok) throw mkErr(httpCode(r.status), (j && j.error) || t || ("erro " + r.status));
+    return j;
+  };
 
   /* ---------- service worker ---------- */
   function swPost(target) { try { (target || (navigator.serviceWorker && navigator.serviceWorker.controller))?.postMessage({ t: "auth", token: TOKEN, url: SB_URL, key: SB_KEY, uid: UID }); } catch (e) { } }

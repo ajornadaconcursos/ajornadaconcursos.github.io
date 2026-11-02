@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021840"></script>
+<script src="/claude-shim.js?v=202611021902"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1650,6 +1650,34 @@ h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
 .ck-g b{display:block;font:800 22px/1.1 var(--f-display,inherit)}.ck-g small{color:var(--mute)}
 .ck-l{margin:0;padding-left:18px;line-height:1.55}
 #jxUpd{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:2147483000;display:flex;gap:10px;align-items:center;background:var(--panel);color:var(--fg);border:1px solid var(--lime);border-radius:999px;padding:8px 10px 8px 16px;box-shadow:var(--shadow);font-size:14px;max-width:calc(100vw - 24px)}
+
+/* ---------- Lei seca bizurada ---------- */
+.lz-list{display:grid;gap:8px}
+.lz-it{display:grid;gap:2px;text-align:left;border:1px solid var(--line);background:var(--sunk);border-radius:12px;padding:10px 12px;color:var(--fg);font:inherit;cursor:pointer}
+.lz-it:hover{border-color:var(--lime)}.lz-it small{color:var(--mute)}
+.lz-wrap{display:grid;gap:10px;margin-top:12px}
+.lz-hd{font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--lime-txt);margin:10px 2px 0}
+.lz-a{border:1px solid var(--line);border-left:5px solid var(--line2);border-radius:14px;background:var(--panel);padding:12px 14px;display:grid;gap:8px}
+.lz-a.v3{border-left-color:#e5484d}.lz-a.v2{border-left-color:#e8b43c}.lz-a.v1{border-left-color:#3fb27f}
+.lz-ah{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.lz-ah b{font-size:15.5px}
+.lz-st{font-size:12px;font-weight:700;color:var(--fg2)}.lz-st s{text-decoration:none;opacity:.25}
+.lz-st.v3{color:#e5484d}.lz-st.v2{color:#c9951f}.lz-st.v1{color:#2f9a69}
+.lz-t{font-size:15px;line-height:1.7}.lz-t p{margin:0 0 4px}.lz-t p.p{margin-top:6px}.lz-t p.i{padding-left:18px}.lz-t p.a{padding-left:36px}
+.lz-g{background:rgba(255,212,59,.38);color:inherit;border-radius:3px;padding:0 2px;font-weight:700}
+.lz-ann{color:var(--mute);font-size:12px}
+.lz-b{display:flex;gap:10px;align-items:flex-start;background:var(--sunk);border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+.lz-b span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--lime);color:var(--lime-ink);flex:none}.lz-b span svg{width:14px;height:14px}
+.lz-b p{margin:0;line-height:1.55;font-size:14px}
+
+/* ---------- padrão de erros ---------- */
+.qzw{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:0 14px 14px}
+.qzw b{font-size:13px;margin-right:4px}
+.qzw button{border:1px solid var(--line);background:var(--sunk);color:var(--fg);border-radius:999px;padding:5px 11px;font:inherit;font-size:13px;cursor:pointer}
+.qzw button[aria-pressed="true"]{background:var(--lime);border-color:var(--lime);color:var(--lime-ink);font-weight:700}
+.ep-bars{display:grid;gap:8px}.ep-bar{display:grid;grid-template-columns:170px 1fr 70px;gap:10px;align-items:center;font-size:14px}
+.ep-bar i{height:12px;border-radius:99px;background:var(--line);overflow:hidden}.ep-bar i s{display:block;height:100%;background:var(--lime);border-radius:99px}
+.ep-tip{border:1px solid var(--line);background:var(--sunk);border-radius:12px;padding:10px 12px;line-height:1.5}
+@media (max-width:620px){.ep-bar{grid-template-columns:120px 1fr 56px}}
 </style>
 
 <div class="app">
@@ -2521,6 +2549,7 @@ function pdCutSet(k,x){const p=pdf(UI.pdMap);if(!stOk(p))return;const L=stPlan(p
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="pdCut")pdCutSet(+el.dataset.i,el.value)});
 document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset||(el.dataset.c!=="qfAs"&&el.dataset.c!=="qfBn"))return;const f=UI[el.dataset.k];if(!f)return;f[el.dataset.c==="qfAs"?"as":"bn"]=el.value;UI[el.dataset.pk]=0;UI.qzKeep=null;rerenderQz()});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="corte"){core().corte=clamp(+el.value||0,0,100);touch("core");render()}});
+let lzT=0;document.addEventListener("input",e=>{const el=e.target;if(!el||el.id!=="lzS")return;clearTimeout(lzT);lzT=setTimeout(()=>{UI.lzQ=el.value;UI.lzLim=60;render();const i=$("lzS");if(i){i.focus();const n=i.value.length;i.setSelectionRange(n,n)}},350)});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="resAI"){core().resAI=el.checked;touch("core");render();if(el.checked)setTimeout(aiBgRun,500)}});
 /* corte digitado: a parte termina antes da página digitada; se houver um tópico nessa página, para antes dele */
 function pdCutPg(el){const n=parseInt(el.value,10),lo=+el.dataset.lo,hi=+el.dataset.hi;if(!n)return;if(n<Math.ceil(lo)||n>Math.floor(hi)){toast("Para esta parte, digite uma página de "+Math.ceil(lo)+" a "+Math.floor(hi));el.value="";return}
@@ -4176,11 +4205,11 @@ function pv24Card(){if(!IS_TJ)return"";const x=SMX().filter(y=>y.kind==="prova"&
 setInterval(()=>{const id=UI.smOpen;if(!id||TAB!=="simulados")return;const x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run"||!d.t0)return;const r=smLeft(d),el=$("smClk");if(el){el.textContent=smClock(r);el.classList.toggle("low",r<600)}if(r<=0)smFinish(id,true)},1000);
 
 {const _vm=vMeta;vMeta=function(){const h=_vm(),b=smBanner();if(!b)return h;const i=h.indexOf("</div>");return h.startsWith("<div class=\"hello\"")&&i>0?h.slice(0,i+6)+b+h.slice(i+6):b+h}}
-const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"]];
+const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Lei seca"]];
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
 /* Menu simples: 5 entradas. As telas de sempre continuam, agrupadas em abas dentro de cada entrada. */
 const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
-const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["discursiva","Discursiva e redação","discursiva"]],
+const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["leiseca","Lei seca","edital"],["discursiva","Discursiva e redação","discursiva"]],
   revisoes:[["revisoes","Revisões do dia","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"]],
   rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"]]};
 const GP={};Object.entries(GROUPS).forEach(([g,L])=>L.forEach(([k])=>{GP[k.split(":")[0]]=g}));
@@ -4204,6 +4233,7 @@ const HOW={
   discursiva:"Aqui você treina a parte escrita: escolha discursiva ou redação, escreva (ou envie a foto da folha) e receba a nota e a correção da IA, quesito por quesito.",
   desempenho:"Aqui você acompanha os resultados. Não há nada para preencher: os números vêm do cronômetro, das questões resolvidas e dos simulados.",
   concurso:"Aqui você cuida do concurso: troque ou adicione concursos, inclua o edital em PDF (o painel tira datas, matérias e assuntos) e acompanhe o cronograma até a prova.",
+  leiseca:"Aqui fica a lei seca bizurada: escolha a lei (ou escreva qual é), o texto oficial vem do site do Planalto e a IA destaca o que mais cai, grifa os trechos que a banca troca e escreve um bizu por artigo. Ligue a lei à matéria para ver quais artigos já caíram nas suas questões.",
   tutorial:"Aqui você aprende a usar cada função da plataforma: escolha um tema, assista à animação e leia as dicas. Use “Ir para esta tela” para praticar na hora.",
   compat:"Aqui você compara dois concursos: o painel mostra as matérias e os assuntos em comum para o estudo de um servir ao outro."};
 function howAttach(){const v=$("view"),t=HOW[TAB];if(!v||!t||v.querySelector(".how"))return;const p=document.createElement("details");p.className="how";p.innerHTML=`<summary>ⓘ Como usar esta tela</summary><span>${esc(t)}</span>`;
@@ -4461,7 +4491,7 @@ function render(){
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
-  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial}[TAB];
+  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca}[TAB];
   $("view").classList.toggle("noanim",render.lt===TAB);render.lt=TAB;$("view").innerHTML=gnavHTML()+V();try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
   if(UI.openT)renderDrawer();
 }
@@ -4541,10 +4571,114 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261102184023";
+const JX_BUILD="20261102190236";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
+/* ================= Lei seca bizurada =================
+   O texto vem do site oficial do Planalto (só planalto.gov.br, sem os trechos revogados). A IA marca o que mais cai
+   e escreve um bizu curto por artigo, preso ao texto do próprio artigo; as suas questões mostram quais artigos já caíram. */
+const LEI_CAT=[
+ ["Constituição Federal de 1988","https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm","dc"],
+ ["Código Tributário Nacional (Lei 5.172/1966)","https://www.planalto.gov.br/ccivil_03/leis/l5172compilado.htm","dt"],
+ ["Código Civil (Lei 10.406/2002)","https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm","dciv"],
+ ["LINDB (Decreto-Lei 4.657/1942)","https://www.planalto.gov.br/ccivil_03/decreto-lei/del4657compilado.htm","dciv"],
+ ["Código de Processo Civil (Lei 13.105/2015)","https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm","dpc"],
+ ["Código Penal (Decreto-Lei 2.848/1940)","https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848compilado.htm","dp"],
+ ["Código de Processo Penal (Decreto-Lei 3.689/1941)","https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689compilado.htm","dpp"],
+ ["Lei 8.112/1990 (servidores federais)","https://www.planalto.gov.br/ccivil_03/leis/l8112cons.htm","da"],
+ ["Lei 9.784/1999 (processo administrativo)","https://www.planalto.gov.br/ccivil_03/leis/l9784.htm","da"],
+ ["Lei 14.133/2021 (licitações e contratos)","https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm","da"],
+ ["Lei 8.429/1992 (improbidade administrativa)","https://www.planalto.gov.br/ccivil_03/leis/l8429.htm","da"],
+ ["LC 87/1996 (Lei Kandir · ICMS)","https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp87.htm","lt"],
+ ["LC 116/2003 (ISS)","https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp116.htm","lt"],
+ ["LC 101/2000 (Responsabilidade Fiscal)","https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp101.htm","adm"],
+ ["Lei 4.320/1964 (direito financeiro)","https://www.planalto.gov.br/ccivil_03/leis/l4320.htm","adm"],
+ ["Lei 6.404/1976 (sociedades por ações)","https://www.planalto.gov.br/ccivil_03/leis/l6404consol.htm","cont"],
+ ["CLT (Decreto-Lei 5.452/1943)","https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm","dtrab"]];
+const LEIS=()=>Object.keys(D).filter(k=>k.startsWith("lei-")&&D[k]&&D[k].arts).map(k=>D[k]).sort((a,b)=>(b.at||0)-(a.at||0));
+/* texto do Planalto → artigos: junta as linhas quebradas e separa artigo, parágrafo, inciso e alínea */
+function leiParse(raw){let t=String(raw||"").replace(/\r/g,"").replace(/[ \t ]+/g," ").replace(/\s*\n\s*/g," ").replace(/\s{2,}/g," ").trim();
+  const HD=/(?<=[.;:)"”]\s)((?:LIVRO|TÍTULO|CAPÍTULO|Seção|SEÇÃO|Subseção|SUBSEÇÃO)\s+(?:[IVXLC]+|ÚNIC[OA]|PRELIMINAR|PRIMEIRO|SEGUNDO|TERCEIRO|QUARTO|QUINTO|SEXTO|COMPLEMENTAR|ESPECIAL|GERAL)\b[^.;]*)$/;
+  const parts=t.split(/(?=\bArt\.\s*\d{1,4}(?:\.\d{3})*\s*(?:[º°]|o\b)?(?:\s*-\s*[A-Z]{1,2})?\s*(?:[º°]|o\b|[.\-–]))/);
+  const intro=parts.shift()||"";const arts=[];let head="",pend="";const mi=intro.match(HD);if(mi)pend=mi[1];
+  for(let p of parts){const m=p.match(/^Art\.\s*(\d{1,4}(?:\.\d{3})*)\s*(?:[º°]|o\b)?(?:\s*-\s*([A-Z]{1,2}))?\s*(?:[º°]|o\b)?\s*[.\-–]?\s*/);if(!m)continue;
+    let body=p.slice(m[0].length);const h=body.match(HD);let nx="";if(h&&h.index>20){nx=h[1];body=body.slice(0,h.index)}
+    if(pend){head=pend.replace(/\s+/g," ").slice(0,160);pend=""}
+    const n=m[1]+(m[2]?"-"+m[2]:"");
+    body=body.replace(/\s(?=(?:Parágrafo único|§\s*\d+[º°o]?)\s*[.\-–]?)/g,"\n").replace(/([;:.])\s(?=[IVXLC]{1,6}\s*[-–]\s)/g,"$1\n").replace(/([;:])\s(?=[a-z]\)\s)/g,"$1\n").trim();
+    arts.push({i:arts.length,n,h:head,t:body.slice(0,9000)});pend=nx}
+  return{intro:intro.replace(HD,"").slice(0,600),arts}}
+const leiAnn=s=>s.replace(/\((?:Redação dada|Incluíd[oa]|Vide|Revogad[oa]|Vigência|Regulamento|Renumerad[oa]|Promulgação|Produção de efeitos)[^)]*\)/gi,"").replace(/\s{2,}/g," ").trim();
+/* quantas das suas questões (PDF e TEC) citam cada artigo, nas matérias ligadas a esta lei */
+function leiCaiu(L){const cnt={},subs=new Set([L.sid].filter(Boolean));const txts=[];
+  PDFS().forEach(p=>{if(subs.size&&!subs.has(p.sid))return;const Z=qzDoc(p.id);if(!Z)return;Z.L.forEach(q=>txts.push((q.s||"")+" "+(q.c||"")))});
+  Object.keys(D).filter(k=>k.startsWith("res-")&&D[k]&&(!subs.size||subs.has(D[k].sid))).forEach(k=>{const R=D[k];(R.tecQs||[]).forEach(q=>txts.push((q.cob||"")+" "+(q.pq||"")));(R.tq||[]).forEach(q=>txts.push((q.q||"")+" "+(q.com||"")))});
+  const ns=new Set(L.arts.map(a=>a.n.split("-")[0].replace(/\./g,"")));
+  txts.forEach(x=>{const seen=new Set();for(const m of String(x).matchAll(/\bart(?:igo|s?\.)\s*(\d{1,4}(?:\.\d{3})*)/gi)){const n=m[1].replace(/\./g,"");if(ns.has(n)&&!seen.has(n)){seen.add(n);cnt[n]=(cnt[n]||0)+1}}});return cnt}
+const LEI_BUSY=new Set();
+async function leiBizurar(id){const L=D["lei-"+id];if(!L||!SAMPLE||LEI_BUSY.has(id))return;LEI_BUSY.add(id);L.biz=L.biz||{};L.cur=L.cur||0;render();
+  try{const caiu=leiCaiu(L);const todo=L.arts.filter(a=>L.biz[a.i]===undefined);const groups=[];let g=[],len=0;
+    for(const a of todo){const tx=leiAnn(a.t);if(len+tx.length>16000&&g.length){groups.push(g);g=[];len=0}g.push(a);len+=tx.length+30}if(g.length)groups.push(g);
+    L.tot=groups.length;L.cur=0;
+    for(const G of groups){if(!SAMPLE||AI_OFF)break;L.cur++;if(TAB==="leiseca")render();
+      const mat=G.map(a=>`[${a.i}] Art. ${a.n}.${a.h?" ("+a.h+")":""} ${leiAnn(a.t)}`).join("\n\n");
+      const prompt=`Você prepara a LEI SECA BIZURADA de "${L.nome}" para um candidato a ${dsCargo()} (banca ${dsBanca()}).
+Para cada artigo abaixo, diga a incidência em provas de concurso desta banca e área ("nivel": 3 = cai muito, 2 = cai às vezes, 1 = cai pouco, 0 = quase nunca cai) e, para os de nível 1 a 3, escreva:
+- "bizu": 1 ou 2 frases que explicam a regra do artigo do jeito que a banca cobra (literalidade, prazo, exceção, "salvo", "vedado", quem, quando). Use SOMENTE o texto do próprio artigo: não cite números, prazos, artigos ou leis que não estejam nele.
+- "grifo": de 1 a 4 trechos curtos, copiados EXATAMENTE como estão no texto do artigo, com as palavras que a banca troca para fazer a pegadinha.
+${Object.keys(caiu).length?`Artigos que já caíram nas questões do aluno (número: quantas questões): ${Object.entries(caiu).slice(0,80).map(([n,c])=>n+": "+c).join(", ")}. Esses merecem nível alto.`:""}
+Responda só com um array JSON: [{"i":número entre colchetes,"nivel":0-3,"bizu":"...","grifo":["..."]}]
+<artigos>
+${mat}
+</artigos>`;
+      let arr=null;try{arr=await SAMPLE.json(prompt,{modelTier:"default"})}catch(e){if(e&&e.code==="rate_limited"){await new Promise(r=>setTimeout(r,20000));continue}}
+      const by={};(Array.isArray(arr)?arr:[]).forEach(x=>{if(x&&Number.isInteger(+x.i))by[+x.i]=x});
+      G.forEach(a=>{const x=by[a.i],tx=leiAnn(a.t);if(!x){L.biz[a.i]={v:0};return}const v=Math.max(0,Math.min(3,+x.nivel||0));
+        const b=String(x.bizu||"").trim().slice(0,500),gr=(Array.isArray(x.grifo)?x.grifo:[]).map(String).map(s=>s.trim()).filter(s=>s.length>=3&&s.length<=140&&tx.includes(s)).slice(0,4);
+        L.biz[a.i]={v,b:b&&gOk(b,tx)?b:"",g:gr}});
+      L.upd=Date.now();touch("lei-"+id);await new Promise(r=>setTimeout(r,800))}
+    L.done=L.arts.every(a=>L.biz[a.i]!==undefined);touch("lei-"+id);if(L.done)toast("Lei seca bizurada pronta: "+L.nome)}
+  catch(e){toast("A IA parou no meio da lei seca. Toque em Continuar para seguir de onde parou.")}finally{LEI_BUSY.delete(id);render()}}
+async function leiAdd(nome,url,sid){if(typeof window.jxFn!=="function"){toast("Atualize a página para usar a lei seca");return}
+  toast("Baixando a lei no site do Planalto…");
+  try{const r=await window.jxFn({mode:"lei_texto",url});const P=leiParse(r.texto);if(P.arts.length<3){toast("Não achei os artigos nessa página. Confira o link do Planalto.");return null}
+    const id=uid(),L={id,nome:nome||r.titulo||"Lei",url:r.url||url,sid:sid||"",at:Date.now(),intro:P.intro,arts:P.arts,biz:{},fetched:today()};D["lei-"+id]=L;touch("lei-"+id);
+    UI.lei=id;render();toast(P.arts.length+" artigos baixados do Planalto"+(SAMPLE?". A IA começou a bizurar.":""));if(SAMPLE)leiBizurar(id);return id}
+  catch(e){toast("Não consegui baixar a lei agora: "+((e&&e.message)||"tente de novo").slice(0,120));return null}}
+/* destaca no texto os grifos da IA e as palavras de pegadinha */
+function leiFmt(t,gr){let h=esc(t);(gr||[]).forEach(g=>{const e=esc(g);if(e&&h.includes(e))h=h.split(e).join(`<mark class="lz-g">${e}</mark>`)});
+  h=h.replace(/\((Redação dada|Incluíd[oa]|Vide|Revogad[oa]|Vigência|Regulamento|Renumerad[oa]|Produção de efeitos)([^)]*)\)/gi,'<span class="lz-ann">($1$2)</span>');
+  return h.split("\n").map(x=>{const k=/^(Parágrafo único|§)/.test(x)?"p":/^[IVXLC]{1,6}\s*[-–]/.test(x)?"i":/^[a-z]\)/.test(x)?"a":"";return`<p class="${k}">${x}</p>`}).join("")}
+function vLeiseca(){const L=LEIS(),cur=UI.lei&&D["lei-"+UI.lei]?D["lei-"+UI.lei]:null;
+  const hello=`<div class="hello"><h1>Lei seca bizurada</h1><p>O texto oficial da lei, tirado do site do Planalto (sem o que foi revogado), com o que mais cai em destaque, os trechos que a banca troca grifados e um bizu curto em cada artigo. Os artigos que já caíram nas suas questões aparecem marcados.</p></div>`;
+  if(!cur){const opts=LEI_CAT.map((x,i)=>`<option value="${i}">${esc(x[0])}</option>`).join("");
+    return hello+`<section class="card"><div class="card-h"><h2>Adicionar uma lei</h2></div><div class="card-b" style="display:grid;gap:10px">
+     <div class="row" style="gap:8px;flex-wrap:wrap"><select class="inp" id="lzCat" style="flex:1 1 280px"><option value="">Escolha uma lei da lista…</option>${opts}</select><button class="btn pri" data-a="lzCat">${ic("dl")} Baixar e bizurar</button></div>
+     <div class="row" style="gap:8px;flex-wrap:wrap"><input class="inp" id="lzQ" style="flex:1 1 280px" placeholder="Ou escreva qual lei: ex. Lei 8.137/1990, crimes contra a ordem tributária"><button class="btn" data-a="lzFind">${ic("bulb")} Procurar no Planalto</button></div>
+     <div class="field"><label for="lzSid">Matéria ligada (para achar os artigos que caíram nas suas questões)</label><select class="inp" id="lzSid"><option value="">Nenhuma</option>${ED.map(s=>`<option value="${s.id}">${esc(s.n)}</option>`).join("")}</select></div>
+     <p class="muted small" style="margin:0">Só aceitamos o texto do planalto.gov.br. Uma lei média (como o CTN) leva de 2 a 4 minutos para ser bizurada, cerca de US$ 0,40; a Constituição inteira custa perto de US$ 2,50.</p></div></section>
+     ${L.length?`<section class="card"><div class="card-h"><h2>Suas leis</h2></div><div class="card-b lz-list">${L.map(x=>{const n=x.arts.length,b=Object.keys(x.biz||{}).length,busy=LEI_BUSY.has(x.id);return`<button class="lz-it" data-a="lzOpen" data-id="${x.id}"><b>${esc(x.nome)}</b><small>${n} artigos · ${x.done?"bizurada":busy?"bizurando "+(x.cur||0)+" de "+(x.tot||"?"):b?"bizurada em parte ("+Math.round(b/n*100)+"%)":"sem bizus ainda"}${x.sid&&SUB(x.sid)?" · "+esc(SUB(x.sid).n):""}</small></button>`}).join("")}</div></section>`:""}`}
+  const caiu=leiCaiu(cur),f=UI.lzF||"biz",q=norm(UI.lzQ||""),B=cur.biz||{},busy=LEI_BUSY.has(cur.id);
+  let A=cur.arts.filter(a=>{const b=B[a.i];if(f==="biz"&&!(b&&b.v>=1))return false;if(f==="alta"&&!(b&&b.v>=3))return false;if(f==="caiu"&&!caiu[a.n.split("-")[0].replace(/\./g,"")])return false;
+    if(q){const nq=q.replace(/^art\.?\s*/,"");if(/^\d/.test(nq))return a.n.replace(/\./g,"").startsWith(nq.replace(/\./g,""));return norm(a.t).includes(q)||norm(a.h).includes(q)}return true});
+  const lim=UI.lzLim||60,tot=A.length;A=A.slice(0,lim);const nb=cur.arts.filter(a=>B[a.i]&&B[a.i].v>=1).length,na=cur.arts.filter(a=>B[a.i]&&B[a.i].v>=3).length,nc=cur.arts.filter(a=>caiu[a.n.split("-")[0].replace(/\./g,"")]).length;
+  let lastH="";
+  const card=a=>{const b=B[a.i]||{},c=caiu[a.n.split("-")[0].replace(/\./g,"")]||0,hd=a.h&&a.h!==lastH?`<div class="lz-hd">${esc(a.h)}</div>`:"";lastH=a.h;
+    return hd+`<article class="lz-a v${b.v||0}" id="lz${a.i}"><div class="lz-ah"><b>Art. ${esc(a.n)}</b>${b.v>=1?`<span class="lz-st v${b.v}" title="Incidência em prova">${"★".repeat(b.v)}<s>${"★".repeat(3-b.v)}</s> ${["","cai pouco","cai às vezes","cai muito"][b.v]}</span>`:""}${c?`<span class="chip warn">caiu em ${c} quest${c>1?"ões":"ão"} suas</span>`:""}</div>
+     <div class="lz-t">${leiFmt(a.t,b.g)}</div>${b.b?`<div class="lz-b"><span>${ic("bulb")}</span><p><b>Bizu:</b> ${esc(b.b)}</p></div>`:""}</article>`};
+  return hello+`<section class="card lz-top"><div class="card-h"><button class="btn sm ghost" data-a="lzBack">← Leis</button><h2>${esc(cur.nome)}</h2><span class="r row" style="gap:6px"><a class="btn sm ghost" href="${esc(cur.url)}" target="_blank" rel="noopener">${ic("ext")} Planalto</a><button class="btn sm" data-a="lzPdf">${ic("dl")} PDF</button><button class="btn sm ghost" data-a="lzDel">${ic("trash")}</button></span></div>
+   <div class="card-b" style="display:grid;gap:10px">${!cur.done?`<div class="edprev small row" style="gap:10px;align-items:center"><span style="flex:1 1 260px">${busy?`<span class="spin"></span> Bizurando: parte ${cur.cur||0} de ${cur.tot||"?"}. Pode continuar usando a plataforma.`:`Bizus em ${Math.round(Object.keys(B).length/cur.arts.length*100)}% dos artigos.`}</span>${busy||!SAMPLE?"":`<button class="btn sm pri" data-a="lzGo">${ic("bulb")} ${Object.keys(B).length?"Continuar":"Bizurar com a IA"}</button>`}</div>`:""}
+    <div class="row" style="gap:8px;flex-wrap:wrap"><div class="tabs2" role="group" aria-label="Mostrar">${[["biz","Bizurados ("+nb+")"],["alta","Cai muito ("+na+")"],["caiu","Caiu nas suas questões ("+nc+")"],["all","Lei inteira ("+cur.arts.length+")"]].map(([k,l])=>`<button data-a="lzF" data-v="${k}" aria-pressed="${f===k}">${l}</button>`).join("")}</div>
+     <input class="inp" id="lzS" style="flex:1 1 200px" value="${esc(UI.lzQ||"")}" placeholder="Buscar: número do artigo (ex. 175) ou palavra" data-c="lzS"></div>
+    <span class="muted small">Texto do Planalto baixado em ${dmy(cur.fetched||today())}. Os trechos revogados ficam de fora.</span></div></section>
+   <div class="lz-wrap">${A.length?A.map(card).join(""):`<p class="muted">${f==="biz"&&!nb?(busy?"Os bizus estão sendo feitos. Os primeiros aparecem em instantes.":"Ainda sem bizus. Toque em “Bizurar com a IA”."):"Nenhum artigo com esse filtro."}</p>`}
+   ${tot>lim?`<div class="row" style="justify-content:center"><button class="btn" data-a="lzMore">Mostrar mais (${tot-lim} artigos)</button></div>`:""}</div>`}
+async function leiPdf(L,only){const B=L.biz||{},out=[];let lh="";
+  L.arts.forEach(a=>{const b=B[a.i]||{};if(only&&!(b.v>=1))return;if(a.h&&a.h!==lh){out.push("## "+a.h);lh=a.h}
+    out.push("### Art. "+a.n+(b.v>=1?" · "+["","cai pouco","cai às vezes","cai muito"][b.v]:""));leiAnn(a.t).split("\n").forEach(x=>out.push(x));if(b.b)out.push("- Bizu: "+b.b)});
+  return mdToPdf("Lei seca bizurada · "+L.nome,"Texto do Planalto ("+L.url+")"+(only?" · só os artigos bizurados":""),out.join("\n"),"A JORNADA · lei seca")}
+
 function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
   let h=(SKIN()==="arena"?orgHero():`<div class="hello"><h1>Oi, ${name||"tudo pronto"}</h1><p>Acompanhe seu progresso e veja o que falta para cumprir a sua meta.</p></div>`)+edThinHTML();
@@ -5511,7 +5645,7 @@ function qzComHTML(p,q,A,Z){const cx=Z.cx&&Z.cx[q.id],busy=QZX_BUSY.has(p.id+"|"
   return`<section class="qzc ${A.ok?"ok":"bad"}" aria-label="${lbl}"><div class="qzc-h"><span class="ico">${ic("bulb")}</span><b>${lbl}</b><span class="sp"></span>${q.pg||q.p?`<button class="btn sm ghost" data-a="read" data-id="${p.id}" data-pa="${q.pg||q.p}" data-pb="${q.pg||q.p}">${ic("book")} Ver a teoria (p. ${q.pg||q.p})</button>`:""}</div>
    ${q.k?`<div class="qzc-gab"><span class="g">${ic("check")} Gabarito: ${esc(kk)}</span>${ch&&!A.ok?`<span class="w">${ic("close")} Você marcou: ${esc(ch)}</span>`:""}</div>`:""}
    ${q.c?`<div class="qzc-b">${qzComFmt(q.c,q.k,A&&!A.ok?A.a:"")}</div>`:`<div class="qzc-b"><p class="muted">O PDF não trouxe comentário para esta questão.</p></div>`}
-   ${cx?`<div class="qzc-x">${mdLite(cx.txt)}</div>`:SAMPLE?`<div class="qzc-act"><button class="btn sm pri" data-a="qzX" data-id="${p.id}" data-q="${q.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Montando a explicação…':ic("bulb")+" Explicar melhor: por que a certa é certa, onde errei e um exemplo"}</button></div>`:""}</section>`}
+   ${qzWhyHTML(p,q,A)}${cx?`<div class="qzc-x">${mdLite(cx.txt)}</div>`:SAMPLE?`<div class="qzc-act"><button class="btn sm pri" data-a="qzX" data-id="${p.id}" data-q="${q.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Montando a explicação…':ic("bulb")+" Explicar melhor: por que a certa é certa, onde errei e um exemplo"}</button></div>`:""}</section>`}
 function quizHTML(p,ctx,only){const Z=qzDoc(p.id),busy=QZ_BUSY.has(p.id);ctx=ctx||"m";
   /* questões montadas com a leitura antiga: monta de novo para pegar os gabaritos da página "Gabarito" (as respostas ficam) */
   if(Z&&Z.src==="pdf"&&(Z.pv||0)<2&&!busy&&!p.raw&&p.pages&&!QZ_RE.has(p.id)){QZ_RE.add(p.id);setTimeout(()=>buildQuiz(p,true),60)}
@@ -6879,7 +7013,25 @@ function squarify(items,x,y,w,h){
   }
   return out;
 }
-function vDesempenho(){
+/* ---------- padrão de erros: por que você erra, e o que fazer com isso ---------- */
+const WHY=[["desc","Não sabia o conteúdo","Volte à teoria do trecho (passo 1) e leia o “O que você precisa saber” do resumo antes de novas questões."],
+ ["esq","Sabia, mas esqueci","É revisão: zere as revisões do dia e refaça os cards dessa aula. O ciclo de 1, 7, 14, 30 e 60 dias resolve."],
+ ["conf","Confundi conceitos","Monte a comparação lado a lado: use o mapa mental da aula e anote a diferença entre os dois conceitos."],
+ ["aten","Falta de atenção","Leia o comando duas vezes (correta, incorreta, exceto), risque as alternativas eliminadas e só depois resolva."],
+ ["interp","Interpretação do enunciado","Separe o que o enunciado afirma do que ele pergunta; em Português, volte ao trecho do texto antes de marcar."],
+ ["tempo","Pressa ou chute","Treine com tempo: faça os simulados cronometrados e blocos de questões com relógio."]];
+function qzWhyHTML(p,q,A){if(!A||A.ok)return"";const w=A.why||"";
+  return`<div class="qzw" role="group" aria-label="Por que você errou"><b>Por que você errou?</b>${WHY.map(([k,l])=>`<button data-a="qzWhy" data-id="${p.id}" data-q="${q.id}" data-v="${k}" aria-pressed="${w===k}">${l}</button>`).join("")}</div>`}
+function errPatData(){const M={},S={};let tot=0,cov=0;PDFS().forEach(p=>{const Z=qzDoc(p.id);if(!Z)return;Object.values(Z.ans||{}).forEach(a=>{if(!a||a.ok)return;tot++;if(!a.why)return;cov++;M[a.why]=(M[a.why]||0)+1;const X=S[p.sid]=S[p.sid]||{n:0,w:{}};X.n++;X.w[a.why]=(X.w[a.why]||0)+1})});
+  return{M,S,tot,cov}}
+function errPatHTML(){const X=errPatData();if(!X.tot)return"";const top=WHY.filter(([k])=>X.M[k]).sort((a,b)=>X.M[b[0]]-X.M[a[0]]),mx=Math.max(1,...Object.values(X.M));
+  return`<section class="card"><div class="card-h"><h2>Padrão de erros</h2><span class="r muted small">${X.cov} de ${X.tot} erros com motivo (${Math.round(X.cov/X.tot*100)}%)</span></div><div class="card-b" style="display:grid;gap:12px">
+   <p class="muted small" style="margin:0">Ao errar uma questão, toque no motivo. Com os motivos, o painel mostra por que você erra e o que fazer em cada caso.</p>
+   ${top.length?`<div class="ep-bars">${top.map(([k,l])=>`<div class="ep-bar"><span>${l}</span><i><s style="width:${Math.round(X.M[k]/mx*100)}%"></s></i><b>${X.M[k]} · ${Math.round(X.M[k]/X.cov*100)}%</b></div>`).join("")}</div>
+   <div class="ep-tip"><b>O que fazer agora (${top[0][1].toLowerCase()}):</b> ${top[0][2]}</div>
+   ${Object.keys(X.S).length?`<div class="tbw"><table class="tb"><thead><tr><th>Matéria</th><th>Erros com motivo</th><th>Motivo que mais aparece</th></tr></thead><tbody>${Object.entries(X.S).sort((a,b)=>b[1].n-a[1].n).map(([sid,v])=>{const k=Object.entries(v.w).sort((a,b)=>b[1]-a[1])[0];const w=WHY.find(x=>x[0]===k[0]);return`<tr><td>${esc((SUB(sid)||{}).n||sid)}</td><td>${v.n}</td><td>${w?w[1]:k[0]} (${Math.round(k[1]/v.n*100)}%)</td></tr>`}).join("")}</tbody></table></div>`:""}`:`<p class="muted" style="margin:0">Nenhum erro com motivo ainda.</p>`}</div></section>`}
+function vDesempenho(){return vDesempenho0()+errPatHTML()}
+function vDesempenho0(){
   const c=core(),F=dFilter(),R0=dData(F),bys=R0.bys,T=R0.tot,ms=c.metas;
   const mopt=v=>ms.map(m=>`<option value="${m.n}" ${v===m.n?"selected":""}>Meta ${pad(m.n)}</option>`).join("")||`<option value="0">Nenhuma meta ainda</option>`;
   const sopt=`<option value="">Todas as disciplinas</option>`+ED.map(s=>`<option value="${s.id}" ${F.sid===s.id?"selected":""}>${esc(s.n)}</option>`).join("");
@@ -7963,6 +8115,19 @@ const A={
   pbOff(){const c=core();c.planB={};touch("core");render()},
   ckDone(){core().ck=today();touch("core");render();toast("Check-in da semana concluído")},
   ckMentor(){core().ck=today();touch("core");A.mtOpen()},
+  async lzCat(){const i=($("lzCat")||{}).value;if(i===""){toast("Escolha uma lei da lista");return}const x=LEI_CAT[+i];let sid=($("lzSid")||{}).value||"";
+    if(!sid){const KW={dc:/constitucional/,dt:/tribut[aá]rio/,dciv:/civil/,dpc:/processual civil|processo civil/,dp:/penal/,dpp:/processual penal|processo penal/,da:/administrativo/,lt:/legisla[cç][aã]o tribut/,adm:/financeira|or[cç]ament/,cont:/contabilidade/,dtrab:/trabalho/};const re=KW[x[2]];const S=re&&ED.find(s=>re.test(norm(s.n))&&!(x[2]==="dciv"&&/processual/.test(norm(s.n))));if(S)sid=S.id}
+    await leiAdd(x[0],x[1],sid)},
+  async lzFind(){const q=(($("lzQ")||{}).value||"").trim();if(q.length<3){toast("Escreva qual lei você quer");return}if(typeof window.jxFn!=="function"){toast("Atualize a página para usar a lei seca");return}
+    toast("Procurando no site do Planalto…");try{const r=await window.jxFn({mode:"lei_busca",q});if(!r||!r.url){toast("Não achei essa lei no Planalto. Tente escrever o número, por exemplo: Lei 8.137/1990");return}
+      toast("Achei: "+(r.nome||r.url));await leiAdd(r.nome||q,r.url,($("lzSid")||{}).value||"")}catch(e){toast("A busca não respondeu agora. Tente de novo.")}},
+  lzOpen(el){UI.lei=el.dataset.id;UI.lzF="biz";UI.lzQ="";UI.lzLim=60;render();scrollTo(0,0)},
+  lzBack(){UI.lei=null;render()},
+  lzF(el){UI.lzF=el.dataset.v;UI.lzLim=60;render()},
+  lzMore(){UI.lzLim=(UI.lzLim||60)+80;render()},
+  lzGo(){if(UI.lei)leiBizurar(UI.lei)},
+  async lzPdf(){const L=UI.lei&&D["lei-"+UI.lei];if(!L)return;try{toast("Montando o PDF…");const b=await leiPdf(L,(UI.lzF||"biz")!=="all");await saveFile("Lei seca bizurada - "+L.nome.replace(/[\\/:*?"<>|]/g,"").slice(0,70)+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
+  lzDel(){const L=UI.lei&&D["lei-"+UI.lei];if(!L)return;askConfirm("Remover esta lei?","“"+L.nome+"” e os bizus dela saem da plataforma.","Remover",()=>{D["lei-"+L.id]=undefined;touch("lei-"+L.id);UI.lei=null;render()},"danger")},
   mtOpen(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const M=mentorStats();UI.mt={M,P:mentorAuto(M),busy:0};mentorModal()},
   mtClose(){UI.mt=null;$("layer3").innerHTML=""},
   async mtAI(){const X=UI.mt;if(!X||!SAMPLE)return;X.busy=1;mentorModal();try{X.P=await mentorAIPlan(X.M)}catch(e){toast("A IA não respondeu agora; ficou a análise automática")}X.busy=0;mentorModal()},
@@ -8495,6 +8660,7 @@ Object.assign(A,{
     delete UI.qzSel[key];UI.qzFx={q:el.dataset.q,t:Date.now()};UI.qzKeep=el.dataset.q;A.qzAns({dataset:{id:el.dataset.id,q:el.dataset.q,k}});
     const Z=qzDoc(el.dataset.id),a=Z&&Z.ans[el.dataset.q];if(a)fxVib(a.ok?[18]:[35,45,35]);if(a&&!a.ok&&SAMPLE&&resAIOn())setTimeout(()=>qzExplain(el.dataset.id,el.dataset.q,1),300)},
   qzX(el){qzExplain(el.dataset.id,el.dataset.q,0)},
+  qzWhy(el){const Z=qzDoc(el.dataset.id);if(!Z)return;const a=Z.ans[el.dataset.q];if(!a)return;a.why=a.why===el.dataset.v?"":el.dataset.v;touch("qz-"+el.dataset.id);rerenderQz();const w=WHY.find(x=>x[0]===a.why);if(w)toast("Anotado: "+w[1].toLowerCase()+". "+w[2])},
   qzAns(el){const p=qzP(el.dataset.id),Z=qzDoc(el.dataset.id);if(!p||!Z)return;const q=Z.L.find(x=>x.id===el.dataset.q);if(!q||Z.ans[q.id])return;const k=el.dataset.k;
     if(!q.k||q.k==="X"){Z.ans[q.id]={a:k,ok:q.k==="X",d:today(),self:1};if(q.k==="X")qzMark(p,q,true)}else{const ok=k===q.k;Z.ans[q.id]={a:k,ok,d:today()};qzMark(p,q,ok)}
     touch("qz-"+p.id);rerenderQz();mapQ(p,q)},
