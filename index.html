@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021902"></script>
+<script src="/claude-shim.js?v=202611021920"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1678,6 +1678,22 @@ h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
 .ep-bar i{height:12px;border-radius:99px;background:var(--line);overflow:hidden}.ep-bar i s{display:block;height:100%;background:var(--lime);border-radius:99px}
 .ep-tip{border:1px solid var(--line);background:var(--sunk);border-radius:12px;padding:10px 12px;line-height:1.5}
 @media (max-width:620px){.ep-bar{grid-template-columns:120px 1fr 56px}}
+
+/* ---------- reforço com diagnóstico, mentor, estudo extra, bateria do TEC ---------- */
+.rfd{border:1px solid var(--line);border-left:5px solid #e07b39;border-radius:12px;background:var(--sunk);padding:12px 14px;margin-top:10px;display:grid;gap:8px;line-height:1.55}
+.rfd h4{margin:0;display:flex;gap:8px;align-items:center;font-size:15px}.rfd h4 svg{width:18px;height:18px}
+.rfd p{margin:0}.rfd ol{margin:0;padding-left:22px;display:grid;gap:4px}.rfd .btn{justify-self:start}
+.rfd-ai p{margin:0 0 6px}.rfd-ai ol,.rfd-ai ul{margin:4px 0;padding-left:22px}
+.mch{max-width:680px;width:100%;display:grid;gap:10px}
+.mch-l{display:grid;gap:8px;max-height:min(56vh,520px);overflow:auto;padding:4px 2px}
+.mch-m{max-width:88%;border-radius:14px;padding:9px 12px;line-height:1.55;font-size:14.5px}
+.mch-m.u{justify-self:end;background:var(--lime);color:var(--lime-ink)}.mch-m.a{justify-self:start;background:var(--raise);border:1px solid var(--line)}
+.mch-m.a p{margin:0 0 6px}.mch-m.a ul,.mch-m.a ol{margin:4px 0;padding-left:20px}
+.mch-s{display:flex;flex-wrap:wrap;gap:6px}.mch-f{display:flex;gap:8px}.mch-f .inp{flex:1}
+.xtr{border-left-color:var(--lime)}.xtr-t{font-variant-numeric:tabular-nums}
+.tb-rows{display:grid;gap:6px;max-height:min(46vh,420px);overflow:auto}
+.tb-r{display:grid;grid-template-columns:110px 1fr 1.3fr;gap:8px;align-items:center;padding:6px 8px;border:1px solid var(--line);border-radius:10px;background:var(--sunk)}
+@media (max-width:620px){.tb-r{grid-template-columns:1fr 1fr}.tb-r b{grid-column:1/-1}}
 </style>
 
 <div class="app">
@@ -2549,6 +2565,11 @@ function pdCutSet(k,x){const p=pdf(UI.pdMap);if(!stOk(p))return;const L=stPlan(p
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="pdCut")pdCutSet(+el.dataset.i,el.value)});
 document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset||(el.dataset.c!=="qfAs"&&el.dataset.c!=="qfBn"))return;const f=UI[el.dataset.k];if(!f)return;f[el.dataset.c==="qfAs"?"as":"bn"]=el.value;UI[el.dataset.pk]=0;UI.qzKeep=null;rerenderQz()});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="corte"){core().corte=clamp(+el.value||0,0,100);touch("core");render()}});
+document.addEventListener("submit",e=>{const f=e.target;if(f&&f.dataset&&f.dataset.f==="mch"){e.preventDefault();A.mchSend()}});
+document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset)return;
+  if(el.dataset.c==="xtrS"){UI.xtrS=el.value;xtrModal()}
+  else if(el.dataset.c==="tbS"){UI.tb.sid=el.value;UI.tb.aula="";tecBatModal()}
+  else if(el.dataset.tbi!=null&&UI.tb){const r=UI.tb.rows[+el.dataset.tbi];if(r){r[el.dataset.tbk]=el.value;if(el.dataset.tbk==="k"){if(el.value==="ok")r.why="";tecBatModal()}}}});
 let lzT=0;document.addEventListener("input",e=>{const el=e.target;if(!el||el.id!=="lzS")return;clearTimeout(lzT);lzT=setTimeout(()=>{UI.lzQ=el.value;UI.lzLim=60;render();const i=$("lzS");if(i){i.focus();const n=i.value.length;i.setSelectionRange(n,n)}},350)});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="resAI"){core().resAI=el.checked;touch("core");render();if(el.checked)setTimeout(aiBgRun,500)}});
 /* corte digitado: a parte termina antes da página digitada; se houver um tópico nessa página, para antes dele */
@@ -4541,7 +4562,7 @@ function rowsHTML(ts,locks,mbt,preview,all){
 /* ---------- Plano B: dia com pouco tempo ----------
    Não mexe na meta: mostra só o essencial do dia (o que protege o que já foi estudado e o que mais cai) */
 function planBHTML(r,ts){const c=core(),on=(c.planB||{})[today()];
-  if(!on)return`<div class="row" style="justify-content:flex-end;margin:-4px 0 8px"><button class="btn sm ghost" data-a="pbOn">${ic("rotina")} Hoje tenho pouco tempo</button></div>`;
+  if(!on)return`<div class="row" style="justify-content:flex-end;gap:8px;flex-wrap:wrap;margin:-4px 0 8px"><button class="btn sm ghost" data-a="mchOpen">${ic("bulb")} Pergunte ao mentor</button>${xtrCur()?"":`<button class="btn sm ghost" data-a="xtrOpen">${ic("plus")} Estudo extra</button>`}<button class="btn sm ghost" data-a="pbOn">${ic("rotina")} Hoje tenho pouco tempo</button></div>`;
   const rv=dueRevs().length,ep=errPend(),nx=ts.find(t=>!t.done),rf=allRefs().filter(x=>!x.done&&refLeft(x)<=5).length;let n=0;const li=(txt,btn)=>`<li><b>${++n}</b><span>${txt}</span>${btn||""}</li>`;
   return`<section class="pb-c" aria-label="Plano B do dia"><div class="pb-h"><span class="ico">${ic("target")}</span><h3>Plano B de hoje: o essencial em cerca de 1 hora</h3><span class="sp"></span><button class="btn sm ghost" data-a="pbOff">Voltar ao dia normal</button></div>
    <ol class="pb-l">${rv?li(`<b style="all:unset;font-weight:700">${rv} revis${rv>1?"ões":"ão"} do dia</b>: são curtas e seguram o que você já estudou.`,`<button class="btn sm pri" data-a="gtab" data-t="revisoes">Revisar</button>`):""}
@@ -4554,6 +4575,7 @@ function planBHTML(r,ts){const c=core(),on=(c.planB||{})[today()];
 function weekStats(){const td=today(),d0=addDays(td,-6),md=minutesByDay();let min=0;for(let i=0;i<7;i++)min+=md[addDays(td,-i)]||0;
   const c=core(),plan=(c.cfg.hrs||3)*60*7;let tk=0;(c.metas||[]).forEach(m=>tasksOf(m.n).forEach(t=>{if(t.done&&t.done>=d0&&t.done<=td)tk++}));
   const sub={};let q=0,ok=0;PDFS().forEach(p=>{const Z=qzDoc(p.id);if(!Z)return;Object.values(Z.ans||{}).forEach(a=>{if(!a||!a.d||a.d<d0||a.d>td)return;q++;if(a.ok)ok++;const S=sub[p.sid]=sub[p.sid]||{q:0,ok:0};S.q++;if(a.ok)S.ok++})});
+  XTR().forEach(x=>{if(!x.done||x.d<d0||x.d>td||!x.q)return;q+=x.q;ok+=x.ok||0;const S=sub[x.sid]=sub[x.sid]||{q:0,ok:0};S.q+=x.q;S.ok+=x.ok||0});
   const weak=Object.entries(sub).filter(([,v])=>v.q>=5).map(([k,v])=>({k,n:(SUB(k)||{}).n||k,p:Math.round(v.ok/v.q*100),q:v.q})).sort((a,b)=>a.p-b.p);
   const r=curMeta();let late=0;if(r&&r.end&&r.end<td&&!r.done)late=dbet(r.end,td);
   return{min,plan,tk,q,ok,acc:q?Math.round(ok/q*100):null,weak,late,rv:dueRevs().length,ep:errPend()}}
@@ -4571,7 +4593,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261102190236";
+const JX_BUILD="20261102192030";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -4679,6 +4701,113 @@ async function leiPdf(L,only){const B=L.biz||{},out=[];let lh="";
     out.push("### Art. "+a.n+(b.v>=1?" · "+["","cai pouco","cai às vezes","cai muito"][b.v]:""));leiAnn(a.t).split("\n").forEach(x=>out.push(x));if(b.b)out.push("- Bizu: "+b.b)});
   return mdToPdf("Lei seca bizurada · "+L.nome,"Texto do Planalto ("+L.url+")"+(only?" · só os artigos bizurados":""),out.join("\n"),"A JORNADA · lei seca")}
 
+/* ================= 1) Reforço com diagnóstico ================= */
+/* junta os erros da matéria: assuntos onde mais erra (pelos resumos das aulas) e o motivo que mais aparece */
+function refDiagData(sid){const tops={},why={};let n=0,err=0;
+  aiLessons().filter(L=>L.sid===sid).forEach(L=>{let X=null;try{X=qResData(sid,L.c)}catch(e){}if(!X)return;
+    [...X.groups,...X.extra].forEach(g=>g.pts.forEach(pt=>pt.qs.forEach(q=>{if(!q.done)return;n++;if(q.err){err++;tops[g.t]=(tops[g.t]||0)+1}})))});
+  PDFS().filter(p=>p.sid===sid).forEach(p=>{const Z=qzDoc(p.id);if(!Z)return;Object.values(Z.ans||{}).forEach(a=>{if(a&&!a.ok&&a.why)why[a.why]=(why[a.why]||0)+1})});
+  REV().filter(r=>r.tq&&r.sid===sid&&r.why).forEach(r=>{why[r.why]=(why[r.why]||0)+1});
+  const T=Object.entries(tops).sort((a,b)=>b[1]-a[1]).slice(0,3),W=Object.entries(why).sort((a,b)=>b[1]-a[1]);
+  return{n,err,T,W,wt:W.reduce((a,x)=>a+x[1],0)}}
+function refDiagHTML(t){const S=SUB(t.sid),X=refDiagData(t.sid),ai=t.diag&&t.diag.txt,busy=REFD_BUSY.has(t.id);
+  const w0=X.W[0]&&WHY.find(w=>w[0]===X.W[0][0]),w1=X.W[1]&&WHY.find(w=>w[0]===X.W[1][0]),steps=[];
+  if(X.T.length)steps.push(`Refaça primeiro as questões que você errou em <b>${X.T.map(x=>esc(x[0])).join("</b> e <b>")}</b>.`);else steps.push("Refaça primeiro as questões que você errou nesta matéria (aba Erradas).");
+  if(w0)steps.push(w0[2]);if(w1&&X.W[1][1]>=2)steps.push(w1[2]);
+  if(X.T.length)steps.push(`Antes da próxima bateria, leia o “O que você precisa saber” desses assuntos no resumo da aula.`);
+  if(X.n&&X.err/X.n>.4)steps.push("O desvio foi grande: faça uma revisão rápida da teoria antes de resolver as questões novas deste reforço.");
+  steps.push("Ao terminar, marque o motivo de cada erro: o próximo diagnóstico fica mais preciso.");
+  const intro=X.T.length||w0?`Seus erros em ${esc(S.n)} foram principalmente ${X.T.length?`em <b>${X.T.map(x=>esc(x[0])).join("</b> e <b>")}</b>`:"nesta matéria"}${w0?`. Na maior parte dos erros que você classificou, o motivo foi <b>${w0[1].toLowerCase()}</b>${w1?`; em outra parte, <b>${w1[1].toLowerCase()}</b>`:""}`:""}.`:`Ainda há poucos dados de erro nesta matéria. Marque o motivo ao errar para o diagnóstico ficar preciso.`;
+  return`<div class="rfd"><h4>${ic("target")} Diagnóstico do reforço</h4>${ai?`<div class="rfd-ai">${mdLite(ai)}</div>`:`<p>${intro}</p><ol>${steps.map(x=>`<li>${x}</li>`).join("")}</ol>`}
+   ${SAMPLE&&!ai?`<button class="btn sm" data-a="refDiagAI" data-id="${t.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Montando…':ic("bulb")+" Diagnóstico detalhado com a IA"}</button>`:""}</div>`}
+const REFD_BUSY=new Set();
+async function refDiagAI(id){const f=findTask(id);if(!f||!SAMPLE)return;const t=f.t,S=SUB(t.sid),X=refDiagData(t.sid);if(REFD_BUSY.has(id))return;REFD_BUSY.add(id);renderDrawer();
+  try{const errs=[];PDFS().filter(p=>p.sid===t.sid).forEach(p=>{const Z=qzDoc(p.id);if(!Z)return;Z.L.forEach(q=>{const a=Z.ans[q.id];if(a&&!a.ok&&errs.length<12)errs.push(`- ${cut(qMeta(q).stem,180)} (marcou ${a.a}, certa ${q.k}${a.why?", motivo: "+(WHY.find(w=>w[0]===a.why)||[0,a.why])[1]:""})`)})});
+    const prompt=`Você é o mentor de estudos de um candidato a ${dsCargo()} (banca ${dsBanca()}). Escreva o diagnóstico de um REFORÇO em ${S.n}, em português do Brasil.
+Use SOMENTE os dados abaixo; não invente números nem assuntos.
+Formato: 1 parágrafo curto começando com "Seus erros foram principalmente em…", depois uma lista numerada de 4 a 6 passos práticos ("1. "), específicos para os assuntos e os motivos de erro mostrados. Sem títulos.
+DADOS:
+- Questões feitas na matéria: ${X.n}; erradas: ${X.err}.
+- Assuntos com mais erros: ${X.T.map(x=>x[0]+" ("+x[1]+")").join("; ")||"sem dados"}.
+- Motivos de erro marcados: ${X.W.map(([k,v])=>((WHY.find(w=>w[0]===k)||[0,k])[1])+": "+v).join("; ")||"nenhum marcado"}.
+- Reforço: ${t.pct!=null?"acerto de "+t.pct+"% em “"+(t.from||"")+"”":taskTitle(t)}.
+- Questões erradas (amostra):
+${errs.join("\n")||"- sem amostra"}`;
+    const r=await SAMPLE(prompt,{modelTier:"default"});const txt=(r&&r.text||"").trim();
+    if(txt){t.diag={txt,at:Date.now()};touch("m-"+taskMeta(t))}}catch(e){toast("Não consegui montar o diagnóstico agora")}finally{REFD_BUSY.delete(id);renderDrawer()}}
+
+/* ================= 2) Pergunte ao mentor (conversa com os seus dados) ================= */
+function mentorCtx(){const c=core(),W=weekStats(),r=curMeta(),X=errPatData(),sub={};
+  PDFS().forEach(p=>{const Z=qzDoc(p.id);if(!Z)return;Object.values(Z.ans||{}).forEach(a=>{if(!a)return;const s=sub[p.sid]=sub[p.sid]||{q:0,ok:0};s.q++;if(a.ok)s.ok++})});
+  let proj="";try{const P=projData();if(P&&P.L.length)proj=`Projeção de acerto na prova cumprindo o plano: ${Math.round(P.exp/P.Q*100)}% (faixa ${Math.round(P.lo/P.Q*100)}% a ${Math.round(P.hi/P.Q*100)}%)${c.corte?", nota de corte informada "+c.corte+"%":""}.`}catch(e){}
+  const md=minutesByDay();let tot=0,days=0;Object.values(md).forEach(v=>{tot+=v;if(v>0)days++});
+  const ts=r?tasksOf(r.n):[];
+  return[`Concurso: ${[PLAN.name,PLAN.cargo||"",PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(" · ")}. Prova: ${provaTBD()?"sem data (aguardando edital)":dmy(prova())+" (faltam "+dbet(today(),prova())+" dias)"}.`,
+    `Horas planejadas por dia: ${c.cfg.hrs||3}. Total estudado registrado: ${fmtM(tot)} em ${days} dias.`,
+    r?`Meta atual: ${pad(r.n)}, ${ts.filter(t=>t.done).length} de ${ts.length} atividades feitas, iniciada em ${dm(r.start)}.`:"Sem meta ativa.",
+    `Últimos 7 dias: ${fmtM(W.min)} estudadas de ${fmtM(W.plan)} planejadas; ${W.tk} atividades concluídas; ${W.q} questões com ${W.acc==null?"—":W.acc+"%"} de acerto.`,
+    `Acerto por matéria (todas as questões resolvidas): ${Object.entries(sub).map(([k,v])=>SUB(k).n+" "+Math.round(v.ok/v.q*100)+"% em "+v.q).join("; ")||"sem questões"}.`,
+    `Revisões pendentes hoje: ${dueRevs().length}. Questões em Erradas: ${errPend()}. Reforços pendentes: ${allRefs().filter(x=>!x.done).length}.`,
+    X.cov?`Motivos de erro marcados: ${WHY.filter(([k])=>X.M[k]).map(([k,l])=>l+" "+X.M[k]).join("; ")}.`:"Motivos de erro: ainda não marcados.",
+    `Edital estudado: ${Math.round(progData().tot)}%.`,proj].filter(Boolean).join("\n")}
+function mentorChatModal(){const L=UI.mchat||(UI.mchat=[]),busy=UI.mchatBusy;
+  const sug=["Como estou em cada matéria?","Quais são meus pontos fracos?","O que focar na próxima semana?","Estou no ritmo para a prova?"];
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Pergunte ao mentor"><div class="box mch">
+   <div class="vh"><h3>${ic("bulb")} Pergunte ao mentor</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+   <p class="muted small" style="margin:0">Responde com os seus números de verdade: horas, metas, acerto por matéria, erros, revisões e projeção.</p>
+   <div class="mch-l" id="mchL">${L.length?L.map(m=>`<div class="mch-m ${m.r}">${m.r==="a"?mdLite(m.t):esc(m.t)}</div>`).join(""):`<div class="mch-s">${sug.map(s=>`<button class="btn sm ghost" data-a="mchAsk" data-q="${esc(s)}">${esc(s)}</button>`).join("")}</div>`}${busy?'<div class="mch-m a"><span class="spin"></span> Pensando nos seus dados…</div>':""}</div>
+   <form class="mch-f" data-f="mch"><input class="inp" id="mchIn" placeholder="Escreva a sua pergunta" autocomplete="off" ${busy?"disabled":""}><button class="btn pri" data-a="mchSend" ${busy?"disabled":""}>Enviar</button></form></div></div>`;
+  const l=$("mchL");if(l)l.scrollTop=l.scrollHeight;const i=$("mchIn");if(i&&!busy)setTimeout(()=>i.focus(),30)}
+async function mentorAsk(q){q=String(q||"").trim();if(!q||UI.mchatBusy)return;if(!SAMPLE){toast("A IA não está disponível agora");return}const L=UI.mchat||(UI.mchat=[]);L.push({r:"u",t:q});UI.mchatBusy=1;mentorChatModal();
+  try{const ctx=mentorCtx();const msgs=[{role:"user",content:`Você é o mentor de estudos da plataforma A Jornada. Responda em português do Brasil, curto e direto (até 180 palavras), em tom de mentor: um diagnóstico com números e o que fazer na prática (passos), usando as telas da plataforma (Hoje, Revisar, Erradas, Reforços, Resumos, Lei seca, Simulados, Rotina, "Recalcular com o mentor").
+Use SOMENTE os dados abaixo; se a pergunta pedir algo que não está nos dados (por exemplo, comparação com outros alunos), diga que a plataforma não tem esse dado.
+DADOS DO ALUNO:
+${ctx}`},{role:"assistant",content:"Entendido. Vou responder só com esses dados."},...L.slice(-8).map(m=>({role:m.r==="u"?"user":"assistant",content:m.t}))];
+    const r=await SAMPLE(msgs,{modelTier:"default"});L.push({r:"a",t:(r&&r.text||"").trim()||"Não consegui responder agora."})}
+  catch(e){L.push({r:"a",t:"Não consegui responder agora. Tente de novo em instantes."})}finally{UI.mchatBusy=0;if($("layer3").innerHTML)mentorChatModal()}}
+
+/* ================= 3) Estudo extra (fora da meta) ================= */
+const XTR=()=>(D.extra||(D.extra={items:[]})).items;
+const XTIPO={q:"Questões",t:"Teoria",l:"Lei seca",r:"Revisão"};
+function xtrCur(){return XTR().find(x=>!x.done)}
+function xtrHTML(){const x=xtrCur();if(!x)return"";const S=SUB(x.sid),tp=x.tp!=null&&S.t[x.tp]?S.t[x.tp][0]:"",min=Math.max(0,Math.round((Date.now()-x.start)/60000));
+  const au=x.tp!=null?AU(x.sid).find(a=>(a.tp||[]).includes(x.tp)):null,p=au?pdfOfAula(x.sid,au.c):null;
+  const go=x.tipo==="t"&&p?`<button class="btn sm" data-a="read" data-id="${p.id}" data-pa="${Math.max(1,p.ts||1)}" data-pb="${teoEnd(p)}">${ic("book")} Abrir a teoria</button>`
+    :x.tipo==="q"?(au&&p?`<button class="btn sm" data-a="xtrQz" data-s="${x.sid}" data-c="${au.c}">${ic("check")} Questões desta aula</button>`:`<button class="btn sm" data-a="gtab" data-t="erradas">${ic("check")} Refazer Erradas</button>`)
+    :x.tipo==="l"?`<button class="btn sm" data-a="gtab" data-t="leiseca">${ic("edital")} Abrir a lei seca</button>`:`<button class="btn sm" data-a="gtab" data-t="revisoes">${ic("revisoes")} Revisões</button>`;
+  return`<section class="pb-c xtr"><div class="pb-h"><span class="ico">${ic("plus")}</span><h3>Estudo extra em andamento</h3><span class="muted small">${esc(XTIPO[x.tipo])} · ${esc(S.n)}${tp?" · "+esc(tShort(tp)):""}</span><span class="sp"></span><b class="xtr-t" data-start="${x.start}">${min} min</b></div>
+   <div class="row" style="gap:8px;flex-wrap:wrap">${go}<button class="btn sm pri" data-a="xtrEnd">${ic("check")} Concluir</button><button class="btn sm ghost" data-a="xtrDrop">Cancelar</button></div>
+   <span class="muted small">Cerca de 30 minutos. Conta no seu tempo e no Desempenho, sem mexer na meta.</span></section>`}
+function xtrModal(){const sid=UI.xtrS&&EDI[UI.xtrS]!=null?UI.xtrS:ED[0].id,S=SUB(sid),tipo=UI.xtrT||"q";
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Estudo extra"><div class="box mm-add">
+   <div class="vh"><h3>Estudo extra (cerca de 30 min)</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+   <p class="muted small" style="margin:0">Para quando sobra tempo: escolha um assunto e o tipo. Conta no seu tempo e no Desempenho, e a meta não muda.</p>
+   <div class="field"><label for="xtrS">Matéria</label><select class="inp" id="xtrS" data-c="xtrS">${ED.map(s=>`<option value="${s.id}" ${s.id===sid?"selected":""}>${esc(s.n)}</option>`).join("")}</select></div>
+   <div class="field"><label for="xtrP">Assunto</label><select class="inp" id="xtrP"><option value="">Matéria inteira</option>${S.t.map((t,j)=>`<option value="${j}">${esc(t[0].length>90?t[0].slice(0,88)+"…":t[0])}</option>`).join("")}</select></div>
+   <div class="field"><span class="small" style="font-weight:600">Tipo</span><div class="tabs2" role="group">${Object.entries(XTIPO).map(([k,l])=>`<button data-a="xtrT" data-v="${k}" aria-pressed="${tipo===k}">${l}</button>`).join("")}</div></div>
+   <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn" data-a="volClose">Cancelar</button><button class="btn pri" data-a="xtrGo">${ic("rotina")} Começar</button></div></div></div>`}
+function xtrEndModal(){const x=xtrCur();if(!x)return;const min=Math.max(1,Math.min(240,Math.round((Date.now()-x.start)/60000)));
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Concluir estudo extra"><div class="box mm-add">
+   <div class="vh"><h3>Concluir estudo extra</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+   <div class="field"><label for="xtrM">Minutos estudados</label><input class="inp" id="xtrM" type="number" min="1" max="600" value="${min}"></div>
+   ${x.tipo==="q"?`<div class="row" style="gap:10px"><div class="field" style="flex:1"><label for="xtrQ">Questões feitas</label><input class="inp" id="xtrQ" type="number" min="0" max="500" placeholder="ex.: 20"></div><div class="field" style="flex:1"><label for="xtrA">Acertos</label><input class="inp" id="xtrA" type="number" min="0" max="500" placeholder="ex.: 15"></div></div>`:""}
+   <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn" data-a="volClose">Voltar</button><button class="btn pri" data-a="xtrSave">${ic("check")} Salvar</button></div></div></div>`}
+setInterval(()=>{document.querySelectorAll(".xtr-t[data-start]").forEach(e=>{e.textContent=Math.max(0,Math.round((Date.now()-+e.dataset.start)/60000))+" min"})},30000);
+
+/* ================= 4) Bateria do TEC de uma vez ================= */
+const BST={ok:"Acertei",err:"Errei",nr:"Não resolvi",chu:"Chutei",duv:"Acertei com dúvida"};
+function tecBatModal(){const B=UI.tb||(UI.tb={sid:ED[0].id,rows:[]}),S=SUB(B.sid);
+  const aulas=AU(B.sid);
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Lançar bateria do TEC"><div class="box npm" style="max-width:820px">
+   <div class="vh"><h3>Lançar bateria do TEC</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+   <p class="muted small" style="margin:0">Cole os números (ou os links) das questões que você fez no TEC, um por linha. Depois marque cada uma. As que você não acertou vão para Erradas, revisões e cards, e o motivo entra no seu padrão de erros.</p>
+   <div class="row" style="gap:10px;flex-wrap:wrap"><div class="field" style="flex:1 1 220px"><label for="tbS">Matéria</label><select class="inp" id="tbS" data-c="tbS">${ED.map(s=>`<option value="${s.id}" ${s.id===B.sid?"selected":""}>${esc(s.n)}</option>`).join("")}</select></div>
+    <div class="field" style="flex:1 1 220px"><label for="tbA">Aula (opcional, para entrar no resumo)</label><select class="inp" id="tbA"><option value="">Nenhuma</option>${aulas.map(a=>`<option value="${esc(a.c)}" ${B.aula===a.c?"selected":""}>${esc(auLabel(B.sid,a.c)+" – "+a.d).slice(0,90)}</option>`).join("")}</select></div>
+    <div class="field" style="flex:1 1 220px"><label for="tbAs">Assunto (vale para todas)</label><input class="inp" id="tbAs" value="${esc(B.as||"")}" placeholder="ex.: Crase"></div></div>
+   ${B.rows.length?`<div class="tb-rows">${B.rows.map((r,i)=>`<div class="tb-r"><b>${esc(r.n)}</b><select class="inp sm" data-tbi="${i}" data-tbk="k">${Object.entries(BST).map(([k,l])=>`<option value="${k}" ${r.k===k?"selected":""}>${l}</option>`).join("")}</select><select class="inp sm" data-tbi="${i}" data-tbk="why" ${r.k==="ok"?"disabled":""}><option value="">Motivo (opcional)</option>${WHY.map(([k,l])=>`<option value="${k}" ${r.why===k?"selected":""}>${l}</option>`).join("")}</select></div>`).join("")}</div>
+    <div class="row" style="justify-content:space-between;gap:8px;flex-wrap:wrap"><span class="muted small">${B.rows.length} questões · ${B.rows.filter(r=>r.k!=="ok").length} vão para Erradas</span><span class="row" style="gap:8px"><button class="btn" data-a="tbReset">Recomeçar</button><button class="btn pri" data-a="tbSave">${ic("check")} Lançar</button></span></div>`
+   :`<textarea class="inp" id="tbTx" rows="7" placeholder="Ex.:&#10;2345678&#10;2345690&#10;https://www.tecconcursos.com.br/questoes/2345701"></textarea><div class="row" style="justify-content:flex-end"><button class="btn pri" data-a="tbRead">Continuar</button></div>`}</div></div>`}
+
 function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
   let h=(SKIN()==="arena"?orgHero():`<div class="hello"><h1>Oi, ${name||"tudo pronto"}</h1><p>Acompanhe seu progresso e veja o que falta para cumprir a sua meta.</p></div>`)+edThinHTML();
@@ -4694,7 +4823,7 @@ function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
     return h;
   }
   const ts=tasksOf(r.n),dn=ts.filter(t=>t.done).length,st=metaStatus(r),locks=phaseLocks(ts),rem=remainingMetas(),tot=c.metas.length+rem,mbt=minutesByTask();
-  try{h+=checkinHTML()+planBHTML(r,ts)}catch(e){console.error(e)}
+  try{h+=checkinHTML()+xtrHTML()+planBHTML(r,ts)}catch(e){console.error(e)}
   const nowPh=null;
   const phases=PH.map(ph=>{const g=ts.filter(t=>t.ph===ph);if(!g.length)return"";const d=g.filter(t=>t.done).length;
     return`<div class="phase"><div class="t"><span class="dot" style="background:var(--ph${ph})"></span>${PHN[ph]}</div><div class="n">${d}<small> de ${g.length}</small></div><div class="bar"><i style="width:${d/g.length*100}%;background:var(--ph${ph})"></i></div><small class="muted">${fmtM(sum(g.map(t=>t.min)))} previstos</small></div>`}).join("");
@@ -5946,7 +6075,7 @@ function renderDrawer0(){
         <p class="muted small" style="margin:0">Anote principalmente as questões que errar. Cada uma entra nas revisões de 1, 7, 14, 30 e 60 dias e vira um card.</p>
         ${REV().filter(r=>r.tq&&r.tid===t.id).map(r=>`<div class="tqi"><span class="chip ${r.kind==="err"?"bad":"warn"}">${TQK[r.kind]||"Anotada"}</span><div style="min-width:0"><b>${esc(r.label)}</b>${r.note?`<span>${esc(r.note)}</span>`:""}</div>${r.link?`<a class="btn sm" href="${esc(r.link)}" target="_blank" rel="noopener">${ic("ext")} TEC</a>`:""}</div>`).join("")}
         ${tqForm(t.sid,t.id,taskEdTopics(t),"dq")}</div></details>`:""}
-      ${t.ref?`<details class="sec" data-k="A" id="avG" open><summary>${ic("target")} Sobre este reforço ${grauBars(t.grau)}</summary><div class="sb"><p class="muted small" style="margin:0">${t.pct!=null?`Criado em ${dm(t.created)} porque você acertou ${t.pct}% das questões${t.from?" de “"+esc(t.from)+"”":""} (abaixo de 75%).`:t.gj?`Reforço do seu planejamento no Guruja${t.grau?" (grau: "+GRAU[t.grau]+")":""}, sincronizado em ${dm(t.created)}: questões para fixar um assunto em que você teve dificuldade.`:`Reforço criado em ${dm(t.created)}.`} Prazo: ${dm(t.due)} (${refLeft(t)>=0?"faltam "+dias(refLeft(t)):"atrasado "+dias(-refLeft(t))}). Se ficar abaixo de 75% de novo, nasce outro reforço.</p></div></details>`:""}
+      ${t.ref?`<details class="sec" data-k="A" id="avG" open><summary>${ic("target")} Sobre este reforço ${grauBars(t.grau)}</summary><div class="sb"><p class="muted small" style="margin:0">${t.pct!=null?`Criado em ${dm(t.created)} porque você acertou ${t.pct}% das questões${t.from?" de “"+esc(t.from)+"”":""} (abaixo de 75%).`:t.gj?`Reforço do seu planejamento no Guruja${t.grau?" (grau: "+GRAU[t.grau]+")":""}, sincronizado em ${dm(t.created)}: questões para fixar um assunto em que você teve dificuldade.`:`Reforço criado em ${dm(t.created)}.`} Prazo: ${dm(t.due)} (${refLeft(t)>=0?"faltam "+dias(refLeft(t)):"atrasado "+dias(-refLeft(t))}). Se ficar abaixo de 75% de novo, nasce outro reforço.</p>${refDiagHTML(t)}</div></details>`:""}
       ${t.ref?"":cardsSec(t,op)}
     </div></div>`}
     <footer class="av-f"><div class="meta">#${t.k} · Código: <b>${tcode(t)}</b> · Status: ${status}</div>
@@ -6870,7 +6999,7 @@ const tecQUrl=v=>{v=String(v||"").trim();if(!v)return"";if(/^https?:\/\//i.test(
 const TQK={err:"Errei",duv:"Acertei com dúvida",chu:"Chutei"};
 function addTecQ(o){
   const lab=(o.n?"Questão TEC "+(String(o.n).match(/\d{4,}/)||[o.n])[0]:"Questão do TEC")+(o.as?" · "+o.as:"");
-  REV().push({id:uid(),key:"tq:"+uid(),label:lab,sid:o.sid,d0:today(),step:0,done:false,tq:1,link:tecQUrl(o.n),kind:o.k,note:o.note||"",as:o.as||"",tid:o.tid||"",aula:o.aula||""});touch("rev");
+  REV().push({id:uid(),key:"tq:"+uid(),label:lab,sid:o.sid,d0:today(),step:0,done:false,tq:1,link:tecQUrl(o.n),kind:o.k,note:o.note||"",as:o.as||"",tid:o.tid||"",aula:o.aula||"",why:o.why||""});touch("rev");
   addCard({sid:o.sid,tid:o.tid||"",f:(o.as?"["+o.as+"] ":"")+"Questão do TEC que você "+(o.k==="err"?"errou":o.k==="chu"?"chutou":"acertou com dúvida")+": qual era o ponto cobrado?",b:o.note||"Abra a questão no TEC e anote a regra cobrada.",src:"tec",link:tecQUrl(o.n)});
 }
 function tqForm(sid,tid,ass,pre){pre=pre||"tq";
@@ -6921,7 +7050,8 @@ function errItems(){const L=[];
 const errPend=()=>{try{return errItems().filter(x=>!x.fixed).length}catch(e){return 0}};
 function errFind(src,id){if(src==="sim")return smFx(id);if(src==="tec")return REV().find(r=>r.id===id);if(src==="fix")return CARDS().find(c=>c.id===id);const [pid,n]=id.split(":");const p=pdf(pid);return p&&(p.qs||[]).find(q=>q.n===+n)}
 const errTouch=(src,id)=>touch(src==="sim"?"sim-"+String(id).split(":")[0]:src==="tec"?"rev":src==="fix"?"cards":"pdf-"+String(id).split(":")[0]);
-function vErradas(){
+function vErradas(){const h0=vErradas0(),cta=`<div class="row" style="justify-content:flex-end;margin:0 0 10px"><button class="btn sm pri" data-a="tbOpen">${ic("plus")} Lançar bateria do TEC</button></div>`,k=h0.indexOf("</div>");return h0.startsWith('<div class="hello">')&&k>0?h0.slice(0,k+6)+cta+h0.slice(k+6):cta+h0}
+function vErradas0(){
   const all=errItems(),show=UI.erShow||"pend",fs=UI.erS||"",fk=UI.erK||"";
   const L=all.filter(x=>(show==="pend"?!x.fixed:!!x.fixed)&&(!fs||x.sid===fs)&&(!fk||x.kind===fk)),pend=all.filter(x=>!x.fixed);
   const bySub={};pend.forEach(x=>{bySub[x.sid]=(bySub[x.sid]||0)+1});const topS=Object.entries(bySub).sort((a,b)=>b[1]-a[1])[0];
@@ -7022,7 +7152,9 @@ const WHY=[["desc","Não sabia o conteúdo","Volte à teoria do trecho (passo 1)
  ["tempo","Pressa ou chute","Treine com tempo: faça os simulados cronometrados e blocos de questões com relógio."]];
 function qzWhyHTML(p,q,A){if(!A||A.ok)return"";const w=A.why||"";
   return`<div class="qzw" role="group" aria-label="Por que você errou"><b>Por que você errou?</b>${WHY.map(([k,l])=>`<button data-a="qzWhy" data-id="${p.id}" data-q="${q.id}" data-v="${k}" aria-pressed="${w===k}">${l}</button>`).join("")}</div>`}
-function errPatData(){const M={},S={};let tot=0,cov=0;PDFS().forEach(p=>{const Z=qzDoc(p.id);if(!Z)return;Object.values(Z.ans||{}).forEach(a=>{if(!a||a.ok)return;tot++;if(!a.why)return;cov++;M[a.why]=(M[a.why]||0)+1;const X=S[p.sid]=S[p.sid]||{n:0,w:{}};X.n++;X.w[a.why]=(X.w[a.why]||0)+1})});
+function errPatData(){const M={},S={};let tot=0,cov=0;
+  REV().filter(r=>r.tq&&r.kind!=="ok").forEach(r=>{tot++;if(!r.why)return;cov++;M[r.why]=(M[r.why]||0)+1;const X=S[r.sid]=S[r.sid]||{n:0,w:{}};X.n++;X.w[r.why]=(X.w[r.why]||0)+1});
+  PDFS().forEach(p=>{const Z=qzDoc(p.id);if(!Z)return;Object.values(Z.ans||{}).forEach(a=>{if(!a||a.ok)return;tot++;if(!a.why)return;cov++;M[a.why]=(M[a.why]||0)+1;const X=S[p.sid]=S[p.sid]||{n:0,w:{}};X.n++;X.w[a.why]=(X.w[a.why]||0)+1})});
   return{M,S,tot,cov}}
 function errPatHTML(){const X=errPatData();if(!X.tot)return"";const top=WHY.filter(([k])=>X.M[k]).sort((a,b)=>X.M[b[0]]-X.M[a[0]]),mx=Math.max(1,...Object.values(X.M));
   return`<section class="card"><div class="card-h"><h2>Padrão de erros</h2><span class="r muted small">${X.cov} de ${X.tot} erros com motivo (${Math.round(X.cov/X.tot*100)}%)</span></div><div class="card-b" style="display:grid;gap:12px">
@@ -7030,7 +7162,7 @@ function errPatHTML(){const X=errPatData();if(!X.tot)return"";const top=WHY.filt
    ${top.length?`<div class="ep-bars">${top.map(([k,l])=>`<div class="ep-bar"><span>${l}</span><i><s style="width:${Math.round(X.M[k]/mx*100)}%"></s></i><b>${X.M[k]} · ${Math.round(X.M[k]/X.cov*100)}%</b></div>`).join("")}</div>
    <div class="ep-tip"><b>O que fazer agora (${top[0][1].toLowerCase()}):</b> ${top[0][2]}</div>
    ${Object.keys(X.S).length?`<div class="tbw"><table class="tb"><thead><tr><th>Matéria</th><th>Erros com motivo</th><th>Motivo que mais aparece</th></tr></thead><tbody>${Object.entries(X.S).sort((a,b)=>b[1].n-a[1].n).map(([sid,v])=>{const k=Object.entries(v.w).sort((a,b)=>b[1]-a[1])[0];const w=WHY.find(x=>x[0]===k[0]);return`<tr><td>${esc((SUB(sid)||{}).n||sid)}</td><td>${v.n}</td><td>${w?w[1]:k[0]} (${Math.round(k[1]/v.n*100)}%)</td></tr>`}).join("")}</tbody></table></div>`:""}`:`<p class="muted" style="margin:0">Nenhum erro com motivo ainda.</p>`}</div></section>`}
-function vDesempenho(){return vDesempenho0()+errPatHTML()}
+function vDesempenho(){const h0=vDesempenho0(),cta=`<div class="row" style="justify-content:flex-end;margin:0 0 10px"><button class="btn sm pri" data-a="mchOpen">${ic("bulb")} Pergunte ao mentor sobre o seu desempenho</button></div>`,k=h0.indexOf("</div>");return(h0.startsWith('<div class="hello">')&&k>0?h0.slice(0,k+6)+cta+h0.slice(k+6):cta+h0)+errPatHTML()}
 function vDesempenho0(){
   const c=core(),F=dFilter(),R0=dData(F),bys=R0.bys,T=R0.tot,ms=c.metas;
   const mopt=v=>ms.map(m=>`<option value="${m.n}" ${v===m.n?"selected":""}>Meta ${pad(m.n)}</option>`).join("")||`<option value="0">Nenhuma meta ainda</option>`;
@@ -8128,6 +8260,26 @@ const A={
   lzGo(){if(UI.lei)leiBizurar(UI.lei)},
   async lzPdf(){const L=UI.lei&&D["lei-"+UI.lei];if(!L)return;try{toast("Montando o PDF…");const b=await leiPdf(L,(UI.lzF||"biz")!=="all");await saveFile("Lei seca bizurada - "+L.nome.replace(/[\\/:*?"<>|]/g,"").slice(0,70)+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
   lzDel(){const L=UI.lei&&D["lei-"+UI.lei];if(!L)return;askConfirm("Remover esta lei?","“"+L.nome+"” e os bizus dela saem da plataforma.","Remover",()=>{D["lei-"+L.id]=undefined;touch("lei-"+L.id);UI.lei=null;render()},"danger")},
+  refDiagAI(el){refDiagAI(el.dataset.id)},
+  mchOpen(){mentorChatModal()},
+  mchAsk(el){mentorAsk(el.dataset.q)},
+  mchSend(el,e){if(e&&e.preventDefault)e.preventDefault();const i=$("mchIn");if(i&&i.value.trim()){const q=i.value;i.value="";mentorAsk(q)}},
+  xtrOpen(){if(xtrCur()){toast("Já há um estudo extra em andamento");return}xtrModal()},
+  xtrT(el){UI.xtrT=el.dataset.v;const p=($("xtrP")||{}).value;xtrModal();const q=$("xtrP");if(q)q.value=p},
+  xtrGo(){const sid=($("xtrS")||{}).value||ED[0].id,v=($("xtrP")||{}).value,x={id:uid(),sid,tp:v===""?null:+v,tipo:UI.xtrT||"q",start:Date.now(),d:today()};XTR().push(x);touch("extra");$("layer3").innerHTML="";render();toast("Estudo extra começou: o tempo está contando")},
+  xtrEnd(){xtrEndModal()},
+  xtrSave(){const x=xtrCur();if(!x)return;const m=Math.max(1,Math.min(600,+(($("xtrM")||{}).value)||0)),q=Math.max(0,+(($("xtrQ")||{}).value)||0),ok=Math.min(q,Math.max(0,+(($("xtrA")||{}).value)||0));
+    x.done=today();x.min=m;if(x.tipo==="q"&&q){x.q=q;x.ok=ok}touch("extra");logMinutes(m,"x:"+x.id,false,x.sid);$("layer3").innerHTML="";render();toast("Estudo extra salvo: "+fmtM(m)+(q?" · "+ok+" de "+q+" questões":""))},
+  xtrDrop(){const L=XTR(),i=L.findIndex(x=>!x.done);if(i>=0){L.splice(i,1);touch("extra")}render()},
+  xtrQz(el){UI.rsSid=el.dataset.s;UI.rsAula=el.dataset.c;TAB="resumos";render();scrollTo(0,0)},
+  tbOpen(){UI.tb={sid:(UI.tb&&UI.tb.sid)||ED[0].id,rows:[]};tecBatModal()},
+  tbRead(){const B=UI.tb;const t=(($("tbTx")||{}).value||"");B.aula=($("tbA")||{}).value||"";B.as=(($("tbAs")||{}).value||"").trim();
+    const ns=[...new Set((t.match(/\d{5,}/g)||[]))].slice(0,200);if(!ns.length){toast("Cole os números ou os links das questões do TEC");return}B.rows=ns.map(n=>({n,k:"err",why:""}));tecBatModal()},
+  tbReset(){UI.tb.rows=[];tecBatModal()},
+  tbSave(){const B=UI.tb;if(!B||!B.rows.length)return;B.aula=($("tbA")||{}).value||B.aula||"";B.as=(($("tbAs")||{}).value||"").trim()||B.as||"";let n=0;
+    B.rows.forEach(r=>{if(r.k==="ok")return;const k=r.k==="nr"?"err":r.k;addTecQ({sid:B.sid,n:r.n,k,as:B.as,note:(r.k==="nr"?"Não resolvi. ":"")+(r.why?(WHY.find(w=>w[0]===r.why)||[0,""])[1]:""),why:r.why,aula:B.aula});n++;
+      if(B.aula){const R0=resGet(B.sid,B.aula);(R0.tq=R0.tq||[]).push({id:uid(),n:r.n,link:tecQUrl(r.n),as:B.as||"Bateria do TEC",q:"",gab:"",com:"",d:today(),k:k});touch(resKey(B.sid,B.aula))}});
+    UI.tb={sid:B.sid,rows:[]};$("layer3").innerHTML="";render();toast(n+" questões lançadas em Erradas, revisões e cards"+(B.aula?" e no resumo da aula":""))},
   mtOpen(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const M=mentorStats();UI.mt={M,P:mentorAuto(M),busy:0};mentorModal()},
   mtClose(){UI.mt=null;$("layer3").innerHTML=""},
   async mtAI(){const X=UI.mt;if(!X||!SAMPLE)return;X.busy=1;mentorModal();try{X.P=await mentorAIPlan(X.M)}catch(e){toast("A IA não respondeu agora; ficou a análise automática")}X.busy=0;mentorModal()},
