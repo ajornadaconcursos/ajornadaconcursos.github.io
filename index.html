@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611020646"></script>
+<script src="/claude-shim.js?v=202611020702"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -402,6 +402,69 @@ body.rt-drag,body.rt-drag *{cursor:grabbing!important}
 /* Tipografia de página */
 .hello h1{font:600 clamp(24px,3.2vw,34px)/1.1 var(--f-display);letter-spacing:-.02em}
 .hello p{margin:6px 0 0;color:var(--mute);max-width:72ch}
+/* ===== Simulados ===== */
+.sm-ns{display:grid;gap:10px}
+.sm-n,.sm-r{display:grid;grid-template-columns:116px minmax(0,1fr) auto;align-items:center;gap:14px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--raise)}
+.sm-r{grid-template-columns:116px minmax(0,1fr) auto auto}
+.sm-rt{display:grid;gap:3px;min-width:0}.sm-rt b{font-weight:700;line-height:1.3}.sm-rt small{font-size:12.5px;line-height:1.45}
+.sm-n>.btn{justify-self:end;min-width:150px;justify-content:center;white-space:nowrap}
+.sm-r>.row{justify-content:flex-end;flex-wrap:nowrap}
+.sm-k{justify-self:start;font-weight:700;font-size:12px;letter-spacing:.01em;border:1px solid;padding:4px 10px;border-radius:99px;white-space:nowrap}
+.sm-k.mini{color:var(--k2);border-color:color-mix(in srgb,var(--k2) 45%,transparent);background:color-mix(in srgb,var(--k2) 12%,transparent)}
+.sm-k.grande{color:var(--lime);border-color:color-mix(in srgb,var(--lime) 45%,transparent);background:color-mix(in srgb,var(--lime) 12%,transparent)}
+.sm-k.prova{color:var(--k1);border-color:color-mix(in srgb,var(--k1) 45%,transparent);background:color-mix(in srgb,var(--k1) 12%,transparent)}
+.sm-k.ext{color:var(--hot);border-color:color-mix(in srgb,var(--hot) 45%,transparent);background:color-mix(in srgb,var(--hot) 12%,transparent)}
+.sm-bs{display:grid;gap:10px}
+.sm-b{display:grid;grid-template-columns:minmax(150px,240px) minmax(0,1fr) 150px;align-items:center;gap:14px}
+.sm-bl{display:flex;align-items:center;gap:8px;min-width:0}.sm-bl .small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sm-bar{position:relative;height:10px;border-radius:99px;background:color-mix(in srgb,var(--fg) 8%,transparent)}
+.sm-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:99px}
+.sm-bar b{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--fg);opacity:.55;border-radius:2px}
+.sm-bv{display:grid;justify-items:end;line-height:1.25}.sm-bv b{font:700 15px var(--f-display)}.sm-bv small{white-space:nowrap}
+.sm-ch .sm-alvo{stroke:var(--ok);stroke-width:1.5;stroke-dasharray:6 5;vector-effect:non-scaling-stroke}
+.sm-dot{position:absolute;width:12px;height:12px;border-radius:50%;transform:translate(-50%,-50%);border:2px solid var(--panel);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.sm-lg-alvo{display:inline-block;width:16px;height:0;border-top:2px dashed var(--ok);vertical-align:middle;margin-right:6px}
+.sm-top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 14px;margin-bottom:12px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel) 92%,transparent);backdrop-filter:blur(8px)}
+.sm-tt{flex:1 1 220px;min-width:0;font:700 16px var(--f-display)}
+.sm-sc{font:700 22px var(--f-display)}
+.sm-clk{font:700 20px var(--f-display);font-variant-numeric:tabular-nums;padding:4px 12px;border-radius:10px;background:color-mix(in srgb,var(--lime) 14%,transparent);color:var(--lime)}
+.sm-clk.paused{opacity:.6}
+.sm-nav summary{cursor:pointer;list-style:none}.sm-nav summary::-webkit-details-marker{display:none}
+.sm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px}
+.sm-grid a{display:grid;place-items:center;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--raise);color:var(--fg2);font-weight:700;font-size:13px;text-decoration:none}
+.sm-grid a.on{background:color-mix(in srgb,var(--lime) 22%,var(--raise));border-color:var(--lime);color:var(--fg)}
+.sm-grid a.ok{background:color-mix(in srgb,var(--ok) 22%,var(--raise));border-color:var(--ok);color:var(--fg)}
+.sm-grid a.bad{background:color-mix(in srgb,var(--bad) 22%,var(--raise));border-color:var(--bad);color:var(--fg)}
+.sm-q{scroll-margin-top:90px}.sm-q.ok{border-left:4px solid var(--ok)}.sm-q.bad{border-left:4px solid var(--bad)}
+.sm-qh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.sm-en{margin:0 0 12px;line-height:1.6;font-size:15.5px}
+.sm-alts{display:grid;gap:8px}
+.sm-alt{display:block;width:100%;text-align:left;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--raise);color:var(--fg);font:inherit;line-height:1.5;cursor:pointer;transition:border-color .15s,background .15s}
+.sm-alt:hover:not(:disabled){border-color:var(--lime)}
+.sm-alt[aria-pressed="true"]{border-color:var(--lime);background:color-mix(in srgb,var(--lime) 16%,var(--raise))}
+.sm-alt b{margin-right:6px}
+.sm-alt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 16%,var(--raise))}
+.sm-alt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 16%,var(--raise))}
+.sm-alt:disabled{cursor:default}
+.sm-exp{margin-top:12px;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--fg) 5%,transparent);line-height:1.55;font-size:14px}
+.sm-txt .sm-tx{margin-top:8px;line-height:1.65;font-size:15px;white-space:normal}
+.sm-sheet{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:6px 14px}
+.sm-sl{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:8px}.sm-sl .n{width:28px;font-weight:700;font-variant-numeric:tabular-nums}
+.sm-sl.ok{background:color-mix(in srgb,var(--ok) 10%,transparent)}.sm-sl.bad{background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.sm-bb{width:32px;height:30px;border-radius:8px;border:1px solid var(--line);background:var(--raise);color:var(--fg);font-weight:700;cursor:pointer}
+.sm-bb[aria-pressed="true"]{background:var(--lime);border-color:var(--lime);color:#fff}.sm-bb.right{border-color:var(--ok);box-shadow:inset 0 0 0 1px var(--ok)}
+.sm-ban{border-color:color-mix(in srgb,var(--lime) 40%,var(--line))}
+@media (max-width:700px){
+  .sm-n,.sm-r{grid-template-columns:1fr;gap:8px}
+  .sm-n>.btn{justify-self:stretch}
+  .sm-r>.row{justify-content:flex-start}
+  .sm-b{grid-template-columns:1fr auto;gap:6px 10px}.sm-b .sm-bl{grid-column:1/-1}
+  .sm-tt{flex-basis:100%}
+}
+
+.hello p.how{margin-top:10px;color:var(--fg2,var(--fg));font-size:14px;line-height:1.5;padding:9px 12px;border-left:3px solid var(--lime);background:color-mix(in srgb,var(--lime) 8%,transparent);border-radius:0 10px 10px 0}
+.hello p.how b{color:var(--lime);margin-right:4px}
+.hello.how-only{margin-bottom:4px}
 .eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--mute)}
 .muted{color:var(--mute)}
 .small{font-size:13px}
@@ -2111,39 +2174,13 @@ function chunkPg(p,a,tgt){
   for(let n=lo;n<=hi;n++){const b=a+n-1;const sc=(st.has(b+1)?0:6)+(qo.has(b)&&!st.has(b+1)?4:0)+Math.abs(n-tgtN)+(n<PG_MIN||n>PG_MAX?3:0);if(!best||sc<best.sc)best={n,sc}}
   return{a,b:a+(best?best.n:tgtN)-1};
 }
-function chunkOld(p,a,tgt){
-  const st0=p.ts||1;if(a<st0)a=st0;
-  const end=teoEnd(p),rem=end-a+1;tgt=clamp(Math.round(tgt),1,15);
-  if(rem<=Math.min(MAXPG,tgt+4))return{a,b:end};
-  const st=new Set((p.secs||[]).map(s=>s.p)),qo=new Set(p.qo||[]),ok=b=>!qo.has(b);
-  let best=null,alt=null;
-  for(let n=1;n<=MAXPG;n++){const b=a+n-1;if(rem-n<MINLEFT)continue;if(!ok(b))continue;const d=Math.abs(n-tgt)+(n>tgt?.5:0);
-    if(st.has(b+1)){if(!best||d<best.d)best={n,d}}else if(!alt||d<alt.d)alt={n,d}}
-  const pick=best&&best.d<=Math.max(6,tgt)?best:(alt&&(!best||alt.d+4<best.d)?alt:best||alt);
-  if(pick)return{a,b:a+pick.n-1};
-  let n=tgt;if(rem-n<MINLEFT)n=Math.ceil(rem/2);return{a,b:a+n-1};
-}
+
 /* TJ: cada atividade de questões tem de 22 a 30 questões (como pedido, no padrão do Guruja) */
 const QNQ=n=>clamp(n,22,30);
 function rmqSize(i){const s=clamp(core().cfg.hrs/4,.5,1.5),lv=LVS[lvl(i)];const nq=IS_TJ?QNQ(22+Math.round((lv.Q-.25)/.13*8)):Math.max(8,Math.round(20*s*lv.Q/.30));return{R:clamp(r5(35*s*lv.R/.15),20,90),M:clamp(r5(45*s),25,90),nq,Q:nq*MINQ}}
-function rmqTasks(i,au,mk){
-  const sid=ED[i].id,z=rmqSize(i),p=pdfOfAula(sid,au.c);
-  if(!au.tp.length)return;
-  mk({ph:"R",sid,aula:au.c,pdf:p?p.id:"",min:au.f==="v"?20:z.R});
-  if(au.f!=="v"){const ms=partsOf(sid,au.c).filter(q=>q.qc);if(ms.length)ms.forEach(q=>mk({ph:"M",sid,aula:au.c,pdf:q.id,pa:q.qc,pb:q.pages,min:z.M}));else mk({ph:"M",sid,aula:au.c,pdf:p?p.id:"",pa:0,pb:0,min:z.M})}
-  mk({ph:"Q",sid,aula:au.c,nq:z.nq,min:z.Q,quiz:au.q||""});
-}
+
 /* Revisão e questões agrupadas por matéria ("Revisão das Aulas 00 e 01"); mapeamento por aula */
-function rmqGroup(i,aus,mk){
-  if(!aus.length)return;
-  const sid=ED[i].id,z=rmqSize(i),cs=aus.map(a=>a.c),k=1+.5*(cs.length-1);
-  mk({ph:"R",sid,aula:cs[0],aulas:cs,min:clamp(r5(z.R*k),20,120)});
-  const sem=[];
-  aus.forEach(a=>{if(a.f==="v")return;const p=pdfOfAula(sid,a.c);if(!p){sem.push(a.c);return}const ms=partsOf(sid,a.c).filter(q=>q.qc);(ms.length?ms:[p]).forEach(q=>mk({ph:"M",sid,aula:a.c,pdf:q.id,pa:q.qc||0,pb:q.qc?q.pages:0,min:z.M}))});
-  if(sem.length)mk({ph:"M",sid,aula:sem[0],aulas:sem,pdf:"",pa:0,pb:0,min:clamp(r5(z.M*(1+.5*(sem.length-1))),25,120)});
-  const nq=IS_TJ?QNQ(Math.round(z.nq*k)):Math.min(60,Math.round(z.nq*k));
-  mk({ph:"Q",sid,aula:cs[0],aulas:cs,nq,min:nq*MINQ,quiz:aus.map(a=>a.q).filter(Boolean).join(", ")});
-}
+
 const aSet=t=>t.aulas&&t.aulas.length?t.aulas:t.aula?[t.aula]:[];
 function grpLabel(sid,cs){
   if(cs.length<2)return auLabel(sid,cs[0]);
@@ -2415,7 +2452,7 @@ function aulaDone(sid,c){
   C.adone[sid+":"+c]=today();
   if(au)au.tp.forEach(j=>{const k=EDI[sid]+":"+j;C.ed[k]=Object.assign(C.ed[k]||{},{stud:today()})});
 }
-function resortMeta(n){const md=metaDoc(n);md.tasks=interleave(md.tasks);md.tasks.forEach((t,i)=>{t.k=i+1});touch("m-"+n)}
+
 /* ================= Ciclo das metas ================= */
 /* Bloqueios por aula: partes da teoria em sequência; revisão → mapeamento → questões da mesma aula */
 function phaseLocks(ts){
@@ -2766,7 +2803,7 @@ function upModal(h){$("layer3").innerHTML=`<div class="modal" role="dialog" aria
 /* Campo de arquivo real cobrindo o botão: o toque cai direto nele (funciona no celular) */
 const upBtn=(lab,cls,sid,aula)=>`<span class="upw ${cls}" role="button">${lab}<input type="file" accept="application/pdf,.pdf" multiple data-sid="${sid}" data-aula="${aula}" ${aula?"":'data-main="1"'} class="upf" aria-label="Escolher arquivo PDF"></span>`;
 function upDirect(i){const fs=i.files?[...i.files]:[];if(!fs.length)return;setUp("Recebi "+fs.length+" arquivo"+(fs.length>1?"s":"")+". Lendo…");toast("PDF recebido, lendo o arquivo…");const sid=i.dataset.sid||($("pSub")?$("pSub").value:ED[0].id),aula=i.dataset.main?($("pAula")?$("pAula").value:""):i.dataset.aula;i.value="";if(fs.length)addPdfs(fs,sid,aula)}
-function upChange(i){const T=UI.upT||{sid:$("pSub")?$("pSub").value:ED[0].id,aula:""};const fs=i.files?[...i.files]:[];i.value="";if(fs.length)addPdfs(fs,T.sid,T.aula)}
+
 async function importInbox(){
   if(!DB)return;
   try{const q=await DB.collection("inbox").get();const C=core();C.inbox=C.inbox||{};
@@ -3041,7 +3078,7 @@ function vMapas(){const sid=UI.mmSid&&EDI[UI.mmSid]!=null?UI.mmSid:ED[0].id;UI.m
   return`<div class="hello"><h1>Mapas Mentais</h1><p>Os mapas de cada matéria num lugar só, separados pelo curso de onde vieram. Envie imagens, PDFs ou links dos seus cursos, ou peça para a IA montar um mapa de um assunto do edital.</p></div>
   <div class="mm-top"><span><b>Envie uma pasta inteira</b> <span class="muted small">e cada arquivo vai para a matéria e o assunto certos, pelo nome da pasta ou do arquivo. Você confere antes de enviar. Também dá para arrastar a pasta até aqui.</span></span><label class="btn pri">${ic("cloud")} Escolher pasta<input type="file" class="mmDir" webkitdirectory multiple hidden></label><label class="btn">${ic("plus")} Vários arquivos<input type="file" class="mmDir" accept="image/*,application/pdf" multiple hidden></label></div>
   <div class="mm-subs" role="group" aria-label="Matéria">${chips}</div>
-  <section class="card"><div class="card-h"><span class="code" style="border-color:${S.col}">${esc(S.c)}</span><h2>${esc(S.n)}</h2><span class="r row" style="gap:8px"><span class="seg mm-vw" role="group" aria-label="Ver"><button data-a="mmVw" data-v="all" aria-pressed="${UI.mmVw!=="tp"}">Mapas</button><button data-a="mmVw" data-v="tp" aria-pressed="${UI.mmVw==="tp"}">Por assunto</button></span><button class="btn sm" data-a="mmAdd">${ic("plus")} Enviar mapa</button><button class="btn sm pri" data-a="mmAI">${ic("bulb")} Gerar com IA</button></span></div>
+  <section class="card"><div class="card-h"><span class="code" style="border-color:${S.col}">${esc(S.c)}</span><h2>${esc(S.n)}</h2><span class="r row" style="gap:8px"><span class="seg mm-vw" role="group" aria-label="Ver"><button data-a="mmVw" data-v="all" aria-pressed="${UI.mmVw!=="tp"}">Mapas</button><button data-a="mmVw" data-v="tp" aria-pressed="${UI.mmVw==="tp"}">Por assunto</button></span><button class="btn sm" data-a="mmAdd">${ic("plus")} Enviar mapa</button>${SAMPLE?`<button class="btn sm" data-a="mmFromRes" data-s="${S.id}" ${UI.mmBusy||!mmResumos(S.id,null).length?"disabled":""} title="${mmResumos(S.id,null).length?"Monta um mapa para cada resumo pronto desta matéria":"Esta matéria ainda não tem resumo pronto (aba Resumos)"}">${ic("brain")} Gerar dos meus resumos</button>`:""}<button class="btn sm pri" data-a="mmAI">${ic("bulb")} Gerar com IA</button></span></div>
    ${tabs.length?ctabs:""}
    <div class="card-b">${UI.mmVw==="tp"?mmTopicsHTML(S,cur==="*"?all:all.filter(x=>x.course===cur)):L.length?`<div class="mm-grid">${L.map(card).join("")}</div>`:`<p class="muted" style="margin:0">${all.length?"Nenhum mapa deste curso ainda.":"Nenhum mapa desta matéria ainda. Use “Adicionar mapa” para enviar os mapas dos seus cursos (Estratégia, Gran, Direção, o que você tiver) ou “Gerar com IA”."}</p>`}</div></section>`}
 function mmCourseField(sid,val){const CS=mmCourses(sid);
@@ -3071,8 +3108,8 @@ function mmResumos(sid,tp){const all=Object.keys(D).filter(k=>k.startsWith("res-
 function mmEsquemas(sid,tp){const L=MM().items.filter(x=>x.sid===sid&&(x.kind==="pdf"||x.kind==="img"));if(tp==null)return L;const m=L.filter(x=>x.tp==null||x.tp===tp);return m.length?m:L}
 async function mmPdfText(x,max){try{const r=await fetch(mmUrl(x));if(!r.ok)return"";const buf=await r.arrayBuffer(),doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise;let out="";
   for(let i=1;i<=Math.min(doc.numPages,20)&&out.length<max;i++){const tc=await(await doc.getPage(i)).getTextContent();out+="\n"+tc.items.map(k=>k.str).join(" ")}return out.slice(0,max)}catch(e){return""}}
-async function mmGenerate(S,tp,src,extra){const as=tp!=null&&S.t[tp]?S.t[tp][0]:S.n,useR=src!=="esq",useE=src!=="res";let txt="",imgs=[],nR=0,nE=0;
-  if(useR){const R=mmResumos(S.id,tp);nR=R.length;txt+=R.map(r=>"## Resumo "+auLabel(S.id,r.aula)+"\n"+String(r.txt).slice(0,6000)).join("\n\n").slice(0,useE?9000:16000)}
+async function mmGenerate(S,tp,src,extra,aula){const au_=aula?auOf(S.id,aula):null,as=au_?auLabel(S.id,aula)+" – "+au_.d:tp!=null&&S.t[tp]?S.t[tp][0]:S.n,useR=src!=="esq",useE=src!=="res";let txt="",imgs=[],nR=0,nE=0;
+  if(useR){const R=aula?mmResumos(S.id,null).filter(r=>r.aula===aula):mmResumos(S.id,tp);nR=R.length;txt+=R.map(r=>"## Resumo "+auLabel(S.id,r.aula)+"\n"+String(r.txt).slice(0,6000)).join("\n\n").slice(0,useE?9000:16000)}
   if(useE){const E=mmEsquemas(S.id,tp);for(const x of E.slice(0,8)){if(x.kind==="pdf"){const t=await mmPdfText(x,5000);if(t.trim()){txt+="\n\n## Esquema: "+x.title+"\n"+t;nE++}}else imgs.push(x)}
     if(imgs.length){let lim=null;try{lim=await SAMPLE.limits()}catch(e){}const mx=lim&&lim.images?Math.min(4,lim.images.maxCount||lim.images.max||4):0;
       const bl=[];for(const x of imgs.slice(0,mx)){try{const r=await fetch(mmUrl(x));if(r.ok){const b=await r.blob();bl.push(new File([b],"esquema.jpg",{type:b.type||"image/jpeg"}));nE++}}catch(e){}}imgs=bl}}
@@ -3347,6 +3384,26 @@ const GP={};Object.entries(GROUPS).forEach(([g,L])=>L.forEach(([k])=>{GP[k.split
 function gnavHTML(){const g=GP[TAB];if(!g)return"";const cur=TAB,due=dueRevs().length,ep=errPend(),rf=allRefs().filter(x=>!x.done).length;
   const badge=k=>k==="revisoes"&&due?`<small>${due}</small>`:k==="erradas"&&ep?`<small>${ep}</small>`:k==="reforcos"&&rf?`<small>${rf}</small>`:"";
   return`<div class="ds-sub gnav" role="group" aria-label="Seções">${GROUPS[g].map(([k,l,i])=>`<button data-a="gtab" data-t="${k}" aria-pressed="${cur===k}">${ic(i)} ${l}${badge(k)}</button>`).join("")}</div>`}
+/* "Como usar" de cada aba: para que serve e o que o aluno coloca ali para o painel gerar o resto */
+const HOW={
+  meta:"Aqui ficam as atividades da meta atual. Abra cada uma para ver o comando do dia, estude e toque em Finalizar. A próxima meta abre quando esta é cumprida. Para mudar algo, use o Assistente de planejamento.",
+  rotina:"Aqui você monta a sua semana: arraste os blocos de estudo, trabalho, refeição, treino, psicólogo, descanso e sono para os dias e horários. Com a rotina pronta, o painel encaixa sozinho as atividades da meta nos seus tempos de estudo.",
+  jornada:"Aqui você vê o caminho das metas até a prova e o registro do seu ritmo. Não há nada para preencher: tudo vem das metas que você cumpre.",
+  edital:"Aqui está o edital em tópicos. Você envia os PDFs das aulas em Materiais e conclui a teoria; o painel risca os tópicos abordados e marca os estudados. Também dá para marcar à mão.",
+  incidencia:"Aqui você informa quanto cai de cada assunto: cole a estatística de um site de questões (TEC, QConcursos), use “Estimar com IA” ou ajuste as porcentagens. Com esses números o painel prioriza as metas, os resumos, os simulados e as questões.",
+  materiais:"Aqui você envia o PDF de cada aula. O painel lê o arquivo, acha onde a teoria começa e termina, divide em partes de 15 a 18 páginas e cria as atividades das metas, os resumos e o mapeamento das questões.",
+  resumos:"Aqui ficam os resumos de cada aula. Eles nascem do PDF enviado em Materiais e crescem a cada atividade concluída. Você pode editar, completar com questões do TEC, gerar um mapa mental e baixar em PDF.",
+  mapas:"Aqui ficam os mapas mentais. Envie os mapas dos seus cursos (imagem, PDF ou link) ou gere com a IA a partir dos seus resumos. Eles ficam separados por matéria e por assunto do edital para a revisão.",
+  revisoes:"Aqui aparecem as revisões do dia. Responda os cards e as questões que voltaram; o ciclo de 1, 7, 14, 30 e 60 dias se ajusta sozinho conforme você acerta ou erra.",
+  erradas:"Aqui entram sozinhas as questões que você errou ou chutou (TEC, PDFs, simulados). Refaça, marque o resultado e transforme as de uma matéria num reforço.",
+  reforcos:"Aqui ficam os reforços: questões extras que surgem quando uma matéria fica abaixo de 75% de acerto. Resolva dentro do prazo de 30 dias; eles não travam a meta.",
+  simulados:"Aqui você faz os simulados quando são liberados: responda no tempo indicado e veja a correção comentada. Os erros vão para Erradas e a matéria abaixo de 75% ganha reforço.",
+  discursiva:"Aqui você treina a parte escrita: escolha discursiva ou redação, escreva (ou envie a foto da folha) e receba a nota e a correção da IA, quesito por quesito.",
+  desempenho:"Aqui você acompanha os resultados. Não há nada para preencher: os números vêm do cronômetro, das questões resolvidas e dos simulados.",
+  concurso:"Aqui você cuida do concurso: troque ou adicione concursos, inclua o edital em PDF (o painel tira datas, matérias e assuntos) e acompanhe o cronograma até a prova.",
+  compat:"Aqui você compara dois concursos: o painel mostra as matérias e os assuntos em comum para o estudo de um servir ao outro."};
+function howAttach(){const v=$("view"),t=HOW[TAB];if(!v||!t||v.querySelector(".how"))return;const p=document.createElement("p");p.className="how";p.innerHTML=`<b>Como usar</b> ${esc(t)}`;
+  const h=v.querySelector(".hello");if(h){h.appendChild(p);return}if(TAB!=="meta")return;const g=v.querySelector(".gnav");const w=document.createElement("div");w.className="hello how-only";w.appendChild(p);if(g)g.after(w);else v.prepend(w)}
 function vReforcos(){return`<div class="hello"><h1>Reforços</h1><p>Questões extras do TEC nos assuntos em que o acerto ficou abaixo de 75%. Cada reforço tem prazo de 30 dias e não trava a meta.</p></div>${refsHTML()}`}
 let UI0ctab=null;let TAB=(location.hash||"").replace("#","");if(TAB==="prova"){TAB="incidencia"}if(!TABS.some(t=>t[0]===TAB))TAB="meta";
 const UI={filter:"todas",calM:null,openT:null,qform:null,pmap:null,pq:null,confirm:null,psub:"lp"};if(UI0ctab)UI.ctab=UI0ctab;
@@ -3384,7 +3441,7 @@ function render(){
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
   const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados}[TAB];
-  $("view").classList.toggle("noanim",render.lt===TAB);render.lt=TAB;$("view").innerHTML=gnavHTML()+V();brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));
+  $("view").classList.toggle("noanim",render.lt===TAB);render.lt=TAB;$("view").innerHTML=gnavHTML()+V();try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));
   if(UI.openT)renderDrawer();
 }
 /* concordância no singular quando o número é 1 */
@@ -4152,11 +4209,7 @@ const platOfUrl=u=>/estrategia/i.test(u)?"Estratégia Concursos":/grancursos/i.t
    Assim que o PDF chega, a aula ganha o roteiro padrão: teoria em partes de até 18 páginas (pelo tempo do dia,
    terminando no fim de um assunto e antes das listas de questões), depois revisão, mapeamento das questões do PDF
    e questões. Sem PDF (só o link do curso), o painel estima pelo tamanho médio de uma aula. */
-function guessQc(p){const n=p.pages||0;if(n<8)return 0;
-  const QH=/^\s*\d{1,3}\s*[.)\-–]\s*\(?\s*(vunesp|fcc|fgv|cespe|cebraspe|cesgranrio|ibfc|idecan|quadrix|aocp|consulplan|iades|fundatec|ibade|objetiva|fumarc|esaf|fafipa)\b/i;
-  const sq=(p.secs||[]).filter(x=>QH.test(x.t)).map(x=>x.p).sort((a,b)=>a-b);
-  const qo=new Set(p.qo||[]);let dense=0;for(let a=Math.max(4,Math.floor(n*.15));a<=n-4&&!dense;a++){let k=0;for(let b=a;b<a+10&&b<=n;b++)if(qo.has(b))k++;if(k>=5)dense=a}
-  const c=[sq.length>=3?sq[0]:0,dense].filter(x=>x>Math.max(3,n*.12));return c.length?Math.min(...c):0}
+
 function tgtPages(){const cfg=core().cfg;return clamp(Math.round(cfg.hrs*cfg.dias*60/NT()/MINPG),3,15)}
 function aulaPlan(sid,c){const au=auOf(sid,c);if(!au)return null;const i=EDI[sid];if(i===undefined)return null;
   const p=pdfOfAula(sid,c),z=rmqSize(i),tgt=tgtPages(),T=[],PS=partsOf(sid,c);let est=false;
@@ -5106,7 +5159,7 @@ function vResumos(){
     ${all.length?`<div class="card-b" style="border-top:1px solid var(--line);padding-block:10px"><span class="muted small">Resumos prontos: </span>${all.map(x=>`<button class="chip" data-a="rsGo" data-s="${x.sid}" data-c="${x.aula}" style="cursor:pointer;margin:2px">${SUB(x.sid).c} · ${esc(auLabel(x.sid,x.aula))}</button>`).join("")}</div>`:""}</section>
   <div class="grid2 rsg"><section class="card"><div class="card-h"><h2>${esc(auLabel(sid,c))}${au?" · "+esc(au.d.slice(0,70)):""}</h2></div>
     <div class="card-b" style="display:grid;gap:12px">${rsStages(sid,c,R0)}${(UI.rsView||"full")!=="full"?rsAltView(sid,c,R0,UI.rsView):`
-      <div class="row">${!p?`<button class="btn" data-a="tab" data-t="materiais">${ic("materiais")} Enviar o PDF desta aula</button>`:SAMPLE?`<button class="btn pri" data-a="rsGen" ${busy?"disabled":""}>${ic("bulb")} ${R0.txt?"Refazer o resumo":"Gerar resumo"}</button>`:`<button class="btn pri" data-a="rsGen">${ic("plus")} Montar resumo simples</button>`}${R0.txt?`<button class="btn" data-a="rsEdit">${ic("list")} ${UI.rsEdit===key?"Fechar edição":"Editar"}</button><button class="btn" data-a="rsPdf">${ic("book")} Baixar resumo em PDF</button>`:""}${p?`<button class="btn ghost" data-a="rsAulaPdf">${ic("materiais")} Baixar PDF da aula</button>`:""}<span class="muted small">${busy?'<span class="spin"></span> Escrevendo o resumo…':src?"Baseado em: "+src:p?"":"Sem PDF desta aula: envie em Materiais para o resumo usar as questões comentadas."}</span></div>
+      <div class="row">${!p?`<button class="btn" data-a="tab" data-t="materiais">${ic("materiais")} Enviar o PDF desta aula</button>`:SAMPLE?`<button class="btn pri" data-a="rsGen" ${busy?"disabled":""}>${ic("bulb")} ${R0.txt?"Refazer o resumo":"Gerar resumo"}</button>`:`<button class="btn pri" data-a="rsGen">${ic("plus")} Montar resumo simples</button>`}${R0.txt?`<button class="btn" data-a="rsEdit">${ic("list")} ${UI.rsEdit===key?"Fechar edição":"Editar"}</button><button class="btn" data-a="rsPdf">${ic("book")} Baixar resumo em PDF</button>${SAMPLE?`<button class="btn" data-a="mmFromRes" data-s="${sid}" data-c="${c}" ${UI.mmBusy?"disabled":""}>${ic("brain")} Gerar mapa mental deste resumo</button>`:""}`:""}${p?`<button class="btn ghost" data-a="rsAulaPdf">${ic("materiais")} Baixar PDF da aula</button>`:""}<span class="muted small">${busy?'<span class="spin"></span> Escrevendo o resumo…':src?"Baseado em: "+src:p?"":"Sem PDF desta aula: envie em Materiais para o resumo usar as questões comentadas."}</span></div>
       ${R0.txt&&p&&SAMPLE&&(R0.v||1)<RES_V&&!busy?`<div class="pwarn"><b>${ic("bulb")} Resumo mais direcionado disponível</b><span>Toque em “Refazer o resumo”: agora a IA lê o PDF inteiro, questão por questão, sem cortar nada, junta com as questões do TEC e completa com o que costuma cair e o material não trouxe.</span></div>`:""}
       ${newSec&&!busy?`<div class="pwarn"><b>${ic("book")} Novo material secundário disponível</b><span>${esc(secAvail.filter(n=>!(R0.secs||[]).includes(n)).join(", "))} tem PDF desta aula. Toque em “Refazer o resumo” para juntar os dois olhares.</span></div>`:""}
       ${UI.rsEdit===key?`<textarea class="inp" id="rsTx" style="min-height:360px;font-family:inherit">${esc(R0.txt)}</textarea><div class="row"><button class="btn pri" data-a="rsSave">${ic("check")} Salvar</button></div>`:`<div class="rsout" id="rsOut">${R0.txt?mdLite(R0.txt):`<p class="muted">${!p?"O resumo é montado sozinho quando o PDF desta aula é carregado em Materiais, a partir da lista de questões comentadas.":SAMPLE?"Toque em “Gerar resumo”: a IA lê a lista de questões comentadas do PDF desta aula e organiza as regras, pegadinhas e prazos cobrados.":"Sem IA disponível nesta visualização: o resumo simples lista as questões do PDF e as do TEC que você colar."}</p>`}</div>`}
@@ -5142,7 +5195,7 @@ const UNDO_NAV=/^(tab|mtab|filter|openT|closeT|avTab|finAsk|finNo|jtab|pgSort|pg
 const UNDO_LB={fin:"Atividade concluída",saveQ:"Questões registradas",saveT:"Leitura registrada",reopen:"Atividade reaberta",skip:"Atividade ignorada",skDone:"Atividade concluída",skIgnore:"Atividade ignorada",
   skDay:"Atividade remarcada",skNext:"Atividade passada para a próxima meta",avSave:"Tempo salvo",timeT:"Tempo alterado",delPdf:"PDF removido",partUse:"PDF usado como parte",partMv:"Ordem das partes",pfix:"PDF corrigido",
   reread:"PDF lido de novo",rok:"Revisão feita",rerr:"Revisão reiniciada",radd:"Erro registrado",tqAdd:"Questão anotada",topic:"Assunto do edital marcado",topicAll:"Matéria do edital marcada",cOk:"Card revisado",cBad:"Card revisado",
-  cAdd:"Card criado",cDel:"Card removido",cGen:"Cards criados",slotPick:"Atividade escolhida",slotMove:"Atividade movida",slotNew:"Atividade adicionada",mvOrd:"Ordem das atividades",mvDay:"Dia da atividade",
+  cAdd:"Card criado",cDel:"Card removido",crsDel:"Curso removido",cGen:"Cards criados",slotPick:"Atividade escolhida",slotMove:"Atividade movida",slotNew:"Atividade adicionada",mvOrd:"Ordem das atividades",mvDay:"Dia da atividade",
   erOk:"Erro revisado",erBad:"Erro revisado",erUndo:"Erro reaberto",erRef:"Reforço criado",alSave:"Alerta salvo",alDel:"Alerta removido",qzAns:"Resposta marcada",qzPick:"Resposta marcada",qzSelf:"Resposta marcada",qzUndo:"Resposta desmarcada",
   qzBuild:"Questões montadas",qzAI:"Questões montadas",rsDelQ:"Questão removida do resumo",cImp:"Curso vinculado",cEdit:"Curso alterado",cMain:"Curso principal trocado",cSwap:"Curso trocado",cSwapGo:"Curso trocado",cFlag:"Uso do curso alterado",
   cMetas:"Uso do curso alterado",impDel:"Aula removida",rotCat:"Rotina alterada",rotPaint:"Rotina alterada",rotDay:"Rotina alterada",rfSet:"Rotina alterada",rotUse:"Rotina aplicada",bkK:"Bloco alterado",bkSetD:"Bloco alterado",
@@ -5240,7 +5293,7 @@ function cursosHTML(){
     const swapBtn=nComp?`<button class="lnk swap" data-a="cSwap" data-s="${x.id}">⇄ trocar com o ${nComp>1?"secundário…":"secundário"}</button>`:"";
     if(!mainC||mainC.id==="std")chips.push(`<span class="cchip main"><b>Principal</b> ${hasStd?"Estratégia (índice padrão)":"Tópicos do edital"}${swapBtn}</span>`);
     L.forEach(c=>{if(c.id==="std"&&c.role==="principal")return;chips.push(`<span class="cchip ${c.role==="principal"?"main":""}"><b>${c.role==="principal"?"Principal":"Secundário"}</b> ${esc(cName(c))}${c.aulas?" · "+c.aulas.length+" aulas":""}${c.role==="principal"?swapBtn:""}
-      ${c.role!=="principal"?`<button class="lnk swap" data-a="cMain" data-s="${x.id}" data-id="${c.id}">⇄ tornar principal</button>`:""}${c.id!=="std"?`<button class="lnk" data-a="cEdit" data-s="${x.id}" data-id="${c.id}">editar</button>`:""}${c.role!=="principal"?`<span class="tg"><button class="tgb ${useRes(c)?"on":""}" data-a="cFlag" data-f="useRes" data-s="${x.id}" data-id="${c.id}" aria-pressed="${useRes(c)}">resumo</button><button class="tgb ${useMap(c)?"on":""}" data-a="cFlag" data-f="useMap" data-s="${x.id}" data-id="${c.id}" aria-pressed="${useMap(c)}">mapeamento</button><button class="tgb ${c.metas?"on":""}" data-a="cMetas" data-s="${x.id}" data-id="${c.id}" aria-pressed="${!!c.metas}">metas</button></span>`:""}<button class="lnk" data-a="cDel" data-s="${x.id}" data-id="${c.id}">remover</button></span>`)});
+      ${c.role!=="principal"?`<button class="lnk swap" data-a="cMain" data-s="${x.id}" data-id="${c.id}">⇄ tornar principal</button>`:""}${c.id!=="std"?`<button class="lnk" data-a="cEdit" data-s="${x.id}" data-id="${c.id}">editar</button>`:""}${c.role!=="principal"?`<span class="tg"><button class="tgb ${useRes(c)?"on":""}" data-a="cFlag" data-f="useRes" data-s="${x.id}" data-id="${c.id}" aria-pressed="${useRes(c)}">resumo</button><button class="tgb ${useMap(c)?"on":""}" data-a="cFlag" data-f="useMap" data-s="${x.id}" data-id="${c.id}" aria-pressed="${useMap(c)}">mapeamento</button><button class="tgb ${c.metas?"on":""}" data-a="cMetas" data-s="${x.id}" data-id="${c.id}" aria-pressed="${!!c.metas}">metas</button></span>`:""}<button class="lnk" data-a="crsDel" data-s="${x.id}" data-id="${c.id}">remover</button></span>`)});
     return`<div class="crow2"><span class="code" style="border-color:${x.col}">${x.c}</span><div style="min-width:0"><b>${esc(x.n)}</b><div class="cchips">${chips.join("")}</div></div><button class="btn sm" data-a="cImp" data-s="${x.id}">${ic("plus")} Adicionar curso</button></div>`}).join("");
   return`<details class="card cur" ${open?"open":""} id="curBox"><summary class="card-h" style="cursor:pointer;list-style:none"><h2>${ic("materiais")} Meus cursos e assinaturas</h2><span class="r muted small">${mine.length?esc(mine.join(" · ")):"Conte quais materiais você tem"}</span></summary>
     <div class="card-b" style="display:grid;gap:14px">
@@ -5313,7 +5366,7 @@ function vMateriais(){
       ${rows}${qrows}${compCourses(s.id).map(c=>`<div class="qzh">Outro olhar · ${esc(cName(c))}${c.url?` · <a href="${esc(c.url)}" target="_blank" rel="noopener">abrir curso</a>`:""}</div>`+rowsToAu(c.aulas||[]).map(a=>{const x="x:"+c.id+":"+a.c,p=anyPdfOfAula(s.id,x);
         return`<div class="pdfrow"><div class="pdfic" style="${p?"":"color:var(--mute)"}">${p?"PDF":"—"}</div><div style="min-width:0"><div class="nm">Aula ${esc(a.c)} · <span style="font-weight:500">${esc(a.d)}</span></div><div class="row" style="margin-top:6px;gap:6px">${a.tp.map(j=>`<span class="chip">${esc(tShort(ED[EDI[s.id]].t[j][0]))}</span>`).join("")||'<span class="chip">sem tópico do edital</span>'}${p?`<span class="chip ok">${ic("check")} PDF enviado</span>`:""}</div></div>
         <div class="row" style="justify-content:flex-end">${p&&allPartsOf(s.id,x).length<2?`<button class="btn sm" data-a="read" data-id="${p.id}" data-pa="1" data-pb="${p.pages||1}">${ic("book")} Abrir</button><button class="btn sm ghost" data-a="delPdf" data-id="${p.id}" aria-label="Remover PDF">${ic("trash")}</button>`:""}${p?upBtn(ic("plus")+" Adicionar parte","btn sm",s.id,x):upBtn(ic("plus")+" Enviar PDF","btn sm",s.id,x)}</div></div>${allPartsOf(s.id,x).length>1?`<div style="padding:0 14px 10px">${partsHTML(s.id,x,allPartsOf(s.id,x))}</div>`:""}`}).join("")).join("")}${ex}</details>`});
-  return`${""}<div class="hello"><h1>Materiais</h1><p>As metas seguem o índice de aulas do Estratégia. Envie o PDF de cada aula: a teoria é dividida em partes de 15 a 18 páginas (sem índice e apresentação), terminando no fim de um assunto e antes da lista de questões. Só depois de acabar todas as páginas de teoria da aula entram a revisão, o mapeamento das questões e as questões.</p></div>
+  return`${""}<div class="hello"><h1>Materiais</h1><p>As metas seguem o índice de aulas do Estratégia. Envie o PDF de cada aula: a teoria é dividida em partes de 15 a 18 páginas (sem capa, índice e apresentação), sempre parando antes de um novo tópico e antes da lista de questões. Só depois de acabar todas as páginas de teoria da aula entram a revisão, o mapeamento das questões e as questões.</p></div>
   ${cursosHTML()}
   <section class="card"><div class="card-b"><div class="drop" id="drop">
     <div class="row" style="width:100%"><div class="field" style="flex:1 1 220px"><label for="pSub">Matéria</label><select class="inp" id="pSub" data-c="psub">${opts}</select></div>
@@ -5350,7 +5403,7 @@ function makeRef(t,grau,pct){
   const r={id:uid(),ref:1,ph:"Q",sid:t.sid,aula:cs[0]||"",aulas:cs,src:t.id,grau,pct,from:taskTitle(t).slice(0,90),nq,min:nq*MINQ,created:today(),due:addDays(today(),30),done:null,k:0};
   REFS().push(r);REFS().forEach((x,i)=>{x.k=i+1});touch("ref");return r;
 }
-function dropRef(t){const i=REFS().findIndex(r=>r.src===t.id&&!r.done&&!r.q);if(i>=0){REFS().splice(i,1);touch("ref");return true}return false}
+
 
 /* ===== Revisões e reforços que entram nas metas aos poucos (como no Guruja) =====
    · A revisão espaçada de uma aula só é agendada quando o ciclo dela fecha (Teoria, Revisão, Mapeamento e Questões):
@@ -5677,14 +5730,17 @@ const SLM=10,RS=120,RH0=4,SPH=60/SLM;
 /* Rotina única para todos os concursos: cada concurso tem a sua cor de Estudo */
 (function(){let ch=false;const used=new Set(PLANS.list.map(p=>p.rc).filter(Boolean));PLANS.list.forEach(p=>{if(!p.rc){const c=[..."123456789"].find(x=>!used.has(x));if(c){p.rc=c;used.add(c);ch=true}}});if(ch){try{localStorage.setItem(PLK,JSON.stringify(PLANS))}catch(e){}}})();
 const MYC=IS_TJ?"s":(PLAN.rc||"1");
-const SCOL=["#c8553d","#b23a6e","#2c8c8c","#8a6d1f","#6b5bd6","#d07a2a","#3d7d3a"];
-const RBASE=[["t","Trabalho","#5b7aa6"],["a","Refeição / almoço","#e0a43a"],["g","Treino","#4f9d69"],["l","Descanso / livre","#8fb8c9"],["d","Deslocamento","#9a917f"],["z","Sono","#7a679e"],["o","Outros compromissos","#c48ab0"],["i","Intervalo","#e8b9a0"]];
+/* estudo na rotina: Concurso 1 (foco principal) azul royal, Concurso 2 verde-azulado, outros concursos rosa escuro */
+const SCOL=["#2a5bd7","#14968c","#b0306a","#5b4fc4","#3d7d3a","#8a6d1f","#c8553d"];
+/* cores pensadas para a rotina: trabalho vermelho, refeição amarelo (energia), treino laranja, psicólogo rosa claro (cuidado),
+   descanso roxo (relaxar), sono azul claro (calma), outros compromissos bege escuro */
+const RBASE=[["t","Trabalho","#d0453a"],["a","Refeição / almoço","#f2c230"],["g","Treino / atividade física","#f08a24"],["y","Psicólogo / saúde mental","#f4a6c6"],["l","Descanso / livre","#8b5cf6"],["d","Deslocamento","#7d8796"],["z","Sono","#8cc8f0"],["o","Outros compromissos","#9c7a4f"],["i","Intervalo","#e8b9a0"]];
 let RCAT=[],RCI={},SCODES=new Set(),SPLAN={};
 const pCode=p=>p.id==="tjsp"?"s":(p.rc||"1");
 const pShort=p=>p.id==="tjsp"?prot("Oficial de Justiça"):(p.cargo||p.name);
 function rotCats(){const L=allPlans();SPLAN={};const st=L.map((p,k)=>{const c=pCode(p);SPLAN[c]=p;return[c,L.length>1?"Estudo · "+pShort(p):"Estudo",SCOL[k%SCOL.length]]});
   /* horários de estudo do outro concurso (que agora fica no outro aplicativo) continuam aparecendo na rotina */
-  const ex=[];try{const known=new Set([...st.map(x=>x[0]),...RBASE.map(x=>x[0]),"."]);new Set(ROT().d.join("")).forEach(c=>{if(!known.has(c))ex.push([c,"Estudo · "+(c==="s"?"Oficial de Justiça":"outro concurso"),"#8d99ae"])})}catch(e){}
+  const ex=[];try{const known=new Set([...st.map(x=>x[0]),...RBASE.map(x=>x[0]),"."]);new Set(ROT().d.join("")).forEach(c=>{if(!known.has(c))ex.push([c,"Estudo · "+(c==="s"?"Oficial de Justiça":"outro concurso"),"#b0306a"])})}catch(e){}
   RCAT=[...st,...RBASE,...ex];RCI=Object.fromEntries(RCAT.map(x=>[x[0],x]));SCODES=new Set(st.map(x=>x[0]))}
 rotCats();
 const RWN=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"],RWS=["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"];
@@ -5726,11 +5782,7 @@ function planDayTasks(p,d){if(p.id===ACTIVE)return dayItems(d).map(t=>({t,S:SUB(
   const o=othPlan(p.id);if(!o.meta||!Array.isArray(o.meta.tasks))return[];const ED2=p.ed||[];
   return o.meta.tasks.filter(t=>t.day===d).sort((a,b)=>ordOf(a)-ordOf(b)||(a.k||0)-(b.k||0)).map(t=>({t,S:ED2.find(x=>x.id===t.sid)||{c:"?",n:"Matéria",col:"#999"},mine:false}))}
 /* Matéria em cada horário do quadro: [dia][slot] -> {S,t,first,p} */
-function rotSubjMap(dts){const M=dts.map(()=>({}));
-  allPlans().forEach(p=>{const ch=pCode(p);dts.forEach((d,w)=>{const B=rotBlocks(w,ch),L=planDayTasks(p,d);if(!L.length||(!B.length&&!L.some(x=>x.t.tm!=null)))return;
-    const by=new Map(L.map(x=>[x.t,x]));const A=fitAgenda2(L.map(x=>x.t),B);
-    A.out.forEach(({t,segs,fixed})=>segs.forEach(([st,en])=>{const X=by.get(t),a=Math.floor(st/SLM),b=Math.min(RS,Math.ceil(en/SLM));for(let i=a;i<b;i++)M[w][i]={S:X.S,t,first:i===a,p,mine:X.mine,st,en,fixed}}))})});
-  return M}
+
 const mT=m=>{m+=RH0*60;return pad(Math.floor(m/60)%24)+":"+pad(m%60)};
 function vRotina(){
   rotCats();const R=ROT(),c=core(),cat=UI.rotCat||MYC,paint=UI.rotPaint!==false,showS=UI.rotSub!==false,use=!!c.rotUse;
@@ -5894,7 +5946,7 @@ document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.d
 document.addEventListener("keydown",e=>{const el=e.target;if(!el||el.id!=="pxQ"||e.key!=="Enter")return;e.preventDefault();A.pxAdd()});
 
 /* ===== Montar a rotina como num calendário: blocos de arrastar, mover e esticar ===== */
-const RTDEF={t:6,a:6,g:6,l:6,i:6,d:6,o:6,z:6},RTORD=["t","a","g","l","i","d","o","z"];
+const RTDEF={t:6,a:6,g:6,y:6,l:6,i:6,d:6,o:6,z:6},RTORD=["t","a","g","y","l","i","d","o","z"];
 const rtSp=()=>(UI.rtPx||40)/SPH;
 function inkOn(h){const n=parseInt(String(h).slice(1),16);if(isNaN(n))return"#fff";return(.299*(n>>16&255)+.587*(n>>8&255)+.114*(n&255))>165?"#1d1d1f":"#fff"}
 function rtView(){rotCats();const R=ROT(),PX=UI.rtPx||40,sp=PX/SPH,multi=allPlans().length>1,wt=wdOf(today());
@@ -5961,24 +6013,7 @@ document.addEventListener("toggle",e=>{if(e.target&&e.target.classList&&e.target
 
 
 /* Quadro de atividades da meta, igual ao da Meta, com o horário de cada uma pela rotina */
-function rotBoard(){
-  const r=curMeta();if(!r)return"";
-  const ts=tasksOf(r.n),locks=phaseLocks(ts),td=today(),days=metaDays(r);
-  if(ts.some(t=>!t.day||(!t.done&&t.day<td)))distribute(r.n);
-  const dset=new Set(days);ts.forEach(t=>{if(!dset.has(t.day))t.day=t.done||days[days.length-1]});
-  const dn=ts.filter(t=>t.done).length;
-  const col=d=>{const L0=dayList(ts,d),A=fitAgenda2(L0,rotBlocks(wdOf(d))),tm=new Map(A.out.map(x=>[x.t,x])),L=[...A.out.map(x=>x.t).filter(t=>L0.includes(t)),...L0.filter(t=>!tm.has(t))],isT=d===td,past=d<td,ndn=L.filter(t=>t.done).length,sm=rotStudyDay(d);
-    const items=L.map((t,pos)=>{const s=SUB(t.sid),lk=locks[t.id],X=tm.get(t),i=days.indexOf(d),canL=!t.done&&i>0&&days[i-1]>=td,canR=!t.done&&i<days.length-1,I=readInfo(t);
-      return`<div class="cc rcc ${t.done?"done":""} ${lk?"lock":""}" draggable="${!t.done}" data-tid="${t.id}" style="--sc:${s.col}">
-        <div class="rcc-t">${X?`<b>${X.fixed?"📌 ":""}${mT(X.st)}–${mT(X.en)}</b>${X.cut?`<span class="chip warn">continua</span>`:""}${X.outB?`<span class="chip warn">fora do estudo</span>`:""}`:`<span class="chip warn">sem horário</span>`}${t.done?"":`<button class="ibtn xs rtm" data-a="tmSet" data-id="${t.id}" aria-label="Escolher o horário desta atividade" title="Escolher o horário">${ic("clock")}</button>`}<button class="rck ${t.done?"on":""}" data-a="rqFin" data-id="${t.id}" aria-pressed="${!!t.done}" aria-label="${t.done?"Concluída. Toque para reabrir":"Marcar como concluída"}">${ic("check")}</button></div>
-        <button class="cc-b" data-a="openT" data-id="${t.id}" title="${esc(taskTitle(t))}"><span class="pd ${t.ph}"></span><b>${s.c}</b><span class="ph-t">${t.done?"Concluída":PHN[t.ph]}</span><span class="tt">${esc((I.lab||"")+(I.d?" · "+I.d:"")||taskTitle(t))}</span>${I.pg&&!t.done?`<span class="pgs">${esc(I.pg)}</span>`:""}</button>
-        <div class="cc-n"><button class="ibtn xs" data-a="mvDay" data-id="${t.id}" data-d="-1" ${canL?"":"disabled"} aria-label="Passar para o dia anterior">${ic("left")}</button><span class="ud"><button class="ibtn xs up" data-a="mvOrd" data-id="${t.id}" data-d="-1" ${pos>0?"":"disabled"} aria-label="Subir no dia">${ic("left")}</button><span>${t.done?"feito "+dm(t.done):fmtM(t.min)}</span><button class="ibtn xs dn" data-a="mvOrd" data-id="${t.id}" data-d="1" ${pos<L.length-1?"":"disabled"} aria-label="Descer no dia">${ic("left")}</button></span><button class="ibtn xs" data-a="mvDay" data-id="${t.id}" data-d="1" ${canR?"":"disabled"} aria-label="Passar para o dia seguinte">${ic("right")}</button></div></div>`}).join("");
-    return`<div class="cd ${isT?"today":""} ${past?"past":""}" data-day="${d}"><div class="cd-h"><span>${isT?"Hoje":RWS[wdOf(d)]}</span><b>${dm(d)}</b><i style="--p:${L.length?ndn/L.length*100:0}%"></i><small>${ndn}/${L.length}</small></div>
-      <div class="rcd-s ${sm?"":"z"}">${sm?ic("clock")+" "+fmtHs(sm)+" de estudo · "+rotBlocks(wdOf(d)).map(b=>mT(b[0]*SLM)+"–"+mT(b[1]*SLM)).join(", "):"sem horário de estudo na rotina"}</div>
-      <div class="cd-l">${items||`<span class="muted small cd-e">—</span>`}${past?"":`<button class="slot" data-a="slotPick" data-day="${d}">${ic("plus")}<span>${L.length?"Adicionar neste dia":"Dia livre · adicionar"}</span></button>`}</div></div>`};
-  return`<section class="card"><div class="card-h"><h2>Atividades da Meta ${pad(r.n)} na sua rotina</h2><span class="r muted small">${dn} de ${ts.length} concluídas</span></div>
-   <div class="cal-bar"><span class="muted small" style="flex:1">Arraste as atividades entre os dias, ou direto para um horário do quadro da semana logo abaixo (📌 horário fixo). Toque no relógio para escolher o dia e a hora rolando os números. As que não têm horário fixo se encaixam sozinhas no tempo de estudo que sobra. Toque no ${ic("check")} para concluir; a atividade fica riscada aqui, na Meta e no quadro da semana.</span></div>
-   <div class="calw"><div class="calg rcalg" style="--n:${days.length}">${days.map(col).join("")}</div></div>${refTray()}</section>`}
+
 function refTray(){const L=REFS().filter(x=>!x.done);if(!L.length)return"";
   return`<div class="card-b rtray"><b class="small">Reforços e outras atividades</b><span class="muted small">Arraste para um horário do quadro da semana ou toque no relógio.</span><div class="rtrl">${L.map(t=>{const s=SUB(t.sid);return`<div class="cc rcc" draggable="true" data-tid="${t.id}" style="--sc:${s.col}"><div class="rcc-t"><b>${t.day&&t.tm!=null?"📌 "+RWS[wdOf(t.day)]+" "+slotT(t.tm):"Reforço · prazo "+dm(t.due)}</b><button class="ibtn xs rtm" data-a="tmSet" data-id="${t.id}" aria-label="Escolher o horário deste reforço">${ic("clock")}</button></div><button class="cc-b" data-a="openT" data-id="${t.id}"><span class="pd Q"></span><b>${s.c}</b><span class="ph-t">Reforço</span><span class="tt">${esc(taskTitle(t))}</span></button></div>`}).join("")}</div></div>`}
 /* Escolher dia e horário de uma atividade (rolando os números) */
@@ -6648,7 +6683,7 @@ const A={
     pushUndo((c[f]?"Usar ":"Não usar ")+cName(c)+(f==="useRes"?" no resumo":" no mapeamento"));const C=core();C.courses[sid]={list:L};touch("core");
     toast(f==="useRes"?(c.useRes!==false?cName(c)+" entra nos resumos (refaça o resumo da aula para juntar)":cName(c)+" fora dos resumos"):(c.useMap?"As questões comentadas de "+cName(c)+" aparecem no mapeamento":cName(c)+" fora do mapeamento"));render()},
   cMetas(el){const sid=el.dataset.s,L=clone(courseList(sid)),c=L.find(k=>k.id===el.dataset.id);if(!c)return;c.metas=!c.metas;applyCourse(sid,L,(c.metas?"Pôr ":"Tirar ")+cName(c)+" nas metas");toast(c.metas?"As aulas equivalentes entram nas próximas metas como “Outro olhar”":"Aulas do curso complementar fora das metas")},
-  cDel(el){const sid=el.dataset.s,id=el.dataset.id,c=courseList(sid).find(k=>k.id===id);if(!c)return;askConfirm("Remover "+cName(c)+"?",(c.role==="principal"?"As metas desta matéria voltam a seguir "+(CURSO[sid]?"o índice do Estratégia":"os tópicos do edital")+". ":"")+"Os PDFs enviados continuam guardados. Dá para desfazer.","Remover",()=>{applyCourse(sid,courseList(sid).filter(k=>k.id!==id).filter(k=>!(k.id==="std"&&c.role==="principal")),"Remover "+cName(c)+" de "+SUB(sid).c)},"danger")},
+  crsDel(el){const sid=el.dataset.s,id=el.dataset.id,c=courseList(sid).find(k=>k.id===id);if(!c)return;askConfirm("Remover "+cName(c)+"?",(c.role==="principal"?"As metas desta matéria voltam a seguir "+(CURSO[sid]?"o índice do Estratégia":"os tópicos do edital")+". ":"")+"Os PDFs enviados continuam guardados. Dá para desfazer.","Remover",()=>{applyCourse(sid,courseList(sid).filter(k=>k.id!==id).filter(k=>!(k.id==="std"&&c.role==="principal")),"Remover "+cName(c)+" de "+SUB(sid).c)},"danger")},
   impM(el){UI.imp.m=el.dataset.v;const t=$("impTx");if(t)UI.imp.txt=t.value;impModal()},
   impParse(){const t=$("impTx").value;UI.imp.txt=t;const L=parseAulas(UI.imp.sid,t);if(!L.length){toast("Não encontrei linhas como “Aula 00 …”. Tente “Extrair com IA” ou o modo Manual.");return}UI.imp.aulas=L;impModal()},
   async impAI(){const t=$("impTx").value;if(!t.trim()){toast("Cole a lista de aulas primeiro");return}UI.imp.txt=t;UI.imp.busy="A IA está lendo a lista…";impModal();try{UI.imp.aulas=await aiAulas(UI.imp.sid,t,null)}catch(e){toast("Não consegui extrair com IA agora; tente o botão Extrair aulas")}UI.imp.busy="";impModal()},
@@ -7125,6 +7160,16 @@ Object.assign(A,{
   mmC(el){UI.mmC=el.dataset.v;render()},
   mmAdd(el){UI.mmF={tp:el&&el.dataset&&el.dataset.tp!=null?el.dataset.tp:""};mmAddModal()},
   mmAI(el){if(el&&el.dataset&&el.dataset.tp!=null)UI.mmTp=el.dataset.tp;if(!SAMPLE){toast("A IA não está disponível nesta visualização. Envie os mapas dos seus cursos.");return}mmAIModal()},
+  /* mapa mental a partir dos resumos: de um resumo (aula) ou de todos os resumos prontos da matéria (um mapa por aula) */
+  async mmFromRes(el){if(UI.mmBusy)return;if(!SAMPLE){toast("A IA não está disponível agora");return}const sid=el.dataset.s,S=ED[EDI[sid]],only=el.dataset.c||"";if(!S)return;
+    const R=mmResumos(sid,null).filter(r=>!only||r.aula===only);if(!R.length){toast("Ainda não há resumo pronto. Gere na aba Resumos.");return}
+    const done=new Set(MM().items.filter(x=>x.sid===sid&&x.kind==="ai"&&x.src==="res"&&x.aula).map(x=>x.aula)),todo=only?R:R.filter(r=>!done.has(r.aula));
+    if(!todo.length){toast("Todos os resumos desta matéria já têm mapa. Use “Gerar com IA” para refazer um.");return}
+    UI.mmBusy=1;render();let ok=0,last=null;
+    try{for(const r of todo.slice(0,8)){toast("Montando o mapa de "+auLabel(sid,r.aula)+"…");try{const g=await mmGenerate(S,null,"res","",r.aula);last=mmPut({sid,kind:"ai",tree:g.tree,course:"ia",tp:null,src:"res",aula:r.aula,title:auLabel(sid,r.aula)+" · "+g.tree.t});ok++}catch(e){}}}
+    finally{UI.mmBusy=0}
+    UI.mmSid=sid;UI.mmC="ia";render();if(only&&last)mmViewer(last);
+    toast(ok?ok+" mapa"+(ok>1?"s":"")+" montado"+(ok>1?"s":"")+" a partir dos seus resumos (aba Mapas Mentais)":"Não consegui montar o mapa agora. Tente de novo.")},
   mmView(el){const x=MM().items.find(k=>k.id===el.dataset.id);if(x)mmViewer(x)},
   mmDel(el){const d=MM(),x=d.items.find(k=>k.id===el.dataset.id);if(!x)return;d.items=d.items.filter(k=>k!==x);touch("mm");if(x.asset&&ASSETS)ASSETS.delete(x.asset).catch(()=>{});$("layer3").innerHTML="";render();toast("Mapa excluído")},
   mmLink(){const u=(($("mmLk")||{}).value||"").trim(),co=mmReadCourse(),tp=($("mmTp")||{}).value,ti=(($("mmTi")||{}).value||"").trim();
