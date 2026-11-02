@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611020737"></script>
+<script src="/claude-shim.js?v=202611020750"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -5879,10 +5879,16 @@ const RBASE=[["t","Trabalho","#d93a2f"],["a","Almoço / Refeição","#f5c518"],[
 let RCAT=[],RCI={},SCODES=new Set(),SPLAN={};
 const pCode=p=>p.id==="tjsp"?"s":(p.rc||"1");
 const pShort=p=>p.id==="tjsp"?prot("Oficial de Justiça"):(p.cargo||p.name);
-function rotCats(){const L=allPlans();SPLAN={};const st=L.map((p,k)=>{const c=pCode(p);SPLAN[c]=p;const nm=k===0?"Concurso 1 (Foco Principal)":k===1?"Concurso 2 (Segundo Foco)":"Outro concurso";return[c,L.length>1?nm+" · "+pShort(p):nm,SCOL[Math.min(k,SCOL.length-1)]]});
-  /* horários de estudo do outro concurso (que agora fica no outro aplicativo) continuam aparecendo na rotina */
-  const ex=[];try{const known=new Set([...st.map(x=>x[0]),...RBASE.map(x=>x[0]),"."]);new Set(ROT().d.join("")).forEach(c=>{if(!known.has(c))ex.push([c,"Outro concurso"+(c==="s"?" · Oficial de Justiça":""),"#a8285f"])})}catch(e){}
-  RCAT=[...st,...RBASE,...ex];RCI=Object.fromEntries(RCAT.map(x=>[x[0],x]));SCODES=new Set(st.map(x=>x[0]))}
+/* Estudo na rotina: Concurso 1 (Foco Principal) azul royal, Concurso 2 (Segundo Foco) verde-azulado, os demais "Outro concurso" rosa escuro.
+   Os horários do concurso que fica no outro aplicativo (ex.: Auditor Fiscal) contam como o 2º concurso. */
+let EXC=new Set();
+function rotCats(){const L=allPlans();SPLAN={};
+  const known=new Set([...L.map(p=>pCode(p)),...RBASE.map(x=>x[0]),"."]);let exc=[];try{exc=[...new Set(ROT().d.join(""))].filter(c=>!known.has(c))}catch(e){}
+  const multi=L.length+exc.length>1,NM=k=>k===0?"Concurso 1 (Foco Principal)":k===1?"Concurso 2 (Segundo Foco)":"Outro concurso",CL=k=>k===0?SCOL[0]:k===1?SCOL[1]:SCOL[2];
+  const st=L.map((p,k)=>{const c=pCode(p);SPLAN[c]=p;return[c,multi?NM(k)+" · "+pShort(p):NM(k),CL(k)]});
+  const other=c=>c==="s"?"Oficial de Justiça":(APP_LINK&&APP_LINK.name?String(APP_LINK.name).replace(/\s*\(.*\)\s*$/,""):"");
+  const ex=exc.map((c,j)=>{const k=L.length+j,o=other(c);return[c,NM(k)+(o?" · "+o:""),CL(k)]});
+  RCAT=[...st,...ex,...RBASE];RCI=Object.fromEntries(RCAT.map(x=>[x[0],x]));SCODES=new Set(st.map(x=>x[0]));EXC=new Set(ex.map(x=>x[0]))}
 rotCats();
 const RWN=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"],RWS=["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"];
 const wdOf=d=>(pd(d).getDay()+6)%7;
@@ -6091,7 +6097,7 @@ const RTDEF={t:6,a:6,g:6,y:6,l:6,i:6,d:6,o:6,z:6},RTORD=["t","y","g","a","l","z"
 const rtSp=()=>(UI.rtPx||40)/SPH;
 function inkOn(h){const n=parseInt(String(h).slice(1),16);if(isNaN(n))return"#fff";return(.299*(n>>16&255)+.587*(n>>8&255)+.114*(n&255))>165?"#1d1d1f":"#fff"}
 function rtView(){rotCats();const R=ROT(),PX=UI.rtPx||40,sp=PX/SPH,multi=allPlans().length>1,wt=wdOf(today());
-  const pal=[...[...SCODES].map(k=>[k,RCI[k][1],RCI[k][2],6]),...RTORD.map(k=>[k,RCI[k][1],RCI[k][2],RTDEF[k]])]
+  const pal=[...[...SCODES,...EXC].map(k=>[k,RCI[k][1],RCI[k][2],6]),...RTORD.map(k=>[k,RCI[k][1],RCI[k][2],RTDEF[k]])]
     .map(([k,l,col,len])=>`<div class="rt-pal" data-k="${k}" data-len="${len}" style="--c:${col};--ink:${inkOn(col)}" role="button" tabindex="0" aria-label="Arrastar ${esc(l)} para o quadro"><b>${esc(l)}</b><small>${durL(len*SLM)}</small></div>`).join("");
   const hours=[...Array(RS/SPH+1)].map((_,h)=>`<div class="wk-hl" style="top:${h*PX}px"><span>${pad((RH0+h)%24)}:00</span></div>`).join("");
   const cols=RWS.map((_,w)=>{const x=R.d[w],cnt={};let i=0,h="";
