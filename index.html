@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611022048"></script>
+<script src="/claude-shim.js?v=202611022054"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1711,7 +1711,26 @@ h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
 .arq-k{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .arq-k div{border-radius:14px;padding:12px 14px;color:#fff}.arq-k small{display:block;font-weight:700;opacity:.92}.arq-k b{font:800 26px/1.2 var(--f-display,inherit)}
 .arq-k .k1{background:linear-gradient(135deg,#1f6fd1,#4aa3e8)}.arq-k .k2{background:linear-gradient(135deg,#3f9b2f,#7fd24a)}.arq-k .k3{background:linear-gradient(135deg,#e0491f,#f7902f)}.arq-k .k4{background:linear-gradient(135deg,#f09a1a,#f7c948);color:#2a1a00}
-.arq-tb tr.arq-r{cursor:pointer}.arq-tb tr.arq-r:hover td{background:var(--raise)}.arq-ttl{min-width:220px}.arq-cd{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--mute)}
+.arq-tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+.arq-tb{width:100%;border-collapse:collapse;font-size:13.5px;table-layout:auto}
+.arq-tb th,.arq-tb td{padding:10px 12px;text-align:left;vertical-align:middle;border-bottom:1px solid var(--line);line-height:1.35}
+.arq-tb th{font-size:11.5px;color:var(--mute);font-weight:700;white-space:nowrap;background:var(--raise)}
+.arq-tb tr:last-child td{border-bottom:0}
+.arq-tb tr.arq-r{cursor:pointer}.arq-tb tr.arq-r:hover td{background:var(--raise)}
+.arq-st{white-space:nowrap}.arq-st .arq-dot{vertical-align:middle;margin-right:8px}.arq-i{font-variant-numeric:tabular-nums;color:var(--fg2)}
+.arq-ds{min-width:140px;font-weight:600}
+.arq-ttl{min-width:220px;max-width:420px}.arq-ttl span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-align:left;word-spacing:normal;hyphens:none}
+.arq-tb td:nth-child(3),.arq-tb td:nth-child(5),.arq-tb td:nth-child(6),.arq-tb td:nth-child(7){white-space:nowrap}
+.arq-cd{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--mute)}
+@media (max-width:900px){
+  .arq-tw{overflow:visible;border:0;border-radius:0}
+  .arq-tb,.arq-tb tbody{display:block}.arq-tb thead{display:none}
+  .arq-tb tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 10px;padding:12px 14px;margin-bottom:10px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+  .arq-tb td{border:0;padding:0;min-width:0;max-width:none;white-space:normal}
+  .arq-tb td.arq-st{grid-column:1/-1;display:flex;align-items:center}
+  .arq-tb td.arq-ttl,.arq-tb td.arq-ds{grid-column:1/-1}
+  .arq-tb td[data-l]::before{content:attr(data-l);display:block;font-size:11px;color:var(--mute);font-weight:600;margin-bottom:1px}
+}
 .arq-dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--line2)}.arq-dot.ok{background:var(--ok)}
 /* ---------- cadeado da próxima meta ---------- */
 .next .ulk-b{border:0;background:transparent;padding:0;cursor:pointer;display:grid;justify-items:center;gap:6px;color:var(--lime-txt);font:inherit}
@@ -4675,7 +4694,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261102204832";
+const JX_BUILD="20261102205418";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -4900,8 +4919,8 @@ function metaNums(m){const ts=tasksOf(m.n),mbt=minutesByTask(),td=today();let mi
   const end=m.done||(td<m.end?td:m.end),dias=Math.max(1,dbet(m.start,end)+1);
   return{ts,dn,late,pend,min,f,a,acc:f?Math.round(a/f*1000)/10:null,dias,avg:min/dias,dev:m.done?dbet(m.end,m.done):td>m.end?dbet(m.end,td):0}}
 function arqTaskRows(ts){const mbt=minutesByTask();
-  return`<div class="tbw"><table class="tb arq-tb"><thead><tr><th></th><th>#</th><th>Disciplina</th><th>Tipo</th><th>Título</th><th>Relevância</th><th>Tempo</th><th>Desempenho</th><th>Código</th></tr></thead><tbody>${ts.map((t,i)=>{const s=SUB(t.sid),st=core().gj&&t.rel?t.rel:relInfo(t).n,sp=mbt[t.id]||t.gsp||0,pf=t.q&&t.q.f?Math.round((t.q.a||0)/t.q.f*1000)/10+"%":"–";
-    return`<tr data-a="openT" data-id="${t.id}" class="arq-r"><td><span class="arq-dot ${t.done?"ok":""}"></span></td><td>${t.k||i+1}</td><td>${esc(s.n)}</td><td>${esc(t.ref?"Reforço":PHN[t.ph]||"Atividade")}</td><td class="arq-ttl">${esc(taskTitle(t))}</td><td><span class="stars ${relCls(st)}">${"★".repeat(st)}<s>${"★".repeat(5-st)}</s></span></td><td>${sp?fmtH(sp):"–"}</td><td>${pf}</td><td class="arq-cd">${esc(tcode(t))}</td></tr>`}).join("")}</tbody></table></div>`}
+  return`<div class="arq-tw"><table class="arq-tb"><thead><tr><th>#</th><th>Disciplina</th><th>Tipo</th><th>Título</th><th>Relevância</th><th>Tempo</th><th>Desempenho</th><th>Código</th></tr></thead><tbody>${ts.map((t,i)=>{const s=SUB(t.sid),st=core().gj&&t.rel?t.rel:relInfo(t).n,sp=mbt[t.id]||t.gsp||0,pf=t.q&&t.q.f?Math.round((t.q.a||0)/t.q.f*1000)/10+"%":"–";
+    return`<tr data-a="openT" data-id="${t.id}" class="arq-r"><td class="arq-st"><span class="arq-dot ${t.done?"ok":""}" title="${t.done?"Feita":"Pendente"}"></span><span class="arq-i">${t.k||i+1}</span></td><td class="arq-ds" data-l="Disciplina">${esc(s.n)}</td><td data-l="Tipo">${esc(t.ref?"Reforço":PHN[t.ph]||"Atividade")}</td><td class="arq-ttl" data-l="Título"><span>${esc(taskTitle(t))}</span></td><td data-l="Relevância"><span class="stars ${relCls(st)}">${"★".repeat(st)}<s>${"★".repeat(5-st)}</s></span></td><td data-l="Tempo">${sp?fmtH(sp):"–"}</td><td data-l="Desempenho">${pf}</td><td class="arq-cd" data-l="Código">${esc(tcode(t))}</td></tr>`}).join("")}</tbody></table></div>`}
 function vArquivo(){const c=core(),q=norm(UI.arqQ||""),ms=[...(c.metas||[])].sort((a,b)=>b.n-a.n),open=UI.arqOpen;
   const hello=`<div class="hello"><h1>Arquivo</h1><p>As metas que você já fez, com as atividades, o tempo, o desempenho e o simuladinho de cada uma.</p></div>`;
   const search=`<div class="arq-s"><input class="inp" id="arqQ" value="${esc(UI.arqQ||"")}" placeholder="Procurar pelo código ou pelo título da atividade" data-c="arqQ"></div>`;
