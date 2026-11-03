@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611031927"></script>
+<script src="/claude-shim.js?v=202611031931"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1816,6 +1816,17 @@ html[data-ob] .app{visibility:hidden}html[data-ob] body{background:var(--bg)}htm
 .npe-cgs{display:grid;gap:8px}.npe-cgs .btn{height:auto;padding:11px 14px;justify-content:flex-start;text-align:left;white-space:normal;display:grid;gap:2px}.npe-cgs .btn small{font-weight:500}
 .npe-kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:8px}.npe-kv>div{display:grid;gap:2px;padding:8px 10px;border-radius:10px;border:1px solid var(--line)}.npe-kv small{font-size:11px;letter-spacing:.06em;text-transform:uppercase;opacity:.75}.npe-kv b{font-size:14px;line-height:1.3}
 .npe-or{text-align:center;border-top:1px dashed var(--line2);padding-top:8px}
+
+.box.cs{max-width:680px;display:grid;gap:14px}.box.cs h3{margin:0;font-size:24px;line-height:1.15}.box.cs>p{margin:0}
+.cs-k{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--lime-txt);font-weight:700}
+.cs-op{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px}
+.cs-c{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:6px;align-content:start;padding:16px;border-radius:16px;border:1px solid var(--line2);background:var(--panel2,var(--panel));transition:border-color .15s,transform .15s}
+.cs-c:hover,.cs-c:focus-visible{border-color:#b07cff;transform:translateY(-2px)}.cs-c b{font-size:18px}.cs-c span{font-size:14.5px;line-height:1.45;color:var(--fg2,inherit)}.cs-c em{font-style:normal;font-size:12.5px;color:var(--lime-txt);font-weight:600}
+.cs-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#7b3cff,#d6388f);color:#fff}.cs-ic svg.i{width:22px;height:22px}
+.cs-tip{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,#b07cff 12%,transparent)}.cs-tip svg.i{flex:none;width:18px;height:18px;margin-top:1px}
+.cs-pl{display:flex;flex-wrap:wrap;gap:8px}.cs-p{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:1px solid var(--line2);font-weight:600;font-size:14px}
+.cs-p[aria-pressed="true"]{background:linear-gradient(90deg,#7b3cff,#d6388f);border-color:transparent;color:#fff}.cs-p svg.i{width:15px;height:15px}
+.cs-ms{display:grid;gap:8px;max-height:46vh;overflow:auto;padding-right:2px}.cs-m{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px}.cs-m>div{flex:1;display:grid;gap:2px}.cs-m small{color:var(--mute);font-size:12.5px}.cs-m.ok{border-color:color-mix(in srgb,var(--ok) 55%,transparent)}.cs-m.ok small{color:var(--ok)}.cs-m small svg.i{width:13px;height:13px;vertical-align:-2px}
 /* ===== Flash Jornada · Trilha ===== */
 .tj-home{display:grid;gap:18px;padding:10px 0 30px}
 .tj-hd{display:grid;gap:8px;text-align:left}.tj-hd h1{margin:0;font:700 clamp(28px,3.4vw,38px)/1.1 var(--f-display)!important}.tj-hd p{margin:0;max-width:620px}
@@ -2375,7 +2386,7 @@ async function pullImport(){if(!DB)return;try{const sn=await DB.doc(BASE+"imp").
     window.addEventListener("focus",()=>pull(false));
     setInterval(()=>{if(document.visibilityState==="visible")pull(false)},45000);
     document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&dirty.size){clearTimeout(saveT);flush()}});
-  }catch(e){}finally{setTimeout(()=>{READY=true;try{undoInit()}catch(e){}render();setTimeout(retryRaw,1500);setTimeout(obCheck,400);setTimeout(npePend,1300);setTimeout(()=>{try{window.dispatchEvent(new Event("jornada-ready"))}catch(e){}},520)},0)}
+  }catch(e){}finally{setTimeout(()=>{READY=true;try{undoInit()}catch(e){}render();setTimeout(retryRaw,1500);setTimeout(obCheck,400);setTimeout(npePend,1300);setTimeout(()=>{csCheck();const t=setInterval(()=>{if(core().cs||IS_TJ){clearInterval(t);return}if(!UI.cs)csCheck()},2500);setTimeout(()=>clearInterval(t),120000)},2600);setTimeout(()=>{try{window.dispatchEvent(new Event("jornada-ready"))}catch(e){}},520)},0)}
 })();
 
 /* ================= Boas-vindas: conta nova escolhe o próprio concurso =================
@@ -4940,7 +4951,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103192710";
+const JX_BUILD="20261103193156";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6126,7 +6137,7 @@ function orgInfo(){const p=curPlan(),c=core(),cr=[...(c.cron||[])].sort((a,b)=>(
   const short=(p.orgao||"").length<=6||/^(fiscal|geral|regular)$/i.test(p.orgao||"");
   const org=IS_TJ?"Tribunal de Justiça de São Paulo":(K&&K.n)||(p.orgao&&!/^(fiscal|geral|regular)$/i.test(p.orgao)&&p.orgao.length>3?p.orgao:p.name),
    sig=IS_TJ?"TJSP":p.orgao&&/^[A-ZÀ-Ú0-9 ]{2,8}$/.test(p.orgao.split(" ")[0])?p.orgao.split(" ")[0]:(p.name||"?").replace(/\(.*?\)/g,"").split(/[\s–-]+/).filter(w=>w.length>2&&!/^(de|da|do|dos|das|e)$/i.test(w)).map(w=>w[0].toUpperCase()).join("").slice(0,4);void short;
-  return{org,sig,cargo:p.cargo||"",banca:p.banca||"",vagas:IS_TJ?"132 imediatas":((c.edital&&c.edital.info)||{}).vagas||(K&&K.vg)||"",sal:IS_TJ?"R$ 9.856,95":((c.edital&&c.edital.info)||{}).salario||(K&&K.sal)||"",i0,i1,cr,prova:prova()}}
+  return{org,sig,cargo:p.cargo||"",banca:p.banca||"",vagas:IS_TJ?"132 imediatas":fmtVagas(((c.edital&&c.edital.info)||{}).vagas||(K&&K.vg)||""),sal:IS_TJ?"R$ 9.856,95":((c.edital&&c.edital.info)||{}).salario||(K&&K.sal)||"",i0,i1,cr,prova:prova()}}
 /* "Continuar": a próxima atividade pendente e liberada da meta atual (ou o primeiro reforço) */
 function fmNext(){const r=curMeta();if(r&&!r.done){const ts=tasksOf(r.n),lk=phaseLocks(ts),td=today();const L=ts.filter(t=>!t.done&&!lk[t.id]);return L.find(t=>t.day===td)||L[0]||null}return REFS().find(x=>!x.done)||null}
 let CREST_N=0;
@@ -7493,6 +7504,35 @@ function cursosHTML(){
       ${UNDO().length?`<div class="row"><button class="btn" data-a="undo">${ic("reset")} Desfazer: ${esc(UNDO()[UNDO().length-1].label)}</button></div>`:""}
     </div></details>`;
 }
+/* ================= "Como você vai estudar?": logo no início, o aluno conta os cursos que tem =================
+   Pelo curso: as metas seguem a sequência das aulas do curso principal de cada matéria.
+   Pelo edital: as metas seguem os tópicos do edital. Dá para misturar matéria a matéria. */
+function csNeed(){try{if(!READY||IS_TJ||obPending()||UI.np)return false;const c=core();if(!c||c.cs)return false;const p=curPlan()||{};
+  return !!p.created&&dbet(p.created,today())<=2&&!(c.metas||[]).some(m=>started&&started(m.n))}catch(e){return false}}
+function csCheck(){if(csNeed()&&!$("layer3").innerHTML.trim()){UI.cs=UI.cs||{step:"modo"};csModal()}}
+const csMine=()=>{const P=(core().perfil||{}).plats||{};return PLATS.filter(p=>P[p]&&P[p]!=="nao")};
+function csModal(){const X=UI.cs;if(!X){$("layer3").innerHTML="";return}let body="";
+  if(X.step==="modo")body=`<p class="cs-k">Antes de começar</p><h3>Como você quer que as suas metas sejam montadas?</h3>
+    <p class="muted">A Jornada divide o estudo em metas com tarefas diárias. A ordem dessas tarefas pode vir do seu curso ou do edital. Escolha o que combina com você:</p>
+    <div class="cs-op">
+     <button class="cs-c" data-a="csModo" data-v="curso"><span class="cs-ic">${ic("materiais")}</span><b>Pelo meu curso</b><span>Tenho curso em plataforma (Estratégia, Gran, Direção, Alfacon…). As metas seguem a <u>sequência das aulas</u> do curso, aula 00, 01, 02…, e acompanham o seu avanço nele.</span><em>Melhor para quem já comprou um curso</em></button>
+     <button class="cs-c" data-a="csModo" data-v="edital"><span class="cs-ic">${ic("edital")}</span><b>Pelo edital</b><span>Estudo por PDFs, livros, resumos ou vários materiais. As metas seguem os <u>tópicos do edital</u>, na ordem que a Jornada calcula pelo peso de cada matéria na prova.</span><em>Melhor para quem estuda com materiais variados</em></button>
+    </div>
+    <p class="cs-tip">${ic("bulb")} <span>Dá para <b>misturar</b>: as matérias com curso vinculado seguem as aulas, e as demais seguem o edital. Você pode mudar isso quando quiser em <b>Materiais › Meus cursos e assinaturas</b>.</span></p>
+    <div class="row" style="justify-content:flex-end"><button class="btn ghost" data-a="csLater">Decidir depois</button></div>`;
+  else if(X.step==="plats"){const M=new Set(X.sel||csMine());
+    body=`<p class="cs-k">Passo 1 de 2 · Pelo meu curso</p><h3>Quais cursos você tem?</h3><p class="muted">Marque as plataformas em que você tem curso ou assinatura para este concurso.</p>
+    <div class="cs-pl">${PLATS.map(p=>`<button class="cs-p" data-a="csPl" data-p="${esc(p)}" aria-pressed="${M.has(p)}">${M.has(p)?ic("check"):""}${esc(p)}</button>`).join("")}</div>
+    <div class="field"><label for="csOut">Outra plataforma (opcional)</label><input class="inp" id="csOut" value="${esc(X.out||(core().perfil||{}).outro||"")}" placeholder="Nome da plataforma ou do professor"></div>
+    <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="csBack">Voltar</button><button class="btn pri" data-a="csPlGo">Continuar</button></div>`}
+  else if(X.step==="mats"){const n=ED.filter(s=>courseList(s.id).some(c=>c.role==="principal")).length;
+    body=`<p class="cs-k">Passo 2 de 2 · Pelo meu curso</p><h3>Vincule o curso de cada matéria</h3>
+    <p class="muted">Toque em <b>Vincular curso</b> e traga a lista de aulas da página do curso: cole o texto, mande fotos da tela ou digite. A partir daí, as metas daquela matéria seguem a sequência das aulas. Se o seu pacote cobre todas as matérias, vincule uma a uma, na ordem que preferir.</p>
+    <div class="cs-ms">${ED.map(s=>{const c=courseList(s.id).find(k=>k.role==="principal");return`<div class="cs-m ${c?"ok":""}"><span class="code" style="border-color:${s.col}">${s.c}</span><div style="min-width:0"><b>${esc(s.n)}</b><small>${c?ic("check")+" "+esc(cName(c))+(c.aulas?" · "+c.aulas.length+" aulas: metas pelo curso":""):"Sem curso: segue os tópicos do edital"}</small></div><button class="btn sm ${c?"ghost":""}" data-a="csImp" data-s="${s.id}">${c?"Trocar":ic("plus")+" Vincular curso"}</button></div>`}).join("")}</div>
+    <p class="cs-tip">${ic("bulb")} <span>${n?`<b>${n} de ${ED.length}</b> matérias seguem o seu curso. As outras seguem o edital.`:"Nenhuma matéria vinculada ainda. As que ficarem sem curso seguem o edital."} Dá para terminar depois em <b>Materiais › Meus cursos e assinaturas</b>.</span></p>
+    <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="csBack">Voltar</button><button class="btn pri" data-a="csFim">${n?"Concluir":"Concluir por enquanto"}</button></div>`}
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Como você vai estudar"><div class="box cs">${body}</div></div>`}
+function csSave(mode){const c=core();c.cs={mode,at:today()};touch("core")}
 function impModal(){
   const I=UI.imp;if(!I){$("layer3").innerHTML="";return}
   const S=SUB(I.sid),C=core(),P=C.perfil||{plats:{}},pl=PLATS.filter(p=>P.plats[p]&&P.plats[p]!=="nao").concat(P.outro?[P.outro]:[]);
@@ -8616,12 +8656,12 @@ function npEdBox(){const N=UI.np;if(!N||N.edit)return"";const E=N.ed||{};
     return`<div class="npe busy"><b>${ic("edital")} Lendo o edital</b><span class="muted small">${esc(E.file||"Texto colado")}</span><div class="npe-bar"><i id="npeBarI" style="width:${pc.toFixed(1)}%"></i></div><span class="small">${t} <span class="muted" id="npeClk">${npeClk(E)}</span></span><span class="muted small">Um edital grande leva de 1 a 3 minutos. Pode esperar nesta tela.</span></div>`}
   if(E.st==="cargo"){const I=E.info||{},cg=(I.cargos||[]).filter(c=>c&&c.n);
     return`<div class="npe"><b>${ic("edital")} Qual é o seu cargo?</b><span class="small">Li o edital${I.concurso?" de <b>"+esc(I.concurso.replace(/\s*[–-][^–-]*$/,""))+"</b>":I.orgao?" de <b>"+esc(I.orgao)+"</b>":""}. Ele tem ${cg.length} cargos. Escolha o seu para eu montar as matérias, as questões e a prova certas.</span>
-      <div class="npe-cgs">${cg.map((c,i)=>`<button class="btn" data-a="npeCgPick" data-i="${i}"><b>${esc(c.n)}</b>${[c.vagas&&c.vagas+" vagas",c.salario,c.req].filter(Boolean).length?`<small class="muted">${esc([c.vagas&&String(c.vagas).replace(/\s*vagas?$/i,"")+" vagas",c.salario,c.req].filter(Boolean).join(" · ").slice(0,140))}</small>`:""}</button>`).join("")}</div>
+      <div class="npe-cgs">${cg.map((c,i)=>`<button class="btn" data-a="npeCgPick" data-i="${i}"><b>${esc(c.n)}</b>${[fmtVagas(c.vagas),c.salario,c.req].filter(Boolean).length?`<small class="muted">${esc([fmtVagas(c.vagas)&&(/^\d+$/.test(fmtVagas(c.vagas))?fmtVagas(c.vagas)+" vagas":fmtVagas(c.vagas)),c.salario,c.req].filter(Boolean).join(" · ").slice(0,140))}</small>`:""}</button>`).join("")}</div>
       <button class="btn sm ghost" data-a="npeAgain" style="justify-self:start">Usar outro edital</button></div>`}
   if(E.st==="done"){const I=E.info||{},cg=I.cargos||[];
     const idt=N.name?`<div class="npe-id"><small>${E.match?"Concurso identificado na base":"Concurso identificado no edital"}</small><strong>${esc(N.name)}</strong><span class="small">${[N.banca,N.prova&&"prova "+dmy(N.prova),I.edital&&"Edital "+I.edital].filter(Boolean).map(esc).join(" · ")}</span></div>`:"";
     return`<div class="npe ok"><b>${ic("check")} Edital lido${E.file?": "+esc(E.file):""}</b>${idt}<span class="small">Preenchi abaixo ${[N.name&&"o nome",N.banca&&"a banca",N.prova&&"a data da prova",(N.subs||[]).length&&(N.subs.length+" matérias com "+N.subs.reduce((a,x)=>a+x.t.length,0)+" assuntos")].filter(Boolean).join(", ")||"o que encontrei"}. ${(I.cron||[]).length?"O cronograma, as questões por matéria, vagas e salário entram no plano assim que você criar o concurso.":""} Confira e ajuste o que precisar.</span>
-     ${(()=>{const z=cg.find(x=>x&&norm(x.n)===norm(E.cargo||""))||(cg.length===1?cg[0]:null)||{};const it=[E.cargo&&["Cargo",E.cargo],z.vagas&&["Vagas",z.vagas],z.salario&&["Remuneração",z.salario],z.req&&["Requisitos",z.req],I.taxa&&["Taxa de inscrição",I.taxa]].filter(Boolean);return it.length?`<div class="npe-kv">${it.map(([k,v])=>`<div><small>${k}</small><b>${esc(String(v).slice(0,160))}</b></div>`).join("")}</div>`:""})()}
+     ${(()=>{const z=cg.find(x=>x&&norm(x.n)===norm(E.cargo||""))||(cg.length===1?cg[0]:null)||{};const it=[E.cargo&&["Cargo",E.cargo],fmtVagas(z.vagas)&&["Vagas",fmtVagas(z.vagas)],z.salario&&["Remuneração",z.salario],z.req&&["Requisitos",z.req],I.taxa&&["Taxa de inscrição",I.taxa]].filter(Boolean);return it.length?`<div class="npe-kv">${it.map(([k,v])=>`<div><small>${k}</small><b>${esc(String(v).slice(0,160))}</b></div>`).join("")}</div>`:""})()}
      <button class="btn sm ghost" data-a="npeAgain" style="justify-self:start">Usar outro edital</button></div>`}
   return`<div class="npe">${E.st==="err"?`<p class="pwarn small" style="margin:0">${esc(E.msg||"Não consegui ler este edital.")}</p>`:""}
     <b>${ic("edital")} Já tem o edital? Comece por ele</b>
@@ -8631,6 +8671,11 @@ function npEdBox(){const N=UI.np;if(!N||N.edit)return"";const E=N.ed||{};
     ${SAMPLE?"":`<p class="muted small" style="margin:0">A IA não está disponível agora: só as matérias e os assuntos serão lidos.</p>`}
     <span class="npe-or muted small">Sem o edital? Escolha na base ou monte manualmente abaixo</span></div>`}
 /* barra do edital: avança sozinha entre as etapas (a IA não informa progresso), sem redesenhar a tela */
+/* vagas: "só cadastro reserva" vira "CR (Cadastro Reserva)"; no meio do texto, "cadastro de reserva" vira "CR" */
+function fmtVagas(v){let t=String(v==null?"":v).replace(/\s+/g," ").trim();if(!t||/^(null|—|-)$/i.test(t))return"";
+  const cr=/cadastro\s+(de\s+)?reserva|\bC\.?R\.?\b/i.test(t),nums=(t.match(/\d+/g)||[]).map(Number).filter(n=>n>0);
+  if(cr&&!nums.length)return"CR (Cadastro Reserva)";if(!cr&&/^0+( vagas?)?$/i.test(t))return"CR (Cadastro Reserva)";
+  return t.replace(/\s*(\+|\be\b)?\s*\(?\s*cadastro\s+(de\s+)?reserva\s*\)?/gi," + CR").replace(/\s*\+\s*/g," + ").trim()}
 function npeBase(E){const n=E.n||0,p=E.p||0;
   if(E.st==="read")return[n?p/n*30:2,n?Math.min(30,(p+1)/n*30):28];
   if(E.st==="ai1")return[30,46];
@@ -8718,7 +8763,7 @@ async function edInfoAI(txt,cargo){
 Cargo de interesse: "${cargo||"o primeiro cargo do edital"}". Se o edital tiver vários cargos, descreva a prova deste cargo (ou do mais parecido) e diga qual usou em "alvo".
 Responda só com um objeto JSON neste formato (use null quando o edital não disser; datas em AAAA-MM-DD; não invente nada):
 {"concurso":"nome curto pelo qual o concurso é conhecido, com o ano (ex.: TJ-SP 2026 – Escrevente Técnico Judiciário)","ano":número do ano do edital,"orgao":"sigla do órgão","orgaoNome":"nome completo","banca":"nome curto da banca","edital":"número do edital",
-"cargos":[{"n":"nome do cargo como no edital (com a área/especialidade)","vagas":"vagas deste cargo somando todas as localidades, ex.: 12 imediatas + cadastro de reserva (procure no quadro de vagas, inclusive nos anexos)","salario":"remuneração inicial total do cargo como no edital, ex.: R$ 13.994,78 (vencimento + gratificações); procure em remuneração, vencimento, subsídio","req":"escolaridade e requisitos, curto"}],
+"cargos":[{"n":"nome do cargo como no edital (com a área/especialidade)","vagas":"vagas deste cargo somando todas as localidades, ex.: 12 imediatas + CR; se houver só cadastro de reserva, responda CR (procure no quadro de vagas, inclusive nos anexos)","salario":"remuneração inicial total do cargo como no edital, ex.: R$ 13.994,78 (vencimento + gratificações); procure em remuneração, vencimento, subsídio","req":"escolaridade e requisitos, curto"}],
 "alvo":"nome do cargo usado","taxa":"R$ ...",
 "cron":[{"k":"ins0|ins1|pag|isen|def|prova|gab|res|outro","l":"descrição curta do evento","a":"data de início, se for período, ou null","d":"data (ou fim do período)"}],
 "prova":{"data":"AAAA-MM-DD","turno":"manhã/tarde, horário","duracao":"ex.: 5 horas","local":"cidades","tipo":"ex.: múltipla escolha com 5 alternativas, ou certo/errado","obj":número total de questões objetivas,
@@ -8792,7 +8837,7 @@ function edModal(){const X=UI.edx;if(!X)return;
   $("layer3").innerHTML=box(`<h3 style="margin:0">O que o app leu no edital</h3><span class="muted small">${esc(X.file?X.file.name+(X.file.pages?" · "+X.file.pages+" páginas":""):"Texto colado")}${X.noAI?" · sem IA: só matérias e assuntos":""}</span>
    ${cg.length>1?`<div class="row" style="gap:8px;align-items:flex-end"><div class="field" style="flex:1 1 260px"><label for="edCg">Cargo (o edital tem ${cg.length})</label><select class="inp" id="edCg">${cg.map(c=>`<option ${norm(c.n)===norm(X.cargo)?"selected":""}>${esc(c.n)}</option>`).join("")}</select></div><button class="btn sm" data-a="edtCargo">Ler de novo para este cargo</button></div>`:""}
    ${X.info?`<section class="card"><div class="card-b" style="display:grid;gap:6px">${ck("dados","Dados do concurso")}
-     ${kv("Órgão",[I.orgao,I.orgaoNome].filter(Boolean).join(" · "))}${kv("Banca",I.banca)}${kv("Edital",I.edital)}${kv("Cargo",X.cargo)}${kv("Vagas",cur.vagas)}${kv("Remuneração",cur.salario)}${kv("Requisitos",cur.req)}${kv("Taxa",I.taxa)}</div></section>
+     ${kv("Órgão",[I.orgao,I.orgaoNome].filter(Boolean).join(" · "))}${kv("Banca",I.banca)}${kv("Edital",I.edital)}${kv("Cargo",X.cargo)}${kv("Vagas",fmtVagas(cur.vagas))}${kv("Remuneração",cur.salario)}${kv("Requisitos",cur.req)}${kv("Taxa",I.taxa)}</div></section>
    <section class="card"><div class="card-b" style="display:grid;gap:6px">${ck("cron","Cronograma ("+C.length+" datas)",!C.length)}${C.length?C.map(c=>kv(c.l||EDK[c.k]||"Evento",(c.a&&edOk(c.a)?dm(c.a)+" a ":"")+dmy(c.d))).join(""):`<span class="muted small">O edital não trouxe datas.</span>`}<span class="muted small">Substitui o cronograma do app. Confira sempre no site da banca.</span></div></section>
    <section class="card"><div class="card-b" style="display:grid;gap:6px">${ck("prova","Estrutura da prova")}
      ${kv("Data",edOk(P.data)?dmy(P.data):"")}${kv("Horário",P.turno)}${kv("Duração",P.duracao)}${kv("Local",P.local)}${kv("Tipo",P.tipo)}${kv("Questões objetivas",P.obj)}
@@ -8834,7 +8879,7 @@ function edCard(){const E=edE();
   if(!E)return`${prevBox}<section class="card"><div class="card-h"><h2>Edital do concurso</h2></div><div class="card-b row" style="gap:12px;align-items:center"><span class="muted small" style="flex:1 1 300px">Envie o PDF do edital e o app tira sozinho as datas, a estrutura da prova, as matérias e os assuntos. Você revisa antes de aplicar.</span><button class="btn pri" data-a="edtOpen">${ic("edital")} Incluir o edital</button></div></section>`;
   const I=E.info||{},P=E.prova||{},kv=(k,v)=>v?`<div class="row" style="gap:8px;justify-content:space-between"><span class="muted small">${k}</span><span class="small" style="text-align:right;max-width:65%">${esc(String(v))}</span></div>`:"";
   return`${prevBox}<section class="card"><div class="card-h"><h2>Edital do concurso${E.prev?' <span class="chip warn">anterior · base até sair o novo</span>':""}</h2><span class="r muted small">lido em ${dmy(E.at)}</span></div><div class="card-b" style="display:grid;gap:6px">
-   ${E.file?kv("Arquivo",E.file.name+(E.file.pages?" · "+E.file.pages+" páginas":"")):""}${kv("Órgão",[I.orgao,I.orgaoNome].filter(Boolean).join(" · "))}${kv("Banca",I.banca)}${kv("Edital",I.edital)}${kv("Cargo",E.cargo)}${kv("Vagas",I.vagas)}${kv("Remuneração",I.salario)}${kv("Requisitos",I.req)}${kv("Taxa",I.taxa)}
+   ${E.file?kv("Arquivo",E.file.name+(E.file.pages?" · "+E.file.pages+" páginas":"")):""}${kv("Órgão",[I.orgao,I.orgaoNome].filter(Boolean).join(" · "))}${kv("Banca",I.banca)}${kv("Edital",I.edital)}${kv("Cargo",E.cargo)}${kv("Vagas",fmtVagas(I.vagas))}${kv("Remuneração",I.salario)}${kv("Requisitos",I.req)}${kv("Taxa",I.taxa)}
    ${kv("Prova",[edOk(P.data)?dmy(P.data):"",P.turno,P.duracao].filter(Boolean).join(" · "))}${kv("Objetivas",[P.obj?P.obj+" questões":"",P.tipo].filter(Boolean).join(" · "))}${kv("Nota mínima",P.min)}
    ${P.disc?kv("Discursiva",[P.disc.qtd?P.disc.qtd+" "+(P.disc.tipo||"questões"):P.disc.tipo,P.disc.linhas,P.disc.pontos?P.disc.pontos+" pontos":"",P.disc.min?"mínimo "+P.disc.min:""].filter(Boolean).join(" · ")):""}${kv("Outras etapas",P.etapas)}
    ${I.obs?`<span class="muted small">${esc(I.obs)}</span>`:""}
@@ -9145,14 +9190,23 @@ const A={
   async impAI(){const t=$("impTx").value;if(!t.trim()){toast("Cole a lista de aulas primeiro");return}UI.imp.txt=t;UI.imp.busy="A IA está lendo a lista…";impModal();try{UI.imp.aulas=await aiAulas(UI.imp.sid,t,null)}catch(e){toast("Não consegui extrair com IA agora; tente o botão Extrair aulas")}UI.imp.busy="";impModal()},
   impAdd(){const L=UI.imp.aulas=UI.imp.aulas||[];L.push({c:pad(L.length),d:"",tp:[],f:"",q:""});impModal();setTimeout(()=>{const x=document.querySelectorAll('[data-c="impD"]');if(x.length)x[x.length-1].focus()},30)},
   impDel(el){UI.imp.aulas.splice(+el.dataset.i,1);impModal()},
-  impX(){UI.imp=null;$("layer3").innerHTML=""},
+  impX(){UI.imp=null;$("layer3").innerHTML="";if(UI.cs)setTimeout(csModal,0)},
+  csModo(el){const v=el.dataset.v;if(v==="edital"){csSave("edital");UI.cs=null;$("layer3").innerHTML="";render();toast("Pronto: as metas seguem os tópicos do edital. Para vincular um curso depois: Materiais › Meus cursos");return}UI.cs={step:"plats",sel:csMine()};csModal()},
+  csPl(el){const X=UI.cs,p=el.dataset.p;X.out=(($("csOut")||{}).value||"").trim();const S=new Set(X.sel||[]);S.has(p)?S.delete(p):S.add(p);X.sel=[...S];csModal()},
+  csPlGo(){const X=UI.cs,C=core(),out=(($("csOut")||{}).value||"").trim();if(!(X.sel||[]).length&&!out){toast("Marque ao menos uma plataforma, ou volte e escolha Pelo edital");return}
+    C.perfil=C.perfil||{plats:{}};C.perfil.plats=C.perfil.plats||{};PLATS.forEach(p=>{const has=(X.sel||[]).includes(p);if(has&&(!C.perfil.plats[p]||C.perfil.plats[p]==="nao"))C.perfil.plats[p]=p==="TEC Concursos"||p==="QConcursos"?"quest":"curso";if(!has)C.perfil.plats[p]="nao"});
+    if(out)C.perfil.outro=out.slice(0,60);touch("core");X.step="mats";csModal()},
+  csImp(el){const sid=el.dataset.s,c=courseList(sid).find(k=>k.role==="principal");if(c){A.cEdit({dataset:{s:sid,id:c.id}});return}A.cImp({dataset:{s:sid}});if(UI.imp){UI.imp.role="principal";const P=(core().perfil||{}).plats||{},pl=PLATS.find(p=>P[p]==="curso"||P[p]==="ilim");if(pl)UI.imp.plat=pl;else if((core().perfil||{}).outro)UI.imp.plat="Outra";impModal()}},
+  csBack(){const X=UI.cs;X.step=X.step==="mats"?"plats":"modo";csModal()},
+  csFim(){const n=ED.filter(s=>courseList(s.id).some(c=>c.role==="principal")).length;csSave(n?"curso":"edital");UI.cs=null;$("layer3").innerHTML="";render();toast(n?n+" matéria"+(n>1?"s seguem":" segue")+" o seu curso; as outras seguem o edital":"As metas seguem o edital até você vincular um curso")},
+  csLater(){csSave("depois");UI.cs=null;$("layer3").innerHTML="";toast("Quando quiser, vincule os seus cursos em Materiais › Meus cursos e assinaturas")},
   impOk(){const I=UI.imp,L=(I.aulas||[]).filter(a=>a.c&&a.d);if(!L.length){toast("Preencha pelo menos uma aula");return}
     const seen={};for(const a of L){if(seen[a.c]){toast("Código repetido: "+a.c);return}seen[a.c]=1}
     const course={id:I.cid||uid().slice(0,6),plat:I.plat||"",nome:I.nome||"",url:I.url||"",aulas:L.map(a=>[String(a.c).replace(/:/g,"."),a.d,a.tp||[],a.f||"",a.q||""]),role:I.role==="principal"?"principal":"complementar",metas:I.role!=="principal"&&!!I.metas,useRes:I.useRes!==false,useMap:!!I.useMap,at:today()};
     let list=clone(courseList(I.sid)).filter(c=>c.id!==course.id);
     if(course.role==="principal"){list.forEach(c=>{c.role="complementar"});if(CURSO[I.sid]&&!list.some(c=>c.id==="std"))list.push({id:"std",plat:"Estratégia Concursos",nome:"",url:"",aulas:CURSO[I.sid],role:"complementar",metas:false})}
     list.push(course);
-    UI.imp=null;$("layer3").innerHTML="";applyCourse(I.sid,list,(I.cid?"Editar ":"Adicionar ")+cName(course)+" em "+SUB(I.sid).c);
+    UI.imp=null;$("layer3").innerHTML="";if(UI.cs)setTimeout(csModal,60);applyCourse(I.sid,list,(I.cid?"Editar ":"Adicionar ")+cName(course)+" em "+SUB(I.sid).c);
     toast(course.role==="principal"?SUB(I.sid).n+": as metas agora seguem "+cName(course)+" ("+L.length+" aulas)":cName(course)+" adicionado como outro olhar em "+SUB(I.sid).n)},
   async pfix(el){const p=pdf(el.dataset.id);if(!p)return;const k=el.dataset.k,v=el.dataset.v;pushUndo("Corrigir PDF "+p.name.slice(0,30));
     const E=core().ed,unCov=()=>{Object.keys(E).forEach(kk=>{const e=E[kk];if(e&&e.cov&&e.cov.id===p.id){delete e.cov;if(!e.stud)delete E[kk]}})},reCov=()=>{const au=p.aula?auOf(p.sid,p.aula):null;if(au)au.tp.forEach(j=>{const kk=EDI[p.sid]+":"+j;if(!E[kk]||!E[kk].cov)E[kk]=Object.assign(E[kk]||{},{cov:{id:p.id,name:p.name,pg:1}})})};
