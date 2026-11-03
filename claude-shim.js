@@ -461,7 +461,7 @@
     const pAte = p.plano_ate ? new Date(p.plano_ate).getTime() : 0;
     let st = "vencido";
     if (plano === "dono") st = "dono";
-    else if (["mensal", "anual", "cortesia"].includes(plano) && (!pAte || pAte > now)) st = "ativo";
+    else if (["mensal", "trimestral", "semestral", "anual", "cortesia"].includes(plano) && (!pAte || pAte > now)) st = "ativo";
     else if (tEnd > now) st = "teste";
     window.JX_ACESSO = { st, plano, plano_ate: p.plano_ate || null, teste_ate: new Date(tEnd).toISOString(), left: Math.ceil((tEnd - now) / 864e5), ia_hoje: p.ia_hoje || 0, aceite: p.aceite_versao || "", email: EMAIL, origem: p.origem || "" };
     return window.JX_ACESSO;
@@ -508,14 +508,14 @@
   };
   function trialEnded(A) {
     hideSplash(); addCSS(); const old = $("#jx-gate"); if (old) old.remove(); const V = window.JX_VENDA || {};
-    const venc = A.plano === "mensal" || A.plano === "anual", qd = new Date(venc && A.plano_ate ? A.plano_ate : A.teste_ate);
+    const venc = ["mensal", "trimestral", "semestral", "anual"].includes(A.plano), qd = new Date(venc && A.plano_ate ? A.plano_ate : A.teste_ate);
     const g = el('<div id="jx-gate" role="dialog" aria-modal="true" aria-label="Assine para continuar"></div>'); document.body.appendChild(g);
-    const pl = (t, nome, preco, per, extra) => { const u = window.jxCheckout(t); return `<div style="flex:1 1 200px;border:1px solid ${t === "anual" ? "#b48cff" : "rgba(160,107,255,.35)"};border-radius:14px;padding:14px;background:rgba(143,92,255,${t === "anual" ? ".16" : ".06"})"><b style="font-size:15px">${nome}</b>${extra ? ` <span style="font-size:11px;background:#3ddc84;color:#06240f;border-radius:99px;padding:2px 8px;font-weight:700">${extra}</span>` : ""}<div style="font:700 26px Barlow,Inter,sans-serif;margin:6px 0">R$ ${preco}<small style="font-size:13px;font-weight:500;color:#c3c4e6">/${per}</small></div>${u ? `<a class="jx-btn" style="text-decoration:none;width:100%" href="${u}" target="_blank" rel="noopener">Assinar ${nome.toLowerCase()}</a>` : `<span style="color:#c3c4e6;font-size:13px">Pagamento em breve.</span>`}</div>`; };
+    const pl = (t, nome, preco, per, extra) => { const u = window.jxCheckout(t); return `<div style="border:1px solid ${t === "anual" ? "#b48cff" : "rgba(160,107,255,.35)"};border-radius:14px;padding:14px;background:rgba(143,92,255,${t === "anual" ? ".16" : ".06"})"><b style="font-size:15px">${nome}</b>${extra ? ` <span style="font-size:11px;background:#3ddc84;color:#06240f;border-radius:99px;padding:2px 8px;font-weight:700">${extra}</span>` : ""}<div style="font:700 26px Barlow,Inter,sans-serif;margin:6px 0">R$ ${preco}<small style="font-size:13px;font-weight:500;color:#c3c4e6">/${per}</small></div>${u ? `<a class="jx-btn" style="text-decoration:none;width:100%" href="${u}" target="_blank" rel="noopener">Assinar ${nome.toLowerCase()}</a>` : `<span style="color:#c3c4e6;font-size:13px">Pagamento em breve.</span>`}</div>`; };
     g.innerHTML = `${ART}<div class="jx-wrap">
       <div class="jx-top"><div class="jx-tile">${LOGO}</div><span class="jx-name">A JORNADA</span></div>
       <div class="jx-card jx-hero"><h1>${venc ? "Sua assinatura venceu" : "Seu teste grátis terminou"}</h1>
         <p class="jx-sub">${venc ? "O acesso terminou em" : "Os 7 dias de teste acabaram em"} ${qd.toLocaleDateString("pt-BR", { day: "numeric", month: "long" })}. Seus concursos, metas, progresso e PDFs continuam guardados: nada foi apagado.</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 4px">${pl("mensal", "Mensal", V.preco_mensal || "39,90", "mês", "")}${pl("anual", "Anual", V.preco_anual || "359,00", "ano", "Economize")}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:6px 0 4px">${pl("mensal", "Mensal", V.preco_mensal || "69,90", "mês", "")}${pl("trimestral", "Trimestral", V.preco_trimestral || "179,90", "3 meses", "")}${pl("semestral", "Semestral", V.preco_semestral || "329,90", "6 meses", "")}${pl("anual", "Anual", V.preco_anual || "549,90", "ano", "Melhor preço")}</div>
         <p style="margin:8px 0 0;color:#c3c4e6;font-size:13px">Use no pagamento o mesmo e-mail da sua conta (${EMAIL.replace(/[<>&]/g, "")}). A liberação é automática em poucos minutos. Você tem 7 dias para desistir da compra e receber o valor de volta (art. 49 do CDC).</p>
         <div class="jx-row"><button class="jx-btn ghost" type="button" data-k="chk">Já paguei: verificar</button><button class="jx-btn ghost" type="button" data-k="exp">Baixar cópia dos meus dados</button></div>
         <div class="jx-row" style="margin-top:10px"><button class="jx-btn ghost" type="button" data-k="out">Sair</button></div>

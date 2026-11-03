@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611030922"></script>
+<script src="/claude-shim.js?v=202611030934"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1865,11 +1865,12 @@ kbd{font:600 10.5px var(--f-body);border:1px solid var(--line2);border-bottom-wi
 /* ===== Assinatura ===== */
 .asn-st{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.asn-st>p{flex:1 1 320px;margin:0}.asn-st .chip{font-size:13px}
 .asn-ia{display:grid;justify-items:end;gap:2px;margin-left:auto}.asn-ia small{font-size:11.5px;color:var(--fg2);font-weight:600}.asn-ia b{font:700 24px var(--f-display)}
-.asn-pl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:14px 0}
+.asn-pl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0 14px}.asn-tag.pop{background:var(--lime);color:var(--lime-ink)}
+@media (max-width:1180px){.asn-pl{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .asn-p{position:relative;border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:20px;display:grid;gap:6px;align-content:start}
 .asn-p.best{border-color:var(--lime);background:linear-gradient(160deg,var(--lime-soft),var(--panel) 70%);box-shadow:0 0 0 1px var(--lime) inset}
-.asn-p>b{font:600 17px var(--f-display)}.asn-v{font:700 38px/1 var(--f-display)}.asn-v small{font-size:16px;margin-right:4px;font-weight:600}.asn-v em{font-style:normal;font-size:15px;font-weight:500;color:var(--fg2)}
-.asn-p .btn{justify-content:center;margin-top:6px}.asn-tag{position:absolute;top:14px;right:14px;font-size:11.5px;font-weight:700;color:#06240f;background:var(--ok);border-radius:99px;padding:3px 10px}
+.asn-p>b{font:600 17px var(--f-display)}.asn-v{font:700 34px/1 var(--f-display)}.asn-v small{font-size:16px;margin-right:4px;font-weight:600}.asn-v em{font-style:normal;font-size:15px;font-weight:500;color:var(--fg2)}
+.asn-p .btn{justify-content:center;margin-top:6px}.asn-tag{position:absolute;top:-11px;right:14px;box-shadow:0 4px 12px rgba(0,0,0,.35);font-size:11.5px;font-weight:700;color:#06240f;background:var(--ok);border-radius:99px;padding:3px 10px}
 .asn-ft{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}.asn-ft li{display:flex;gap:8px;align-items:flex-start;color:var(--fg)}.asn-ft svg.i{width:17px;height:17px;color:var(--ok);flex:none;margin-top:3px}
 .asn-f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.asn-f .field{display:grid;gap:4px;margin:0}
 .asn-wh{display:grid;gap:8px;border:1px dashed var(--line2);border-radius:12px;padding:12px}.asn-wh small{display:block;color:var(--fg2)}.asn-wh code{display:block;font-size:12.5px;word-break:break-all;background:var(--sunk);border-radius:8px;padding:6px 8px;margin-top:3px}
@@ -4830,7 +4831,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103092230";
+const JX_BUILD="20261103093404";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5233,19 +5234,20 @@ document.addEventListener("keydown",e=>{if(TAB!=="arena"||!UI.ar||$("layer3").in
   else if(arCE(c)&&S.pick==null&&(e.key==="c"||e.key==="e")){e.preventDefault();A.arPick({dataset:{v:e.key==="c"?"1":"0"}})}});
 
 /* ================= Assinatura: planos, status, pagamento (Hotmart/Kiwify) e termos ================= */
-const ASN_CFG=[["preco_mensal","Preço do plano mensal (R$)","39,90"],["preco_anual","Preço do plano anual (R$)","359,00"],["checkout_mensal","Link de pagamento do plano mensal (Hotmart ou Kiwify)","https://pay.hotmart.com/..."],["checkout_anual","Link de pagamento do plano anual","https://pay.kiwify.com.br/..."],
+const ASN_PL=[["mensal","Plano mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","69,90"],["trimestral","Plano trimestral","3 meses",3,"","179,90"],["semestral","Plano semestral","6 meses",6,"","329,90"],["anual","Plano anual","ano",12,"","549,90"]];
+const ASN_CFG=[...ASN_PL.map(p=>["preco_"+p[0],"Preço do "+p[1].toLowerCase()+" (R$)",p[5]]),...ASN_PL.map(p=>["checkout_"+p[0],"Link de pagamento do "+p[1].toLowerCase()+" (Hotmart ou Kiwify)","https://pay.hotmart.com/..."]),
   ["empresa","Razão social (aparece nos termos)","Sua Empresa Ltda"],["cnpj","CNPJ","00.000.000/0001-00"],["suporte_email","E-mail de suporte","suporte@seudominio.com.br"],["termos_versao","Versão dos termos (mude para pedir novo aceite)","2026-11"]];
 const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Flash Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte ao mentor","Lei seca bizurada com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
 function asnNum(v){return parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0}
-function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"39,90",pa=V.preco_anual||"359,00",td=new Date();
-  const eco=asnNum(pm)?Math.round((1-asnNum(pa)/(asnNum(pm)*12))*100):0,pmA=(asnNum(pa)/12).toFixed(2).replace(".",",");
+function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"69,90";
   const ate=A.plano_ate?new Date(A.plano_ate).toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"}):"";
   const stH=A.st==="dono"?`<span class="chip ok">Conta de administrador</span><p>Acesso livre e vitalício nesta conta, sem limite de IA. Aqui você também configura os preços, os links de pagamento e os dados da empresa.</p>`
-   :A.st==="ativo"?`<span class="chip ok">Assinatura ativa</span><p>Plano <b>${A.plano==="anual"?"anual":A.plano==="mensal"?"mensal":"cortesia"}</b>${ate?" · válido até <b>"+ate+"</b>":""}${A.origem?" · pago pela "+(A.origem==="hotmart"?"Hotmart":"Kiwify"):""}. A renovação é automática; para cancelar, use a plataforma onde você comprou.</p>`
+   :A.st==="ativo"?`<span class="chip ok">Assinatura ativa</span><p>Plano <b>${["mensal","trimestral","semestral","anual"].includes(A.plano)?A.plano:"cortesia"}</b>${ate?" · válido até <b>"+ate+"</b>":""}${A.origem?" · pago pela "+(A.origem==="hotmart"?"Hotmart":"Kiwify"):""}. A renovação é automática; para cancelar, use a plataforma onde você comprou.</p>`
    :A.st==="teste"?`<span class="chip warn">Teste grátis</span><p>${A.left<=1?"O seu teste termina <b>hoje</b>.":"Faltam <b>"+A.left+" dias</b> de teste."} Assine para não perder o ritmo: seus dados continuam todos com você.</p>`
    :`<span class="chip bad">Sem acesso</span><p>O seu acesso terminou. Assine para continuar.</p>`;
   const cap=A.st==="dono"?"sem limite":A.st==="teste"?60:300;
-  const plan=(t,nome,preco,per,sub,best)=>{const u=window.jxCheckout?window.jxCheckout(t):"";return`<div class="asn-p ${best?"best":""}">${best?`<span class="asn-tag">${eco>0?"Economize "+eco+"%":"Melhor custo"}</span>`:""}<b>${nome}</b><div class="asn-v"><small>R$</small>${esc(preco)}<em>/${per}</em></div><p class="muted small">${sub}</p>
+  const plan=(t,nome,per,mes,sub0,def)=>{const preco=V["preco_"+t]||def,u=window.jxCheckout?window.jxCheckout(t):"",best=t==="anual",eco=mes>1&&asnNum(pm)?Math.round((1-asnNum(preco)/(asnNum(pm)*mes))*100):0,sub=sub0||("Equivale a R$ "+(asnNum(preco)/mes).toFixed(2).replace(".",",")+" por mês."+(eco>0?" Economize "+eco+"%.":""));
+    return`<div class="asn-p ${best?"best":""}">${best?`<span class="asn-tag">Melhor preço</span>`:t==="semestral"?`<span class="asn-tag pop">Mais escolhido</span>`:""}<b>${nome}</b><div class="asn-v"><small>R$</small>${esc(preco)}<em>/${per}</em></div><p class="muted small">${sub}</p>
     ${A.st==="dono"?`<span class="muted small">${u?"Link configurado ✓":"Link ainda não configurado"}</span>`:u?`<a class="btn ${best?"pri":""}" href="${esc(u)}" target="_blank" rel="noopener">${A.st==="ativo"?"Trocar para o "+nome.toLowerCase():"Assinar o "+nome.toLowerCase()}</a>`:`<span class="muted small">Pagamento em breve.</span>`}</div>`};
   const cfg=A.st!=="dono"?"":`<section class="card"><div class="card-h"><h2>${ic("gear")} Configuração da venda</h2><span class="r muted small">só você vê</span></div><div class="card-b" style="display:grid;gap:12px">
     <p class="muted small" style="margin:0">Crie o produto (assinatura mensal e anual) no Hotmart ou na Kiwify, cole aqui os links de pagamento e configure o aviso de compra (webhook) com o endereço abaixo.</p>
@@ -5257,7 +5259,7 @@ function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_
      <p class="muted small" style="margin:0">Depois, no Supabase (Edge Functions › Secrets), guarde o token do Hotmart como <b>HOTMART_HOTTOK</b> e o da Kiwify como <b>KIWIFY_TOKEN</b>. O aluno precisa pagar com o mesmo e-mail da conta.</p></div></div></section>`;
   return`<div class="hello"><h1>Assinatura</h1><p>Seu plano, o pagamento e os termos de uso da A Jornada.</p></div>
    <section class="card"><div class="card-b asn-st">${stH}<div class="asn-ia"><small>IA hoje</small><b>${A.ia_hoje||0}${typeof cap==="number"?" / "+cap:""}</b><span class="muted small">${typeof cap==="number"?"pedidos por dia":cap}</span></div></div></section>
-   <div class="asn-pl">${plan("mensal","Plano mensal",pm,"mês","Cobrança todo mês. Cancele quando quiser.",0)}${plan("anual","Plano anual",pa,"ano","Equivale a R$ "+pmA+" por mês.",1)}</div>
+   <div class="asn-pl">${ASN_PL.map(p=>plan(...p)).join("")}</div>
    <section class="card"><div class="card-h"><h2>O que está incluído</h2></div><div class="card-b"><ul class="asn-ft">${ASN_FEAT.map(f=>`<li>${ic("check")}${f}</li>`).join("")}</ul>
     <p class="muted small" style="margin:10px 0 0">Pague com o mesmo e-mail da sua conta (<b>${esc(A.email||"")}</b>): a liberação é automática em poucos minutos. Você tem 7 dias para desistir e receber o valor de volta (art. 49 do CDC).</p>
     <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn" data-a="asnCheck">${ic("reset")} Já paguei: verificar</button><a class="btn" href="termos.html#termos" target="_blank" rel="noopener">Termos de Uso ↗</a><a class="btn" href="termos.html#privacidade" target="_blank" rel="noopener">Política de Privacidade ↗</a></div></div></section>${cfg}`}
