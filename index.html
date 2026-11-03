@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611030914"></script>
+<script src="/claude-shim.js?v=202611030922"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1873,6 +1873,7 @@ kbd{font:600 10.5px var(--f-body);border:1px solid var(--line2);border-bottom-wi
 .asn-ft{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}.asn-ft li{display:flex;gap:8px;align-items:flex-start;color:var(--fg)}.asn-ft svg.i{width:17px;height:17px;color:var(--ok);flex:none;margin-top:3px}
 .asn-f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.asn-f .field{display:grid;gap:4px;margin:0}
 .asn-wh{display:grid;gap:8px;border:1px dashed var(--line2);border-radius:12px;padding:12px}.asn-wh small{display:block;color:var(--fg2)}.asn-wh code{display:block;font-size:12.5px;word-break:break-all;background:var(--sunk);border-radius:8px;padding:6px 8px;margin-top:3px}
+.asn-adm{margin-top:8px;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--ok);background:var(--ok-soft);color:var(--ok);font:700 11.5px var(--f-body);border-radius:8px;padding:5px 10px;cursor:pointer}.asn-adm svg.i{width:13px;height:13px}
 .asn-chip{margin-top:8px;border:1px solid var(--warn);background:var(--warn-soft);color:var(--warn);font:600 11.5px var(--f-body);border-radius:99px;padding:4px 10px;cursor:pointer}
 @media (max-width:760px){.asn-pl,.asn-ft,.asn-f{grid-template-columns:1fr}.asn-ia{justify-items:start;margin-left:0}}
 
@@ -4829,7 +4830,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103091445";
+const JX_BUILD="20261103092230";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5239,7 +5240,7 @@ function asnNum(v){return parseFloat(String(v||"0").replace(/\./g,"").replace(",
 function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"39,90",pa=V.preco_anual||"359,00",td=new Date();
   const eco=asnNum(pm)?Math.round((1-asnNum(pa)/(asnNum(pm)*12))*100):0,pmA=(asnNum(pa)/12).toFixed(2).replace(".",",");
   const ate=A.plano_ate?new Date(A.plano_ate).toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"}):"";
-  const stH=A.st==="dono"?`<span class="chip ok">Acesso de dono</span><p>Acesso livre e vitalício nesta conta. Aqui você também configura os preços, os links de pagamento e os dados da empresa.</p>`
+  const stH=A.st==="dono"?`<span class="chip ok">Conta de administrador</span><p>Acesso livre e vitalício nesta conta, sem limite de IA. Aqui você também configura os preços, os links de pagamento e os dados da empresa.</p>`
    :A.st==="ativo"?`<span class="chip ok">Assinatura ativa</span><p>Plano <b>${A.plano==="anual"?"anual":A.plano==="mensal"?"mensal":"cortesia"}</b>${ate?" · válido até <b>"+ate+"</b>":""}${A.origem?" · pago pela "+(A.origem==="hotmart"?"Hotmart":"Kiwify"):""}. A renovação é automática; para cancelar, use a plataforma onde você comprou.</p>`
    :A.st==="teste"?`<span class="chip warn">Teste grátis</span><p>${A.left<=1?"O seu teste termina <b>hoje</b>.":"Faltam <b>"+A.left+" dias</b> de teste."} Assine para não perder o ritmo: seus dados continuam todos com você.</p>`
    :`<span class="chip bad">Sem acesso</span><p>O seu acesso terminou. Assine para continuar.</p>`;
@@ -5261,7 +5262,7 @@ function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_
     <p class="muted small" style="margin:10px 0 0">Pague com o mesmo e-mail da sua conta (<b>${esc(A.email||"")}</b>): a liberação é automática em poucos minutos. Você tem 7 dias para desistir e receber o valor de volta (art. 49 do CDC).</p>
     <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn" data-a="asnCheck">${ic("reset")} Já paguei: verificar</button><a class="btn" href="termos.html#termos" target="_blank" rel="noopener">Termos de Uso ↗</a><a class="btn" href="termos.html#privacidade" target="_blank" rel="noopener">Política de Privacidade ↗</a></div></div></section>${cfg}`}
 const SUPA_FN=n=>{try{return String((window.JORNADA_CONFIG||{}).SUPABASE_URL||"").replace(/\/$/,"")+"/functions/v1/"+n}catch(e){return"/functions/v1/"+n}};
-function asnChip(){const A=window.JX_ACESSO;if(!A||A.st!=="teste")return"";return`<button class="asn-chip" data-a="tab" data-t="assinatura">${A.left<=1?"Teste termina hoje":"Teste: "+A.left+" dias"} · Assinar</button>`}
+function asnChip(){const A=window.JX_ACESSO;if(A&&A.st==="dono")return`<button class="asn-adm" data-a="tab" data-t="assinatura" title="Acesso livre e vitalício, com a configuração da venda">${ic("lock")} Conta de administrador</button>`;if(!A||A.st!=="teste")return"";return`<button class="asn-chip" data-a="tab" data-t="assinatura">${A.left<=1?"Teste termina hoje":"Teste: "+A.left+" dias"} · Assinar</button>`}
 
 function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
