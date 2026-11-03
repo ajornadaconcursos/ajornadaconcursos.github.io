@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611022054"></script>
+<script src="/claude-shim.js?v=202611030817"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -4182,12 +4182,13 @@ async function smGenerate(id){const x=smGet(id),d=smDoc(id);if(!x||!d)return;
   const jobs=[];d.plan.forEach(p=>{const tps=p.tp.slice();if(p.sid==="lp"){jobs.push({p,tps});return}
     let cur=[],c=0;tps.forEach(([i,k])=>{while(k>0){const take=Math.min(k,8-c);cur.push([i,take]);c+=take;k-=take;if(c>=8){jobs.push({p,tps:cur});cur=[];c=0}}});if(cur.length)jobs.push({p,tps:cur})});
   UI.smGen={id,done:0,tot:jobs.length};x.st="gen";touch("simx");render();
-  const R=new Array(jobs.length);let next=0,bad=0;
+  const R=new Array(jobs.length);let next=0,bad=0,cred=0;
   const run=async()=>{while(next<jobs.length){const j=next++,J=jobs[j];
-    for(let t=0;t<2&&!R[j];t++){try{R[j]=await smGenBatch(J.p.sid,J.tps,J.p.aulas||{},J.p.fresh)}catch(e){console.error(e)}}
+    for(let t=0;t<2&&!R[j];t++){try{R[j]=await smGenBatch(J.p.sid,J.tps,J.p.aulas||{},J.p.fresh)}catch(e){console.error(e);if(/credit balance|billing|insufficient|quota/i.test(String(e&&e.message||e))){cred=1;t=2;next=jobs.length}}}
     if(!R[j])bad++;UI.smGen.done++;const el=$("smGenP");if(el){el.style.width=(UI.smGen.done/UI.smGen.tot*100)+"%";const t=$("smGenT");if(t)t.textContent=UI.smGen.done+" de "+UI.smGen.tot+" blocos prontos"}}};
   await Promise.all([run(),run(),run()]);UI.smGen=null;
   const qs=[],txts=[];ED.forEach(S=>R.forEach((r,j)=>{if(!r||jobs[j].p.sid!==S.id)return;let tx=-1;if(r.txt){txts.push(r.txt);tx=txts.length-1}r.qs.forEach(q=>{if(tx>=0)q.tx=tx;qs.push(q)})}));
+  if(cred){x.st="err";touch("simx");render();toast("A IA está sem créditos. Recarregue os créditos da conta da IA e toque em Gerar de novo.");return}
   if(!qs.length||bad>jobs.length/2){x.st="err";touch("simx");render();toast("A IA não conseguiu montar as questões agora. Tente de novo em instantes.");return}
   Object.assign(d,{qs,txts,ans:{},el:0,t0:null,dur:Math.max(10,qs.length*MINQ)});delete d.plan;x.st="ready";x.tot=qs.length;touch("sim-"+id);touch("simx");render();
   toast(qs.length+" questões prontas"+(bad?" (algumas matérias falharam e ficaram de fora)":"")+". Quando quiser, comece o simulado.")}
@@ -4694,7 +4695,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261102205418";
+const JX_BUILD="20261103081740";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -4934,8 +4935,8 @@ function vArquivo(){const c=core(),q=norm(UI.arqQ||""),ms=[...(c.metas||[])].sor
   let det="";if(open!=null){const m=ms.find(x=>x.n===open);if(m){const N=metaNums(m),sm=smMiniFor(m.n),fin=m.done||m.end<=today();
     det=`<section class="card arq-det"><div class="card-h"><h2>Meta ${pad(m.n)}</h2><span class="r muted small">${dm(m.start)} a ${dm(m.done||m.end)}${m.done?" · cumprida em "+dm(m.done):""}</span></div><div class="card-b" style="display:grid;gap:14px">
      <div class="arq-k"><div class="k1"><small>Desempenho atingido</small><b>${N.acc==null?"–":String(N.acc).replace(".",",")+"%"}</b></div><div class="k2"><small>Horas estudadas</small><b>${fmtH(N.min)}</b></div><div class="k3"><small>Questões resolvidas</small><b>${N.f}</b></div><div class="k4"><small>Média de horas diárias</small><b>${fmtH(N.avg)}</b></div></div>
-     <div class="row" style="gap:8px;flex-wrap:wrap;align-items:center"><span class="chip sm-k mini">Simuladinho</span><span class="small" style="flex:1 1 220px">${sm?(sm.st==="done"?`Feito em ${dm(sm.done)}: <b>${sm.pct}%</b> (${sm.ac??"?"} de ${sm.tot} questões).`:"Já criado: continue de onde parou."):fin?"Disponível: questões dos assuntos desta meta.":"Libera quando a meta terminar."}</span>
-      ${sm?`<button class="btn sm ${sm.st==="done"?"":"pri"}" data-a="arqSm" data-id="${sm.id}">${sm.st==="done"?"Ver correção":"Continuar"}</button>`:`<button class="btn sm pri" data-a="smNew" data-k="mini" data-m="${m.n}" ${fin&&!UI.smGen?"":"disabled"}>${ic("bulb")} Fazer o simuladinho</button>`}</div>
+     <div class="row" style="gap:8px;flex-wrap:wrap;align-items:center"><span class="chip sm-k mini">Simuladinho</span><span class="small" style="flex:1 1 220px">${sm?(sm.st==="err"?"A geração falhou. Toque em Gerar de novo.":sm.st==="done"?`Feito em ${dm(sm.done)}: <b>${sm.pct}%</b> (${sm.ac??"?"} de ${sm.tot} questões).`:"Já criado: continue de onde parou."):fin?"Disponível: questões dos assuntos desta meta.":"Você já pode fazer agora com os assuntos desta meta."}</span>
+      ${sm&&(sm.st==="err"||(sm.st==="gen"&&!UI.smGen))?`<button class="btn sm pri" data-a="smRegen" data-id="${sm.id}" ${UI.smGen?"disabled":""}>Gerar de novo</button>`:sm?`<button class="btn sm ${sm.st==="done"?"":"pri"}" data-a="arqSm" data-id="${sm.id}">${sm.st==="done"?"Ver correção":"Continuar"}</button>`:`<button class="btn sm pri" data-a="smNew" data-k="mini" data-m="${m.n}" ${!UI.smGen&&N.ts.length?"":"disabled"}>${ic("bulb")} Fazer o simuladinho</button>`}</div>
      ${arqTaskRows(N.ts)}</div></section>`}}
   return hello+search+`<section class="card"><div class="card-h"><h2>${ic("meta")} Metas</h2><span class="r muted small">${ms.length} meta${ms.length>1?"s":""} · toque numa meta para ver as atividades</span></div><div class="card-b"><div class="arq-g">${ms.map(card).join("")}</div></div></section>${det}`}
 
