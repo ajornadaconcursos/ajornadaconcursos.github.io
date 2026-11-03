@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611031012"></script>
+<script src="/claude-shim.js?v=202611031022"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -4831,7 +4831,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103101201";
+const JX_BUILD="20261103102203";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5236,7 +5236,7 @@ document.addEventListener("keydown",e=>{if(TAB!=="arena"||!UI.ar||$("layer3").in
 /* ================= Assinatura: planos, status, pagamento (Hotmart/Kiwify) e termos ================= */
 const ASN_PL=[["mensal","Plano mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","69,90"],["trimestral","Plano trimestral","trimestre",3,"","179,90"],["semestral","Plano semestral","semestre",6,"","329,90"],["anual","Plano anual","ano",12,"","549,90"]];
 const ASN_CFG=[...ASN_PL.map(p=>["preco_"+p[0],"Preço do "+p[1].toLowerCase()+" (R$)",p[5]]),...ASN_PL.map(p=>["checkout_"+p[0],"Link de pagamento do "+p[1].toLowerCase()+" (Hotmart ou Kiwify)","https://pay.hotmart.com/..."]),
-  ["empresa","Razão social (aparece nos termos)","Sua Empresa Ltda"],["cnpj","CNPJ","00.000.000/0001-00"],["suporte_email","E-mail de suporte","suporte@seudominio.com.br"],["termos_versao","Versão dos termos (mude para pedir novo aceite)","2026-11"]];
+  ["empresa","Razão social (aparece nos termos)","Sua Empresa Ltda"],["cnpj","CNPJ","00.000.000/0001-00"],["suporte_email","E-mail de suporte","suporte@seudominio.com.br"],["whatsapp","WhatsApp de atendimento (com DDD)","65 99999-9999"],["termos_versao","Versão dos termos (mude para pedir novo aceite)","2026-11"]];
 const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Flash Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte ao mentor","Jornada na Lei Seca com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
 function asnNum(v){return parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0}
 function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"69,90";
