@@ -283,6 +283,7 @@
         <div class="jx-msg" role="status" aria-live="polite">${msg || ""}</div>
       </form>
       ${mini.length ? `<div class="jx-duo">${mini.map(([m, t, d]) => `<button type="button" class="jx-card jx-mini" data-m="${m}"><b>${t}</b><span>${d}</span></button>`).join("")}</div>` : ""}
+      ${mode === "in" || mode === "up" ? `<p style="text-align:center;margin:14px 0 0"><a href="planos.html" style="color:#c9b2ff;font-weight:600">Ver planos e preços →</a></p>` : ""}
       <div class="jx-band"><b>A JORNADA</b><span>Sua trilha até a aprovação</span></div>
     </div>`;
     g.querySelectorAll("[data-m]").forEach(a => a.onclick = () => gate(a.dataset.m));
@@ -515,7 +516,7 @@
       <div class="jx-top"><div class="jx-tile">${LOGO}</div><span class="jx-name">A JORNADA</span></div>
       <div class="jx-card jx-hero"><h1>${venc ? "Sua assinatura venceu" : "Seu teste grátis terminou"}</h1>
         <p class="jx-sub">${venc ? "O acesso terminou em" : "Os 7 dias de teste acabaram em"} ${qd.toLocaleDateString("pt-BR", { day: "numeric", month: "long" })}. Seus concursos, metas, progresso e PDFs continuam guardados: nada foi apagado.</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:6px 0 4px">${pl("mensal", "Mensal", V.preco_mensal || "69,90", "mês", "")}${pl("trimestral", "Trimestral", V.preco_trimestral || "179,90", "3 meses", "")}${pl("semestral", "Semestral", V.preco_semestral || "329,90", "6 meses", "")}${pl("anual", "Anual", V.preco_anual || "549,90", "ano", "Melhor preço")}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:6px 0 4px">${pl("mensal", "Mensal", V.preco_mensal || "69,90", "mês", "")}${pl("trimestral", "Trimestral", V.preco_trimestral || "179,90", "trimestre", "")}${pl("semestral", "Semestral", V.preco_semestral || "329,90", "semestre", "")}${pl("anual", "Anual", V.preco_anual || "549,90", "ano", "Melhor preço")}</div>
         <p style="margin:8px 0 0;color:#c3c4e6;font-size:13px">Use no pagamento o mesmo e-mail da sua conta (${EMAIL.replace(/[<>&]/g, "")}). A liberação é automática em poucos minutos. Você tem 7 dias para desistir da compra e receber o valor de volta (art. 49 do CDC).</p>
         <div class="jx-row"><button class="jx-btn ghost" type="button" data-k="chk">Já paguei: verificar</button><button class="jx-btn ghost" type="button" data-k="exp">Baixar cópia dos meus dados</button></div>
         <div class="jx-row" style="margin-top:10px"><button class="jx-btn ghost" type="button" data-k="out">Sair</button></div>
@@ -534,7 +535,11 @@
     let started = false;
     const onSession = async (ev, s) => {
       if (ev === "PASSWORD_RECOVERY") { gate("newpw"); return; }
-      if (!s) { if (started) location.reload(); else if (!$("#jx-gate")) { let m = ""; try { m = sessionStorage.getItem("jx-msg") || ""; sessionStorage.removeItem("jx-msg"); } catch (e) { } gate("in", m); const mm = $("#jx-gate .jx-msg"); if (m && mm) mm.className = "jx-msg ok"; } return; }
+      if (!s) { if (started) location.reload(); else if (!$("#jx-gate")) { let m = ""; try { m = sessionStorage.getItem("jx-msg") || ""; sessionStorage.removeItem("jx-msg"); } catch (e) { }
+        /* visitante novo (nunca entrou neste aparelho) vê primeiro a página de planos e preços */
+        const q = location.search; let seen = ""; try { seen = localStorage.getItem("jx-owner") || ""; } catch (e) { }
+        if (!m && !/[?&](entrar|cadastro)\b/.test(q) && !seen && ev !== "PASSWORD_RECOVERY") { location.replace("planos.html"); return; }
+        hideSplash(); gate(/[?&]cadastro\b/.test(q) && !m ? "up" : "in", m); const mm = $("#jx-gate .jx-msg"); if (m && mm) mm.className = "jx-msg ok"; } return; }
       TOKEN = s.access_token; swPost();
       if (started) return; started = true;
       UID = s.user.id; EMAIL = s.user.email || "";
