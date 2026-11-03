@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611030959"></script>
+<script src="/claude-shim.js?v=202611031009"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1651,7 +1651,7 @@ h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
 .ck-l{margin:0;padding-left:18px;line-height:1.55}
 #jxUpd{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:2147483000;display:flex;gap:10px;align-items:center;background:var(--panel);color:var(--fg);border:1px solid var(--lime);border-radius:999px;padding:8px 10px 8px 16px;box-shadow:var(--shadow);font-size:14px;max-width:calc(100vw - 24px)}
 
-/* ---------- Lei seca bizurada ---------- */
+/* ---------- Jornada na Lei Seca ---------- */
 .lz-list{display:grid;gap:8px}
 .lz-it{display:grid;gap:2px;text-align:left;border:1px solid var(--line);background:var(--sunk);border-radius:12px;padding:10px 12px;color:var(--fg);font:inherit;cursor:pointer}
 .lz-it:hover{border-color:var(--lime)}.lz-it small{color:var(--mute)}
@@ -4415,11 +4415,11 @@ function pv24Card(){if(!IS_TJ)return"";const x=SMX().filter(y=>y.kind==="prova"&
 setInterval(()=>{const id=UI.smOpen;if(!id||TAB!=="simulados")return;const x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run"||!d.t0)return;const r=smLeft(d),el=$("smClk");if(el){el.textContent=smClock(r);el.classList.toggle("low",r<600)}if(r<=0)smFinish(id,true)},1000);
 
 {const _vm=vMeta;vMeta=function(){const h=_vm(),b=smBanner();if(!b)return h;const i=h.indexOf("</div>");return h.startsWith("<div class=\"hello\"")&&i>0?h.slice(0,i+6)+b+h.slice(i+6):b+h}}
-const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Lei seca"],["arquivo","Arquivo"],["arena","Flash Jornada"],["assinatura","Assinatura"]];
+const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Jornada na Lei Seca"],["arquivo","Arquivo"],["arena","Flash Jornada"],["assinatura","Assinatura"]];
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
 /* Menu simples: 5 entradas. As telas de sempre continuam, agrupadas em abas dentro de cada entrada. */
 const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["arena","Flash Jornada"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
-const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["leiseca","Lei seca","edital"],["discursiva","Discursiva e redação","discursiva"]],
+const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["leiseca","Jornada na Lei Seca","edital"],["discursiva","Discursiva e redação","discursiva"]],
   revisoes:[["revisoes","Revisões do dia","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"]],
   rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"],["arquivo","Arquivo","list"],["assinatura","Assinatura","lock"]]};
 const GP={};Object.entries(GROUPS).forEach(([g,L])=>L.forEach(([k])=>{GP[k.split(":")[0]]=g}));
@@ -4446,7 +4446,7 @@ const HOW={
   assinatura:"Aqui você vê o seu plano (teste, mensal ou anual), assina ou renova pelo link de pagamento e lê os termos de uso e a política de privacidade. Pague com o mesmo e-mail da sua conta: a liberação é automática.",
   arena:"Aqui ficam os seus flash cards. Toque em Iniciar revisão, tente lembrar a resposta antes de revelar e diga com sinceridade se errou, quase lembrou ou lembrou: o Flash Jornada decide quando cada card volta. Atacar lacunas treina só os cards que mais te pegam.",
   arquivo:"Aqui ficam as metas que já passaram: toque numa meta para ver as atividades, o tempo, o desempenho e o simuladinho dela. Procure uma atividade pelo código ou pelo título.",
-  leiseca:"Aqui fica a lei seca bizurada: escolha a lei (ou escreva qual é), o texto oficial vem do site do Planalto e a IA destaca o que mais cai, grifa os trechos que a banca troca e escreve um bizu por artigo. Ligue a lei à matéria para ver quais artigos já caíram nas suas questões.",
+  leiseca:"Aqui fica a Jornada na Lei Seca: escolha a lei (ou escreva qual é), o texto oficial vem do site do Planalto e a IA destaca o que mais cai, grifa os trechos que a banca troca e escreve um bizu por artigo. Ligue a lei à matéria para ver quais artigos já caíram nas suas questões.",
   tutorial:"Aqui você aprende a usar cada função da plataforma: escolha um tema, assista à animação e leia as dicas. Use “Ir para esta tela” para praticar na hora.",
   compat:"Aqui você compara dois concursos: o painel mostra as matérias e os assuntos em comum para o estudo de um servir ao outro."};
 function howAttach(){const v=$("view"),t=HOW[TAB];if(!v||!t||v.querySelector(".how"))return;const p=document.createElement("details");p.className="how";p.innerHTML=`<summary>ⓘ Como usar esta tela</summary><span>${esc(t)}</span>`;
@@ -4614,7 +4614,7 @@ const TUT=[
       {k:"d",on:["d"],c:"Ao abrir o mapa: “Refazer com mais conteúdo” ou “Baixar em PDF”."}],
   d:["Revise pelo mapa antes de dormir: 2 minutos por aula.","Tente reconstruir o mapa de memória e depois compare: é revisão ativa.","Baixe os mapas da matéria num PDF só para a reta final."]},
 
- {id:"leiseca",t:"Lei seca bizurada",ic:"edital",go:"leiseca",
+ {id:"leiseca",t:"Jornada na Lei Seca",ic:"edital",go:"leiseca",
   p:"Em Estudar › Lei seca, escolha a lei (ou escreva qual é): o texto oficial vem do site do Planalto, sem o que foi revogado. A IA marca a incidência de cada artigo, grifa os trechos que a banca troca e escreve um bizu curto, preso ao texto do artigo. Ligada à matéria, a lei mostra quais artigos já caíram nas suas questões.",
   s:`<div class="tu-card"><div class="tu-row"><span class="tu-inp" data-k="lq"><em data-k="lt"></em></span><button class="tu-btn sm" data-k="lb">Baixar e bizurar</button></div>
      <div class="tu-pt" data-k="art"><small>Art. 3 · ★★★ cai muito · caiu em 4 questões suas</small><span>Tributo é toda prestação <b>pecuniária compulsória</b> … cobrada mediante atividade administrativa <b>plenamente vinculada</b>.</span></div>
@@ -4831,11 +4831,11 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103095940";
+const JX_BUILD="20261103100959";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
-/* ================= Lei seca bizurada =================
+/* ================= Jornada na Lei Seca =================
    O texto vem do site oficial do Planalto (só planalto.gov.br, sem os trechos revogados). A IA marca o que mais cai
    e escreve um bizu curto por artigo, preso ao texto do próprio artigo; as suas questões mostram quais artigos já caíram. */
 const LEI_CAT=[
@@ -4883,7 +4883,7 @@ async function leiBizurar(id){const L=D["lei-"+id];if(!L||!SAMPLE||LEI_BUSY.has(
     L.tot=groups.length;L.cur=0;
     for(const G of groups){if(!SAMPLE||AI_OFF)break;L.cur++;if(TAB==="leiseca")render();
       const mat=G.map(a=>`[${a.i}] Art. ${a.n}.${a.h?" ("+a.h+")":""} ${leiAnn(a.t)}`).join("\n\n");
-      const prompt=`Você prepara a LEI SECA BIZURADA de "${L.nome}" para um candidato a ${dsCargo()} (banca ${dsBanca()}).
+      const prompt=`Você prepara a lei seca comentada (com bizus) de "${L.nome}" para um candidato a ${dsCargo()} (banca ${dsBanca()}).
 Para cada artigo abaixo, diga a incidência em provas de concurso desta banca e área ("nivel": 3 = cai muito, 2 = cai às vezes, 1 = cai pouco, 0 = quase nunca cai) e, para os de nível 1 a 3, escreva:
 - "bizu": 1 ou 2 frases que explicam a regra do artigo do jeito que a banca cobra (literalidade, prazo, exceção, "salvo", "vedado", quem, quando). Use SOMENTE o texto do próprio artigo: não cite números, prazos, artigos ou leis que não estejam nele.
 - "grifo": de 1 a 4 trechos curtos, copiados EXATAMENTE como estão no texto do artigo, com as palavras que a banca troca para fazer a pegadinha.
@@ -4898,7 +4898,7 @@ ${mat}
         const b=String(x.bizu||"").trim().slice(0,500),gr=(Array.isArray(x.grifo)?x.grifo:[]).map(String).map(s=>s.trim()).filter(s=>s.length>=3&&s.length<=140&&tx.includes(s)).slice(0,4);
         L.biz[a.i]={v,b:b&&gOk(b,tx)?b:"",g:gr}});
       L.upd=Date.now();touch("lei-"+id);await new Promise(r=>setTimeout(r,800))}
-    L.done=L.arts.every(a=>L.biz[a.i]!==undefined);touch("lei-"+id);if(L.done)toast("Lei seca bizurada pronta: "+L.nome)}
+    L.done=L.arts.every(a=>L.biz[a.i]!==undefined);touch("lei-"+id);if(L.done)toast("Jornada na Lei Seca pronta: "+L.nome)}
   catch(e){toast("A IA parou no meio da lei seca. Toque em Continuar para seguir de onde parou.")}finally{LEI_BUSY.delete(id);render()}}
 async function leiAdd(nome,url,sid){if(typeof window.jxFn!=="function"){toast("Atualize a página para usar a lei seca");return}
   toast("Baixando a lei no site do Planalto…");
@@ -4911,7 +4911,7 @@ function leiFmt(t,gr){let h=esc(t);(gr||[]).forEach(g=>{const e=esc(g);if(e&&h.i
   h=h.replace(/\((Redação dada|Incluíd[oa]|Vide|Revogad[oa]|Vigência|Regulamento|Renumerad[oa]|Produção de efeitos)([^)]*)\)/gi,'<span class="lz-ann">($1$2)</span>');
   return h.split("\n").map(x=>{const k=/^(Parágrafo único|§)/.test(x)?"p":/^[IVXLC]{1,6}\s*[-–]/.test(x)?"i":/^[a-z]\)/.test(x)?"a":"";return`<p class="${k}">${x}</p>`}).join("")}
 function vLeiseca(){const L=LEIS(),cur=UI.lei&&D["lei-"+UI.lei]?D["lei-"+UI.lei]:null;
-  const hello=`<div class="hello"><h1>Lei seca bizurada</h1><p>O texto oficial da lei, tirado do site do Planalto (sem o que foi revogado), com o que mais cai em destaque, os trechos que a banca troca grifados e um bizu curto em cada artigo. Os artigos que já caíram nas suas questões aparecem marcados.</p></div>`;
+  const hello=`<div class="hello"><h1>Jornada na Lei Seca</h1><p>O texto oficial da lei, tirado do site do Planalto (sem o que foi revogado), com o que mais cai em destaque, os trechos que a banca troca grifados e um bizu curto em cada artigo. Os artigos que já caíram nas suas questões aparecem marcados.</p></div>`;
   if(!cur){const opts=LEI_CAT.map((x,i)=>`<option value="${i}">${esc(x[0])}</option>`).join("");
     return hello+`<section class="card"><div class="card-h"><h2>Adicionar uma lei</h2></div><div class="card-b" style="display:grid;gap:10px">
      <div class="row" style="gap:8px;flex-wrap:wrap"><select class="inp" id="lzCat" style="flex:1 1 280px"><option value="">Escolha uma lei da lista…</option>${opts}</select><button class="btn pri" data-a="lzCat">${ic("dl")} Baixar e bizurar</button></div>
@@ -4937,7 +4937,7 @@ function vLeiseca(){const L=LEIS(),cur=UI.lei&&D["lei-"+UI.lei]?D["lei-"+UI.lei]
 async function leiPdf(L,only){const B=L.biz||{},out=[];let lh="";
   L.arts.forEach(a=>{const b=B[a.i]||{};if(only&&!(b.v>=1))return;if(a.h&&a.h!==lh){out.push("## "+a.h);lh=a.h}
     out.push("### Art. "+a.n+(b.v>=1?" · "+["","cai pouco","cai às vezes","cai muito"][b.v]:""));leiAnn(a.t).split("\n").forEach(x=>out.push(x));if(b.b)out.push("- Bizu: "+b.b)});
-  return mdToPdf("Lei seca bizurada · "+L.nome,"Texto do Planalto ("+L.url+")"+(only?" · só os artigos bizurados":""),out.join("\n"),"A JORNADA · lei seca")}
+  return mdToPdf("Jornada na Lei Seca · "+L.nome,"Texto do Planalto ("+L.url+")"+(only?" · só os artigos bizurados":""),out.join("\n"),"A JORNADA · lei seca")}
 
 /* ================= 1) Reforço com diagnóstico ================= */
 /* junta os erros da matéria: assuntos onde mais erra (pelos resumos das aulas) e o motivo que mais aparece */
@@ -5012,7 +5012,7 @@ function xtrHTML(){const x=xtrCur();if(!x)return"";const S=SUB(x.sid),tp=x.tp!=n
   const au=x.tp!=null?AU(x.sid).find(a=>(a.tp||[]).includes(x.tp)):null,p=au?pdfOfAula(x.sid,au.c):null;
   const go=x.tipo==="t"&&p?`<button class="btn sm" data-a="read" data-id="${p.id}" data-pa="${Math.max(1,p.ts||1)}" data-pb="${teoEnd(p)}">${ic("book")} Abrir a teoria</button>`
     :x.tipo==="q"?(au&&p?`<button class="btn sm" data-a="xtrQz" data-s="${x.sid}" data-c="${au.c}">${ic("check")} Questões desta aula</button>`:`<button class="btn sm" data-a="gtab" data-t="erradas">${ic("check")} Refazer Erradas</button>`)
-    :x.tipo==="l"?`<button class="btn sm" data-a="gtab" data-t="leiseca">${ic("edital")} Abrir a lei seca</button>`:`<button class="btn sm" data-a="gtab" data-t="revisoes">${ic("revisoes")} Revisões</button>`;
+    :x.tipo==="l"?`<button class="btn sm" data-a="gtab" data-t="leiseca">${ic("edital")} Abrir a Jornada na Lei Seca</button>`:`<button class="btn sm" data-a="gtab" data-t="revisoes">${ic("revisoes")} Revisões</button>`;
   return`<section class="pb-c xtr"><div class="pb-h"><span class="ico">${ic("plus")}</span><h3>Estudo extra em andamento</h3><span class="muted small">${esc(XTIPO[x.tipo])} · ${esc(S.n)}${tp?" · "+esc(tShort(tp)):""}</span><span class="sp"></span><b class="xtr-t" data-start="${x.start}">${min} min</b></div>
    <div class="row" style="gap:8px;flex-wrap:wrap">${go}<button class="btn sm pri" data-a="xtrEnd">${ic("check")} Concluir</button><button class="btn sm ghost" data-a="xtrDrop">Cancelar</button></div>
    <span class="muted small">Cerca de 30 minutos. Conta no seu tempo e no Desempenho, sem mexer na meta.</span></section>`}
@@ -5237,7 +5237,7 @@ document.addEventListener("keydown",e=>{if(TAB!=="arena"||!UI.ar||$("layer3").in
 const ASN_PL=[["mensal","Plano mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","69,90"],["trimestral","Plano trimestral","trimestre",3,"","179,90"],["semestral","Plano semestral","semestre",6,"","329,90"],["anual","Plano anual","ano",12,"","549,90"]];
 const ASN_CFG=[...ASN_PL.map(p=>["preco_"+p[0],"Preço do "+p[1].toLowerCase()+" (R$)",p[5]]),...ASN_PL.map(p=>["checkout_"+p[0],"Link de pagamento do "+p[1].toLowerCase()+" (Hotmart ou Kiwify)","https://pay.hotmart.com/..."]),
   ["empresa","Razão social (aparece nos termos)","Sua Empresa Ltda"],["cnpj","CNPJ","00.000.000/0001-00"],["suporte_email","E-mail de suporte","suporte@seudominio.com.br"],["termos_versao","Versão dos termos (mude para pedir novo aceite)","2026-11"]];
-const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Flash Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte ao mentor","Lei seca bizurada com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
+const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Flash Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte ao mentor","Jornada na Lei Seca com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
 function asnNum(v){return parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0}
 function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"69,90";
   const ate=A.plano_ate?new Date(A.plano_ate).toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"}):"";
@@ -8716,7 +8716,7 @@ const A={
   lzF(el){UI.lzF=el.dataset.v;UI.lzLim=60;render()},
   lzMore(){UI.lzLim=(UI.lzLim||60)+80;render()},
   lzGo(){if(UI.lei)leiBizurar(UI.lei)},
-  async lzPdf(){const L=UI.lei&&D["lei-"+UI.lei];if(!L)return;try{toast("Montando o PDF…");const b=await leiPdf(L,(UI.lzF||"biz")!=="all");await saveFile("Lei seca bizurada - "+L.nome.replace(/[\\/:*?"<>|]/g,"").slice(0,70)+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
+  async lzPdf(){const L=UI.lei&&D["lei-"+UI.lei];if(!L)return;try{toast("Montando o PDF…");const b=await leiPdf(L,(UI.lzF||"biz")!=="all");await saveFile("Jornada na Lei Seca - "+L.nome.replace(/[\\/:*?"<>|]/g,"").slice(0,70)+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
   lzDel(){const L=UI.lei&&D["lei-"+UI.lei];if(!L)return;askConfirm("Remover esta lei?","“"+L.nome+"” e os bizus dela saem da plataforma.","Remover",()=>{D["lei-"+L.id]=undefined;touch("lei-"+L.id);UI.lei=null;render()},"danger")},
   refDiagAI(el){refDiagAI(el.dataset.id)},
   mchOpen(){mentorChatModal()},
