@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611031441"></script>
+<script src="/claude-shim.js?v=202611031459"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -4915,7 +4915,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103144112";
+const JX_BUILD="20261103145933";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5438,7 +5438,7 @@ function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_
    :A.st==="ativo"?`<span class="chip ok">Assinatura ativa</span><p>Plano <b>${["mensal","trimestral","semestral","anual"].includes(A.plano)?A.plano:"cortesia"}</b>${ate?" · válido até <b>"+ate+"</b>":""}${A.origem?" · pago pela "+(A.origem==="hotmart"?"Hotmart":"Kiwify"):""}. A renovação é automática; para cancelar, use a plataforma onde você comprou.</p>`
    :A.st==="teste"?`<span class="chip warn">Teste grátis</span><p>${A.left<=1?"O seu teste termina <b>hoje</b>.":"Faltam <b>"+A.left+" dias</b> de teste."} Assine para não perder o ritmo: seus dados continuam todos com você.</p>`
    :`<span class="chip bad">Sem acesso</span><p>O seu acesso terminou. Assine para continuar.</p>`;
-  const cap=A.st==="dono"?"sem limite":A.st==="teste"?60:300;
+  const cap=A.st==="dono"?"sem limite":A.st==="teste"?60:80;
   const plan=(t,nome,per,mes,sub0,def)=>{const preco=V["preco_"+t]||def,u=window.jxCheckout?window.jxCheckout(t):"",best=t==="anual",eco=mes>1&&asnNum(pm)?Math.round((1-asnNum(preco)/(asnNum(pm)*mes))*100):0,sub=sub0||("Equivale a R$ "+(asnNum(preco)/mes).toFixed(2).replace(".",",")+" por mês."+(eco>0?" Economize "+eco+"%.":""));
     return`<div class="asn-p ${best?"best":""}">${best?`<span class="asn-tag">Melhor preço</span>`:t==="semestral"?`<span class="asn-tag pop">Mais escolhido</span>`:""}<b>${nome}</b><div class="asn-v"><small>R$</small>${esc(preco)}<em>/${per}</em></div><p class="muted small">${sub}</p>
     ${A.st==="dono"?`<span class="muted small">${u?"Link configurado ✓":"Link ainda não configurado"}</span>`:u?`<a class="btn ${best?"pri":""}" href="${esc(u)}" target="_blank" rel="noopener">${A.st==="ativo"?"Trocar para o "+nome.toLowerCase():"Assinar o "+nome.toLowerCase()}</a>`:`<span class="muted small">Pagamento em breve.</span>`}</div>`};
