@@ -63,6 +63,13 @@ section.s{padding:84px 0 0}.h2{font:800 clamp(32px,4.4vw,54px)/1 var(--cond);tex
 .tag{position:absolute;top:-13px;right:18px;font:700 12px var(--cond);letter-spacing:.12em;text-transform:uppercase;border-radius:99px;padding:5px 12px;background:var(--ok);color:#052512}.tag.pop{background:var(--grad);color:#fff}
 .pl .nm{font:700 20px var(--cond);text-transform:uppercase;letter-spacing:.06em;color:var(--v2)}.pl .v{font:800 clamp(34px,3vw,46px)/1 var(--cond);display:flex;flex-wrap:wrap;align-items:baseline;gap:0 3px}.pl .v small{font-size:20px}.pl .v em{font-style:normal;font-size:17px;color:var(--fg2);font-weight:600}
 .pl .eq{color:var(--fg2);font-size:14px;margin:0}.pl .eco{color:var(--ok);font-weight:700;font-size:14px;margin:0;min-height:1.4em}.pl .btn{margin-top:8px;width:100%;min-height:48px}
+.mani{position:relative;overflow:hidden;border-radius:28px;padding:clamp(34px,6vw,72px) clamp(22px,6vw,80px);text-align:center;border:1px solid rgba(180,140,255,.35);
+ background:radial-gradient(600px 300px at 50% 0%,rgba(143,92,255,.28),transparent 70%),radial-gradient(500px 260px at 100% 100%,rgba(224,57,143,.16),transparent 70%),var(--bg2)}
+.mani::before,.mani::after{content:"“";position:absolute;font:800 260px/1 var(--cond);color:rgba(180,140,255,.08);top:-30px;left:18px}.mani::after{content:"”";top:auto;left:auto;bottom:-140px;right:22px}
+.mani-j{width:64px;display:block;margin:0 auto 14px;filter:drop-shadow(0 10px 24px rgba(123,60,255,.6))}
+.mani-t{font:800 clamp(34px,5vw,64px)/1.02 var(--cond);text-transform:uppercase;margin:12px auto 18px;max-width:900px}
+.mani-p{color:var(--fg2);font-size:clamp(17px,1.8vw,21px);line-height:1.6;max-width:760px;margin:0 auto 22px}
+.mani-f{font:700 clamp(22px,2.6vw,32px)/1.2 var(--cond);text-transform:uppercase;letter-spacing:.02em;margin:0 auto;max-width:820px;padding-top:22px;border-top:1px solid rgba(180,140,255,.25)}
 .areas{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;max-width:960px;margin:0 auto}.areas span{border:1px solid rgba(180,140,255,.4);background:rgba(143,92,255,.1);border-radius:99px;padding:9px 18px;font:700 16px var(--cond);letter-spacing:.08em;text-transform:uppercase;color:#e3d8ff}.areas span:last-child{background:var(--grad);border:0;color:#fff}
 .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.f{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;position:relative;overflow:hidden}
 .f::after{content:"";position:absolute;right:-40px;top:-40px;width:120px;height:120px;border-radius:50%;background:radial-gradient(rgba(143,92,255,.28),transparent 70%)}
@@ -103,6 +110,14 @@ footer h4{margin:0 0 12px;font:700 18px var(--cond);text-transform:uppercase;let
  <span>Todos os concursos</span><span>Metas diárias</span><span>IA com o seu material</span><span>Flash Jornada</span><span>Simulados</span><span>Jornada na Lei Seca</span><span>Reforços com diagnóstico</span><span>Tire dúvidas com a IA</span>
  <span>Todos os concursos</span><span>Metas diárias</span><span>IA com o seu material</span><span>Flash Jornada</span><span>Simulados</span><span>Jornada na Lei Seca</span><span>Reforços com diagnóstico</span><span>Tire dúvidas com a IA</span>
 </div></div>
+
+<section class="s" id="essencia"><div class="w"><div class="mani">
+ <img class="mani-j" src="logo-jornada.svg" alt="" aria-hidden="true">
+ <span class="kick">✦ A nossa essência</span>
+ <p class="mani-t">Ser independente <span class="acc">não é estudar isolado.</span></p>
+ <p class="mani-p">É decidir o seu caminho, no seu ritmo, sabendo que tem apoio quando precisa. Você escolhe o concurso, a rotina e o que estudar. A Jornada organiza, acompanha e te ajuda a ajustar a rota.</p>
+ <p class="mani-f">A autonomia é sua. <span class="acc">A caminhada não precisa ser solitária.</span></p>
+</div></div></section>
 
 <section class="s center" id="concursos"><div class="w"><span class="kick">✦ Para qual concurso?</span><h2 class="h2">Abarca <span class="acc">todos os concursos</span></h2>
  <p class="sub">Federal, estadual ou municipal, nível médio ou superior: escolha o seu na base de órgãos ou envie o edital, e a Jornada monta o plano com as matérias e o peso de cada uma.</p>
