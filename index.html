@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611022042"></script>
+<script src="/claude-shim.js?v=202611022048"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1695,6 +1695,44 @@ h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
 .tb-rows{display:grid;gap:6px;max-height:min(46vh,420px);overflow:auto}
 .tb-r{display:grid;grid-template-columns:110px 1fr 1.3fr;gap:8px;align-items:center;padding:6px 8px;border:1px solid var(--line);border-radius:10px;background:var(--sunk)}
 @media (max-width:620px){.tb-r{grid-template-columns:1fr 1fr}.tb-r b{grid-column:1/-1}}
+
+/* ---------- Arquivo das metas ---------- */
+.arq-s{margin:0 0 14px}.arq-s .inp{max-width:560px}
+.arq-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.arq-c{display:grid;gap:8px;text-align:left;border:1px solid var(--line);background:var(--sunk);border-radius:14px;padding:12px 14px 0;color:var(--fg);font:inherit;cursor:pointer;transition:border-color .2s,transform .2s}
+.arq-c:hover{border-color:var(--lime);transform:translateY(-2px)}.arq-c.on{border-color:var(--lime);box-shadow:0 0 0 1px var(--lime) inset}
+.arq-h{display:flex;align-items:center;justify-content:space-between;gap:8px}.arq-h b{font-size:16px}
+.arq-c .chip.muted{background:var(--raise)}.arq-c .chip.ok{background:var(--ok-soft);color:var(--ok)}.arq-c .chip.bad{background:var(--bad-soft);color:var(--bad)}.arq-c .chip.warn{background:var(--warn-soft);color:var(--warn)}
+.arq-l,.arq-d{display:flex;align-items:center;gap:6px;font-size:13.5px;color:var(--fg2)}.arq-l svg,.arq-d svg{width:16px;height:16px}
+.arq-n{display:flex;align-items:center;gap:6px;font-size:14px;font-variant-numeric:tabular-nums}.arq-n em{color:var(--line2);font-style:normal}
+.arq-n i{width:11px;height:11px;border-radius:50%;background:var(--line2)}.arq-n i.ok{background:var(--ok)}.arq-n i.bad{background:var(--bad)}
+.arq-d{justify-content:center}.arq-x{display:block;text-align:center;border-top:1px solid var(--line);margin:0 -14px;padding:6px 0;font-size:11px;color:var(--mute)}
+.arq-det{margin-top:14px;animation:qzcIn .35s var(--ease-out)}
+.arq-k{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.arq-k div{border-radius:14px;padding:12px 14px;color:#fff}.arq-k small{display:block;font-weight:700;opacity:.92}.arq-k b{font:800 26px/1.2 var(--f-display,inherit)}
+.arq-k .k1{background:linear-gradient(135deg,#1f6fd1,#4aa3e8)}.arq-k .k2{background:linear-gradient(135deg,#3f9b2f,#7fd24a)}.arq-k .k3{background:linear-gradient(135deg,#e0491f,#f7902f)}.arq-k .k4{background:linear-gradient(135deg,#f09a1a,#f7c948);color:#2a1a00}
+.arq-tb tr.arq-r{cursor:pointer}.arq-tb tr.arq-r:hover td{background:var(--raise)}.arq-ttl{min-width:220px}.arq-cd{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--mute)}
+.arq-dot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--line2)}.arq-dot.ok{background:var(--ok)}
+/* ---------- cadeado da próxima meta ---------- */
+.next .ulk-b{border:0;background:transparent;padding:0;cursor:pointer;display:grid;justify-items:center;gap:6px;color:var(--lime-txt);font:inherit}
+.next .ulk-b .ring{width:78px;height:78px;border-radius:50%;border:2.5px solid var(--lime-txt);display:grid;place-items:center;animation:ulkPulse 1.6s ease-in-out infinite}
+.next .ulk-b small{font-weight:700}
+.ulk{width:38px;height:38px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;overflow:visible}
+.ulk .sh{transform-origin:32.5px 22px;transition:transform .5s var(--ease-spring)}
+@keyframes ulkPulse{0%,100%{box-shadow:0 0 0 0 rgba(160,107,255,.45)}50%{box-shadow:0 0 0 14px rgba(160,107,255,0)}}
+.next.unlocking .ring{animation:ulkShake .45s ease-in-out 1,ulkGlow .9s .45s ease-out forwards}
+.next.unlocking .ulk .sh{transition-delay:.45s;transform:translate(0,-5px) rotate(28deg)}
+.next.unlocking .ulk .bd{animation:ulkBd .9s .5s ease-out forwards}
+@keyframes ulkShake{0%,100%{transform:rotate(0)}20%{transform:rotate(-12deg)}40%{transform:rotate(10deg)}60%{transform:rotate(-7deg)}80%{transform:rotate(4deg)}}
+@keyframes ulkGlow{to{background:var(--lime);color:var(--lime-ink);transform:scale(1.12);box-shadow:0 0 0 18px rgba(160,107,255,0)}}
+@keyframes ulkBd{to{fill:currentColor}}
+.next{position:relative;overflow:visible}
+.ulk-burst{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none}
+.ulk-burst i{position:absolute;width:8px;height:8px;border-radius:2px;background:hsl(var(--h) 90% 65%);transform:rotate(var(--a)) translateY(0);opacity:0;animation:ulkBurst .9s .55s ease-out forwards}
+@keyframes ulkBurst{0%{opacity:1;transform:rotate(var(--a)) translateY(0) scale(1)}100%{opacity:0;transform:rotate(var(--a)) translateY(calc(var(--d) * -1)) scale(.6)}}
+.meta-pop{animation:metaPop .6s var(--ease-spring)}@keyframes metaPop{0%{transform:scale(.96);opacity:.4}100%{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.next .ulk-b .ring,.ulk-burst i{animation:none!important}}
+@media (max-width:700px){.arq-g{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
 </style>
 
 <div class="app">
@@ -2571,6 +2609,7 @@ document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset)ret
   if(el.dataset.c==="xtrS"){UI.xtrS=el.value;xtrModal()}
   else if(el.dataset.c==="tbS"){UI.tb.sid=el.value;UI.tb.aula="";tecBatModal()}
   else if(el.dataset.tbi!=null&&UI.tb){const r=UI.tb.rows[+el.dataset.tbi];if(r){r[el.dataset.tbk]=el.value;if(el.dataset.tbk==="k"){if(el.value==="ok")r.why="";tecBatModal()}}}});
+let arqT=0;document.addEventListener("input",e=>{const el=e.target;if(!el||el.id!=="arqQ")return;clearTimeout(arqT);arqT=setTimeout(()=>{UI.arqQ=el.value;render();const i=$("arqQ");if(i){i.focus();const n=i.value.length;i.setSelectionRange(n,n)}},300)});
 let lzT=0;document.addEventListener("input",e=>{const el=e.target;if(!el||el.id!=="lzS")return;clearTimeout(lzT);lzT=setTimeout(()=>{UI.lzQ=el.value;UI.lzLim=60;render();const i=$("lzS");if(i){i.focus();const n=i.value.length;i.setSelectionRange(n,n)}},350)});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="resAI"){core().resAI=el.checked;touch("core");render();if(el.checked)setTimeout(aiBgRun,500)}});
 /* corte digitado: a parte termina antes da página digitada; se houver um tópico nessa página, para antes dele */
@@ -2936,7 +2975,7 @@ function syncMeta(){
   const ts=tasksOf(r.n),all=ts.length>0&&ts.every(t=>t.done);
   if(all&&!r.done){r.done=today();touch("core")}
   if(!all&&r.done&&!r.next){r.done=null;touch("core")}
-  if(r.done&&!r.next&&(today()>=r.end)&&!core().gj)createMeta();
+  /* a próxima meta abre quando o aluno toca no cadeado (cartão Próxima meta) */
 }
 function metaStatus(r){
   const td=today();
@@ -4227,13 +4266,13 @@ function pv24Card(){if(!IS_TJ)return"";const x=SMX().filter(y=>y.kind==="prova"&
 setInterval(()=>{const id=UI.smOpen;if(!id||TAB!=="simulados")return;const x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run"||!d.t0)return;const r=smLeft(d),el=$("smClk");if(el){el.textContent=smClock(r);el.classList.toggle("low",r<600)}if(r<=0)smFinish(id,true)},1000);
 
 {const _vm=vMeta;vMeta=function(){const h=_vm(),b=smBanner();if(!b)return h;const i=h.indexOf("</div>");return h.startsWith("<div class=\"hello\"")&&i>0?h.slice(0,i+6)+b+h.slice(i+6):b+h}}
-const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Lei seca"]];
+const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Lei seca"],["arquivo","Arquivo"]];
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
 /* Menu simples: 5 entradas. As telas de sempre continuam, agrupadas em abas dentro de cada entrada. */
 const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
 const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["leiseca","Lei seca","edital"],["discursiva","Discursiva e redação","discursiva"]],
   revisoes:[["revisoes","Revisões do dia","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"]],
-  rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"]]};
+  rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"],["arquivo","Arquivo","list"]]};
 const GP={};Object.entries(GROUPS).forEach(([g,L])=>L.forEach(([k])=>{GP[k.split(":")[0]]=g}));
 function gnavHTML(){const g=GP[TAB];if(!g)return"";const cur=TAB,due=dueRevs().length,ep=errPend(),rf=allRefs().filter(x=>!x.done).length;
   const badge=k=>k==="revisoes"&&due?`<small>${due}</small>`:k==="erradas"&&ep?`<small>${ep}</small>`:k==="reforcos"&&rf?`<small>${rf}</small>`:"";
@@ -4255,6 +4294,7 @@ const HOW={
   discursiva:"Aqui você treina a parte escrita: escolha discursiva ou redação, escreva (ou envie a foto da folha) e receba a nota e a correção da IA, quesito por quesito.",
   desempenho:"Aqui você acompanha os resultados. Não há nada para preencher: os números vêm do cronômetro, das questões resolvidas e dos simulados.",
   concurso:"Aqui você cuida do concurso: troque ou adicione concursos, inclua o edital em PDF (o painel tira datas, matérias e assuntos) e acompanhe o cronograma até a prova.",
+  arquivo:"Aqui ficam as metas que já passaram: toque numa meta para ver as atividades, o tempo, o desempenho e o simuladinho dela. Procure uma atividade pelo código ou pelo título.",
   leiseca:"Aqui fica a lei seca bizurada: escolha a lei (ou escreva qual é), o texto oficial vem do site do Planalto e a IA destaca o que mais cai, grifa os trechos que a banca troca e escreve um bizu por artigo. Ligue a lei à matéria para ver quais artigos já caíram nas suas questões.",
   tutorial:"Aqui você aprende a usar cada função da plataforma: escolha um tema, assista à animação e leia as dicas. Use “Ir para esta tela” para praticar na hora.",
   compat:"Aqui você compara dois concursos: o painel mostra as matérias e os assuntos em comum para o estudo de um servir ao outro."};
@@ -4554,7 +4594,7 @@ function render(){
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
-  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca}[TAB];
+  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo}[TAB];
   $("view").classList.toggle("noanim",render.lt===TAB);render.lt=TAB;$("view").innerHTML=gnavHTML()+V();try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
   if(UI.openT)renderDrawer();
 }
@@ -4635,7 +4675,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261102204246";
+const JX_BUILD="20261102204832";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -4850,6 +4890,41 @@ function tecBatModal(){const B=UI.tb||(UI.tb={sid:ED[0].id,rows:[]}),S=SUB(B.sid
     <div class="row" style="justify-content:space-between;gap:8px;flex-wrap:wrap"><span class="muted small">${B.rows.length} questões · ${B.rows.filter(r=>r.k!=="ok").length} vão para Erradas</span><span class="row" style="gap:8px"><button class="btn" data-a="tbReset">Recomeçar</button><button class="btn pri" data-a="tbSave">${ic("check")} Lançar</button></span></div>`
    :`<textarea class="inp" id="tbTx" rows="7" placeholder="Ex.:&#10;2345678&#10;2345690&#10;https://www.tecconcursos.com.br/questoes/2345701"></textarea><div class="row" style="justify-content:flex-end"><button class="btn pri" data-a="tbRead">Continuar</button></div>`}</div></div>`}
 
+/* ================= Arquivo: as metas que já passaram, como no Guruja ================= */
+const ULK_SVG=`<svg class="ulk" viewBox="0 0 48 48" aria-hidden="true"><path class="sh" d="M15.5 22v-6.5a8.5 8.5 0 0 1 17 0V22"/><rect class="bd" x="10" y="22" width="28" height="20" rx="5"/><circle class="kh" cx="24" cy="31" r="2.6"/><path class="kh" d="M24 33v4"/></svg>`;
+function metaTag(m){const td=today();if(!m.done&&td<=m.end)return{t:m.adi?"Adiamento":"Em dia",c:m.adi?"warn":"muted"};
+  const d=m.done?dbet(m.end,m.done):dbet(m.end,td);if(d<0)return{t:"Antecipação",c:"ok"};if(d>0)return{t:"Com atraso",c:"bad"};return{t:m.adi?"Adiamento":"Em dia",c:m.adi?"warn":"muted"}}
+function metaNums(m){const ts=tasksOf(m.n),mbt=minutesByTask(),td=today();let min=0,f=0,a=0;
+  ts.forEach(t=>{min+=mbt[t.id]||t.gsp||0;if(t.q&&t.q.f){f+=t.q.f;a+=t.q.a||0}});
+  const dn=ts.filter(t=>t.done).length,late=ts.filter(t=>!t.done&&td>m.end).length,pend=ts.length-dn-late;
+  const end=m.done||(td<m.end?td:m.end),dias=Math.max(1,dbet(m.start,end)+1);
+  return{ts,dn,late,pend,min,f,a,acc:f?Math.round(a/f*1000)/10:null,dias,avg:min/dias,dev:m.done?dbet(m.end,m.done):td>m.end?dbet(m.end,td):0}}
+function arqTaskRows(ts){const mbt=minutesByTask();
+  return`<div class="tbw"><table class="tb arq-tb"><thead><tr><th></th><th>#</th><th>Disciplina</th><th>Tipo</th><th>Título</th><th>Relevância</th><th>Tempo</th><th>Desempenho</th><th>Código</th></tr></thead><tbody>${ts.map((t,i)=>{const s=SUB(t.sid),st=core().gj&&t.rel?t.rel:relInfo(t).n,sp=mbt[t.id]||t.gsp||0,pf=t.q&&t.q.f?Math.round((t.q.a||0)/t.q.f*1000)/10+"%":"–";
+    return`<tr data-a="openT" data-id="${t.id}" class="arq-r"><td><span class="arq-dot ${t.done?"ok":""}"></span></td><td>${t.k||i+1}</td><td>${esc(s.n)}</td><td>${esc(t.ref?"Reforço":PHN[t.ph]||"Atividade")}</td><td class="arq-ttl">${esc(taskTitle(t))}</td><td><span class="stars ${relCls(st)}">${"★".repeat(st)}<s>${"★".repeat(5-st)}</s></span></td><td>${sp?fmtH(sp):"–"}</td><td>${pf}</td><td class="arq-cd">${esc(tcode(t))}</td></tr>`}).join("")}</tbody></table></div>`}
+function vArquivo(){const c=core(),q=norm(UI.arqQ||""),ms=[...(c.metas||[])].sort((a,b)=>b.n-a.n),open=UI.arqOpen;
+  const hello=`<div class="hello"><h1>Arquivo</h1><p>As metas que você já fez, com as atividades, o tempo, o desempenho e o simuladinho de cada uma.</p></div>`;
+  const search=`<div class="arq-s"><input class="inp" id="arqQ" value="${esc(UI.arqQ||"")}" placeholder="Procurar pelo código ou pelo título da atividade" data-c="arqQ"></div>`;
+  if(q){const hits=[];ms.forEach(m=>tasksOf(m.n).forEach(t=>{if(norm(tcode(t)).includes(q)||norm(taskTitle(t)).includes(q))hits.push(t)}));
+    return hello+search+`<section class="card"><div class="card-h"><h2>Resultado da busca</h2><span class="r muted small">${hits.length} atividade${hits.length===1?"":"s"}</span></div><div class="card-b">${hits.length?arqTaskRows(hits.slice(0,200)):`<p class="muted" style="margin:0">Nenhuma atividade com esse código ou título.</p>`}</div></section>`}
+  if(!ms.length)return hello+`<div class="empty">Ainda não há metas. A primeira aparece em Hoje.</div>`;
+  const card=m=>{const T=metaTag(m),N=metaNums(m),cur=m.n===c.cur&&!m.done,sel=open===m.n,dv=N.dev>0?"+ "+dias(N.dev):N.dev<0?"- "+dias(-N.dev):"0 dias";
+    return`<button class="arq-c ${sel?"on":""} ${cur?"cur":""}" data-a="arqOpen" data-n="${m.n}" aria-expanded="${sel}"><span class="arq-h"><b>Meta ${pad(m.n)}</b><span class="chip ${T.c}">${cur?"Atual":T.t}</span></span>
+     <span class="arq-l">${ic("materiais")} Atividades: ${N.ts.length}</span><span class="arq-n"><i class="g"></i>${N.pend}<em>|</em><i class="ok"></i>${N.dn}<em>|</em><i class="bad"></i>${N.late}</span>
+     <span class="arq-d">${ic("clock")} ${dv}</span><span class="arq-x">${(sel?"▲":"▼")}</span></button>`};
+  let det="";if(open!=null){const m=ms.find(x=>x.n===open);if(m){const N=metaNums(m),sm=smMiniFor(m.n),fin=m.done||m.end<=today();
+    det=`<section class="card arq-det"><div class="card-h"><h2>Meta ${pad(m.n)}</h2><span class="r muted small">${dm(m.start)} a ${dm(m.done||m.end)}${m.done?" · cumprida em "+dm(m.done):""}</span></div><div class="card-b" style="display:grid;gap:14px">
+     <div class="arq-k"><div class="k1"><small>Desempenho atingido</small><b>${N.acc==null?"–":String(N.acc).replace(".",",")+"%"}</b></div><div class="k2"><small>Horas estudadas</small><b>${fmtH(N.min)}</b></div><div class="k3"><small>Questões resolvidas</small><b>${N.f}</b></div><div class="k4"><small>Média de horas diárias</small><b>${fmtH(N.avg)}</b></div></div>
+     <div class="row" style="gap:8px;flex-wrap:wrap;align-items:center"><span class="chip sm-k mini">Simuladinho</span><span class="small" style="flex:1 1 220px">${sm?(sm.st==="done"?`Feito em ${dm(sm.done)}: <b>${sm.pct}%</b> (${sm.ac??"?"} de ${sm.tot} questões).`:"Já criado: continue de onde parou."):fin?"Disponível: questões dos assuntos desta meta.":"Libera quando a meta terminar."}</span>
+      ${sm?`<button class="btn sm ${sm.st==="done"?"":"pri"}" data-a="arqSm" data-id="${sm.id}">${sm.st==="done"?"Ver correção":"Continuar"}</button>`:`<button class="btn sm pri" data-a="smNew" data-k="mini" data-m="${m.n}" ${fin&&!UI.smGen?"":"disabled"}>${ic("bulb")} Fazer o simuladinho</button>`}</div>
+     ${arqTaskRows(N.ts)}</div></section>`}}
+  return hello+search+`<section class="card"><div class="card-h"><h2>${ic("meta")} Metas</h2><span class="r muted small">${ms.length} meta${ms.length>1?"s":""} · toque numa meta para ver as atividades</span></div><div class="card-b"><div class="arq-g">${ms.map(card).join("")}</div></div></section>${det}`}
+
+/* ---------- abrir a próxima meta: o aluno toca no cadeado ---------- */
+function unlockNext(btn){if(UI.ulk)return;UI.ulk=1;const card=btn.closest(".card.next")||btn;card.classList.add("unlocking");try{fxVib([20,40,60])}catch(e){}
+  const burst=document.createElement("div");burst.className="ulk-burst";for(let i=0;i<18;i++){const s=document.createElement("i");s.style.setProperty("--a",(i*20)+"deg");s.style.setProperty("--d",(50+Math.random()*40)+"px");s.style.setProperty("--h",(i*37%360));burst.appendChild(s)}card.appendChild(burst);
+  setTimeout(()=>{UI.ulk=0;if(createMeta()){toast("Meta "+pad(core().cur)+" aberta. Bons estudos!");render();const h=document.querySelector(".mandado,.card.meta,.m-head");if(h)h.classList.add("meta-pop")}else{card.classList.remove("unlocking");render()}},1500)}
+
 function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
   let h=(SKIN()==="arena"?orgHero():`<div class="hello"><h1>Oi, ${name||"tudo pronto"}</h1><p>Acompanhe seu progresso e veja o que falta para cumprir a sua meta.</p></div>`)+edThinHTML();
@@ -4939,7 +5014,7 @@ function nextCard(r,rem){
     <div class="nx-when"><span>Próxima em:</span><b>${dm(r.end)}</b></div>
     <p class="muted small" style="margin:0">${fl?"Faltam "+fl+" atividade"+(fl>1?"s":"")+" da Meta "+pad(r.n)+".":"Todas as atividades cumpridas."}${cr?` ${cr} adiada${cr>1?"s":""} entra${cr>1?"m":""} no começo dela.`:""}</p>
     <button class="btn" data-a="adiar" title="Empurra a próxima meta 1 dia">Adiar meta</button></section>`}
-  return`<section class="card next open" aria-label="Próxima meta"><button class="nx-gear" data-a="volOpen" aria-label="Ajustar o volume de atividades da próxima meta" title="Volume de atividades da próxima meta">${ic("gear")}</button><h3>Meta ${pad(nn)} liberada</h3><div class="lockic">${ic("check")}</div><p class="muted small" style="margin:0">Você concluiu a Meta ${pad(r.n)}. A próxima já pode ser aberta.</p><button class="btn pri" data-a="anticipate">Abrir a Meta ${pad(nn)}</button></section>`;
+  return`<section class="card next open" aria-label="Próxima meta"><button class="nx-gear" data-a="volOpen" aria-label="Ajustar o volume de atividades da próxima meta" title="Volume de atividades da próxima meta">${ic("gear")}</button><h3>Meta ${pad(nn)} liberada</h3><button class="ulk-b" data-a="ulkOpen" aria-label="Abrir a Meta ${pad(nn)}"><span class="ring">${ULK_SVG}</span><small>Toque no cadeado para abrir</small></button><p class="muted small" style="margin:0">Você concluiu a Meta ${pad(r.n)}. O simuladinho dela já está no Arquivo e em Simulados.</p></section>`;
 }
 
 /* ---------- Tela da atividade ---------- */
@@ -8322,6 +8397,9 @@ const A={
     B.rows.forEach(r=>{if(r.k==="ok")return;const k=r.k==="nr"?"err":r.k;addTecQ({sid:B.sid,n:r.n,k,as:B.as,note:(r.k==="nr"?"Não resolvi. ":"")+(r.why?(WHY.find(w=>w[0]===r.why)||[0,""])[1]:""),why:r.why,aula:B.aula});n++;
       if(B.aula){const R0=resGet(B.sid,B.aula);(R0.tq=R0.tq||[]).push({id:uid(),n:r.n,link:tecQUrl(r.n),as:B.as||"Bateria do TEC",q:"",gab:"",com:"",d:today(),k:k});touch(resKey(B.sid,B.aula))}});
     UI.tb={sid:B.sid,rows:[]};$("layer3").innerHTML="";render();toast(n+" questões lançadas em Erradas, revisões e cards"+(B.aula?" e no resumo da aula":""))},
+  ulkOpen(el){unlockNext(el)},
+  arqOpen(el){const n=+el.dataset.n;UI.arqOpen=UI.arqOpen===n?null:n;render();if(UI.arqOpen!=null)setTimeout(()=>{const d=document.querySelector(".arq-det");if(d)d.scrollIntoView({behavior:"smooth",block:"start"})},60)},
+  arqSm(el){UI.smOpen=el.dataset.id;TAB="simulados";render();scrollTo(0,0)},
   mtOpen(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const M=mentorStats();UI.mt={M,P:mentorAuto(M),busy:0};mentorModal()},
   mtClose(){UI.mt=null;$("layer3").innerHTML=""},
   async mtAI(){const X=UI.mt;if(!X||!SAMPLE)return;X.busy=1;mentorModal();try{X.P=await mentorAIPlan(X.M)}catch(e){toast("A IA não respondeu agora; ficou a análise automática")}X.busy=0;mentorModal()},
