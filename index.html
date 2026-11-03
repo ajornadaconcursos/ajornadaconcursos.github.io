@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611031602"></script>
+<script src="/claude-shim.js?v=202611031829"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1798,6 +1798,12 @@ p,li,td,.ttl,.small,small{letter-spacing:0;word-spacing:normal}
 .ak-ck{display:flex;gap:10px;align-items:center;min-width:0;cursor:pointer}.ak-ck input{width:18px;height:18px;accent-color:var(--lime);flex:none}.ak-ck span{display:grid;min-width:0}.ak-ck b{overflow-wrap:anywhere}.ak-ck small{color:var(--fg2);font-size:12.5px}
 .ak-pv{border:1px dashed var(--line2);border-radius:12px;padding:10px 14px;display:grid;gap:4px}.ak-pv small{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--lime-txt)}.ak-pv p{margin:0;white-space:pre-line}.ak-f{font-weight:600}.ak-b{color:var(--fg2);font-size:14px}
 @media (max-width:560px){.ak-dk{grid-template-columns:1fr}}
+
+.nv-fj{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center;padding:18px 20px;border-color:color-mix(in srgb,#b07cff 55%,var(--line));background:radial-gradient(120% 140% at 0% 0%,rgba(143,92,255,.22),transparent 60%),radial-gradient(90% 120% at 100% 100%,rgba(214,56,143,.16),transparent 60%),var(--panel);animation:arIn .4s ease-out}
+.nv-art{position:relative;width:74px;height:74px;border-radius:22px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#7b3cff,#d6388f);box-shadow:0 12px 30px -10px rgba(214,56,143,.7)}.nv-art svg.i{width:34px;height:34px}
+.nv-art i{position:absolute;inset:-6px;border-radius:26px;border:2px solid rgba(176,124,255,.45);animation:tjP 2.4s ease-in-out infinite}
+.nv-tx{display:grid;gap:6px}.nv-tag{font:700 11px/1 var(--f-body);letter-spacing:.12em;color:#ffb3d9}.nv-tx h2{margin:0;font:700 22px/1.15 var(--f-display)}.nv-tx p{margin:0 0 4px;color:var(--fg2);max-width:70ch}
+@media (max-width:560px){.nv-fj{grid-template-columns:52px minmax(0,1fr);gap:12px;padding:14px;align-items:start}.nv-art{width:52px;height:52px;border-radius:16px}.nv-art svg.i{width:24px;height:24px}.nv-art i{inset:-4px;border-radius:19px}.nv-tx h2{font-size:19px}.nv-fj .btn{flex:1 1 auto}}
 /* ===== Flash Jornada · Trilha ===== */
 .tj-home{display:grid;gap:18px;padding:10px 0 30px}
 .tj-hd{display:grid;gap:8px;text-align:left}.tj-hd h1{margin:0;font:700 clamp(28px,3.4vw,38px)/1.1 var(--f-display)!important}.tj-hd p{margin:0;max-width:620px}
@@ -1909,7 +1915,7 @@ kbd{font:600 10.5px var(--f-body);border:1px solid var(--line2);border-bottom-wi
 .ar-sw{display:flex;gap:12px;align-items:flex-start;cursor:pointer}.ar-sw input{width:20px;height:20px;accent-color:var(--lime);flex:none;margin-top:2px}.ar-sw small{display:block;color:var(--fg2);font-size:12.5px;margin-top:2px}
 .arena-v h3{margin:0 0 4px;font:600 17px var(--f-display)}
 .ar-in{max-width:420px;text-align:center;display:grid;gap:8px;position:relative;padding-top:0!important;overflow:hidden}.ar-x{position:absolute;right:10px;top:10px;z-index:2}
-.ar-in h3{margin:6px 0 0;font:700 22px var(--f-display)}.ar-sub{margin:0;color:var(--lime-txt);font-weight:600;font-size:14px}.ar-in p.muted{margin:0 4px;text-align:center}.ar-g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.ar-g2 .card-h h2{font-size:17px!important}
+.ar-in h3{margin:6px 0 0;font:700 22px var(--f-display);text-align:center}.ar-sub{margin:0;color:var(--lime-txt);font-weight:600;font-size:14px;text-align:center}.ar-in>p,.ar-in .ar-dots{text-align:center;justify-self:center}.ar-in p.muted{margin:0 4px;text-align:center}.ar-g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.ar-g2 .card-h h2{font-size:17px!important}
 .ar-art{margin:0 -22px 8px;height:150px;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,rgba(143,92,255,.25),transparent 65%),var(--sunk);position:relative;color:var(--lime-txt)}
 .ar-art svg.i{width:46px;height:46px;filter:drop-shadow(0 0 12px rgba(143,92,255,.8));animation:arIn .5s ease-out,arFl 2.4s ease-in-out .5s infinite}
 .ar-curve{position:absolute;left:10%;right:10%;bottom:14px;width:80%;height:50px;fill:none;stroke:#d6388f;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:320;stroke-dashoffset:320;animation:arDraw 1.4s .2s ease-out forwards}
@@ -4537,7 +4543,7 @@ const HOW={
 function howAttach(){const v=$("view"),t=HOW[TAB];if(!v||!t||v.querySelector(".how"))return;const p=document.createElement("details");p.className="how";p.innerHTML=`<summary>ⓘ Como usar esta tela</summary><span>${esc(t)}</span>`;
   const h=v.querySelector(".hello");if(h){h.appendChild(p);return}if(TAB!=="meta")return;const g=v.querySelector(".gnav");const w=document.createElement("div");w.className="hello how-only";w.appendChild(p);if(g)g.after(w);else v.prepend(w)}
 function vReforcos(){return`<div class="hello"><h1>Reforços</h1><p>Questões extras do TEC nos assuntos em que o acerto ficou abaixo de 75%. Cada reforço tem prazo de 30 dias e não trava a meta.</p></div>${refsHTML()}`}
-let UI0ctab=null;let TAB=(location.hash||"").replace("#","");if(TAB==="prova"){TAB="incidencia"}if(!TABS.some(t=>t[0]===TAB))TAB="meta";
+let UI0ctab=null;let TAB=(location.hash||"").replace("#","");if(TAB==="prova"){TAB="incidencia"}if(!TABS.some(t=>t[0]===TAB)||TAB!=="assinatura")TAB="meta";
 const UI={filter:"todas",calM:null,openT:null,qform:null,pmap:null,pq:null,confirm:null,psub:"lp"};if(UI0ctab)UI.ctab=UI0ctab;
 try{if(localStorage.getItem("jornada-navc")==="1")document.documentElement.dataset.navc="1"}catch(e){}
 try{const j=sessionStorage.getItem("jornada-jtab");if(j){UI.jtab=j;sessionStorage.removeItem("jornada-jtab")}const m2=sessionStorage.getItem("jornada-rmode");if(m2){UI.rotMode=m2;sessionStorage.removeItem("jornada-rmode")}const d2=sessionStorage.getItem("jornada-pxday");if(d2){UI.pxDay=d2;sessionStorage.removeItem("jornada-pxday")}}catch(e){}
@@ -4712,7 +4718,7 @@ const TUT=[
   d:["Leia a lei seca pelos filtros “Cai muito” e “Caiu nas suas questões” primeiro.","Leia em voz alta os trechos grifados: são as palavras que a banca troca.","Use o Estudo extra do tipo Lei seca para 30 minutos de leitura dirigida."]},
 
  {id:"arena",t:"Flash Jornada",ic:"arena",go:"arena",
-  p:"O Flash Jornada é onde você revisa os flash cards. Eles chegam sozinhos dos resumos das aulas, das questões que você erra e dos testes de fixação (e você pode criar os seus). Em cada card, tente lembrar antes de revelar e diga com sinceridade: Me perdi, Quase lá ou Dominei. O Flash Jornada calcula quando cada um volta: o fácil se espaça rápido, o que te pega volta mais cedo. Há também afirmações de Certo ou Errado, como na prova, e o botão Trechos difíceis treina só os seus pontos fracos.",
+  p:"Novidade da plataforma: o Flash Jornada é a sua trilha da memória. Os flash cards chegam sozinhos dos resumos das aulas, das questões que você erra e dos testes de fixação; você também pode criar os seus em + Novo card ou trazer os seus baralhos em Importar do Anki. A trilha mostra onde cada card está: Partida (novos), Na trilha (aprendendo), Checkpoint (para revisar) e a bandeira da Aprovação (os que já estão na memória longa). Em Seguir a trilha, cada card é uma ficha: tente lembrar antes de revelar e diga com sinceridade Me perdi, Quase lá ou Dominei. O Flash Jornada calcula quando cada um volta: o que você domina se espaça, o que te pega volta mais cedo. Há também afirmações de Certo ou Errado, como na prova, e Trechos difíceis treina só os seus pontos fracos. Cada dia de revisão vira uma pegada na sua caminhada.",
   s:`<div class="tu-card"><div class="tu-row"><span class="tu-chip" data-k="stk">👣 Caminhada: <b data-k="sd">0</b> dias</span><span class="tu-chip ok" data-k="now"><b data-k="nn">0</b> para agora</span></div>
      <div class="tu-fc" data-k="fc"><div class="f">A EC 132/2023 substituiu ICMS e ISS por quais tributos?</div><div class="b">Pelo IBS; e PIS/Cofins pela CBS: é o IVA dual.</div></div>
      <div class="tu-row"><button class="tu-btn ghost" data-k="no">Me perdi · agora</button><button class="tu-btn ghost" data-k="qs">Quase lá · 1d</button><button class="tu-btn" data-k="ok">Dominei · 3d</button></div>
@@ -4721,11 +4727,11 @@ const TUT=[
   st:[{k:"now",on:["now"],n:[["nn",14]],c:"Abra o Flash Jornada: o número mostra quantos cards estão para agora. Toque em Seguir a trilha."},
       {k:"fc",on:["d0"],c:"Leia a pergunta e puxe a resposta da memória, sem olhar."},
       {k:"fc",on:["fc"],c:"Revele e confira. Lembrar é diferente de reconhecer: seja honesto."},
-      {k:"ok",on:["d1","d2"],c:"Lembrou? O intervalo cresce a cada acerto: 3 dias, depois 9, 25, meses..."},
-      {k:"no",c:"Errou? O card volta ainda nesta revisão e depois mais cedo. O erro é o que diz ao Flash Jornada quando ele deve voltar."},
+      {k:"ok",on:["d1","d2"],c:"Dominou? O intervalo cresce a cada acerto: 3 dias, depois 9, 25, meses... É o card subindo até a bandeira da Aprovação."},
+      {k:"no",c:"Se perdeu? O card volta ainda nesta revisão e depois mais cedo. Errar não é ruim: é o que diz ao Flash Jornada quando ele deve voltar."},
       {k:"ce",on:["ce"],c:"Afirmações de Certo ou Errado: julgue antes de ver o gabarito e a justificativa."},
-      {k:"gap",on:["gap","stk"],n:[["sd",7]],c:"Trechos difíceis treina só os cards que mais te pegam. Revise todo dia para manter a caminhada."}],
-  d:["Faça o Flash Jornada todo dia antes de teoria nova: 10 a 15 minutos bastam.","Em Configurações escolha a intensidade (Conservador perto da prova) e o ritmo de cards novos.","As questões do TEC anotadas continuam em Revisar › Revisões do dia, no ciclo de 1, 7, 14, 30 e 60 dias."]},
+      {k:"gap",on:["gap","stk"],n:[["sd",7]],c:"Trechos difíceis treina só os cards que mais te pegam. Revise todo dia: cada dia vira uma pegada na sua caminhada."}],
+  d:["Faça o Flash Jornada todo dia antes de teoria nova: 10 a 15 minutos bastam.","Em Ajustes escolha a intensidade (Conservador perto da prova) e o ritmo de cards novos.","Tem baralhos no Anki? Exporte em .apkg ou .txt e use Importar do Anki: os repetidos são pulados sozinhos.","As questões do TEC anotadas continuam em Revisar › Revisões do dia, no ciclo de 1, 7, 14, 30 e 60 dias."]},
 
  {id:"erradas",t:"Erradas, reforços e bateria do TEC",ic:"erradas",go:"erradas",
   p:"Toda questão que você erra ou chuta entra em Erradas para refazer. Fez uma bateria no TEC? Em “Lançar bateria do TEC”, cole os números e marque cada uma (errei, não resolvi, chutei) com o motivo. Quando uma matéria fica abaixo de 75%, nasce um reforço com diagnóstico: onde você errou, por que errou e os passos para corrigir.",
@@ -4916,7 +4922,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103160245";
+const JX_BUILD="20261103182913";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5290,6 +5296,11 @@ function arCfgV(){const A=ARC(),opt=(k,L)=>`<div class="ar-op">${L.map(([v,l,d])
    <div><h3>Ritmo de novos cards</h3>${opt("pace",AR_PACE)}</div>
    <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><span><b>Tutorial</b><br><span class="muted small">Reveja a introdução do Flash Jornada quando quiser.</span></span><button class="btn" data-a="arIntro">Rever</button></div></div></section>`}
 function arNavB(){try{if(!ARC().intro)return`<span class="new">Novo</span>`;const n=arCounts().now;return n?`<span class="cnt ar">${n}</span>`:""}catch(e){return""}}
+/* chamada de novidade: aparece no Hoje até o aluno conhecer o Flash Jornada ou dispensar */
+function arNovo(){const A=ARC();if(A.nov||A.intro)return"";const n=CARDS().filter(c=>c.st!=="arch").length;
+  return`<section class="card nv-fj" aria-label="Novidade: Flash Jornada"><div class="nv-art" aria-hidden="true">${ic("foot")}<i></i></div>
+   <div class="nv-tx"><span class="nv-tag">✦ NOVIDADE NA PLATAFORMA</span><h2>Conheça o Flash Jornada</h2><p>Sua trilha da memória: flash cards que voltam na hora certa, pouco antes de você esquecer. Eles chegam sozinhos dos seus resumos, dos erros e dos testes${n?`, e você já tem <b>${n} card${n===1?"":"s"}</b> esperando`:""}. Dá também para trazer os seus baralhos do Anki.</p>
+   <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn pri" data-a="arNovoGo">${ic("foot")} Conhecer o Flash Jornada</button><button class="btn ghost" data-a="arNovoX">Agora não</button></div></div></section>`}
 function arPromo(){arMig();const C=arCounts();return`<section class="card arv-p"><div class="card-b arv-pr"><span class="chip sm-k mini">${ic("arena")} Flash Jornada</span><span style="flex:1 1 260px"><b>Os cards agora ficam no Flash Jornada.</b><br><span class="muted small">${C.now} para agora · ${CARDS().length} no total. Revise com Me perdi, Quase lá ou Dominei e cada card volta na hora certa.</span></span><button class="btn pri" data-a="tab" data-t="arena">Abrir o Flash Jornada</button></div></section>`}
 function vArena(){if(!UI.akDd&&!IDBW){UI.akDd=1;const r=akDedupe();if(r){touch("cards");setTimeout(()=>toast(`${r} card${r===1?"":"s"} repetido${r===1?"":"s"} removido${r===1?"":"s"} do Flash Jornada`),300)}}if(UI.ar)return arSession();const v=UI.arV||"";
   const body=v==="cards"?arCardsV():v==="disc"?arDiscV():v==="met"?arMetV():v==="cfg"?arCfgV():arHome();
@@ -5462,7 +5473,7 @@ function asnChip(){const A=window.JX_ACESSO;if(A&&A.st==="dono")return`<button c
 
 function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
-  let h=greetHTML(name)+(SKIN()==="arena"?orgHero():"")+edThinHTML();
+  let h=greetHTML(name)+arNovo()+(SKIN()==="arena"?orgHero():"")+edThinHTML();
   if(!r){
     const pv=previewMeta(),tot=remainingMetas();
     h+=`<section class="card mandado"><div class="m-head"><div class="m-num"><small>Prévia</small><b>Meta 01</b></div><div class="m-meta"><span class="code">OJ-TJSP · 01/${pad(tot)}</span><span class="muted small">${tot} metas previstas para cobrir o edital</span></div></div>
@@ -7518,7 +7529,7 @@ function vMateriais(){
         <div class="row" style="justify-content:flex-end">${p?`<button class="btn sm" data-a="read" data-id="${p.id}" data-pa="1" data-pb="${p.pages||1}">${ic("book")} Abrir</button><button class="btn sm ghost" data-a="delPdf" data-id="${p.id}" aria-label="Remover o PDF da Aula Extra ${q}">${ic("trash")}</button>`:upBtn(ic("plus")+" Enviar PDF","btn sm",s.id,q)}</div></div>`}).join(""):"";
     const extra=pdfsOf(s.id).filter(p=>!L.some(a=>a.c===p.aula)&&!QZ.includes(p.aula)&&!compAula(s.id,p.aula||""));
     const ex=extra.map(p=>`<div class="pdfrow"><div class="pdfic">PDF</div><div style="min-width:0"><div class="nm">${esc(p.name)}</div><div class="row" style="margin-top:6px;gap:6px">${cloudChip(p)}${(QUIZ[s.id]||[]).includes(p.aula)?`<span class="chip lime">Quiz da Aula ${esc(p.aula)}</span>`:`<span class="chip warn">Sem aula definida</span>`}<span class="chip">${p.pages} págs.</span></div></div><div class="row" style="justify-content:flex-end"><select class="inp" style="width:auto" data-c="paula" data-id="${p.id}" aria-label="Aula deste PDF"><option value="">Escolher aula…</option>${AU(s.id).map(a=>`<option value="${a.c}" ${p.aula===a.c?"selected":""}>${esc(auLabel(s.id,a.c))}</option>`).join("")}${(QUIZ[s.id]||[]).map(q=>`<option value="${q}" ${p.aula===q?"selected":""}>Quiz ${q}</option>`).join("")}</select><button class="btn sm" data-a="read" data-id="${p.id}" data-pa="1" data-pb="${p.pages}">${ic("book")} Abrir</button><button class="btn sm ghost" data-a="delPdf" data-id="${p.id}" aria-label="Remover ${esc(p.name)}">${ic("trash")}</button></div></div>${UI.pmap===p.id?pmapHTML(p):""}`).join("");
-    const opn=UI.mopen&&(s.id in UI.mopen)?UI.mopen[s.id]:s.id===(UI.psub||"lp");
+    const opn=UI.mopen&&(s.id in UI.mopen)?UI.mopen[s.id]:!!UI.psubSet&&s.id===UI.psub;
     list+=`<details class="card msub" data-sid="${s.id}" ${opn?"open":""}><summary class="card-h" style="cursor:pointer;list-style:none"><span class="code" style="border-color:${s.col}">${s.c}</span><h2>${esc(s.n)}</h2><span class="r muted small">${cc?esc(cc.plat||"Seu curso")+" · ":isC?"Estratégia · ":"Pelo edital · "}${nd} de ${L.length} ${isC?"aulas":"tópicos"} concluídos · ${pdfsOf(s.id).length} PDF${pdfsOf(s.id).length===1?"":"s"}</span></summary>
       <div class="card-b row" style="padding-block:10px;border-bottom:1px solid var(--line);justify-content:space-between;align-items:center"><span class="muted small">Questões VUNESP de ${esc(s.n)} para Oficial de Justiça TJ SP</span><a class="btn sm" href="${esc(tecUrl(s.id))}" target="_blank" rel="noopener">${ic("ext")} Questões no TEC</a></div>
       <div class="card-b row" style="padding-block:10px;border-bottom:1px solid var(--line);justify-content:space-between;align-items:center"><span class="row" style="gap:6px"><span class="muted small">Plataforma:</span>${(courseOfTask({sid:s.id})||{}).url?`<span class="chip ok">${ic("check")} curso ligado</span>`:`<span class="chip">curso sem link</span>`}<span class="chip ${L.some(a=>aLink(s.id,a.c))?"ok":""}">${L.some(a=>aLink(s.id,a.c))?ic("check")+" ":""}${L.filter(a=>aLink(s.id,a.c)).length} de ${L.length} aulas com link</span></span><button class="btn sm" data-a="lkOpen" data-s="${s.id}">${ic("ext")} ${L.some(a=>aLink(s.id,a.c))?"Atualizar links das aulas":"Ligar as aulas à plataforma"}</button></div>
@@ -8948,6 +8959,7 @@ const A={
   arOffSave(){ARC().off=[...(UI.arOff||ARC().off||[])];UI.arOff=null;touch("core");toast("Disciplinas do Flash Jornada salvas");render()},
   arSet(el){ARC()[el.dataset.k]=el.dataset.v;touch("core");render()},
   arIntro(){arIntro(0)},arIn(el){arIntro(+el.dataset.i)},arInEnd(){ARC().intro=1;touch("core");$("layer3").innerHTML="";render()},
+  arNovoGo(){ARC().nov=1;touch("core");TAB="arena";UI.arV="";render();scrollTo(0,0)},arNovoX(){ARC().nov=1;touch("core");render();toast("Tudo bem: o Flash Jornada fica no menu, quando você quiser")},
   akOpen(){UI.ak={step:"pick"};akModal()},akBack(){UI.ak={step:"pick"};akModal()},akGo(){akImport()},akClose(){UI.ak=null;$("layer3").innerHTML=""},
   arNew(){UI.arNk=UI.arNk||"qa";arNewModal()},arNk(el){UI.arNk=el.dataset.v;arNewModal()},arNv(el){UI.arNv=+el.dataset.v;const f=$("arNf").value,b=$("arNb").value;arNewModal();$("arNf").value=f;$("arNb").value=b},
   arNewSave(){const F=$("arNf").value.trim(),B=$("arNb").value.trim(),sid=$("arNs").value,ce=UI.arNk==="ce";if(!F||!B){toast(ce?"Escreva a afirmação e a justificativa":"Preencha a pergunta e a resposta");return}
@@ -9187,7 +9199,7 @@ document.addEventListener("change",e=>{
   else if(k==="tec"){c.cfg.tec=el.value.trim();touch("core")}
   else if(k==="tecs"){const v=el.value.trim();if(v&&!/^https?:\/\//i.test(v)){toast("Cole um link completo, começando com https://");return}c.cfg.tecs=c.cfg.tecs||{};if(v)c.cfg.tecs[el.dataset.s]=v;else delete c.cfg.tecs[el.dataset.s];touch("core");toast(v?"Caderno salvo para "+SUB(el.dataset.s).n:"Link removido");render()}
   else if(k==="cron"){const x=c.cron.find(z=>z.k===el.dataset.k);if(x&&el.value){x.d=el.value;touch("core");render()}}
-  else if(k==="psub"){UI.psub=el.value;render()}
+  else if(k==="psub"){UI.psub=el.value;UI.psubSet=1;render()}
   else if(k==="dA"||k==="dB"||k==="dS"){const F=dFilter();if(k==="dA")F.a=+el.value;if(k==="dB")F.b=+el.value;if(k==="dS")F.sid=el.value;if(F.b<F.a){if(k==="dA")F.b=F.a;else F.a=F.b}render()}
   else if(k==="pfile"){if(el.files&&el.files.length)addPdfs([...el.files],el.dataset.sid||$("pSub").value,el.dataset.aula||($("pAula")?$("pAula").value:""));el.value=""}
   else if(k==="paula"){const p=pdf(el.dataset.id);if(p){p.aula=el.value;p.part=el.value?nextPart(p.sid,el.value,p):undefined;touch("pdf-"+p.id);simCache.key="";const r=curMeta();if(r&&!started(r.n)&&replanCurrent())toast("Meta atual refeita com o PDF na aula certa");render()}}
