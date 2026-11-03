@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611031829"></script>
+<script src="/claude-shim.js?v=202611031848"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1804,6 +1804,9 @@ p,li,td,.ttl,.small,small{letter-spacing:0;word-spacing:normal}
 .nv-art i{position:absolute;inset:-6px;border-radius:26px;border:2px solid rgba(176,124,255,.45);animation:tjP 2.4s ease-in-out infinite}
 .nv-tx{display:grid;gap:6px}.nv-tag{font:700 11px/1 var(--f-body);letter-spacing:.12em;color:#ffb3d9}.nv-tx h2{margin:0;font:700 22px/1.15 var(--f-display)}.nv-tx p{margin:0 0 4px;color:var(--fg2);max-width:70ch}
 @media (max-width:560px){.nv-fj{grid-template-columns:52px minmax(0,1fr);gap:12px;padding:14px;align-items:start}.nv-art{width:52px;height:52px;border-radius:16px}.nv-art svg.i{width:24px;height:24px}.nv-art i{inset:-4px;border-radius:19px}.nv-tx h2{font-size:19px}.nv-fj .btn{flex:1 1 auto}}
+
+/* conta nova: enquanto o concurso não é escolhido, não aparece nenhum concurso de base por trás */
+html[data-ob] .app{visibility:hidden}html[data-ob] body{background:var(--bg)}html[data-ob] #toast{display:none!important}
 /* ===== Flash Jornada · Trilha ===== */
 .tj-home{display:grid;gap:18px;padding:10px 0 30px}
 .tj-hd{display:grid;gap:8px;text-align:left}.tj-hd h1{margin:0;font:700 clamp(28px,3.4vw,38px)/1.1 var(--f-display)!important}.tj-hd p{margin:0;max-width:620px}
@@ -2370,8 +2373,12 @@ async function pullImport(){if(!DB)return;try{const sn=await DB.doc(BASE+"imp").
    Aparece uma única vez, quando a conta ainda não tem nada (nem metas, nem assuntos estudados, nem outro concurso).
    O aluno diz o nome e escolhe: montar o concurso dele (busca na base ou cadastro manual) ou usar o Oficial de Justiça TJSP já pronto.
    Ao criar o próprio concurso, o TJSP sai da lista (pode voltar depois em "Trocar de concurso"). */
-function obFresh(){try{const c=core();return !PLANS.onb&&!(PLANS.list||[]).length&&!PLANS.tjOff&&!(c.metas||[]).some(m=>tasksOf(m.n).some(t=>t.done||t.sp))&&!Object.keys(c.ed||{}).length&&!(c.cfg&&c.cfg.name)}catch(e){return false}}
-function obCheck(){if(obFresh()&&!UI.np&&!$("layer3").innerHTML.trim())obModal()}
+function obEmpty(){try{const c=core();return !(PLANS.list||[]).length&&!PLANS.tjOff&&!(c.metas||[]).some(m=>tasksOf(m.n).some(t=>t.done||t.sp))&&!Object.keys(c.ed||{}).length}catch(e){return false}}
+function obFresh(){try{const c=core();return !PLANS.onb&&obEmpty()&&!(c.cfg&&c.cfg.name)}catch(e){return false}}
+/* ainda sem concurso escolhido (conta nova, ou começou a escolher e não terminou): nada de concurso de base */
+function obPending(){return obFresh()||(!!PLANS.onb&&!PLANS.tjOk&&obEmpty())}
+function obCheck(){if(obPending()&&!UI.np&&!$("layer3").innerHTML.trim())obModal()}
+setInterval(()=>{try{if(READY&&obPending()&&!UI.np&&!$("layer3").innerHTML.trim()){document.documentElement.dataset.ob="1";obModal()}}catch(e){}},700);
 function obModal(){const c=core(),nm=(c.cfg&&c.cfg.name)||UI.obName||"";
   $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Boas-vindas" style="background:var(--bg,#0f1020)"><div class="box npm" style="max-width:560px">
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><div style="width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(150deg,#2b0f63,#170b38);box-shadow:0 0 0 1px rgba(160,107,255,.35),0 8px 24px rgba(123,60,255,.35);flex:none">${(()=>{const m=$("brMark");return m?m.innerHTML.replace(/id="([^"]+)"/g,'id="$1ob"').replace(/url\(#([^)]+)\)/g,"url(#$1ob)").replace(/class="jlogo"/,'class="jlogo" style="width:40px;height:40px"'):""})()}</div><b style="font:700 20px Oswald,Figtree,sans-serif;letter-spacing:.04em">A JORNADA</b></div>
@@ -4837,6 +4844,8 @@ function tuStart(){TUTP.play=tuRM()?0:TUTP.play;const same=TUTP.ch===(UI.tut||TU
 function render(){
   try{const rm=localStorage.getItem("jornada-rm-msg");if(rm&&READY){localStorage.removeItem("jornada-rm-msg");setTimeout(()=>okPop("Concurso removido",rm+" saiu da plataforma. Os outros concursos foram readequados."),300)}}catch(e){}
   if(READY&&core().edPending){const c=core(),n=c.edPending.n||0,src=c.edPending.src||"importação";delete c.edPending;touch("core");setTimeout(()=>{try{recalcAfterEdital()}catch(e){}render();toast(n+" assuntos marcados como estudados a partir do "+src+". As metas foram recalculadas")},50)}
+  if(READY&&obPending()){document.documentElement.dataset.ob="1";$("view").innerHTML="";if(!UI.np&&!$("layer3").innerHTML.trim())obModal();return}
+  if(document.documentElement.dataset.ob){delete document.documentElement.dataset.ob}
   if(READY&&!core().metas.length&&createMeta())toast("Meta 01 liberada. Toque numa atividade para ver os comandos.");
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
@@ -4922,7 +4931,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103182913";
+const JX_BUILD="20261103184834";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
