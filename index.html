@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611031424"></script>
+<script src="/claude-shim.js?v=202611031441"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -2221,6 +2221,11 @@ const lvl=i=>core().cfg.lvl[ED[i].id]||"Intermediário";
 
 const dirty=new Set();let saveT=0,DB=null,UID=null,BASE="",ASSETS=null,SAMPLE=null;const writing=new Set();
 /* sem a chave da IA (ou teste encerrado): desliga a IA nesta sessão e tudo segue no modo automático, sem erros repetidos */
+/* Modelos de IA (meio-termo de custo): IA_LEVE = Claude Haiku (rápido e barato) para resumos, flash cards, mapas,
+   bizus, leitura de PDFs/cadernos e perguntas sobre as páginas; o padrão (Claude Sonnet) fica para o que exige
+   raciocínio fino: questões e simulados (incl. Certo/Errado), correção de discursiva, explicação de gabarito,
+   diagnóstico, planejamento, edital e transcrição de imagens. Para trocar tudo de volta ao Sonnet, mude para "default". */
+const IA_LEVE="quick";
 let AI_OFF=0;window.addEventListener("jx-ai-off",()=>{if(AI_OFF)return;AI_OFF=1;SAMPLE=null;setTimeout(()=>{toast("A IA ainda não está ativa: o painel segue no modo automático, com as questões do PDF.");try{render();if(UI.openT)renderDrawer()}catch(e){}},400)});
 function touch(k){if(k==="m-0")k="ref";try{undoRec(k)}catch(e){}dirty.add(k);dirty.add("core");core().upd=Date.now();clearTimeout(saveT);saveT=setTimeout(flush,650)}
 /* os flash cards podem passar do limite do localStorage (~5 MB): nesse caso eles vão para o IndexedDB do aparelho */
@@ -2772,7 +2777,7 @@ Indícios já identificados no PDF (use se forem relevantes): ${base.att.slice(0
 ${txt}
 </paginas>
 Responda só com JSON: {"abordados":["..."],"atencao":["..."]}`;
-    const o=await SAMPLE.json(prompt,{modelTier:"default"});
+    const o=await SAMPLE.json(prompt,{modelTier:IA_LEVE});
     const A=Array.isArray(o&&o.abordados)?o.abordados.map(x=>String(x).trim()).filter(Boolean).slice(0,8):[],B=Array.isArray(o&&o.atencao)?o.atencao.map(x=>String(x).trim()).filter(Boolean).slice(0,6):[];
     if(A.length&&B.length){const f=findTask(t.id);const tt=f?f.t:t;tt.mt={pa:t.pa,pb:t.pb,top:A,att:B,at:Date.now()};touch("m-"+(f?f.n:core().cur));if(UI.openT===t.id)renderDrawer()}}
   catch(e){}finally{MT_BUSY.delete(t.id)}}
@@ -3820,7 +3825,7 @@ Regras obrigatórias:
 <resumo_pelas_questoes>
 ${md.slice(0,60000)}
 </resumo_pelas_questoes>`;
-    const r=await SAMPLE(prompt,bg?{modelTier:"default"}:{modelTier:"default",onText:({text})=>{const o=$("rsOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
+    const r=await SAMPLE(prompt,bg?{modelTier:IA_LEVE}:{modelTier:IA_LEVE,onText:({text})=>{const o=$("rsOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
     if(r&&r.text&&!gOk(r.text,md)){const R0=resGet(sid,c);R0.qaiRej={sig:X.sig,miss:gMiss(r.text,md).slice(0,8),at:Date.now()};touch(key);if(!bg)toast("A IA citou números que não estão no material; mantive o resumo montado das suas questões");return}
     if(r&&r.text){const R0=resGet(sid,c);R0.qai={txt:resClean(r.text),sig:X.sig,at:Date.now(),f:2};R0.txt=R0.qai.txt;R0.qsig=X.sig;R0.v=4;R0.upd=Date.now();touch(key);UI.rsAIv=1}
   }catch(e){if(!AI_OFF&&!bg)toast("Não consegui melhorar o resumo com a IA agora")}finally{RES_BUSY.delete(key);render()}}
@@ -3841,7 +3846,7 @@ Use SOMENTE o resumo abaixo, que foi montado a partir das questões e do PDF da 
 ${txt}
 </resumo>
 Crie de 8 a 12 cards sobre o que mais cai e as pegadinhas. A maioria é pergunta e resposta: pergunta curta na frente, resposta direta no verso (1 a 3 frases, com a página ou o artigo quando o resumo trouxer). Inclua também 3 ou 4 afirmações para julgar Certo ou Errado, no estilo da banca, com a justificativa (quando for errada, diga o que está errado). Português do Brasil.
-Responda só com um array JSON: [{"f":"pergunta","b":"resposta"},{"t":"ce","f":"afirmação","v":true,"b":"justificativa"}]`,{modelTier:"default"});
+Responda só com um array JSON: [{"f":"pergunta","b":"resposta"},{"t":"ce","f":"afirmação","v":true,"b":"justificativa"}]`,{modelTier:IA_LEVE});
   let n=0;if(Array.isArray(arr))arr.slice(0,16).forEach(x=>{if(x&&x.f&&x.b&&gOk(x.f+" "+x.b,txt)){const ce=x.t==="ce";addCard({sid,tid:"",aula:c,f:(ce?"Certo ou errado? ":"")+String(x.f).slice(0,400),b:(ce?(x.v===false||x.v==="false"?"ERRADO. ":"CERTO. "):"")+String(x.b).slice(0,900),src:"ia",pdf:true,lesson:1});n++}});
   if(!n)throw{code:"formato"};return n}
 async function aiBgRun(){if(AIBG||!SAMPLE||AI_OFF||!resAIOn())return;AIBG=1;let made={r:0,c:0,m:0};
@@ -4234,7 +4239,7 @@ Regras:
 Responda só com JSON: {"t":"raiz","c":[{"t":"ramo","c":[{"t":"folha com o conteúdo"}]}]}`;
   const clean=(n,d)=>n&&(n.t||n.text)?{t:String(n.t||n.text).slice(0,220),c:d<3&&Array.isArray(n.c||n.children)?(n.c||n.children).slice(0,9).map(k=>clean(k,d+1)).filter(Boolean):[]}:null;
   const leaves=n=>(n.c||[]).length?(n.c||[]).flatMap(leaves):[n];
-  const ask=async r=>{const o=await SAMPLE.json(mk(r),imgs.length?{images:imgs,modelTier:"default"}:{modelTier:"default"});let t=clean(o,0);
+  const ask=async r=>{const o=await SAMPLE.json(mk(r),imgs.length?{images:imgs,modelTier:IA_LEVE}:{modelTier:IA_LEVE});let t=clean(o,0);
     /* exemplos de fonte externa só ficam se citarem a fonte (lei, súmula, doutrina) */
     const extOk=k=>/^ex\.?\s*\(fonte externa\s*[–-]\s*[^)]{3,}\)/i.test(k.t);
     if(!imgs.length&&t){const prune=n=>({t:n.t,c:(n.c||[]).filter(k=>extOk(k)||gOk(k.t,txt)).map(prune)});t=prune(t)}
@@ -4910,7 +4915,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103142413";
+const JX_BUILD="20261103144112";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -4971,7 +4976,7 @@ Responda só com um array JSON: [{"i":número entre colchetes,"nivel":0-3,"bizu"
 <artigos>
 ${mat}
 </artigos>`;
-      let arr=null;try{arr=await SAMPLE.json(prompt,{modelTier:"default"})}catch(e){if(e&&e.code==="rate_limited"){await new Promise(r=>setTimeout(r,20000));continue}}
+      let arr=null;try{arr=await SAMPLE.json(prompt,{modelTier:IA_LEVE})}catch(e){if(e&&e.code==="rate_limited"){await new Promise(r=>setTimeout(r,20000));continue}}
       const by={};(Array.isArray(arr)?arr:[]).forEach(x=>{if(x&&Number.isInteger(+x.i))by[+x.i]=x});
       G.forEach(a=>{const x=by[a.i],tx=leiAnn(a.t);if(!x){L.biz[a.i]={v:0};return}const v=Math.max(0,Math.min(3,+x.nivel||0));
         const b=String(x.bizu||"").trim().slice(0,500),gr=(Array.isArray(x.grifo)?x.grifo:[]).map(String).map(s=>s.trim()).filter(s=>s.length>=3&&s.length<=140&&tx.includes(s)).slice(0,4);
@@ -6551,7 +6556,7 @@ ${C.head}
 Um bizu é um resumo CURTO (no máximo 220 palavras) só com o que mais cai em prova e as pegadinhas. Formato em texto simples:
 "## " para títulos (1 a 3 títulos), "- " para itens curtos, **negrito** para as palavras-chave, e comece com "ATENÇÃO:" os 1 ou 2 itens de maior incidência em prova. Se houver uma comparação clássica (ex.: direta x indireta), faça 2 itens lado a lado no formato "X: ... | Y: ...".
 ${mat?"Use SOMENTE o conteúdo do material abaixo (páginas desta atividade). Não invente artigos nem números.\n<material>\n"+mat+"\n</material>":"Use SOMENTE o resumo da aula abaixo. Não invente artigos nem números.\n<resumo>\n"+String(rd&&rd.txt||"").slice(0,8000)+"\n</resumo>"}`;
-      const r=await SAMPLE(prompt,{modelTier:"default",onText:({text})=>{const o=$("bzOut");if(o&&UI.openT===t.id)o.innerHTML=mdLite(text)}});txt=(r&&r.text||"").trim()}
+      const r=await SAMPLE(prompt,{modelTier:IA_LEVE,onText:({text})=>{const o=$("bzOut");if(o&&UI.openT===t.id)o.innerHTML=mdLite(text)}});txt=(r&&r.text||"").trim()}
     if(txt){t.bizu={txt,at:Date.now()};touch("m-"+(findTask(t.id)||{n:0}).n)}
   }catch(e){if(!BZ_WARN++)toast("A IA ainda não está disponível: o bizu foi montado com as questões do PDF destas páginas.")}
   finally{AUX_BUSY.delete("b"+t.id);if(UI.openT===t.id)renderDrawer()}
@@ -6618,7 +6623,7 @@ ${q.slice(0,3000)}
 <texto_das_paginas>
 ${mat}
 </texto_das_paginas>`;
-      const r=await SAMPLE(prompt,{modelTier:"default",onText:({text})=>{const o=$("askOut");if(o&&UI.openT===t.id)o.innerHTML=mdLite(text)}});txt=(r&&r.text||"").trim()}
+      const r=await SAMPLE(prompt,{modelTier:IA_LEVE,onText:({text})=>{const o=$("askOut");if(o&&UI.openT===t.id)o.innerHTML=mdLite(text)}});txt=(r&&r.text||"").trim()}
     else txt=await askLocal(t,q);
     t.ask={q,txt:txt||"Não consegui ler o texto destas páginas agora.",at:Date.now(),ai:!!(ai&&SAMPLE)};touch("m-"+(findTask(t.id)||{n:0}).n)}
   catch(e){toast("Não consegui responder agora");t.ask.txt=""}finally{ASK_BUSY.delete(t.id);if(UI.openT===t.id)renderDrawer()}}
@@ -6917,7 +6922,7 @@ ${S.t.map((t,j)=>j+": "+t[0]).join("\n")}
 Linhas da estatística (índice: texto):
 ${rows.map((r,i)=>i+": "+r.n).join("\n")}
 Responda só com um array JSON com um número por linha, na mesma ordem. Ex.: [0,3,-1]`;
-  const a=await SAMPLE.json(prompt,{modelTier:"default"});if(!Array.isArray(a)||a.length!==rows.length)throw new Error("formato");return a.map(v=>Number.isInteger(+v)?+v:-1)}
+  const a=await SAMPLE.json(prompt,{modelTier:IA_LEVE});if(!Array.isArray(a)||a.length!==rows.length)throw new Error("formato");return a.map(v=>Number.isInteger(+v)?+v:-1)}
 async function pvEstimate(sid){const S=ED[EDI[sid]];if(!S)return false;
   const bn=IS_TJ?"Fundação VUNESP":(PLAN.banca||"banca não informada"),cg=IS_TJ?"Oficial de Justiça do Tribunal de Justiça de São Paulo":[PLAN.cargo||PLAN.name,PLAN.orgao].filter(Boolean).join(" · ");
   const prompt=`Você é especialista em concursos públicos no Brasil. Banca: ${bn}. Cargo: ${cg}. Matéria: ${S.n} (${qOf(S)} questões na prova).
@@ -6925,7 +6930,7 @@ Estime a INCIDÊNCIA de cada assunto do edital abaixo: que porcentagem das quest
 Assuntos (índice: assunto):
 ${S.t.map((t,j)=>j+": "+t[0]).join("\n")}
 Responda só com JSON: {"p":[números na mesma ordem, um por assunto],"obs":"uma frase curta sobre o padrão da banca nesta matéria"}`;
-  const o=await SAMPLE.json(prompt,{modelTier:"default"});
+  const o=await SAMPLE.json(prompt,{modelTier:IA_LEVE});
   const p=o&&Array.isArray(o.p)?o.p.map(v=>Math.max(0,+v||0)):null;if(!p||p.length!==S.t.length||!p.some(v=>v>0))throw new Error("formato");
   const C=core();C.inc=C.inc||{};C.inc[sid]={p:p.map(v=>Math.round(v*10)/10),src:"ia",at:today(),obs:String(o.obs||"").slice(0,200)};touch("core");simCache.key="";return true}
 document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset||el.dataset.c!=="pvQ")return;const C=core(),S=ED[EDI[el.dataset.s]];if(!S)return;const v=clamp(parseInt(el.value,10)||0,0,120);
@@ -6969,7 +6974,7 @@ Se o comentário ou o gabarito daquela questão estiver fora deste trecho, respo
 Responda só com JSON: [{"n":1,"p":12,"as":"","cob":"","r":"","pq":"","rep":false}]
 <trecho>
 ${ch.t}
-</trecho>`,{modelTier:"default"});
+</trecho>`,{modelTier:IA_LEVE});
   return(Array.isArray(o)?o:(o&&Array.isArray(o.qs)?o.qs:[])).filter(x=>x&&x.n!=null&&String(x.cob||x.as||"").trim()).map(x=>({n:parseInt(x.n,10)||0,p:parseInt(x.p,10)||ch.a,as:String(x.as||"").slice(0,80),cob:String(x.cob||"").slice(0,240),r:String(x.r||"?").slice(0,40),pq:String(x.pq||"").slice(0,420),rep:!!x.rep}))}
 function qMerge(L){const by={};L.forEach(q=>{(by[q.n]=by[q.n]||[]).push(q)});const out=[];
   Object.values(by).forEach(G=>{const com=G.filter(q=>!q.rep),use=com.length?com:[G[0]],keep=[];
@@ -7073,7 +7078,7 @@ Extraia TODAS as questões, na ordem, sem pular nenhuma, inclusive as que o alun
 Responda só com JSON: [{"n":"","as":"","cob":"","r":"","pq":"","res":"?","s":"","o":[],"k":""}]
 <caderno>
 ${ch}
-</caderno>`,{modelTier:"default"});break}catch(e){if(!e||!["rate_limited","invalid_json","upstream_error"].includes(e.code))break;await new Promise(r=>setTimeout(r,5000))}}
+</caderno>`,{modelTier:IA_LEVE});break}catch(e){if(!e||!["rate_limited","invalid_json","upstream_error"].includes(e.code))break;await new Promise(r=>setTimeout(r,5000))}}
     (Array.isArray(o)?o:[]).forEach(x=>{if(!x||!String(x.cob||x.as||"").trim())return;out.push({n:String(x.n||"").slice(0,30),as:String(x.as||"").slice(0,80),cob:String(x.cob||"").slice(0,240),r:String(x.r||"?").slice(0,40),pq:String(x.pq||"").slice(0,420),res:["acerto","erro"].includes(x.res)?x.res:"?",d:today(),s:String(x.s||"").slice(0,2400),o:(Array.isArray(x.o)?x.o:[]).map(o=>[String(o[0]||"").toUpperCase().slice(0,1),String(o[1]||"").slice(0,700)]).filter(o=>o[0]),k:String(x.k||"").toUpperCase().slice(0,1)})})}
   if(!out.length)return 0;
   aulas.forEach(c=>{const R0=resGet(sid,c),L=R0.tecQs=R0.tecQs||[];out.forEach(q=>{if(!L.some(y=>(q.n&&y.n===q.n)||norm(y.cob)===norm(q.cob))){const {s,o,k,...dg}=q;L.push(dg)}});if(L.length>400)R0.tecQs=L.slice(-400);touch(resKey(sid,c));
@@ -7103,7 +7108,7 @@ Liste os pontos essenciais deste trecho para a prova, na ordem: conceitos, regra
 Responda só com JSON: [{"as":"assunto em até 8 palavras","pt":"o ponto, em até 40 palavras, com o artigo ou súmula quando houver","p":página}]
 <trecho>
 ${ch[k].t}
-</trecho>`,{modelTier:"default"});
+</trecho>`,{modelTier:IA_LEVE});
     return(Array.isArray(o)?o:[]).filter(x=>x&&x.pt).map(x=>`[${String(x.as||"").slice(0,80)}] ${String(x.pt).slice(0,320)} (p.${parseInt(x.p,10)||ch[k].a})`)};
   const run=async()=>{while(i<ch.length){const k=i++;for(let t=0;t<2&&!R[k];t++){try{R[k]=await one(k)}catch(e){console.error(e)}}tot.d++;if(prog)prog()}};
   await Promise.all([run(),run(),run()]);return R.filter(Boolean).flat()}
@@ -7147,7 +7152,7 @@ ${ann?"<questoes_que_o_aluno_errou>\n"+ann+"\n</questoes_que_o_aluno_errou>":""}
 ${perf.txt?"<desempenho>\n"+perf.txt+"\n</desempenho>":""}
 ${tps?"<assuntos_do_edital_e_incidencia>\n"+tps+"\n</assuntos_do_edital_e_incidencia>":""}`;
     prompt+=hlPrompt(sid,c);
-    const r=await SAMPLE(prompt,{modelTier:"default",onText:({text})=>{const o=$("rsFinOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
+    const r=await SAMPLE(prompt,{modelTier:IA_LEVE,onText:({text})=>{const o=$("rsFinOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
     if(r&&r.text){R0.fin={txt:resClean(r.text).trim(),at:Date.now()};touch(key);toast("Resumo direcionado de "+s.c+" · "+auLabel(sid,c)+" pronto"+(auto?" na aba Resumos":""))}}
   catch(e){toast(e&&e.code==="not_granted"?"Você não permitiu usar a IA.":"Não consegui gerar o resumo direcionado agora. Tente de novo em instantes.")}
   finally{RES_BUSY.delete(bk);if(TAB==="resumos")render()}}
@@ -7257,7 +7262,7 @@ ${tq?"<questoes_do_tec>\n"+tq+"\n</questoes_do_tec>":""}
 ${ann?"<questoes_que_o_aluno_errou>\n"+ann+"\n</questoes_que_o_aluno_errou>":""}`;
     }
     prompt+=hlPrompt(sid,c);
-    const r=await SAMPLE(prompt,{modelTier:"default",onText:({text})=>{const o=$("rsOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
+    const r=await SAMPLE(prompt,{modelTier:IA_LEVE,onText:({text})=>{const o=$("rsOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
     if(r&&r.text){r.text=resClean(r.text);
       if(dig&&dig.qs.length){const qq=q=>`- **Q${q.n}** (p. ${q.p}) – ${q.cob} → **${q.r}**. ${String(q.pq).replace(/^\(sem comentário no trecho\)\s*/i,"")}`;
         r.text=r.text.replace(/\n##\s*Quest[aã]o a quest[aã]o[\s\S]*?(?=\n##\s|$)/i,"")+`\n\n## Questão a questão\n${sdig.length?"### "+mainName+"\n":""}${dig.qs.map(qq).join("\n")}${sdig.map(x=>"\n### "+x.nome+"\n"+x.qs.map(qq).join("\n")).join("")}`}}
@@ -7416,7 +7421,7 @@ ${tl}
 Ignore textos de interface como "Não estudei", "baixado", "Olá, precisa de ajuda?". Mantenha a ordem do curso.
 Responda só com um array JSON: [{"c":"00","d":"Estruturas lógicas","tp":[4]}]
 ${txt?"<texto>\n"+txt.slice(0,20000)+"\n</texto>":""}`;
-  const arr=await SAMPLE.json(prompt,images?{images,modelTier:"default"}:{modelTier:"default"});
+  const arr=await SAMPLE.json(prompt,images?{images,modelTier:IA_LEVE}:{modelTier:IA_LEVE});
   if(!Array.isArray(arr))throw new Error("formato");
   return arr.filter(a=>a&&a.c&&a.d).map(a=>({c:String(a.c).trim(),d:String(a.d).trim().slice(0,220),tp:(Array.isArray(a.tp)?a.tp:[]).map(Number).filter(j=>S.t[j]),f:"",q:""}));
 }
@@ -7633,7 +7638,7 @@ ${txt}
 </material>
 Crie de 5 a 8 cards objetivos sobre os pontos que a ${dsBanca()} mais cobra (prazos, exceções, competências, literalidade da lei): pergunta curta na frente, resposta direta no verso (1 a 3 frases, com o artigo quando houver). Escreva em português do Brasil.
 Responda só com um array JSON, por exemplo: [{"f":"Qual o prazo...?","b":"15 dias (CPC, art. 335)."}]`;
-      const arr=await SAMPLE.json(prompt,{modelTier:"default"});
+      const arr=await SAMPLE.json(prompt,{modelTier:IA_LEVE});
       if(Array.isArray(arr))arr.slice(0,10).forEach(x=>{if(x&&x.f&&x.b&&gOk(x.f+" "+x.b,txt)){addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:String(x.f).slice(0,400),b:String(x.b).slice(0,900),src:"ia",pdf:!!txt});made++}});
     }catch(e){if(manual)toast(e&&e.code==="not_granted"?"Você não permitiu gerar cards com IA. Crie os seus abaixo.":"Não consegui gerar com IA agora. Tente de novo em instantes.")}}
     if(!made&&!manual){tps.slice(0,5).forEach(x=>{addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:"Sem consultar: quais são os pontos principais de “"+tShort(x)+"”?",b:"Confira nas suas anotações"+(p&&t.pa?" e no PDF, págs. "+t.pa+" a "+t.pb:"")+". Se esqueceu algo, marque “Esqueci” e reforce o resumo.",src:"auto"});made++})}
