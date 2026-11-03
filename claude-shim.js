@@ -536,9 +536,9 @@
     const onSession = async (ev, s) => {
       if (ev === "PASSWORD_RECOVERY") { gate("newpw"); return; }
       if (!s) { if (started) location.reload(); else if (!$("#jx-gate")) { let m = ""; try { m = sessionStorage.getItem("jx-msg") || ""; sessionStorage.removeItem("jx-msg"); } catch (e) { }
-        /* visitante novo (nunca entrou neste aparelho) vê primeiro a página de planos e preços */
+        /* quem não está conectado vê primeiro a página inicial (planos e preços); "Entrar" e "Criar conta" voltam com ?entrar / ?cadastro */
         const q = location.search; let seen = ""; try { seen = localStorage.getItem("jx-owner") || ""; } catch (e) { }
-        if (!m && !/[?&](entrar|cadastro)\b/.test(q) && !seen && ev !== "PASSWORD_RECOVERY") { location.replace("planos.html"); return; }
+        if (!m && !/[?&](entrar|cadastro)\b/.test(q) && ev !== "PASSWORD_RECOVERY" && !/type=recovery|access_token|error_description/.test(location.hash)) { location.replace("planos.html"); return; }
         hideSplash(); gate(/[?&]cadastro\b/.test(q) && !m ? "up" : "in", m); const mm = $("#jx-gate .jx-msg"); if (m && mm) mm.className = "jx-msg ok"; } return; }
       TOKEN = s.access_token; swPost();
       if (started) return; started = true;
