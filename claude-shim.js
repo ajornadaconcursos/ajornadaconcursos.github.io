@@ -450,36 +450,80 @@
      A data fica no Supabase (tabela perfis: teste_ate e plano), gravada no cadastro. A pessoa só lê a própria linha e não consegue mudar.
      Com "plano" preenchido (ex.: pago, dono), o acesso é livre. Sem plano, depois de "teste_ate" o painel mostra a tela de teste encerrado. */
   let TRIAL = { txt: "", left: 99 };
+  /* Acesso: dono (livre), assinante (até plano_ate), teste grátis (até teste_ate) ou vencido. Também carrega a config da venda. */
+  window.JX_ACESSO = null; window.JX_VENDA = {};
+  async function loadVenda() { try { const { data } = await sb.from("config_app").select("k,v"); const o = {}; (data || []).forEach(r => o[r.k] = r.v); window.JX_VENDA = o; } catch (e) { } return window.JX_VENDA; }
+  async function loadAcesso(u) {
+    let p = null; try { const { data } = await sb.rpc("meu_acesso"); p = data; } catch (e) { }
+    if (!p) { try { const { data } = await sb.from("perfis").select("plano,teste_ate").eq("user_id", u.id).maybeSingle(); p = data; } catch (e) { } }
+    p = p || {}; const now = Date.now(), plano = String(p.plano || "");
+    const tEnd = new Date(p.teste_ate || (new Date(u.created_at || now).getTime() + 7 * 864e5)).getTime();
+    const pAte = p.plano_ate ? new Date(p.plano_ate).getTime() : 0;
+    let st = "vencido";
+    if (plano === "dono") st = "dono";
+    else if (["mensal", "anual", "cortesia"].includes(plano) && (!pAte || pAte > now)) st = "ativo";
+    else if (tEnd > now) st = "teste";
+    window.JX_ACESSO = { st, plano, plano_ate: p.plano_ate || null, teste_ate: new Date(tEnd).toISOString(), left: Math.ceil((tEnd - now) / 864e5), ia_hoje: p.ia_hoje || 0, aceite: p.aceite_versao || "", email: EMAIL, origem: p.origem || "" };
+    return window.JX_ACESSO;
+  }
+  window.jxAcesso = async () => { const { data } = await sb.auth.getUser(); await loadVenda(); return loadAcesso(data.user); };
+  window.jxSalvarConfig = async (k, v) => { const { error } = await sb.rpc("salvar_config", { chave: k, valor: v }); if (error) throw error; await loadVenda(); };
+  window.jxAceitar = async v => { const { error } = await sb.rpc("aceitar_termos", { versao: v }); if (error) throw error; if (window.JX_ACESSO) window.JX_ACESSO.aceite = v; };
   async function trialCheck(u) {
-    let p = null;
-    try { const { data } = await sb.from("perfis").select("plano,teste_ate").eq("user_id", u.id).maybeSingle(); p = data; } catch (e) { }
-    if (p && p.plano) { TRIAL = { txt: "", left: 99 }; return true; }
-    const end = new Date((p && p.teste_ate) || (new Date(u.created_at || Date.now()).getTime() + 7 * 864e5));
-    const ms = end - Date.now(), left = Math.ceil(ms / 864e5);
-    if (ms > 0) {
+    await loadVenda(); const A = await loadAcesso(u);
+    if (A.st === "dono" || A.st === "ativo") { TRIAL = { txt: "", left: 99 }; return termsCheck(); }
+    if (A.st === "teste") {
+      const left = A.left;
       TRIAL = { left, txt: left <= 1 ? "Teste grátis: termina hoje" : `Teste grátis: faltam ${left} dias` };
       try { const k = "jx-trial-" + new Date().toISOString().slice(0, 10); if (!localStorage.getItem(k)) { localStorage.setItem(k, "1"); setTimeout(() => trialToast(left), 1800); } } catch (e) { }
-      return true;
+      return termsCheck();
     }
-    trialEnded(end); return false;
+    trialEnded(A); return false;
+  }
+  /* Aceite dos Termos de Uso e da Política de Privacidade (uma vez por versão) */
+  function termsCheck() {
+    const v = (window.JX_VENDA && window.JX_VENDA.termos_versao) || "2026-11";
+    if (!window.JX_ACESSO || window.JX_ACESSO.aceite === v) return true;
+    return new Promise(res => {
+      hideSplash(); addCSS(); const old = $("#jx-gate"); if (old) old.remove();
+      const g = el('<div id="jx-gate" role="dialog" aria-modal="true" aria-label="Termos de uso"></div>'); document.body.appendChild(g);
+      g.innerHTML = `${ART}<div class="jx-wrap"><div class="jx-top"><div class="jx-tile">${LOGO}</div><span class="jx-name">A JORNADA</span></div>
+        <div class="jx-card jx-hero"><h1>Antes de começar</h1><p class="jx-sub">Para usar a A Jornada, leia e aceite os nossos termos. Eles explicam o que a plataforma faz, como cuidamos dos seus dados (LGPD) e as regras da assinatura.</p>
+        <p style="margin:0 0 10px"><a href="termos.html#termos" target="_blank" rel="noopener" style="color:#c9b2ff">Termos de Uso ↗</a> &nbsp;·&nbsp; <a href="termos.html#privacidade" target="_blank" rel="noopener" style="color:#c9b2ff">Política de Privacidade ↗</a></p>
+        <label style="display:flex;gap:10px;align-items:flex-start;color:#e6dcff;cursor:pointer"><input type="checkbox" data-k="ck" style="width:20px;height:20px;margin-top:2px;accent-color:#8f5cff"><span>Li e aceito os Termos de Uso e a Política de Privacidade, e sei que o conteúdo gerado pela IA deve ser conferido no material oficial.</span></label>
+        <div class="jx-row"><button class="jx-btn" type="button" data-k="ok" disabled>Aceitar e continuar</button></div>
+        <div class="jx-row" style="margin-top:10px"><button class="jx-btn ghost" type="button" data-k="out">Sair</button></div><div class="jx-msg" role="status" aria-live="polite"></div></div></div>`;
+      const ck = g.querySelector('[data-k="ck"]'), okb = g.querySelector('[data-k="ok"]'); ck.onchange = () => { okb.disabled = !ck.checked; okb.style.cursor = ck.checked ? "pointer" : "not-allowed"; };
+      okb.onclick = async () => { okb.disabled = true; try { await window.jxAceitar(v); g.remove(); res(true); } catch (e) { okb.disabled = false; g.querySelector(".jx-msg").textContent = "Não deu para registrar o aceite. Confira a internet e tente de novo."; } };
+      g.querySelector('[data-k="out"]').onclick = () => sb.auth.signOut().then(() => location.reload());
+    });
   }
   function trialToast(left) {
-    addCSS(); const t = el(`<div role="status" style="position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:2147483400;max-width:calc(100vw - 32px);background:#160f33;color:#f1ecff;border:1px solid rgba(160,107,255,.45);border-radius:12px;padding:12px 16px;font:600 14px Figtree,sans-serif;box-shadow:0 12px 34px rgba(0,0,0,.4)">Você está no teste grátis da Jornada: ${left <= 1 ? "ele termina hoje" : "faltam " + left + " dias"}.</div>`);
+    addCSS(); const t = el(`<div role="status" style="position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:2147483400;max-width:calc(100vw - 32px);background:#160f33;color:#f1ecff;border:1px solid rgba(160,107,255,.45);border-radius:12px;padding:12px 16px;font:600 14px Inter,Figtree,sans-serif;box-shadow:0 12px 34px rgba(0,0,0,.4)">Você está no teste grátis da Jornada: ${left <= 1 ? "ele termina hoje" : "faltam " + left + " dias"}. Assine em Meu plano › Assinatura.</div>`);
     document.body.appendChild(t); setTimeout(() => t.remove(), 6500);
   }
-  function trialEnded(end) {
-    hideSplash(); addCSS(); const old = $("#jx-gate"); if (old) old.remove();
-    const g = el('<div id="jx-gate" role="dialog" aria-modal="true" aria-label="Período de teste encerrado"></div>'); document.body.appendChild(g);
+  window.jxCheckout = function (tipo) {
+    const V = window.JX_VENDA || {}, u = V["checkout_" + tipo]; if (!u) return "";
+    try { const x = new URL(u); if (EMAIL) { x.searchParams.set("email", EMAIL); } return x.toString(); } catch (e) { return u; }
+  };
+  function trialEnded(A) {
+    hideSplash(); addCSS(); const old = $("#jx-gate"); if (old) old.remove(); const V = window.JX_VENDA || {};
+    const venc = A.plano === "mensal" || A.plano === "anual", qd = new Date(venc && A.plano_ate ? A.plano_ate : A.teste_ate);
+    const g = el('<div id="jx-gate" role="dialog" aria-modal="true" aria-label="Assine para continuar"></div>'); document.body.appendChild(g);
+    const pl = (t, nome, preco, per, extra) => { const u = window.jxCheckout(t); return `<div style="flex:1 1 200px;border:1px solid ${t === "anual" ? "#b48cff" : "rgba(160,107,255,.35)"};border-radius:14px;padding:14px;background:rgba(143,92,255,${t === "anual" ? ".16" : ".06"})"><b style="font-size:15px">${nome}</b>${extra ? ` <span style="font-size:11px;background:#3ddc84;color:#06240f;border-radius:99px;padding:2px 8px;font-weight:700">${extra}</span>` : ""}<div style="font:700 26px Barlow,Inter,sans-serif;margin:6px 0">R$ ${preco}<small style="font-size:13px;font-weight:500;color:#c3c4e6">/${per}</small></div>${u ? `<a class="jx-btn" style="text-decoration:none;width:100%" href="${u}" target="_blank" rel="noopener">Assinar ${nome.toLowerCase()}</a>` : `<span style="color:#c3c4e6;font-size:13px">Pagamento em breve.</span>`}</div>`; };
     g.innerHTML = `${ART}<div class="jx-wrap">
       <div class="jx-top"><div class="jx-tile">${LOGO}</div><span class="jx-name">A JORNADA</span></div>
-      <div class="jx-card jx-hero"><h1>Seu teste grátis terminou</h1>
-        <p class="jx-sub">Os 7 dias de teste acabaram em ${end.toLocaleDateString("pt-BR", { day: "numeric", month: "long" })}. Seus concursos, metas, progresso e PDFs continuam guardados: nada foi apagado.</p>
-        <p style="margin:0 0 6px;color:#e6dcff">Para continuar a sua Jornada, fale com a equipe da A Jornada para liberar o seu acesso. Assim que for liberado, é só entrar de novo.</p>
-        <div class="jx-row"><button class="jx-btn" type="button" data-k="exp">Baixar cópia dos meus dados</button></div>
+      <div class="jx-card jx-hero"><h1>${venc ? "Sua assinatura venceu" : "Seu teste grátis terminou"}</h1>
+        <p class="jx-sub">${venc ? "O acesso terminou em" : "Os 7 dias de teste acabaram em"} ${qd.toLocaleDateString("pt-BR", { day: "numeric", month: "long" })}. Seus concursos, metas, progresso e PDFs continuam guardados: nada foi apagado.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 4px">${pl("mensal", "Mensal", V.preco_mensal || "39,90", "mês", "")}${pl("anual", "Anual", V.preco_anual || "359,00", "ano", "Economize")}</div>
+        <p style="margin:8px 0 0;color:#c3c4e6;font-size:13px">Use no pagamento o mesmo e-mail da sua conta (${EMAIL.replace(/[<>&]/g, "")}). A liberação é automática em poucos minutos. Você tem 7 dias para desistir da compra e receber o valor de volta (art. 49 do CDC).</p>
+        <div class="jx-row"><button class="jx-btn ghost" type="button" data-k="chk">Já paguei: verificar</button><button class="jx-btn ghost" type="button" data-k="exp">Baixar cópia dos meus dados</button></div>
         <div class="jx-row" style="margin-top:10px"><button class="jx-btn ghost" type="button" data-k="out">Sair</button></div>
+        <p style="margin:12px 0 0;font-size:12.5px"><a href="termos.html#termos" target="_blank" rel="noopener" style="color:#c9b2ff">Termos de Uso</a> · <a href="termos.html#privacidade" target="_blank" rel="noopener" style="color:#c9b2ff">Política de Privacidade</a>${V.suporte_email ? ` · Suporte: ${String(V.suporte_email).replace(/[<>&]/g, "")}` : ""}</p>
         <div class="jx-msg" role="status" aria-live="polite"></div></div>
       <div class="jx-band"><b>A JORNADA</b><span>Sua trilha até a aprovação</span></div></div>`;
     g.querySelector('[data-k="exp"]').onclick = () => exportAll();
+    g.querySelector('[data-k="chk"]').onclick = async () => { const m = g.querySelector(".jx-msg"); m.textContent = "Verificando…"; const { data } = await sb.auth.getUser(); const B = await loadAcesso(data.user); if (B.st === "ativo" || B.st === "dono") { m.textContent = "Pagamento confirmado! Abrindo…"; setTimeout(() => location.reload(), 900); } else m.textContent = "Ainda não chegou a confirmação. No Pix e no cartão costuma levar poucos minutos; no boleto, até 3 dias úteis."; };
     g.querySelector('[data-k="out"]').onclick = () => sb.auth.signOut().then(() => location.reload());
   }
 

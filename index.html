@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611030845"></script>
+<script src="/claude-shim.js?v=202611030914"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1861,6 +1861,20 @@ kbd{font:600 10.5px var(--f-body);border:1px solid var(--line2);border-bottom-wi
   .ar-wk{gap:5px}.ar-wk i{width:30px;height:30px}.ar-go,.ar-gap{font-size:16px;padding:16px}}
 @media (hover:none){.ar-show kbd,.ar-rate kbd{display:none}}
 @media (prefers-reduced-motion:reduce){.ar-fire.on,.ar-art svg.i,.ar-card,.ar-curve{animation:none!important;stroke-dashoffset:0}}
+
+/* ===== Assinatura ===== */
+.asn-st{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.asn-st>p{flex:1 1 320px;margin:0}.asn-st .chip{font-size:13px}
+.asn-ia{display:grid;justify-items:end;gap:2px;margin-left:auto}.asn-ia small{font-size:11.5px;color:var(--fg2);font-weight:600}.asn-ia b{font:700 24px var(--f-display)}
+.asn-pl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:14px 0}
+.asn-p{position:relative;border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:20px;display:grid;gap:6px;align-content:start}
+.asn-p.best{border-color:var(--lime);background:linear-gradient(160deg,var(--lime-soft),var(--panel) 70%);box-shadow:0 0 0 1px var(--lime) inset}
+.asn-p>b{font:600 17px var(--f-display)}.asn-v{font:700 38px/1 var(--f-display)}.asn-v small{font-size:16px;margin-right:4px;font-weight:600}.asn-v em{font-style:normal;font-size:15px;font-weight:500;color:var(--fg2)}
+.asn-p .btn{justify-content:center;margin-top:6px}.asn-tag{position:absolute;top:14px;right:14px;font-size:11.5px;font-weight:700;color:#06240f;background:var(--ok);border-radius:99px;padding:3px 10px}
+.asn-ft{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}.asn-ft li{display:flex;gap:8px;align-items:flex-start;color:var(--fg)}.asn-ft svg.i{width:17px;height:17px;color:var(--ok);flex:none;margin-top:3px}
+.asn-f{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.asn-f .field{display:grid;gap:4px;margin:0}
+.asn-wh{display:grid;gap:8px;border:1px dashed var(--line2);border-radius:12px;padding:12px}.asn-wh small{display:block;color:var(--fg2)}.asn-wh code{display:block;font-size:12.5px;word-break:break-all;background:var(--sunk);border-radius:8px;padding:6px 8px;margin-top:3px}
+.asn-chip{margin-top:8px;border:1px solid var(--warn);background:var(--warn-soft);color:var(--warn);font:600 11.5px var(--f-body);border-radius:99px;padding:4px 10px;cursor:pointer}
+@media (max-width:760px){.asn-pl,.asn-ft,.asn-f{grid-template-columns:1fr}.asn-ia{justify-items:start;margin-left:0}}
 
 </style>
 
@@ -4399,13 +4413,13 @@ function pv24Card(){if(!IS_TJ)return"";const x=SMX().filter(y=>y.kind==="prova"&
 setInterval(()=>{const id=UI.smOpen;if(!id||TAB!=="simulados")return;const x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run"||!d.t0)return;const r=smLeft(d),el=$("smClk");if(el){el.textContent=smClock(r);el.classList.toggle("low",r<600)}if(r<=0)smFinish(id,true)},1000);
 
 {const _vm=vMeta;vMeta=function(){const h=_vm(),b=smBanner();if(!b)return h;const i=h.indexOf("</div>");return h.startsWith("<div class=\"hello\"")&&i>0?h.slice(0,i+6)+b+h.slice(i+6):b+h}}
-const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Lei seca"],["arquivo","Arquivo"],["arena","Arena"]];
+const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Lei seca"],["arquivo","Arquivo"],["arena","Flash Jornada"],["assinatura","Assinatura"]];
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
 /* Menu simples: 5 entradas. As telas de sempre continuam, agrupadas em abas dentro de cada entrada. */
-const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["arena","Arena"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
+const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["arena","Flash Jornada"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
 const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["leiseca","Lei seca","edital"],["discursiva","Discursiva e redação","discursiva"]],
   revisoes:[["revisoes","Revisões do dia","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"]],
-  rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"],["arquivo","Arquivo","list"]]};
+  rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"],["arquivo","Arquivo","list"],["assinatura","Assinatura","lock"]]};
 const GP={};Object.entries(GROUPS).forEach(([g,L])=>L.forEach(([k])=>{GP[k.split(":")[0]]=g}));
 function gnavHTML(){const g=GP[TAB];if(!g)return"";const cur=TAB,due=dueRevs().length,ep=errPend(),rf=allRefs().filter(x=>!x.done).length;
   const badge=k=>k==="revisoes"&&due?`<small>${due}</small>`:k==="erradas"&&ep?`<small>${ep}</small>`:k==="reforcos"&&rf?`<small>${rf}</small>`:"";
@@ -4427,7 +4441,8 @@ const HOW={
   discursiva:"Aqui você treina a parte escrita: escolha discursiva ou redação, escreva (ou envie a foto da folha) e receba a nota e a correção da IA, quesito por quesito.",
   desempenho:"Aqui você acompanha os resultados. Não há nada para preencher: os números vêm do cronômetro, das questões resolvidas e dos simulados.",
   concurso:"Aqui você cuida do concurso: troque ou adicione concursos, inclua o edital em PDF (o painel tira datas, matérias e assuntos) e acompanhe o cronograma até a prova.",
-  arena:"Aqui ficam os seus flash cards. Toque em Iniciar revisão, tente lembrar a resposta antes de revelar e diga com sinceridade se errou, quase lembrou ou lembrou: a Arena decide quando cada card volta. Atacar lacunas treina só os cards que mais te pegam.",
+  assinatura:"Aqui você vê o seu plano (teste, mensal ou anual), assina ou renova pelo link de pagamento e lê os termos de uso e a política de privacidade. Pague com o mesmo e-mail da sua conta: a liberação é automática.",
+  arena:"Aqui ficam os seus flash cards. Toque em Iniciar revisão, tente lembrar a resposta antes de revelar e diga com sinceridade se errou, quase lembrou ou lembrou: o Flash Jornada decide quando cada card volta. Atacar lacunas treina só os cards que mais te pegam.",
   arquivo:"Aqui ficam as metas que já passaram: toque numa meta para ver as atividades, o tempo, o desempenho e o simuladinho dela. Procure uma atividade pelo código ou pelo título.",
   leiseca:"Aqui fica a lei seca bizurada: escolha a lei (ou escreva qual é), o texto oficial vem do site do Planalto e a IA destaca o que mais cai, grifa os trechos que a banca troca e escreve um bizu por artigo. Ligue a lei à matéria para ver quais artigos já caíram nas suas questões.",
   tutorial:"Aqui você aprende a usar cada função da plataforma: escolha um tema, assista à animação e leia as dicas. Use “Ir para esta tela” para praticar na hora.",
@@ -4445,7 +4460,7 @@ function renderNav(){
   $("mtabs").innerHTML=("")+NAV.map(([k,l])=>`<button data-a="tab" data-t="${k}" ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${l}${k==="revisoes"&&due+errPend()?" · "+(due+errPend()):""}</button>`).join("");
   const c=core(),es=edStats(),PG=progData(),p=Math.round(PG.tot);
   $("av").style.setProperty("--p",p);$("avn").textContent=(c.cfg.name||"?").trim().charAt(0).toUpperCase()||"?";
-  $("whoName").textContent=c.cfg.name||"Você";$("whoSub").textContent=(PG.src==="gj"?"Planejamento: ":"Edital estudado: ")+(PG.src==="gj"?pctTxt(PG.tot):p+"%");
+  $("whoName").textContent=c.cfg.name||"Você";try{const w=document.querySelector(".who");let ch=$("asnChipW");if(!ch&&w){ch=document.createElement("div");ch.id="asnChipW";w.appendChild(ch)}if(ch)ch.innerHTML=asnChip()}catch(e){}$("whoSub").textContent=(PG.src==="gj"?"Planejamento: ":"Edital estudado: ")+(PG.src==="gj"?pctTxt(PG.tot):p+"%");
   const dp=dbet(today(),prova()),TBD=provaTBD();$("miniDays").textContent=TBD?"∞":Math.max(0,dp);const mdt=$("miniDate");if(mdt)mdt.textContent=TBD?"data a definir":new Date(prova()+"T12:00").toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"});
   const pt=$("ptabs");if(pt){const L=allPlans();pt.innerHTML=L.length>1?L.map(p=>`<span class="ptw ${p.id===ACTIVE?"on":""}"><button class="ptab" ${p.id===ACTIVE?'aria-current="page"':`data-a="plGo" data-id="${p.id}"`} title="${esc(pDesc(p))}"><span class="pm">${esc(planMark(p))}</span><span class="pn">${esc(pName(p))}</span></button><button class="ptx" data-a="plRm" data-id="${p.id}" aria-label="Remover o concurso ${esc(pName(p))}" title="Remover este concurso">${ic("close")}</button></span>`).join("")+`<button class="ptab add" data-a="npOpen" aria-label="Adicionar outro concurso">${ic("plus")}</button>`:"";pt.hidden=L.length<2}
   const ps=$("plSw");if(ps)ps.innerHTML=`${ic("swap")}<span>${PLANS.list.length||APP_LINK?"Trocar de concurso":"Adicionar outro concurso"}</span>`;
@@ -4454,7 +4469,7 @@ function renderNav(){
   try{const fc=$("fmCrest");if(fc){const sk=core().skin||{},I=orgInfo();const k=(sk.logo&&(sk.logo.id||sk.logo.url))?"img:"+skinUrl(sk.logo):"svg:"+I.sig;if(fc.dataset.k!==k){fc.dataset.k=k;fc.innerHTML=k.startsWith("img:")?`<img src="${esc(skinUrl(sk.logo))}" alt="">`:crestSVG(I.sig||"?")}}
     const fd=$("fmDate");if(fd){const d=new Date();fd.innerHTML=`<b>${d.toLocaleDateString("pt-BR",{day:"numeric",month:"short"}).replace(".","")}</b><small>${d.toLocaleDateString("pt-BR",{weekday:"short"}).replace(".","")} · ${pad(d.getHours())}:${pad(d.getMinutes())}</small>`}
     const nx=fmNext(),fg=$("fmGo");if(fg){fg.title=nx?"Abrir: "+taskTitle(nx):"Nada pendente na meta atual";fg.disabled=!nx}}catch(e){}
-  const sb=$("skinBtn");if(sb){sb.textContent=SKIN()==="arena"?"Clássica":"Arena";sb.title=SKIN()==="arena"?"Voltar ao visual clássico":"Testar a skin Arena"}
+  const sb=$("skinBtn");if(sb){sb.textContent=SKIN()==="arena"?"Clássica":"Moderna";sb.title=SKIN()==="arena"?"Voltar ao visual clássico":"Testar o visual moderno"}
 }
 function renderTimerSel(){
   const r=curMeta(),ts=r?tasksOf(r.n):[],lk=phaseLocks(ts);
@@ -4609,21 +4624,21 @@ const TUT=[
       {k:"f3",on:["f1","f2","f3"],c:"Filtre por bizurados, “cai muito” ou “caiu nas suas questões”, e baixe em PDF."}],
   d:["Leia a lei seca pelos filtros “Cai muito” e “Caiu nas suas questões” primeiro.","Leia em voz alta os trechos grifados: são as palavras que a banca troca.","Use o Estudo extra do tipo Lei seca para 30 minutos de leitura dirigida."]},
 
- {id:"arena",t:"Arena de flash cards",ic:"arena",go:"arena",
-  p:"A Arena é onde você revisa os flash cards. Eles chegam sozinhos dos resumos das aulas, das questões que você erra e dos testes de fixação (e você pode criar os seus). Em cada card, tente lembrar antes de revelar e diga com sinceridade: Errei, Quase ou Lembrei. A Arena calcula quando cada um volta: o fácil se espaça rápido, o que te pega volta mais cedo. Há também afirmações de Certo ou Errado, como na prova, e o botão Atacar lacunas treina só os seus pontos fracos.",
+ {id:"arena",t:"Flash Jornada",ic:"arena",go:"arena",
+  p:"O Flash Jornada é onde você revisa os flash cards. Eles chegam sozinhos dos resumos das aulas, das questões que você erra e dos testes de fixação (e você pode criar os seus). Em cada card, tente lembrar antes de revelar e diga com sinceridade: Errei, Quase ou Lembrei. O Flash Jornada calcula quando cada um volta: o fácil se espaça rápido, o que te pega volta mais cedo. Há também afirmações de Certo ou Errado, como na prova, e o botão Atacar lacunas treina só os seus pontos fracos.",
   s:`<div class="tu-card"><div class="tu-row"><span class="tu-chip" data-k="stk">🔥 Sequência: <b data-k="sd">0</b> dias</span><span class="tu-chip ok" data-k="now"><b data-k="nn">0</b> para agora</span></div>
      <div class="tu-fc" data-k="fc"><div class="f">A EC 132/2023 substituiu ICMS e ISS por quais tributos?</div><div class="b">Pelo IBS; e PIS/Cofins pela CBS: é o IVA dual.</div></div>
      <div class="tu-row"><button class="tu-btn ghost" data-k="no">Errei · agora</button><button class="tu-btn ghost" data-k="qs">Quase · 1d</button><button class="tu-btn" data-k="ok">Lembrei · 3d</button></div>
      <div class="tu-cyc">${["3d","9d","25d","2 m","5 m"].map((d,i)=>`<span data-k="d${i}">${d}</span>`).join("")}</div>
      <div class="tu-row"><span class="tu-chip" data-k="ce">Certo ou errado? Citação por hora certa exige suspeita de ocultação.</span><button class="tu-btn sm" data-k="gap">🎯 Atacar lacunas</button></div></div>`,
-  st:[{k:"now",on:["now"],n:[["nn",14]],c:"Abra a Arena: o número mostra quantos cards estão para agora. Toque em Iniciar revisão."},
+  st:[{k:"now",on:["now"],n:[["nn",14]],c:"Abra o Flash Jornada: o número mostra quantos cards estão para agora. Toque em Iniciar revisão."},
       {k:"fc",on:["d0"],c:"Leia a pergunta e puxe a resposta da memória, sem olhar."},
       {k:"fc",on:["fc"],c:"Revele e confira. Lembrar é diferente de reconhecer: seja honesto."},
       {k:"ok",on:["d1","d2"],c:"Lembrou? O intervalo cresce a cada acerto: 3 dias, depois 9, 25, meses..."},
-      {k:"no",c:"Errou? O card volta ainda nesta revisão e depois mais cedo. O erro é o que diz à Arena quando ele deve voltar."},
+      {k:"no",c:"Errou? O card volta ainda nesta revisão e depois mais cedo. O erro é o que diz ao Flash Jornada quando ele deve voltar."},
       {k:"ce",on:["ce"],c:"Afirmações de Certo ou Errado: julgue antes de ver o gabarito e a justificativa."},
       {k:"gap",on:["gap","stk"],n:[["sd",7]],c:"Atacar lacunas treina só os cards que mais te pegam. Revise todo dia para manter o foguinho aceso."}],
-  d:["Faça a Arena todo dia antes de teoria nova: 10 a 15 minutos bastam.","Em Configurações escolha a intensidade (Conservador perto da prova) e o ritmo de cards novos.","As questões do TEC anotadas continuam em Revisar › Revisões do dia, no ciclo de 1, 7, 14, 30 e 60 dias."]},
+  d:["Faça o Flash Jornada todo dia antes de teoria nova: 10 a 15 minutos bastam.","Em Configurações escolha a intensidade (Conservador perto da prova) e o ritmo de cards novos.","As questões do TEC anotadas continuam em Revisar › Revisões do dia, no ciclo de 1, 7, 14, 30 e 60 dias."]},
 
  {id:"erradas",t:"Erradas, reforços e bateria do TEC",ic:"erradas",go:"erradas",
   p:"Toda questão que você erra ou chuta entra em Erradas para refazer. Fez uma bateria no TEC? Em “Lançar bateria do TEC”, cole os números e marque cada uma (errei, não resolvi, chutei) com o motivo. Quando uma matéria fica abaixo de 75%, nasce um reforço com diagnóstico: onde você errou, por que errou e os passos para corrigir.",
@@ -4733,7 +4748,7 @@ function render(){
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
-  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena}[TAB];
+  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,assinatura:vAssinatura}[TAB];
   $("view").classList.toggle("noanim",render.lt===TAB);render.lt=TAB;$("view").innerHTML=gnavHTML()+V();try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
   if(UI.openT)renderDrawer();
 }
@@ -4814,7 +4829,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103084551";
+const JX_BUILD="20261103091445";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5077,7 +5092,7 @@ const arStmt=c=>String(c.f||"").replace(/^Certo ou errado\?\s*/i,"");
 const arAns=c=>/^\s*CERTO\b/i.test(c.b||"");
 const arExp=c=>String(c.b||"").replace(/^\s*(CERTO|ERRADO)\s*[.:–-]?\s*/i,"");
 const arAuto=c=>c.src!=="meu";
-/* cards antigos (ciclo 1-7-14-30-60) entram na Arena sem perder o histórico */
+/* cards antigos (ciclo 1-7-14-30-60) entram no Flash Jornada sem perder o histórico */
 function arMig(){let ch=0;CARDS().forEach(c=>{if(c.st)return;ch=1;const h=c.hist||[];
   if(c.done){c.st="rev";c.s=90;c.dif=3;c.due=addDays(c.done,90);c.done=false}
   else if(h.length){c.st="rev";c.s=OFF[c.step]||1;c.dif=5;c.due=addDays(c.d0,OFF[c.step]||1)}
@@ -5110,12 +5125,12 @@ function arStart(mode){arMig();const q=arQueue(mode);if(!q.length){toast(mode===
   UI.ar={mode,q,i:0,show:0,pick:null,n:{},done:0,req:0,t0:Date.now()};render();scrollTo(0,0)}
 
 /* ---------- telas ---------- */
-const arEye=t=>`<div class="ar-eye">${ic("arena")} A JORNADA ARENA${t?" · "+t:""}</div>`;
+const arEye=t=>`<div class="ar-eye">${ic("arena")} FLASH JORNADA${t?" · "+t:""}</div>`;
 function arWeek(){const S=arDays(),td=today(),d0=addDays(td,-pd(td).getDay());
   return`<div class="ar-wk">${["D","S","T","Q","Q","S","S"].map((l,i)=>{const d=addDays(d0,i),on=S.has(d);return`<span class="${d===td?"td":""} ${d>td?"fu":""}"><small>${l}</small><i class="${on?"on":""}">${on?ic("arena"):""}</i></span>`}).join("")}</div>`}
 function arHome(){arMig();const C=arCounts(),st=arStreak(),nNew=Math.min(C.lim,C.nw.length),all=CARDS();
   const nxt=arPool().filter(c=>c.st!=="new"&&c.due>today()).map(c=>c.due).sort()[0];
-  return`<div class="ar-home">${arEye()}<h1>Bem-vindo à Arena!</h1><p class="muted">Puxe a resposta da memória antes de ver: é assim que o conteúdo grava. Cada card volta pouco antes de você esquecer.</p>
+  return`<div class="ar-home">${arEye()}<h1>Bem-vindo ao Flash Jornada!</h1><p class="muted">Puxe a resposta da memória antes de ver: é assim que o conteúdo grava. Cada card volta pouco antes de você esquecer.</p>
    <div class="ar-fire ${st?"on":""}">${ic("flame")}</div><div class="ar-stk"><small>SUA SEQUÊNCIA</small><b>${st} dia${st===1?"":"s"}</b></div>${arWeek()}
    <div class="ar-tiles"><div><span>${ic("star")}</span><small>NOVOS</small><b>${nNew}</b></div><div><span>${ic("book")}</span><small>APRENDENDO</small><b>${C.lr.length}</b></div><div><span>${ic("reset")}</span><small>A REVISAR</small><b>${C.due.length}</b></div></div>
    <p class="ar-now"><b>${C.now}</b> PARA AGORA</p>
@@ -5141,7 +5156,7 @@ function arSession(){const S=UI.ar;if(S.i>=S.q.length)return arEnd();const c=CAR
 function arEnd(){const S=UI.ar,n=S.n,t=Math.max(1,Math.round((Date.now()-S.t0)/60000)),st=arStreak();
   return`<div class="ar-home ar-endv">${arEye()}<div class="ar-fire on big">${ic("flame")}</div><h1>Revisão concluída!</h1><p class="muted">${S.done} card${S.done===1?"":"s"} em ${t} min · sequência de ${st} dia${st===1?"":"s"}</p>
    <div class="ar-tiles"><div class="bad"><small>ERREI</small><b>${n[1]||0}</b></div><div class="warn"><small>QUASE</small><b>${n[2]||0}</b></div><div class="ok"><small>LEMBREI</small><b>${n[3]||0}</b></div></div>
-   <p class="muted small">Os que você errou voltam ainda hoje ou amanhã; os que lembrou se espaçam cada vez mais.</p><button class="ar-go" data-a="arQuit">Voltar à Arena</button></div>`}
+   <p class="muted small">Os que você errou voltam ainda hoje ou amanhã; os que lembrou se espaçam cada vez mais.</p><button class="ar-go" data-a="arQuit">Voltar ao Flash Jornada</button></div>`}
 function arBack(t){return`<div class="ar-sh"><button class="ibtn" data-a="arV" data-v="" aria-label="Voltar">${ic("left")}</button><h1>${t}</h1></div>`}
 function arCardsV(){const F=UI.arF||(UI.arF={q:"",st:"",tp:"",sid:""}),q=norm(F.q||""),td=today();
   const L=CARDS().filter(c=>(!q||norm(c.f+" "+c.b).includes(q))&&(!F.st||c.st===F.st)&&(!F.tp||(F.tp==="m"?!arAuto(c):arAuto(c)))&&(!F.sid||c.sid===F.sid));
@@ -5174,12 +5189,12 @@ function arMetV(){arMig();const td=today(),C=CARDS(),H=[];C.forEach(c=>(c.hist||
    <section class="card"><div class="card-h"><h2>Horários de estudo</h2></div><div class="card-b">${hz?arBars(hrs,hrs.map((_,h)=>h%3?"":h+"h"),"hr"):`<div class="empty">Sem revisões ainda.</div>`}</div></section></div>`}
 function arCfgV(){const A=ARC(),opt=(k,L)=>`<div class="ar-op">${L.map(([v,l,d])=>`<button data-a="arSet" data-k="${k}" data-v="${v}" aria-pressed="${A[k]===v}"><b>${l}</b><small>${d}</small></button>`).join("")}</div>`;
   return arBack("Configurações")+`<section class="card"><div class="card-b" style="display:grid;gap:18px">
-   <div><h3>Intensidade da revisão</h3><p class="muted small">Quanto a Arena prioriza a retenção. Mais revisões = maior memorização, mas mais tempo.</p>${opt("int",AR_INT)}</div>
+   <div><h3>Intensidade da revisão</h3><p class="muted small">Quanto o Flash Jornada prioriza a retenção. Mais revisões = maior memorização, mas mais tempo.</p>${opt("int",AR_INT)}</div>
    <div><h3>Cards novos</h3><label class="ar-sw"><input type="checkbox" data-c="arAuto" ${A.auto?"checked":""}><span><b>Adicionar automaticamente novos cards</b><small>Cards dos resumos, das questões erradas e da fixação entram na fila sem você precisar escolher. Desligado, eles chegam arquivados e você restaura os que quiser.</small></span></label></div>
    <div><h3>Ritmo de novos cards</h3>${opt("pace",AR_PACE)}</div>
-   <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><span><b>Tutorial</b><br><span class="muted small">Reveja a introdução da Arena quando quiser.</span></span><button class="btn" data-a="arIntro">Rever</button></div></div></section>`}
+   <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><span><b>Tutorial</b><br><span class="muted small">Reveja a introdução do Flash Jornada quando quiser.</span></span><button class="btn" data-a="arIntro">Rever</button></div></div></section>`}
 function arNavB(){try{if(!ARC().intro)return`<span class="new">Novo</span>`;const n=arCounts().now;return n?`<span class="cnt ar">${n}</span>`:""}catch(e){return""}}
-function arPromo(){arMig();const C=arCounts();return`<section class="card arv-p"><div class="card-b arv-pr"><span class="chip sm-k mini">${ic("arena")} Arena</span><span style="flex:1 1 260px"><b>Os cards agora ficam na Arena.</b><br><span class="muted small">${C.now} para agora · ${CARDS().length} no total. Revise com Errei, Quase ou Lembrei e cada card volta na hora certa.</span></span><button class="btn pri" data-a="tab" data-t="arena">Abrir a Arena</button></div></section>`}
+function arPromo(){arMig();const C=arCounts();return`<section class="card arv-p"><div class="card-b arv-pr"><span class="chip sm-k mini">${ic("arena")} Flash Jornada</span><span style="flex:1 1 260px"><b>Os cards agora ficam no Flash Jornada.</b><br><span class="muted small">${C.now} para agora · ${CARDS().length} no total. Revise com Errei, Quase ou Lembrei e cada card volta na hora certa.</span></span><button class="btn pri" data-a="tab" data-t="arena">Abrir o Flash Jornada</button></div></section>`}
 function vArena(){if(UI.ar)return arSession();const v=UI.arV||"";
   const body=v==="cards"?arCardsV():v==="disc"?arDiscV():v==="met"?arMetV():v==="cfg"?arCfgV():arHome();
   if(!ARC().intro&&!v)setTimeout(()=>{if(TAB==="arena"&&!$("layer3").innerHTML)arIntro(0)},300);
@@ -5187,12 +5202,12 @@ function vArena(){if(UI.ar)return arSession();const v=UI.arV||"";
 /* introdução animada (primeira vez e em Configurações) */
 const AR_IN=[["brain","Feito para a sua memória","Recuperação ativa e repetição espaçada","Os cards vêm prontos dos seus resumos, erros e testes. Você não monta nada: só revisa."],
  ["book","Tente lembrar antes","O esforço de recuperar é o que grava","Leia a pergunta e puxe a resposta da cabeça antes de revelar. Quem se testa retém muito mais do que quem só relê."],
- ["target","O erro é ouro","Seja honesto: Errei, Quase ou Lembrei","Errar não é ruim: é a informação que diz à Arena quando aquele card deve voltar."],
+ ["target","O erro é ouro","Seja honesto: Errei, Quase ou Lembrei","Errar não é ruim: é a informação que diz ao Flash Jornada quando aquele card deve voltar."],
  ["clock","O card volta na hora certa","Intervalo sob medida, nada fixo","O que é fácil se espaça rápido; o que te pega volta mais cedo. Cada botão mostra quando o card volta."],
  ["check","Certo ou errado, como na prova","Julgue as afirmações","Além de pergunta e resposta, há afirmações para julgar no estilo Cebraspe, com a justificativa do gabarito."],
  ["flame","Mantenha o foguinho aceso","Um pouco por dia vale mais","Revise todo dia para manter a sequência. Use Atacar lacunas para treinar só os pontos fracos."]];
 function arIntro(i){const s=AR_IN[i],last=i===AR_IN.length-1;
-  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Introdução à Arena"><div class="box ar-in"><button class="ibtn ar-x" data-a="arInEnd" aria-label="Fechar">${ic("close")}</button>
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Introdução ao Flash Jornada"><div class="box ar-in"><button class="ibtn ar-x" data-a="arInEnd" aria-label="Fechar">${ic("close")}</button>
    <div class="ar-art s${i}">${ic(s[0])}<svg class="ar-curve" viewBox="0 0 200 60"><path d="M5 50 Q35 5 55 40 T105 30 T155 22 T195 18"/></svg></div>
    <h3>${s[1]}</h3><p class="ar-sub">${s[2]}</p><p class="muted">${s[3]}</p>
    <div class="ar-dots">${AR_IN.map((_,j)=>`<i class="${j===i?"on":""}"></i>`).join("")}</div>
@@ -5215,6 +5230,38 @@ document.addEventListener("keydown",e=>{if(TAB!=="arena"||!UI.ar||$("layer3").in
   if((e.key===" "||e.key==="Enter")&&!arCE(c)&&!S.show){e.preventDefault();A.arShow()}
   else if(/^[123]$/.test(e.key)){const b=document.querySelector(`.ar-rate [data-g="${e.key}"]`);if(b){e.preventDefault();b.click()}}
   else if(arCE(c)&&S.pick==null&&(e.key==="c"||e.key==="e")){e.preventDefault();A.arPick({dataset:{v:e.key==="c"?"1":"0"}})}});
+
+/* ================= Assinatura: planos, status, pagamento (Hotmart/Kiwify) e termos ================= */
+const ASN_CFG=[["preco_mensal","Preço do plano mensal (R$)","39,90"],["preco_anual","Preço do plano anual (R$)","359,00"],["checkout_mensal","Link de pagamento do plano mensal (Hotmart ou Kiwify)","https://pay.hotmart.com/..."],["checkout_anual","Link de pagamento do plano anual","https://pay.kiwify.com.br/..."],
+  ["empresa","Razão social (aparece nos termos)","Sua Empresa Ltda"],["cnpj","CNPJ","00.000.000/0001-00"],["suporte_email","E-mail de suporte","suporte@seudominio.com.br"],["termos_versao","Versão dos termos (mude para pedir novo aceite)","2026-11"]];
+const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Flash Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte ao mentor","Lei seca bizurada com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
+function asnNum(v){return parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0}
+function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"39,90",pa=V.preco_anual||"359,00",td=new Date();
+  const eco=asnNum(pm)?Math.round((1-asnNum(pa)/(asnNum(pm)*12))*100):0,pmA=(asnNum(pa)/12).toFixed(2).replace(".",",");
+  const ate=A.plano_ate?new Date(A.plano_ate).toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"}):"";
+  const stH=A.st==="dono"?`<span class="chip ok">Acesso de dono</span><p>Acesso livre e vitalício nesta conta. Aqui você também configura os preços, os links de pagamento e os dados da empresa.</p>`
+   :A.st==="ativo"?`<span class="chip ok">Assinatura ativa</span><p>Plano <b>${A.plano==="anual"?"anual":A.plano==="mensal"?"mensal":"cortesia"}</b>${ate?" · válido até <b>"+ate+"</b>":""}${A.origem?" · pago pela "+(A.origem==="hotmart"?"Hotmart":"Kiwify"):""}. A renovação é automática; para cancelar, use a plataforma onde você comprou.</p>`
+   :A.st==="teste"?`<span class="chip warn">Teste grátis</span><p>${A.left<=1?"O seu teste termina <b>hoje</b>.":"Faltam <b>"+A.left+" dias</b> de teste."} Assine para não perder o ritmo: seus dados continuam todos com você.</p>`
+   :`<span class="chip bad">Sem acesso</span><p>O seu acesso terminou. Assine para continuar.</p>`;
+  const cap=A.st==="dono"?"sem limite":A.st==="teste"?60:300;
+  const plan=(t,nome,preco,per,sub,best)=>{const u=window.jxCheckout?window.jxCheckout(t):"";return`<div class="asn-p ${best?"best":""}">${best?`<span class="asn-tag">${eco>0?"Economize "+eco+"%":"Melhor custo"}</span>`:""}<b>${nome}</b><div class="asn-v"><small>R$</small>${esc(preco)}<em>/${per}</em></div><p class="muted small">${sub}</p>
+    ${A.st==="dono"?`<span class="muted small">${u?"Link configurado ✓":"Link ainda não configurado"}</span>`:u?`<a class="btn ${best?"pri":""}" href="${esc(u)}" target="_blank" rel="noopener">${A.st==="ativo"?"Trocar para o "+nome.toLowerCase():"Assinar o "+nome.toLowerCase()}</a>`:`<span class="muted small">Pagamento em breve.</span>`}</div>`};
+  const cfg=A.st!=="dono"?"":`<section class="card"><div class="card-h"><h2>${ic("gear")} Configuração da venda</h2><span class="r muted small">só você vê</span></div><div class="card-b" style="display:grid;gap:12px">
+    <p class="muted small" style="margin:0">Crie o produto (assinatura mensal e anual) no Hotmart ou na Kiwify, cole aqui os links de pagamento e configure o aviso de compra (webhook) com o endereço abaixo.</p>
+    <div class="asn-f">${ASN_CFG.map(([k,l,ph])=>`<label class="field"><span class="small" style="font-weight:600">${l}</span><input class="inp" data-cfg="${k}" value="${esc(V[k]||"")}" placeholder="${esc(ph)}"></label>`).join("")}</div>
+    <div class="row" style="justify-content:flex-end"><button class="btn pri" data-a="asnSave">Salvar configuração</button></div>
+    <div class="asn-wh"><b>Webhook (aviso de compra)</b>
+     <div><small>Hotmart (Ferramentas › Webhook, versão 2.0.0):</small><code>${esc(SUPA_FN("pagamento"))}?de=hotmart</code></div>
+     <div><small>Kiwify (Apps › Webhooks, eventos de compra e assinatura):</small><code>${esc(SUPA_FN("pagamento"))}?de=kiwify</code></div>
+     <p class="muted small" style="margin:0">Depois, no Supabase (Edge Functions › Secrets), guarde o token do Hotmart como <b>HOTMART_HOTTOK</b> e o da Kiwify como <b>KIWIFY_TOKEN</b>. O aluno precisa pagar com o mesmo e-mail da conta.</p></div></div></section>`;
+  return`<div class="hello"><h1>Assinatura</h1><p>Seu plano, o pagamento e os termos de uso da A Jornada.</p></div>
+   <section class="card"><div class="card-b asn-st">${stH}<div class="asn-ia"><small>IA hoje</small><b>${A.ia_hoje||0}${typeof cap==="number"?" / "+cap:""}</b><span class="muted small">${typeof cap==="number"?"pedidos por dia":cap}</span></div></div></section>
+   <div class="asn-pl">${plan("mensal","Plano mensal",pm,"mês","Cobrança todo mês. Cancele quando quiser.",0)}${plan("anual","Plano anual",pa,"ano","Equivale a R$ "+pmA+" por mês.",1)}</div>
+   <section class="card"><div class="card-h"><h2>O que está incluído</h2></div><div class="card-b"><ul class="asn-ft">${ASN_FEAT.map(f=>`<li>${ic("check")}${f}</li>`).join("")}</ul>
+    <p class="muted small" style="margin:10px 0 0">Pague com o mesmo e-mail da sua conta (<b>${esc(A.email||"")}</b>): a liberação é automática em poucos minutos. Você tem 7 dias para desistir e receber o valor de volta (art. 49 do CDC).</p>
+    <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn" data-a="asnCheck">${ic("reset")} Já paguei: verificar</button><a class="btn" href="termos.html#termos" target="_blank" rel="noopener">Termos de Uso ↗</a><a class="btn" href="termos.html#privacidade" target="_blank" rel="noopener">Política de Privacidade ↗</a></div></div></section>${cfg}`}
+const SUPA_FN=n=>{try{return String((window.JORNADA_CONFIG||{}).SUPABASE_URL||"").replace(/\/$/,"")+"/functions/v1/"+n}catch(e){return"/functions/v1/"+n}};
+function asnChip(){const A=window.JX_ACESSO;if(!A||A.st!=="teste")return"";return`<button class="asn-chip" data-a="tab" data-t="assinatura">${A.left<=1?"Teste termina hoje":"Teste: "+A.left+" dias"} · Assinar</button>`}
 
 function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
@@ -5690,7 +5737,7 @@ function asModal(){const S=UI.as;if(!S){$("layer3").innerHTML="";return}const c=
     ${S.mode==="base"?`<div class="asbase">
       <div class="row" style="gap:8px;align-items:end"><label class="small" style="display:grid;gap:4px;flex:1 1 220px">Uma meta deste concurso<select class="inp" id="asBM">${core().metas.slice().reverse().map(m=>`<option value="${m.n}">Meta ${pad(m.n)}${m.n===core().cur?" (atual)":""} · ${tasksOf(m.n).length} atividades</option>`).join("")}</select></label><button class="btn sm" data-a="asBaseMeta">Usar esta meta</button></div>
       ${allPlans().filter(p=>p.id!==ACTIVE).length?`<div class="row" style="gap:8px;align-items:end"><label class="small" style="display:grid;gap:4px;flex:1 1 220px">A meta atual de outro concurso<select class="inp" id="asBO">${allPlans().filter(p=>p.id!==ACTIVE).map(p=>`<option value="${p.id}">${esc(pName(p))}</option>`).join("")}</select></label><button class="btn sm" data-a="asBaseOther">Usar este concurso</button></div>`:""}
-      <label class="small" style="display:grid;gap:4px">Ou cole um planejamento (do Guruja, de um professor, de uma planilha…), uma atividade por linha<textarea class="inp" id="asBT" rows="4" placeholder="Ex.: Direito Constitucional – Aula 03 – teoria&#10;Português – revisão da Aula 02&#10;Contabilidade – 20 questões">${esc(S.baseTxt||"")}</textarea></label>
+      <label class="small" style="display:grid;gap:4px">Ou cole um planejamento (de outra plataforma, de um professor, de uma planilha…), uma atividade por linha<textarea class="inp" id="asBT" rows="4" placeholder="Ex.: Direito Constitucional – Aula 03 – teoria&#10;Português – revisão da Aula 02&#10;Contabilidade – 20 questões">${esc(S.baseTxt||"")}</textarea></label>
       <div class="row"><button class="btn sm" data-a="asBaseText">${ic("list")} Montar com este texto</button></div>
       <p class="muted small" style="margin:0">O painel usa a mesma sequência de matérias e tipos de atividade, mas cada matéria continua de onde você parou, com as páginas certas.</p></div>`:""}
     ${S.confirm?`<div class="asconf" role="alertdialog" aria-label="Confirmar planejamento"><b>${ic("check")} Planejamento gerado: ${S.rows.length} atividades · ${fmtM(tot)}${nCh?" · "+nCh+" fora da ordem":""}.</b><span>Confira a lista abaixo. Está a contento? Posso ${S.tg==="cur"?"aplicar na meta atual":"salvar como a próxima meta"}?</span>
@@ -7502,7 +7549,7 @@ function vRevisoes(){
   const item=(r,btn)=>{const s=r.sid?SUB(r.sid):null,d=dd(r),late=d<td;
     return`<div class="crow"><div class="k">${r.tq?`<span class="chip ${r.kind==="err"?"bad":"warn"}" style="margin-right:6px">${TQK[r.kind]||"TEC"}</span>`:""}${esc(r.label)}${r.note?`<span class="nt">${esc(r.note)}</span>`:""}${r.link?` <a href="${esc(r.link)}" target="_blank" rel="noopener" class="small">Abrir no TEC ↗</a>`:""}<small>${s?esc(s.n)+" · ":""}Revisão ${r.step+1} de 5, ${OFF[r.step]} dia${OFF[r.step]>1?"s":""} após o erro · ${d===td?"hoje":late?"atrasada desde "+dm(d):"em "+dm(d)}</small></div>${btn?`<button class="btn sm" data-a="rok" data-id="${r.id}">Acertei</button><button class="btn sm" data-a="rerr" data-id="${r.id}">Errei de novo</button>`:`<span class="chip">${dm(d)}</span>`}</div>`};
   const opts=`<option value="">Sem matéria</option>`+ED.map(s=>`<option value="${s.id}">${esc(s.n)}</option>`).join("");
-  return`<div class="hello"><h1>Revisões</h1><p>Questões do TEC anotadas voltam em 1, 7, 14, 30 e 60 dias. Se errar, o ciclo recomeça. Os flash cards ficam na Arena.</p></div>
+  return`<div class="hello"><h1>Revisões</h1><p>Questões do TEC anotadas voltam em 1, 7, 14, 30 e 60 dias. Se errar, o ciclo recomeça. Os flash cards ficam no Flash Jornada.</p></div>
   <div class="grid2"><section class="card"><div class="card-h"><h2>Para revisar hoje</h2><span class="r chip ${due.length?"warn":"ok"}">${due.length}</span></div>${due.length?due.map(r=>item(r,1)).join(""):`<div class="empty">Nenhuma revisão para hoje.</div>`}</section>
   <section class="card"><div class="card-h"><h2>Adicionar questão do TEC</h2></div><div class="card-b">${tqUniHTML(null)}</div></section></div>
   ${arPromo()}
@@ -8689,6 +8736,9 @@ const A={
       if(B.aula){const R0=resGet(B.sid,B.aula);(R0.tq=R0.tq||[]).push({id:uid(),n:r.n,link:tecQUrl(r.n),as:B.as||"Bateria do TEC",q:"",gab:"",com:"",d:today(),k:k});touch(resKey(B.sid,B.aula))}});
     UI.tb={sid:B.sid,rows:[]};$("layer3").innerHTML="";render();toast(n+" questões lançadas em Erradas, revisões e cards"+(B.aula?" e no resumo da aula":""))},
   ulkOpen(el){unlockNext(el)},
+  asnSave(){const L=[...document.querySelectorAll("[data-cfg]")];if(!window.jxSalvarConfig){toast("Disponível só no painel publicado");return}
+    (async()=>{try{for(const i of L){const v=i.value.trim();if(v!==((window.JX_VENDA||{})[i.dataset.cfg]||""))await window.jxSalvarConfig(i.dataset.cfg,v)}toast("Configuração da venda salva");render()}catch(e){toast("Não deu para salvar: "+(e&&e.message||e))}})()},
+  asnCheck(){if(!window.jxAcesso){toast("Disponível só no painel publicado");return}toast("Verificando o pagamento…");window.jxAcesso().then(A=>{render();toast(A.st==="ativo"||A.st==="dono"?"Assinatura ativa. Bons estudos!":A.st==="teste"?"Ainda não chegou a confirmação. No Pix e no cartão leva poucos minutos; no boleto, até 3 dias úteis.":"Ainda não chegou a confirmação do pagamento.")}).catch(()=>toast("Não deu para verificar agora"))},
   arGo(){arStart("due")},arGap(){arStart("gap")},
   arShow(){if(UI.ar){UI.ar.show=1;render()}},
   arPick(el){const S=UI.ar;if(!S)return;S.pick=+el.dataset.v;const c=CARDS().find(x=>x.id===S.q[S.i]);if(c&&(S.pick===1)!==arAns(c))try{fxVib([30])}catch(e){}render()},
@@ -8696,13 +8746,13 @@ const A={
   arQuit(){UI.ar=null;render();scrollTo(0,0)},
   arV(el){UI.arV=el.dataset.v||"";UI.arOff=null;render();scrollTo(0,0)},
   arArch(el){const c=CARDS().find(x=>x.id===el.dataset.id);if(!c)return;if(c.st==="arch"){c.st=c.reps?"rev":"new";c.due=c.due||today();c.done=false;c.held=0;toast("Card de volta à fila")}else{c.st="arch";c.done=today();toast("Card arquivado")}touch("cards");render()},
-  arDel(el){const i=CARDS().findIndex(x=>x.id===el.dataset.id);if(i<0)return;askConfirm("Excluir este card?","Ele sai da Arena de vez. Para só tirar da fila, use Arquivar.","Excluir",()=>{CARDS().splice(i,1);touch("cards");render()})},
-  arOffSave(){ARC().off=[...(UI.arOff||ARC().off||[])];UI.arOff=null;touch("core");toast("Disciplinas da Arena salvas");render()},
+  arDel(el){const i=CARDS().findIndex(x=>x.id===el.dataset.id);if(i<0)return;askConfirm("Excluir este card?","Ele sai do Flash Jornada de vez. Para só tirar da fila, use Arquivar.","Excluir",()=>{CARDS().splice(i,1);touch("cards");render()})},
+  arOffSave(){ARC().off=[...(UI.arOff||ARC().off||[])];UI.arOff=null;touch("core");toast("Disciplinas do Flash Jornada salvas");render()},
   arSet(el){ARC()[el.dataset.k]=el.dataset.v;touch("core");render()},
   arIntro(){arIntro(0)},arIn(el){arIntro(+el.dataset.i)},arInEnd(){ARC().intro=1;touch("core");$("layer3").innerHTML="";render()},
   arNew(){UI.arNk=UI.arNk||"qa";arNewModal()},arNk(el){UI.arNk=el.dataset.v;arNewModal()},arNv(el){UI.arNv=+el.dataset.v;const f=$("arNf").value,b=$("arNb").value;arNewModal();$("arNf").value=f;$("arNb").value=b},
   arNewSave(){const F=$("arNf").value.trim(),B=$("arNb").value.trim(),sid=$("arNs").value,ce=UI.arNk==="ce";if(!F||!B){toast(ce?"Escreva a afirmação e a justificativa":"Preencha a pergunta e a resposta");return}
-    UI.arNs=sid;addCard({sid,tid:"",aula:"",f:(ce?"Certo ou errado? ":"")+F,b:(ce?(UI.arNv===0?"ERRADO. ":"CERTO. "):"")+B,src:"meu"});$("layer3").innerHTML="";toast("Card criado: já está na fila da Arena");render()},
+    UI.arNs=sid;addCard({sid,tid:"",aula:"",f:(ce?"Certo ou errado? ":"")+F,b:(ce?(UI.arNv===0?"ERRADO. ":"CERTO. "):"")+B,src:"meu"});$("layer3").innerHTML="";toast("Card criado: já está na fila do Flash Jornada");render()},
   arqOpen(el){const n=+el.dataset.n;UI.arqOpen=UI.arqOpen===n?null:n;render();if(UI.arqOpen!=null)setTimeout(()=>{const d=document.querySelector(".arq-det");if(d)d.scrollIntoView({behavior:"smooth",block:"start"})},60)},
   arqSm(el){UI.smOpen=el.dataset.id;TAB="simulados";render();scrollTo(0,0)},
   mtOpen(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const M=mentorStats();UI.mt={M,P:mentorAuto(M),busy:0};mentorModal()},
@@ -9201,7 +9251,7 @@ Object.assign(A,{
 
 Object.assign(A,{
   async upNow(){if(!ASSETS){toast("Sem acesso à nuvem agora. Confira a internet.");return}toast("Enviando PDFs para a sua conta…");PDFS().forEach(p=>delete p.upErr);const r=await cloudSaveNow(PDFS().filter(p=>LOCALP.has(p.id)).map(p=>p.id));const bad=Object.values(r).filter(x=>!x.ok).length;toast(bad?bad+" PDF"+(bad>1?"s":"")+" ainda só neste aparelho. Tento de novo sozinho.":"Todos os PDFs já abrem em qualquer aparelho");render()},
-  skin(){const k=SKIN()==="arena"?"classic":"arena";try{localStorage.setItem("jornada-skin",k)}catch(e){}PLANS.ui=Object.assign({},PLANS.ui,{skin:k});savePlans();applySkin();render();toast(k==="arena"?"Skin Arena ativada":"Visual clássico de volta")},
+  skin(){const k=SKIN()==="arena"?"classic":"arena";try{localStorage.setItem("jornada-skin",k)}catch(e){}PLANS.ui=Object.assign({},PLANS.ui,{skin:k});savePlans();applySkin();render();toast(k==="arena"?"Visual moderno ativado":"Visual clássico de volta")},
   skinClr(){const c=core(),S=c.skin||{};["logo","bg"].forEach(k=>{if(S[k]&&S[k].id&&ASSETS)ASSETS.delete(S[k].id).catch(()=>{})});delete c.skin;touch("core");applySkin();render()}
 });
 
