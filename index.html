@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611031459"></script>
+<script src="/claude-shim.js?v=202611031602"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -2221,8 +2221,8 @@ const lvl=i=>core().cfg.lvl[ED[i].id]||"Intermediário";
 
 const dirty=new Set();let saveT=0,DB=null,UID=null,BASE="",ASSETS=null,SAMPLE=null;const writing=new Set();
 /* sem a chave da IA (ou teste encerrado): desliga a IA nesta sessão e tudo segue no modo automático, sem erros repetidos */
-/* Modelos de IA (meio-termo de custo): IA_LEVE = Claude Haiku (rápido e barato) para resumos, flash cards, mapas,
-   bizus, leitura de PDFs/cadernos e perguntas sobre as páginas; o padrão (Claude Sonnet) fica para o que exige
+/* Modelos de IA (meio-termo de custo): IA_LEVE = Claude Haiku (rápido e barato) para resumos, flash cards (com regra de precisão), mapas,
+   bizus, leitura de PDFs/cadernos e perguntas sobre as páginas; os "pontos de atenção" da atividade de teoria ficam no Sonnet; o padrão (Claude Sonnet) fica para o que exige
    raciocínio fino: questões e simulados (incl. Certo/Errado), correção de discursiva, explicação de gabarito,
    diagnóstico, planejamento, edital e transcrição de imagens. Para trocar tudo de volta ao Sonnet, mude para "default". */
 const IA_LEVE="quick";
@@ -2777,7 +2777,7 @@ Indícios já identificados no PDF (use se forem relevantes): ${base.att.slice(0
 ${txt}
 </paginas>
 Responda só com JSON: {"abordados":["..."],"atencao":["..."]}`;
-    const o=await SAMPLE.json(prompt,{modelTier:IA_LEVE});
+    const o=await SAMPLE.json(prompt,{modelTier:"default"});
     const A=Array.isArray(o&&o.abordados)?o.abordados.map(x=>String(x).trim()).filter(Boolean).slice(0,8):[],B=Array.isArray(o&&o.atencao)?o.atencao.map(x=>String(x).trim()).filter(Boolean).slice(0,6):[];
     if(A.length&&B.length){const f=findTask(t.id);const tt=f?f.t:t;tt.mt={pa:t.pa,pb:t.pb,top:A,att:B,at:Date.now()};touch("m-"+(f?f.n:core().cur));if(UI.openT===t.id)renderDrawer()}}
   catch(e){}finally{MT_BUSY.delete(t.id)}}
@@ -3846,6 +3846,7 @@ Use SOMENTE o resumo abaixo, que foi montado a partir das questões e do PDF da 
 ${txt}
 </resumo>
 Crie de 8 a 12 cards sobre o que mais cai e as pegadinhas. A maioria é pergunta e resposta: pergunta curta na frente, resposta direta no verso (1 a 3 frases, com a página ou o artigo quando o resumo trouxer). Inclua também 3 ou 4 afirmações para julgar Certo ou Errado, no estilo da banca, com a justificativa (quando for errada, diga o que está errado). Português do Brasil.
+PRECISÃO: copie exatamente do texto prazos, números, graus de parentesco, requisitos e expressões que mudam o sentido (como "em sua falta", "salvo", "ressalvado", "até", "pelo menos", "preferencialmente", "exclusivamente"). Não resuma uma condição ou uma ordem de preferência: se a lei diz "família ou, em sua falta, vizinho", escreva assim.
 Responda só com um array JSON: [{"f":"pergunta","b":"resposta"},{"t":"ce","f":"afirmação","v":true,"b":"justificativa"}]`,{modelTier:IA_LEVE});
   let n=0;if(Array.isArray(arr))arr.slice(0,16).forEach(x=>{if(x&&x.f&&x.b&&gOk(x.f+" "+x.b,txt)){const ce=x.t==="ce";addCard({sid,tid:"",aula:c,f:(ce?"Certo ou errado? ":"")+String(x.f).slice(0,400),b:(ce?(x.v===false||x.v==="false"?"ERRADO. ":"CERTO. "):"")+String(x.b).slice(0,900),src:"ia",pdf:true,lesson:1});n++}});
   if(!n)throw{code:"formato"};return n}
@@ -4915,7 +4916,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103145933";
+const JX_BUILD="20261103160245";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7637,6 +7638,7 @@ Use SOMENTE o conteúdo do material abaixo (trecho do PDF estudado ou resumo da 
 ${txt}
 </material>
 Crie de 5 a 8 cards objetivos sobre os pontos que a ${dsBanca()} mais cobra (prazos, exceções, competências, literalidade da lei): pergunta curta na frente, resposta direta no verso (1 a 3 frases, com o artigo quando houver). Escreva em português do Brasil.
+PRECISÃO: copie exatamente do texto prazos, números, graus de parentesco, requisitos e expressões que mudam o sentido (como "em sua falta", "salvo", "ressalvado", "até", "pelo menos", "preferencialmente", "exclusivamente"). Não resuma uma condição ou uma ordem de preferência: se a lei diz "família ou, em sua falta, vizinho", escreva assim.
 Responda só com um array JSON, por exemplo: [{"f":"Qual o prazo...?","b":"15 dias (CPC, art. 335)."}]`;
       const arr=await SAMPLE.json(prompt,{modelTier:IA_LEVE});
       if(Array.isArray(arr))arr.slice(0,10).forEach(x=>{if(x&&x.f&&x.b&&gOk(x.f+" "+x.b,txt)){addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:String(x.f).slice(0,400),b:String(x.b).slice(0,900),src:"ia",pdf:!!txt});made++}});
