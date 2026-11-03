@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611021925"></script>
+<script src="/claude-shim.js?v=202611022042"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -4305,16 +4305,17 @@ const TUT=[
   d:["Configure as três primeiras etapas no primeiro dia. Depois, o seu trabalho diário é só Hoje + Revisar.","Constância vence intensidade: cumprir a meta de 3 h todos os dias rende mais que 10 h num domingo.","Se a vida apertar, não pule as revisões: elas são curtas e protegem o que você já estudou."]},
 
  {id:"concurso",t:"Concurso e edital",ic:"concurso",go:"concurso",
-  p:"É o ponto de partida. Aqui você escolhe o concurso (há centenas de órgãos na busca), envia o edital em PDF e o painel monta o plano com as matérias, os assuntos e a data da prova. Dá para ter mais de um concurso e ver a compatibilidade entre eles.",
+  p:"É o ponto de partida. Escolha o concurso (há centenas de órgãos na busca) e envie o edital em PDF: o painel monta o plano com as matérias, os assuntos e a data da prova. Sem edital aberto? Use o último edital publicado como base: o estudo segue as matérias dele, a prova fica “a definir” (∞) e, quando o novo sair, o plano se ajusta sozinho sem perder o que você já estudou.",
   s:`<div class="tu-card"><div class="tu-row"><span class="tu-lbl">Concurso</span><span class="tu-inp" data-k="busca"><em data-k="bt"></em></span></div>
      <div class="tu-res" data-k="res"><span class="tu-chip">SEFAZ · Auditor Fiscal</span><span class="tu-chip ok" data-k="cmp">87% compatível com o principal</span></div>
-     <button class="tu-btn" data-k="ed">Enviar edital (PDF)</button><div class="tu-bar"><i data-k="bar"></i></div>
-     <ul class="tu-list" data-k="lst"><li>📅 Data da prova lida do edital</li><li>📚 <b data-k="nm">0</b> matérias</li><li>🧩 <b data-k="na">0</b> assuntos</li></ul></div>`,
-  st:[{k:"busca",ty:["bt","sefaz auditor"],c:"Digite o órgão ou o cargo na busca: aparecem os concursos e o quanto cada um combina com o seu principal."},
+     <div class="tu-row"><span class="tu-chip" data-k="tbd">Prova: ∞ a definir</span><button class="tu-btn sm" data-k="prev">Usar o último edital</button></div><div class="tu-bar"><i data-k="bar"></i></div>
+     <ul class="tu-list" data-k="lst"><li>📚 <b data-k="nm">0</b> matérias do edital anterior</li><li>🧩 <b data-k="na">0</b> assuntos</li><li>🔁 Saiu o novo? Inclua e o plano se ajusta</li></ul></div>`,
+  st:[{k:"busca",ty:["bt","sefaz auditor"],c:"Digite o órgão ou o cargo: aparecem os concursos e o quanto cada um combina com o seu principal."},
       {k:"res",on:["res"],c:"Escolha o concurso. O selo de compatibilidade mostra quanto do estudo de um serve para o outro."},
-      {k:"ed",on:["bar"],c:"Envie o edital em PDF. O painel lê o arquivo sozinho."},
-      {k:"lst",on:["lst"],n:[["nm",12],["na",184]],c:"Pronto: matérias, assuntos e data da prova entram no plano. As metas são criadas a partir disso."}],
-  d:["Envie o edital oficial: é dele que saem os assuntos riscados no Edital e a prioridade das metas.","Enquanto o edital não sai, use o anterior (pré-edital). Quando o novo sair, troque e o painel readequa.","Estudando para dois concursos? Adicione os dois e priorize as matérias em comum."]},
+      {k:"tbd",on:["tbd"],c:"Concurso sem edital aberto: a contagem fica em ∞ até sair a data da prova."},
+      {k:"prev",on:["bar"],c:"Toque em “Usar o último edital” e envie o PDF dele: as datas antigas ficam de fora."},
+      {k:"lst",on:["lst"],n:[["nm",12],["na",184]],c:"Matérias e assuntos entram no plano. Quando o edital novo sair, inclua-o: o que você estudou continua contando."}],
+  d:["Envie o edital oficial: é dele que saem os assuntos riscados no Edital e a prioridade das metas.","Sem edital? Comece pelo último: a maior parte do conteúdo costuma se repetir.","Estudando para dois concursos? Adicione os dois e priorize as matérias em comum."]},
 
  {id:"rotina",t:"Rotina da semana",ic:"rotina",go:"rotina",
   p:"Aqui você diz quando estuda. Arraste os blocos (estudo, trabalho, refeição, treino, descanso, sono) para os dias e horários. Com a rotina pronta, o painel encaixa as atividades da meta exatamente nos seus tempos de estudo, sem passar do que cabe no dia.",
@@ -4349,7 +4350,7 @@ const TUT=[
   d:["Envie os PDFs das próximas aulas com antecedência: assim a meta nunca fica sem material.","Use sempre a versão completa da aula (com questões comentadas): é dela que nascem o resumo e os cards.","PDFs ficam na sua conta: abra no celular, no tablet ou no computador."]},
 
  {id:"hoje",t:"Hoje: a meta do dia",ic:"meta",go:"meta",
-  p:"É a tela do dia a dia. A meta tem as atividades que cabem na sua rotina. Cada atividade de teoria tem 3 passos: Ler (as páginas certas), O que cai aqui (o resumo do trecho e os cards) e Questões (só as daquele trecho). Ao terminar, toque em Finalizar. A próxima meta abre quando esta é cumprida.",
+  p:"É a tela do dia a dia. A meta tem as atividades que cabem na sua rotina. Cada atividade de teoria tem 3 passos: Ler (as páginas certas), O que cai aqui (o resumo do trecho e os cards) e Questões (só as daquele trecho). Ao terminar, toque em Finalizar. Aos domingos e segundas aparece o Check-in da semana com o seu balanço.",
   s:`<div class="tu-card"><div class="tu-row"><b>Meta 03</b><span class="tu-prog"><i data-k="mp"></i></span><small data-k="mt">0 de 3</small></div>
      <div class="tu-task" data-k="t1"><i class="tu-ck" data-k="c1"></i>Teoria · Tributário · págs. 3 a 18</div>
      <div class="tu-steps" data-k="sp"><span data-k="p1">1 Ler</span><span data-k="p2">2 O que cai aqui</span><span data-k="p3">3 Questões</span></div>
@@ -4360,7 +4361,19 @@ const TUT=[
       {k:"p2",on:["p2"],c:"Passo 2, O que cai aqui: o resumo do trecho, montado pelas questões, e os cards."},
       {k:"p3",on:["p3"],c:"Passo 3, Questões: só as questões daquele trecho, para resolver ali mesmo."},
       {k:"fin",on:["c1","mp"],n:[["mt",1]],c:"Toque em Finalizar. A atividade é riscada, entra nas revisões e a meta avança."}],
-  d:["Faça as atividades na ordem: elas foram encaixadas pela prioridade e pelo tempo do dia.","Não pule o passo 3: resolver logo depois de ler é o que mais aumenta o acerto.","Use “Continuar” no topo: ele abre direto a próxima atividade pendente."]},
+  d:["Faça as atividades na ordem: elas foram encaixadas pela prioridade e pelo tempo do dia.","Não pule o passo 3: resolver logo depois de ler é o que mais aumenta o acerto.","No Check-in da semana, toque em “Ajustar a próxima semana com o mentor” quando atrasar."]},
+
+ {id:"planob",t:"Plano B e estudo extra",ic:"rotina",go:"meta",
+  p:"Dois botões em Hoje para os dias fora do normal. “Hoje tenho pouco tempo” mostra o essencial em cerca de 1 hora (revisões, Erradas, reforços que vencem e só o passo 2 e as questões da teoria) sem mexer na meta. “Estudo extra” é para quando sobra tempo: escolha matéria, assunto e tipo, e cerca de 30 minutos entram no seu tempo e no Desempenho.",
+  s:`<div class="tu-card"><div class="tu-row"><button class="tu-btn sm ghost" data-k="pb">Hoje tenho pouco tempo</button><button class="tu-btn sm ghost" data-k="ex">+ Estudo extra</button></div>
+     <ul class="tu-list" data-k="pbl"><li>1 · 6 revisões do dia</li><li>2 · Refaça 5 das Erradas</li><li>3 · Teoria de hoje: só o passo 2 e as questões</li></ul>
+     <div class="tu-row" data-k="exr"><span class="tu-chip">Questões · Tributário · Isenção</span><span class="tu-clock" data-k="clk">0 min</span></div>
+     <div class="tu-score" data-k="sv">Salvo: 30 min · 15 de 20 questões</div></div>`,
+  st:[{k:"pb",on:["pbl"],c:"Dia apertado? “Hoje tenho pouco tempo” mostra só o essencial, na ordem certa. A meta não muda."},
+      {k:"ex",on:["exr"],c:"Sobrou tempo? “Estudo extra”: escolha matéria, assunto e tipo (questões, teoria, lei seca ou revisão)."},
+      {k:"clk",on:["clk"],c:"O tempo corre no cartão e um botão leva direto ao material certo."},
+      {k:"sv",on:["sv"],c:"Ao concluir, informe as questões feitas: tudo entra no Desempenho e no check-in."}],
+  d:["Use o Plano B sem culpa: proteger as revisões num dia ruim vale mais que pular o dia.","O estudo extra rende mais nas matérias abaixo de 75% de acerto.","Se o Plano B virar rotina, ajuste as horas na Rotina para o plano ficar real."]},
 
  {id:"leitor",t:"Leitor, marca-texto e páginas",ic:"book",go:"materiais",
   p:"O leitor abre o PDF na página certa. Use o marca-texto com cores (cada cor tem um sentido) e digite o número da página para pular direto, sem passar uma por uma. O que você marca entra no resumo da aula quando “Marcações no resumo” está ligado.",
@@ -4373,38 +4386,54 @@ const TUT=[
   d:["Marque pouco: se tudo está amarelo, nada se destaca na revisão.","Rosa (dúvida) vira lembrete: volte nesses trechos antes das questões.","As marcações aparecem no passo 2 e no resumo da aula."]},
 
  {id:"questoes",t:"Caixa de questões",ic:"check",go:"meta",
-  p:"As questões do PDF (e as que você trouxer do TEC) aparecem numa caixa para resolver ali mesmo, só as do trecho estudado. Você escolhe a alternativa, vê na hora se acertou, lê o comentário e a página da teoria. Erros e chutes vão sozinhos para Erradas e reforçam o resumo.",
+  p:"As questões do PDF (e as do TEC) aparecem numa caixa para resolver ali mesmo, só as do trecho estudado. Ao responder, o comentário do professor aparece em destaque: gabarito, a sua resposta, cada alternativa analisada e os artigos realçados. Errou? Toque no motivo do erro e peça “Explicar melhor” para ver por que a certa é certa, onde errou e um exemplo.",
   s:`<div class="tu-card"><p class="tu-q">Q12. A anistia abrange as infrações cometidas após a vigência da lei que a concede?</p>
      ${["Sim, sempre.","Sim, se a lei disser.","Não: só as anteriores à lei.","Depende do tributo."].map((o,i)=>`<div class="tu-opt" data-k="o${i}">${"ABCD"[i]}) ${o}</div>`).join("")}
-     <div class="tu-exp" data-k="exp">✘ Resposta certa: C. A anistia só alcança infrações anteriores à lei (CTN, art. 180). <b>p. 41</b> · foi para Erradas</div></div>`,
-  st:[{k:"o1",on:["o1"],c:"Escolha a alternativa que você acha certa."},
-      {k:"o2",on:["o2","exp"],c:"O painel mostra na hora: a sua em vermelho, a certa em verde, com o comentário e a página da teoria."},
-      {k:"exp",c:"A questão errada vai para Erradas e o ponto dela sobe no resumo, marcado “você errou”."}],
-  d:["Responda antes de olhar o comentário, mesmo sem certeza: o erro ensina mais que a leitura.","Marque “chutei” quando acertar sem saber: o painel trata como dúvida e traz de volta.","Leve as questões erradas do TEC para o resumo: elas viram pegadinhas na revisão."]},
+     <div class="tu-exp" data-k="exp">✘ Gabarito: C · Você marcou: B. A anistia só alcança infrações anteriores à lei (CTN, art. 180). <b>p. 41</b></div>
+     <div class="tu-tabs" data-k="why"><span>Não sabia</span><span data-k="w2">Sabia, mas esqueci</span><span>Falta de atenção</span></div></div>`,
+  st:[{k:"o1",on:["o1"],c:"Escolha a alternativa e toque em Resolver."},
+      {k:"o2",on:["o2","exp"],c:"O comentário aparece em destaque: a certa em verde, a sua em vermelho, artigos realçados e a página da teoria."},
+      {k:"w2",on:["w2"],c:"Errou? Marque o motivo do erro: ele alimenta o seu padrão de erros e o diagnóstico dos reforços."},
+      {k:"exp",c:"Peça “Explicar melhor” para a explicação completa, sempre presa ao comentário e à teoria do PDF."}],
+  d:["Responda antes de olhar o comentário, mesmo sem certeza: o erro ensina mais que a leitura.","Marque o motivo de todo erro: em poucas semanas o painel mostra exatamente o que corrigir.","Marque “chutei” quando acertar sem saber: o painel trata como dúvida e traz de volta."]},
 
  {id:"resumos",t:"Resumos da aula",ic:"resumos",go:"resumos",
-  p:"O resumo nasce das questões: cada ponto mostra a regra (com a página do PDF), quantas questões cobraram, como caiu e a pegadinha. Com a IA ligada, ele é reescrito de forma didática. Você pode ver só o que mais cai, só o que errou, gerar o resumão final de véspera, adicionar questões do TEC e baixar em PDF.",
+  p:"O resumo nasce das questões. Cada bloco diz o Assunto; cada ponto traz “O que você precisa saber” (a regra, o artigo de lei ou, em Português, a técnica que resolve a questão) e “Como caiu” (a questão e a resposta), com a página do PDF e a pegadinha. Com a IA ligada, ele é reescrito de forma didática, só com o seu material.",
   s:`<div class="tu-card"><div class="tu-tabs"><span class="on">Completo</span><span data-k="tc">Só o que cai</span><span data-k="te">Só o que errei</span><span data-k="tr">Resumão final</span></div>
-     <div class="tu-pt" data-k="pt1"><small>p. 3 · 4 questões</small>A exclusão do crédito não dispensa as obrigações acessórias.<em>Pegadinha: art. 175, parágrafo único.</em></div>
-     <div class="tu-pt bad" data-k="pt2"><small>p. 41 · 3 questões · você errou</small>A anistia só alcança infrações anteriores à lei.</div>
+     <div class="tu-row"><span class="tu-chip" data-k="as">Assunto · Exclusão do crédito</span></div>
+     <div class="tu-pt" data-k="pt1"><small>O QUE VOCÊ PRECISA SABER · p. 3 · 4 questões</small>A exclusão do crédito não dispensa as obrigações acessórias.<em>Pegadinha: art. 175, parágrafo único.</em></div>
+     <div class="tu-pt" data-k="pt2"><small>COMO CAIU</small>CEBRASPE 2025: “A exclusão dispensa a obrigação acessória.” → Errado</div>
      <div class="tu-row"><span class="tu-sw" data-k="ia"><i></i></span><small>Usar a IA</small><button class="tu-btn sm" data-k="pdf">Baixar em PDF</button></div></div>`,
-  st:[{k:"pt1",c:"Cada ponto traz a regra, a página do PDF, quantas questões cobraram e a pegadinha."},
-      {k:"ia",on:["ia","pt1"],c:"Com “Usar a IA” ligado, o resumo, os cards e o mapa mental de cada aula são feitos sozinhos."},
-      {k:"te",on:["te"],c:"“Só o que errei” mostra os pontos em que você caiu: é a revisão mais valiosa."},
-      {k:"tr",on:["tr"],c:"“Resumão final” cabe em 1 a 2 páginas, com checklist para a véspera da prova."},
+  st:[{k:"as",on:["as"],c:"Cada bloco começa pelo Assunto: você sabe de onde vem cada ponto."},
+      {k:"pt1",on:["pt1"],c:"“O que você precisa saber”: o conteúdo que dá base para acertar, com página e quantas questões cobraram."},
+      {k:"pt2",on:["pt2"],c:"“Como caiu”: a questão resumida e a resposta certa."},
+      {k:"tr",on:["tr","ia"],c:"“Resumão final”: Assunto, Questão e Base para acertar, em 1 a 2 páginas para a véspera."},
       {k:"pdf",c:"Baixe em PDF para ler no celular ou imprimir."}],
-  d:["Leia o resumo da aula no dia seguinte ao estudo: é a primeira revisão.","Na reta final, estude pelo “Só o que cai” e pelo “Só o que errei”.","Cole questões do TEC na caixa ao lado: o resumo cresce com o que a banca cobra fora do PDF."]},
+  d:["Leia o resumo da aula no dia seguinte ao estudo: é a primeira revisão.","Na reta final, estude pelo “Só o que cai” e pelo “Só o que errei”.","Lance as questões do TEC: o resumo cresce com o que a banca cobra fora do PDF."]},
 
  {id:"mapas",t:"Mapas mentais",ic:"mapas",go:"mapas",
-  p:"Os mapas mentais organizam a aula num só olhar: assunto no centro, ramos com conceitos, artigos, prazos e exceções. A IA monta um mapa por aula a partir do resumo, e você também pode enviar os mapas do seu curso (imagem, PDF ou link). Tudo fica separado por matéria e assunto do edital.",
+  p:"O mapa mental organiza a aula num só olhar, com o conteúdo em si: cada folha é uma frase com a regra, o prazo, a exceção ou a diferença, e cada ramo traz um exemplo (do PDF ou de fonte segura, sempre indicada). A IA monta um mapa por aula a partir do resumo e da teoria do PDF. Dá para refazer com mais conteúdo e baixar em PDF.",
   s:`<svg class="tu-mm" viewBox="0 0 320 170" aria-hidden="true"><g class="tu-ln" data-k="l"><path d="M160 85 L60 35"/><path d="M160 85 L60 135"/><path d="M160 85 L260 35"/><path d="M160 85 L260 135"/></g>
      <g data-k="r"><rect x="110" y="68" width="100" height="34" rx="17"/><text x="160" y="90">Exclusão</text></g>
      <g data-k="a"><rect x="10" y="20" width="96" height="30" rx="8"/><text x="58" y="40">Isenção</text></g><g data-k="b"><rect x="214" y="20" width="96" height="30" rx="8"/><text x="262" y="40">Anistia</text></g>
-     <g data-k="c"><rect x="10" y="120" width="96" height="30" rx="8"/><text x="58" y="140">Art. 175</text></g><g data-k="d"><rect x="214" y="120" width="96" height="30" rx="8"/><text x="262" y="140">Pegadinhas</text></g></svg>`,
+     <g data-k="c"><rect x="10" y="120" width="96" height="30" rx="8"/><text x="58" y="140">Ex.: do PDF</text></g><g data-k="d"><rect x="214" y="120" width="96" height="30" rx="8"/><text x="262" y="140">Baixar PDF</text></g></svg>`,
   st:[{k:"r",on:["r"],c:"No centro, o assunto da aula."},
-      {k:"a",on:["l","a","b"],c:"Os ramos trazem os conceitos principais, só do que está no seu material."},
-      {k:"d",on:["c","d"],c:"E os detalhes que a banca cobra: artigos, prazos, exceções e pegadinhas."}],
-  d:["Revise pelo mapa antes de dormir: 2 minutos por aula.","Tente reconstruir o mapa de memória e depois compare: é revisão ativa.","Envie também os mapas do seu curso: eles ficam junto, por assunto."]},
+      {k:"a",on:["l","a","b"],c:"Os ramos trazem o conteúdo em frases completas, só do que está no seu material."},
+      {k:"c",on:["c"],c:"Cada ramo tem um exemplo: do PDF ou de fonte segura, sempre com a fonte indicada."},
+      {k:"d",on:["d"],c:"Ao abrir o mapa: “Refazer com mais conteúdo” ou “Baixar em PDF”."}],
+  d:["Revise pelo mapa antes de dormir: 2 minutos por aula.","Tente reconstruir o mapa de memória e depois compare: é revisão ativa.","Baixe os mapas da matéria num PDF só para a reta final."]},
+
+ {id:"leiseca",t:"Lei seca bizurada",ic:"edital",go:"leiseca",
+  p:"Em Estudar › Lei seca, escolha a lei (ou escreva qual é): o texto oficial vem do site do Planalto, sem o que foi revogado. A IA marca a incidência de cada artigo, grifa os trechos que a banca troca e escreve um bizu curto, preso ao texto do artigo. Ligada à matéria, a lei mostra quais artigos já caíram nas suas questões.",
+  s:`<div class="tu-card"><div class="tu-row"><span class="tu-inp" data-k="lq"><em data-k="lt"></em></span><button class="tu-btn sm" data-k="lb">Baixar e bizurar</button></div>
+     <div class="tu-pt" data-k="art"><small>Art. 3 · ★★★ cai muito · caiu em 4 questões suas</small><span>Tributo é toda prestação <b>pecuniária compulsória</b> … cobrada mediante atividade administrativa <b>plenamente vinculada</b>.</span></div>
+     <div class="tu-exp" data-k="biz" style="border-left-color:var(--lime);background:var(--sunk)">💡 Bizu: a banca troca “plenamente vinculada” por “discricionária”.</div>
+     <div class="tu-tabs"><span data-k="f1">Bizurados</span><span data-k="f2">Cai muito</span><span data-k="f3">Caiu nas suas questões</span></div></div>`,
+  st:[{k:"lq",ty:["lt","Código Tributário Nacional"],c:"Escolha a lei na lista ou escreva qual é: a IA acha a página oficial no Planalto."},
+      {k:"art",on:["art"],c:"O texto vem organizado em artigos, parágrafos e incisos, com a incidência de cada artigo."},
+      {k:"biz",on:["biz"],c:"Os trechos que a banca troca ficam grifados, e cada artigo importante ganha um bizu."},
+      {k:"f3",on:["f1","f2","f3"],c:"Filtre por bizurados, “cai muito” ou “caiu nas suas questões”, e baixe em PDF."}],
+  d:["Leia a lei seca pelos filtros “Cai muito” e “Caiu nas suas questões” primeiro.","Leia em voz alta os trechos grifados: são as palavras que a banca troca.","Use o Estudo extra do tipo Lei seca para 30 minutos de leitura dirigida."]},
 
  {id:"revisoes",t:"Revisões e cards",ic:"revisoes",go:"revisoes",
   p:"Aqui ficam as revisões do dia: cards de pergunta e resposta e as questões que voltaram. O ciclo é de 1, 7, 14, 30 e 60 dias: quando você lembra, o próximo intervalo fica maior; quando esquece, a revisão volta mais cedo. É o que garante que você chegue na prova lembrando do que estudou no começo.",
@@ -4417,16 +4446,17 @@ const TUT=[
       {k:"no",c:"Esqueceu? Ele volta amanhã. Seja honesto: o ciclo só funciona assim."}],
   d:["Zere as revisões todo dia antes de teoria nova.","Responda em voz alta ou escreva: lembrar é diferente de reconhecer.","O número vermelho no menu Revisar mostra quantas estão pendentes."]},
 
- {id:"erradas",t:"Erradas e reforços",ic:"erradas",go:"erradas",
-  p:"Toda questão que você erra ou chuta (do PDF, do TEC ou dos simulados) entra sozinha em Erradas, para refazer. Quando uma matéria fica abaixo de 75% de acerto, nasce um reforço: questões extras daquele assunto, com 30 dias de prazo, sem travar a meta.",
-  s:`<div class="tu-card"><div class="tu-task" data-k="e1"><i class="tu-x">✘</i>Q12 · Anistia · Tributário</div><div class="tu-task" data-k="e2"><i class="tu-x">?</i>Q07 · Isenção onerosa · chutei</div>
-     <div class="tu-row"><b>Tributário</b><span class="tu-prog bad"><i data-k="ac" style="--w:68%"></i></span><small>68% de acerto</small></div>
-     <div class="tu-ref" data-k="rf">⚑ Reforço: 15 questões de Exclusão do crédito · prazo de 30 dias</div></div>`,
-  st:[{k:"e1",on:["e1"],c:"A questão errada já está aqui, pronta para refazer."},
-      {k:"e2",on:["e2"],c:"As que você chutou também entram: acertar sem saber não conta."},
+ {id:"erradas",t:"Erradas, reforços e bateria do TEC",ic:"erradas",go:"erradas",
+  p:"Toda questão que você erra ou chuta entra em Erradas para refazer. Fez uma bateria no TEC? Em “Lançar bateria do TEC”, cole os números e marque cada uma (errei, não resolvi, chutei) com o motivo. Quando uma matéria fica abaixo de 75%, nasce um reforço com diagnóstico: onde você errou, por que errou e os passos para corrigir.",
+  s:`<div class="tu-card"><div class="tu-row"><button class="tu-btn sm" data-k="tb">Lançar bateria do TEC</button></div>
+     <div class="tu-task" data-k="e1"><i class="tu-x">✘</i>2345678 · Errei · Falta de atenção</div><div class="tu-task" data-k="e2"><i class="tu-x">?</i>2345690 · Não resolvi</div>
+     <div class="tu-row"><b>Português</b><span class="tu-prog bad"><i data-k="ac" style="--w:68%"></i></span><small>68% de acerto</small></div>
+     <div class="tu-ref" data-k="rf">⚑ Diagnóstico: seus erros foram em Crase e Concordância, a maioria por falta de atenção. 1. Refaça as erradas desses assuntos…</div></div>`,
+  st:[{k:"tb",c:"Fez questões no TEC? Toque em “Lançar bateria do TEC” e cole os números, um por linha."},
+      {k:"e1",on:["e1","e2"],c:"Marque cada uma e o motivo: vão para Erradas, revisões e cards."},
       {k:"ac",on:["ac"],c:"A matéria caiu abaixo de 75% de acerto…"},
-      {k:"rf",on:["rf"],c:"…e o painel cria um reforço com questões extras, com 30 dias de prazo."}],
-  d:["Refaça as erradas depois de 1 dia, não na hora: assim você testa a memória de verdade.","Leia o comentário e escreva com as suas palavras por que errou.","Cumpra os reforços dentro do prazo: são eles que puxam a matéria fraca para cima."]},
+      {k:"rf",on:["rf"],c:"…e nasce um reforço com diagnóstico e passos práticos, pelo assunto e pelo motivo dos seus erros."}],
+  d:["Refaça as erradas depois de 1 dia, não na hora: assim você testa a memória de verdade.","Lance todas as baterias do TEC: é o que torna o diagnóstico preciso.","Cumpra os reforços dentro do prazo: são eles que puxam a matéria fraca para cima."]},
 
  {id:"simulados",t:"Simulados",ic:"simulados",go:"simulados",
   p:"Os simulados são liberados ao longo do plano e treinam a prova de verdade: tempo marcado, gabarito e correção comentada. Os erros vão para Erradas e a matéria abaixo de 75% ganha reforço.",
@@ -4446,14 +4476,25 @@ const TUT=[
       {k:"go",on:["nt"],c:"Toque em Corrigir: a IA dá a nota por quesito e explica o que faltou."}],
   d:["Treine pelo menos uma discursiva por semana na reta final.","Reescreva a mesma questão depois da correção: é assim que a nota sobe.","Cuidado com o limite de linhas: o painel conta para você."]},
 
- {id:"desempenho",t:"Desempenho, mentor e projeção",ic:"desempenho",go:"desempenho",
-  p:"O Desempenho mostra horas estudadas, acerto por matéria e evolução. Em Hoje, “Recalcular com o mentor” analisa o seu ritmo, refaz as próximas metas até a prova e projeta a sua nota. O “Plano para 85%” ajusta o planejamento dentro das suas horas por dia.",
+ {id:"desempenho",t:"Desempenho e padrão de erros",ic:"desempenho",go:"desempenho",
+  p:"O Desempenho mostra horas, acerto por matéria e evolução, e o Padrão de erros: por que você erra (não sabia, esqueceu, confundiu, falta de atenção, interpretação, pressa) e o que fazer com isso. Em Hoje, “Recalcular com o mentor” refaz as metas até a prova e projeta a sua nota; o “Plano para 85%” ajusta o planejamento nas suas horas.",
   s:`<div class="tu-card">${[["Tributário",68],["Português",84],["Constitucional",79]].map(([n,v],i)=>`<div class="tu-hb"><span>${n}</span><i><s data-k="d${i}" style="--w:${v}%"></s></i><em>${v}%</em></div>`).join("")}
+     <div class="tu-hb"><span>Esqueci</span><i><s data-k="w0" style="--w:70%"></s></i><em>38%</em></div><div class="tu-hb"><span>Falta de atenção</span><i><s data-k="w1" style="--w:62%"></s></i><em>36%</em></div>
      <button class="tu-btn" data-k="mt">Recalcular com o mentor</button><div class="tu-gauge" data-k="ga"><b data-k="gp">0</b>%<small>projeção de acerto na prova</small></div></div>`,
   st:[{k:"d0",on:["d0","d1","d2"],c:"Veja o acerto de cada matéria: a mais baixa é a sua prioridade."},
-      {k:"mt",on:["ga"],n:[["gp",76]],c:"O mentor recalcula as metas até a prova e projeta a sua nota se você cumprir o plano."},
-      {k:"ga",c:"Ative o “Plano para 85%” para o painel puxar mais questões e reforços nas matérias fracas, sem passar das suas horas."}],
-  d:["Recalcule com o mentor sempre que atrasar mais de 2 dias.","Olhe a projeção uma vez por semana, não todo dia: o que importa é a tendência.","Matéria abaixo de 75% merece mais questões, não mais teoria."]},
+      {k:"w0",on:["w0","w1"],c:"O Padrão de erros mostra por que você erra e qual atitude corrige cada motivo."},
+      {k:"mt",on:["ga"],n:[["gp",76]],c:"O mentor recalcula as metas até a prova e projeta a sua nota; compare com a nota de corte."}],
+  d:["Recalcule com o mentor sempre que atrasar mais de 2 dias.","Esquecimento é revisão; falta de atenção é técnica de leitura do comando.","Matéria abaixo de 75% merece mais questões, não mais teoria."]},
+
+ {id:"mentor",t:"Pergunte ao mentor",ic:"revisoes",go:"meta",
+  p:"Uma conversa com a IA sobre os seus estudos, com os seus números de verdade: horas, metas, acerto por matéria, erros, revisões e projeção. Pergunte “Como estou em cada matéria?”, “Quais são meus pontos fracos?” ou “O que focar na próxima semana?” e receba um diagnóstico com passos nas telas da plataforma. Fica em Hoje e em Desempenho.",
+  s:`<div class="tu-card"><div class="tu-row"><button class="tu-btn sm ghost" data-k="bt">Pergunte ao mentor</button></div>
+     <div class="tu-txt" data-k="q" style="align-self:flex-end;max-width:80%;min-height:0"><em data-k="qt"></em></div>
+     <div class="tu-pt" data-k="a"><small>MENTOR</small>Você fez 26 min de 28 h planejadas. Português está em 68%: 1. zere as 6 revisões; 2. refaça as Erradas marcando o motivo; 3. ajuste a Rotina para caber.</div></div>`,
+  st:[{k:"bt",c:"Toque em “Pergunte ao mentor”, em Hoje ou em Desempenho."},
+      {k:"q",ty:["qt","O que focar na próxima semana?"],c:"Escreva a pergunta, ou toque numa das sugestões."},
+      {k:"a",on:["a"],c:"A resposta usa só os seus dados e diz o que fazer, tela por tela."}],
+  d:["Pergunte toda semana depois do check-in: é o seu ajuste semanal.","Se a resposta disser que falta um dado, registre-o (motivos de erro, baterias do TEC) e pergunte de novo.","Seja específico: “estou atrasado em Contabilidade, o que cortar?” rende mais que “me ajuda”."]},
 
  {id:"cronometro",t:"Cronômetro e Pomodoro",ic:"rotina",go:"meta",
   p:"No topo da tela fica o cronômetro. Escolha a atividade, toque no play e estude: o tempo entra no Desempenho e na atividade. O modo Pomodoro alterna 25 minutos de foco e 5 de pausa.",
@@ -4594,7 +4635,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261102192522";
+const JX_BUILD="20261102204246";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
