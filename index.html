@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611031334"></script>
+<script src="/claude-shim.js?v=202611031358"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1785,6 +1785,19 @@ p,li,td,.ttl,.small,small{letter-spacing:0;word-spacing:normal}
 .side.mini #nav button .new{display:none}
 
 /* ===== Arena (flash cards) ===== */
+
+.tj-links .ak-btn{border-color:color-mix(in srgb,#7fb6ff 55%,transparent);color:#a9cdff}
+.box.ak{width:min(640px,96vw);display:grid;gap:14px}.box.ak .vh{display:flex;justify-content:space-between;align-items:center;gap:10px}.box.ak .vh h3{display:flex;align-items:center;gap:8px;margin:0}
+.ak-drop{position:relative;display:grid;justify-items:center;gap:6px;text-align:center;border:2px dashed var(--line2);border-radius:16px;padding:26px 16px;cursor:pointer;background:var(--sunk);transition:border-color .2s,background .2s}
+.ak-drop:hover{border-color:var(--lime);background:var(--lime-soft)}.ak-drop input{position:absolute;inset:0;opacity:0;cursor:pointer}.ak-drop svg.i{width:30px;height:30px;color:var(--lime-txt)}.ak-drop b{font-size:16px}.ak-drop span{font-size:13px;color:var(--fg2)}
+.ak-err{margin:0;border:1px solid var(--bad);background:var(--bad-soft);color:var(--fg);border-radius:12px;padding:10px 12px;font-size:14px}
+.ak-how{border:1px solid var(--line);border-radius:12px;padding:10px 14px}.ak-how summary{cursor:pointer;font-weight:600}.ak-how ol{margin:8px 0 2px;padding-left:20px;display:grid;gap:6px;font-size:14px;color:var(--fg2)}
+.ak-busy{display:grid;justify-items:center;gap:8px;padding:30px 0}.ak-busy .upm-ic{width:40px;height:40px;border-radius:50%}
+.ak-sum{margin:0}.ak-dl{display:grid;gap:8px;max-height:min(42vh,360px);overflow:auto;padding-right:2px}
+.ak-dk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,220px);gap:10px;align-items:center;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:10px 12px}.ak-dk.off{opacity:.5}
+.ak-ck{display:flex;gap:10px;align-items:center;min-width:0;cursor:pointer}.ak-ck input{width:18px;height:18px;accent-color:var(--lime);flex:none}.ak-ck span{display:grid;min-width:0}.ak-ck b{overflow-wrap:anywhere}.ak-ck small{color:var(--fg2);font-size:12.5px}
+.ak-pv{border:1px dashed var(--line2);border-radius:12px;padding:10px 14px;display:grid;gap:4px}.ak-pv small{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--lime-txt)}.ak-pv p{margin:0;white-space:pre-line}.ak-f{font-weight:600}.ak-b{color:var(--fg2);font-size:14px}
+@media (max-width:560px){.ak-dk{grid-template-columns:1fr}}
 /* ===== Flash Jornada · Trilha ===== */
 .tj-home{display:grid;gap:18px;padding:10px 0 30px}
 .tj-hd{display:grid;gap:8px;text-align:left}.tj-hd h1{margin:0;font:700 clamp(28px,3.4vw,38px)/1.1 var(--f-display)!important}.tj-hd p{margin:0;max-width:620px}
@@ -4495,7 +4508,7 @@ const HOW={
   desempenho:"Aqui você acompanha os resultados. Não há nada para preencher: os números vêm do cronômetro, das questões resolvidas e dos simulados.",
   concurso:"Aqui você cuida do concurso: troque ou adicione concursos, inclua o edital em PDF (o painel tira datas, matérias e assuntos) e acompanhe o cronograma até a prova.",
   assinatura:"Aqui você vê o seu plano (teste, mensal ou anual), assina ou renova pelo link de pagamento e lê os termos de uso e a política de privacidade. Pague com o mesmo e-mail da sua conta: a liberação é automática.",
-  arena:"Aqui ficam os seus flash cards. Toque em Seguir a trilha, tente lembrar a resposta antes de revelar e diga com sinceridade se se perdeu, ficou quase lá ou dominou: o Flash Jornada decide quando cada card volta. Trechos difíceis treina só os cards que mais te pegam.",
+  arena:"Aqui ficam os seus flash cards. Toque em Seguir a trilha, tente lembrar a resposta antes de revelar e diga com sinceridade se se perdeu, ficou quase lá ou dominou: o Flash Jornada decide quando cada card volta. Trechos difíceis treina só os cards que mais te pegam. Em Importar do Anki você traz os seus baralhos (.apkg ou .txt).",
   arquivo:"Aqui ficam as metas que já passaram: toque numa meta para ver as atividades, o tempo, o desempenho e o simuladinho dela. Procure uma atividade pelo código ou pelo título.",
   leiseca:"Aqui fica a Jornada na Lei Seca: escolha a lei (ou escreva qual é), o texto oficial vem do site do Planalto e a IA destaca o que mais cai, grifa os trechos que a banca troca e escreve um bizu por artigo. Ligue a lei à matéria para ver quais artigos já caíram nas suas questões.",
   tutorial:"Aqui você aprende a usar cada função da plataforma: escolha um tema, assista à animação e leia as dicas. Use “Ir para esta tela” para praticar na hora.",
@@ -4882,7 +4895,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103133406";
+const JX_BUILD="20261103135817";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5197,9 +5210,9 @@ function arHome(){arMig();const C=arCounts(),st=arStreak(),nNew=Math.min(C.lim,C
      <button class="ar-go" data-a="arGo" ${C.now?"":"disabled"}>${ic("foot")} ${C.now?"Seguir a trilha":all.length?"Tudo em dia":"Ainda não há cards"}</button>
      <button class="ar-gap" data-a="arGap" ${C.gap?"":"disabled"}>${ic("target")} Trechos difíceis${C.gap?` <small>${Math.min(20,C.gap)}</small>`:""}</button>
      <div class="tj-walk"><div class="tj-wh"><span class="${st?"on":""}">${ic("foot")}</span><div><b>${st} dia${st===1?"":"s"} de caminhada</b><small>${st?"Não pare hoje: um trecho já mantém a sequência.":"Revise hoje para dar o primeiro passo."}</small></div></div>${arWeek()}</div>
-     <nav class="tj-links"><button data-a="arV" data-v="met">${ic("desempenho")} Métricas</button><button data-a="arV" data-v="cards">${ic("arena")} Cards</button><button data-a="arV" data-v="disc">${ic("book")} Disciplinas</button><button data-a="arV" data-v="cfg">${ic("gear")} Ajustes</button><button data-a="arNew" class="nw">+ Novo card</button></nav>
+     <nav class="tj-links"><button data-a="arV" data-v="met">${ic("desempenho")} Métricas</button><button data-a="arV" data-v="cards">${ic("arena")} Cards</button><button data-a="arV" data-v="disc">${ic("book")} Disciplinas</button><button data-a="arV" data-v="cfg">${ic("gear")} Ajustes</button><button data-a="arNew" class="nw">+ Novo card</button><button data-a="akOpen" class="ak-btn">${ic("dl")} Importar do Anki</button></nav>
    </aside></div>
-   ${all.length?"":`<p class="muted small" style="margin-top:14px;text-align:center">Os cards entram sozinhos: dos resumos das aulas (com a IA), das questões que você erra e anota, e dos testes de fixação. Você também pode criar os seus em "+ Novo card".</p>`}</div>`}
+   ${all.length?"":`<p class="muted small" style="margin-top:14px;text-align:center">Os cards entram sozinhos: dos resumos das aulas (com a IA), das questões que você erra e anota, e dos testes de fixação. Você também pode criar os seus em "+ Novo card" ou trazer os seus baralhos em "Importar do Anki".</p>`}</div>`}
 function arSession(){const S=UI.ar;if(S.i>=S.q.length)return arEnd();const c=CARDS().find(x=>x.id===S.q[S.i]);if(!c){S.i++;return arSession()}
   const s=c.sid?SUB(c.sid):null,ce=arCE(c),tot=S.q.length,pc=Math.round(S.i/tot*100),stl=AR_ST[c.st]||AR_ST.new;
   const iv=[1,2,3].map(g=>arLbl(arNext(c,g).days));
@@ -5282,6 +5295,99 @@ function arNewModal(){const k=UI.arNk||"qa",sid=UI.arNs||"";
    ${k==="qa"?`<div class="field"><label for="arNf">Pergunta (frente)</label><textarea class="inp" id="arNf" rows="3" placeholder="Ex.: A EC 132/2023 substituiu ICMS e ISS por quais tributos?"></textarea></div><div class="field"><label for="arNb">Resposta (verso)</label><textarea class="inp" id="arNb" rows="3" placeholder="Ex.: Pelo IBS, e o PIS/Cofins pela CBS (IVA dual)."></textarea></div>`
     :`<div class="field"><label for="arNf">Afirmação para julgar</label><textarea class="inp" id="arNf" rows="3"></textarea></div><div class="field"><span class="small" style="font-weight:600">Gabarito</span><div class="tabs2" role="group"><button data-a="arNv" data-v="1" aria-pressed="${UI.arNv!==0}">Certo</button><button data-a="arNv" data-v="0" aria-pressed="${UI.arNv===0}">Errado</button></div></div><div class="field"><label for="arNb">Justificativa</label><textarea class="inp" id="arNb" rows="3"></textarea></div>`}
    <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn" data-a="volClose">Cancelar</button><button class="btn pri" data-a="arNewSave">Criar card</button></div></div></div>`}
+/* ================= Importar do Anki (.apkg / .colpkg / .txt / .csv) ================= */
+const AK_MAX=3000,akKey=c=>norm(String(c.f).slice(0,4000))+"|"+norm(String(c.b).slice(0,6000));
+function akLoad(src,glob){return window[glob]?Promise.resolve(window[glob]):new Promise((ok,no)=>{const s=document.createElement("script");s.src=src;s.onload=()=>window[glob]?ok(window[glob]):no(new Error("load"));s.onerror=()=>no(new Error("load"));document.head.appendChild(s)})}
+/* leitor mínimo de SQLite (só leitura de tabelas): o .apkg do Anki é um zip com um banco SQLite dentro */
+function akSql(u){const dv=new DataView(u.buffer,u.byteOffset,u.byteLength);
+  if(new TextDecoder().decode(u.subarray(0,15))!=="SQLite format 3")throw new Error("nao-sqlite");
+  let ps=dv.getUint16(16);if(ps===1)ps=65536;const U=ps-u[20],td=new TextDecoder();
+  const vi=(a,o)=>{let v=0;for(let i=0;i<8;i++){const b=a[o+i];v=v*128+(b&127);if(b<128)return[v,i+1]}return[v*256+a[o+8],9]};
+  const pay=(o,P)=>{const X=U-35;if(P<=X)return u.subarray(o,o+P);const M=Math.floor((U-12)*32/255)-23,K=M+((P-M)%(U-4)),L=K<=X?K:M;
+    const out=new Uint8Array(P);out.set(u.subarray(o,o+L));let n=dv.getUint32(o+L),w=L,guard=0;
+    while(w<P&&n&&guard++<1e6){const po=(n-1)*ps,take=Math.min(P-w,U-4);out.set(u.subarray(po+4,po+4+take),w);w+=take;n=dv.getUint32(po)}return out};
+  const rec=p=>{const[hs,a]=vi(p,0),ts=[];let o=a;while(o<hs){const[t,n]=vi(p,o);ts.push(t);o+=n}
+    const pd=new DataView(p.buffer,p.byteOffset,p.byteLength);let d=hs;const r=[];
+    for(const t of ts){if(t===0){r.push(null)}else if(t>=1&&t<=6){const n=[0,1,2,3,4,6,8][t];let v=0;for(let i=0;i<n;i++)v=v*256+p[d+i];if(p[d]&128)v-=Math.pow(2,8*n);r.push(v);d+=n}
+      else if(t===7){r.push(pd.getFloat64(d));d+=8}else if(t===8)r.push(0);else if(t===9)r.push(1);
+      else if(t>=12){const n=t%2?(t-13)/2:(t-12)/2;const s=p.subarray(d,d+n);r.push(t%2?td.decode(s):s);d+=n}else r.push(null)}return r};
+  const walk=(pg,cb,dep=0)=>{if(dep>40)return;const b=(pg-1)*ps,h=pg===1?100:0,t=u[b+h],nc=dv.getUint16(b+h+3),p0=b+h+(t===5||t===2?12:8);
+    for(let i=0;i<nc;i++){const co=b+dv.getUint16(p0+2*i);
+      if(t===13){const[P,a]=vi(u,co),[rid,c]=vi(u,co+a);cb(rid,rec(pay(co+a+c,P)))}else if(t===5)walk(dv.getUint32(co),cb,dep+1)}
+    if(t===5)walk(dv.getUint32(b+h+8),cb,dep+1)};
+  const master=[];walk(1,(id,r)=>master.push(r));
+  return{has:n=>master.some(r=>r[0]==="table"&&r[1]===n),
+    rows(n){const m=master.find(r=>r[0]==="table"&&r[1]===n);if(!m)return[];const out=[];walk(m[3],(id,r)=>{if(r[0]==null)r[0]=id;out.push(r)});return out}}}
+function akTxt(s){s=String(s||"").replace(/\[sound:[^\]]*\]/g,"").replace(/<img[^>]*>/gi," ").replace(/<br\s*\/?>/gi,"\n").replace(/<\/(div|p|li|tr|h\d|blockquote)>/gi,"\n").replace(/<li[^>]*>/gi,"• ").replace(/<[^>]+>/g,"");
+  const t=document.createElement("textarea");t.innerHTML=s;return t.value.replace(/ /g," ").replace(/[ \t]+\n/g,"\n").replace(/\n{3,}/g,"\n\n").trim()}
+const AK_CZ=/\{\{c(\d+)::([\s\S]*?)(?:::([\s\S]*?))?\}\}/g;
+function akNote(flds,deck){const F=flds.map(akTxt),out=[],ci=F.findIndex(x=>/\{\{c\d+::/.test(x));
+  if(ci>=0){const txt=F[ci],ex=F.filter((x,i)=>i!==ci&&x).slice(0,2).join("\n\n"),ns=[...new Set([...txt.matchAll(AK_CZ)].map(m=>m[1]))];
+    ns.forEach(n=>{const f=txt.replace(AK_CZ,(m,k,a,h)=>k===n?`[${h||"..."}]`:a),b=[...txt.matchAll(AK_CZ)].filter(m=>m[1]===n).map(m=>m[2]).join("; ");out.push({f,b:b+(ex?"\n\n"+ex:""),d:deck})})}
+  else{const f=F[0]||"",b=F.slice(1).filter(Boolean).slice(0,3).join("\n\n");if(f&&b)out.push({f,b,d:deck})}
+  return out}
+async function akApkg(file){const JZ=await akLoad("jszip.min.js","JSZip"),z=await JZ.loadAsync(file);
+  const nm=["collection.anki21b","collection.anki21","collection.anki2"].find(n=>z.file(n));if(!nm)throw new Error("Esse arquivo não parece um baralho do Anki.");
+  let u=await z.file(nm).async("uint8array");
+  if(u[0]===0x28&&u[1]===0xB5&&u[2]===0x2F){const Z=await akLoad("fzstd.js","fzstd").catch(()=>null);if(!Z)throw new Error("Não consegui abrir esse formato. No Anki, exporte de novo marcando “Compatível com versões antigas do Anki”.");u=Z.decompress(u)}
+  const db=akSql(u),dk={};
+  if(db.has("decks"))db.rows("decks").forEach(r=>dk[r[0]]=String(r[1]||"").replace(/\x1f/g,"::"));
+  else{const c=db.rows("col")[0];try{const J=JSON.parse(c[10]||"{}");Object.values(J).forEach(d=>dk[d.id]=d.name)}catch(e){}}
+  const nd={};db.rows("cards").forEach(r=>{if(nd[r[1]]==null)nd[r[1]]=r[2]});
+  const notes=db.rows("notes");
+  if(notes.length<=1&&nm!=="collection.anki21b"&&/update|atualiz/i.test(String(notes[0]&&notes[0][6]||"")))throw new Error("Esse baralho foi salvo num formato novo. No Anki, exporte de novo marcando “Compatível com versões antigas do Anki”.");
+  const cards=[];notes.forEach(r=>{const deck=(dk[nd[r[0]]]||file.name.replace(/\.(apkg|colpkg)$/i,"")).replace(/^Default$|^Padrão$/,file.name.replace(/\.(apkg|colpkg)$/i,""));akNote(String(r[6]||"").split("\x1f"),deck).forEach(c=>cards.push(c))});
+  return cards}
+function akCsv(t,sep){const rows=[];let row=[],f="",q=false;for(let i=0;i<t.length;i++){const ch=t[i];
+    if(q){if(ch==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=ch}
+    else if(ch==='"'&&f==="")q=true;else if(ch===sep){row.push(f);f=""}else if(ch==="\n"){row.push(f);rows.push(row);row=[];f=""}else if(ch!=="\r")f+=ch}
+  if(f||row.length){row.push(f);rows.push(row)}return rows.filter(r=>r.some(x=>x.trim()))}
+async function akText(file){let t=(await file.text()).replace(/^﻿/,"");const L=t.split("\n");let sep=null,dc=0,tc=0,nc=0,gc=0,k=0;
+  for(;k<L.length;k++){const m=L[k].match(/^#([a-z ]+):(.*)$/i);if(!m)break;const key=m[1].trim().toLowerCase(),v=m[2].trim();
+    if(key==="separator")sep={tab:"\t",comma:",",semicolon:";",space:" ",pipe:"|",colon:":"}[v.toLowerCase()]||v;else if(key==="deck column")dc=+v;else if(key==="tags column")tc=+v;else if(key==="notetype column")nc=+v;else if(key==="guid column")gc=+v}
+  t=L.slice(k).join("\n");if(!sep){const l0=(t.split("\n").find(x=>x.trim())||"");sep=[["\t",l0.split("\t").length],[";",l0.split(";").length],[",",l0.split(",").length]].sort((a,b)=>b[1]-a[1])[0][0]}
+  const base=file.name.replace(/\.(txt|csv|tsv)$/i,""),skip=new Set([dc,tc,nc,gc].filter(Boolean).map(x=>x-1)),cards=[];
+  akCsv(t,sep).forEach((r,ri)=>{if(ri===0&&/^(frente|front|pergunta|question|verso|back)$/.test(norm(r[0]||"").trim()))return;const deck=dc&&r[dc-1]?r[dc-1]:base;akNote(r.filter((x,i)=>!skip.has(i)),deck).forEach(c=>cards.push(c))});return cards}
+function akGuess(dn){const d=" "+norm(dn).replace(/::|[_\-\/]/g," ")+" ",dw=d.split(/[^a-z0-9]+/).filter(x=>x.length>3);let best="",bs=0;
+  ED.forEach(s=>{const n=norm(s.n);let sc=0;if(d.includes(n))sc=10;else n.split(/[^a-z0-9]+/).filter(x=>x.length>3&&!["direito","nocoes","sobre","legislacao","geral","basica","lingua"].includes(x)).forEach(x=>{const k=x.slice(0,6);if(dw.some(w=>w.slice(0,6)===k))sc+=2});
+    const c=norm(s.c||"");if(c.length>=2&&d.includes(" "+c+" "))sc+=3;if(sc>bs){bs=sc;best=s.id}});return bs>=2?best:""}
+async function akRead(file){const K=UI.ak={step:"busy",name:file.name};akModal();
+  try{const cards=/\.(apkg|colpkg)$/i.test(file.name)?await akApkg(file):await akText(file);
+    if(!cards.length)throw new Error("Não encontrei cards com frente e verso nesse arquivo.");
+    const seen=new Set(CARDS().map(akKey)),D2={};
+    cards.forEach(c=>{const x=D2[c.d]||(D2[c.d]={name:c.d,n:0,dup:0,on:true,sid:akGuess(c.d)});x.n++;if(seen.has(akKey(c)))x.dup++});
+    Object.assign(K,{step:"review",cards,decks:Object.values(D2).sort((a,b)=>a.name.localeCompare(b.name))})}
+  catch(e){Object.assign(K,{step:"pick",err:e&&e.message&&!/^(nao-sqlite|load)$/.test(e.message)?e.message:"Não consegui ler esse arquivo. Exporte de novo pelo Anki (Arquivo → Exportar) e tente outra vez."})}
+  if(UI.ak===K)akModal()}
+function akModal(){const K=UI.ak||(UI.ak={step:"pick"});let body;
+  if(K.step==="busy")body=`<div class="ak-busy"><i class="upm-ic busy"></i><b>Lendo ${esc(K.name||"o arquivo")}…</b><span class="muted small">Baralhos grandes levam alguns segundos.</span></div>`;
+  else if(K.step==="review"){const on=K.decks.filter(d=>d.on),tot=on.reduce((a,d)=>a+d.n-d.dup,0),dup=on.reduce((a,d)=>a+d.dup,0),pv=K.cards.find(c=>(K.decks.find(d=>d.name===c.d)||{}).on)||K.cards[0];
+    body=`<p class="ak-sum"><b>${K.cards.length} card${K.cards.length===1?"":"s"}</b> em ${K.decks.length} baralho${K.decks.length===1?"":"s"}${dup?` · ${dup} já estão no Flash Jornada e serão pulados`:""}. Confira a matéria de cada baralho:</p>
+     <div class="ak-dl">${K.decks.map((d,i)=>`<div class="ak-dk ${d.on?"":"off"}"><label class="ak-ck"><input type="checkbox" data-c="akOn" data-i="${i}" ${d.on?"checked":""}><span><b>${esc(d.name)}</b><small>${d.n} card${d.n===1?"":"s"}${d.dup?` · ${d.dup} repetido${d.dup===1?"":"s"}`:""}</small></span></label>
+       <select class="inp" data-c="akSid" data-i="${i}" aria-label="Matéria do baralho ${esc(d.name)}"><option value="">Sem matéria</option>${ED.map(s=>`<option value="${s.id}" ${s.id===d.sid?"selected":""}>${esc(s.n)}</option>`).join("")}</select></div>`).join("")}</div>
+     ${pv?`<div class="ak-pv"><small>EXEMPLO DE CARD</small><p class="ak-f">${esc(pv.f).slice(0,260)}</p><p class="ak-b">${esc(pv.b).slice(0,260)}</p></div>`:""}
+     ${tot>AK_MAX?`<p class="small" style="color:var(--warn);margin:0">Entram os primeiros ${AK_MAX} cards desta vez. Importe o mesmo arquivo de novo depois para trazer o restante (os repetidos são pulados).</p>`:""}
+     <div class="row" style="justify-content:space-between;gap:8px;flex-wrap:wrap"><button class="btn" data-a="akBack">Escolher outro arquivo</button><button class="btn pri" data-a="akGo" ${tot?"":"disabled"}>Importar ${Math.min(tot,AK_MAX)} card${Math.min(tot,AK_MAX)===1?"":"s"}</button></div>`}
+  else body=`<p class="muted" style="margin:0">Traga os seus baralhos do Anki para a trilha. Os cards entram como novos e passam a seguir a revisão do Flash Jornada, junto com os que a plataforma já cria para você.</p>
+    <label class="ak-drop"><input type="file" id="akF" accept=".apkg,.colpkg,.txt,.csv,.tsv">${ic("arena")}<b>Escolher arquivo do Anki</b><span>Baralho (.apkg) ou notas em texto (.txt / .csv)</span></label>
+    ${K.err?`<p class="ak-err">${esc(K.err)}</p>`:""}
+    <details class="ak-how"><summary>Como exportar do Anki</summary><ol>
+     <li>No Anki do computador, vá em <b>Arquivo → Exportar</b> (ou na engrenagem do baralho → Exportar).</li>
+     <li>Escolha <b>Pacote de baralho Anki (.apkg)</b> e o baralho que quer trazer. Se der erro aqui, exporte de novo marcando <b>“Compatível com versões antigas do Anki”</b>.</li>
+     <li>Ou escolha <b>Notas em texto puro (.txt)</b>: chega só o texto, sem imagens.</li>
+     <li>Baralhos baixados do AnkiWeb (.apkg) também funcionam. Cards de lacuna viram perguntas com <b>[...]</b>; imagens e áudios ficam de fora.</li></ol></details>
+    <p class="muted small" style="margin:0">O conteúdo importado é de responsabilidade de quem importa. Use baralhos seus ou que você tem permissão para usar.</p>`;
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Importar do Anki"><div class="box ak">
+   <div class="vh"><h3>${ic("dl")} Importar do Anki</h3><button class="ibtn" data-a="akClose" aria-label="Fechar">${ic("close")}</button></div>${body}</div></div>`}
+function akImport(){const K=UI.ak;if(!K||K.step!=="review")return;const seen=new Set(CARDS().map(akKey)),by={};K.decks.forEach(d=>by[d.name]=d);let n=0,dup=0;
+  for(const c of K.cards){const d=by[c.d];if(!d||!d.on)continue;const key=akKey(c);if(seen.has(key)){dup++;continue}if(n>=AK_MAX)break;seen.add(key);
+    addCard({sid:d.sid||"",tid:"",aula:"",f:c.f.slice(0,4000),b:c.b.slice(0,6000),src:"anki",ak:d.name});n++}
+  UI.ak=null;$("layer3").innerHTML="";toast(n?`${n} card${n===1?"":"s"} do Anki na trilha${dup?` · ${dup} repetido${dup===1?"":"s"} pulado${dup===1?"":"s"}`:""}`:"Nenhum card novo: todos já estavam no Flash Jornada");render()}
+document.addEventListener("change",e=>{const el=e.target;if(!el)return;
+  if(el.id==="akF"&&el.files&&el.files[0]){akRead(el.files[0]);return}
+  const c=el.dataset&&el.dataset.c,K=UI.ak;if(!K||!K.decks)return;
+  if(c==="akOn"){K.decks[+el.dataset.i].on=el.checked;const sc=document.querySelector(".ak-dl")?.scrollTop;akModal();const d=document.querySelector(".ak-dl");if(d&&sc)d.scrollTop=sc}
+  else if(c==="akSid"){K.decks[+el.dataset.i].sid=el.value}});
 let arQT=0;document.addEventListener("input",e=>{const el=e.target;if(!el||el.id!=="arQ")return;clearTimeout(arQT);arQT=setTimeout(()=>{(UI.arF=UI.arF||{}).q=el.value;render();const i=$("arQ");if(i){i.focus();const n=i.value.length;i.setSelectionRange(n,n)}},300)});
 document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset)return;const c=el.dataset.c;
   if(c==="arF"){(UI.arF=UI.arF||{})[el.dataset.k]=el.value;render()}
@@ -7460,7 +7566,7 @@ function rvQuick(t,pct){const c=core();if(c.gj)return null;const aulas=aSet(t).l
 function rvDone(t){const x=RVA().find(z=>z.id===t.rva);if(x&&!x.done){x.done=today();touch("rva")}}
 function rvUndo(t){const x=RVA().find(z=>z.id===t.rva);if(x&&x.done){x.done=null;touch("rva")}}
 const refLeft=r=>dbet(today(),r.due);
-function addCard(o){const c=Object.assign({id:uid(),d0:today(),step:0,done:false,st:"new"},o);if(c.src!=="meu"&&!ARC().auto){c.st="arch";c.held=1}CARDS().push(c);touch("cards");return c}
+function addCard(o){const c=Object.assign({id:uid(),d0:today(),step:0,done:false,st:"new"},o);if(c.src!=="meu"&&c.src!=="anki"&&!ARC().auto){c.st="arch";c.held=1}CARDS().push(c);touch("cards");return c}
 const cardDue=c=>c.st&&c.st!=="new"&&c.due?c.due:addDays(c.d0,OFF[c.step]||1);
 async function pagesText(p,a,b,max){max=max||45000;
   try{const buf=await pdfBytes(p);if(!buf||!(await ensurePdfjs()))return"";
@@ -8813,6 +8919,7 @@ const A={
   arOffSave(){ARC().off=[...(UI.arOff||ARC().off||[])];UI.arOff=null;touch("core");toast("Disciplinas do Flash Jornada salvas");render()},
   arSet(el){ARC()[el.dataset.k]=el.dataset.v;touch("core");render()},
   arIntro(){arIntro(0)},arIn(el){arIntro(+el.dataset.i)},arInEnd(){ARC().intro=1;touch("core");$("layer3").innerHTML="";render()},
+  akOpen(){UI.ak={step:"pick"};akModal()},akBack(){UI.ak={step:"pick"};akModal()},akGo(){akImport()},akClose(){UI.ak=null;$("layer3").innerHTML=""},
   arNew(){UI.arNk=UI.arNk||"qa";arNewModal()},arNk(el){UI.arNk=el.dataset.v;arNewModal()},arNv(el){UI.arNv=+el.dataset.v;const f=$("arNf").value,b=$("arNb").value;arNewModal();$("arNf").value=f;$("arNb").value=b},
   arNewSave(){const F=$("arNf").value.trim(),B=$("arNb").value.trim(),sid=$("arNs").value,ce=UI.arNk==="ce";if(!F||!B){toast(ce?"Escreva a afirmação e a justificativa":"Preencha a pergunta e a resposta");return}
     UI.arNs=sid;addCard({sid,tid:"",aula:"",f:(ce?"Certo ou errado? ":"")+F,b:(ce?(UI.arNv===0?"ERRADO. ":"CERTO. "):"")+B,src:"meu"});$("layer3").innerHTML="";toast("Card criado: já está na fila do Flash Jornada");render()},
