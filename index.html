@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611031022"></script>
+<script src="/claude-shim.js?v=202611031334"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -19,7 +19,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow:wght@500;600;700;800&family=Unbounded:wght@600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
 /* Layout: sidebar escura fixa + área principal com barra do cronômetro; cada meta é um "mandado" com código, fases e carimbo de cumprida. */
 :root{
@@ -32,8 +32,8 @@
   --side:#211f23;--side-fg:#f1ece6;--side-mute:#a1988f;--side-act:#332f35;--side-line:#332f36;
   --shadow:0 1px 0 rgba(255,255,255,.035) inset,0 18px 40px -24px rgba(0,0,0,.75);
   --ring:0 0 0 3px rgba(239,138,94,.4);
-  --f-display:"Unbounded","Figtree",system-ui,sans-serif;
-  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-display:Oswald,"Figtree",system-ui,sans-serif;
+  --f-body:"Source Sans 3","Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --r-s:8px;--r-m:12px;--r-l:18px;
   --lock:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Crect x='5' y='11' width='14' height='10' rx='2'/%3E%3Cpath d='M8 11V8a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E");
 }
@@ -931,7 +931,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:14px}
   --side:#141533;--side-fg:#f1f0ff;--side-mute:#8a8cba;--side-act:rgba(143,92,255,.18);--side-line:#2a2c56;
   --shadow:0 1px 0 rgba(255,255,255,.04) inset,0 18px 40px -26px rgba(0,0,0,.9);
   --ring:0 0 0 3px rgba(143,92,255,.5);
-  --ar-red:#e0398f;--ar-blue:#8f5cff;--f-cond:"Barlow Condensed","Figtree",sans-serif;
+  --ar-red:#e0398f;--ar-blue:#8f5cff;--f-cond:"Oswald","Figtree",sans-serif;
 }
 :root[data-skin="arena"] body{background:
    linear-gradient(180deg,rgba(14,15,36,.80) 0%,rgba(14,15,36,.90) 50%,rgba(12,13,32,.97) 100%),
@@ -1753,13 +1753,13 @@ h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
 @media (prefers-reduced-motion:reduce){.next .ulk-b .ring,.ulk-burst i{animation:none!important}}
 @media (max-width:700px){.arq-g{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
 /* ===== Design 2 (inspirado no novo visual do Guruja, com as cores da A Jornada) ===== */
-:root:not(#z):not(#y){--f-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--f-display:"Barlow","Inter",system-ui,sans-serif;--f-cond:"Barlow","Inter",sans-serif;--r-l:14px}
+:root:not(#z):not(#y){--f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--f-display:Oswald,"Source Sans 3",system-ui,sans-serif;--f-cond:Oswald,"Source Sans 3",sans-serif;--r-l:14px}
 body{font-family:var(--f-body);font-feature-settings:"cv11","ss01";-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 h1,h2,h3,.hello h1,#view h1,.card-h h2{letter-spacing:0!important;font-family:var(--f-display)}
 .hello h1,#view .hello h1{font-weight:600!important;font-size:clamp(26px,2.4vw,32px)!important;line-height:1.15}
 .hello p{font-size:14.5px;color:var(--fg2)}
 .card-h h2{font-weight:600!important}
-.brand b{font-family:"Unbounded","Inter",sans-serif!important;letter-spacing:.05em!important}
+.brand b{font-family:Oswald,"Source Sans 3",sans-serif!important;letter-spacing:.05em!important}
 .kpi b,.m-num b,.ah-num b,.arq-k b,.px-big>b{font-family:var(--f-display)!important;letter-spacing:0!important;font-weight:700!important}
 p,li,td,.ttl,.small,small{letter-spacing:0;word-spacing:normal}
 /* cartões: borda fina, sombra leve */
@@ -1785,6 +1785,54 @@ p,li,td,.ttl,.small,small{letter-spacing:0;word-spacing:normal}
 .side.mini #nav button .new{display:none}
 
 /* ===== Arena (flash cards) ===== */
+/* ===== Flash Jornada · Trilha ===== */
+.tj-home{display:grid;gap:18px;padding:10px 0 30px}
+.tj-hd{display:grid;gap:8px;text-align:left}.tj-hd h1{margin:0;font:700 clamp(28px,3.4vw,38px)/1.1 var(--f-display)!important}.tj-hd p{margin:0;max-width:620px}
+.tj-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:stretch}
+.tj-map{position:relative;min-height:440px;border:1px solid var(--line);border-radius:20px;overflow:hidden;
+ background:radial-gradient(120% 70% at 80% 0%,rgba(143,92,255,.2),transparent 60%),radial-gradient(90% 60% at 10% 100%,rgba(214,56,143,.14),transparent 60%),
+ repeating-linear-gradient(0deg,transparent 0 27px,color-mix(in srgb,var(--line) 55%,transparent) 27px 28px),repeating-linear-gradient(90deg,transparent 0 27px,color-mix(in srgb,var(--line) 55%,transparent) 27px 28px),var(--panel)}
+.tj-path{position:absolute;inset:0;width:100%;height:100%}.tj-path path{fill:none;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.tj-path .bg{stroke:var(--line2);stroke-width:3;stroke-dasharray:2 9}.tj-path .pg{stroke:#b07cff;stroke-width:4;filter:drop-shadow(0 0 6px rgba(176,124,255,.7))}
+.tj-st{position:absolute;display:flex;align-items:center;gap:10px;max-width:58%}
+.tj-st>i{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--sunk);border:2px solid var(--line2);color:var(--fg2)}.tj-st>i svg.i{width:21px;height:21px}
+.tj-st div{display:grid;gap:1px;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(4px);border-radius:10px;padding:5px 9px}
+.tj-st small{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--fg2)}.tj-st b{font-size:15px}.tj-st span{font-size:12px;color:var(--mute)}
+.tj-st.on>i{border-color:var(--lime);color:var(--lime-txt);background:var(--lime-soft)}
+.tj-st.hot>i{border-color:#ff7ab8;color:#fff;background:linear-gradient(135deg,#7b3cff,#d6388f);box-shadow:0 0 0 6px rgba(214,56,143,.16),0 0 22px rgba(214,56,143,.55);animation:tjP 2.2s ease-in-out infinite}
+.tj-st.top>i{width:52px;height:52px;border-color:#ffd36b;color:#ffd36b;background:rgba(255,211,107,.1)}
+@keyframes tjP{50%{box-shadow:0 0 0 11px rgba(214,56,143,.05),0 0 26px rgba(214,56,143,.7)}}
+.tj-st.s0{max-width:70%;right:6%;top:4%;flex-direction:row-reverse;text-align:right}.tj-st.s1{left:38%;top:34%}.tj-st.s2{left:41%;top:60%;flex-direction:row-reverse;text-align:right;left:auto;right:42%}.tj-st.s3{left:12%;top:86%;transform:translateY(-50%)}
+.tj-st.s1{transform:translate(-22px,-22px)}.tj-st.s2{transform:translate(22px,-22px)}.tj-st.s0{transform:translateY(-4px)}
+.tj-side{display:grid;gap:12px;align-content:start}
+.tj-now{border:1px solid var(--line);background:linear-gradient(160deg,color-mix(in srgb,#7b3cff 18%,var(--panel)),var(--panel));border-radius:18px;padding:18px 20px;display:grid;gap:2px}
+.tj-now small{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--fg2)}.tj-now b{font:700 54px/1 var(--f-display);font-variant-numeric:tabular-nums}.tj-now span{color:var(--fg2);font-size:13.5px}
+.tj-side .ar-go,.tj-side .ar-gap{width:100%;display:flex;align-items:center;justify-content:center;gap:9px}.tj-side .ar-go svg.i{width:20px;height:20px}
+.tj-walk{border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:14px 16px;display:grid;gap:12px}
+.tj-wh{display:flex;gap:12px;align-items:center}.tj-wh>span{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--sunk);color:var(--mute)}.tj-wh>span.on{background:var(--lime-soft);color:var(--lime-txt)}
+.tj-wh div{display:grid;gap:2px}.tj-wh b{font-size:15.5px}.tj-wh small{font-size:12.5px;color:var(--fg2)}
+.tj-wk{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.tj-wk span{display:grid;justify-items:center;gap:4px}.tj-wk small{font-size:10.5px;font-weight:700;color:var(--fg2)}.tj-wk .fu small{color:var(--mute)}
+.tj-wk i{width:100%;max-width:38px;aspect-ratio:1;border-radius:50%;border:1.5px dashed var(--line2);display:grid;place-items:center}.tj-wk .on i{border:0;background:linear-gradient(135deg,#7b3cff,#d6388f);color:#fff}.tj-wk i svg.i{width:16px;height:16px}.tj-wk .td i{outline:2px solid var(--lime-txt);outline-offset:2px}
+.tj-links{display:flex;flex-wrap:wrap;gap:8px}.tj-links button{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--raise);color:var(--fg);border-radius:99px;padding:8px 13px;font:600 13px var(--f-body);cursor:pointer}.tj-links button:hover{border-color:var(--lime);color:var(--lime-txt)}.tj-links svg.i{width:15px;height:15px}.tj-links .nw{border-style:dashed}
+.tj-prog{flex:1;position:relative;margin-left:14px;height:22px;display:flex;align-items:center}.tj-prog::before{content:"";position:absolute;left:0;right:22px;height:0;border-top:2px dashed var(--line2)}
+.tj-prog i{position:absolute;left:0;height:3px;border-radius:99px;background:linear-gradient(90deg,#7b3cff,#d6388f);transition:width .4s;max-width:calc(100% - 22px)}
+.tj-prog b{position:absolute;transform:translateX(-50%);width:24px;height:24px;border-radius:50%;background:var(--bg);border:2px solid #b07cff;display:grid;place-items:center;color:#b07cff;transition:left .4s;margin-left:0;max-width:none}.tj-prog b svg.i{width:13px;height:13px}
+.tj-prog em{position:absolute;right:0;color:#ffd36b}.tj-prog em svg.i{width:18px;height:18px}
+.tj-ficha{position:relative;border-left:0;padding-left:clamp(26px,5vw,44px);background:
+ linear-gradient(90deg,var(--sc) 0 5px,transparent 5px),
+ repeating-linear-gradient(180deg,transparent 0 31px,color-mix(in srgb,var(--line) 45%,transparent) 31px 32px),var(--panel);background-position:0 0,0 70px,0 0}
+.tj-ficha::before,.tj-ficha::after{content:"";position:absolute;right:-1px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:1px solid var(--line);top:50%;transform:translate(50%,-50%)}
+.tj-ficha::before{right:auto;left:-1px;transform:translate(-50%,-50%)}
+.tj-no{font:700 11px/1 var(--f-body);letter-spacing:.12em;color:var(--fg2);border:1px dashed var(--line2);border-radius:6px;padding:5px 7px}
+.ar-rate button svg.i{width:20px;height:20px}.ar-rate .bad svg.i{color:var(--bad)}.ar-rate .warn svg.i{color:var(--warn)}.ar-rate .ok svg.i{color:var(--ok)}
+.tj-end{display:grid;justify-items:center;text-align:center;gap:10px;padding:18px 0 30px}.tj-end h1{margin:4px 0 0;font:700 clamp(26px,3.2vw,34px)/1.1 var(--f-display)!important}.tj-end p{margin:0}
+.tj-stamp{margin:16px 0 4px;width:176px;height:176px;border-radius:50%;border:3px double #ff7ab8;color:#ff7ab8;display:grid;place-items:center;align-content:center;gap:4px;transform:rotate(-12deg);
+ box-shadow:inset 0 0 0 8px transparent,inset 0 0 0 10px rgba(255,122,184,.35);animation:tjS .5s cubic-bezier(.2,1.6,.4,1) both}
+.tj-stamp b{font:800 16px/1.1 var(--f-display);letter-spacing:.08em}.tj-stamp small{font-size:11px;font-weight:700;letter-spacing:.1em}.tj-stamp svg.i{width:22px;height:22px}
+@keyframes tjS{from{transform:rotate(-12deg) scale(2.2);opacity:0}to{transform:rotate(-12deg) scale(1);opacity:1}}
+.tj-end .ar-tiles{margin-top:6px}
+@media (max-width:760px){.tj-grid{grid-template-columns:1fr}.tj-map{min-height:400px}.tj-st{max-width:70%}.tj-st span{display:none}}
+
 .arena-v{max-width:880px;margin:0 auto}
 .ar-eye{display:inline-flex;align-items:center;gap:7px;font:700 12.5px/1 var(--f-body);letter-spacing:.08em;color:var(--lime-txt)}.ar-eye svg.i{width:17px;height:17px}
 .ar-home{text-align:center;display:grid;justify-items:center;gap:10px;padding:18px 0 30px}
@@ -1945,6 +1993,9 @@ const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
 const natcmp=(a,b)=>a.localeCompare(b,"pt-BR",{numeric:true,sensitivity:"base"});
 const pct=(a,b)=>b?Math.round(a/b*1000)/10:0;
 const IC={
+  flag:'<path d="M5.5 21V3.5"/><path d="M5.5 4.5h11.5l-2.4 3.7 2.4 3.8H5.5"/>',
+  foot:'<path d="M8.2 2.8c1.6 0 2.5 1.9 2.5 4.1s-.9 4-2.5 4-2.6-1.8-2.6-4 .9-4.1 2.6-4.1z"/><path d="M6.1 13.4h4.1l-.4 2.4a1.7 1.7 0 0 1-3.3 0z"/><path d="M15.8 7.6c1.6 0 2.6 1.9 2.6 4.1s-1 4-2.6 4-2.5-1.8-2.5-4 .9-4.1 2.5-4.1z"/><path d="M13.8 18.2h4.1l-.4 2.3a1.7 1.7 0 0 1-3.3 0z"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
   arena:'<rect x="3.5" y="7" width="12" height="14" rx="2"/><path d="M8 3.5h10.5a2 2 0 0 1 2 2V17"/><path d="m7.5 14 2 2 3.5-4"/>',
   flame:'<path d="M12 2.5c1.2 3.8 5.5 5.6 5.5 10.6a5.5 5.5 0 0 1-11 0c0-2.6 1.4-4.2 2.7-5.4.2 1.7 1 2.9 2.1 3.3.4-2.8-.5-5.8.7-8.5z"/>',
   star:'<path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z"/>',
@@ -2284,7 +2335,7 @@ function obFresh(){try{const c=core();return !PLANS.onb&&!(PLANS.list||[]).lengt
 function obCheck(){if(obFresh()&&!UI.np&&!$("layer3").innerHTML.trim())obModal()}
 function obModal(){const c=core(),nm=(c.cfg&&c.cfg.name)||UI.obName||"";
   $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Boas-vindas" style="background:var(--bg,#0f1020)"><div class="box npm" style="max-width:560px">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><div style="width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(150deg,#2b0f63,#170b38);box-shadow:0 0 0 1px rgba(160,107,255,.35),0 8px 24px rgba(123,60,255,.35);flex:none">${(()=>{const m=$("brMark");return m?m.innerHTML.replace(/id="([^"]+)"/g,'id="$1ob"').replace(/url\(#([^)]+)\)/g,"url(#$1ob)").replace(/class="jlogo"/,'class="jlogo" style="width:40px;height:40px"'):""})()}</div><b style="font:700 20px Unbounded,Figtree,sans-serif;letter-spacing:.04em">A JORNADA</b></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><div style="width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(150deg,#2b0f63,#170b38);box-shadow:0 0 0 1px rgba(160,107,255,.35),0 8px 24px rgba(123,60,255,.35);flex:none">${(()=>{const m=$("brMark");return m?m.innerHTML.replace(/id="([^"]+)"/g,'id="$1ob"').replace(/url\(#([^)]+)\)/g,"url(#$1ob)").replace(/class="jlogo"/,'class="jlogo" style="width:40px;height:40px"'):""})()}</div><b style="font:700 20px Oswald,Figtree,sans-serif;letter-spacing:.04em">A JORNADA</b></div>
     <h3 style="margin:0">Boas-vindas à Jornada!</h3>
     <p class="muted" style="margin:6px 0 0">Vamos montar a sua trilha de estudos. Leva menos de um minuto.</p>
     <div class="field" style="margin-top:14px"><label for="obN">Como você quer ser chamado(a)?</label><input class="inp" id="obN" autocomplete="given-name" maxlength="40" value="${esc(nm)}" placeholder="Seu nome"></div>
@@ -2628,7 +2679,7 @@ function psHigh(pages,st,junk,A,E){const bf=st.bf,bh=st.bh,out=[];
 /* ===== Mentor da atividade de teoria: o que estas páginas tratam e no que prestar atenção =====
    Assuntos abordados: os títulos reais das páginas da atividade, na ordem do PDF.
    Tenha atenção: o que mais cai daquele trecho (incidência do edital) e o que o professor destacou nessas páginas
-   (quadros de Atenção/Importante/Cuidado, frases em negrito, prazos e exceções). Com a IA ligada, um mentor reescreve os dois
+   (quadros de Atenção/Importante/Cuidado, frases em negrito, prazos e exceções). Com a IA ligada, a IA reescreve os dois
    a partir do texto das páginas e fica guardado na atividade. */
 /* Cada questão do PDF é ligada à frase da teoria que ela cobra (texto real das páginas, palavras raras pesam mais).
    Assim a tarefa de teoria mostra só as questões das suas páginas, e os pontos de atenção saem do que as questões cobram. */
@@ -3793,7 +3844,7 @@ function m85Build(){const c=core(),dl=daysToExam(),avail=Math.max(1,Math.floor(M
   c.m85={on:1,fast:[],at:today(),alvo:85};simCache.key="";let need=remainingMetas();const cap=Math.floor(rem.length*.55);let i=0;
   while(need>avail&&i<cap){const step=Math.max(1,Math.round(rem.length/25));rem.slice(i,i+step).forEach(x=>c.m85.fast.push(x.k));i+=step;simCache.key="";need=remainingMetas()}
   c.m85.need=need;c.m85.avail=avail;c.m85.rem=rem.length;delete c.nextDraft;touch("core");simCache.key="";return c.m85}
-function m85HTML(){const m=core().m85;if(!m||!m.on)return`<div class="tsb" style="gap:8px"><b>${ic("target")} Plano para 85% (nas suas ${core().cfg.hrs} h por dia)</b><span class="small">Ajusta o planejamento para terminar o edital até 3 semanas antes da prova sem aumentar as horas: as aulas que menos caem viram leitura rápida, os blocos de questões crescem 25%, o reforço passa a nascer abaixo de 85% e o mentor distribui o tempo pelo que mais cai e pelo que você mais erra. As últimas 3 semanas ficam para revisão e simulados.</span><div class="row"><button class="btn pri sm" data-a="m85On">${ic("check")} Ativar o plano para 85%</button></div></div>`;
+function m85HTML(){const m=core().m85;if(!m||!m.on)return`<div class="tsb" style="gap:8px"><b>${ic("target")} Plano para 85% (nas suas ${core().cfg.hrs} h por dia)</b><span class="small">Ajusta o planejamento para terminar o edital até 3 semanas antes da prova sem aumentar as horas: as aulas que menos caem viram leitura rápida, os blocos de questões crescem 25%, o reforço passa a nascer abaixo de 85% e a Jornada distribui o tempo pelo que mais cai e pelo que você mais erra. As últimas 3 semanas ficam para revisão e simulados.</span><div class="row"><button class="btn pri sm" data-a="m85On">${ic("check")} Ativar o plano para 85%</button></div></div>`;
   const X=projData(),pc=Math.round(X.exp/X.Q*100),covQ=sum(X.L.map(x=>x.q*x.covF)),needAcc=covQ?clamp((.85*X.Q-(X.Q-covQ)*X.chance)/covQ,0,1):1;
   return`<div class="tsb" style="gap:8px;border-color:color-mix(in srgb,var(--lime) 45%,var(--line))"><b>${ic("target")} Plano para 85% ativo</b>
     <span class="small">${m.fast.length} de ${m.rem} aulas restantes em leitura rápida (são as que menos caem). ${m.need<=m.avail?`O edital termina em ${m.need} metas e cabem ${m.avail} antes das 3 semanas finais de revisão.`:`Mesmo assim faltam ${m.need-m.avail} metas: o fim do edital entra nas últimas semanas.`}</span>
@@ -3801,7 +3852,7 @@ function m85HTML(){const m=core().m85;if(!m||!m.on)return`<div class="tsb" style
     <div class="row" style="gap:8px"><button class="btn sm" data-a="m85On">${ic("reset")} Recalcular o plano</button><button class="btn sm ghost" data-a="m85Off">Desligar</button></div></div>`}
 
 /* ================= Mentor: recalcula as próximas metas até a prova e projeta o acerto =================
-   O mentor olha cada matéria (peso na prova, quanto do edital já foi estudado, acerto nas questões, aulas que faltam)
+   A Jornada olha cada matéria (peso na prova, quanto do edital já foi estudado, acerto nas questões, aulas que faltam)
    e o tempo até a prova, e dá a cada matéria uma prioridade (0,6 a 1,6). O planejamento usa essa prioridade para
    distribuir a teoria das próximas metas. Com a IA, a análise é feita por ela; sem IA, por regras fixas. */
 const mwOf=sid=>{const m=core().mw;const v=m&&m.w&&m.w[sid];return v>0?clamp(+v,.6,1.6):1};
@@ -3820,7 +3871,7 @@ function mentorAuto(M){const avg=100/Math.max(1,M.L.length),w={},why={};
     else if(x.share<avg*.6&&x.cov>60){v-=.15;R.push("pesa pouco e já está bem adiantada")}
     if(M.ratio<1&&x.share<avg*.5){v-=.1;R.push("o tempo não cobre tudo: matéria de pouco peso perde espaço")}
     w[x.sid]=Math.round(clamp(v,.6,1.6)*100)/100;why[x.sid]=R.join("; ")||"ritmo mantido"});
-  return{w,why,resumo:M.ratio<1?`No ritmo atual faltam ${M.need} metas e até a prova cabem cerca de ${M.avail}. O mentor concentrou o tempo nas matérias que mais pesam e nas que você mais erra.`:`O planejamento cabe até a prova (${M.need} metas para ${M.avail} disponíveis). O mentor ajustou a prioridade pelo seu acerto e pelo peso de cada matéria.`,src:"auto"}}
+  return{w,why,resumo:M.ratio<1?`No ritmo atual faltam ${M.need} metas e até a prova cabem cerca de ${M.avail}. A Jornada concentrou o tempo nas matérias que mais pesam e nas que você mais erra.`:`O planejamento cabe até a prova (${M.need} metas para ${M.avail} disponíveis). A Jornada ajustou a prioridade pelo seu acerto e pelo peso de cada matéria.`,src:"auto"}}
 async function mentorAIPlan(M){const rows=M.L.map(x=>`${x.sid} | ${x.n} | ${x.q} questões (${pv1(x.share)}% da prova) | edital estudado ${Math.round(x.cov)}% | aulas restantes ${x.left}/${x.aulas} | acerto ${x.acc==null?"sem dados":Math.round(x.acc)+"% em "+x.f+" questões"} | nível ${x.lv}`).join("\n");
   const prompt=`Você é um mentor especialista em aprovação em concursos públicos (${IS_TJ?"Oficial de Justiça do TJSP, banca VUNESP":[PLAN.cargo||PLAN.name,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(", ")}).
 Faltam ${M.dl} dias para a prova. O aluno estuda ${M.hrs} h por dia, em metas de ${M.dias} dias. No ritmo atual faltam ${M.need} metas para concluir todas as aulas e até a prova cabem cerca de ${M.avail} metas (deixando a última semana para revisão).
@@ -3833,10 +3884,10 @@ Responda só com JSON: {"w":{"id":1.2,...},"motivo":{"id":"até 15 palavras",...
   return{w,why,resumo:String(r.resumo||"").slice(0,600),alerta:String(r.alerta||"").slice(0,240),src:"ia"}}
 function mentorModal(){const X=UI.mt;if(!X){$("layer3").innerHTML="";return}const M=X.M,P=X.P;
   const rows=M.L.map(x=>{const nw=P?P.w[x.sid]:x.w0,d=nw-x.w0,ar=Math.abs(d)<.05?"=":d>0?"▲":"▼";return`<tr><td><span class="code" style="margin-right:6px">${esc(x.c)}</span>${esc(x.n)}</td><td>${x.q}</td><td>${Math.round(x.cov)}%</td><td>${x.acc==null?"–":Math.round(x.acc)+"%"}</td><td>${x.left}/${x.aulas}</td><td><b class="${d>.04?"badc":d<-.04?"okc":""}">${ar} ${nw.toFixed(2).replace(".",",")}</b></td><td class="small muted">${esc(P?P.why[x.sid]||"":"")}</td></tr>`}).join("");
-  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Mentor"><div class="box" style="width:min(900px,96vw);max-height:92vh;overflow:auto;display:grid;gap:12px">
-    <div class="row" style="justify-content:space-between"><h3 style="margin:0">${ic("bulb")} Mentor · recalcular até a prova</h3><button class="ibtn" data-a="mtClose" aria-label="Fechar">${ic("close")}</button></div>
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Recalcular plano"><div class="box" style="width:min(900px,96vw);max-height:92vh;overflow:auto;display:grid;gap:12px">
+    <div class="row" style="justify-content:space-between"><h3 style="margin:0">${ic("bulb")} Recalcular até a prova</h3><button class="ibtn" data-a="mtClose" aria-label="Fechar">${ic("close")}</button></div>
     <p class="muted small" style="margin:0">Faltam <b>${M.dl}</b> dias para a prova · ${M.hrs} h por dia · no ritmo atual faltam <b>${M.need}</b> metas e cabem cerca de <b>${M.avail}</b> (com a última semana livre para revisão).</p>
-    ${X.busy?'<p class="muted"><span class="spin"></span> O mentor está analisando…</p>':P?`<div class="tsb" style="gap:6px"><b>${P.src==="ia"?"Análise do mentor (IA)":"Análise do mentor"}</b><span>${esc(P.resumo)}</span>${P.alerta?`<span class="badc small">${esc(P.alerta)}</span>`:""}</div>`:""}
+    ${X.busy?'<p class="muted"><span class="spin"></span> A Jornada está analisando…</p>':P?`<div class="tsb" style="gap:6px"><b>${P.src==="ia"?"Análise da Jornada (IA)":"Análise da Jornada"}</b><span>${esc(P.resumo)}</span>${P.alerta?`<span class="badc small">${esc(P.alerta)}</span>`:""}</div>`:""}
     <div class="tbw"><table class="tb"><thead><tr><th>Matéria</th><th>Questões</th><th>Edital estudado</th><th>Acerto</th><th>Aulas restantes</th><th>Prioridade</th><th>Motivo</th></tr></thead><tbody>${rows}</tbody></table></div>
     <div class="row" style="justify-content:flex-end;gap:8px">${SAMPLE&&!X.busy&&(!P||P.src!=="ia")?`<button class="btn" data-a="mtAI">${ic("bulb")} Pedir a análise da IA</button>`:""}<button class="btn ghost" data-a="mtClose">Cancelar</button><button class="btn pri" data-a="mtApply" ${P&&!X.busy?"":"disabled"}>${ic("check")} Aplicar ao planejamento</button></div>
     <p class="muted small" style="margin:0">Aplicar muda a distribuição da teoria nas próximas metas (e na meta atual, se ela ainda não começou). O que você já fez não muda.</p></div></div>`}
@@ -3855,7 +3906,7 @@ function projHTML(){try{const X=projData();if(!X.L.length)return"";const pc=v=>M
     ${gain.length?`<p class="small" style="margin:0"><b>Onde ganhar mais pontos:</b> ${gain.map(v=>esc(v.x.n)+" (+"+v.g.toFixed(1).replace(".",",")+" questões possíveis)").join(" · ")}</p>`:""}
     <p class="muted small" style="margin:0">Como é calculado: para cada matéria, a parte do edital que estará estudada na data da prova (pelo seu planejamento e pela incidência dos assuntos) vezes o seu acerto nas questões já resolvidas (com um ganho pelas revisões; sem dados, 72%), mais o chute no que ficar de fora${X.cebr?" (no Cebraspe o chute vale zero, porque o erro anula um acerto)":" ("+Math.round(X.chance*100)+"% numa questão de múltipla escolha)"}. É uma estimativa: quanto mais questões você resolver, mais fiel ela fica.</p>
     ${m85HTML()}
-    <div class="row"><button class="btn sm" data-a="mtOpen">${ic("bulb")} Recalcular as metas com o mentor</button></div></div></section>`}catch(e){return""}}
+    <div class="row"><button class="btn sm" data-a="mtOpen">${ic("bulb")} Recalcular plano</button></div></div></section>`}catch(e){return""}}
 
 /* ================= Navegação e renderização ================= */
 /* ================= Discursiva e Redação ================= */
@@ -4444,7 +4495,7 @@ const HOW={
   desempenho:"Aqui você acompanha os resultados. Não há nada para preencher: os números vêm do cronômetro, das questões resolvidas e dos simulados.",
   concurso:"Aqui você cuida do concurso: troque ou adicione concursos, inclua o edital em PDF (o painel tira datas, matérias e assuntos) e acompanhe o cronograma até a prova.",
   assinatura:"Aqui você vê o seu plano (teste, mensal ou anual), assina ou renova pelo link de pagamento e lê os termos de uso e a política de privacidade. Pague com o mesmo e-mail da sua conta: a liberação é automática.",
-  arena:"Aqui ficam os seus flash cards. Toque em Iniciar revisão, tente lembrar a resposta antes de revelar e diga com sinceridade se errou, quase lembrou ou lembrou: o Flash Jornada decide quando cada card volta. Atacar lacunas treina só os cards que mais te pegam.",
+  arena:"Aqui ficam os seus flash cards. Toque em Seguir a trilha, tente lembrar a resposta antes de revelar e diga com sinceridade se se perdeu, ficou quase lá ou dominou: o Flash Jornada decide quando cada card volta. Trechos difíceis treina só os cards que mais te pegam.",
   arquivo:"Aqui ficam as metas que já passaram: toque numa meta para ver as atividades, o tempo, o desempenho e o simuladinho dela. Procure uma atividade pelo código ou pelo título.",
   leiseca:"Aqui fica a Jornada na Lei Seca: escolha a lei (ou escreva qual é), o texto oficial vem do site do Planalto e a IA destaca o que mais cai, grifa os trechos que a banca troca e escreve um bizu por artigo. Ligue a lei à matéria para ver quais artigos já caíram nas suas questões.",
   tutorial:"Aqui você aprende a usar cada função da plataforma: escolha um tema, assista à animação e leia as dicas. Use “Ir para esta tela” para praticar na hora.",
@@ -4492,7 +4543,7 @@ const TUT=[
       {k:"n2",on:["n2"],c:"Envie o PDF de cada aula: viram atividades, questões, resumos, cards e mapas."},
       {k:"n3",on:["n3"],c:"Todo dia, abra Hoje e cumpra as atividades da meta, uma por vez."},
       {k:"n4",on:["n4"],c:"Faça as revisões do dia: é o que fixa o conteúdo até a prova."},
-      {k:"n5",on:["n5","loop"],c:"Acompanhe o Desempenho e recalcule com o mentor quando atrasar. Repita o ciclo."}],
+      {k:"n5",on:["n5","loop"],c:"Acompanhe o Desempenho e recalcule o plano quando atrasar. Repita o ciclo."}],
   d:["Configure as três primeiras etapas no primeiro dia. Depois, o seu trabalho diário é só Hoje + Revisar.","Constância vence intensidade: cumprir a meta de 3 h todos os dias rende mais que 10 h num domingo.","Se a vida apertar, não pule as revisões: elas são curtas e protegem o que você já estudou."]},
 
  {id:"concurso",t:"Concurso e edital",ic:"concurso",go:"concurso",
@@ -4552,7 +4603,7 @@ const TUT=[
       {k:"p2",on:["p2"],c:"Passo 2, O que cai aqui: o resumo do trecho, montado pelas questões, e os cards."},
       {k:"p3",on:["p3"],c:"Passo 3, Questões: só as questões daquele trecho, para resolver ali mesmo."},
       {k:"fin",on:["c1","mp"],n:[["mt",1]],c:"Toque em Finalizar. A atividade é riscada, entra nas revisões e a meta avança."}],
-  d:["Faça as atividades na ordem: elas foram encaixadas pela prioridade e pelo tempo do dia.","Não pule o passo 3: resolver logo depois de ler é o que mais aumenta o acerto.","No Check-in da semana, toque em “Ajustar a próxima semana com o mentor” quando atrasar."]},
+  d:["Faça as atividades na ordem: elas foram encaixadas pela prioridade e pelo tempo do dia.","Não pule o passo 3: resolver logo depois de ler é o que mais aumenta o acerto.","No Check-in da semana, toque em “Ajustar a próxima semana” quando atrasar."]},
 
  {id:"planob",t:"Plano B e estudo extra",ic:"rotina",go:"meta",
   p:"Dois botões em Hoje para os dias fora do normal. “Hoje tenho pouco tempo” mostra o essencial em cerca de 1 hora (revisões, Erradas, reforços que vencem e só o passo 2 e as questões da teoria) sem mexer na meta. “Estudo extra” é para quando sobra tempo: escolha matéria, assunto e tipo, e cerca de 30 minutos entram no seu tempo e no Desempenho.",
@@ -4627,19 +4678,19 @@ const TUT=[
   d:["Leia a lei seca pelos filtros “Cai muito” e “Caiu nas suas questões” primeiro.","Leia em voz alta os trechos grifados: são as palavras que a banca troca.","Use o Estudo extra do tipo Lei seca para 30 minutos de leitura dirigida."]},
 
  {id:"arena",t:"Flash Jornada",ic:"arena",go:"arena",
-  p:"O Flash Jornada é onde você revisa os flash cards. Eles chegam sozinhos dos resumos das aulas, das questões que você erra e dos testes de fixação (e você pode criar os seus). Em cada card, tente lembrar antes de revelar e diga com sinceridade: Errei, Quase ou Lembrei. O Flash Jornada calcula quando cada um volta: o fácil se espaça rápido, o que te pega volta mais cedo. Há também afirmações de Certo ou Errado, como na prova, e o botão Atacar lacunas treina só os seus pontos fracos.",
-  s:`<div class="tu-card"><div class="tu-row"><span class="tu-chip" data-k="stk">🔥 Sequência: <b data-k="sd">0</b> dias</span><span class="tu-chip ok" data-k="now"><b data-k="nn">0</b> para agora</span></div>
+  p:"O Flash Jornada é onde você revisa os flash cards. Eles chegam sozinhos dos resumos das aulas, das questões que você erra e dos testes de fixação (e você pode criar os seus). Em cada card, tente lembrar antes de revelar e diga com sinceridade: Me perdi, Quase lá ou Dominei. O Flash Jornada calcula quando cada um volta: o fácil se espaça rápido, o que te pega volta mais cedo. Há também afirmações de Certo ou Errado, como na prova, e o botão Trechos difíceis treina só os seus pontos fracos.",
+  s:`<div class="tu-card"><div class="tu-row"><span class="tu-chip" data-k="stk">👣 Caminhada: <b data-k="sd">0</b> dias</span><span class="tu-chip ok" data-k="now"><b data-k="nn">0</b> para agora</span></div>
      <div class="tu-fc" data-k="fc"><div class="f">A EC 132/2023 substituiu ICMS e ISS por quais tributos?</div><div class="b">Pelo IBS; e PIS/Cofins pela CBS: é o IVA dual.</div></div>
-     <div class="tu-row"><button class="tu-btn ghost" data-k="no">Errei · agora</button><button class="tu-btn ghost" data-k="qs">Quase · 1d</button><button class="tu-btn" data-k="ok">Lembrei · 3d</button></div>
+     <div class="tu-row"><button class="tu-btn ghost" data-k="no">Me perdi · agora</button><button class="tu-btn ghost" data-k="qs">Quase lá · 1d</button><button class="tu-btn" data-k="ok">Dominei · 3d</button></div>
      <div class="tu-cyc">${["3d","9d","25d","2 m","5 m"].map((d,i)=>`<span data-k="d${i}">${d}</span>`).join("")}</div>
-     <div class="tu-row"><span class="tu-chip" data-k="ce">Certo ou errado? Citação por hora certa exige suspeita de ocultação.</span><button class="tu-btn sm" data-k="gap">🎯 Atacar lacunas</button></div></div>`,
-  st:[{k:"now",on:["now"],n:[["nn",14]],c:"Abra o Flash Jornada: o número mostra quantos cards estão para agora. Toque em Iniciar revisão."},
+     <div class="tu-row"><span class="tu-chip" data-k="ce">Certo ou errado? Citação por hora certa exige suspeita de ocultação.</span><button class="tu-btn sm" data-k="gap">🎯 Trechos difíceis</button></div></div>`,
+  st:[{k:"now",on:["now"],n:[["nn",14]],c:"Abra o Flash Jornada: o número mostra quantos cards estão para agora. Toque em Seguir a trilha."},
       {k:"fc",on:["d0"],c:"Leia a pergunta e puxe a resposta da memória, sem olhar."},
       {k:"fc",on:["fc"],c:"Revele e confira. Lembrar é diferente de reconhecer: seja honesto."},
       {k:"ok",on:["d1","d2"],c:"Lembrou? O intervalo cresce a cada acerto: 3 dias, depois 9, 25, meses..."},
       {k:"no",c:"Errou? O card volta ainda nesta revisão e depois mais cedo. O erro é o que diz ao Flash Jornada quando ele deve voltar."},
       {k:"ce",on:["ce"],c:"Afirmações de Certo ou Errado: julgue antes de ver o gabarito e a justificativa."},
-      {k:"gap",on:["gap","stk"],n:[["sd",7]],c:"Atacar lacunas treina só os cards que mais te pegam. Revise todo dia para manter o foguinho aceso."}],
+      {k:"gap",on:["gap","stk"],n:[["sd",7]],c:"Trechos difíceis treina só os cards que mais te pegam. Revise todo dia para manter a caminhada."}],
   d:["Faça o Flash Jornada todo dia antes de teoria nova: 10 a 15 minutos bastam.","Em Configurações escolha a intensidade (Conservador perto da prova) e o ritmo de cards novos.","As questões do TEC anotadas continuam em Revisar › Revisões do dia, no ciclo de 1, 7, 14, 30 e 60 dias."]},
 
  {id:"erradas",t:"Erradas, reforços e bateria do TEC",ic:"erradas",go:"erradas",
@@ -4673,21 +4724,21 @@ const TUT=[
   d:["Treine pelo menos uma discursiva por semana na reta final.","Reescreva a mesma questão depois da correção: é assim que a nota sobe.","Cuidado com o limite de linhas: o painel conta para você."]},
 
  {id:"desempenho",t:"Desempenho e padrão de erros",ic:"desempenho",go:"desempenho",
-  p:"O Desempenho mostra horas, acerto por matéria e evolução, e o Padrão de erros: por que você erra (não sabia, esqueceu, confundiu, falta de atenção, interpretação, pressa) e o que fazer com isso. Em Hoje, “Recalcular com o mentor” refaz as metas até a prova e projeta a sua nota; o “Plano para 85%” ajusta o planejamento nas suas horas.",
+  p:"O Desempenho mostra horas, acerto por matéria e evolução, e o Padrão de erros: por que você erra (não sabia, esqueceu, confundiu, falta de atenção, interpretação, pressa) e o que fazer com isso. Em Hoje, “Recalcular plano” refaz as metas até a prova e projeta a sua nota; o “Plano para 85%” ajusta o planejamento nas suas horas.",
   s:`<div class="tu-card">${[["Tributário",68],["Português",84],["Constitucional",79]].map(([n,v],i)=>`<div class="tu-hb"><span>${n}</span><i><s data-k="d${i}" style="--w:${v}%"></s></i><em>${v}%</em></div>`).join("")}
      <div class="tu-hb"><span>Esqueci</span><i><s data-k="w0" style="--w:70%"></s></i><em>38%</em></div><div class="tu-hb"><span>Falta de atenção</span><i><s data-k="w1" style="--w:62%"></s></i><em>36%</em></div>
-     <button class="tu-btn" data-k="mt">Recalcular com o mentor</button><div class="tu-gauge" data-k="ga"><b data-k="gp">0</b>%<small>projeção de acerto na prova</small></div></div>`,
+     <button class="tu-btn" data-k="mt">Recalcular plano</button><div class="tu-gauge" data-k="ga"><b data-k="gp">0</b>%<small>projeção de acerto na prova</small></div></div>`,
   st:[{k:"d0",on:["d0","d1","d2"],c:"Veja o acerto de cada matéria: a mais baixa é a sua prioridade."},
       {k:"w0",on:["w0","w1"],c:"O Padrão de erros mostra por que você erra e qual atitude corrige cada motivo."},
-      {k:"mt",on:["ga"],n:[["gp",76]],c:"O mentor recalcula as metas até a prova e projeta a sua nota; compare com a nota de corte."}],
-  d:["Recalcule com o mentor sempre que atrasar mais de 2 dias.","Esquecimento é revisão; falta de atenção é técnica de leitura do comando.","Matéria abaixo de 75% merece mais questões, não mais teoria."]},
+      {k:"mt",on:["ga"],n:[["gp",76]],c:"A Jornada recalcula as metas até a prova e projeta a sua nota; compare com a nota de corte."}],
+  d:["Recalcule o plano sempre que atrasar mais de 2 dias.","Esquecimento é revisão; falta de atenção é técnica de leitura do comando.","Matéria abaixo de 75% merece mais questões, não mais teoria."]},
 
- {id:"mentor",t:"Pergunte ao mentor",ic:"revisoes",go:"meta",
+ {id:"mentor",t:"Pergunte à Jornada",ic:"revisoes",go:"meta",
   p:"Uma conversa com a IA sobre os seus estudos, com os seus números de verdade: horas, metas, acerto por matéria, erros, revisões e projeção. Pergunte “Como estou em cada matéria?”, “Quais são meus pontos fracos?” ou “O que focar na próxima semana?” e receba um diagnóstico com passos nas telas da plataforma. Fica em Hoje e em Desempenho.",
-  s:`<div class="tu-card"><div class="tu-row"><button class="tu-btn sm ghost" data-k="bt">Pergunte ao mentor</button></div>
+  s:`<div class="tu-card"><div class="tu-row"><button class="tu-btn sm ghost" data-k="bt">Pergunte à Jornada</button></div>
      <div class="tu-txt" data-k="q" style="align-self:flex-end;max-width:80%;min-height:0"><em data-k="qt"></em></div>
      <div class="tu-pt" data-k="a"><small>MENTOR</small>Você fez 26 min de 28 h planejadas. Português está em 68%: 1. zere as 6 revisões; 2. refaça as Erradas marcando o motivo; 3. ajuste a Rotina para caber.</div></div>`,
-  st:[{k:"bt",c:"Toque em “Pergunte ao mentor”, em Hoje ou em Desempenho."},
+  st:[{k:"bt",c:"Toque em “Pergunte à Jornada”, em Hoje ou em Desempenho."},
       {k:"q",ty:["qt","O que focar na próxima semana?"],c:"Escreva a pergunta, ou toque numa das sugestões."},
       {k:"a",on:["a"],c:"A resposta usa só os seus dados e diz o que fazer, tela por tela."}],
   d:["Pergunte toda semana depois do check-in: é o seu ajuste semanal.","Se a resposta disser que falta um dado, registre-o (motivos de erro, baterias do TEC) e pergunte de novo.","Seja específico: “estou atrasado em Contabilidade, o que cortar?” rende mais que “me ajuda”."]},
@@ -4800,7 +4851,7 @@ function rowsHTML(ts,locks,mbt,preview,all){
 /* ---------- Plano B: dia com pouco tempo ----------
    Não mexe na meta: mostra só o essencial do dia (o que protege o que já foi estudado e o que mais cai) */
 function planBHTML(r,ts){const c=core(),on=(c.planB||{})[today()];
-  if(!on)return`<div class="row" style="justify-content:flex-end;gap:8px;flex-wrap:wrap;margin:-4px 0 8px"><button class="btn sm ghost" data-a="mchOpen">${ic("bulb")} Pergunte ao mentor</button>${xtrCur()?"":`<button class="btn sm ghost" data-a="xtrOpen">${ic("plus")} Estudo extra</button>`}<button class="btn sm ghost" data-a="pbOn">${ic("rotina")} Hoje tenho pouco tempo</button></div>`;
+  if(!on)return`<div class="row" style="justify-content:flex-end;gap:8px;flex-wrap:wrap;margin:-4px 0 8px"><button class="btn sm ghost" data-a="mchOpen">${ic("bulb")} Pergunte à Jornada</button>${xtrCur()?"":`<button class="btn sm ghost" data-a="xtrOpen">${ic("plus")} Estudo extra</button>`}<button class="btn sm ghost" data-a="pbOn">${ic("rotina")} Hoje tenho pouco tempo</button></div>`;
   const rv=dueRevs().length,ep=errPend(),nx=ts.find(t=>!t.done),rf=allRefs().filter(x=>!x.done&&refLeft(x)<=5).length;let n=0;const li=(txt,btn)=>`<li><b>${++n}</b><span>${txt}</span>${btn||""}</li>`;
   return`<section class="pb-c" aria-label="Plano B do dia"><div class="pb-h"><span class="ico">${ic("target")}</span><h3>Plano B de hoje: o essencial em cerca de 1 hora</h3><span class="sp"></span><button class="btn sm ghost" data-a="pbOff">Voltar ao dia normal</button></div>
    <ol class="pb-l">${rv?li(`<b style="all:unset;font-weight:700">${rv} revis${rv>1?"ões":"ão"} do dia</b>: são curtas e seguram o que você já estudou.`,`<button class="btn sm pri" data-a="gtab" data-t="revisoes">Revisar</button>`):""}
@@ -4823,15 +4874,15 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
   if(W.weak[0]&&W.weak[0].p<75)tips.push(`${esc(W.weak[0].n)} ficou em ${W.weak[0].p}% de acerto: priorize as questões e os reforços dessa matéria.`);
   if(W.rv>15)tips.push(`Há ${W.rv} revisões acumuladas: comece cada dia por elas, 20 minutos.`);
   if(W.ep>10)tips.push(`${W.ep} questões em Erradas: refaça 5 por dia.`);
-  if(W.late)tips.push(`A meta está ${W.late} dia${W.late>1?"s":""} atrasada: recalcule com o mentor para as próximas metas caberem até a prova.`);
+  if(W.late)tips.push(`A meta está ${W.late} dia${W.late>1?"s":""} atrasada: recalcule o plano para as próximas metas caberem até a prova.`);
   if(!tips.length)tips.push("Semana no ritmo. Mantenha a ordem: revisões, teoria do dia e questões.");
   return`<section class="ck-c" aria-label="Check-in da semana"><div class="ck-h"><span class="ico">${ic("desempenho")}</span><h3>Check-in da semana</h3><span class="muted small">últimos 7 dias</span><span class="sp"></span><button class="btn sm ghost" data-a="ckDone">Concluir check-in</button></div>
    <div class="ck-g"><div><b>${fmtM(W.min)}</b><small>estudadas de ${fmtM(W.plan)} (${pct}%)</small></div><div><b>${W.tk}</b><small>atividades concluídas</small></div><div><b>${W.acc==null?"—":W.acc+"%"}</b><small>de acerto em ${W.q} questões</small></div><div><b>${W.rv}</b><small>revisões pendentes</small></div></div>
    ${W.weak.length?`<span class="small"><b>Acerto por matéria:</b> ${W.weak.slice(0,5).map(x=>`${esc(x.n)} <b class="${x.p>=75?"okc":x.p>=50?"warnc":"badc"}">${x.p}%</b>`).join(" · ")}</span>`:""}
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
-   <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
+   <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103102203";
+const JX_BUILD="20261103133406";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -4974,7 +5025,7 @@ ${errs.join("\n")||"- sem amostra"}`;
     const r=await SAMPLE(prompt,{modelTier:"default"});const txt=(r&&r.text||"").trim();
     if(txt){t.diag={txt,at:Date.now()};touch("m-"+taskMeta(t))}}catch(e){toast("Não consegui montar o diagnóstico agora")}finally{REFD_BUSY.delete(id);renderDrawer()}}
 
-/* ================= 2) Pergunte ao mentor (conversa com os seus dados) ================= */
+/* ================= 2) Pergunte à Jornada (conversa com os seus dados) ================= */
 function mentorCtx(){const c=core(),W=weekStats(),r=curMeta(),X=errPatData(),sub={};
   PDFS().forEach(p=>{const Z=qzDoc(p.id);if(!Z)return;Object.values(Z.ans||{}).forEach(a=>{if(!a)return;const s=sub[p.sid]=sub[p.sid]||{q:0,ok:0};s.q++;if(a.ok)s.ok++})});
   let proj="";try{const P=projData();if(P&&P.L.length)proj=`Projeção de acerto na prova cumprindo o plano: ${Math.round(P.exp/P.Q*100)}% (faixa ${Math.round(P.lo/P.Q*100)}% a ${Math.round(P.hi/P.Q*100)}%)${c.corte?", nota de corte informada "+c.corte+"%":""}.`}catch(e){}
@@ -4990,14 +5041,14 @@ function mentorCtx(){const c=core(),W=weekStats(),r=curMeta(),X=errPatData(),sub
     `Edital estudado: ${Math.round(progData().tot)}%.`,proj].filter(Boolean).join("\n")}
 function mentorChatModal(){const L=UI.mchat||(UI.mchat=[]),busy=UI.mchatBusy;
   const sug=["Como estou em cada matéria?","Quais são meus pontos fracos?","O que focar na próxima semana?","Estou no ritmo para a prova?"];
-  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Pergunte ao mentor"><div class="box mch">
-   <div class="vh"><h3>${ic("bulb")} Pergunte ao mentor</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Pergunte à Jornada"><div class="box mch">
+   <div class="vh"><h3>${ic("bulb")} Pergunte à Jornada</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
    <p class="muted small" style="margin:0">Responde com os seus números de verdade: horas, metas, acerto por matéria, erros, revisões e projeção.</p>
    <div class="mch-l" id="mchL">${L.length?L.map(m=>`<div class="mch-m ${m.r}">${m.r==="a"?mdLite(m.t):esc(m.t)}</div>`).join(""):`<div class="mch-s">${sug.map(s=>`<button class="btn sm ghost" data-a="mchAsk" data-q="${esc(s)}">${esc(s)}</button>`).join("")}</div>`}${busy?'<div class="mch-m a"><span class="spin"></span> Pensando nos seus dados…</div>':""}</div>
    <form class="mch-f" data-f="mch"><input class="inp" id="mchIn" placeholder="Escreva a sua pergunta" autocomplete="off" ${busy?"disabled":""}><button class="btn pri" data-a="mchSend" ${busy?"disabled":""}>Enviar</button></form></div></div>`;
   const l=$("mchL");if(l)l.scrollTop=l.scrollHeight;const i=$("mchIn");if(i&&!busy)setTimeout(()=>i.focus(),30)}
 async function mentorAsk(q){q=String(q||"").trim();if(!q||UI.mchatBusy)return;if(!SAMPLE){toast("A IA não está disponível agora");return}const L=UI.mchat||(UI.mchat=[]);L.push({r:"u",t:q});UI.mchatBusy=1;mentorChatModal();
-  try{const ctx=mentorCtx();const msgs=[{role:"user",content:`Você é o mentor de estudos da plataforma A Jornada. Responda em português do Brasil, curto e direto (até 180 palavras), em tom de mentor: um diagnóstico com números e o que fazer na prática (passos), usando as telas da plataforma (Hoje, Revisar, Erradas, Reforços, Resumos, Lei seca, Simulados, Rotina, "Recalcular com o mentor").
+  try{const ctx=mentorCtx();const msgs=[{role:"user",content:`Você é o mentor de estudos da plataforma A Jornada. Responda em português do Brasil, curto e direto (até 180 palavras), em tom de mentor: um diagnóstico com números e o que fazer na prática (passos), usando as telas da plataforma (Hoje, Revisar, Erradas, Reforços, Resumos, Lei seca, Simulados, Rotina, "Recalcular plano").
 Use SOMENTE os dados abaixo; se a pergunta pedir algo que não está nos dados (por exemplo, comparação com outros alunos), diga que a plataforma não tem esse dado.
 DADOS DO ALUNO:
 ${ctx}`},{role:"assistant",content:"Entendido. Vou responder só com esses dados."},...L.slice(-8).map(m=>({role:m.r==="u"?"user":"assistant",content:m.t}))];
@@ -5088,7 +5139,7 @@ const ARC=()=>{const c=core();return c.arena||(c.arena={int:"bal",pace:"eq",auto
 const AR_F={con:.8,bal:1,agr:1.35},AR_NEW={con:10,eq:20,abr:35};
 const AR_INT=[["con","Conservador","Mais revisões, maior retenção. Ideal para quem está perto da prova."],["bal","Balanceado","Equilíbrio entre volume de revisões e retenção. Recomendado."],["agr","Agressivo","Menos revisões, intervalos maiores. Para quem tem muito conteúdo."]];
 const AR_PACE=[["con","Conservador","Até 10 cards novos por dia. Foco em fixar o que já está na fila."],["eq","Equilibrado","Até 20 cards novos por dia, conforme as suas atividades."],["abr","Abrangente","Até 35 cards novos por dia. Bom para cobrir o edital rápido."]];
-const AR_ST={new:["Novo","nw"],learn:["Aprendendo","lr"],rev:["Em revisão","rv"],arch:["Arquivado","ar"]};
+const AR_ST={new:["Partida","nw"],learn:["Na trilha","lr"],rev:["Checkpoint","rv"],arch:["Arquivado","ar"]};
 const arCE=c=>/^Certo ou errado\?/i.test(c.f||"");
 const arStmt=c=>String(c.f||"").replace(/^Certo ou errado\?\s*/i,"");
 const arAns=c=>/^\s*CERTO\b/i.test(c.b||"");
@@ -5127,23 +5178,32 @@ function arStart(mode){arMig();const q=arQueue(mode);if(!q.length){toast(mode===
   UI.ar={mode,q,i:0,show:0,pick:null,n:{},done:0,req:0,t0:Date.now()};render();scrollTo(0,0)}
 
 /* ---------- telas ---------- */
-const arEye=t=>`<div class="ar-eye">${ic("arena")} FLASH JORNADA${t?" · "+t:""}</div>`;
+const arEye=t=>`<div class="ar-eye">${ic("compass")} FLASH JORNADA${t?" · "+t:""}</div>`;
 function arWeek(){const S=arDays(),td=today(),d0=addDays(td,-pd(td).getDay());
-  return`<div class="ar-wk">${["D","S","T","Q","Q","S","S"].map((l,i)=>{const d=addDays(d0,i),on=S.has(d);return`<span class="${d===td?"td":""} ${d>td?"fu":""}"><small>${l}</small><i class="${on?"on":""}">${on?ic("arena"):""}</i></span>`}).join("")}</div>`}
+  return`<div class="tj-wk">${["D","S","T","Q","Q","S","S"].map((l,i)=>{const d=addDays(d0,i),on=S.has(d);return`<span class="${d===td?"td":""} ${d>td?"fu":""} ${on?"on":""}"><i>${on?ic("foot"):""}</i><small>${l}</small></span>`}).join("")}</div>`}
 function arHome(){arMig();const C=arCounts(),st=arStreak(),nNew=Math.min(C.lim,C.nw.length),all=CARDS();
   const nxt=arPool().filter(c=>c.st!=="new"&&c.due>today()).map(c=>c.due).sort()[0];
-  return`<div class="ar-home">${arEye()}<h1>Bem-vindo ao Flash Jornada!</h1><p class="muted">Puxe a resposta da memória antes de ver: é assim que o conteúdo grava. Cada card volta pouco antes de você esquecer.</p>
-   <div class="ar-fire ${st?"on":""}">${ic("flame")}</div><div class="ar-stk"><small>SUA SEQUÊNCIA</small><b>${st} dia${st===1?"":"s"}</b></div>${arWeek()}
-   <div class="ar-tiles"><div><span>${ic("star")}</span><small>NOVOS</small><b>${nNew}</b></div><div><span>${ic("book")}</span><small>APRENDENDO</small><b>${C.lr.length}</b></div><div><span>${ic("reset")}</span><small>A REVISAR</small><b>${C.due.length}</b></div></div>
-   <p class="ar-now"><b>${C.now}</b> PARA AGORA</p>
-   <button class="ar-go" data-a="arGo" ${C.now?"":"disabled"}>${C.now?"Iniciar revisão":all.length?"Tudo em dia"+(nxt?" · próximo em "+dm(nxt):""):"Ainda não há cards"}</button>
-   <button class="ar-gap" data-a="arGap" ${C.gap?"":"disabled"}>${ic("target")} Atacar lacunas${C.gap?` <small>${Math.min(20,C.gap)}</small>`:""}</button>
-   <nav class="ar-links"><button data-a="arV" data-v="met">Métricas</button><button data-a="arV" data-v="cards">Cards</button><button data-a="arV" data-v="disc">Disciplinas</button><button data-a="arV" data-v="cfg">Configurações</button><button data-a="arNew">+ Novo card</button></nav>
-   ${all.length?"":`<p class="muted small" style="margin-top:14px">Os cards entram sozinhos: dos resumos das aulas (com a IA), das questões que você erra e anota, e dos testes de fixação. Você também pode criar os seus em "+ Novo card".</p>`}</div>`}
+  const act=all.filter(c=>c.st!=="arch"),dom=act.filter(c=>c.st==="rev"&&(c.s||0)>=21).length,pc=act.length?Math.round(dom/act.length*100):0;
+  const stn=[["flag","Aprovação",dom?`${dom} card${dom>1?"s":""} na memória longa`:"Onde a trilha termina",`${pc}% dominado`,"top"],
+    ["reset","Checkpoint",`${C.due.length} para revisar`,"Voltam pouco antes de você esquecer",C.due.length?"hot":""],
+    ["foot","Na trilha",`${C.lr.length} aprendendo`,"Ainda firmando na memória",C.lr.length?"on":""],
+    ["compass","Partida",`${nNew} novo${nNew===1?"":"s"} hoje`,"Cards que você ainda não viu",nNew?"on":""]];
+  return`<div class="tj-home"><header class="tj-hd">${arEye()}<h1>Sua trilha da memória</h1><p class="muted">Cada card é um passo. Puxe a resposta da cabeça antes de ver e diga com sinceridade como foi: a Jornada marca quando aquele trecho volta.</p></header>
+   <div class="tj-grid"><section class="tj-map" aria-label="Trilha dos cards">
+     <svg class="tj-path" viewBox="0 0 320 440" preserveAspectRatio="none" aria-hidden="true"><path class="bg" d="M70 410 C 250 395, 285 320, 165 300 S 35 215, 150 185 S 300 110, 245 40"/><path class="pg" pathLength="100" style="stroke-dasharray:${Math.max(4,pc)} 100" d="M70 410 C 250 395, 285 320, 165 300 S 35 215, 150 185 S 300 110, 245 40"/></svg>
+     ${stn.map((x,i)=>`<div class="tj-st s${i} ${x[4]}"><i>${ic(x[0])}</i><div><small>${x[1]}</small><b>${x[2]}</b><span>${x[3]}</span></div></div>`).join("")}
+   </section>
+   <aside class="tj-side"><div class="tj-now"><small>PASSOS PARA HOJE</small><b>${C.now}</b><span>${C.now?"cards esperando por você":all.length?"Trilha em dia"+(nxt?" · próximo trecho em "+dm(nxt):""):"Ainda não há cards"}</span></div>
+     <button class="ar-go" data-a="arGo" ${C.now?"":"disabled"}>${ic("foot")} ${C.now?"Seguir a trilha":all.length?"Tudo em dia":"Ainda não há cards"}</button>
+     <button class="ar-gap" data-a="arGap" ${C.gap?"":"disabled"}>${ic("target")} Trechos difíceis${C.gap?` <small>${Math.min(20,C.gap)}</small>`:""}</button>
+     <div class="tj-walk"><div class="tj-wh"><span class="${st?"on":""}">${ic("foot")}</span><div><b>${st} dia${st===1?"":"s"} de caminhada</b><small>${st?"Não pare hoje: um trecho já mantém a sequência.":"Revise hoje para dar o primeiro passo."}</small></div></div>${arWeek()}</div>
+     <nav class="tj-links"><button data-a="arV" data-v="met">${ic("desempenho")} Métricas</button><button data-a="arV" data-v="cards">${ic("arena")} Cards</button><button data-a="arV" data-v="disc">${ic("book")} Disciplinas</button><button data-a="arV" data-v="cfg">${ic("gear")} Ajustes</button><button data-a="arNew" class="nw">+ Novo card</button></nav>
+   </aside></div>
+   ${all.length?"":`<p class="muted small" style="margin-top:14px;text-align:center">Os cards entram sozinhos: dos resumos das aulas (com a IA), das questões que você erra e anota, e dos testes de fixação. Você também pode criar os seus em "+ Novo card".</p>`}</div>`}
 function arSession(){const S=UI.ar;if(S.i>=S.q.length)return arEnd();const c=CARDS().find(x=>x.id===S.q[S.i]);if(!c){S.i++;return arSession()}
   const s=c.sid?SUB(c.sid):null,ce=arCE(c),tot=S.q.length,pc=Math.round(S.i/tot*100),stl=AR_ST[c.st]||AR_ST.new;
   const iv=[1,2,3].map(g=>arLbl(arNext(c,g).days));
-  const rate=(only)=>`<div class="ar-rate">${[[1,"Errei","bad"],[2,"Quase","warn"],[3,"Lembrei","ok"]].filter(x=>!only||only.includes(x[0])).map(([g,l,k])=>`<button class="${k}" data-a="arRate" data-g="${g}"><b>${l}</b><small>${iv[g-1]}</small><kbd>${g}</kbd></button>`).join("")}</div>`;
+  const rate=(only)=>`<div class="ar-rate">${[[1,"Me perdi","bad","reset"],[2,"Quase lá","warn","foot"],[3,"Dominei","ok","flag"]].filter(x=>!only||only.includes(x[0])).map(([g,l,k,ii])=>`<button class="${k}" data-a="arRate" data-g="${g}">${ic(ii)}<b>${l}</b><small>${iv[g-1]}</small><kbd>${g}</kbd></button>`).join("")}</div>`;
   let body;
   if(ce){const pk=S.pick,ok=pk!=null&&(pk===1)===arAns(c);
     body=`<div class="ar-lb">CERTO OU ERRADO?</div><p class="ar-q">${esc(arStmt(c))}</p>
@@ -5152,13 +5212,13 @@ function arSession(){const S=UI.ar;if(S.i>=S.q.length)return arEnd();const c=CAR
   else body=`<div class="ar-lb">PERGUNTA</div><p class="ar-q">${esc(c.f)}</p>
      ${S.show?`<div class="ar-ans"><div class="ar-lb">RESPOSTA</div><p>${esc(c.b)}${c.link?` <a href="${esc(c.link)}" target="_blank" rel="noopener">Abrir no TEC ↗</a>`:""}</p></div>${rate()}`
       :`<button class="ar-show" data-a="arShow">Mostrar resposta <kbd>espaço</kbd></button><p class="ar-tip">Tente lembrar antes: o esforço de recuperar é o que grava.</p>`}`;
-  return`<div class="ar-ses">${arEye(S.mode==="gap"?"ATACAR LACUNAS":"REVISÃO")}
-   <div class="ar-top"><span>${S.i+1} de ${tot}</span><div class="ar-pb"><i style="width:${pc}%"></i></div><button class="btn sm" data-a="arQuit">Encerrar</button></div>
-   <article class="ar-card ${S.show||S.pick!=null?"rv":""}" aria-live="polite"><header>${s?`<span class="code" style="border-color:${s.col}">${esc(s.c)}</span><span class="muted small">${esc(s.n)}${c.aula?" · "+esc(auLabel(c.sid,c.aula)):""}</span>`:`<span class="muted small">Sem matéria</span>`}<span class="ar-stc ${stl[1]}">${stl[0]}</span></header>${body}</article></div>`}
+  return`<div class="ar-ses">${arEye(S.mode==="gap"?"TRECHOS DIFÍCEIS":"NA TRILHA")}
+   <div class="ar-top"><span>Passo ${S.i+1} de ${tot}</span><div class="tj-prog" aria-hidden="true"><i style="width:${pc}%"></i><b style="left:${pc}%">${ic("foot")}</b><em>${ic("flag")}</em></div><button class="btn sm" data-a="arQuit">Encerrar</button></div>
+   <article class="ar-card tj-ficha ${S.show||S.pick!=null?"rv":""}" style="--sc:${s?s.col:"var(--lime)"}" aria-live="polite"><header><span class="tj-no">FICHA ${String(S.i+1).padStart(2,"0")}</span>${s?`<span class="code" style="border-color:${s.col}">${esc(s.c)}</span><span class="muted small">${esc(s.n)}${c.aula?" · "+esc(auLabel(c.sid,c.aula)):""}</span>`:`<span class="muted small">Sem matéria</span>`}<span class="ar-stc ${stl[1]}">${stl[0]}</span></header>${body}</article></div>`}
 function arEnd(){const S=UI.ar,n=S.n,t=Math.max(1,Math.round((Date.now()-S.t0)/60000)),st=arStreak();
-  return`<div class="ar-home ar-endv">${arEye()}<div class="ar-fire on big">${ic("flame")}</div><h1>Revisão concluída!</h1><p class="muted">${S.done} card${S.done===1?"":"s"} em ${t} min · sequência de ${st} dia${st===1?"":"s"}</p>
-   <div class="ar-tiles"><div class="bad"><small>ERREI</small><b>${n[1]||0}</b></div><div class="warn"><small>QUASE</small><b>${n[2]||0}</b></div><div class="ok"><small>LEMBREI</small><b>${n[3]||0}</b></div></div>
-   <p class="muted small">Os que você errou voltam ainda hoje ou amanhã; os que lembrou se espaçam cada vez mais.</p><button class="ar-go" data-a="arQuit">Voltar ao Flash Jornada</button></div>`}
+  return`<div class="tj-end">${arEye()}<div class="tj-stamp"><small>${dm(today())}</small><b>ETAPA<br>CONCLUÍDA</b>${ic("flag")}</div><h1>Mais um trecho vencido!</h1><p class="muted">${S.done} card${S.done===1?"":"s"} em ${t} min · ${st} dia${st===1?"":"s"} de caminhada</p>
+   <div class="ar-tiles"><div class="bad"><small>ME PERDI</small><b>${n[1]||0}</b></div><div class="warn"><small>QUASE LÁ</small><b>${n[2]||0}</b></div><div class="ok"><small>DOMINEI</small><b>${n[3]||0}</b></div></div>
+   <p class="muted small">Onde você se perdeu, o card volta ainda hoje ou amanhã; o que dominou se espaça cada vez mais.</p><button class="ar-go" data-a="arQuit">Voltar ao Flash Jornada</button></div>`}
 function arBack(t){return`<div class="ar-sh"><button class="ibtn" data-a="arV" data-v="" aria-label="Voltar">${ic("left")}</button><h1>${t}</h1></div>`}
 function arCardsV(){const F=UI.arF||(UI.arF={q:"",st:"",tp:"",sid:""}),q=norm(F.q||""),td=today();
   const L=CARDS().filter(c=>(!q||norm(c.f+" "+c.b).includes(q))&&(!F.st||c.st===F.st)&&(!F.tp||(F.tp==="m"?!arAuto(c):arAuto(c)))&&(!F.sid||c.sid===F.sid));
@@ -5196,7 +5256,7 @@ function arCfgV(){const A=ARC(),opt=(k,L)=>`<div class="ar-op">${L.map(([v,l,d])
    <div><h3>Ritmo de novos cards</h3>${opt("pace",AR_PACE)}</div>
    <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><span><b>Tutorial</b><br><span class="muted small">Reveja a introdução do Flash Jornada quando quiser.</span></span><button class="btn" data-a="arIntro">Rever</button></div></div></section>`}
 function arNavB(){try{if(!ARC().intro)return`<span class="new">Novo</span>`;const n=arCounts().now;return n?`<span class="cnt ar">${n}</span>`:""}catch(e){return""}}
-function arPromo(){arMig();const C=arCounts();return`<section class="card arv-p"><div class="card-b arv-pr"><span class="chip sm-k mini">${ic("arena")} Flash Jornada</span><span style="flex:1 1 260px"><b>Os cards agora ficam no Flash Jornada.</b><br><span class="muted small">${C.now} para agora · ${CARDS().length} no total. Revise com Errei, Quase ou Lembrei e cada card volta na hora certa.</span></span><button class="btn pri" data-a="tab" data-t="arena">Abrir o Flash Jornada</button></div></section>`}
+function arPromo(){arMig();const C=arCounts();return`<section class="card arv-p"><div class="card-b arv-pr"><span class="chip sm-k mini">${ic("arena")} Flash Jornada</span><span style="flex:1 1 260px"><b>Os cards agora ficam no Flash Jornada.</b><br><span class="muted small">${C.now} para agora · ${CARDS().length} no total. Revise com Me perdi, Quase lá ou Dominei e cada card volta na hora certa.</span></span><button class="btn pri" data-a="tab" data-t="arena">Abrir o Flash Jornada</button></div></section>`}
 function vArena(){if(UI.ar)return arSession();const v=UI.arV||"";
   const body=v==="cards"?arCardsV():v==="disc"?arDiscV():v==="met"?arMetV():v==="cfg"?arCfgV():arHome();
   if(!ARC().intro&&!v)setTimeout(()=>{if(TAB==="arena"&&!$("layer3").innerHTML)arIntro(0)},300);
@@ -5204,10 +5264,10 @@ function vArena(){if(UI.ar)return arSession();const v=UI.arV||"";
 /* introdução animada (primeira vez e em Configurações) */
 const AR_IN=[["brain","Feito para a sua memória","Recuperação ativa e repetição espaçada","Os cards vêm prontos dos seus resumos, erros e testes. Você não monta nada: só revisa."],
  ["book","Tente lembrar antes","O esforço de recuperar é o que grava","Leia a pergunta e puxe a resposta da cabeça antes de revelar. Quem se testa retém muito mais do que quem só relê."],
- ["target","O erro é ouro","Seja honesto: Errei, Quase ou Lembrei","Errar não é ruim: é a informação que diz ao Flash Jornada quando aquele card deve voltar."],
+ ["target","O erro é ouro","Seja honesto: Me perdi, Quase lá ou Dominei","Errar não é ruim: é a informação que diz ao Flash Jornada quando aquele card deve voltar."],
  ["clock","O card volta na hora certa","Intervalo sob medida, nada fixo","O que é fácil se espaça rápido; o que te pega volta mais cedo. Cada botão mostra quando o card volta."],
  ["check","Certo ou errado, como na prova","Julgue as afirmações","Além de pergunta e resposta, há afirmações para julgar no estilo Cebraspe, com a justificativa do gabarito."],
- ["flame","Mantenha o foguinho aceso","Um pouco por dia vale mais","Revise todo dia para manter a sequência. Use Atacar lacunas para treinar só os pontos fracos."]];
+ ["foot","Um passo por dia","Mantenha a caminhada","Revise todo dia para não quebrar a sequência de caminhada. Use Trechos difíceis para treinar só os pontos fracos."]];
 function arIntro(i){const s=AR_IN[i],last=i===AR_IN.length-1;
   $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Introdução ao Flash Jornada"><div class="box ar-in"><button class="ibtn ar-x" data-a="arInEnd" aria-label="Fechar">${ic("close")}</button>
    <div class="ar-art s${i}">${ic(s[0])}<svg class="ar-curve" viewBox="0 0 200 60"><path d="M5 50 Q35 5 55 40 T105 30 T155 22 T195 18"/></svg></div>
@@ -5237,7 +5297,7 @@ document.addEventListener("keydown",e=>{if(TAB!=="arena"||!UI.ar||$("layer3").in
 const ASN_PL=[["mensal","Plano mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","69,90"],["trimestral","Plano trimestral","trimestre",3,"","179,90"],["semestral","Plano semestral","semestre",6,"","329,90"],["anual","Plano anual","ano",12,"","549,90"]];
 const ASN_CFG=[...ASN_PL.map(p=>["preco_"+p[0],"Preço do "+p[1].toLowerCase()+" (R$)",p[5]]),...ASN_PL.map(p=>["checkout_"+p[0],"Link de pagamento do "+p[1].toLowerCase()+" (Hotmart ou Kiwify)","https://pay.hotmart.com/..."]),
   ["empresa","Razão social (aparece nos termos)","Sua Empresa Ltda"],["cnpj","CNPJ","00.000.000/0001-00"],["suporte_email","E-mail de suporte","suporte@seudominio.com.br"],["whatsapp","WhatsApp de atendimento (com DDD)","65 99999-9999"],["termos_versao","Versão dos termos (mude para pedir novo aceite)","2026-11"]];
-const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Flash Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte ao mentor","Jornada na Lei Seca com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
+const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Flash Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte à Jornada","Jornada na Lei Seca com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
 function asnNum(v){return parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0}
 function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"69,90";
   const ate=A.plano_ate?new Date(A.plano_ate).toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"}):"";
@@ -5306,7 +5366,7 @@ function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   h+=kpiBlock();
   const mv=UI.mview||"lista";
   h+=`<div class="mvt" role="group" aria-label="Visualização da meta"><button data-a="mview" data-v="lista" aria-pressed="${mv==="lista"}">${ic("list")} Lista</button><button data-a="mview" data-v="cal" aria-pressed="${mv==="cal"}">${ic("concurso")} Calendário</button>
-    <span class="sp"></span><button class="btn sm pri" data-a="asOpen">${ic("bulb")} Assistente de planejamento</button><button class="btn sm" data-a="mtOpen">${ic("bulb")} Recalcular com o mentor</button>${c.gj?`<button class="btn sm" data-a="gjOpen">${ic("ext")} Sincronizar com o Guruja</button>`:r.done?"":`<button class="btn sm" data-a="more2">${ic("plus")} Adicionar 2 atividades</button>`}</div>`;
+    <span class="sp"></span><button class="btn sm pri" data-a="asOpen">${ic("bulb")} Assistente de planejamento</button><button class="btn sm" data-a="mtOpen">${ic("bulb")} Recalcular plano</button>${c.gj?`<button class="btn sm" data-a="gjOpen">${ic("ext")} Sincronizar com o Guruja</button>`:r.done?"":`<button class="btn sm" data-a="more2">${ic("plus")} Adicionar 2 atividades</button>`}</div>`;
   const RF=allRefs().filter(x=>!x.done),rfLate=RF.filter(x=>refLeft(x)<=5).length,mt=UI.mtab||"atv";
   h+=`<div class="mst" role="group" aria-label="Atividades ou reforços"><button data-a="mtab" data-v="atv" aria-pressed="${mt==="atv"}">Atividades | ${ts.length}</button><button data-a="gtab" data-t="reforcos" title="Os reforços ficam em Revisar">Reforços | ${RF.length}${rfLate?' <span class="bang" title="Reforço perto do prazo">!</span>':""} ›</button>${mt==="atv"&&mv!=="cal"?`<span class="sp"></span><select class="inp mfilt" data-c="mfilt" aria-label="Filtrar atividades"><option value="todas" ${UI.filter==="todas"?"selected":""}>Todas · ${ts.length}</option><option value="pend" ${UI.filter==="pend"?"selected":""}>Pendentes · ${ts.length-ts.filter(t=>t.done).length}</option><option value="feitas" ${UI.filter==="feitas"?"selected":""}>Cumpridas · ${ts.filter(t=>t.done).length}</option></select>`:""}</div>`;
   if(mv==="cal")h+=calHTML(r,ts,locks);
@@ -5912,7 +5972,7 @@ function crestSVG0(sig){const t=sig.split(/\s+/).filter(Boolean),a=(t.length>1?t
   return`<svg viewBox="0 0 104 120" aria-hidden="true"><defs><linearGradient id="cg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f5fbf"/><stop offset="1" stop-color="#0b2a66"/></linearGradient><linearGradient id="cg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#c8962c"/></linearGradient></defs>
    <path d="M52 4 96 18v38c0 30-20 50-44 60C28 106 8 86 8 56V18z" fill="url(#cg2)"/><path d="M52 10 90 22v34c0 26-17 44-38 53C31 100 14 82 14 56V22z" fill="url(#cg1)"/>
    <path d="M14 46h76" stroke="#ffe08a" stroke-opacity=".5" stroke-width="1.5"/><g fill="#ffe08a"><circle cx="34" cy="32" r="2.6"/><circle cx="52" cy="28" r="3.2"/><circle cx="70" cy="32" r="2.6"/></g>
-   <text x="52" y="${70+fs/3}" text-anchor="middle" font-family="Unbounded,Figtree,sans-serif" font-weight="800" font-size="${fs}" fill="#fff">${esc(a)}</text>
+   <text x="52" y="${70+fs/3}" text-anchor="middle" font-family="Oswald,Figtree,sans-serif" font-weight="800" font-size="${fs}" fill="#fff">${esc(a)}</text>
    <path d="M30 96c8 6 14 8 22 9 8-1 14-3 22-9" stroke="#ffe08a" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`}
 function orgHero(){const I=orgInfo(),c=core(),sk=c.skin||{},td=today(),dp=dbet(td,I.prova);
   const st=!I.i1&&!I.i0?(provaTBD()?{t:"Não aberto",c:"warn"}:{t:IS_TJ||PLAN.edUrl?"Ver edital":"Sem edital",c:"info"}):I.i0&&td<I.i0?{t:"Abrem "+dm(I.i0),c:"warn"}:I.i1&&td<=I.i1?{t:"Abertas",c:"ok"}:{t:"Encerradas",c:"bad"};
@@ -6406,7 +6466,7 @@ function renderDrawer(){try{const r=renderDrawer0();brandDom($("layer"));return 
   console.error(e)}}
 
 /* ===== Pedido do aluno sobre as páginas da tarefa =====
-   O aluno escreve o que quer (ex.: os tópicos de "Tenha atenção") e o mentor lê as páginas da tarefa e responde com
+   O aluno escreve o que quer (ex.: os tópicos de "Tenha atenção") e a Jornada lê as páginas da tarefa e responde com
    ênfase nesses pontos. Com IA: explicação didática, só com o texto das páginas e citando a página. Sem IA: para cada
    tópico, as frases do próprio PDF que tratam dele, com a página. */
 const ASK_BUSY=new Set();
@@ -6435,7 +6495,7 @@ ${mat}
     t.ask={q,txt:txt||"Não consegui ler o texto destas páginas agora.",at:Date.now(),ai:!!(ai&&SAMPLE)};touch("m-"+(findTask(t.id)||{n:0}).n)}
   catch(e){toast("Não consegui responder agora");t.ask.txt=""}finally{ASK_BUSY.delete(t.id);if(UI.openT===t.id)renderDrawer()}}
 function askHTML(t){const A=t.ask||{},busy=ASK_BUSY.has(t.id);
-  return`<section class="tsb" id="avAsk"><h4>${ic("bulb")} Peça ao mentor</h4><p class="muted small" style="margin:0">Escreva o que você quer sobre estas páginas. Por exemplo, cole os tópicos de “Tenha atenção”: o mentor lê todas as páginas da tarefa e dá ênfase a eles.</p>
+  return`<section class="tsb" id="avAsk"><h4>${ic("bulb")} Peça à Jornada</h4><p class="muted small" style="margin:0">Escreva o que você quer sobre estas páginas. Por exemplo, cole os tópicos de “Tenha atenção”: a Jornada lê todas as páginas da tarefa e dá ênfase a eles.</p>
     <textarea class="inp" id="askQ" style="min-height:110px" placeholder="Ex.: Quero entender bem:&#10;- o que é a exclusão do crédito tributário;&#10;- o que é a isenção;&#10;- a diferença entre anistia e remissão.">${esc(A.q||"")}</textarea>
     <div class="row" style="gap:8px;flex-wrap:wrap">${SAMPLE?`<button class="btn sm pri" data-a="askAI" data-id="${t.id}" ${busy?"disabled":""}>${ic("bulb")} Explicar com a IA</button>`:""}<button class="btn sm ${SAMPLE?"ghost":"pri"}" data-a="askPdf" data-id="${t.id}" ${busy?"disabled":""}>${ic("book")} Buscar no PDF${SAMPLE?" (sem IA)":""}</button>${A.txt?`<button class="btn sm ghost" data-a="askDl" data-id="${t.id}">${ic("dl")} Baixar em PDF</button>`:""}${busy?'<span class="muted small"><span class="spin"></span> Lendo as páginas…</span>':""}</div>
     ${A.txt||busy?`<div class="rsout" id="askOut">${A.txt?mdLite(A.txt):""}</div>`:""}</section>`}
@@ -7620,7 +7680,7 @@ function errPatHTML(){const X=errPatData();if(!X.tot)return"";const top=WHY.filt
    ${top.length?`<div class="ep-bars">${top.map(([k,l])=>`<div class="ep-bar"><span>${l}</span><i><s style="width:${Math.round(X.M[k]/mx*100)}%"></s></i><b>${X.M[k]} · ${Math.round(X.M[k]/X.cov*100)}%</b></div>`).join("")}</div>
    <div class="ep-tip"><b>O que fazer agora (${top[0][1].toLowerCase()}):</b> ${top[0][2]}</div>
    ${Object.keys(X.S).length?`<div class="tbw"><table class="tb"><thead><tr><th>Matéria</th><th>Erros com motivo</th><th>Motivo que mais aparece</th></tr></thead><tbody>${Object.entries(X.S).sort((a,b)=>b[1].n-a[1].n).map(([sid,v])=>{const k=Object.entries(v.w).sort((a,b)=>b[1]-a[1])[0];const w=WHY.find(x=>x[0]===k[0]);return`<tr><td>${esc((SUB(sid)||{}).n||sid)}</td><td>${v.n}</td><td>${w?w[1]:k[0]} (${Math.round(k[1]/v.n*100)}%)</td></tr>`}).join("")}</tbody></table></div>`:""}`:`<p class="muted" style="margin:0">Nenhum erro com motivo ainda.</p>`}</div></section>`}
-function vDesempenho(){const h0=vDesempenho0(),cta=`<div class="row" style="justify-content:flex-end;margin:0 0 10px"><button class="btn sm pri" data-a="mchOpen">${ic("bulb")} Pergunte ao mentor sobre o seu desempenho</button></div>`,k=h0.indexOf("</div>");return(h0.startsWith('<div class="hello">')&&k>0?h0.slice(0,k+6)+cta+h0.slice(k+6):cta+h0)+errPatHTML()}
+function vDesempenho(){const h0=vDesempenho0(),cta=`<div class="row" style="justify-content:flex-end;margin:0 0 10px"><button class="btn sm pri" data-a="mchOpen">${ic("bulb")} Pergunte à Jornada sobre o seu desempenho</button></div>`,k=h0.indexOf("</div>");return(h0.startsWith('<div class="hello">')&&k>0?h0.slice(0,k+6)+cta+h0.slice(k+6):cta+h0)+errPatHTML()}
 function vDesempenho0(){
   const c=core(),F=dFilter(),R0=dData(F),bys=R0.bys,T=R0.tot,ms=c.metas;
   const mopt=v=>ms.map(m=>`<option value="${m.n}" ${v===m.n?"selected":""}>Meta ${pad(m.n)}</option>`).join("")||`<option value="0">Nenhuma meta ainda</option>`;
@@ -8696,7 +8756,7 @@ const A={
   m85Off(){const c=core();if(c.m85)c.m85.on=0;touch("core");simCache.key="";replanCurrent();render();toast("Plano para 85% desligado")},
   askAI(el){const f=findTask(el.dataset.id);if(f)askRun(f.t,true)},
   askPdf(el){const f=findTask(el.dataset.id);if(f)askRun(f.t,false)},
-  async askDl(el){const f=findTask(el.dataset.id);if(!f||!f.t.ask||!f.t.ask.txt)return;const t=f.t;try{const b=await mdToPdf("Pedido ao mentor - "+SUB(t.sid).n,(t.aula?auLabel(t.sid,t.aula)+" - ":"")+"págs. "+t.pa+" a "+t.pb,t.ask.txt,"A JORNADA - "+SUB(t.sid).c);await saveFile("Mentor "+SUB(t.sid).c+" p"+t.pa+"-"+t.pb+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
+  async askDl(el){const f=findTask(el.dataset.id);if(!f||!f.t.ask||!f.t.ask.txt)return;const t=f.t;try{const b=await mdToPdf("Pedido à Jornada - "+SUB(t.sid).n,(t.aula?auLabel(t.sid,t.aula)+" - ":"")+"págs. "+t.pa+" a "+t.pb,t.ask.txt,"A JORNADA - "+SUB(t.sid).c);await saveFile("Pedido "+SUB(t.sid).c+" p"+t.pa+"-"+t.pb+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
   tutGo(el){UI.tut=el.dataset.id;TUTP.s=0;TUTP.play=1;render();const m=$("view").querySelector(".tu-main");if(m&&innerWidth<820)m.scrollIntoView({behavior:"smooth",block:"start"})},
   tutPlay(){TUTP.play=TUTP.play?0:1;const b=$("tuPlay");if(b)b.textContent=TUTP.play?"Pausar":"Assistir";if(TUTP.play){const ch=TUT.find(x=>x.id===(UI.tut||TUT[0].id))||TUT[0];tuShow(TUTP.s+1>=ch.st.length?0:TUTP.s+1,1);tuTick()}else clearTimeout(TUTP.t)},
   tutStep(el){TUTP.play=0;clearTimeout(TUTP.t);const b=$("tuPlay");if(b)b.textContent="Assistir";tuShow(TUTP.s+(+el.dataset.d),1)},
@@ -8762,7 +8822,7 @@ const A={
   mtClose(){UI.mt=null;$("layer3").innerHTML=""},
   async mtAI(){const X=UI.mt;if(!X||!SAMPLE)return;X.busy=1;mentorModal();try{X.P=await mentorAIPlan(X.M)}catch(e){toast("A IA não respondeu agora; ficou a análise automática")}X.busy=0;mentorModal()},
   mtApply(){const X=UI.mt;if(!X||!X.P)return;const c=core();c.mw={w:X.P.w,why:X.P.why,resumo:X.P.resumo,src:X.P.src,at:today()};delete c.nextDraft;touch("core");simCache.key="";
-    const re=replanCurrent();UI.mt=null;$("layer3").innerHTML="";render();toast(re?"Meta atual e próximas metas recalculadas pelo mentor":"Próximas metas recalculadas pelo mentor (a meta atual já começou e fica como está)")},
+    const re=replanCurrent();UI.mt=null;$("layer3").innerHTML="";render();toast(re?"Meta atual e próximas metas recalculadas":"Próximas metas recalculadas (a meta atual já começou e fica como está)")},
   qfSt(el){const f=UI[el.dataset.k];if(!f)return;f.st=el.dataset.v;UI[el.dataset.pk]=0;UI.qzKeep=null;rerenderQz()},
   rsAIv(el){UI.rsAIv=+el.dataset.v;render()},
   rsAI(){qResAI(UI.rsSid||ED[0].id,UI.rsAula)},

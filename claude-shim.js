@@ -203,13 +203,13 @@
   #jx-gate .jx-top{display:flex;align-items:center;justify-content:center;gap:12px;padding:4px 0 2px}
   #jx-gate .jx-tile{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(150deg,#2b0f63,#170b38);box-shadow:0 0 0 1px rgba(160,107,255,.35),0 8px 24px rgba(123,60,255,.35)}
   #jx-gate .jx-logo{width:34px;height:34px}
-  #jx-gate .jx-name{font:700 22px Unbounded,Figtree,sans-serif;letter-spacing:.06em}
+  #jx-gate .jx-name{font:700 22px Oswald,Figtree,sans-serif;letter-spacing:.06em}
   #jx-gate .jx-pill{border:0;border-radius:8px;padding:7px 12px;font:600 13px Figtree,sans-serif;color:#e6dcff;background:rgba(255,255,255,.08);cursor:pointer}
   #jx-gate .jx-pill[aria-pressed="true"]{background:linear-gradient(135deg,#7b3cff,#a06bff);color:#fff;box-shadow:0 4px 14px rgba(123,60,255,.45)}
   #jx-gate .jx-card{background:rgba(22,16,48,.80);backdrop-filter:blur(10px);border:1px solid rgba(160,107,255,.32);border-radius:14px;padding:22px 22px 20px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
   #jx-gate .jx-hero{position:relative;overflow:hidden}
   #jx-gate .jx-hero::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,#a06bff,#c44fd2,#ff5f8f)}
-  #jx-gate h1{margin:4px 0 2px;font:700 22px Unbounded,Figtree,sans-serif;background:linear-gradient(90deg,#d9b8ff,#ff8fb6);-webkit-background-clip:text;background-clip:text;color:transparent}
+  #jx-gate h1{margin:4px 0 2px;font:700 22px Oswald,Figtree,sans-serif;background:linear-gradient(90deg,#d9b8ff,#ff8fb6);-webkit-background-clip:text;background-clip:text;color:transparent}
   #jx-gate .jx-sub{margin:0 0 14px;color:#c9bde6;font-weight:600}
   #jx-gate label{display:block;font-size:13px;font-weight:600;color:#cbbfe8;margin:12px 0 6px}
   #jx-gate .jx-in{position:relative}
@@ -225,12 +225,12 @@
   #jx-gate .jx-row{display:flex;gap:10px;margin-top:18px}#jx-gate .jx-row .jx-btn{flex:1}
   #jx-gate .jx-duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   #jx-gate .jx-mini{text-align:left;cursor:pointer;color:inherit;font:inherit;padding:16px}
-  #jx-gate .jx-mini b{display:block;font:700 15px Unbounded,Figtree,sans-serif;color:#d9b8ff;margin-bottom:4px}
+  #jx-gate .jx-mini b{display:block;font:700 15px Oswald,Figtree,sans-serif;color:#d9b8ff;margin-bottom:4px}
   #jx-gate .jx-mini span{font-size:13px;color:#c2b6df}
   #jx-gate .jx-mini:hover{border-color:rgba(255,143,182,.6)}
   #jx-gate .jx-band{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;background:#e9e2ff;color:#1b1140;border-radius:14px;padding:16px 20px}
-  #jx-gate .jx-band b{font:800 22px Unbounded,Figtree,sans-serif;letter-spacing:.02em}
-  #jx-gate .jx-band span{font:800 15px Barlow Condensed,Figtree,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-left:3px solid #ff5f8f;border-right:3px solid #ff5f8f}
+  #jx-gate .jx-band b{font:800 22px Oswald,Figtree,sans-serif;letter-spacing:.02em}
+  #jx-gate .jx-band span{font:800 15px Oswald,Figtree,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-left:3px solid #ff5f8f;border-right:3px solid #ff5f8f}
   #jx-gate .jx-msg{color:#ffd27a}#jx-gate .jx-msg.ok{color:#8ff0a8}
   @media (max-width:900px){#jx-gate .jx-art{opacity:.35;right:-40vw;width:120vw}#jx-gate .jx-wrap{margin:0 auto}}
   @media (max-width:420px){#jx-gate .jx-wrap{padding:16px}#jx-gate .jx-top{gap:10px}#jx-gate .jx-name{font-size:18px}#jx-gate .jx-tile{width:38px;height:38px}#jx-gate .jx-logo{width:28px;height:28px}#jx-gate .jx-duo{grid-template-columns:1fr}#jx-gate h1{font-size:19px}}
@@ -243,7 +243,7 @@
   #jx-menu button:hover{background:rgba(160,107,255,.16)}
   #jx-imp{position:fixed;inset:0;z-index:2147483602;display:grid;place-items:center;padding:16px;background:rgba(8,5,20,.78);color:#f1ecff;font:15px/1.45 Figtree,sans-serif}
   #jx-imp .jx-card{width:min(520px,100%);background:#160f33;border:1px solid rgba(160,107,255,.35);border-radius:16px;padding:24px}
-  #jx-imp h2{margin:0 0 8px;font:700 19px Unbounded,Figtree,sans-serif}#jx-imp p,#jx-imp li{color:#b8c6d4}#jx-imp ol{padding-left:20px}
+  #jx-imp h2{margin:0 0 8px;font:700 19px Oswald,Figtree,sans-serif}#jx-imp p,#jx-imp li{color:#b8c6d4}#jx-imp ol{padding-left:20px}
   #jx-imp .bar{height:8px;border-radius:4px;background:#1d2a38;overflow:hidden;margin-top:14px}#jx-imp .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#7b3cff,#ff5f8f);transition:width .2s}
   #jx-imp .jx-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;justify-content:flex-end}`;
   const $ = s => document.querySelector(s);
@@ -500,7 +500,7 @@
     });
   }
   function trialToast(left) {
-    addCSS(); const t = el(`<div role="status" style="position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:2147483400;max-width:calc(100vw - 32px);background:#160f33;color:#f1ecff;border:1px solid rgba(160,107,255,.45);border-radius:12px;padding:12px 16px;font:600 14px Inter,Figtree,sans-serif;box-shadow:0 12px 34px rgba(0,0,0,.4)">Você está no teste grátis da Jornada: ${left <= 1 ? "ele termina hoje" : "faltam " + left + " dias"}. Assine em Meu plano › Assinatura.</div>`);
+    addCSS(); const t = el(`<div role="status" style="position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:2147483400;max-width:calc(100vw - 32px);background:#160f33;color:#f1ecff;border:1px solid rgba(160,107,255,.45);border-radius:12px;padding:12px 16px;font:600 14px "Source Sans 3",Figtree,sans-serif;box-shadow:0 12px 34px rgba(0,0,0,.4)">Você está no teste grátis da Jornada: ${left <= 1 ? "ele termina hoje" : "faltam " + left + " dias"}. Assine em Meu plano › Assinatura.</div>`);
     document.body.appendChild(t); setTimeout(() => t.remove(), 6500);
   }
   window.jxCheckout = function (tipo) {
@@ -511,7 +511,7 @@
     hideSplash(); addCSS(); const old = $("#jx-gate"); if (old) old.remove(); const V = window.JX_VENDA || {};
     const venc = ["mensal", "trimestral", "semestral", "anual"].includes(A.plano), qd = new Date(venc && A.plano_ate ? A.plano_ate : A.teste_ate);
     const g = el('<div id="jx-gate" role="dialog" aria-modal="true" aria-label="Assine para continuar"></div>'); document.body.appendChild(g);
-    const pl = (t, nome, preco, per, extra) => { const u = window.jxCheckout(t); return `<div style="border:1px solid ${t === "anual" ? "#b48cff" : "rgba(160,107,255,.35)"};border-radius:14px;padding:14px;background:rgba(143,92,255,${t === "anual" ? ".16" : ".06"})"><b style="font-size:15px">${nome}</b>${extra ? ` <span style="font-size:11px;background:#3ddc84;color:#06240f;border-radius:99px;padding:2px 8px;font-weight:700">${extra}</span>` : ""}<div style="font:700 26px Barlow,Inter,sans-serif;margin:6px 0">R$ ${preco}<small style="font-size:13px;font-weight:500;color:#c3c4e6">/${per}</small></div>${u ? `<a class="jx-btn" style="text-decoration:none;width:100%" href="${u}" target="_blank" rel="noopener">Assinar ${nome.toLowerCase()}</a>` : `<span style="color:#c3c4e6;font-size:13px">Pagamento em breve.</span>`}</div>`; };
+    const pl = (t, nome, preco, per, extra) => { const u = window.jxCheckout(t); return `<div style="border:1px solid ${t === "anual" ? "#b48cff" : "rgba(160,107,255,.35)"};border-radius:14px;padding:14px;background:rgba(143,92,255,${t === "anual" ? ".16" : ".06"})"><b style="font-size:15px">${nome}</b>${extra ? ` <span style="font-size:11px;background:#3ddc84;color:#06240f;border-radius:99px;padding:2px 8px;font-weight:700">${extra}</span>` : ""}<div style="font:700 26px Oswald,'Source Sans 3',sans-serif;margin:6px 0">R$ ${preco}<small style="font-size:13px;font-weight:500;color:#c3c4e6">/${per}</small></div>${u ? `<a class="jx-btn" style="text-decoration:none;width:100%" href="${u}" target="_blank" rel="noopener">Assinar ${nome.toLowerCase()}</a>` : `<span style="color:#c3c4e6;font-size:13px">Pagamento em breve.</span>`}</div>`; };
     g.innerHTML = `${ART}<div class="jx-wrap">
       <div class="jx-top"><div class="jx-tile">${LOGO}</div><span class="jx-name">A JORNADA</span></div>
       <div class="jx-card jx-hero"><h1>${venc ? "Sua assinatura venceu" : "Seu teste grátis terminou"}</h1>
