@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611030833"></script>
+<script src="/claude-shim.js?v=202611030845"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -4297,11 +4297,11 @@ async function smGenerate(id){const x=smGet(id),d=smDoc(id);if(!x||!d)return;
   UI.smGen={id,done:0,tot:jobs.length};x.st="gen";touch("simx");render();
   const R=new Array(jobs.length);let next=0,bad=0,cred=0;
   const run=async()=>{while(next<jobs.length){const j=next++,J=jobs[j];
-    for(let t=0;t<2&&!R[j];t++){try{R[j]=await smGenBatch(J.p.sid,J.tps,J.p.aulas||{},J.p.fresh)}catch(e){console.error(e);if(/credit balance|billing|insufficient|quota/i.test(String(e&&e.message||e))){cred=1;t=2;next=jobs.length}}}
+    for(let t=0;t<2&&!R[j];t++){try{R[j]=await smGenBatch(J.p.sid,J.tps,J.p.aulas||{},J.p.fresh)}catch(e){console.error(e);if(/credit balance|billing|insufficient|quota|usage limit/i.test(String(e&&e.message||e))){cred=1;t=2;next=jobs.length}}}
     if(!R[j])bad++;UI.smGen.done++;const el=$("smGenP");if(el){el.style.width=(UI.smGen.done/UI.smGen.tot*100)+"%";const t=$("smGenT");if(t)t.textContent=UI.smGen.done+" de "+UI.smGen.tot+" blocos prontos"}}};
   await Promise.all([run(),run(),run()]);UI.smGen=null;
   const qs=[],txts=[];ED.forEach(S=>R.forEach((r,j)=>{if(!r||jobs[j].p.sid!==S.id)return;let tx=-1;if(r.txt){txts.push(r.txt);tx=txts.length-1}r.qs.forEach(q=>{if(tx>=0)q.tx=tx;qs.push(q)})}));
-  if(cred){x.st="err";touch("simx");render();toast("A IA está sem créditos. Recarregue os créditos da conta da IA e toque em Gerar de novo.");return}
+  if(cred){x.st="err";touch("simx");render();toast("A IA está sem créditos ou bateu o limite de gasto da conta. Ajuste no console da Anthropic e toque em Gerar de novo.");return}
   if(!qs.length||bad>jobs.length/2){x.st="err";touch("simx");render();toast("A IA não conseguiu montar as questões agora. Tente de novo em instantes.");return}
   Object.assign(d,{qs,txts,ans:{},el:0,t0:null,dur:Math.max(10,qs.length*MINQ)});delete d.plan;x.st="ready";x.tot=qs.length;touch("sim-"+id);touch("simx");render();
   toast(qs.length+" questões prontas"+(bad?" (algumas matérias falharam e ficaram de fora)":"")+". Quando quiser, comece o simulado.")}
@@ -4814,7 +4814,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103083358";
+const JX_BUILD="20261103084551";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
