@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611030817"></script>
+<script src="/claude-shim.js?v=202611030833"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -19,7 +19,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow:wght@500;600;700;800&family=Unbounded:wght@600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
 /* Layout: sidebar escura fixa + área principal com barra do cronômetro; cada meta é um "mandado" com código, fases e carimbo de cumprida. */
 :root{
@@ -1752,6 +1752,116 @@ h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
 .meta-pop{animation:metaPop .6s var(--ease-spring)}@keyframes metaPop{0%{transform:scale(.96);opacity:.4}100%{transform:none;opacity:1}}
 @media (prefers-reduced-motion:reduce){.next .ulk-b .ring,.ulk-burst i{animation:none!important}}
 @media (max-width:700px){.arq-g{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
+/* ===== Design 2 (inspirado no novo visual do Guruja, com as cores da A Jornada) ===== */
+:root:not(#z):not(#y){--f-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--f-display:"Barlow","Inter",system-ui,sans-serif;--f-cond:"Barlow","Inter",sans-serif;--r-l:14px}
+body{font-family:var(--f-body);font-feature-settings:"cv11","ss01";-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3,.hello h1,#view h1,.card-h h2{letter-spacing:0!important;font-family:var(--f-display)}
+.hello h1,#view .hello h1{font-weight:600!important;font-size:clamp(26px,2.4vw,32px)!important;line-height:1.15}
+.hello p{font-size:14.5px;color:var(--fg2)}
+.card-h h2{font-weight:600!important}
+.brand b{font-family:"Unbounded","Inter",sans-serif!important;letter-spacing:.05em!important}
+.kpi b,.m-num b,.ah-num b,.arq-k b,.px-big>b{font-family:var(--f-display)!important;letter-spacing:0!important;font-weight:700!important}
+p,li,td,.ttl,.small,small{letter-spacing:0;word-spacing:normal}
+/* cartões: borda fina, sombra leve */
+.card{box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 10px 24px -20px rgba(0,0,0,.7)!important}
+/* quadros de números: faixa de título + corpo com a cor */
+.kpi{padding:0!important;gap:0!important;justify-content:flex-start!important;border:1px solid color-mix(in srgb,var(--kc) 45%,transparent)!important;
+  background:linear-gradient(165deg,color-mix(in srgb,var(--kc) 42%,var(--panel)) 0%,color-mix(in srgb,var(--kc) 16%,var(--panel)) 100%)!important}
+.kpi::before{display:none!important}.kpi::after{opacity:.12!important}
+.kpi>small svg.i{float:right;width:16px;height:16px;opacity:.9}
+.kpi>small{display:block;margin:6px 6px 0;padding:8px 12px;border-radius:9px;background:rgba(0,0,0,.22);color:#fff!important;font-weight:600!important;font-size:13px}
+.kpi>b{color:#fff!important;padding:12px 16px 0;font-size:clamp(26px,2.6vw,34px)!important}
+.kpi>.sub{padding:4px 16px 12px;color:rgba(255,255,255,.78)!important}
+.kpi svg.spark{color:#fff!important;opacity:.7;bottom:30px!important}
+:root[data-theme="light"] .kpi>small{background:rgba(255,255,255,.35);color:var(--fg)!important}
+:root[data-theme="light"] .kpi>b{color:var(--fg)!important}:root[data-theme="light"] .kpi>.sub{color:var(--fg2)!important}
+/* selo do tipo da atividade */
+.tpc{display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 7px;border-radius:99px;border:1px solid var(--line2);background:var(--raise);font-size:12.5px;font-weight:500;line-height:1.2;white-space:nowrap;color:var(--fg)}
+.tpc svg.i{width:13px;height:13px;flex:none}
+.tpc.T svg{color:var(--phT)}.tpc.R svg{color:var(--phR)}.tpc.M svg{color:var(--phM)}.tpc.Q svg{color:var(--phQ)}.tpc.F svg{color:var(--bad)}
+/* menu lateral mais limpo */
+#nav button{font-weight:500}
+#nav button .new{margin-left:auto;font-size:10.5px;font-weight:600;padding:1px 7px;border-radius:6px;border:1px solid var(--lime-txt);color:var(--lime-txt);line-height:1.5}
+.side.mini #nav button .new{display:none}
+
+/* ===== Arena (flash cards) ===== */
+.arena-v{max-width:880px;margin:0 auto}
+.ar-eye{display:inline-flex;align-items:center;gap:7px;font:700 12.5px/1 var(--f-body);letter-spacing:.08em;color:var(--lime-txt)}.ar-eye svg.i{width:17px;height:17px}
+.ar-home{text-align:center;display:grid;justify-items:center;gap:10px;padding:18px 0 30px}
+.ar-home h1{margin:2px 0 0;font:700 clamp(28px,3.4vw,38px)/1.1 var(--f-display)!important}
+.ar-home>p.muted{max-width:520px;margin:0}
+.ar-fire{width:64px;height:64px;display:grid;place-items:center;color:var(--line2);margin-top:12px}.ar-fire svg.i{width:46px;height:46px;fill:currentColor;stroke:none}
+.ar-fire.on{color:#ff8a3d;filter:drop-shadow(0 0 14px rgba(255,120,40,.55));animation:arFl 1.8s ease-in-out infinite}.ar-fire.big svg.i{width:60px;height:60px}
+@keyframes arFl{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.07) rotate(2deg)}}
+.ar-stk small{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--fg2)}.ar-stk b{font:700 34px/1.1 var(--f-display)}
+.ar-wk{display:flex;gap:8px;margin:6px 0 10px}.ar-wk span{display:grid;justify-items:center;gap:5px}.ar-wk small{font-size:10.5px;font-weight:700;color:var(--fg2)}.ar-wk span.fu small{color:var(--mute)}
+.ar-wk i{width:32px;height:32px;border-radius:9px;border:1px solid var(--line2);display:grid;place-items:center;background:var(--sunk)}
+.ar-wk i.on{background:var(--lime);border-color:var(--lime);color:var(--lime-ink)}.ar-wk i svg.i{width:17px;height:17px}.ar-wk span.td i{box-shadow:0 0 0 2px var(--lime-txt)}
+.ar-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(600px,100%)}
+.ar-tiles>div{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:14px 8px;display:grid;justify-items:center;gap:4px}
+.ar-tiles span{color:var(--lime-txt)}.ar-tiles span svg.i{width:20px;height:20px}.ar-tiles small{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--fg2)}.ar-tiles b{font:700 28px/1 var(--f-display)}
+.ar-tiles .bad b{color:var(--bad)}.ar-tiles .warn b{color:var(--warn)}.ar-tiles .ok b{color:var(--ok)}
+.ar-now{margin:4px 0 0;font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--fg2)}.ar-now b{color:var(--lime-txt);margin-right:4px}
+.ar-go,.ar-gap{width:min(600px,100%);border-radius:12px;font:600 18px/1 var(--f-body);padding:18px;cursor:pointer;transition:transform .15s,box-shadow .2s}
+.ar-go{border:0;color:#fff;background:linear-gradient(90deg,#7b3cff,#d6388f);box-shadow:0 10px 30px -10px rgba(143,92,255,.8)}.ar-go:hover:not(:disabled){transform:translateY(-2px)}
+.ar-go:disabled{background:var(--raise);color:var(--mute);box-shadow:none;cursor:default}
+.ar-gap{border:1px solid var(--line2);background:transparent;color:var(--fg);display:flex;justify-content:center;align-items:center;gap:8px}.ar-gap small{font-size:12px;background:var(--bad-soft);color:var(--bad);border-radius:99px;padding:2px 8px}.ar-gap:disabled{opacity:.45;cursor:default}
+.ar-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;margin-top:10px}.ar-links button{border:0;background:none;color:var(--fg);font:600 14.5px var(--f-body);cursor:pointer;padding:4px 2px}.ar-links button:hover{color:var(--lime-txt)}
+.ar-ses{display:grid;gap:14px;padding-top:6px}
+.ar-top{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--fg2);font-variant-numeric:tabular-nums}.ar-pb{flex:1;height:6px;border-radius:99px;background:var(--sunk);overflow:hidden}.ar-pb i{display:block;height:100%;background:linear-gradient(90deg,#7b3cff,#d6388f);transition:width .4s}
+.ar-card{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:22px clamp(16px,4vw,34px) 26px;display:grid;gap:14px;min-height:300px;align-content:start;animation:arIn .35s var(--ease-out,ease-out)}
+@keyframes arIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+.ar-card header{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.ar-card header .ar-stc{margin-left:auto}
+.ar-lb{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--lime-txt)}
+.ar-q{margin:0;font:500 clamp(18px,2vw,21px)/1.5 var(--f-body);text-align:left;hyphens:none}
+.ar-ans{border-top:1px dashed var(--line2);padding-top:14px;animation:arIn .3s ease-out}.ar-ans p{margin:6px 0 0;font-size:16px;line-height:1.55;color:var(--fg)}
+.ar-ans.ok{border:1px solid var(--ok);background:var(--ok-soft);border-radius:12px;padding:12px 14px}.ar-ans.ok .ar-lb{color:var(--ok)}
+.ar-ans.bad{border:1px solid var(--bad);background:var(--bad-soft);border-radius:12px;padding:12px 14px}.ar-ans.bad .ar-lb{color:var(--bad)}
+.ar-show{justify-self:center;border:1px solid var(--lime);background:var(--lime-soft);color:var(--fg);font:600 16px var(--f-body);border-radius:12px;padding:14px 26px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.ar-tip{margin:0;text-align:center;font-size:13px;color:var(--mute)}
+kbd{font:600 10.5px var(--f-body);border:1px solid var(--line2);border-bottom-width:2px;border-radius:5px;padding:1px 5px;color:var(--fg2)}
+.ar-rate{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px}
+.ar-rate button,.ar-ce button{border:1px solid var(--line2);background:var(--raise);color:var(--fg);border-radius:12px;padding:12px 8px;cursor:pointer;display:grid;justify-items:center;gap:3px;font:inherit;transition:transform .15s,border-color .15s}
+.ar-rate button:hover,.ar-ce button:hover{transform:translateY(-2px)}.ar-rate b{font-size:15.5px}.ar-rate small{font-size:12px;color:var(--fg2)}.ar-rate kbd{margin-top:2px}
+.ar-rate .bad,.ar-ce .bad{border-color:color-mix(in srgb,var(--bad) 60%,transparent)}.ar-rate .bad b,.ar-ce .bad{color:var(--bad)}
+.ar-rate .warn{border-color:color-mix(in srgb,var(--warn) 60%,transparent)}.ar-rate .warn b{color:var(--warn)}
+.ar-rate .ok,.ar-ce .ok{border-color:color-mix(in srgb,var(--ok) 60%,transparent)}.ar-rate .ok b,.ar-ce .ok{color:var(--ok)}
+.ar-ce{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ar-ce button{display:flex;justify-content:center;align-items:center;gap:8px;font-weight:700;font-size:16px;padding:16px}
+.ar-stc{font-size:11.5px;font-weight:600;border-radius:99px;padding:2px 9px;border:1px solid var(--line2);white-space:nowrap}
+.ar-stc.nw{color:#7fb6ff;border-color:rgba(127,182,255,.5);background:rgba(127,182,255,.1)}.ar-stc.lr{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 50%,transparent);background:var(--warn-soft)}
+.ar-stc.rv{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 50%,transparent);background:var(--ok-soft)}.ar-stc.ar{color:var(--mute)}
+.ar-sh{display:flex;align-items:center;gap:10px;margin:4px 0 14px}.ar-sh h1{margin:0;font:700 26px/1.1 var(--f-display)!important}
+.ar-flt{display:grid;grid-template-columns:minmax(0,2fr) repeat(3,minmax(0,1fr));gap:8px;margin-bottom:6px}
+.ar-tw{border:1px solid var(--line);border-radius:14px;overflow:hidden}.ar-tb{width:100%;border-collapse:collapse;font-size:13.5px}
+.ar-tb th,.ar-tb td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}.ar-tb th{font-size:11.5px;color:var(--mute);background:var(--raise);white-space:nowrap}
+.ar-tb tr:last-child td{border-bottom:0}.ar-tb tr.off td{opacity:.55}.ar-tb td:nth-child(n+2){white-space:nowrap}
+.ar-cf span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ar-cf em{font-style:normal;font-size:10.5px;font-weight:700;color:var(--lime-txt);border:1px solid var(--lime-txt);border-radius:4px;padding:0 3px}
+.ar-ac{display:flex;gap:4px;justify-content:flex-end;align-items:center}
+.ar-dl{display:grid;gap:8px;margin:12px 0}.ar-di{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:10px 14px;cursor:pointer}
+.ar-di input{width:18px;height:18px;accent-color:var(--lime)}.ar-di b{margin-left:auto;font-size:12px;background:var(--lime-soft);color:var(--lime-txt);border-radius:99px;padding:2px 9px}
+.ar-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:12px;position:sticky;bottom:0;background:var(--bg)}
+.ar-mts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:14px}.ar-mt{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:12px 14px;display:grid;gap:4px}
+.ar-mt small{font-size:12.5px;color:var(--fg2)}.ar-mt b{font:700 26px/1 var(--f-display)}.ar-mt em{font-style:normal;font-size:11.5px;color:var(--ok)}
+.ar-ch{width:100%;height:auto}.ar-ch rect{fill:var(--lime)}.ar-ch.rv rect{fill:#d6388f}.ar-ch.st rect{fill:var(--ok)}.ar-ch.hr rect{fill:#7fb6ff}.ar-ch text{font-size:11px;fill:var(--mute)}.ar-ch text.v{fill:var(--fg2);font-weight:600}.ar-ch line{stroke:var(--line2)}
+.ar-op{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}.ar-op button{text-align:left;border:1px solid var(--line2);background:var(--raise);border-radius:12px;padding:12px;color:var(--fg);font:inherit;cursor:pointer;display:grid;gap:4px}
+.ar-op button[aria-pressed="true"]{border-color:var(--lime);background:var(--lime-soft);box-shadow:0 0 0 1px var(--lime) inset}.ar-op small{color:var(--fg2);font-size:12.5px;line-height:1.4}
+.ar-sw{display:flex;gap:12px;align-items:flex-start;cursor:pointer}.ar-sw input{width:20px;height:20px;accent-color:var(--lime);flex:none;margin-top:2px}.ar-sw small{display:block;color:var(--fg2);font-size:12.5px;margin-top:2px}
+.arena-v h3{margin:0 0 4px;font:600 17px var(--f-display)}
+.ar-in{max-width:420px;text-align:center;display:grid;gap:8px;position:relative;padding-top:0!important;overflow:hidden}.ar-x{position:absolute;right:10px;top:10px;z-index:2}
+.ar-in h3{margin:6px 0 0;font:700 22px var(--f-display)}.ar-sub{margin:0;color:var(--lime-txt);font-weight:600;font-size:14px}.ar-in p.muted{margin:0 4px;text-align:center}.ar-g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.ar-g2 .card-h h2{font-size:17px!important}
+.ar-art{margin:0 -22px 8px;height:150px;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,rgba(143,92,255,.25),transparent 65%),var(--sunk);position:relative;color:var(--lime-txt)}
+.ar-art svg.i{width:46px;height:46px;filter:drop-shadow(0 0 12px rgba(143,92,255,.8));animation:arIn .5s ease-out,arFl 2.4s ease-in-out .5s infinite}
+.ar-curve{position:absolute;left:10%;right:10%;bottom:14px;width:80%;height:50px;fill:none;stroke:#d6388f;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:320;stroke-dashoffset:320;animation:arDraw 1.4s .2s ease-out forwards}
+@keyframes arDraw{to{stroke-dashoffset:0}}
+.ar-dots{display:flex;justify-content:center;gap:5px;margin:6px 0}.ar-dots i{width:6px;height:6px;border-radius:99px;background:var(--line2);transition:width .3s}.ar-dots i.on{width:22px;background:var(--lime)}
+.arv-pr{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+@media (max-width:760px){.ar-g2{grid-template-columns:1fr}.ar-flt{grid-template-columns:1fr 1fr}.ar-flt #arQ{grid-column:1/-1}.ar-mts{grid-template-columns:1fr 1fr}.ar-op{grid-template-columns:1fr}
+  .ar-tw{border:0}.ar-tb,.ar-tb tbody{display:block}.ar-tb thead{display:none}.ar-tb tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:var(--panel)}
+  .ar-tb td{border:0;padding:0;white-space:normal!important}.ar-tb td.ar-cf{grid-column:1/-1}.ar-tb td[data-l]::before{content:attr(data-l);display:block;font-size:10.5px;color:var(--mute);font-weight:600}.ar-tb td.ar-ac{grid-column:1/-1}
+  .ar-wk{gap:5px}.ar-wk i{width:30px;height:30px}.ar-go,.ar-gap{font-size:16px;padding:16px}}
+@media (hover:none){.ar-show kbd,.ar-rate kbd{display:none}}
+@media (prefers-reduced-motion:reduce){.ar-fire.on,.ar-art svg.i,.ar-card,.ar-curve{animation:none!important;stroke-dashoffset:0}}
+
 </style>
 
 <div class="app">
@@ -1819,6 +1929,9 @@ const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
 const natcmp=(a,b)=>a.localeCompare(b,"pt-BR",{numeric:true,sensitivity:"base"});
 const pct=(a,b)=>b?Math.round(a/b*1000)/10:0;
 const IC={
+  arena:'<rect x="3.5" y="7" width="12" height="14" rx="2"/><path d="M8 3.5h10.5a2 2 0 0 1 2 2V17"/><path d="m7.5 14 2 2 3.5-4"/>',
+  flame:'<path d="M12 2.5c1.2 3.8 5.5 5.6 5.5 10.6a5.5 5.5 0 0 1-11 0c0-2.6 1.4-4.2 2.7-5.4.2 1.7 1 2.9 2.1 3.3.4-2.8-.5-5.8.7-8.5z"/>',
+  star:'<path d="m12 3.5 2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.8l-5.2 2.8 1-5.8-4.3-4.1 5.9-.8z"/>',
   tutorial:'<circle cx="12" cy="12" r="8.5"/><path d="M10 8.8v6.4l5.2-3.2z"/>',
   dl:'<path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/>',
   simulados:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="m8.5 12 2 2 4-4.5"/><path d="M9 17.5h6"/>',
@@ -2000,7 +2113,7 @@ const DEF_CRON=[
 if(!IS_TJ){DEF_CRON.length=0;if(PLAN.ins)DEF_CRON.push({k:"ins1",l:"Último dia para se inscrever",d:PLAN.ins});DEF_CRON.push({k:"prova",l:"Prova",d:PLAN.prova||addDaysRaw(120)})}
 function addDaysRaw(n){const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
 const OFF=[1,7,14,30,60];
-const PH=["T","R","M","Q"],PHN={T:"Teoria",R:"Revisão",M:"Mapeamento",Q:"Questões"};
+const PH=["T","R","M","Q"],PHN={T:"Teoria",R:"Revisão",M:"Mapeamento",Q:"Questões"},TPI={T:"book",R:"reset",M:"mapas",Q:"check",F:"target"};
 const MINPG=4,MINQ=3;
 const LVS={"Iniciante":{m:1.2,T:.53,R:.10,M:.12,Q:.25},"Intermediário":{m:1,T:.43,R:.15,M:.12,Q:.30},"Avançado":{m:.85,T:.25,R:.25,M:.12,Q:.38}};
 
@@ -3632,9 +3745,9 @@ Use SOMENTE o resumo abaixo, que foi montado a partir das questões e do PDF da 
 <resumo>
 ${txt}
 </resumo>
-Crie de 8 a 12 cards sobre o que mais cai e as pegadinhas: pergunta curta na frente, resposta direta no verso (1 a 3 frases, com a página ou o artigo quando o resumo trouxer). Português do Brasil.
-Responda só com um array JSON: [{"f":"pergunta","b":"resposta"}]`,{modelTier:"default"});
-  let n=0;if(Array.isArray(arr))arr.slice(0,12).forEach(x=>{if(x&&x.f&&x.b&&gOk(x.f+" "+x.b,txt)){addCard({sid,tid:"",aula:c,f:String(x.f).slice(0,400),b:String(x.b).slice(0,900),src:"ia",pdf:true,lesson:1});n++}});
+Crie de 8 a 12 cards sobre o que mais cai e as pegadinhas. A maioria é pergunta e resposta: pergunta curta na frente, resposta direta no verso (1 a 3 frases, com a página ou o artigo quando o resumo trouxer). Inclua também 3 ou 4 afirmações para julgar Certo ou Errado, no estilo da banca, com a justificativa (quando for errada, diga o que está errado). Português do Brasil.
+Responda só com um array JSON: [{"f":"pergunta","b":"resposta"},{"t":"ce","f":"afirmação","v":true,"b":"justificativa"}]`,{modelTier:"default"});
+  let n=0;if(Array.isArray(arr))arr.slice(0,16).forEach(x=>{if(x&&x.f&&x.b&&gOk(x.f+" "+x.b,txt)){const ce=x.t==="ce";addCard({sid,tid:"",aula:c,f:(ce?"Certo ou errado? ":"")+String(x.f).slice(0,400),b:(ce?(x.v===false||x.v==="false"?"ERRADO. ":"CERTO. "):"")+String(x.b).slice(0,900),src:"ia",pdf:true,lesson:1});n++}});
   if(!n)throw{code:"formato"};return n}
 async function aiBgRun(){if(AIBG||!SAMPLE||AI_OFF||!resAIOn())return;AIBG=1;let made={r:0,c:0,m:0};
   try{for(const L of aiLessons()){if(!SAMPLE||AI_OFF)break;const{sid,c}=L,k=sid+"|"+c,lab=SUB(sid).n+" · "+auLabel(sid,c);
@@ -4286,10 +4399,10 @@ function pv24Card(){if(!IS_TJ)return"";const x=SMX().filter(y=>y.kind==="prova"&
 setInterval(()=>{const id=UI.smOpen;if(!id||TAB!=="simulados")return;const x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run"||!d.t0)return;const r=smLeft(d),el=$("smClk");if(el){el.textContent=smClock(r);el.classList.toggle("low",r<600)}if(r<=0)smFinish(id,true)},1000);
 
 {const _vm=vMeta;vMeta=function(){const h=_vm(),b=smBanner();if(!b)return h;const i=h.indexOf("</div>");return h.startsWith("<div class=\"hello\"")&&i>0?h.slice(0,i+6)+b+h.slice(i+6):b+h}}
-const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Lei seca"],["arquivo","Arquivo"]];
+const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Lei seca"],["arquivo","Arquivo"],["arena","Arena"]];
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
 /* Menu simples: 5 entradas. As telas de sempre continuam, agrupadas em abas dentro de cada entrada. */
-const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
+const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["arena","Arena"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
 const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["leiseca","Lei seca","edital"],["discursiva","Discursiva e redação","discursiva"]],
   revisoes:[["revisoes","Revisões do dia","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"]],
   rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"],["arquivo","Arquivo","list"]]};
@@ -4314,6 +4427,7 @@ const HOW={
   discursiva:"Aqui você treina a parte escrita: escolha discursiva ou redação, escreva (ou envie a foto da folha) e receba a nota e a correção da IA, quesito por quesito.",
   desempenho:"Aqui você acompanha os resultados. Não há nada para preencher: os números vêm do cronômetro, das questões resolvidas e dos simulados.",
   concurso:"Aqui você cuida do concurso: troque ou adicione concursos, inclua o edital em PDF (o painel tira datas, matérias e assuntos) e acompanhe o cronograma até a prova.",
+  arena:"Aqui ficam os seus flash cards. Toque em Iniciar revisão, tente lembrar a resposta antes de revelar e diga com sinceridade se errou, quase lembrou ou lembrou: a Arena decide quando cada card volta. Atacar lacunas treina só os cards que mais te pegam.",
   arquivo:"Aqui ficam as metas que já passaram: toque numa meta para ver as atividades, o tempo, o desempenho e o simuladinho dela. Procure uma atividade pelo código ou pelo título.",
   leiseca:"Aqui fica a lei seca bizurada: escolha a lei (ou escreva qual é), o texto oficial vem do site do Planalto e a IA destaca o que mais cai, grifa os trechos que a banca troca e escreve um bizu por artigo. Ligue a lei à matéria para ver quais artigos já caíram nas suas questões.",
   tutorial:"Aqui você aprende a usar cada função da plataforma: escolha um tema, assista à animação e leia as dicas. Use “Ir para esta tela” para praticar na hora.",
@@ -4327,7 +4441,7 @@ try{if(localStorage.getItem("jornada-navc")==="1")document.documentElement.datas
 try{const j=sessionStorage.getItem("jornada-jtab");if(j){UI.jtab=j;sessionStorage.removeItem("jornada-jtab")}const m2=sessionStorage.getItem("jornada-rmode");if(m2){UI.rotMode=m2;sessionStorage.removeItem("jornada-rmode")}const d2=sessionStorage.getItem("jornada-pxday");if(d2){UI.pxDay=d2;sessionStorage.removeItem("jornada-pxday")}}catch(e){}
 function renderNav(){
   const due=dueRevs().length;
-  $("nav").innerHTML=NAV.map(([k,l])=>`<button data-a="tab" data-t="${k}" title="${l}" ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${ic(k)}<span>${l}</span>${k==="revisoes"&&due+errPend()?`<span class="cnt">${due+errPend()}</span>`:""}</button>`).join("");
+  $("nav").innerHTML=NAV.map(([k,l])=>`<button data-a="tab" data-t="${k}" title="${l}" ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${ic(k)}<span>${l}</span>${k==="revisoes"&&due+errPend()?`<span class="cnt">${due+errPend()}</span>`:""}${k==="arena"?arNavB():""}</button>`).join("");
   $("mtabs").innerHTML=("")+NAV.map(([k,l])=>`<button data-a="tab" data-t="${k}" ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${l}${k==="revisoes"&&due+errPend()?" · "+(due+errPend()):""}</button>`).join("");
   const c=core(),es=edStats(),PG=progData(),p=Math.round(PG.tot);
   $("av").style.setProperty("--p",p);$("avn").textContent=(c.cfg.name||"?").trim().charAt(0).toUpperCase()||"?";
@@ -4495,16 +4609,21 @@ const TUT=[
       {k:"f3",on:["f1","f2","f3"],c:"Filtre por bizurados, “cai muito” ou “caiu nas suas questões”, e baixe em PDF."}],
   d:["Leia a lei seca pelos filtros “Cai muito” e “Caiu nas suas questões” primeiro.","Leia em voz alta os trechos grifados: são as palavras que a banca troca.","Use o Estudo extra do tipo Lei seca para 30 minutos de leitura dirigida."]},
 
- {id:"revisoes",t:"Revisões e cards",ic:"revisoes",go:"revisoes",
-  p:"Aqui ficam as revisões do dia: cards de pergunta e resposta e as questões que voltaram. O ciclo é de 1, 7, 14, 30 e 60 dias: quando você lembra, o próximo intervalo fica maior; quando esquece, a revisão volta mais cedo. É o que garante que você chegue na prova lembrando do que estudou no começo.",
-  s:`<div class="tu-card"><div class="tu-fc" data-k="fc"><div class="f">Qual o alcance temporal da anistia?</div><div class="b">Só infrações anteriores à lei que a concede (CTN, art. 180).</div></div>
-     <div class="tu-row"><button class="tu-btn ghost" data-k="no">Esqueci</button><button class="tu-btn" data-k="ok">Lembrei</button></div>
-     <div class="tu-cyc">${[1,7,14,30,60].map((d,i)=>`<span data-k="d${i}">${d}d</span>`).join("")}</div></div>`,
-  st:[{k:"fc",on:["d0"],c:"Leia a pergunta e tente responder de cabeça, sem olhar."},
-      {k:"fc",on:["fc"],c:"Toque no card para virar e conferir a resposta."},
-      {k:"ok",on:["d1"],c:"Lembrou? O card só volta daqui a 7 dias, depois 14, 30 e 60."},
-      {k:"no",c:"Esqueceu? Ele volta amanhã. Seja honesto: o ciclo só funciona assim."}],
-  d:["Zere as revisões todo dia antes de teoria nova.","Responda em voz alta ou escreva: lembrar é diferente de reconhecer.","O número vermelho no menu Revisar mostra quantas estão pendentes."]},
+ {id:"arena",t:"Arena de flash cards",ic:"arena",go:"arena",
+  p:"A Arena é onde você revisa os flash cards. Eles chegam sozinhos dos resumos das aulas, das questões que você erra e dos testes de fixação (e você pode criar os seus). Em cada card, tente lembrar antes de revelar e diga com sinceridade: Errei, Quase ou Lembrei. A Arena calcula quando cada um volta: o fácil se espaça rápido, o que te pega volta mais cedo. Há também afirmações de Certo ou Errado, como na prova, e o botão Atacar lacunas treina só os seus pontos fracos.",
+  s:`<div class="tu-card"><div class="tu-row"><span class="tu-chip" data-k="stk">🔥 Sequência: <b data-k="sd">0</b> dias</span><span class="tu-chip ok" data-k="now"><b data-k="nn">0</b> para agora</span></div>
+     <div class="tu-fc" data-k="fc"><div class="f">A EC 132/2023 substituiu ICMS e ISS por quais tributos?</div><div class="b">Pelo IBS; e PIS/Cofins pela CBS: é o IVA dual.</div></div>
+     <div class="tu-row"><button class="tu-btn ghost" data-k="no">Errei · agora</button><button class="tu-btn ghost" data-k="qs">Quase · 1d</button><button class="tu-btn" data-k="ok">Lembrei · 3d</button></div>
+     <div class="tu-cyc">${["3d","9d","25d","2 m","5 m"].map((d,i)=>`<span data-k="d${i}">${d}</span>`).join("")}</div>
+     <div class="tu-row"><span class="tu-chip" data-k="ce">Certo ou errado? Citação por hora certa exige suspeita de ocultação.</span><button class="tu-btn sm" data-k="gap">🎯 Atacar lacunas</button></div></div>`,
+  st:[{k:"now",on:["now"],n:[["nn",14]],c:"Abra a Arena: o número mostra quantos cards estão para agora. Toque em Iniciar revisão."},
+      {k:"fc",on:["d0"],c:"Leia a pergunta e puxe a resposta da memória, sem olhar."},
+      {k:"fc",on:["fc"],c:"Revele e confira. Lembrar é diferente de reconhecer: seja honesto."},
+      {k:"ok",on:["d1","d2"],c:"Lembrou? O intervalo cresce a cada acerto: 3 dias, depois 9, 25, meses..."},
+      {k:"no",c:"Errou? O card volta ainda nesta revisão e depois mais cedo. O erro é o que diz à Arena quando ele deve voltar."},
+      {k:"ce",on:["ce"],c:"Afirmações de Certo ou Errado: julgue antes de ver o gabarito e a justificativa."},
+      {k:"gap",on:["gap","stk"],n:[["sd",7]],c:"Atacar lacunas treina só os cards que mais te pegam. Revise todo dia para manter o foguinho aceso."}],
+  d:["Faça a Arena todo dia antes de teoria nova: 10 a 15 minutos bastam.","Em Configurações escolha a intensidade (Conservador perto da prova) e o ritmo de cards novos.","As questões do TEC anotadas continuam em Revisar › Revisões do dia, no ciclo de 1, 7, 14, 30 e 60 dias."]},
 
  {id:"erradas",t:"Erradas, reforços e bateria do TEC",ic:"erradas",go:"erradas",
   p:"Toda questão que você erra ou chuta entra em Erradas para refazer. Fez uma bateria no TEC? Em “Lançar bateria do TEC”, cole os números e marque cada uma (errei, não resolvi, chutei) com o motivo. Quando uma matéria fica abaixo de 75%, nasce um reforço com diagnóstico: onde você errou, por que errou e os passos para corrigir.",
@@ -4614,7 +4733,7 @@ function render(){
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
-  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo}[TAB];
+  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena}[TAB];
   $("view").classList.toggle("noanim",render.lt===TAB);render.lt=TAB;$("view").innerHTML=gnavHTML()+V();try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
   if(UI.openT)renderDrawer();
 }
@@ -4635,10 +4754,10 @@ function kpiBlock(){
   const P=perf(),md=minutesByDay(),last=[];for(let i=13;i>=0;i--)last.push(md[addDays(today(),-i)]||0);
   const mps=core().metas.map(m=>metaPerf(m.n)).filter(v=>v!==null);
   return`<section class="kpis" aria-label="Indicadores">
-   <div class="kpi k1"><small>Seu desempenho</small>${spark(mps,"currentColor")}<b>${P.f?pct(P.a,P.f).toLocaleString("pt-BR"):"0"}%</b><span class="sub">${P.a} acertos em ${P.f} questões</span></div>
-   <div class="kpi k2"><small>Horas estudadas</small>${spark(last,"currentColor")}<b>${fmtH(P.tot)}</b><span class="sub">gráfico dos últimos 14 dias</span></div>
-   <div class="kpi k3"><small>Questões resolvidas</small><b>${P.f.toLocaleString("pt-BR")}</b><span class="sub">blocos no TEC e mapas de PDF</span></div>
-   <div class="kpi k4"><small>Média de horas diárias</small><b>${fmtH(P.avg)}</b><span class="sub">em ${dias(P.days)} de estudo · plano de ${core().cfg.hrs} h</span></div>
+   <div class="kpi k1"><small>Seu desempenho${ic("desempenho")}</small>${spark(mps,"currentColor")}<b>${P.f?pct(P.a,P.f).toLocaleString("pt-BR"):"0"}%</b><span class="sub">${P.a} acertos em ${P.f} questões</span></div>
+   <div class="kpi k2"><small>Horas estudadas${ic("clock")}</small>${spark(last,"currentColor")}<b>${fmtH(P.tot)}</b><span class="sub">gráfico dos últimos 14 dias</span></div>
+   <div class="kpi k3"><small>Questões resolvidas${ic("check")}</small><b>${P.f.toLocaleString("pt-BR")}</b><span class="sub">blocos no TEC e mapas de PDF</span></div>
+   <div class="kpi k4"><small>Média de horas diárias${ic("rotina")}</small><b>${fmtH(P.avg)}</b><span class="sub">em ${dias(P.days)} de estudo · plano de ${core().cfg.hrs} h</span></div>
   </section>`;
 }
 function rowsHTML(ts,locks,mbt,preview,all){
@@ -4652,7 +4771,7 @@ function rowsHTML(ts,locks,mbt,preview,all){
     h+=`<button class="arow ${t.done?"done":""} ${lk?"lock":""}" data-a="openT" data-id="${t.id}" ${preview?"disabled":""} aria-label="Tarefa ${t.k}: ${esc(taskTitle(t))}${t.done?", cumprida":lk?", bloqueada":""}">
       <span class="sdot"></span><span class="num">${t.k}</span>
       <span class="ac-dn"><i style="background:${s.col}"></i>${esc(s.n)}</span>
-      <span class="ac-tp"><b class="phd ${t.ph}"></b>${PHN[t.ph]}${t.grau?" "+grauBars(t.grau):""}</span>
+      <span class="ac-tp"><span class="tpc ${t.ref?"F":t.ph}">${ic(TPI[t.ref?"F":t.ph]||"book")}${t.ref?"Reforço":PHN[t.ph]}</span>${t.grau?" "+grauBars(t.grau):""}</span>
       <span class="ttl">${esc(taskTitle(t))}</span>
       <span class="stars ${relCls(st)}" title="${esc(st0.tip)}">${"★".repeat(st)}<s>${"☆".repeat(5-st)}</s></span>
       <span class="tm" title="Previsto: ${fmtM(t.min)}${t.skip?" · ignorada":lk?" · bloqueada":""}">${fmtH(sp)}<small>${t.skip?"ignorada":lk?"bloqueada":"de "+fmtM(t.min)}</small></span>
@@ -4695,7 +4814,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana com o mentor</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103081740";
+const JX_BUILD="20261103083358";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -4921,7 +5040,7 @@ function metaNums(m){const ts=tasksOf(m.n),mbt=minutesByTask(),td=today();let mi
   return{ts,dn,late,pend,min,f,a,acc:f?Math.round(a/f*1000)/10:null,dias,avg:min/dias,dev:m.done?dbet(m.end,m.done):td>m.end?dbet(m.end,td):0}}
 function arqTaskRows(ts){const mbt=minutesByTask();
   return`<div class="arq-tw"><table class="arq-tb"><thead><tr><th>#</th><th>Disciplina</th><th>Tipo</th><th>Título</th><th>Relevância</th><th>Tempo</th><th>Desempenho</th><th>Código</th></tr></thead><tbody>${ts.map((t,i)=>{const s=SUB(t.sid),st=core().gj&&t.rel?t.rel:relInfo(t).n,sp=mbt[t.id]||t.gsp||0,pf=t.q&&t.q.f?Math.round((t.q.a||0)/t.q.f*1000)/10+"%":"–";
-    return`<tr data-a="openT" data-id="${t.id}" class="arq-r"><td class="arq-st"><span class="arq-dot ${t.done?"ok":""}" title="${t.done?"Feita":"Pendente"}"></span><span class="arq-i">${t.k||i+1}</span></td><td class="arq-ds" data-l="Disciplina">${esc(s.n)}</td><td data-l="Tipo">${esc(t.ref?"Reforço":PHN[t.ph]||"Atividade")}</td><td class="arq-ttl" data-l="Título"><span>${esc(taskTitle(t))}</span></td><td data-l="Relevância"><span class="stars ${relCls(st)}">${"★".repeat(st)}<s>${"★".repeat(5-st)}</s></span></td><td data-l="Tempo">${sp?fmtH(sp):"–"}</td><td data-l="Desempenho">${pf}</td><td class="arq-cd" data-l="Código">${esc(tcode(t))}</td></tr>`}).join("")}</tbody></table></div>`}
+    return`<tr data-a="openT" data-id="${t.id}" class="arq-r"><td class="arq-st"><span class="arq-dot ${t.done?"ok":""}" title="${t.done?"Feita":"Pendente"}"></span><span class="arq-i">${t.k||i+1}</span></td><td class="arq-ds" data-l="Disciplina">${esc(s.n)}</td><td data-l="Tipo"><span class="tpc ${t.ref?"F":t.ph}">${ic(TPI[t.ref?"F":t.ph]||"book")}${esc(t.ref?"Reforço":PHN[t.ph]||"Atividade")}</span></td><td class="arq-ttl" data-l="Título"><span>${esc(taskTitle(t))}</span></td><td data-l="Relevância"><span class="stars ${relCls(st)}">${"★".repeat(st)}<s>${"★".repeat(5-st)}</s></span></td><td data-l="Tempo">${sp?fmtH(sp):"–"}</td><td data-l="Desempenho">${pf}</td><td class="arq-cd" data-l="Código">${esc(tcode(t))}</td></tr>`}).join("")}</tbody></table></div>`}
 function vArquivo(){const c=core(),q=norm(UI.arqQ||""),ms=[...(c.metas||[])].sort((a,b)=>b.n-a.n),open=UI.arqOpen;
   const hello=`<div class="hello"><h1>Arquivo</h1><p>As metas que você já fez, com as atividades, o tempo, o desempenho e o simuladinho de cada uma.</p></div>`;
   const search=`<div class="arq-s"><input class="inp" id="arqQ" value="${esc(UI.arqQ||"")}" placeholder="Procurar pelo código ou pelo título da atividade" data-c="arqQ"></div>`;
@@ -4945,9 +5064,161 @@ function unlockNext(btn){if(UI.ulk)return;UI.ulk=1;const card=btn.closest(".card
   const burst=document.createElement("div");burst.className="ulk-burst";for(let i=0;i<18;i++){const s=document.createElement("i");s.style.setProperty("--a",(i*20)+"deg");s.style.setProperty("--d",(50+Math.random()*40)+"px");s.style.setProperty("--h",(i*37%360));burst.appendChild(s)}card.appendChild(burst);
   setTimeout(()=>{UI.ulk=0;if(createMeta()){toast("Meta "+pad(core().cur)+" aberta. Bons estudos!");render();const h=document.querySelector(".mandado,.card.meta,.m-head");if(h)h.classList.add("meta-pop")}else{card.classList.remove("unlocking");render()}},1500)}
 
+function greetHTML(name){const h=new Date().getHours(),g=h<12?"Bom dia":h<18?"Boa tarde":"Boa noite",n=String(name||"").trim().split(/\s+/)[0];
+  return`<div class="hello greet"><h1>${g}${n?", "+n:""}!</h1><p>Acompanhe seu progresso e veja o que falta para cumprir a sua meta.</p></div>`}
+/* ================= Arena: flash cards com repetição espaçada (recuperação ativa) ================= */
+const ARC=()=>{const c=core();return c.arena||(c.arena={int:"bal",pace:"eq",auto:1,off:[],intro:0})};
+const AR_F={con:.8,bal:1,agr:1.35},AR_NEW={con:10,eq:20,abr:35};
+const AR_INT=[["con","Conservador","Mais revisões, maior retenção. Ideal para quem está perto da prova."],["bal","Balanceado","Equilíbrio entre volume de revisões e retenção. Recomendado."],["agr","Agressivo","Menos revisões, intervalos maiores. Para quem tem muito conteúdo."]];
+const AR_PACE=[["con","Conservador","Até 10 cards novos por dia. Foco em fixar o que já está na fila."],["eq","Equilibrado","Até 20 cards novos por dia, conforme as suas atividades."],["abr","Abrangente","Até 35 cards novos por dia. Bom para cobrir o edital rápido."]];
+const AR_ST={new:["Novo","nw"],learn:["Aprendendo","lr"],rev:["Em revisão","rv"],arch:["Arquivado","ar"]};
+const arCE=c=>/^Certo ou errado\?/i.test(c.f||"");
+const arStmt=c=>String(c.f||"").replace(/^Certo ou errado\?\s*/i,"");
+const arAns=c=>/^\s*CERTO\b/i.test(c.b||"");
+const arExp=c=>String(c.b||"").replace(/^\s*(CERTO|ERRADO)\s*[.:–-]?\s*/i,"");
+const arAuto=c=>c.src!=="meu";
+/* cards antigos (ciclo 1-7-14-30-60) entram na Arena sem perder o histórico */
+function arMig(){let ch=0;CARDS().forEach(c=>{if(c.st)return;ch=1;const h=c.hist||[];
+  if(c.done){c.st="rev";c.s=90;c.dif=3;c.due=addDays(c.done,90);c.done=false}
+  else if(h.length){c.st="rev";c.s=OFF[c.step]||1;c.dif=5;c.due=addDays(c.d0,OFF[c.step]||1)}
+  else c.st="new";
+  c.reps=h.length;c.lapses=h.filter(x=>!x[1]).length});if(ch)touch("cards")}
+function arNext(c,g){const F=AR_F[ARC().int]||1,td=today();let s=c.s||0,dif=c.dif||5,st=c.st,days;
+  dif=Math.min(10,Math.max(1,dif+(g===1?1.4:g===2?.4:-.5)));
+  if(st!=="rev"||!s){days=g===1?0:g===2?1:3;s=g===1?.5:days;st=g===1?"learn":"rev"}
+  else if(g===1){s=Math.max(1,s*.25);days=0;st="learn"}
+  else if(g===2){s=Math.max(s+1,s*1.25);days=s}
+  else{s=s*(1.9+(10-dif)*.18);days=s}
+  days=days>0?Math.min(365,Math.max(1,Math.round(days*F))):0;
+  return{s:Math.round(s*10)/10,dif:Math.round(dif*10)/10,st,days,due:addDays(td,days)}}
+const arLbl=d=>d<=0?"agora":d<30?d+"d":d<365?Math.round(d/30)+" m":"1 ano";
+function arPool(){const off=new Set(ARC().off||[]);return CARDS().filter(c=>c.st!=="arch"&&!(c.sid&&off.has(c.sid)))}
+function arCounts(){const td=today(),P=arPool(),nw=P.filter(c=>c.st==="new"),lr=P.filter(c=>c.st==="learn"),due=P.filter(c=>c.st!=="new"&&(c.due||td)<=td);
+  const seen=CARDS().filter(c=>c.seen===td).length,lim=Math.max(0,(AR_NEW[ARC().pace]||20)-seen);
+  return{nw,lr,due,lim,now:due.length+Math.min(lim,nw.length),gap:arGapList().length}}
+function arGapList(){return arPool().filter(c=>(c.lapses||0)>0||(c.dif||0)>=6.5||["tec","fix","sim"].includes(c.src)).sort((a,b)=>(b.lapses||0)-(a.lapses||0)||(b.dif||5)-(a.dif||5))}
+function arQueue(mode){if(mode==="gap")return arGapList().slice(0,20).map(c=>c.id);
+  const C=arCounts(),due=C.due.sort((a,b)=>(a.due||"")>(b.due||"")?1:-1).map(c=>c.id),nw=C.nw.sort((a,b)=>a.d0>b.d0?1:-1).slice(0,C.lim).map(c=>c.id),q=[];let i=0,j=0;
+  while(i<due.length||j<nw.length){for(let k=0;k<3&&i<due.length;k++)q.push(due[i++]);if(j<nw.length)q.push(nw[j++])}return q}
+function arDays(){const s=new Set();CARDS().forEach(c=>(c.hist||[]).forEach(h=>s.add(h[0])));return s}
+function arStreak(){const S=arDays();let d=today(),n=0;if(!S.has(d))d=addDays(d,-1);while(S.has(d)){n++;d=addDays(d,-1)}return n}
+function arRate(id,g){const c=CARDS().find(x=>x.id===id);if(!c)return;const wasRev=c.st==="rev",n=arNext(c,g),td=today();
+  Object.assign(c,{s:n.s,dif:n.dif,st:n.st,due:n.due,reps:(c.reps||0)+1,lapses:(c.lapses||0)+(g===1&&wasRev?1:0),last:td,done:false});if(!c.seen)c.seen=td;
+  (c.hist=c.hist||[]).push([td,g===1?0:1,g,new Date().getHours()]);touch("cards");
+  const S=UI.ar;if(S){S.n[g]=(S.n[g]||0)+1;S.done++;if(n.days===0&&S.req<40){S.q.push(id);S.req++}S.i++;S.show=0;S.pick=null}}
+function arStart(mode){arMig();const q=arQueue(mode);if(!q.length){toast(mode==="gap"?"Nenhuma lacuna agora: continue revisando.":"Tudo em dia! Nada para revisar agora.");return}
+  UI.ar={mode,q,i:0,show:0,pick:null,n:{},done:0,req:0,t0:Date.now()};render();scrollTo(0,0)}
+
+/* ---------- telas ---------- */
+const arEye=t=>`<div class="ar-eye">${ic("arena")} A JORNADA ARENA${t?" · "+t:""}</div>`;
+function arWeek(){const S=arDays(),td=today(),d0=addDays(td,-pd(td).getDay());
+  return`<div class="ar-wk">${["D","S","T","Q","Q","S","S"].map((l,i)=>{const d=addDays(d0,i),on=S.has(d);return`<span class="${d===td?"td":""} ${d>td?"fu":""}"><small>${l}</small><i class="${on?"on":""}">${on?ic("arena"):""}</i></span>`}).join("")}</div>`}
+function arHome(){arMig();const C=arCounts(),st=arStreak(),nNew=Math.min(C.lim,C.nw.length),all=CARDS();
+  const nxt=arPool().filter(c=>c.st!=="new"&&c.due>today()).map(c=>c.due).sort()[0];
+  return`<div class="ar-home">${arEye()}<h1>Bem-vindo à Arena!</h1><p class="muted">Puxe a resposta da memória antes de ver: é assim que o conteúdo grava. Cada card volta pouco antes de você esquecer.</p>
+   <div class="ar-fire ${st?"on":""}">${ic("flame")}</div><div class="ar-stk"><small>SUA SEQUÊNCIA</small><b>${st} dia${st===1?"":"s"}</b></div>${arWeek()}
+   <div class="ar-tiles"><div><span>${ic("star")}</span><small>NOVOS</small><b>${nNew}</b></div><div><span>${ic("book")}</span><small>APRENDENDO</small><b>${C.lr.length}</b></div><div><span>${ic("reset")}</span><small>A REVISAR</small><b>${C.due.length}</b></div></div>
+   <p class="ar-now"><b>${C.now}</b> PARA AGORA</p>
+   <button class="ar-go" data-a="arGo" ${C.now?"":"disabled"}>${C.now?"Iniciar revisão":all.length?"Tudo em dia"+(nxt?" · próximo em "+dm(nxt):""):"Ainda não há cards"}</button>
+   <button class="ar-gap" data-a="arGap" ${C.gap?"":"disabled"}>${ic("target")} Atacar lacunas${C.gap?` <small>${Math.min(20,C.gap)}</small>`:""}</button>
+   <nav class="ar-links"><button data-a="arV" data-v="met">Métricas</button><button data-a="arV" data-v="cards">Cards</button><button data-a="arV" data-v="disc">Disciplinas</button><button data-a="arV" data-v="cfg">Configurações</button><button data-a="arNew">+ Novo card</button></nav>
+   ${all.length?"":`<p class="muted small" style="margin-top:14px">Os cards entram sozinhos: dos resumos das aulas (com a IA), das questões que você erra e anota, e dos testes de fixação. Você também pode criar os seus em "+ Novo card".</p>`}</div>`}
+function arSession(){const S=UI.ar;if(S.i>=S.q.length)return arEnd();const c=CARDS().find(x=>x.id===S.q[S.i]);if(!c){S.i++;return arSession()}
+  const s=c.sid?SUB(c.sid):null,ce=arCE(c),tot=S.q.length,pc=Math.round(S.i/tot*100),stl=AR_ST[c.st]||AR_ST.new;
+  const iv=[1,2,3].map(g=>arLbl(arNext(c,g).days));
+  const rate=(only)=>`<div class="ar-rate">${[[1,"Errei","bad"],[2,"Quase","warn"],[3,"Lembrei","ok"]].filter(x=>!only||only.includes(x[0])).map(([g,l,k])=>`<button class="${k}" data-a="arRate" data-g="${g}"><b>${l}</b><small>${iv[g-1]}</small><kbd>${g}</kbd></button>`).join("")}</div>`;
+  let body;
+  if(ce){const pk=S.pick,ok=pk!=null&&(pk===1)===arAns(c);
+    body=`<div class="ar-lb">CERTO OU ERRADO?</div><p class="ar-q">${esc(arStmt(c))}</p>
+     ${pk==null?`<div class="ar-ce"><button data-a="arPick" data-v="1" class="ok">${ic("check")} Certo</button><button data-a="arPick" data-v="0" class="bad">${ic("close")} Errado</button></div><p class="ar-tip">Julgue antes de ver o gabarito.</p>`
+      :`<div class="ar-ans ${ok?"ok":"bad"}"><div class="ar-lb">${ok?"VOCÊ ACERTOU":"VOCÊ ERROU"} · GABARITO: ${arAns(c)?"CERTO":"ERRADO"}</div><p>${esc(arExp(c))}</p></div>${ok?rate([2,3]):rate([1])}`}`}
+  else body=`<div class="ar-lb">PERGUNTA</div><p class="ar-q">${esc(c.f)}</p>
+     ${S.show?`<div class="ar-ans"><div class="ar-lb">RESPOSTA</div><p>${esc(c.b)}${c.link?` <a href="${esc(c.link)}" target="_blank" rel="noopener">Abrir no TEC ↗</a>`:""}</p></div>${rate()}`
+      :`<button class="ar-show" data-a="arShow">Mostrar resposta <kbd>espaço</kbd></button><p class="ar-tip">Tente lembrar antes: o esforço de recuperar é o que grava.</p>`}`;
+  return`<div class="ar-ses">${arEye(S.mode==="gap"?"ATACAR LACUNAS":"REVISÃO")}
+   <div class="ar-top"><span>${S.i+1} de ${tot}</span><div class="ar-pb"><i style="width:${pc}%"></i></div><button class="btn sm" data-a="arQuit">Encerrar</button></div>
+   <article class="ar-card ${S.show||S.pick!=null?"rv":""}" aria-live="polite"><header>${s?`<span class="code" style="border-color:${s.col}">${esc(s.c)}</span><span class="muted small">${esc(s.n)}${c.aula?" · "+esc(auLabel(c.sid,c.aula)):""}</span>`:`<span class="muted small">Sem matéria</span>`}<span class="ar-stc ${stl[1]}">${stl[0]}</span></header>${body}</article></div>`}
+function arEnd(){const S=UI.ar,n=S.n,t=Math.max(1,Math.round((Date.now()-S.t0)/60000)),st=arStreak();
+  return`<div class="ar-home ar-endv">${arEye()}<div class="ar-fire on big">${ic("flame")}</div><h1>Revisão concluída!</h1><p class="muted">${S.done} card${S.done===1?"":"s"} em ${t} min · sequência de ${st} dia${st===1?"":"s"}</p>
+   <div class="ar-tiles"><div class="bad"><small>ERREI</small><b>${n[1]||0}</b></div><div class="warn"><small>QUASE</small><b>${n[2]||0}</b></div><div class="ok"><small>LEMBREI</small><b>${n[3]||0}</b></div></div>
+   <p class="muted small">Os que você errou voltam ainda hoje ou amanhã; os que lembrou se espaçam cada vez mais.</p><button class="ar-go" data-a="arQuit">Voltar à Arena</button></div>`}
+function arBack(t){return`<div class="ar-sh"><button class="ibtn" data-a="arV" data-v="" aria-label="Voltar">${ic("left")}</button><h1>${t}</h1></div>`}
+function arCardsV(){const F=UI.arF||(UI.arF={q:"",st:"",tp:"",sid:""}),q=norm(F.q||""),td=today();
+  const L=CARDS().filter(c=>(!q||norm(c.f+" "+c.b).includes(q))&&(!F.st||c.st===F.st)&&(!F.tp||(F.tp==="m"?!arAuto(c):arAuto(c)))&&(!F.sid||c.sid===F.sid));
+  const sel=(k,o)=>`<select class="inp" data-c="arF" data-k="${k}">${o.map(([v,l])=>`<option value="${v}" ${F[k]===v?"selected":""}>${l}</option>`).join("")}</select>`;
+  const rp=c=>c.st==="new"?"Ainda não visto":c.st==="arch"?"—":(c.due||td)<td?"Vencido":c.due===td?"Hoje":dm(c.due);
+  return arBack("Cards")+`<div class="ar-flt"><input class="inp" id="arQ" placeholder="Buscar card" value="${esc(F.q||"")}">${sel("st",[["","Status"],["new","Novo"],["learn","Aprendendo"],["rev","Em revisão"],["arch","Arquivado"]])}${sel("tp",[["","Tipo"],["m","Manual"],["a","Automático"]])}${sel("sid",[["","Disciplina"],...ED.map(s=>[s.id,s.n])])}</div>
+   <p class="muted small">Mostrando ${Math.min(L.length,300)} de ${CARDS().length}</p>
+   ${L.length?`<div class="ar-tw"><table class="ar-tb"><thead><tr><th>Card</th><th>Disciplina</th><th>Tipo</th><th>Revisão programada</th><th>Status</th><th></th></tr></thead><tbody>${L.slice(0,300).map(c=>{const s=c.sid?SUB(c.sid):null,S=AR_ST[c.st]||AR_ST.new;
+    return`<tr class="${c.st==="arch"?"off":""}"><td class="ar-cf" data-l="Card"><span>${arCE(c)?`<em>C/E</em> `:""}${esc(arCE(c)?arStmt(c):c.f)}</span></td><td data-l="Disciplina">${s?esc(s.c):"–"}</td><td data-l="Tipo">${arAuto(c)?"Automático":"Manual"}</td><td data-l="Revisão">${rp(c)}</td><td data-l="Status"><span class="ar-stc ${S[1]}">${S[0]}</span></td>
+     <td class="ar-ac"><button class="btn sm" data-a="arArch" data-id="${c.id}">${c.st==="arch"?"Restaurar":"Arquivar"}</button><button class="ibtn" data-a="arDel" data-id="${c.id}" aria-label="Excluir">${ic("trash")}</button></td></tr>`}).join("")}</tbody></table></div>`:`<div class="empty">Nenhum card com esses filtros.</div>`}`}
+function arDiscV(){const off=new Set(UI.arOff||ARC().off||[]),cnt={};CARDS().forEach(c=>{if(c.sid)cnt[c.sid]=(cnt[c.sid]||0)+1});
+  const L=ED.filter(s=>cnt[s.id]||!UI.arDq).sort((a,b)=>(cnt[b.id]||0)-(cnt[a.id]||0)||a.n.localeCompare(b.n));
+  return arBack("Disciplinas")+`<p class="muted">Desmarque uma matéria para tirar os cards dela da fila. Eles não são apagados: voltam quando você marcar de novo.</p>
+   <div class="ar-dl">${L.map(s=>`<label class="ar-di"><input type="checkbox" data-c="arOff" value="${s.id}" ${off.has(s.id)?"":"checked"}><span class="code" style="border-color:${s.col}">${esc(s.c)}</span><span>${esc(s.n)}</span><b>${cnt[s.id]||0}</b></label>`).join("")}</div>
+   <div class="ar-bar"><span class="muted small">${off.size?off.size+" matéria"+(off.size>1?"s":"")+" fora da fila":"Todas as matérias na fila"}</span><button class="btn pri" data-a="arOffSave">Salvar</button></div>`}
+function arBars(vals,labs,cls,fmt){const W=560,H=150,mx=Math.max(1,...vals),bw=(W-30)/vals.length;
+  return`<svg class="ar-ch ${cls||""}" viewBox="0 0 ${W} ${H}" role="img">${vals.map((v,i)=>{const h=Math.round((H-34)*v/mx),x=24+i*bw;return`<rect x="${x+bw*.18}" y="${H-20-h}" width="${bw*.64}" height="${Math.max(h,v?2:0)}" rx="3"><title>${labs[i]}: ${fmt?fmt(v):v}</title></rect>${v?`<text x="${x+bw/2}" y="${H-24-h}" text-anchor="middle" class="v">${fmt?fmt(v):v}</text>`:""}<text x="${x+bw/2}" y="${H-5}" text-anchor="middle">${labs[i]}</text>`}).join("")}<line x1="20" x2="${W}" y1="${H-20}" y2="${H-20}"/></svg>`}
+function arMetV(){arMig();const td=today(),C=CARDS(),H=[];C.forEach(c=>(c.hist||[]).forEach(h=>H.push(h)));
+  const d30=addDays(td,-29),h30=H.filter(h=>h[0]>=d30),ret=h30.length?Math.round(h30.filter(h=>h[1]).length/h30.length*100):null;
+  const P=C.filter(c=>c.st!=="new"&&c.st!=="arch"),dif=P.length?(P.reduce((a,c)=>a+(c.dif||5),0)/P.length):0,dl=dif<4?"Fácil":dif<6.5?"Média":"Difícil";
+  const nx=[...Array(7)].map((_,i)=>addDays(td,i)),load=nx.map((d,i)=>arPool().filter(c=>c.st!=="new"&&(i===0?(c.due||td)<=d:c.due===d)).length);
+  const last=[...Array(14)].map((_,i)=>addDays(td,i-13)),per=last.map(d=>H.filter(h=>h[0]===d).length);
+  const bk=[["<1d",0,1],["1–7d",1,7],["1–4 sem",7,30],["1–3 m",30,90],["3 m+",90,1e9]],stab=bk.map(([l,a,b])=>P.filter(c=>(c.s||0)>=a&&(c.s||0)<b).length);
+  const hrs=[...Array(24)].map((_,h)=>H.filter(x=>x[3]===h).length),hz=hrs.some(Boolean);
+  const tile=(l,v,x)=>`<div class="ar-mt"><small>${l}</small><b>${v}</b>${x?`<em>${x}</em>`:""}</div>`;
+  return arBack("Métricas")+`<div class="ar-mts">${tile("Total de cards",C.length)}${tile("Revisões de hoje",H.filter(h=>h[0]===td).length)}${tile("Retenção (30 dias)",ret==null?"–":ret+"%")}${tile("Dificuldade média",P.length?dif.toFixed(1).replace(".",","):"–",P.length?dl:"")}${tile("Sequência",arStreak()+" dia"+(arStreak()===1?"":"s"))}</div>
+   <div class="ar-g2"><section class="card"><div class="card-h"><h2>Carga dos próximos 7 dias</h2></div><div class="card-b">${arBars(load,nx.map(d=>WDN[pd(d).getDay()]),"lo")}</div></section>
+   <section class="card"><div class="card-h"><h2>Revisões nos últimos 14 dias</h2></div><div class="card-b">${H.length?arBars(per,last.map(d=>d.slice(8)),"rv"):`<div class="empty">Sem revisões ainda.</div>`}</div></section>
+   <section class="card"><div class="card-h"><h2>Estabilidade da memória</h2><span class="r muted small">quanto tempo cada card aguenta</span></div><div class="card-b">${P.length?arBars(stab,bk.map(b=>b[0]),"st"):`<div class="empty">Sem cards revisados ainda.</div>`}</div></section>
+   <section class="card"><div class="card-h"><h2>Horários de estudo</h2></div><div class="card-b">${hz?arBars(hrs,hrs.map((_,h)=>h%3?"":h+"h"),"hr"):`<div class="empty">Sem revisões ainda.</div>`}</div></section></div>`}
+function arCfgV(){const A=ARC(),opt=(k,L)=>`<div class="ar-op">${L.map(([v,l,d])=>`<button data-a="arSet" data-k="${k}" data-v="${v}" aria-pressed="${A[k]===v}"><b>${l}</b><small>${d}</small></button>`).join("")}</div>`;
+  return arBack("Configurações")+`<section class="card"><div class="card-b" style="display:grid;gap:18px">
+   <div><h3>Intensidade da revisão</h3><p class="muted small">Quanto a Arena prioriza a retenção. Mais revisões = maior memorização, mas mais tempo.</p>${opt("int",AR_INT)}</div>
+   <div><h3>Cards novos</h3><label class="ar-sw"><input type="checkbox" data-c="arAuto" ${A.auto?"checked":""}><span><b>Adicionar automaticamente novos cards</b><small>Cards dos resumos, das questões erradas e da fixação entram na fila sem você precisar escolher. Desligado, eles chegam arquivados e você restaura os que quiser.</small></span></label></div>
+   <div><h3>Ritmo de novos cards</h3>${opt("pace",AR_PACE)}</div>
+   <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><span><b>Tutorial</b><br><span class="muted small">Reveja a introdução da Arena quando quiser.</span></span><button class="btn" data-a="arIntro">Rever</button></div></div></section>`}
+function arNavB(){try{if(!ARC().intro)return`<span class="new">Novo</span>`;const n=arCounts().now;return n?`<span class="cnt ar">${n}</span>`:""}catch(e){return""}}
+function arPromo(){arMig();const C=arCounts();return`<section class="card arv-p"><div class="card-b arv-pr"><span class="chip sm-k mini">${ic("arena")} Arena</span><span style="flex:1 1 260px"><b>Os cards agora ficam na Arena.</b><br><span class="muted small">${C.now} para agora · ${CARDS().length} no total. Revise com Errei, Quase ou Lembrei e cada card volta na hora certa.</span></span><button class="btn pri" data-a="tab" data-t="arena">Abrir a Arena</button></div></section>`}
+function vArena(){if(UI.ar)return arSession();const v=UI.arV||"";
+  const body=v==="cards"?arCardsV():v==="disc"?arDiscV():v==="met"?arMetV():v==="cfg"?arCfgV():arHome();
+  if(!ARC().intro&&!v)setTimeout(()=>{if(TAB==="arena"&&!$("layer3").innerHTML)arIntro(0)},300);
+  return`<div class="arena-v">${body}</div>`}
+/* introdução animada (primeira vez e em Configurações) */
+const AR_IN=[["brain","Feito para a sua memória","Recuperação ativa e repetição espaçada","Os cards vêm prontos dos seus resumos, erros e testes. Você não monta nada: só revisa."],
+ ["book","Tente lembrar antes","O esforço de recuperar é o que grava","Leia a pergunta e puxe a resposta da cabeça antes de revelar. Quem se testa retém muito mais do que quem só relê."],
+ ["target","O erro é ouro","Seja honesto: Errei, Quase ou Lembrei","Errar não é ruim: é a informação que diz à Arena quando aquele card deve voltar."],
+ ["clock","O card volta na hora certa","Intervalo sob medida, nada fixo","O que é fácil se espaça rápido; o que te pega volta mais cedo. Cada botão mostra quando o card volta."],
+ ["check","Certo ou errado, como na prova","Julgue as afirmações","Além de pergunta e resposta, há afirmações para julgar no estilo Cebraspe, com a justificativa do gabarito."],
+ ["flame","Mantenha o foguinho aceso","Um pouco por dia vale mais","Revise todo dia para manter a sequência. Use Atacar lacunas para treinar só os pontos fracos."]];
+function arIntro(i){const s=AR_IN[i],last=i===AR_IN.length-1;
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Introdução à Arena"><div class="box ar-in"><button class="ibtn ar-x" data-a="arInEnd" aria-label="Fechar">${ic("close")}</button>
+   <div class="ar-art s${i}">${ic(s[0])}<svg class="ar-curve" viewBox="0 0 200 60"><path d="M5 50 Q35 5 55 40 T105 30 T155 22 T195 18"/></svg></div>
+   <h3>${s[1]}</h3><p class="ar-sub">${s[2]}</p><p class="muted">${s[3]}</p>
+   <div class="ar-dots">${AR_IN.map((_,j)=>`<i class="${j===i?"on":""}"></i>`).join("")}</div>
+   <div class="row" style="justify-content:center;gap:8px">${i?`<button class="btn" data-a="arIn" data-i="${i-1}">Voltar</button>`:""}<button class="btn pri" data-a="${last?"arInEnd":"arIn"}" data-i="${i+1}">${last?"Começar":"Continuar"}</button></div></div></div>`}
+function arNewModal(){const k=UI.arNk||"qa",sid=UI.arNs||"";
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Novo card"><div class="box mm-add">
+   <div class="vh"><h3>Novo card</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+   <div class="tabs2" role="group"><button data-a="arNk" data-v="qa" aria-pressed="${k==="qa"}">Pergunta e resposta</button><button data-a="arNk" data-v="ce" aria-pressed="${k==="ce"}">Certo ou errado</button></div>
+   <div class="field"><label for="arNs">Matéria</label><select class="inp" id="arNs"><option value="">Sem matéria</option>${ED.map(s=>`<option value="${s.id}" ${s.id===sid?"selected":""}>${esc(s.n)}</option>`).join("")}</select></div>
+   ${k==="qa"?`<div class="field"><label for="arNf">Pergunta (frente)</label><textarea class="inp" id="arNf" rows="3" placeholder="Ex.: A EC 132/2023 substituiu ICMS e ISS por quais tributos?"></textarea></div><div class="field"><label for="arNb">Resposta (verso)</label><textarea class="inp" id="arNb" rows="3" placeholder="Ex.: Pelo IBS, e o PIS/Cofins pela CBS (IVA dual)."></textarea></div>`
+    :`<div class="field"><label for="arNf">Afirmação para julgar</label><textarea class="inp" id="arNf" rows="3"></textarea></div><div class="field"><span class="small" style="font-weight:600">Gabarito</span><div class="tabs2" role="group"><button data-a="arNv" data-v="1" aria-pressed="${UI.arNv!==0}">Certo</button><button data-a="arNv" data-v="0" aria-pressed="${UI.arNv===0}">Errado</button></div></div><div class="field"><label for="arNb">Justificativa</label><textarea class="inp" id="arNb" rows="3"></textarea></div>`}
+   <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn" data-a="volClose">Cancelar</button><button class="btn pri" data-a="arNewSave">Criar card</button></div></div></div>`}
+let arQT=0;document.addEventListener("input",e=>{const el=e.target;if(!el||el.id!=="arQ")return;clearTimeout(arQT);arQT=setTimeout(()=>{(UI.arF=UI.arF||{}).q=el.value;render();const i=$("arQ");if(i){i.focus();const n=i.value.length;i.setSelectionRange(n,n)}},300)});
+document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset)return;const c=el.dataset.c;
+  if(c==="arF"){(UI.arF=UI.arF||{})[el.dataset.k]=el.value;render()}
+  else if(c==="arOff"){const s=new Set(UI.arOff||ARC().off||[]);el.checked?s.delete(el.value):s.add(el.value);UI.arOff=[...s];render()}
+  else if(c==="arAuto"){ARC().auto=el.checked?1:0;touch("core");toast(el.checked?"Novos cards entram sozinhos na fila":"Novos cards chegam arquivados")}});
+document.addEventListener("keydown",e=>{if(TAB!=="arena"||!UI.ar||$("layer3").innerHTML)return;const t=e.target;if(t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))return;
+  const S=UI.ar;if(S.i>=S.q.length)return;const c=CARDS().find(x=>x.id===S.q[S.i]);if(!c)return;
+  if((e.key===" "||e.key==="Enter")&&!arCE(c)&&!S.show){e.preventDefault();A.arShow()}
+  else if(/^[123]$/.test(e.key)){const b=document.querySelector(`.ar-rate [data-g="${e.key}"]`);if(b){e.preventDefault();b.click()}}
+  else if(arCE(c)&&S.pick==null&&(e.key==="c"||e.key==="e")){e.preventDefault();A.arPick({dataset:{v:e.key==="c"?"1":"0"}})}});
+
 function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
-  let h=(SKIN()==="arena"?orgHero():`<div class="hello"><h1>Oi, ${name||"tudo pronto"}</h1><p>Acompanhe seu progresso e veja o que falta para cumprir a sua meta.</p></div>`)+edThinHTML();
+  let h=greetHTML(name)+(SKIN()==="arena"?orgHero():"")+edThinHTML();
   if(!r){
     const pv=previewMeta(),tot=remainingMetas();
     h+=`<section class="card mandado"><div class="m-head"><div class="m-num"><small>Prévia</small><b>Meta 01</b></div><div class="m-meta"><span class="code">OJ-TJSP · 01/${pad(tot)}</span><span class="muted small">${tot} metas previstas para cobrir o edital</span></div></div>
@@ -7079,8 +7350,8 @@ function rvQuick(t,pct){const c=core();if(c.gj)return null;const aulas=aSet(t).l
 function rvDone(t){const x=RVA().find(z=>z.id===t.rva);if(x&&!x.done){x.done=today();touch("rva")}}
 function rvUndo(t){const x=RVA().find(z=>z.id===t.rva);if(x&&x.done){x.done=null;touch("rva")}}
 const refLeft=r=>dbet(today(),r.due);
-function addCard(o){CARDS().push(Object.assign({id:uid(),d0:today(),step:0,done:false},o));touch("cards")}
-const cardDue=c=>addDays(c.d0,OFF[c.step]);
+function addCard(o){const c=Object.assign({id:uid(),d0:today(),step:0,done:false,st:"new"},o);if(c.src!=="meu"&&!ARC().auto){c.st="arch";c.held=1}CARDS().push(c);touch("cards");return c}
+const cardDue=c=>c.st&&c.st!=="new"&&c.due?c.due:addDays(c.d0,OFF[c.step]||1);
 async function pagesText(p,a,b,max){max=max||45000;
   try{const buf=await pdfBytes(p);if(!buf||!(await ensurePdfjs()))return"";
     const doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise;let out="";
@@ -7231,10 +7502,10 @@ function vRevisoes(){
   const item=(r,btn)=>{const s=r.sid?SUB(r.sid):null,d=dd(r),late=d<td;
     return`<div class="crow"><div class="k">${r.tq?`<span class="chip ${r.kind==="err"?"bad":"warn"}" style="margin-right:6px">${TQK[r.kind]||"TEC"}</span>`:""}${esc(r.label)}${r.note?`<span class="nt">${esc(r.note)}</span>`:""}${r.link?` <a href="${esc(r.link)}" target="_blank" rel="noopener" class="small">Abrir no TEC ↗</a>`:""}<small>${s?esc(s.n)+" · ":""}Revisão ${r.step+1} de 5, ${OFF[r.step]} dia${OFF[r.step]>1?"s":""} após o erro · ${d===td?"hoje":late?"atrasada desde "+dm(d):"em "+dm(d)}</small></div>${btn?`<button class="btn sm" data-a="rok" data-id="${r.id}">Acertei</button><button class="btn sm" data-a="rerr" data-id="${r.id}">Errei de novo</button>`:`<span class="chip">${dm(d)}</span>`}</div>`};
   const opts=`<option value="">Sem matéria</option>`+ED.map(s=>`<option value="${s.id}">${esc(s.n)}</option>`).join("");
-  return`<div class="hello"><h1>Revisões</h1><p>Questões do TEC anotadas e cards das atividades concluídas voltam em 1, 7, 14, 30 e 60 dias. Se errar ou esquecer, o ciclo recomeça.</p></div>
+  return`<div class="hello"><h1>Revisões</h1><p>Questões do TEC anotadas voltam em 1, 7, 14, 30 e 60 dias. Se errar, o ciclo recomeça. Os flash cards ficam na Arena.</p></div>
   <div class="grid2"><section class="card"><div class="card-h"><h2>Para revisar hoje</h2><span class="r chip ${due.length?"warn":"ok"}">${due.length}</span></div>${due.length?due.map(r=>item(r,1)).join(""):`<div class="empty">Nenhuma revisão para hoje.</div>`}</section>
   <section class="card"><div class="card-h"><h2>Adicionar questão do TEC</h2></div><div class="card-b">${tqUniHTML(null)}</div></section></div>
-  ${cardsReview()}
+  ${arPromo()}
   ${rvaCard()}<section class="card"><div class="card-h"><h2>Próximas revisões</h2><span class="r muted small">${nx.length}</span></div>${nx.length?nx.slice(0,80).map(r=>item(r,0)).join(""):`<div class="empty">Sem revisões agendadas.</div>`}</section>`;
 }
 
@@ -7312,7 +7583,7 @@ function vDesempenho0(){
   const th=(k,l)=>`<th><button data-a="dsort" data-k="${k}" ${S.k===k?`aria-sort="${S.d>0?"ascending":"descending"}"`:""}>${l}</button></th>`;
   const rows=list.map(({s,b,p})=>`<tr><td><span class="code" style="margin-right:8px;border-color:${s.col}">${s.c}</span>${esc(s.n)}</td><td>${b.f||"–"}</td><td>${b.f?b.a:"–"}</td><td>${b.f?p.toFixed(1).replace(".",",")+"%":"–"}${b.f?`<span class="pbar"><i style="width:${p}%;background:${col(p)}"></i></span>`:""}</td><td>${avgA(b)}</td><td>${avgR(b)}</td><td>${b.min?fmtH(b.min):"–"}</td></tr>`).join("");
   const tp=T.f?T.a/T.f*100:0;
-  const kp=`<div class="kcol"><div class="kpi k1"><small>Seu desempenho</small><b>${T.f?tp.toFixed(1).replace(".",","):"0"}%</b><span class="sub">${T.a} acertos em ${T.f}</span></div><div class="kpi k2"><small>Horas estudadas</small><b>${fmtH(T.min)}</b><span class="sub">no intervalo escolhido</span></div><div class="kpi k3"><small>Questões resolvidas</small><b>${T.f.toLocaleString("pt-BR")}</b><span class="sub">TEC e mapas de PDF</span></div><div class="kpi k4"><small>Média de horas diárias</small><b>${fmtH(R0.days?T.min/R0.days:0)}</b><span class="sub">em ${dias(R0.days)} de estudo</span></div></div>`;
+  const kp=`<div class="kcol"><div class="kpi k1"><small>Seu desempenho${ic("desempenho")}</small><b>${T.f?tp.toFixed(1).replace(".",","):"0"}%</b><span class="sub">${T.a} acertos em ${T.f}</span></div><div class="kpi k2"><small>Horas estudadas${ic("clock")}</small><b>${fmtH(T.min)}</b><span class="sub">no intervalo escolhido</span></div><div class="kpi k3"><small>Questões resolvidas${ic("check")}</small><b>${T.f.toLocaleString("pt-BR")}</b><span class="sub">TEC e mapas de PDF</span></div><div class="kpi k4"><small>Média de horas diárias${ic("rotina")}</small><b>${fmtH(R0.days?T.min/R0.days:0)}</b><span class="sub">em ${dias(R0.days)} de estudo</span></div></div>`;
   // Tempo e desempenho
   const tt=UI.dtab||"dia";let tdb="";
   const msIn=ms.filter(m=>m.n>=F.a&&m.n<=F.b);
@@ -8418,6 +8689,20 @@ const A={
       if(B.aula){const R0=resGet(B.sid,B.aula);(R0.tq=R0.tq||[]).push({id:uid(),n:r.n,link:tecQUrl(r.n),as:B.as||"Bateria do TEC",q:"",gab:"",com:"",d:today(),k:k});touch(resKey(B.sid,B.aula))}});
     UI.tb={sid:B.sid,rows:[]};$("layer3").innerHTML="";render();toast(n+" questões lançadas em Erradas, revisões e cards"+(B.aula?" e no resumo da aula":""))},
   ulkOpen(el){unlockNext(el)},
+  arGo(){arStart("due")},arGap(){arStart("gap")},
+  arShow(){if(UI.ar){UI.ar.show=1;render()}},
+  arPick(el){const S=UI.ar;if(!S)return;S.pick=+el.dataset.v;const c=CARDS().find(x=>x.id===S.q[S.i]);if(c&&(S.pick===1)!==arAns(c))try{fxVib([30])}catch(e){}render()},
+  arRate(el){const S=UI.ar;if(!S)return;arRate(S.q[S.i],+el.dataset.g);render();scrollTo(0,0)},
+  arQuit(){UI.ar=null;render();scrollTo(0,0)},
+  arV(el){UI.arV=el.dataset.v||"";UI.arOff=null;render();scrollTo(0,0)},
+  arArch(el){const c=CARDS().find(x=>x.id===el.dataset.id);if(!c)return;if(c.st==="arch"){c.st=c.reps?"rev":"new";c.due=c.due||today();c.done=false;c.held=0;toast("Card de volta à fila")}else{c.st="arch";c.done=today();toast("Card arquivado")}touch("cards");render()},
+  arDel(el){const i=CARDS().findIndex(x=>x.id===el.dataset.id);if(i<0)return;askConfirm("Excluir este card?","Ele sai da Arena de vez. Para só tirar da fila, use Arquivar.","Excluir",()=>{CARDS().splice(i,1);touch("cards");render()})},
+  arOffSave(){ARC().off=[...(UI.arOff||ARC().off||[])];UI.arOff=null;touch("core");toast("Disciplinas da Arena salvas");render()},
+  arSet(el){ARC()[el.dataset.k]=el.dataset.v;touch("core");render()},
+  arIntro(){arIntro(0)},arIn(el){arIntro(+el.dataset.i)},arInEnd(){ARC().intro=1;touch("core");$("layer3").innerHTML="";render()},
+  arNew(){UI.arNk=UI.arNk||"qa";arNewModal()},arNk(el){UI.arNk=el.dataset.v;arNewModal()},arNv(el){UI.arNv=+el.dataset.v;const f=$("arNf").value,b=$("arNb").value;arNewModal();$("arNf").value=f;$("arNb").value=b},
+  arNewSave(){const F=$("arNf").value.trim(),B=$("arNb").value.trim(),sid=$("arNs").value,ce=UI.arNk==="ce";if(!F||!B){toast(ce?"Escreva a afirmação e a justificativa":"Preencha a pergunta e a resposta");return}
+    UI.arNs=sid;addCard({sid,tid:"",aula:"",f:(ce?"Certo ou errado? ":"")+F,b:(ce?(UI.arNv===0?"ERRADO. ":"CERTO. "):"")+B,src:"meu"});$("layer3").innerHTML="";toast("Card criado: já está na fila da Arena");render()},
   arqOpen(el){const n=+el.dataset.n;UI.arqOpen=UI.arqOpen===n?null:n;render();if(UI.arqOpen!=null)setTimeout(()=>{const d=document.querySelector(".arq-det");if(d)d.scrollIntoView({behavior:"smooth",block:"start"})},60)},
   arqSm(el){UI.smOpen=el.dataset.id;TAB="simulados";render();scrollTo(0,0)},
   mtOpen(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const M=mentorStats();UI.mt={M,P:mentorAuto(M),busy:0};mentorModal()},
