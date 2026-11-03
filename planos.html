@@ -47,9 +47,13 @@ section.s{padding:84px 0 0}.h2{font:800 clamp(32px,4.4vw,54px)/1 var(--cond);tex
 .ui .k{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.ui .k div{border-radius:5px;padding:4px 5px;color:#fff}.ui .k small{display:block;font-size:5.6px;opacity:.9}.ui .k b{font:700 10px Barlow}
 .k1{background:linear-gradient(160deg,#6b48c9,#3b2a7d)}.k2{background:linear-gradient(160deg,#2f8f86,#1d4f57)}.k3{background:linear-gradient(160deg,#c0603f,#6a3326)}.k4{background:linear-gradient(160deg,#b88a2c,#62491c)}
 .ui .tb div{display:grid;grid-template-columns:8px 1.6fr .8fr 1.4fr .7fr;gap:5px;align-items:center;padding:3px 4px;border-radius:4px;background:#14153a;margin-bottom:2px;color:#cfcdf2}.ui .tb .dt{width:6px;height:6px;border-radius:50%;background:#3a3c72}.ui .tb .dt.ok{background:var(--ok)}.ui .tb em{font-style:normal;color:#f6c343;letter-spacing:-.5px}
-.ph{position:absolute;right:-6px;bottom:0;width:30%;max-width:170px;aspect-ratio:9/19;border:7px solid #1a1a1f;border-radius:26px;background:#0d0e24;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.9),0 0 0 1px #34343d;transform:rotate(4deg)}
+.ph{position:absolute;right:-6px;bottom:0;z-index:2;width:30%;max-width:170px;aspect-ratio:9/19;border:7px solid #1a1a1f;border-radius:26px;background:#0d0e24;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.9),0 0 0 1px #34343d;transform:rotate(4deg)}
 .ph .ui{grid-template-columns:1fr;font-size:6.6px}.ph .mn{padding:16px 7px 7px}.ph .k{grid-template-columns:1fr 1fr}
-.seal{position:absolute;left:-4%;bottom:6%;width:min(170px,30%);aspect-ratio:1;border-radius:50%;background:#0f1030;border:1px solid rgba(180,140,255,.35);display:grid;place-items:center;box-shadow:0 20px 50px -12px rgba(0,0,0,.8),0 0 0 8px rgba(143,92,255,.08)}
+.tab{position:absolute;left:-2%;bottom:-4%;width:46%;max-width:270px;aspect-ratio:4/3;border:8px solid #1a1a1f;border-radius:18px;background:#0d0e24;overflow:hidden;box-shadow:0 30px 60px -20px rgba(0,0,0,.95),0 0 0 1px #34343d;transform:rotate(-5deg);z-index:2}
+.tab .ui{grid-template-columns:1fr;font-size:7px}.tab .mn{padding:8px}.tab .k{grid-template-columns:repeat(4,1fr)}
+.tab .rt{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.tab .rt span{border:1px solid #3a3c72;border-radius:5px;text-align:center;padding:3px;font-weight:700}.tab .rt small{display:block;font-weight:500;color:#a9a7d8}
+.tab .rt .e{color:#ff6b84;border-color:rgba(255,107,132,.6)}.tab .rt .q{color:#ffbf3c;border-color:rgba(255,191,60,.6)}.tab .rt .l{color:#3ddc84;border-color:rgba(61,220,132,.6)}
+.seal{position:absolute;left:auto;right:24%;top:-6%;bottom:auto;z-index:3;width:min(170px,30%);aspect-ratio:1;border-radius:50%;background:#0f1030;border:1px solid rgba(180,140,255,.35);display:grid;place-items:center;box-shadow:0 20px 50px -12px rgba(0,0,0,.8),0 0 0 8px rgba(143,92,255,.08)}
 .seal svg{position:absolute;inset:4%;width:92%;height:92%;animation:spin 30s linear infinite}.seal svg text{font:700 11px var(--cond);letter-spacing:.28em;fill:#d6c6ff}.seal img{width:44%}
 .offer{position:relative;border-radius:24px;padding:40px clamp(20px,4vw,48px);background:linear-gradient(160deg,rgba(143,92,255,.16),rgba(15,16,40,.9) 55%);border:1px solid rgba(180,140,255,.45);box-shadow:0 0 0 1px rgba(255,127,192,.08) inset,0 30px 80px -40px rgba(143,92,255,.8)}
 .offer .h2{font-size:clamp(30px,3.8vw,46px)}.price{margin:20px 0 6px;font:800 clamp(54px,7vw,84px)/1 var(--cond)}.price small{font:700 24px var(--cond);margin-right:4px}.price em{font:700 22px var(--cond);font-style:normal;color:var(--fg2)}
@@ -73,7 +77,7 @@ footer{margin-top:84px;background:#06061a;border-top:1px solid rgba(180,140,255,
 footer h4{margin:0 0 12px;font:700 18px var(--cond);text-transform:uppercase;letter-spacing:.06em}footer a{display:block;color:var(--fg2);text-decoration:none;margin:0 0 8px;font-size:15px}footer a:hover{color:#fff}footer p{color:var(--mute);font-size:14px;margin:12px 0 0}
 .copy{border-top:1px solid rgba(255,255,255,.06);text-align:center;color:var(--mute);font-size:13px;padding:16px}
 @media (max-width:1020px){.links{display:none}.plans{grid-template-columns:repeat(2,minmax(0,1fr))}.duo,.contact{grid-template-columns:1fr}.lap{transform:none;margin:0 auto}.grid3{grid-template-columns:1fr 1fr}footer .w{grid-template-columns:1fr 1fr}}
-@media (max-width:640px){.nav .w{min-height:64px;gap:10px}.brand img{width:38px;height:38px}.brand b{font-size:14px}.nav .act .btn{min-height:40px;padding:0 14px;font-size:13.5px}.nav .act .ghost{display:none}
+@media (max-width:640px){.tab{left:0;width:50%;bottom:-8%}.tab .k{display:none}.seal{display:none}.stage{padding-bottom:60px}.nav .w{min-height:64px;gap:10px}.brand img{width:38px;height:38px}.brand b{font-size:14px}.nav .act .btn{min-height:40px;padding:0 14px;font-size:13.5px}.nav .act .ghost{display:none}
  .plans,.grid3,.steps{grid-template-columns:1fr}.hero{padding-top:34px}.btn{width:100%}.nav .act .btn{width:auto}.cta{flex-direction:column}.seal{width:34%}footer .w{grid-template-columns:1fr}.final .btn{justify-self:stretch}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}.btn:hover,.pl:hover{transform:none}}
 </style></head><body>
@@ -88,8 +92,8 @@ footer h4{margin:0 0 12px;font:700 18px var(--cond);text-transform:uppercase;let
   <svg class="ring" viewBox="0 0 300 300"><defs><path id="cr" d="M150,150 m-128,0 a128,128 0 1,1 256,0 a128,128 0 1,1 -256,0"/></defs><text><textPath href="#cr">A JORNADA • SUA TRILHA ATÉ A APROVAÇÃO • ESTUDO INDEPENDENTE • </textPath></text></svg>
   <img src="logo-jornada.svg" alt=""></div>
  <span class="kick">✦ Para quem estuda com autonomia</span>
- <h1>Estude para concursos <span class="acc">do seu jeito,</span> com a <span class="acc">IA ajustando</span> o caminho</h1>
- <p class="lead">Para o aluno que prefere seguir a sua jornada de forma <b>mais independente</b>: você está no comando, e a plataforma organiza as metas do dia a partir do edital e da sua rotina. Mudou a semana? <b>A IA te ajuda nos ajustes.</b></p>
+ <h1>Independente, <span class="acc">mas nunca sozinho</span></h1>
+ <p class="lead">Para o aluno que prefere seguir a sua jornada de forma <b>mais independente</b>: você está no comando dos estudos, a plataforma organiza as metas do dia a partir do edital e da sua rotina, e você conta com o <b>auxílio da inteligência artificial</b> sempre que precisar ajustar o caminho.</p>
  <div class="cta"><a class="btn pri" href="./?cadastro">Quero começar minha Jornada <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a class="btn" href="#planos">Ver planos e preços</a></div>
  <p class="note">7 dias grátis, sem cartão. Cancele quando quiser.</p>
 </div></header>
@@ -101,14 +105,14 @@ footer h4{margin:0 0 12px;font:700 18px var(--cond);text-transform:uppercase;let
 
 <section class="s" id="plataforma"><div class="w duo">
  <div><span class="kick">✦ A plataforma</span>
-  <h2 class="h2">Independente, <span class="acc">mas nunca sozinho</span></h2>
-  <p class="sub">Você decide o caminho. A Jornada transforma o edital em metas e a IA mantém o plano de pé quando a vida muda.</p>
+  <h2 class="h2">Você no comando, <span class="acc">a Jornada no planejamento</span></h2>
+  <p class="sub">Você decide o caminho. A Jornada transforma o edital em metas e, quando a rotina muda, o auxílio da IA ajuda a reorganizar o plano.</p>
   <ul class="ticks">
    <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>Metas do dia montadas pelo edital, pelo peso das matérias e pelas suas horas.</li>
-   <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>Assistente de planejamento e mentor com IA para recalcular quando atrasar.</li>
+   <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>Auxílio da IA para recalcular o plano quando você atrasar ou a semana mudar.</li>
    <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>Resumos, mapas e questões feitos a partir dos seus PDFs, sem inventar.</li>
    <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>Reforço automático quando uma matéria cai abaixo de 75%.</li>
-   <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>No computador e no celular, com o progresso salvo na sua conta.</li>
+   <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>No computador, no tablet e no celular, com o progresso salvo na sua conta.</li>
   </ul>
   <a class="btn pri" href="./?cadastro">Testar 7 dias grátis</a></div>
  <div class="stage" aria-hidden="true">
@@ -116,6 +120,9 @@ footer h4{margin:0 0 12px;font:700 18px var(--cond);text-transform:uppercase;let
    <div class="mn"><div class="hi">Bom dia, Ana!</div><div class="mt"><b>Meta 07</b> · 12 de 18 atividades<div class="bar"><i></i></div></div>
     <div class="k"><div class="k1"><small>Desempenho</small><b>84,6%</b></div><div class="k2"><small>Horas</small><b>21h40</b></div><div class="k3"><small>Questões</small><b>312</b></div><div class="k4"><small>Média/dia</small><b>3h05</b></div></div>
     <div class="tb"><div><i class="dt ok"></i>Direito Tributário<span>Teoria</span>Crédito tributário<em>★★★★★</em></div><div><i class="dt ok"></i>Contabilidade<span>Questões</span>DRE e DFC<em>★★★★☆</em></div><div><i class="dt"></i>Português<span>Revisão</span>Concordância<em>★★★☆☆</em></div><div><i class="dt"></i>Dir. Constitucional<span>Teoria</span>Poder Legislativo<em>★★★★☆</em></div></div></div></div></div><div class="base"></div></div>
+  <div class="tab"><div class="ui"><div class="mn"><div class="hi">Flash Jornada</div><div class="mt"><b style="color:#b48cff;font-size:6px;letter-spacing:.08em">CERTO OU ERRADO?</b><br>A citação por hora certa exige suspeita de ocultação.</div>
+   <div class="rt"><span class="e">Errei<small>agora</small></span><span class="q">Quase<small>1d</small></span><span class="l">Lembrei<small>3d</small></span></div>
+   <div class="k"><div class="k1"><small>Novos</small><b>20</b></div><div class="k2"><small>A revisar</small><b>14</b></div><div class="k3"><small>Sequência</small><b>7 dias</b></div><div class="k4"><small>Retenção</small><b>88%</b></div></div></div></div></div>
   <div class="ph"><div class="ui"><div class="mn"><div class="hi">Bom dia, Ana!</div><div class="mt"><b>Meta 07</b><div class="bar"><i></i></div></div><div class="k"><div class="k1"><small>Desempenho</small><b>84,6%</b></div><div class="k2"><small>Horas</small><b>21h40</b></div><div class="k3"><small>Questões</small><b>312</b></div><div class="k4"><small>Média</small><b>3h05</b></div></div>
    <div class="mt"><b>Flash Jornada</b><br>14 cards para agora</div></div></div></div>
   <div class="seal"><svg viewBox="0 0 200 200"><defs><path id="cs" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><text><textPath href="#cs">A JORNADA • A JORNADA • A JORNADA • </textPath></text></svg><img src="logo-jornada.svg" alt=""></div>
@@ -125,7 +132,7 @@ footer h4{margin:0 0 12px;font:700 18px var(--cond);text-transform:uppercase;let
 <section class="s" id="assinar"><div class="w"><div class="offer duo">
  <div><span class="kick">✦ Assinatura A Jornada</span><h2 class="h2">O método completo <span class="acc">por menos que um curso</span></h2>
   <ul class="ticks">
-   <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>Plataforma moderna, no computador e no celular.</li>
+   <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>Plataforma moderna, no computador, no tablet e no celular.</li>
    <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>Metas diárias que se ajustam à sua rotina.</li>
    <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>IA para resumos, cards, mapas, simulados e ajustes do plano.</li>
    <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>Jornada na Lei Seca com o texto oficial do Planalto.</li>
@@ -169,7 +176,7 @@ footer h4{margin:0 0 12px;font:700 18px var(--cond);text-transform:uppercase;let
  </div></div></section>
 
 <section class="s"><div class="w contact">
- <div class="final"><h3>Comece hoje a sua Jornada</h3><p>Do seu jeito, no seu ritmo, com a IA te ajudando nos ajustes. 7 dias grátis, sem cartão.</p><a class="btn" href="./?cadastro">Criar minha conta grátis ›</a></div>
+ <div class="final"><h3>Comece hoje a sua Jornada</h3><p>Do seu jeito, no seu ritmo, com o auxílio da IA quando precisar. 7 dias grátis, sem cartão.</p><a class="btn" href="./?cadastro">Criar minha conta grátis ›</a></div>
  <div class="cbox"><h3><span class="acc">Ficou alguma dúvida?</span></h3><a class="btn pri" id="wa" href="#duvidas"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 .9c.3.1.4.2.5.3 0 .2 0 .7-.2 1.2Z"/></svg> Fale no WhatsApp</a><a class="btn" id="em" href="#duvidas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg> Mande um e-mail</a></div>
 </div></section>
 
