@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611031956"></script>
+<script src="/claude-shim.js?v=202611031959"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1835,7 +1835,7 @@ html[data-ob] .app{visibility:hidden}html[data-ob] body{background:var(--bg)}htm
 .cs-pl{display:flex;flex-wrap:wrap;gap:8px}.cs-p{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:1px solid var(--line2);font-weight:600;font-size:14px}
 .cs-p[aria-pressed="true"]{background:linear-gradient(90deg,#7b3cff,#d6388f);border-color:transparent;color:#fff}.cs-p svg.i{width:15px;height:15px}
 .cs-ms{display:grid;gap:8px;max-height:46vh;overflow:auto;padding-right:2px}.cs-m{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px}.cs-m>div{flex:1;display:grid;gap:2px}.cs-m small{color:var(--mute);font-size:12.5px}.cs-m.ok{border-color:color-mix(in srgb,var(--ok) 55%,transparent)}.cs-m.ok small{color:var(--ok)}.cs-m small svg.i{width:13px;height:13px;vertical-align:-2px}
-/* ===== Flash Jornada · Trilha ===== */
+/* ===== Trilha da Jornada · Trilha ===== */
 .tj-home{display:grid;gap:18px;padding:10px 0 30px}
 .tj-hd{display:grid;gap:8px;text-align:left}.tj-hd h1{margin:0;font:700 clamp(28px,3.4vw,38px)/1.1 var(--f-display)!important}.tj-hd p{margin:0;max-width:620px}
 .tj-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:stretch}
@@ -4542,10 +4542,10 @@ function pv24Card(){if(!IS_TJ)return"";const x=SMX().filter(y=>y.kind==="prova"&
 setInterval(()=>{const id=UI.smOpen;if(!id||TAB!=="simulados")return;const x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run"||!d.t0)return;const r=smLeft(d),el=$("smClk");if(el){el.textContent=smClock(r);el.classList.toggle("low",r<600)}if(r<=0)smFinish(id,true)},1000);
 
 {const _vm=vMeta;vMeta=function(){const h=_vm(),b=smBanner();if(!b)return h;const i=h.indexOf("</div>");return h.startsWith("<div class=\"hello\"")&&i>0?h.slice(0,i+6)+b+h.slice(i+6):b+h}}
-const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Jornada na Lei Seca"],["arquivo","Arquivo"],["arena","Flash Jornada"],["assinatura","Assinatura"]];
+const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Jornada na Lei Seca"],["arquivo","Arquivo"],["arena","Trilha da Jornada"],["assinatura","Assinatura"]];
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
 /* Menu simples: 5 entradas. As telas de sempre continuam, agrupadas em abas dentro de cada entrada. */
-const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["arena","Flash Jornada"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
+const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["arena","Trilha da Jornada"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
 const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["leiseca","Jornada na Lei Seca","edital"],["discursiva","Discursiva e redação","discursiva"]],
   revisoes:[["revisoes","Revisões do dia","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"]],
   rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"],["arquivo","Arquivo","list"],["assinatura","Assinatura","lock"]]};
@@ -4571,7 +4571,7 @@ const HOW={
   desempenho:"Aqui você acompanha os resultados. Não há nada para preencher: os números vêm do cronômetro, das questões resolvidas e dos simulados.",
   concurso:"Aqui você cuida do concurso: troque ou adicione concursos, inclua o edital em PDF (o painel tira datas, matérias e assuntos) e acompanhe o cronograma até a prova.",
   assinatura:"Aqui você vê o seu plano (teste, mensal ou anual), assina ou renova pelo link de pagamento e lê os termos de uso e a política de privacidade. Pague com o mesmo e-mail da sua conta: a liberação é automática.",
-  arena:"Aqui ficam os seus flash cards. Toque em Seguir a trilha, tente lembrar a resposta antes de revelar e diga com sinceridade se se perdeu, ficou quase lá ou dominou: o Flash Jornada decide quando cada card volta. Trechos difíceis treina só os cards que mais te pegam. Em Importar do Anki você traz os seus baralhos (.apkg ou .txt).",
+  arena:"Aqui ficam os seus flash cards. Toque em Seguir a trilha, tente lembrar a resposta antes de revelar e diga com sinceridade se se perdeu, ficou quase lá ou dominou: a Trilha da Jornada decide quando cada card volta. Trechos difíceis treina só os cards que mais te pegam. Em Importar do Anki você traz os seus baralhos (.apkg ou .txt).",
   arquivo:"Aqui ficam as metas que já passaram: toque numa meta para ver as atividades, o tempo, o desempenho e o simuladinho dela. Procure uma atividade pelo código ou pelo título.",
   leiseca:"Aqui fica a Jornada na Lei Seca: escolha a lei (ou escreva qual é), o texto oficial vem do site do Planalto e a IA destaca o que mais cai, grifa os trechos que a banca troca e escreve um bizu por artigo. Ligue a lei à matéria para ver quais artigos já caíram nas suas questões.",
   tutorial:"Aqui você aprende a usar cada função da plataforma: escolha um tema, assista à animação e leia as dicas. Use “Ir para esta tela” para praticar na hora.",
@@ -4753,21 +4753,21 @@ const TUT=[
       {k:"f3",on:["f1","f2","f3"],c:"Filtre por bizurados, “cai muito” ou “caiu nas suas questões”, e baixe em PDF."}],
   d:["Leia a lei seca pelos filtros “Cai muito” e “Caiu nas suas questões” primeiro.","Leia em voz alta os trechos grifados: são as palavras que a banca troca.","Use o Estudo extra do tipo Lei seca para 30 minutos de leitura dirigida."]},
 
- {id:"arena",t:"Flash Jornada",ic:"arena",go:"arena",
-  p:"Novidade da plataforma: o Flash Jornada é a sua trilha da memória. Os flash cards chegam sozinhos dos resumos das aulas, das questões que você erra e dos testes de fixação; você também pode criar os seus em + Novo card ou trazer os seus baralhos em Importar do Anki. A trilha mostra onde cada card está: Partida (novos), Na trilha (aprendendo), Checkpoint (para revisar) e a bandeira da Aprovação (os que já estão na memória longa). Em Seguir a trilha, cada card é uma ficha: tente lembrar antes de revelar e diga com sinceridade Me perdi, Quase lá ou Dominei. O Flash Jornada calcula quando cada um volta: o que você domina se espaça, o que te pega volta mais cedo. Há também afirmações de Certo ou Errado, como na prova, e Trechos difíceis treina só os seus pontos fracos. Cada dia de revisão vira uma pegada na sua caminhada.",
+ {id:"arena",t:"Trilha da Jornada",ic:"arena",go:"arena",
+  p:"Novidade da plataforma: a Trilha da Jornada é a sua revisão da memória. Os flash cards chegam sozinhos dos resumos das aulas, das questões que você erra e dos testes de fixação; você também pode criar os seus em + Novo card ou trazer os seus baralhos em Importar do Anki. A trilha mostra onde cada card está: Partida (novos), Na trilha (aprendendo), Checkpoint (para revisar) e a bandeira da Aprovação (os que já estão na memória longa). Em Seguir a trilha, cada card é uma ficha: tente lembrar antes de revelar e diga com sinceridade Me perdi, Quase lá ou Dominei. A Trilha da Jornada calcula quando cada um volta: o que você domina se espaça, o que te pega volta mais cedo. Há também afirmações de Certo ou Errado, como na prova, e Trechos difíceis treina só os seus pontos fracos. Cada dia de revisão vira uma pegada na sua caminhada.",
   s:`<div class="tu-card"><div class="tu-row"><span class="tu-chip" data-k="stk">👣 Caminhada: <b data-k="sd">0</b> dias</span><span class="tu-chip ok" data-k="now"><b data-k="nn">0</b> para agora</span></div>
      <div class="tu-fc" data-k="fc"><div class="f">A EC 132/2023 substituiu ICMS e ISS por quais tributos?</div><div class="b">Pelo IBS; e PIS/Cofins pela CBS: é o IVA dual.</div></div>
      <div class="tu-row"><button class="tu-btn ghost" data-k="no">Me perdi · agora</button><button class="tu-btn ghost" data-k="qs">Quase lá · 1d</button><button class="tu-btn" data-k="ok">Dominei · 3d</button></div>
      <div class="tu-cyc">${["3d","9d","25d","2 m","5 m"].map((d,i)=>`<span data-k="d${i}">${d}</span>`).join("")}</div>
      <div class="tu-row"><span class="tu-chip" data-k="ce">Certo ou errado? Citação por hora certa exige suspeita de ocultação.</span><button class="tu-btn sm" data-k="gap">🎯 Trechos difíceis</button></div></div>`,
-  st:[{k:"now",on:["now"],n:[["nn",14]],c:"Abra o Flash Jornada: o número mostra quantos cards estão para agora. Toque em Seguir a trilha."},
+  st:[{k:"now",on:["now"],n:[["nn",14]],c:"Abra a Trilha da Jornada: o número mostra quantos cards estão para agora. Toque em Seguir a trilha."},
       {k:"fc",on:["d0"],c:"Leia a pergunta e puxe a resposta da memória, sem olhar."},
       {k:"fc",on:["fc"],c:"Revele e confira. Lembrar é diferente de reconhecer: seja honesto."},
       {k:"ok",on:["d1","d2"],c:"Dominou? O intervalo cresce a cada acerto: 3 dias, depois 9, 25, meses... É o card subindo até a bandeira da Aprovação."},
-      {k:"no",c:"Se perdeu? O card volta ainda nesta revisão e depois mais cedo. Errar não é ruim: é o que diz ao Flash Jornada quando ele deve voltar."},
+      {k:"no",c:"Se perdeu? O card volta ainda nesta revisão e depois mais cedo. Errar não é ruim: é o que diz à Trilha da Jornada quando ele deve voltar."},
       {k:"ce",on:["ce"],c:"Afirmações de Certo ou Errado: julgue antes de ver o gabarito e a justificativa."},
       {k:"gap",on:["gap","stk"],n:[["sd",7]],c:"Trechos difíceis treina só os cards que mais te pegam. Revise todo dia: cada dia vira uma pegada na sua caminhada."}],
-  d:["Faça o Flash Jornada todo dia antes de teoria nova: 10 a 15 minutos bastam.","Em Ajustes escolha a intensidade (Conservador perto da prova) e o ritmo de cards novos.","Tem baralhos no Anki? Exporte em .apkg ou .txt e use Importar do Anki: os repetidos são pulados sozinhos.","As questões do TEC anotadas continuam em Revisar › Revisões do dia, no ciclo de 1, 7, 14, 30 e 60 dias."]},
+  d:["Faça a Trilha da Jornada todo dia antes de teoria nova: 10 a 15 minutos bastam.","Em Ajustes escolha a intensidade (Conservador perto da prova) e o ritmo de cards novos.","Tem baralhos no Anki? Exporte em .apkg ou .txt e use Importar do Anki: os repetidos são pulados sozinhos.","As questões do TEC anotadas continuam em Revisar › Revisões do dia, no ciclo de 1, 7, 14, 30 e 60 dias."]},
 
  {id:"erradas",t:"Erradas, reforços e bateria do TEC",ic:"erradas",go:"erradas",
   p:"Toda questão que você erra ou chuta entra em Erradas para refazer. Fez uma bateria no TEC? Em “Lançar bateria do TEC”, cole os números e marque cada uma (errei, não resolvi, chutei) com o motivo. Quando uma matéria fica abaixo de 75%, nasce um reforço com diagnóstico: onde você errou, por que errou e os passos para corrigir.",
@@ -4961,7 +4961,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103195608";
+const JX_BUILD="20261103195911";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5224,7 +5224,7 @@ const arStmt=c=>String(c.f||"").replace(/^Certo ou errado\?\s*/i,"");
 const arAns=c=>/^\s*CERTO\b/i.test(c.b||"");
 const arExp=c=>String(c.b||"").replace(/^\s*(CERTO|ERRADO)\s*[.:–-]?\s*/i,"");
 const arAuto=c=>c.src!=="meu";
-/* cards antigos (ciclo 1-7-14-30-60) entram no Flash Jornada sem perder o histórico */
+/* cards antigos (ciclo 1-7-14-30-60) entram na Trilha da Jornada sem perder o histórico */
 function arMig(){let ch=0;CARDS().forEach(c=>{if(c.st)return;ch=1;const h=c.hist||[];
   if(c.done){c.st="rev";c.s=90;c.dif=3;c.due=addDays(c.done,90);c.done=false}
   else if(h.length){c.st="rev";c.s=OFF[c.step]||1;c.dif=5;c.due=addDays(c.d0,OFF[c.step]||1)}
@@ -5297,7 +5297,7 @@ function arSession(){const S=UI.ar;if(S.i>=S.q.length)return arEnd();const c=CAR
 function arEnd(){const S=UI.ar,n=S.n,t=Math.max(1,Math.round((Date.now()-S.t0)/60000)),st=arStreak();
   return`<div class="tj-end">${arEye()}<div class="tj-stamp"><small>${dm(today())}</small><b>ETAPA<br>CONCLUÍDA</b>${ic("flag")}</div><h1>Mais um trecho vencido!</h1><p class="muted">${S.done} card${S.done===1?"":"s"} em ${t} min · ${st} dia${st===1?"":"s"} de caminhada</p>
    <div class="ar-tiles"><div class="bad"><small>ME PERDI</small><b>${n[1]||0}</b></div><div class="warn"><small>QUASE LÁ</small><b>${n[2]||0}</b></div><div class="ok"><small>DOMINEI</small><b>${n[3]||0}</b></div></div>
-   <p class="muted small">Onde você se perdeu, o card volta ainda hoje ou amanhã; o que dominou se espaça cada vez mais.</p><button class="ar-go" data-a="arQuit">Voltar ao Flash Jornada</button></div>`}
+   <p class="muted small">Onde você se perdeu, o card volta ainda hoje ou amanhã; o que dominou se espaça cada vez mais.</p><button class="ar-go" data-a="arQuit">Voltar à Trilha da Jornada</button></div>`}
 function arBack(t){return`<div class="ar-sh"><button class="ibtn" data-a="arV" data-v="" aria-label="Voltar">${ic("left")}</button><h1>${t}</h1></div>`}
 function arCardsV(){const F=UI.arF||(UI.arF={q:"",st:"",tp:"",sid:""}),q=norm(F.q||""),td=today();
   const L=CARDS().filter(c=>(!q||norm(c.f+" "+c.b).includes(q))&&(!F.st||c.st===F.st)&&(!F.tp||(F.tp==="m"?!arAuto(c):arAuto(c)))&&(!F.sid||c.sid===F.sid));
@@ -5330,30 +5330,30 @@ function arMetV(){arMig();const td=today(),C=CARDS(),H=[];C.forEach(c=>(c.hist||
    <section class="card"><div class="card-h"><h2>Horários de estudo</h2></div><div class="card-b">${hz?arBars(hrs,hrs.map((_,h)=>h%3?"":h+"h"),"hr"):`<div class="empty">Sem revisões ainda.</div>`}</div></section></div>`}
 function arCfgV(){const A=ARC(),opt=(k,L)=>`<div class="ar-op">${L.map(([v,l,d])=>`<button data-a="arSet" data-k="${k}" data-v="${v}" aria-pressed="${A[k]===v}"><b>${l}</b><small>${d}</small></button>`).join("")}</div>`;
   return arBack("Configurações")+`<section class="card"><div class="card-b" style="display:grid;gap:18px">
-   <div><h3>Intensidade da revisão</h3><p class="muted small">Quanto o Flash Jornada prioriza a retenção. Mais revisões = maior memorização, mas mais tempo.</p>${opt("int",AR_INT)}</div>
+   <div><h3>Intensidade da revisão</h3><p class="muted small">Quanto a Trilha da Jornada prioriza a retenção. Mais revisões = maior memorização, mas mais tempo.</p>${opt("int",AR_INT)}</div>
    <div><h3>Cards novos</h3><label class="ar-sw"><input type="checkbox" data-c="arAuto" ${A.auto?"checked":""}><span><b>Adicionar automaticamente novos cards</b><small>Cards dos resumos, das questões erradas e da fixação entram na fila sem você precisar escolher. Desligado, eles chegam arquivados e você restaura os que quiser.</small></span></label></div>
    <div><h3>Ritmo de novos cards</h3>${opt("pace",AR_PACE)}</div>
-   <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><span><b>Tutorial</b><br><span class="muted small">Reveja a introdução do Flash Jornada quando quiser.</span></span><button class="btn" data-a="arIntro">Rever</button></div></div></section>`}
+   <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:8px"><span><b>Tutorial</b><br><span class="muted small">Reveja a introdução da Trilha da Jornada quando quiser.</span></span><button class="btn" data-a="arIntro">Rever</button></div></div></section>`}
 function arNavB(){try{if(!ARC().intro)return`<span class="new">Novo</span>`;const n=arCounts().now;return n?`<span class="cnt ar">${n}</span>`:""}catch(e){return""}}
-/* chamada de novidade: aparece no Hoje até o aluno conhecer o Flash Jornada ou dispensar */
+/* chamada de novidade: aparece no Hoje até o aluno conhecer a Trilha da Jornada ou dispensar */
 function arNovo(){const A=ARC();if(A.nov||A.intro)return"";const n=CARDS().filter(c=>c.st!=="arch").length;
-  return`<section class="card nv-fj" aria-label="Novidade: Flash Jornada"><div class="nv-art" aria-hidden="true">${ic("foot")}<i></i></div>
-   <div class="nv-tx"><span class="nv-tag">✦ NOVIDADE NA PLATAFORMA</span><h2>Conheça o Flash Jornada</h2><p>Sua trilha da memória: flash cards que voltam na hora certa, pouco antes de você esquecer. Eles chegam sozinhos dos seus resumos, dos erros e dos testes${n?`, e você já tem <b>${n} card${n===1?"":"s"}</b> esperando`:""}. Dá também para trazer os seus baralhos do Anki.</p>
-   <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn pri" data-a="arNovoGo">${ic("foot")} Conhecer o Flash Jornada</button><button class="btn ghost" data-a="arNovoX">Agora não</button></div></div></section>`}
-function arPromo(){arMig();const C=arCounts();return`<section class="card arv-p"><div class="card-b arv-pr"><span class="chip sm-k mini">${ic("arena")} Flash Jornada</span><span style="flex:1 1 260px"><b>Os cards agora ficam no Flash Jornada.</b><br><span class="muted small">${C.now} para agora · ${CARDS().length} no total. Revise com Me perdi, Quase lá ou Dominei e cada card volta na hora certa.</span></span><button class="btn pri" data-a="tab" data-t="arena">Abrir o Flash Jornada</button></div></section>`}
-function vArena(){if(!UI.akDd&&!IDBW){UI.akDd=1;const r=akDedupe();if(r){touch("cards");setTimeout(()=>toast(`${r} card${r===1?"":"s"} repetido${r===1?"":"s"} removido${r===1?"":"s"} do Flash Jornada`),300)}}if(UI.ar)return arSession();const v=UI.arV||"";
+  return`<section class="card nv-fj" aria-label="Novidade: Trilha da Jornada"><div class="nv-art" aria-hidden="true">${ic("foot")}<i></i></div>
+   <div class="nv-tx"><span class="nv-tag">✦ NOVIDADE NA PLATAFORMA</span><h2>Conheça a Trilha da Jornada</h2><p>Sua trilha da memória: flash cards que voltam na hora certa, pouco antes de você esquecer. Eles chegam sozinhos dos seus resumos, dos erros e dos testes${n?`, e você já tem <b>${n} card${n===1?"":"s"}</b> esperando`:""}. Dá também para trazer os seus baralhos do Anki.</p>
+   <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn pri" data-a="arNovoGo">${ic("foot")} Conhecer a Trilha da Jornada</button><button class="btn ghost" data-a="arNovoX">Agora não</button></div></div></section>`}
+function arPromo(){arMig();const C=arCounts();return`<section class="card arv-p"><div class="card-b arv-pr"><span class="chip sm-k mini">${ic("arena")} Trilha da Jornada</span><span style="flex:1 1 260px"><b>Os cards agora ficam na Trilha da Jornada.</b><br><span class="muted small">${C.now} para agora · ${CARDS().length} no total. Revise com Me perdi, Quase lá ou Dominei e cada card volta na hora certa.</span></span><button class="btn pri" data-a="tab" data-t="arena">Abrir a Trilha da Jornada</button></div></section>`}
+function vArena(){if(!UI.akDd&&!IDBW){UI.akDd=1;const r=akDedupe();if(r){touch("cards");setTimeout(()=>toast(`${r} card${r===1?"":"s"} repetido${r===1?"":"s"} removido${r===1?"":"s"} da Trilha da Jornada`),300)}}if(UI.ar)return arSession();const v=UI.arV||"";
   const body=v==="cards"?arCardsV():v==="disc"?arDiscV():v==="met"?arMetV():v==="cfg"?arCfgV():arHome();
   if(!ARC().intro&&!v)setTimeout(()=>{if(TAB==="arena"&&!$("layer3").innerHTML)arIntro(0)},300);
   return`<div class="arena-v">${body}</div>`}
 /* introdução animada (primeira vez e em Configurações) */
 const AR_IN=[["brain","Feito para a sua memória","Recuperação ativa e repetição espaçada","Os cards vêm prontos dos seus resumos, erros e testes. Você não monta nada: só revisa."],
  ["book","Tente lembrar antes","O esforço de recuperar é o que grava","Leia a pergunta e puxe a resposta da cabeça antes de revelar. Quem se testa retém muito mais do que quem só relê."],
- ["target","O erro é ouro","Seja honesto: Me perdi, Quase lá ou Dominei","Errar não é ruim: é a informação que diz ao Flash Jornada quando aquele card deve voltar."],
+ ["target","O erro é ouro","Seja honesto: Me perdi, Quase lá ou Dominei","Errar não é ruim: é a informação que diz à Trilha da Jornada quando aquele card deve voltar."],
  ["clock","O card volta na hora certa","Intervalo sob medida, nada fixo","O que é fácil se espaça rápido; o que te pega volta mais cedo. Cada botão mostra quando o card volta."],
  ["check","Certo ou errado, como na prova","Julgue as afirmações","Além de pergunta e resposta, há afirmações para julgar no estilo Cebraspe, com a justificativa do gabarito."],
  ["foot","Um passo por dia","Mantenha a caminhada","Revise todo dia para não quebrar a sequência de caminhada. Use Trechos difíceis para treinar só os pontos fracos."]];
 function arIntro(i){const s=AR_IN[i],last=i===AR_IN.length-1;
-  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Introdução ao Flash Jornada"><div class="box ar-in"><button class="ibtn ar-x" data-a="arInEnd" aria-label="Fechar">${ic("close")}</button>
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Introdução à Trilha da Jornada"><div class="box ar-in"><button class="ibtn ar-x" data-a="arInEnd" aria-label="Fechar">${ic("close")}</button>
    <div class="ar-art s${i}">${ic(s[0])}<svg class="ar-curve" viewBox="0 0 200 60"><path d="M5 50 Q35 5 55 40 T105 30 T155 22 T195 18"/></svg></div>
    <h3>${s[1]}</h3><p class="ar-sub">${s[2]}</p><p class="muted">${s[3]}</p>
    <div class="ar-dots">${AR_IN.map((_,j)=>`<i class="${j===i?"on":""}"></i>`).join("")}</div>
@@ -5433,13 +5433,13 @@ async function akRead(file){const K=UI.ak={step:"busy",name:file.name};akModal()
 function akModal(){const K=UI.ak||(UI.ak={step:"pick"});let body;
   if(K.step==="busy")body=`<div class="ak-busy"><i class="upm-ic busy"></i><b>Lendo ${esc(K.name||"o arquivo")}…</b><span class="muted small">Baralhos grandes levam alguns segundos.</span></div>`;
   else if(K.step==="review"){const on=K.decks.filter(d=>d.on),tot=on.reduce((a,d)=>a+d.n-d.dup,0),dup=on.reduce((a,d)=>a+d.dup,0),pv=K.cards.find(c=>(K.decks.find(d=>d.name===c.d)||{}).on)||K.cards[0];
-    body=`<p class="ak-sum"><b>${K.cards.length} card${K.cards.length===1?"":"s"}</b> em ${K.decks.length} baralho${K.decks.length===1?"":"s"}${dup?` · ${dup} já estão no Flash Jornada e serão pulados`:""}. Confira a matéria de cada baralho:</p>
+    body=`<p class="ak-sum"><b>${K.cards.length} card${K.cards.length===1?"":"s"}</b> em ${K.decks.length} baralho${K.decks.length===1?"":"s"}${dup?` · ${dup} já estão na Trilha da Jornada e serão pulados`:""}. Confira a matéria de cada baralho:</p>
      <div class="ak-dl">${K.decks.map((d,i)=>`<div class="ak-dk ${d.on?"":"off"}"><label class="ak-ck"><input type="checkbox" data-c="akOn" data-i="${i}" ${d.on?"checked":""}><span><b>${esc(d.name)}</b><small>${d.n} card${d.n===1?"":"s"}${d.dup?` · ${d.dup} repetido${d.dup===1?"":"s"}`:""}</small></span></label>
        <select class="inp" data-c="akSid" data-i="${i}" aria-label="Matéria do baralho ${esc(d.name)}"><option value="">Sem matéria</option>${ED.map(s=>`<option value="${s.id}" ${s.id===d.sid?"selected":""}>${esc(s.n)}</option>`).join("")}</select></div>`).join("")}</div>
      ${pv?`<div class="ak-pv"><small>EXEMPLO DE CARD</small><p class="ak-f">${esc(pv.f).slice(0,260)}</p><p class="ak-b">${esc(pv.b).slice(0,260)}</p></div>`:""}
      ${tot>AK_MAX?`<p class="small" style="color:var(--warn);margin:0">Entram os primeiros ${AK_MAX} cards desta vez. Importe o mesmo arquivo de novo depois para trazer o restante (os repetidos são pulados).</p>`:""}
      <div class="row" style="justify-content:space-between;gap:8px;flex-wrap:wrap"><button class="btn" data-a="akBack">Escolher outro arquivo</button><button class="btn pri" data-a="akGo" ${tot?"":"disabled"}>Importar ${Math.min(tot,AK_MAX)} card${Math.min(tot,AK_MAX)===1?"":"s"}</button></div>`}
-  else body=`<p class="muted" style="margin:0">Traga os seus baralhos do Anki para a trilha. Os cards entram como novos e passam a seguir a revisão do Flash Jornada, junto com os que a plataforma já cria para você.</p>
+  else body=`<p class="muted" style="margin:0">Traga os seus baralhos do Anki para a trilha. Os cards entram como novos e passam a seguir a revisão da Trilha da Jornada, junto com os que a plataforma já cria para você.</p>
     <label class="ak-drop"><input type="file" id="akF" accept=".apkg,.colpkg,.txt,.csv,.tsv">${ic("arena")}<b>Escolher arquivo do Anki</b><span>Baralho (.apkg) ou notas em texto (.txt / .csv)</span></label>
     ${K.err?`<p class="ak-err">${esc(K.err)}</p>`:""}
     <details class="ak-how"><summary>Como exportar do Anki</summary><ol>
@@ -5460,7 +5460,7 @@ function akImport(){const K=UI.ak;if(!K||K.step!=="review")return;const ub=UND&&
   for(const c of K.cards){const d=by[c.d];if(!d||!d.on)continue;const key=akKey(c);if(seen.has(key)){dup++;continue}if(n>=AK_MAX)break;seen.add(key);
     CARDS().push({id:uid(),d0:today(),step:0,done:false,st:"new",sid:d.sid||"",f:c.f.slice(0,2500),b:c.b.slice(0,3500),src:"anki",ak:d.name});n++}
   const rm=akDedupe();if(UND){UND.busy=ub;try{snapKey("cards")}catch(e){}}touch("cards");
-  UI.ak=null;$("layer3").innerHTML="";toast(n?`${n} card${n===1?"":"s"} do Anki na trilha${dup+rm?` · ${dup+rm} repetido${dup+rm===1?"":"s"} pulado${dup+rm===1?"":"s"}`:""}`:"Nenhum card novo: todos já estavam no Flash Jornada");render()}
+  UI.ak=null;$("layer3").innerHTML="";toast(n?`${n} card${n===1?"":"s"} do Anki na trilha${dup+rm?` · ${dup+rm} repetido${dup+rm===1?"":"s"} pulado${dup+rm===1?"":"s"}`:""}`:"Nenhum card novo: todos já estavam na Trilha da Jornada");render()}
 document.addEventListener("change",e=>{const el=e.target;if(!el)return;
   if(el.id==="akF"&&el.files&&el.files[0]){akRead(el.files[0]);return}
   const c=el.dataset&&el.dataset.c,K=UI.ak;if(!K||!K.decks)return;
@@ -5481,7 +5481,7 @@ document.addEventListener("keydown",e=>{if(TAB!=="arena"||!UI.ar||$("layer3").in
 const ASN_PL=[["mensal","Plano mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","69,90"],["trimestral","Plano trimestral","trimestre",3,"","179,90"],["semestral","Plano semestral","semestre",6,"","329,90"],["anual","Plano anual","ano",12,"","549,90"]];
 const ASN_CFG=[...ASN_PL.map(p=>["preco_"+p[0],"Preço do "+p[1].toLowerCase()+" (R$)",p[5]]),...ASN_PL.map(p=>["checkout_"+p[0],"Link de pagamento do "+p[1].toLowerCase()+" (Hotmart ou Kiwify)","https://pay.hotmart.com/..."]),
   ["empresa","Razão social (aparece nos termos)","Sua Empresa Ltda"],["cnpj","CNPJ","00.000.000/0001-00"],["suporte_email","E-mail de suporte","suporte@seudominio.com.br"],["whatsapp","WhatsApp de atendimento (com DDD)","65 99999-9999"],["termos_versao","Versão dos termos (mude para pedir novo aceite)","2026-11"]];
-const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Flash Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte à Jornada","Jornada na Lei Seca com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
+const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Trilha da Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte à Jornada","Jornada na Lei Seca com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
 function asnNum(v){return parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0}
 function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"69,90";
   const ate=A.plano_ate?new Date(A.plano_ate).toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"}):"";
@@ -7831,7 +7831,7 @@ function vRevisoes(){
   const item=(r,btn)=>{const s=r.sid?SUB(r.sid):null,d=dd(r),late=d<td;
     return`<div class="crow"><div class="k">${r.tq?`<span class="chip ${r.kind==="err"?"bad":"warn"}" style="margin-right:6px">${TQK[r.kind]||"TEC"}</span>`:""}${esc(r.label)}${r.note?`<span class="nt">${esc(r.note)}</span>`:""}${r.link?` <a href="${esc(r.link)}" target="_blank" rel="noopener" class="small">Abrir no TEC ↗</a>`:""}<small>${s?esc(s.n)+" · ":""}Revisão ${r.step+1} de 5, ${OFF[r.step]} dia${OFF[r.step]>1?"s":""} após o erro · ${d===td?"hoje":late?"atrasada desde "+dm(d):"em "+dm(d)}</small></div>${btn?`<button class="btn sm" data-a="rok" data-id="${r.id}">Acertei</button><button class="btn sm" data-a="rerr" data-id="${r.id}">Errei de novo</button>`:`<span class="chip">${dm(d)}</span>`}</div>`};
   const opts=`<option value="">Sem matéria</option>`+ED.map(s=>`<option value="${s.id}">${esc(s.n)}</option>`).join("");
-  return`<div class="hello"><h1>Revisões</h1><p>Questões do TEC anotadas voltam em 1, 7, 14, 30 e 60 dias. Se errar, o ciclo recomeça. Os flash cards ficam no Flash Jornada.</p></div>
+  return`<div class="hello"><h1>Revisões</h1><p>Questões do TEC anotadas voltam em 1, 7, 14, 30 e 60 dias. Se errar, o ciclo recomeça. Os flash cards ficam na Trilha da Jornada.</p></div>
   <div class="grid2"><section class="card"><div class="card-h"><h2>Para revisar hoje</h2><span class="r chip ${due.length?"warn":"ok"}">${due.length}</span></div>${due.length?due.map(r=>item(r,1)).join(""):`<div class="empty">Nenhuma revisão para hoje.</div>`}</section>
   <section class="card"><div class="card-h"><h2>Adicionar questão do TEC</h2></div><div class="card-b">${tqUniHTML(null)}</div></section></div>
   ${arPromo()}
@@ -9104,11 +9104,11 @@ const A={
   arQuit(){UI.ar=null;render();scrollTo(0,0)},
   arV(el){UI.arV=el.dataset.v||"";UI.arOff=null;render();scrollTo(0,0)},
   arArch(el){const c=CARDS().find(x=>x.id===el.dataset.id);if(!c)return;if(c.st==="arch"){c.st=c.reps?"rev":"new";c.due=c.due||today();c.done=false;c.held=0;toast("Card de volta à fila")}else{c.st="arch";c.done=today();toast("Card arquivado")}touch("cards");render()},
-  arDel(el){const i=CARDS().findIndex(x=>x.id===el.dataset.id);if(i<0)return;askConfirm("Excluir este card?","Ele sai do Flash Jornada de vez. Para só tirar da fila, use Arquivar.","Excluir",()=>{CARDS().splice(i,1);touch("cards");render()})},
-  arOffSave(){ARC().off=[...(UI.arOff||ARC().off||[])];UI.arOff=null;touch("core");toast("Disciplinas do Flash Jornada salvas");render()},
+  arDel(el){const i=CARDS().findIndex(x=>x.id===el.dataset.id);if(i<0)return;askConfirm("Excluir este card?","Ele sai da Trilha da Jornada de vez. Para só tirar da fila, use Arquivar.","Excluir",()=>{CARDS().splice(i,1);touch("cards");render()})},
+  arOffSave(){ARC().off=[...(UI.arOff||ARC().off||[])];UI.arOff=null;touch("core");toast("Disciplinas da Trilha da Jornada salvas");render()},
   arSet(el){ARC()[el.dataset.k]=el.dataset.v;touch("core");render()},
   arIntro(){arIntro(0)},arIn(el){arIntro(+el.dataset.i)},arInEnd(){ARC().intro=1;touch("core");$("layer3").innerHTML="";render()},
-  arNovoGo(){ARC().nov=1;touch("core");TAB="arena";UI.arV="";render();scrollTo(0,0)},arNovoX(){ARC().nov=1;touch("core");render();toast("Tudo bem: o Flash Jornada fica no menu, quando você quiser")},
+  arNovoGo(){ARC().nov=1;touch("core");TAB="arena";UI.arV="";render();scrollTo(0,0)},arNovoX(){ARC().nov=1;touch("core");render();toast("Tudo bem: a Trilha da Jornada fica no menu, quando você quiser")},
   npePaste(){if(!UI.np)return;npRead();UI.np.ed=Object.assign({},UI.np.ed,{paste:1,st:""});npeShow();setTimeout(()=>{const t=$("npeTxt");if(t)t.focus()},40)},
   npePasteGo(){const N=UI.np,t=$("npeTxt");if(!N||!t)return;const v=t.value.trim();if(v.replace(/\s/g,"").length<300){toast("Cole o texto do edital (ao menos o conteúdo programático)");return}npRead();N.ed={st:"ai1",t0:Date.now(),file:"Texto colado",txt:v};npeRun()},
   npeCargo(){const N=UI.np,e=$("npeCg");if(!N||!N.ed||!e||!N.ed.txt)return;npRead();Object.assign(N.ed,{st:"ai1",t0:Date.now(),shown:0,p:0,n:0});npeRun(e.value)},
@@ -9118,7 +9118,7 @@ const A={
   akOpen(){UI.ak={step:"pick"};akModal()},akBack(){UI.ak={step:"pick"};akModal()},akGo(){akImport()},akClose(){UI.ak=null;$("layer3").innerHTML=""},
   arNew(){UI.arNk=UI.arNk||"qa";arNewModal()},arNk(el){UI.arNk=el.dataset.v;arNewModal()},arNv(el){UI.arNv=+el.dataset.v;const f=$("arNf").value,b=$("arNb").value;arNewModal();$("arNf").value=f;$("arNb").value=b},
   arNewSave(){const F=$("arNf").value.trim(),B=$("arNb").value.trim(),sid=$("arNs").value,ce=UI.arNk==="ce";if(!F||!B){toast(ce?"Escreva a afirmação e a justificativa":"Preencha a pergunta e a resposta");return}
-    UI.arNs=sid;addCard({sid,tid:"",aula:"",f:(ce?"Certo ou errado? ":"")+F,b:(ce?(UI.arNv===0?"ERRADO. ":"CERTO. "):"")+B,src:"meu"});$("layer3").innerHTML="";toast("Card criado: já está na fila do Flash Jornada");render()},
+    UI.arNs=sid;addCard({sid,tid:"",aula:"",f:(ce?"Certo ou errado? ":"")+F,b:(ce?(UI.arNv===0?"ERRADO. ":"CERTO. "):"")+B,src:"meu"});$("layer3").innerHTML="";toast("Card criado: já está na fila da Trilha da Jornada");render()},
   arqOpen(el){const n=+el.dataset.n;UI.arqOpen=UI.arqOpen===n?null:n;render();if(UI.arqOpen!=null)setTimeout(()=>{const d=document.querySelector(".arq-det");if(d)d.scrollIntoView({behavior:"smooth",block:"start"})},60)},
   arqSm(el){UI.smOpen=el.dataset.id;TAB="simulados";render();scrollTo(0,0)},
   mtOpen(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const M=mentorStats();UI.mt={M,P:mentorAuto(M),busy:0};mentorModal()},
