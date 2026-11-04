@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611032034"></script>
+<script src="/claude-shim.js?v=202611040604"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1835,6 +1835,7 @@ html[data-ob] .app{visibility:hidden}html[data-ob] body{background:var(--bg)}htm
 .cs-c:hover,.cs-c:focus-visible{border-color:#b07cff;transform:translateY(-2px)}.cs-c b{font-size:18px}.cs-c span{font-size:14.5px;line-height:1.45;color:var(--fg2,inherit)}.cs-c em{font-style:normal;font-size:12.5px;color:var(--lime-txt);font-weight:600}
 .cs-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#7b3cff,#d6388f);color:#fff}.cs-ic svg.i{width:22px;height:22px}
 .cs-tip{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,#b07cff 12%,transparent)}.cs-tip svg.i{flex:none;width:18px;height:18px;margin-top:1px}
+.cs-how{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px}.box.cs .tabs2{flex-wrap:wrap}.cs-m select.inp{margin-top:4px;height:auto;padding:6px 8px;font-size:13.5px}
 .cs-pl{display:flex;flex-wrap:wrap;gap:8px}.cs-p{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:1px solid var(--line2);font-weight:600;font-size:14px}
 .cs-p[aria-pressed="true"]{background:linear-gradient(90deg,#7b3cff,#d6388f);border-color:transparent;color:#fff}.cs-p svg.i{width:15px;height:15px}
 .cs-ms{display:grid;gap:8px;max-height:46vh;overflow:auto;padding-right:2px}.cs-m{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px}.cs-m>div{flex:1;display:grid;gap:2px}.cs-m small{color:var(--mute);font-size:12.5px}.cs-m.ok{border-color:color-mix(in srgb,var(--ok) 55%,transparent)}.cs-m.ok small{color:var(--ok)}.cs-m small svg.i{width:13px;height:13px;vertical-align:-2px}
@@ -4978,7 +4979,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103203406";
+const JX_BUILD="20261104060432";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7534,6 +7535,7 @@ function cursosHTML(){
     <div class="card-b" style="display:grid;gap:14px">
       <div><b>Quais materiais e assinaturas você tem?</b><p class="muted small" style="margin:4px 0 10px">Assim o painel sabe de onde vêm as suas aulas. Você pode vincular qualquer curso, de qualquer plataforma, e mais de um por matéria.</p>
       <div class="pqg">${q}<div class="pq"><span>Outra plataforma</span><input class="inp" data-c="perfilOutro" value="${esc(P.outro||"")}" placeholder="Nome da plataforma"></div></div></div>
+      <div class="row" style="justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--line);border-radius:14px"><span class="small"><b>Tem um curso com todas as matérias?</b><br><span class="muted">Cole o link ou a página do curso e a IA vincula as matérias e as aulas de uma vez.</span></span><button class="btn pri" data-a="csFull">${ic("plus")} Vincular curso completo</button></div>
       <div><b>Cursos de cada matéria</b><p class="muted small" style="margin:4px 0 10px">O curso <b>principal</b> define as aulas das metas. Os <b>secundários</b> são o outro olhar: a aula equivalente aparece em cada teoria e você liga onde mais usar cada um: no <b>resumo</b> (resumo único com as duas fontes), no <b>mapeamento</b> (questões comentadas como extra) e nas <b>metas</b> (atividade “Outro olhar”). Traga as aulas colando a lista da página do curso, por fotos ou à mão. Dá para desfazer.</p><div class="crl">${rows}</div></div>
       ${UNDO().length?`<div class="row"><button class="btn" data-a="undo">${ic("reset")} Desfazer: ${esc(UNDO()[UNDO().length-1].label)}</button></div>`:""}
     </div></details>`;
@@ -7555,17 +7557,73 @@ function csModal(){const X=UI.cs;if(!X){$("layer3").innerHTML="";return}let body
     <p class="cs-tip">${ic("bulb")} <span>Dá para <b>misturar</b>: as matérias com curso vinculado seguem as aulas, e as demais seguem o edital. Você pode mudar isso quando quiser em <b>Materiais › Meus cursos e assinaturas</b>.</span></p>
     <div class="row" style="justify-content:flex-end"><button class="btn ghost" data-a="csLater">Decidir depois</button></div>`;
   else if(X.step==="plats"){const M=new Set(X.sel||csMine());
-    body=`<p class="cs-k">Passo 1 de 2 · Pelo meu curso</p><h3>Quais cursos você tem?</h3><p class="muted">Marque as plataformas em que você tem curso ou assinatura para este concurso.</p>
+    body=`<p class="cs-k">Passo 1 de 3 · Pelo meu curso</p><h3>Quais cursos você tem?</h3><p class="muted">Marque as plataformas em que você tem curso ou assinatura para este concurso.</p>
     <div class="cs-pl">${PLATS.map(p=>`<button class="cs-p" data-a="csPl" data-p="${esc(p)}" aria-pressed="${M.has(p)}">${M.has(p)?ic("check"):""}${esc(p)}</button>`).join("")}</div>
     <div class="field"><label for="csOut">Outra plataforma (opcional)</label><input class="inp" id="csOut" value="${esc(X.out||(core().perfil||{}).outro||"")}" placeholder="Nome da plataforma ou do professor"></div>
     <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="csBack">Voltar</button><button class="btn pri" data-a="csPlGo">Continuar</button></div>`}
+  else if(X.step==="trazer")body=csTrazerHTML(X);
+  else if(X.step==="conf")body=csConfHTML(X);
   else if(X.step==="mats"){const n=ED.filter(s=>courseList(s.id).some(c=>c.role==="principal")).length;
-    body=`<p class="cs-k">Passo 2 de 2 · Pelo meu curso</p><h3>Vincule o curso de cada matéria</h3>
+    body=`<p class="cs-k">Pelo meu curso · matéria por matéria</p><h3>Vincule o curso de cada matéria</h3>
     <p class="muted">Toque em <b>Vincular curso</b> e traga a lista de aulas da página do curso: cole o texto, mande fotos da tela ou digite. A partir daí, as metas daquela matéria seguem a sequência das aulas. Se o seu pacote cobre todas as matérias, vincule uma a uma, na ordem que preferir.</p>
     <div class="cs-ms">${ED.map(s=>{const c=courseList(s.id).find(k=>k.role==="principal");return`<div class="cs-m ${c?"ok":""}"><span class="code" style="border-color:${s.col}">${s.c}</span><div style="min-width:0"><b>${esc(s.n)}</b><small>${c?ic("check")+" "+esc(cName(c))+(c.aulas?" · "+c.aulas.length+" aulas: metas pelo curso":""):"Sem curso: segue os tópicos do edital"}</small></div><button class="btn sm ${c?"ghost":""}" data-a="csImp" data-s="${s.id}">${c?"Trocar":ic("plus")+" Vincular curso"}</button></div>`}).join("")}</div>
     <p class="cs-tip">${ic("bulb")} <span>${n?`<b>${n} de ${ED.length}</b> matérias seguem o seu curso. As outras seguem o edital.`:"Nenhuma matéria vinculada ainda. As que ficarem sem curso seguem o edital."} Dá para terminar depois em <b>Materiais › Meus cursos e assinaturas</b>.</span></p>
     <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="csBack">Voltar</button><button class="btn pri" data-a="csFim">${n?"Concluir":"Concluir por enquanto"}</button></div>`}
-  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Como você vai estudar"><div class="box cs" data-step="${X.step}" data-n="${["modo","plats","mats"].indexOf(X.step)}">${body}</div></div>`}
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Como você vai estudar"><div class="box cs" data-step="${X.step}" data-n="${CS_ST.indexOf(X.step)}">${body}</div></div>`}
+/* ---------- Curso completo: link, página copiada, fotos ou PDF → a IA separa as matérias e as aulas ---------- */
+const CS_ST=["modo","plats","trazer","conf","mats"];
+function csTrazerHTML(X){const T=X.tb||"link",busy=X.busy,mot=X.lkFail;
+  const why={login:"Esse link é da sua área do aluno, que pede login: a Jornada não consegue entrar nela.",bloqueado:"A plataforma não deixa a Jornada ler essa página.",dinamico:"Essa página só monta a lista de aulas dentro do seu navegador.",naoabriu:"Não consegui abrir esse link.",vazio:"Não achei a lista de aulas nessa página.",grande:"A página é grande demais para ler pelo link.",semaulas:"Li a página, mas não achei as aulas nela."}[mot]||"";
+  return`<p class="cs-k">Passo 2 de 3 · Pelo meu curso</p><h3>Traga o seu curso inteiro</h3>
+   <p class="muted">A Jornada identifica cada matéria do curso, liga ao edital e coloca as aulas na ordem. Você confere antes de confirmar.</p>
+   <div class="tabs2" role="group"><button data-a="csTb" data-v="link" aria-pressed="${T==="link"}">Link do curso</button><button data-a="csTb" data-v="colar" aria-pressed="${T==="colar"}">Colar a página</button><button data-a="csTb" data-v="fotos" aria-pressed="${T==="fotos"}">Fotos da tela</button><button data-a="csTb" data-v="pdf" aria-pressed="${T==="pdf"}">PDF do cronograma</button></div>
+   ${T==="link"?`<div class="field"><label for="csLk">Link do curso</label><input class="inp" id="csLk" type="url" inputmode="url" value="${esc(X.link||"")}" placeholder="https://www.plataforma.com.br/curso/..."></div>
+     <div class="row"><button class="btn pri" data-a="csLkGo" ${busy?"disabled":""}>${ic("bulb")} Ler o curso pelo link</button></div>`:""}
+   ${T==="colar"?`${mot?`<div class="pwarn small"><b>${esc(why)}</b> Sem problema: copie a página aberta no seu navegador.</div>`:""}
+     <ol class="cs-how"><li>Abra o curso na plataforma, já logado(a), na página que mostra as matérias e as aulas.</li><li>No computador: <b>Ctrl+A</b> e depois <b>Ctrl+C</b>. No celular: segure o dedo no texto, toque em <b>Selecionar tudo</b> e em <b>Copiar</b>.</li><li>Cole aqui embaixo. Se cada matéria fica numa página, cole uma depois da outra.</li></ol>
+     <textarea class="inp" id="csTx" rows="7" placeholder="Cole aqui a página do curso">${esc(X.txt||"")}</textarea>
+     <div class="row"><button class="btn pri" data-a="csTxGo" ${busy?"disabled":""}>${ic("bulb")} Organizar com IA</button></div>`:""}
+   ${T==="fotos"?`<p class="muted small" style="margin:0">Tire prints da lista de matérias e aulas (pode ser mais de um). A IA lê as imagens.</p><span class="upw btn pri" role="button">${ic("plus")} Escolher fotos<input type="file" accept="image/*" multiple data-c="csImg" aria-label="Escolher fotos"></span>`:""}
+   ${T==="pdf"?`<p class="muted small" style="margin:0">Muitos cursos têm um PDF com o cronograma ou a lista de aulas. Envie aqui.</p><span class="upw btn pri" role="button">${ic("plus")} Escolher o PDF<input type="file" accept="application/pdf,.pdf" data-c="csPdf" aria-label="Escolher o PDF"></span>`:""}
+   ${busy?`<div class="npe busy"><b>${ic("bulb")} ${esc(busy)}</b><div class="npe-bar"><i style="width:${Math.round(X.pc||8)}%"></i></div><span class="muted small">Um curso grande leva de 30 segundos a 2 minutos.</span></div>`:""}
+   ${X.err?`<p class="pwarn small" style="margin:0">${esc(X.err)}</p>`:""}
+   <p class="cs-tip">${ic("book")} <span><b>Opcional:</b> se quiser estudar as aulas aqui dentro, baixe o PDF de cada aula na plataforma e envie em <b>Materiais</b>. A Jornada divide a teoria em partes, faz o resumo e liga as questões àquela aula.</span></p>
+   <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="csBack">Voltar</button><button class="btn ghost" data-a="csSkip">Vincular matéria por matéria</button></div>`}
+function csConfHTML(X){const R=X.res||[],used=new Set(Object.values(X.map||{}).filter(v=>v!=null&&v!==""));
+  const opts=(sid)=>`<option value="">Sem curso: segue o edital</option>`+R.map((r,i)=>`<option value="${i}" ${String((X.map||{})[sid])===String(i)?"selected":""}>${esc(r.curso.slice(0,70))} · ${r.aulas.length} aulas</option>`).join("");
+  const fora=R.map((r,i)=>used.has(String(i))?null:r).filter(Boolean),n=ED.filter(s=>(X.map||{})[s.id]!=null&&(X.map||{})[s.id]!=="").length;
+  return`<p class="cs-k">Passo 3 de 3 · Confira</p><h3>Encontrei ${R.length} matéria${R.length>1?"s":""} no seu curso</h3>
+   <p class="muted">Liguei cada matéria do curso à matéria do edital. Se alguma ficou errada, troque na lista. As aulas entram na ordem do curso.</p>
+   <div class="cs-ms">${ED.map(s=>{const v=(X.map||{})[s.id],r=v!=null&&v!==""?R[+v]:null;return`<div class="cs-m ${r?"ok":""}"><span class="code" style="border-color:${s.col}">${s.c}</span><div style="min-width:0"><b>${esc(s.n)}</b><select class="inp" data-c="csMap" data-s="${s.id}" aria-label="Curso de ${esc(s.n)}">${opts(s.id)}</select>${r?`<small>${esc(r.aulas.slice(0,2).map(a=>"Aula "+a[0]+" · "+a[1]).join("  |  ").slice(0,140))}${r.aulas.length>2?"…":""}</small>`:"<small>Segue os tópicos do edital</small>"}</div></div>`}).join("")}</div>
+   ${fora.length?`<p class="muted small" style="margin:0">Ficaram de fora (não estão no edital): ${esc(fora.map(r=>r.curso).join(" · ").slice(0,400))}</p>`:""}
+   <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="csBack">Voltar</button><button class="btn pri" data-a="csConfOk" ${n?"":"disabled"}>${ic("check")} Vincular ${n} matéria${n>1?"s":""}</button></div>`}
+function csAiPrompt(txt,img){return`Você vai organizar o curso preparatório de um aluno de concurso público (${PLAN.name||"concurso"}). ${img?"As imagens são capturas de tela":"O texto abaixo foi copiado"} da página do curso: pode ter menus, preços e textos de interface, ignore tudo isso.
+Matérias do edital do aluno (id: nome):
+${ED.map(s=>s.id+": "+s.n).join("\n")}
+Liste as disciplinas (matérias) do curso, na ordem em que aparecem, e as aulas de cada uma, na ordem. Para cada disciplina diga qual matéria do edital ela cobre (o id acima) ou null se não cobrir nenhuma.
+Responda só com JSON: [{"curso":"nome da disciplina no curso","sid":"id ou null","aulas":["00|assunto da aula","01|assunto"]}]
+Regras: código da aula como está no curso (00, 01, 1.1; "U" para aula única); se não houver número, numere 01, 02, 03. Assunto curto, sem nome de professor, até 90 caracteres. Não invente aulas nem disciplinas. Vídeos ou materiais soltos de uma mesma aula contam como uma aula só.${txt?"\n<pagina>\n"+txt+"\n</pagina>":""}`}
+function csMerge(all){const M=new Map();all.forEach(r=>{if(!r||!r.curso||!Array.isArray(r.aulas))return;const k=norm(r.curso).replace(/[^a-z0-9]/g,"");const o=M.get(k)||{curso:String(r.curso).slice(0,90),sid:r.sid&&EDI[r.sid]!=null?r.sid:null,aulas:[]};if(!o.sid&&r.sid&&EDI[r.sid]!=null)o.sid=r.sid;
+  const seen=new Set(o.aulas.map(a=>a[0]));r.aulas.forEach((a,j)=>{let [c,...d]=String(a).split("|");c=String(c||"").trim().replace(/:/g,".")||pad(o.aulas.length+1);d=d.join("|").trim()||("Aula "+c);let cc=c,z=2;while(seen.has(cc))cc=c+"-"+(z++);seen.add(cc);o.aulas.push([cc,d.slice(0,120)])});M.set(k,o)});return[...M.values()].filter(r=>r.aulas.length)}
+async function csRun(src){const X=UI.cs;if(!X)return;if(!SAMPLE){X.err="A IA não está disponível agora. Tente de novo em instantes ou vincule matéria por matéria.";csModal();return}
+  X.err="";X.busy="A IA está lendo o seu curso…";X.pc=10;csModal();let out=[];
+  try{if(src.images){X.pc=30;csModal();const r=await SAMPLE.json(csAiPrompt("",true),{images:src.images});out=Array.isArray(r)?r:[]}
+    else{const P=edChunks(src.txt,45000);for(let i=0;i<P.length;i++){X.busy=P.length>1?`A IA está lendo o seu curso: parte ${i+1} de ${P.length}…`:"A IA está lendo o seu curso…";X.pc=10+i/P.length*85;csModal();const r=await SAMPLE.json(csAiPrompt(P[i],false));if(Array.isArray(r))out=out.concat(r)}}}
+  catch(e){X.busy="";X.err=e&&e.code==="rate_limited"?"A IA está ocupada agora. Espere um minuto e tente de novo.":"Não consegui organizar o curso agora. Tente de novo ou use outra forma.";csModal();return}
+  X.busy="";const R=csMerge(out);if(!R.length){if(src.fromLink){X.lkFail="semaulas";X.tb="colar"}else X.err="Não achei as matérias e as aulas nesse conteúdo. Confira se copiou a página da lista de aulas.";csModal();return}
+  X.res=R;X.map={};const taken=new Set();
+  ED.forEach(s=>{let bi=-1,bn=0;R.forEach((r,i)=>{if(r.sid===s.id&&r.aulas.length>bn&&!taken.has(i)){bi=i;bn=r.aulas.length}});if(bi<0)R.forEach((r,i)=>{if(bi<0&&!r.sid&&!taken.has(i)&&cdice(nTok(r.curso),nTok(s.n))>=.5)bi=i});if(bi>=0){X.map[s.id]=String(bi);taken.add(bi)}});
+  X.step="conf";csModal()}
+function csApply(){const X=UI.cs,R=X.res||[],plat=platOfUrl(X.link||"")||(X.sel||[]).find(p=>p!=="TEC Concursos"&&p!=="QConcursos")||(core().perfil||{}).outro||"Outra";let n=0;
+  ED.forEach(s=>{const v=(X.map||{})[s.id];if(v==null||v==="")return;const r=R[+v];if(!r)return;
+    const course={id:uid().slice(0,6),plat,nome:r.curso,url:/^https?:/.test(X.link||"")?X.link:"",aulas:r.aulas.map(([c,d])=>[c,d,autoTopics(s.id,d),"",""]),role:"principal",metas:false,useRes:true,useMap:false,at:today()};
+    let list=clone(courseList(s.id)).filter(c=>c.role!=="principal"||c.id==="std");list.forEach(c=>{c.role="complementar"});if(CURSO[s.id]&&!list.some(c=>c.id==="std"))list.push({id:"std",plat:"Estratégia Concursos",nome:"",url:"",aulas:CURSO[s.id],role:"complementar",metas:false});
+    list.push(course);applyCourse(s.id,list,"Vincular "+r.curso+" em "+s.c);n++});return n}
+function csKeep(){const X=UI.cs;if(!X)return;const l=$("csLk"),t=$("csTx");if(l)X.link=l.value.trim();if(t)X.txt=t.value}
+document.addEventListener("change",async e=>{const i=e.target;if(!i||!i.dataset||!UI.cs)return;const X=UI.cs;
+  if(i.dataset.c==="csMap"){X.map=X.map||{};X.map[i.dataset.s]=i.value;Object.keys(X.map).forEach(k=>{if(k!==i.dataset.s&&i.value!==""&&X.map[k]===i.value)X.map[k]=""});csModal();return}
+  if(i.dataset.c==="csImg"){const F=[...(i.files||[])].slice(0,8);i.value="";if(!F.length)return;await csRun({images:F});return}
+  if(i.dataset.c==="csPdf"){const f=i.files&&i.files[0];i.value="";if(!f)return;X.busy="Lendo o PDF…";X.pc=5;csModal();try{const r=await edPdfText(await f.arrayBuffer(),(p,n)=>{X.pc=Math.min(9,p/n*9)});X.busy="";if(r.txt.replace(/\s/g,"").length<300){X.err="Esse PDF não tem texto que dê para ler. Tente fotos da tela ou cole a página.";csModal();return}await csRun({txt:r.txt})}catch(err){X.busy="";X.err="Não consegui abrir esse PDF.";csModal()}}});
 function csSave(mode){const c=core();c.cs={mode,at:today()};touch("core")}
 function impModal(){
   const I=UI.imp;if(!I){$("layer3").innerHTML="";return}
@@ -9229,10 +9287,20 @@ const A={
   csPl(el){const X=UI.cs,p=el.dataset.p;X.out=(($("csOut")||{}).value||"").trim();const S=new Set(X.sel||[]);S.has(p)?S.delete(p):S.add(p);X.sel=[...S];csModal()},
   csPlGo(){const X=UI.cs,C=core(),out=(($("csOut")||{}).value||"").trim();if(!(X.sel||[]).length&&!out){toast("Marque ao menos uma plataforma, ou volte e escolha Pelo edital");return}
     C.perfil=C.perfil||{plats:{}};C.perfil.plats=C.perfil.plats||{};PLATS.forEach(p=>{const has=(X.sel||[]).includes(p);if(has&&(!C.perfil.plats[p]||C.perfil.plats[p]==="nao"))C.perfil.plats[p]=p==="TEC Concursos"||p==="QConcursos"?"quest":"curso";if(!has)C.perfil.plats[p]="nao"});
-    if(out)C.perfil.outro=out.slice(0,60);touch("core");X.step="mats";csModal()},
+    if(out)C.perfil.outro=out.slice(0,60);touch("core");X.step="trazer";X.tb=X.tb||"link";csModal()},
   csImp(el){const sid=el.dataset.s,c=courseList(sid).find(k=>k.role==="principal");if(c){A.cEdit({dataset:{s:sid,id:c.id}});return}A.cImp({dataset:{s:sid}});if(UI.imp){UI.imp.role="principal";const P=(core().perfil||{}).plats||{},pl=PLATS.find(p=>P[p]==="curso"||P[p]==="ilim");if(pl)UI.imp.plat=pl;else if((core().perfil||{}).outro)UI.imp.plat="Outra";impModal()}},
-  csBack(){const X=UI.cs;X.step=X.step==="mats"?"plats":"modo";csModal()},
+  csBack(){const X=UI.cs;if(X.busy)return;if(X.step==="trazer"&&X.from==="mat"){UI.cs=null;$("layer3").innerHTML="";return}X.step={mats:X.res?"conf":"trazer",conf:"trazer",trazer:"plats",plats:"modo"}[X.step]||"modo";csModal()},
+  csTb(el){const X=UI.cs;if(X.busy)return;csKeep();X.tb=el.dataset.v;X.err="";csModal()},
+  csSkip(){const X=UI.cs;if(X.busy)return;csKeep();X.step="mats";csModal()},
+  async csLkGo(){const X=UI.cs;csKeep();const u=(X.link||"").trim();if(!/^https?:\/\/[^\s]+\.[^\s]+/.test(u)){toast("Cole o link completo do curso (começa com https://)");return}
+    if(typeof window.jxFn!=="function"){X.lkFail="naoabriu";X.tb="colar";csModal();return}
+    X.err="";X.busy="Abrindo a página do curso…";X.pc=6;csModal();let r=null;try{r=await window.jxFn({mode:"curso_texto",url:u})}catch(e){r=null}
+    X.busy="";if(!r||!r.ok){X.lkFail=(r&&r.motivo)||"naoabriu";X.tb="colar";csModal();return}
+    const txt=[r.titulo,r.texto,r.dados&&r.dados.length>1500?"[dados da página]\n"+r.dados.slice(0,120000):""].filter(Boolean).join("\n").slice(0,260000);await csRun({txt,fromLink:1})},
+  async csTxGo(){const X=UI.cs;csKeep();const t=(X.txt||"").trim();if(t.replace(/\s/g,"").length<200){toast("Cole a página do curso com a lista de aulas");return}await csRun({txt:t})},
+  csConfOk(){const X=UI.cs;const n=csApply();X.step="mats";csModal();toast(n+" matéria"+(n>1?"s":"")+" vinculada"+(n>1?"s":"")+" ao seu curso: as metas seguem as aulas")},
   csFim(){const n=ED.filter(s=>courseList(s.id).some(c=>c.role==="principal")).length;csSave(n?"curso":"edital");UI.cs=null;$("layer3").innerHTML="";render();toast(n?n+" matéria"+(n>1?"s seguem":" segue")+" o seu curso; as outras seguem o edital":"As metas seguem o edital até você vincular um curso")},
+  csFull(){UI.cs={step:"trazer",tb:"link",sel:csMine(),from:"mat"};csModal()},
   csLater(){csSave("depois");UI.cs=null;$("layer3").innerHTML="";toast("Quando quiser, vincule os seus cursos em Materiais › Meus cursos e assinaturas")},
   impOk(){const I=UI.imp,L=(I.aulas||[]).filter(a=>a.c&&a.d);if(!L.length){toast("Preencha pelo menos uma aula");return}
     const seen={};for(const a of L){if(seen[a.c]){toast("Código repetido: "+a.c);return}seen[a.c]=1}
