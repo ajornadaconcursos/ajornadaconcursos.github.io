@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611040919"></script>
+<script src="/claude-shim.js?v=202611041416"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -4481,14 +4481,16 @@ ${lp?"Língua Portuguesa: escreva antes um texto inédito (crônica, artigo de o
 ${res?`Base de conteúdo: o resumo do próprio candidato abaixo (use como referência do que ele estudou e confira com a lei):\n<resumo>\n${res}\n</resumo>`:""}
 No campo "exp", explique em até 60 palavras por que a correta está certa e onde está o erro da principal distratora, com o fundamento legal.
 Responda só com JSON: {"txt":"${lp?"título e texto base":""}","qs":[{"a":número do item da lista acima,"en":"enunciado","alt":["texto da A","texto da B","texto da C","texto da D","texto da E"],"ok":"letra correta","exp":"gabarito comentado"}]}`;
-  const o=await SAMPLE.json(prompt,{modelTier:"default"});const L=o&&Array.isArray(o.qs)?o.qs:null;if(!L)throw new Error("formato");
-  const out=[];L.forEach(q=>{const alt=Array.isArray(q.alt)?q.alt.map(x=>String(x||"").replace(/^\s*\(?[A-Ea-e][).:\-]\s+/,"").trim()):[];const ok="ABCDE".indexOf(String(q.ok||"").trim().toUpperCase().charAt(0));
+  const o=await SAMPLE.json(prompt,{modelTier:"default",maxTokens:12000});const L=o&&Array.isArray(o.qs)?o.qs:lqArr(o);if(!L.length)throw new Error("formato");
+  /* a IA às vezes manda as alternativas como objeto {A:…} ou o gabarito como "Letra B": normaliza antes de validar */
+  const out=[];L.forEach(q=>{if(!q||typeof q!=="object")return;q.en=q.en||q.enunciado;const ao=Array.isArray(q.alt)?q.alt:(q.alt||q.alternativas)&&typeof(q.alt||q.alternativas)==="object"?(lqOpts(q.alt||q.alternativas)||[]).map(z=>z[1]):[];
+    const alt=ao.map(x=>String(x&&typeof x==="object"?(x.t||x.texto||""):x||"").replace(/^\s*\(?[A-Ea-e][).:\-]\s+/,"").trim());const ok="ABCDE".indexOf(lqKey(q.ok??q.gabarito,false));
     if(alt.length!==5||ok<0||!q.en)return;const it=(tps[(+q.a||1)-1]||tps[0])[0],ord=smShuf([0,1,2,3,4]);
     out.push({sid,tp:it,aula:aulaOf[it]||"",fresh:fresh?1:0,en:String(q.en).slice(0,2500),alt:ord.map(i=>alt[i].slice(0,700)),ok:ord.indexOf(ok),exp:String(q.exp||"").slice(0,900)})});
   if(!out.length)throw new Error("vazio");return{qs:out.slice(0,n),txt:lp&&o.txt?String(o.txt).slice(0,4000):""}}
 async function smGenerate(id){const x=smGet(id),d=smDoc(id);if(!x||!d)return;
   if(!SAMPLE){toast("A geração de questões precisa da IA, que só funciona no painel publicado.");return}
-  const jobs=[];d.plan.forEach(p=>{const tps=p.tp.slice();if(p.sid==="lp"){jobs.push({p,tps});return}
+  const jobs=[];d.plan.forEach(p=>{const tps=p.tp.slice();/* blocos de até 8 questões (Português também: cada bloco traz o seu texto), para a resposta da IA não ser cortada */
     let cur=[],c=0;tps.forEach(([i,k])=>{while(k>0){const take=Math.min(k,8-c);cur.push([i,take]);c+=take;k-=take;if(c>=8){jobs.push({p,tps:cur});cur=[];c=0}}});if(cur.length)jobs.push({p,tps:cur})});
   UI.smGen={id,done:0,tot:jobs.length};x.st="gen";touch("simx");render();
   const R=new Array(jobs.length);let next=0,bad=0,cred=0;
@@ -5241,7 +5243,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261104091946";
+const JX_BUILD="20261104141654";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5859,12 +5861,12 @@ document.addEventListener("keydown",e=>{if(TAB!=="arena"||!UI.ar||$("layer3").in
   else if(arCE(c)&&S.pick==null&&(e.key==="c"||e.key==="e")){e.preventDefault();A.arPick({dataset:{v:e.key==="c"?"1":"0"}})}});
 
 /* ================= Assinatura: planos, status, pagamento (Hotmart/Kiwify) e termos ================= */
-const ASN_PL=[["mensal","Plano mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","69,90"],["trimestral","Plano trimestral","trimestre",3,"","179,90"],["semestral","Plano semestral","semestre",6,"","329,90"],["anual","Plano anual","ano",12,"","549,90"]];
+const ASN_PL=[["mensal","Plano mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","79,90"],["trimestral","Plano trimestral","trimestre",3,"","179,90"],["semestral","Plano semestral","semestre",6,"","329,90"],["anual","Plano anual","ano",12,"","549,90"]];
 const ASN_CFG=[...ASN_PL.map(p=>["preco_"+p[0],"Preço do "+p[1].toLowerCase()+" (R$)",p[5]]),...ASN_PL.map(p=>["checkout_"+p[0],"Link de pagamento do "+p[1].toLowerCase()+" (Hotmart ou Kiwify)","https://pay.hotmart.com/..."]),
   ["empresa","Razão social (aparece nos termos)","Sua Empresa Ltda"],["cnpj","CNPJ","00.000.000/0001-00"],["suporte_email","E-mail de suporte","suporte@seudominio.com.br"],["whatsapp","WhatsApp de atendimento (com DDD)","65 99999-9999"],["termos_versao","Versão dos termos (mude para pedir novo aceite)","2026-11"]];
 const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Trilha da Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte à Jornada","Jornada na Lei Seca com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
 function asnNum(v){return parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0}
-function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"69,90";
+function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"79,90";
   const ate=A.plano_ate?new Date(A.plano_ate).toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"}):"";
   const stH=A.st==="dono"?`<span class="chip ok">Conta de administrador</span><p>Acesso livre e vitalício nesta conta, sem limite de IA. Aqui você também configura os preços, os links de pagamento e os dados da empresa.</p>`
    :A.st==="ativo"?`<span class="chip ok">Assinatura ativa</span><p>Plano <b>${["mensal","trimestral","semestral","anual"].includes(A.plano)?A.plano:"cortesia"}</b>${ate?" · válido até <b>"+ate+"</b>":""}${A.origem?" · pago pela "+(A.origem==="hotmart"?"Hotmart":"Kiwify"):""}. A renovação é automática; para cancelar, use a plataforma onde você comprou.</p>`
@@ -5991,7 +5993,9 @@ const isQSec=t=>/^\s*\(?\d{1,3}\s*[.)\-–]\s*\(?\s*[A-ZÀ-Ú]{2,}[^a-z]{0,12}\/
 const secNext=(id,b)=>{const p=pdf(id);return p?secsOf(p).find(s=>s.p>b&&!isQSec(s.t))||null:null};
 const aulaOf=id=>{const n=pdfName(id),m=n.match(/aula\s*\d+/i);return m?"Aula "+m[0].replace(/aula\s*/i,""):n};
 const uniq=a=>[...new Set(a.filter(Boolean))];
-function refTopics(t){
+/* aula sem tópico do edital ligado (ex.: apresentação do curso): mostra o nome da aula em vez de ficar vazio */
+function refTopics(t){const L=refTopics0(t);if(L.length)return L;const a=t.aula?auOf(t.sid,t.aula):null;if(a&&a.d)return[String(a.d).replace(/\s*\(videoaula\)\s*$/i,"")];const ps=aSet(t).map(c=>auOf(t.sid,c)).filter(x=>x&&x.d).map(x=>x.d);return uniq(ps).slice(0,10)}
+function refTopics0(t){
   const sid=t.sid,a=t.aula?auOf(sid,t.aula):null,edt=a?a.tp.map(j=>ED[EDI[sid]].t[j][0]):[];
   if(t.aula&&t.pdf&&t.ph==="T")return uniq([...secsIn(t.pdf,t.pa,t.pb).map(s=>s.t),...edt]).slice(0,10);
   if(aSet(t).length>1){const L=[];aSet(t).forEach(c=>{const a2=auOf(sid,c);if(a2)a2.tp.forEach(j=>L.push(ED[EDI[sid]].t[j][0]))});return uniq(L).slice(0,10)}
@@ -7570,7 +7574,10 @@ async function genFinal(sid,c,auto){const key=resKey(sid,c),bk=key+":fin";if(RES
   try{const s=SUB(sid),au=auOf(sid,c),perf=rsPerf(sid,c),biz=aulaTasks(sid,c).filter(t=>t.bizu&&t.bizu.txt).map(t=>"### "+taskTitle(t)+"\n"+t.bizu.txt).join("\n\n").slice(0,12000);
     const tq=[(R0.tecQs||[]).map(tecLine).join("\n"),(R0.tq||[]).map(tecText).join("\n\n")].filter(Boolean).join("\n\n").slice(0,30000),ann=annotatedFor(sid,c).map(r=>"- "+r.label+(r.note?": "+r.note:"")).join("\n");
     const P=incShow(sid)||[],S=ED[EDI[sid]],tps=(au&&au.tp||[]).map(j=>"- "+S.t[j][0]+(P[j]?" (≈"+Math.round(P[j])+"% das questões da matéria)":"")).join("\n");
-    const prompt=`Você monta o RESUMO DIRECIONADO de uma aula para um candidato a ${dsCargo()} (banca ${dsBanca()}), para a revisão final antes da prova.
+    /* esquemas em PDF que o aluno enviou (aba Mapas Mentais) dos assuntos desta aula entram como fonte */
+    let esq="";try{const atp=new Set(au&&au.tp||[]);const E=MM().items.filter(x=>x.sid===sid&&x.kind==="pdf"&&(x.tp==null?atp.size===0:atp.has(x.tp))).slice(0,4);
+      for(const x of E){const tx=await mmPdfText(x,8000);if(tx&&tx.trim())esq+="### "+(x.title||"Esquema")+"\n"+tx.trim()+"\n\n"}}catch(e){}
+    let prompt=`Você monta o RESUMO DIRECIONADO de uma aula para um candidato a ${dsCargo()} (banca ${dsBanca()}), para a revisão final antes da prova.
 Matéria: ${s.n}. ${au?"Aula: "+auLabel(sid,c)+" – "+au.d+".":""}
 O aluno já fez o ciclo completo desta aula (teoria, revisão, mapeamento e questões). Use o resumo completo, os bizus de cada atividade, as questões do TEC e o desempenho dele para montar um resumo CURTO e certeiro (até 1.200 palavras), só com o que decide questão.
 Escreva em português do Brasil, em texto simples: "## " para seções, "- " para itens, **negrito** para palavras-chave, e comece com "ATENÇÃO:" os itens de maior incidência. Sem tabelas, sem HTML. Nunca diga que o material está cortado.
@@ -7580,7 +7587,8 @@ Organize assim:
 ## Onde você errou e a regra certa: um item por erro ou assunto fraco.
 ## Pegadinhas da ${dsBanca()} nesta aula.
 ## Prazos e números para decorar.
-## Checklist de véspera: 10 a 15 frases curtas para conferir antes da prova.
+## Checklist de véspera: 10 a 15 frases curtas para conferir antes da prova.${esq?`
+## Esquema de revisão: um esquema novo, em itens e subitens ("- " e "  - "), que junta os esquemas que o aluno enviou com o que mais caiu nas questões dele. Corte o que se repete e mantenha os artigos e prazos como estão nos esquemas.`:""}
 Use só o que está nas fontes abaixo; não invente artigos, prazos ou números.
 <resumo_completo>
 ${R0.txt.slice(0,50000)}
@@ -7589,7 +7597,8 @@ ${biz?"<bizus_das_atividades>\n"+biz+"\n</bizus_das_atividades>":""}
 ${tq?"<questoes_do_tec>\n"+tq+"\n</questoes_do_tec>":""}
 ${ann?"<questoes_que_o_aluno_errou>\n"+ann+"\n</questoes_que_o_aluno_errou>":""}
 ${perf.txt?"<desempenho>\n"+perf.txt+"\n</desempenho>":""}
-${tps?"<assuntos_do_edital_e_incidencia>\n"+tps+"\n</assuntos_do_edital_e_incidencia>":""}`;
+${tps?"<assuntos_do_edital_e_incidencia>\n"+tps+"\n</assuntos_do_edital_e_incidencia>":""}
+${esq?"<esquemas_enviados_pelo_aluno>\n"+esq.slice(0,20000)+"</esquemas_enviados_pelo_aluno>":""}`;
     prompt+=hlPrompt(sid,c);
     const r=await SAMPLE(prompt,{modelTier:IA_LEVE,onText:({text})=>{const o=$("rsFinOut");if(o&&UI.rsKey===key)o.innerHTML=mdLite(text)}});
     if(r&&r.text){R0.fin={txt:resClean(r.text).trim(),at:Date.now()};touch(key);toast("Resumo direcionado de "+s.c+" · "+auLabel(sid,c)+" pronto"+(auto?" na aba Resumos":""))}}

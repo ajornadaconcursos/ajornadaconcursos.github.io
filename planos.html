@@ -236,10 +236,10 @@ footer h4{margin:0 0 12px;font:700 18px var(--cond);text-transform:uppercase;let
 <script>
 (function(){
  document.getElementById("yr").textContent=new Date().getFullYear();
- const PL=[["mensal","Mensal","mês",1,"69,90"],["trimestral","Trimestral","trimestre",3,"179,90"],["semestral","Semestral","semestre",6,"329,90"],["anual","Anual","ano",12,"549,90"]];
+ const PL=[["mensal","Mensal","mês",1,"79,90"],["trimestral","Trimestral","trimestre",3,"179,90"],["semestral","Semestral","semestre",6,"329,90"],["anual","Anual","ano",12,"549,90"]];
  const num=v=>parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0,brl=n=>n.toFixed(2).replace(".",",");
  const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
- function draw(V){const pm=num(V.preco_mensal||"69,90"),pa=V.preco_anual||"549,90";
+ function draw(V){const pm=num(V.preco_mensal||"79,90"),pa=V.preco_anual||"549,90";
   document.getElementById("pAno").textContent=brl(num(pa)/12);document.getElementById("pAnoTot").textContent="R$ "+pa+" por ano · todas as funções incluídas";
   document.getElementById("plans").innerHTML=PL.map(([k,n,per,m,def])=>{const p=V["preco_"+k]||def,eco=m>1&&pm?Math.round((1-num(p)/(pm*m))*100):0;
    return`<div class="pl ${k==="anual"?"best":""}">${k==="anual"?'<span class="tag">Melhor preço</span>':k==="semestral"?'<span class="tag pop">Mais escolhido</span>':""}<span class="nm">${n}</span>
