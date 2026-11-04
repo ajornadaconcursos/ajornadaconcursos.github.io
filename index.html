@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611040900"></script>
+<script src="/claude-shim.js?v=202611040919"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1681,7 +1681,13 @@ h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
 .lz-b p{margin:0;line-height:1.55;font-size:14px}
 
 .lz-q{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.lqm{max-width:640px}.lqm h3{margin:2px 0 6px}
+.box.cs.lqm{width:min(920px,100%);max-width:920px;max-height:calc(100dvh - 40px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;-ms-overflow-style:none}
+.lqm::-webkit-scrollbar{display:none;width:0;height:0}.lqm h3{margin:2px 0 6px}
+.lq-hd{display:grid;gap:8px}.lq-bar{margin:0}.lq-q{display:grid;gap:10px}
+.lq-ft{justify-content:space-between;position:sticky;bottom:-20px;margin:0 -20px -20px;padding:12px 20px 16px;background:var(--panel);border-top:1px solid var(--line);z-index:2}
+.lq-c{border:1px solid var(--line);background:var(--sunk);border-radius:12px;padding:12px 14px;line-height:1.6;display:grid;gap:6px}
+.lq-c>b{font-size:13px;color:var(--lime-txt)}.lq-tr small{display:block;font-size:11.5px;font-weight:700;opacity:.7;margin-bottom:2px}
+@media (max-width:620px){.modal:has(.lqm){padding:10px}.box.cs.lqm{max-height:calc(100dvh - 20px);padding:16px}.lq-ft{bottom:-16px;margin:0 -16px -16px;padding:10px 16px 12px}}
 .lq-cfg{display:grid;gap:12px;margin:10px 0}.lq-cfg>div{display:grid;gap:6px}.lq-ch{display:flex;gap:6px;flex-wrap:wrap}
 .lq-ch button{border:1px solid var(--line);background:var(--sunk);color:var(--fg);border-radius:999px;padding:7px 13px;font:inherit;font-size:14px;cursor:pointer}
 .lq-ch button:hover{border-color:var(--lime)}.lq-ch button[aria-pressed="true"]{background:var(--lime);border-color:var(--lime);color:var(--lime-ink);font-weight:700}
@@ -5235,7 +5241,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261104090000";
+const JX_BUILD="20261104091946";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5362,7 +5368,7 @@ function lqReal(L){const ns=new Set(L.arts.map(lqArtN)),by={},subs=new Set([L.si
   return by}
 async function lqGen(L,arts,per,kind){const Q=lqDoc(L.id),B=L.biz||{},ce=kind==="ce"||(kind!=="me"&&lqCE()),ex=[];
   try{PDFS().some(p=>{const Z=qzDoc(p.id);if(!Z)return false;Z.L.slice(0,40).forEach(q=>{if(ex.length<2&&q.s&&q.o&&!!q.ce===ce)ex.push(q.s.slice(0,300)+(q.o?"\n"+q.o.map(o=>o[0]+") "+String(o[1]).slice(0,80)).join("\n"):""))});return ex.length>=2})}catch(e){}
-  const out=[];for(let i=0;i<arts.length;i+=8){const G=arts.slice(i,i+8);
+  const out=[],why=[];const step=Math.max(1,Math.min(6,Math.floor(18/Math.max(1,per))));for(let i=0;i<arts.length;i+=step){const G=arts.slice(i,i+step);
     const mat=G.map(a=>{const b=B[a.i]||{};return`[${a.i}] Art. ${a.n}. ${leiAnn(a.t).slice(0,2400)}${(b.g||[]).length?"\nTrechos que a banca troca: "+b.g.map(x=>"«"+x+"»").join("; "):""}`}).join("\n\n");
     const prompt=`Você é elaborador de provas da banca ${dsBanca()||"do concurso"} e escreve questões de LEI SECA de "${L.nome}" para ${dsCargo()}.
 Para cada artigo abaixo, escreva ${per} quest${per>1?"ões":"ão"} ${ce?"de CERTO ou ERRADO (metade certas, metade erradas)":"de múltipla escolha com 5 alternativas (A a E), uma só correta"}.
@@ -5372,12 +5378,20 @@ ${ex.length?"Estilo das questões que o aluno já resolveu desta matéria:\n"+ex
 <artigos>
 ${mat}
 </artigos>`;
-    let arr=null;try{arr=await SAMPLE.json(prompt)}catch(e){if(e&&e.code==="rate_limited")throw e;continue}
-    (Array.isArray(arr)?arr:[]).forEach(x=>{const a=L.arts.find(z=>z.i===+x.i);if(!a||!x.s)return;const tx=leiAnn(a.t),k=String(x.k||"").trim().toUpperCase().slice(0,1);
-      let o=null;if(!ce){if(!x.o||typeof x.o!=="object")return;o=["A","B","C","D","E"].filter(l=>x.o[l]).map(l=>[l,String(x.o[l]).slice(0,300)]);if(o.length<4||!o.some(z=>z[0]===k))return}else if(k!=="C"&&k!=="E")return;
+    let arr=null;for(let t=0;t<2&&arr==null;t++){try{arr=await SAMPLE.json(prompt,{maxTokens:12000})}catch(e){if(e&&(e.code==="rate_limited"||e.code==="not_granted"))throw e;why.push((e&&(e.code||e.message))||"erro");console.warn("lqGen",e)}}
+    arr=lqArr(arr);if(!arr.length)continue;let kept=0;
+    arr.forEach(x=>{if(!x||typeof x!=="object")return;const ii=parseInt(String(x.i??x.artigo??"").replace(/\D/g,""),10);const a=L.arts.find(z=>z.i===ii)||(G.length===1?G[0]:null);x.s=x.s||x.enunciado||x.afirmacao||x.q;if(!a||!x.s)return;const tx=leiAnn(a.t),k=lqKey(x.k??x.gabarito??x.resposta,ce);
+      let o=null;if(!ce){o=lqOpts(x.o||x.alternativas);if(!o||o.length<4||!o.some(z=>z[0]===k))return}else if(k!=="C"&&k!=="E")return;kept++;
       const tr=String(x.tr||"").trim();const q={id:uid(),src:"ia",i:a.i,n:a.n,ce,s:String(x.s).slice(0,900),o,k,j:String(x.j||"").slice(0,500),tr:tr&&tx.includes(tr)?tr:""};
-      (Q.ia[a.i]=Q.ia[a.i]||[]).push(q);out.push(q)})}
-  touch("lq-"+L.id);return out}
+      (Q.ia[a.i]=Q.ia[a.i]||[]).push(q);out.push(q)});if(!kept){why.push("formato");console.warn("lqGen formato",arr.slice(0,2))}}
+  touch("lq-"+L.id);if(!out.length&&why.length){const e=new Error(why.join(","));e.code="lq_fail";throw e}return out}
+/* a IA às vezes devolve {questoes:[...]}, alternativas em lista ou gabarito por extenso: normaliza */
+function lqArr(v){if(Array.isArray(v))return v;if(v&&typeof v==="object"){for(const k of Object.keys(v))if(Array.isArray(v[k]))return v[k];if(v.s||v.enunciado)return[v]}return[]}
+function lqKey(k,ce){let s=String(k??"").trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");if(ce){if(/^(C|CERTO|CERTA|V|VERDADEIRO|TRUE)\b/.test(s)||k===true)return"C";if(/^(E|ERRADO|ERRADA|F|FALSO|FALSE)\b/.test(s)||k===false)return"E";return""}
+  s=s.replace(/^(LETRA|ALTERNATIVA|OPCAO)\s*/,"");const m=s.match(/^[(\[]?([A-E])\b/);return m?m[1]:""}
+function lqOpts(o){if(!o)return null;const L="ABCDE";let arr;if(Array.isArray(o))arr=o.map((v,i)=>{if(Array.isArray(v))return[String(v[0]).toUpperCase().replace(/[^A-E]/g,"")||L[i],v[1]];if(v&&typeof v==="object")return[String(v.l||v.letra||v.id||L[i]).toUpperCase().replace(/[^A-E]/g,"")||L[i],v.t||v.texto||v.text];return[L[i],v]});
+  else if(typeof o==="object")arr=Object.entries(o).map(([k,v])=>[String(k).toUpperCase().replace(/[^A-E]/g,""),v]);else return null;
+  return arr.filter(z=>z[0]&&z[1]!=null&&String(z[1]).trim()).map(z=>[z[0],String(z[1]).replace(/^\s*[A-E][).:-]\s*/,"").slice(0,300)]).slice(0,5)}
 /* registra a resposta: desempenho, dominado, Erradas e Trilha */
 function lqAnswer(L,q,ok){const Q=lqDoc(L.id),i=q.i!=null?q.i:null;if(i!=null){const s=Q.st[i]||(Q.st[i]={ok:0,er:0,d:""});if(ok)s.ok++;else s.er++;s.d=today()}
   Q.log=Q.log||[];Q.log.push({d:today(),ok:ok?1:0,i});if(Q.log.length>3000)Q.log=Q.log.slice(-3000);
@@ -5397,20 +5411,29 @@ function lqModal(){const X=UI.lq;if(!X){$("layer3").innerHTML="";return}const L=
      <div><b>De onde vêm</b><div class="lq-ch" role="group">${[["mix","As que já caíram + novas da IA"],["ia","Só novas da IA"],["real","Só as que já caíram"]].map(([k,l])=>`<button data-a="lqSet" data-k="fonte" data-v="${k}" aria-pressed="${X.fonte===k}">${l}</button>`).join("")}</div></div></div>
     ${X.err?`<p class="pwarn small" style="margin:0">${esc(X.err)}</p>`:""}${X.busy?`<div class="npe busy"><b>${ic("bulb")} ${esc(X.busy)}</b><div class="npe-bar"><i style="width:60%"></i></div></div>`:""}
     <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="lqX">Cancelar</button><button class="btn pri" data-a="lqGo" ${X.busy?"disabled":""}>${ic("play")} Começar</button></div>`}
+  else if(X.busy)body=`<p class="cs-k">${esc(L.nome)}</p><h3>Preparando as questões…</h3><div class="npe busy"><b>${ic("bulb")} ${esc(X.busy)}</b><div class="npe-bar"><i style="width:60%"></i></div></div><p class="muted small">Leva de 15 a 60 segundos. As questões ficam guardadas para as próximas vezes.</p><div class="row" style="justify-content:flex-end"><button class="btn ghost" data-a="lqX">Cancelar</button></div>`;
   else{const Q=X.qs||[],q=Q[X.k],A=X.ans[X.k];
     if(!q){const ok=Object.values(X.ans).filter(a=>a.ok).length,n=Object.keys(X.ans).length;body=`<p class="cs-k">${esc(L.nome)}</p><h3>Fim! ${ok} de ${n} certas${n?" ("+Math.round(ok/n*100)+"%)":""}</h3>
       <p class="muted">${n-ok?`As ${n-ok} que você errou foram para Erradas e para a Trilha da Jornada.`:"Gabaritou! Os artigos acertados 3 vezes ficam como dominados."}</p>
       <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="lqX">Fechar</button>${X.art==null?`<button class="btn pri" data-a="lqAgain">${ic("reset")} Outra bateria</button>`:`<button class="btn pri" data-a="lqMore">${ic("bulb")} Mais questões deste artigo</button>`}</div>`}
-    else{const a=L.arts.find(z=>z.i===q.i)||null,opts=q.ce?[["C","Certo"],["E","Errado"]]:(q.o||[]);
-      body=`<p class="cs-k">${esc(L.nome)} · ${X.k+1} de ${Q.length}${q.n||a?" · art. "+esc(q.n||a.n):""}</p>
+    else{const a=L.arts.find(z=>z.i===q.i)||null,opts=q.ce?[["C","Certo"],["E","Errado"]]:(q.o||[]),fx=X.fx===X.k&&!!A,xs=(X.xs||{})[X.k]||[];X.fx=null;
+      const ob=opts.map(([k,t])=>{let cl="";if(A){if(k===q.k)cl="right";if(A.me===k&&!A.ok)cl="wrong"}const x=xs.includes(k),sl=!A&&X.sel===k;
+        return`<button class="qz-o ${cl} ${x?"x":""} ${sl?"sel":""}" aria-pressed="${sl}" data-a="lqPick" data-k="${k}" ${A?"disabled":""} title="${x?"Alternativa riscada · dois cliques para desfazer":"Um clique seleciona · dois cliques riscam a alternativa"}"><span class="qz-k">${q.ce?"":k}</span><span><span class="qz-t">${esc(t)}</span></span></button>`}).join("");
+      const com=(q.j||q.tr)?`<div class="qz-c lq-c"><b>${q.src==="ia"?"Justificativa":"Comentário"}</b><div>${esc(q.j||"").replace(/\n/g,"<br>")}</div>${q.tr?`<div class="lq-tr"><small>Trecho do artigo que resolve</small>“${esc(q.tr)}”</div>`:""}</div>`:"";
+      body=`<div class="lq-hd"><p class="cs-k">${esc(L.nome)} · ${X.k+1} de ${Q.length}${q.n||a?" · art. "+esc(q.n||a.n):""}</p>
+       <div class="qz-bar lq-bar" aria-hidden="true"><i class="ok" style="width:${Object.values(X.ans).filter(z=>z.ok).length/Q.length*100}%"></i><i class="bad" style="width:${Object.values(X.ans).filter(z=>z.ok===false).length/Q.length*100}%"></i></div></div>
+       <div class="qz-q lq-q${fx?" fx "+(A.ok?"good":"bad"):""}">
        <div class="lq-src">${q.src==="ia"?`<span class="chip">Estilo da banca · feita pela IA</span>`:`<span class="chip warn">Já caiu · ${esc(q.from||"")}</span>`}</div>
-       <p class="lq-s">${esc(q.s)}</p>
-       ${opts.length&&q.k?`<div class="lq-o">${opts.map(([l,t])=>`<button class="lq-b ${A?(l===q.k?"ok":A.me===l?"no":""):""}" data-a="lqAns" data-v="${l}" ${A?"disabled":""}><b>${l==="C"&&q.ce?"C":l==="E"&&q.ce?"E":l}</b><span>${esc(t)}</span></button>`).join("")}</div>`
-        :`<div class="row"><button class="btn" data-a="lqShow" ${A?"disabled":""}>Ver o comentário</button></div>`}
-       ${A?`<div class="lq-r ${A.ok?"ok":A.ok===false?"no":""}">${A.ok!=null?`<b>${A.ok?"Acertou!":"Errou."}</b> `:""}${q.k?`Gabarito: <b>${q.ce?(q.k==="C"?"Certo":"Errado"):"Letra "+q.k}</b>. `:""}${esc(q.j||"")}${q.tr?`<div class="lq-tr">“${esc(q.tr)}”</div>`:""}
-         ${A.ok!=null?"":`<div class="row" style="gap:8px;margin-top:8px"><button class="btn sm fin" data-a="lqSelf" data-v="1">Eu acertei</button><button class="btn sm skip" data-a="lqSelf" data-v="0">Eu errei</button></div>`}</div>`:""}
-       <div class="row" style="justify-content:space-between"><span>${q.src==="ia"&&A?`<button class="lnk small" data-a="lqBad">Questão com problema</button>`:""}</span><span class="row" style="gap:8px"><button class="btn ghost" data-a="lqX">Sair</button><button class="btn pri" data-a="lqNext" ${A?"":"disabled"}>${X.k+1<Q.length?"Próxima →":"Ver o resultado"}</button></span></div>`}}
-  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Questões da lei seca"><div class="box cs lqm" data-step="${X.step}" data-n="${X.step==="cfg"?0:1}">${body}</div></div>`}
+       <div class="qz-s lq-s">${esc(q.s)}</div>
+       ${opts.length&&q.k?`<div class="qz-os">${ob}</div>${A?"":`<div class="row qz-solve"><button class="btn pri" data-a="lqSolve" ${X.sel?"":"disabled"}>${ic("check")} Resolver questão</button><span class="muted small">Um clique seleciona a alternativa · dois cliques riscam (eliminam). A resposta só vale ao tocar em Resolver.</span></div>`}`
+        :`${A?"":`<div class="row qz-solve"><button class="btn pri" data-a="lqShow">${ic("check")} Ver o comentário</button><span class="muted small">Esta questão veio sem alternativas: leia, pense na resposta e veja o comentário.</span></div>`}`}
+       ${A&&A.ok!=null&&q.k?`<div class="qz-r ${A.ok?"ok":"bad"}"><span class="qz-ri" aria-hidden="true">${ic(A.ok?"check":"close")}</span><b>${A.ok?"Acertou!":"Errou."}</b> Gabarito: <b>${q.ce?(q.k==="C"?"Certo":"Errado"):"Letra "+q.k}</b>.${!A.ok&&q.src==="ia"?" Ela entrou em Erradas e na Trilha.":""}</div>`:""}
+       ${A?com:""}
+       ${A&&A.ok==null?`<div class="row" style="gap:8px"><button class="btn sm fin" data-a="lqSelf" data-v="1">Eu acertei</button><button class="btn sm skip" data-a="lqSelf" data-v="0">Eu errei</button></div>`:""}
+       ${A&&A.ok!=null&&!q.k?`<div class="qz-r ${A.ok?"ok":"bad"}"><span class="qz-ri" aria-hidden="true">${ic(A.ok?"check":"close")}</span><b>${A.ok?"Acertou!":"Errou."}</b></div>`:""}</div>
+       <div class="row lq-ft"><span>${q.src==="ia"&&A?`<button class="lnk small" data-a="lqBad">Questão com problema</button>`:""}</span><span class="row" style="gap:8px"><button class="btn ghost" data-a="lqX">Sair</button><button class="btn ${A&&A.ok!=null?"pri":"ghost"}" data-a="lqNext" ${A&&A.ok==null?"disabled":""}>${X.k+1<Q.length?(A?"Próxima →":"Pular →"):"Ver o resultado"}</button></span></div>`}}
+  const dn=X.step==="cfg"?0:X.busy?1:2+(X.k||0);
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Questões da lei seca"><div class="box cs lqm" data-step="${X.step}" data-n="${dn}">${body}</div></div>`}
 async function lqStart(){const X=UI.lq,L=D["lei-"+X.lid];if(!L)return;const B=L.biz||{},Q=lqDoc(L.id),R=lqReal(L),caiuN=new Set(Object.keys(R));
   let arts;if(X.art!=null)arts=L.arts.filter(a=>a.i===X.art);
   else{const all=L.arts.filter(a=>(B[a.i]||{}).v>=1||caiuN.has(lqArtN(a)));
@@ -5423,7 +5446,7 @@ async function lqStart(){const X=UI.lq,L=D["lei-"+X.lid];if(!L)return;const B=L.
       ia=have.sort((a,b)=>(sn[a.id]?1:0)-(sn[b.id]?1:0)+(Math.random()-.5)*.5).slice(0,need);
       if(ia.length<need){if(!SAMPLE){X.err="A IA não está disponível agora. Use “Só as que já caíram” ou tente mais tarde.";X.busy="";lqModal();return}
         const miss=need-ia.length,pick=arts.slice(0,Math.min(12,Math.max(1,Math.ceil(miss/2)))),per=X.art!=null?3:Math.min(5,Math.max(1,Math.ceil(miss/pick.length)));X.busy="A IA está preparando as questões no estilo da banca…";X.err="";lqModal();
-        try{const nw=await lqGen(L,pick,per,ce?"ce":"me");ia=ia.concat(nw.filter(q=>!ia.includes(q))).slice(0,need)}catch(e){X.busy="";X.err=e&&e.code==="rate_limited"?"A IA está ocupada ou o limite de hoje acabou. Tente mais tarde.":"Não consegui preparar as questões agora.";lqModal();return}}}}
+        try{const nw=await lqGen(L,pick,per,ce?"ce":"me");if(UI.lq!==X)return;ia=ia.concat(nw.filter(q=>!ia.includes(q))).slice(0,need)}catch(e){if(UI.lq!==X)return;X.busy="";X.err=e&&e.code==="rate_limited"?"A IA está ocupada ou o limite de hoje acabou. Tente mais tarde.":e&&e.code==="not_granted"?"A IA não está liberada na sua conta agora.":"A IA não conseguiu montar as questões desta vez ("+String((e&&e.message)||"erro").slice(0,60)+"). Toque em Começar de novo.";if(X.step!=="cfg")X.step="cfg";lqModal();return}}}}
   const qs=real.concat(ia).sort(()=>Math.random()-.5);X.busy="";if(!qs.length){X.err=X.fonte==="real"?"Ainda não há questões suas que citem estes artigos. Escolha “Só novas da IA”.":"Não consegui montar questões agora.";X.step="cfg";lqModal();return}
   Object.assign(X,{step:"run",qs,k:0,ans:{}});lqModal()}
 
@@ -9620,20 +9643,28 @@ const A={
       toast("Achei: "+(r.nome||r.url));await leiAdd(r.nome||q,r.url,($("lzSid")||{}).value||"")}catch(e){toast("A busca não respondeu agora. Tente de novo.")}},
   lzOpen(el){UI.lei=el.dataset.id;UI.lzF="biz";UI.lzQ="";UI.lzLim=60;render();scrollTo(0,0)},
   lzBack(){UI.lei=null;render()},
-  lqArt(el){if(!UI.lei)return;UI.lq={lid:UI.lei,art:+el.dataset.i,fonte:"ia",kind:"auto",step:"run",qs:[],k:0,ans:{}};lqStart()},
-  lqJa(el){if(!UI.lei)return;UI.lq={lid:UI.lei,art:+el.dataset.i,fonte:"real",kind:"auto",step:"run",qs:[],k:0,ans:{}};lqStart()},
+  lqArt(el){if(!UI.lei)return;UI.lq={lid:UI.lei,art:+el.dataset.i,fonte:"ia",kind:"auto",n:10,foco:"alta",step:"run",qs:[],k:0,ans:{}};lqStart()},
+  lqJa(el){if(!UI.lei)return;UI.lq={lid:UI.lei,art:+el.dataset.i,fonte:"real",kind:"auto",n:10,foco:"alta",step:"run",qs:[],k:0,ans:{}};lqStart()},
   lqBat(){if(!UI.lei)return;const P=(PLANS.ui||{}).lq||{};UI.lq={lid:UI.lei,art:null,step:"cfg",n:P.n||10,foco:P.foco||"alta",kind:P.kind||"auto",fonte:SAMPLE?(P.fonte||"mix"):"real"};lqModal()},
   lqSet(el){const X=UI.lq;if(!X)return;const k=el.dataset.k,v=el.dataset.v;X[k]=k==="n"?+v:v;X.err="";lqModal()},
   lqGo(){const X=UI.lq;if(!X||X.busy)return;try{PLANS.ui=PLANS.ui||{};PLANS.ui.lq={n:X.n,foco:X.foco,kind:X.kind,fonte:X.fonte};savePlans()}catch(e){}lqStart()},
-  lqAns(el){const X=UI.lq;if(!X)return;const q=X.qs[X.k];if(!q||X.ans[X.k])return;const ok=el.dataset.v===q.k;X.ans[X.k]={me:el.dataset.v,ok};lqAnswer(D["lei-"+X.lid],q,ok);lqModal()},
-  lqShow(){const X=UI.lq;if(!X||X.ans[X.k])return;X.ans[X.k]={ok:null};lqModal()},
-  lqSelf(el){const X=UI.lq;if(!X)return;const A=X.ans[X.k];if(!A||A.ok!=null)return;A.ok=el.dataset.v==="1";lqAnswer(D["lei-"+X.lid],X.qs[X.k],A.ok);lqModal()},
-  lqNext(){const X=UI.lq;if(!X)return;X.k++;lqModal();if(X.k>=X.qs.length&&TAB==="leiseca")render()},
+  lqPick(el,e){const X=UI.lq;if(!X||X.ans[X.k])return;const k=el.dataset.k;X.xs=X.xs||{};const L=X.xs[X.k]=X.xs[X.k]||[];clearTimeout(A.lqPick.t);
+    const paint=()=>{document.querySelectorAll(".lqm .qz-o").forEach(b=>{const on=X.sel===b.dataset.k;b.classList.toggle("sel",on);b.setAttribute("aria-pressed",String(on))});const sb=document.querySelector('.lqm [data-a="lqSolve"]');if(sb){sb.disabled=!X.sel;sb.classList.toggle("ready",!!X.sel)}};
+    if(e&&e.detail>=2){const pv=A.lqPick.pv;if(pv&&pv.k===X.k)X.sel=pv.v;const j=L.indexOf(k);if(j>=0)L.splice(j,1);else L.push(k);if(j<0&&X.sel===k)X.sel=null;
+      el.classList.toggle("x",j<0);el.classList.remove("pop");el.title=j<0?"Alternativa riscada · dois cliques para desfazer":"Um clique seleciona · dois cliques riscam a alternativa";paint();fxVib(6);return}
+    A.lqPick.pv={k:X.k,v:X.sel||null};
+    if(L.includes(k)){A.lqPick.t=setTimeout(()=>toast("Alternativa riscada. Dê dois cliques para tirar o risco."),280);return}
+    X.sel=X.sel===k?null:k;paint();if(X.sel){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");fxVib(8)}},
+  lqSolve(){const X=UI.lq;if(!X)return;const q=X.qs[X.k];if(!q||X.ans[X.k])return;if(!X.sel){toast("Selecione uma alternativa primeiro");return}
+    const ok=X.sel===q.k;X.ans[X.k]={me:X.sel,ok};X.sel=null;X.fx=X.k;lqAnswer(D["lei-"+X.lid],q,ok);fxVib(ok?12:[20,40,20]);lqModal()},
+  lqShow(){const X=UI.lq;if(!X||X.ans[X.k])return;X.ans[X.k]={ok:null};X.fx=X.k;lqModal()},
+  lqSelf(el){const X=UI.lq;if(!X)return;const A=X.ans[X.k];if(!A||A.ok!=null)return;A.ok=el.dataset.v==="1";X.fx=X.k;lqAnswer(D["lei-"+X.lid],X.qs[X.k],A.ok);lqModal()},
+  lqNext(){const X=UI.lq;if(!X)return;X.k++;X.sel=null;lqModal();const bx=document.querySelector(".lqm");if(bx)bx.scrollTop=0;if(X.k>=X.qs.length&&TAB==="leiseca")render()},
   lqBad(){const X=UI.lq;if(!X)return;const q=X.qs[X.k],Q=lqDoc(X.lid);if(!q)return;Q.bad=Q.bad||[];if(!Q.bad.includes(q.id))Q.bad.push(q.id);
     if(Q.err&&Q.err[q.id]){delete Q.err[q.id];const cid=Q.cards[q.id],c=cid&&CARDS().find(z=>z.id===cid);if(c){c.st="arch";touch("cards")}}touch("lq-"+X.lid);toast("Questão descartada. Ela não aparece mais.");X.qs.splice(X.k,1);const A={};Object.keys(X.ans).forEach(k=>{k=+k;if(k<X.k)A[k]=X.ans[k];else if(k>X.k)A[k-1]=X.ans[k]});X.ans=A;lqModal()},
   lqX(){UI.lq=null;$("layer3").innerHTML="";if(TAB==="leiseca")render()},
   lqAgain(){const X=UI.lq;if(!X)return;UI.lq={lid:X.lid,art:null,step:"cfg",n:X.n||10,foco:X.foco||"alta",kind:X.kind||"auto",fonte:X.fonte||"mix"};lqModal()},
-  lqMore(){const X=UI.lq;if(!X)return;UI.lq={lid:X.lid,art:X.art,fonte:"ia",kind:"auto",force:1,step:"run",qs:[],k:0,ans:{}};lqStart()},
+  lqMore(){const X=UI.lq;if(!X)return;UI.lq={lid:X.lid,art:X.art,fonte:"ia",kind:"auto",n:10,foco:"alta",force:1,step:"run",qs:[],k:0,ans:{}};lqStart()},
   lzF(el){UI.lzF=el.dataset.v;UI.lzLim=60;render()},
   lzMore(){UI.lzLim=(UI.lzLim||60)+80;render()},
   lzGo(){if(UI.lei)leiBizurar(UI.lei)},
