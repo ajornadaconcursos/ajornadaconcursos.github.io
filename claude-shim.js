@@ -193,6 +193,8 @@
 
   /* ---------- tela de entrada e menu da conta ---------- */
   const CSS = `
+  #jx-gate{animation:jxGIn .45s ease both}#jx-gate .jx-wrap>*{animation:jxRise .7s cubic-bezier(.16,1,.3,1) both}#jx-gate .jx-wrap>*:nth-child(2){animation-delay:.08s}#jx-gate .jx-wrap>*:nth-child(3){animation-delay:.16s}#jx-gate .jx-wrap>*:nth-child(n+4){animation-delay:.24s}#jx-gate .jx-art{animation:jxGIn 1.2s ease .1s both}
+  @keyframes jxGIn{from{opacity:0}}@keyframes jxRise{from{opacity:0;transform:translateY(26px) scale(.975)}}@media (prefers-reduced-motion:reduce){#jx-gate,#jx-gate *{animation:none!important}}
   #jx-gate{position:fixed;inset:0;z-index:2147483600;overflow:auto;color:#f1ecff;font:15px/1.45 Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     background:radial-gradient(900px 620px at 78% 38%,rgba(160,107,255,.34),transparent 62%),radial-gradient(700px 480px at 96% 96%,rgba(255,95,143,.20),transparent 60%),radial-gradient(600px 400px at 0% 100%,rgba(123,60,255,.18),transparent 60%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%)}
   #jx-gate .jx-art{position:fixed;right:-8vw;top:50%;transform:translateY(-50%);width:min(64vw,980px);aspect-ratio:1;pointer-events:none;opacity:.9}
@@ -329,7 +331,7 @@
         <button role="menuitem" data-k="reset">Apagar meus dados e recomeçar…</button>
         <button role="menuitem" data-k="out">Sair</button></div>`);
       document.body.appendChild(m);
-      m.onclick = e => { const k = e.target.dataset && e.target.dataset.k; if (!k) return; m.remove(); if (k === "imp") importDlg(); else if (k === "exp") exportAll(); else if (k === "reset") resetDlg(); else if (k === "out") sb.auth.signOut().then(() => location.reload()); };
+      m.onclick = e => { const k = e.target.dataset && e.target.dataset.k; if (!k) return; m.remove(); if (k === "imp") importDlg(); else if (k === "exp") exportAll(); else if (k === "reset") resetDlg(); else if (k === "out") jxOut(); };
       setTimeout(() => document.addEventListener("click", function h(ev) { if (!m.contains(ev.target) && ev.target !== b) { m.remove(); document.removeEventListener("click", h); } }), 0);
     };
   }
@@ -379,7 +381,7 @@
         }
         Object.keys(localStorage).forEach(k => { if (!/^sb-.*-auth-token$/.test(k) && k !== "jx-owner") localStorage.removeItem(k); });
         try { indexedDB.deleteDatabase("jornada-tjsp-pdfs"); } catch (e) { }
-        say("Pronto! Dados apagados. Entre de novo para escolher o seu concurso…");
+        say("Pronto! Dados apagados. Entre de novo para escolher o seu concurso…"); try { window.jxSplash(true, "Dados apagados. Preparando a sua Jornada…"); } catch (e) { }
         try { sessionStorage.setItem("jx-msg", "Dados apagados. Entre de novo para começar do zero e escolher o seu concurso."); } catch (e) { }
         try { await sb.auth.signOut(); } catch (e) { }
         setTimeout(() => location.reload(), 900);
@@ -496,7 +498,7 @@
         <div class="jx-row" style="margin-top:10px"><button class="jx-btn ghost" type="button" data-k="out">Sair</button></div><div class="jx-msg" role="status" aria-live="polite"></div></div></div>`;
       const ck = g.querySelector('[data-k="ck"]'), okb = g.querySelector('[data-k="ok"]'); ck.onchange = () => { okb.disabled = !ck.checked; okb.style.cursor = ck.checked ? "pointer" : "not-allowed"; };
       okb.onclick = async () => { okb.disabled = true; try { await window.jxAceitar(v); g.remove(); res(true); } catch (e) { okb.disabled = false; g.querySelector(".jx-msg").textContent = "Não deu para registrar o aceite. Confira a internet e tente de novo."; } };
-      g.querySelector('[data-k="out"]').onclick = () => sb.auth.signOut().then(() => location.reload());
+      g.querySelector('[data-k="out"]').onclick = () => jxOut();
     });
   }
   function trialToast(left) {
@@ -525,7 +527,7 @@
       <div class="jx-band"><b>A JORNADA</b><span>Sua trilha até a aprovação</span></div></div>`;
     g.querySelector('[data-k="exp"]').onclick = () => exportAll();
     g.querySelector('[data-k="chk"]').onclick = async () => { const m = g.querySelector(".jx-msg"); m.textContent = "Verificando…"; const { data } = await sb.auth.getUser(); const B = await loadAcesso(data.user); if (B.st === "ativo" || B.st === "dono") { m.textContent = "Pagamento confirmado! Abrindo…"; setTimeout(() => location.reload(), 900); } else m.textContent = "Ainda não chegou a confirmação. No Pix e no cartão costuma levar poucos minutos; no boleto, até 3 dias úteis."; };
-    g.querySelector('[data-k="out"]').onclick = () => sb.auth.signOut().then(() => location.reload());
+    g.querySelector('[data-k="out"]').onclick = () => jxOut();
   }
 
   /* ---------- início ---------- */
@@ -552,7 +554,7 @@
         }
         localStorage.setItem("jx-owner", UID);
       } catch (e) { }
-      const g = $("#jx-gate"); if (g) g.remove();
+      const g = $("#jx-gate"); if (g) { try { window.jxSplash(true, "Entrando na sua Jornada…"); } catch (e) { } g.style.transition = "opacity .3s ease"; g.style.opacity = "0"; g.style.pointerEvents = "none"; setTimeout(() => g.remove(), 320); }
       const ok = await trialCheck(s.user);
       if (!ok) return;
       await swStart(); fab(); readyRes();
@@ -563,8 +565,13 @@
   }
   /* Tela de abertura: cobre o painel até ele terminar de carregar os dados DESTA conta (nada de outro concurso aparece antes) */
   let splashDone = false;
-  function hideSplash() { if (splashDone) return; splashDone = true; const sp = document.getElementById("jx-splash"); if (!sp) return; sp.classList.add("out"); setTimeout(() => sp.remove(), 320); }
-  window.addEventListener("jornada-ready", () => { if (UID) hideSplash(); });
+  function hideSplash() { if (splashDone) return; splashDone = true; const sp = document.getElementById("jx-splash"); if (!sp) return; sp.classList.add("out"); setTimeout(() => { if (sp.classList.contains("out")) sp.style.display = "none"; }, 320); }
+  /* a abertura (logo + linha carregando) volta sempre que algo for demorar: trocar de concurso, apagar dados, sair */
+  window.jxSplash = function (show, msg) { const sp = document.getElementById("jx-splash"); if (!sp) return; const m = sp.querySelector("small"); if (m && msg) m.textContent = msg; if (show) { sp.style.display = ""; sp.classList.add("out"); void sp.offsetWidth; sp.classList.remove("out"); splashDone = false; } else hideSplash(); };
+  function jxOut() { const h = document.documentElement; h.setAttribute("data-out", "1"); setTimeout(() => { window.jxSplash(true, "Saindo da sua conta…"); Promise.resolve(sb.auth.signOut()).catch(() => { }).then(() => setTimeout(() => location.reload(), 450)); }, 300); }
+  /* a tela só aparece quando o painel termina de desenhar (evento jornada-shown); jornada-ready fica de reserva */
+  window.addEventListener("jornada-shown", () => { if (UID) hideSplash(); });
+  window.addEventListener("jornada-ready", () => { if (UID) setTimeout(hideSplash, 2500); });
   READY.then(() => setTimeout(hideSplash, 15000));
   if (document.body) start(); else document.addEventListener("DOMContentLoaded", start);
 })();

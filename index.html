@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611032006"></script>
+<script src="/claude-shim.js?v=202611032018"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -18,7 +18,7 @@
 <script>/* depois de apagar um concurso (ou numa conta sem concurso) a tela fica em "preparando" até os dados certos carregarem: nada do concurso antigo pisca */
 document.documentElement.setAttribute("data-boot","1");
 setTimeout(function(){document.documentElement.removeAttribute("data-boot")},15000)</script>
-<style>html[data-boot] .app,html[data-boot] #toast,html[data-boot] #layer3>*{visibility:hidden!important}html[data-boot] body::after{content:"A JORNADA";letter-spacing:.32em;font-family:Oswald,"Source Sans 3",system-ui,sans-serif;font-size:22px;font-weight:600;position:fixed;inset:0;display:grid;place-items:center;font:600 16px/1.4 "Source Sans 3",system-ui,sans-serif;color:#b9b5e0;background:#0d0c22;z-index:9999;animation:jbPulse 1.2s ease-in-out infinite alternate}@keyframes jbPulse{from{opacity:.55}to{opacity:1}}</style>
+<style>html[data-boot] .app,html[data-boot] #toast,html[data-boot] #layer3>*{visibility:hidden!important}html[data-boot]:not(:has(#jx-splash)) body::after{content:"A JORNADA";letter-spacing:.32em;font-family:Oswald,"Source Sans 3",system-ui,sans-serif;font-size:22px;font-weight:600;position:fixed;inset:0;display:grid;place-items:center;font:600 16px/1.4 "Source Sans 3",system-ui,sans-serif;color:#b9b5e0;background:#0d0c22;z-index:9999;animation:jbPulse 1.2s ease-in-out infinite alternate}@keyframes jbPulse{from{opacity:.55}to{opacity:1}}</style>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1456,14 +1456,10 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 .modal.sw .box{animation:jSlide .4s var(--ease-out) both}.modal.sw.bk .box{animation:jSlideL .4s var(--ease-out) both}.modal.sw{animation:none}.modal.sw .box{animation-delay:0s}
 @keyframes jUp{from{opacity:0;transform:translateY(46px)}}@keyframes jSlideL{from{opacity:0;transform:translateX(-56px)}}
 @keyframes vwR{from{opacity:0;transform:translateX(64px)}}@keyframes vwL{from{opacity:0;transform:translateX(-64px)}}
-#view.vw-r:not(.noanim)>*{animation-name:vwR;animation-duration:.46s}#view.vw-l:not(.noanim)>*{animation-name:vwL;animation-duration:.46s}
+#view.vw-r>*,#view.vw-l>*{animation:none!important}#view.vw-pre>*:not(.gnav){opacity:0}
+html[data-in] .side,html[data-in] .top,html[data-in] #view>*{opacity:0}
+html[data-out] .app{animation:jAppOut .3s ease forwards}@keyframes jAppOut{to{opacity:0;transform:scale(.985);filter:blur(2px)}}
 #view.vw-sub:not(.noanim)>.gnav,#view:not(.noanim)>.gnav{animation:none}
-html[data-in] .side{animation:jInL .6s var(--ease-out) both}html[data-in] .top{animation:jInT .55s var(--ease-out) .05s both}
-html[data-in] #view>*{animation:jAppear .7s var(--ease-out) both!important}
-html[data-in] #view>*:nth-child(1){animation-delay:.12s!important}html[data-in] #view>*:nth-child(2){animation-delay:.2s!important}html[data-in] #view>*:nth-child(3){animation-delay:.28s!important}html[data-in] #view>*:nth-child(4){animation-delay:.36s!important}html[data-in] #view>*:nth-child(5){animation-delay:.44s!important}html[data-in] #view>*:nth-child(n+6){animation-delay:.52s!important}
-#view.noanim .nv-fj,#view.noanim .ar-card,#view.noanim .ar-ans{animation:none}#view.noanim .ar-art svg.i{animation:arFl 2.4s ease-in-out infinite}
-@keyframes jAppear{from{opacity:0;transform:translateY(28px) scale(.97);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
-@keyframes jInL{from{opacity:0;transform:translateX(-40px)}}@keyframes jInT{from{opacity:0;transform:translateY(-18px)}}
 .av{animation:jPop .44s var(--ease-spring) both}
 .drawer{animation:jSlide .42s var(--ease-out) both}
 .lv{pointer-events:none!important;animation:jFadeOut .22s ease forwards!important}
@@ -2413,7 +2409,18 @@ function obFresh(){try{const c=core();return !PLANS.onb&&obEmpty()&&!(c.cfg&&c.c
 /* ainda sem concurso escolhido (conta nova, ou começou a escolher e não terminou): nada de concurso de base */
 function obPending(){return obFresh()||(!!PLANS.onb&&!PLANS.tjOk&&obEmpty())}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-a][data-v],[data-a][data-t]");if(!b||!b.parentElement)return;const sib=[...b.parentElement.children].filter(x=>x.matches("[data-a]"));const on=sib.findIndex(x=>x.getAttribute("aria-pressed")==="true"||x.classList.contains("on")||x.classList.contains("act")||x.getAttribute("aria-current")),i=sib.indexOf(b);UI.navDir=on>-1&&i>-1&&i!==on?(i<on?"l":"r"):""},true);
-function bootDone(){const h=document.documentElement;if(!h.hasAttribute("data-boot"))return;requestAnimationFrame(()=>{h.removeAttribute("data-boot");h.setAttribute("data-in","1");setTimeout(()=>h.removeAttribute("data-in"),1600);try{localStorage.removeItem("jornada-boot-hide")}catch(e){}})}
+const RMO=()=>matchMedia("(prefers-reduced-motion: reduce)").matches,EZ="cubic-bezier(.16,1,.3,1)";
+function jxAn(el,fr,o){try{return el.animate(fr,Object.assign({easing:EZ,fill:"backwards"},o))}catch(e){return null}}
+/* troca de tela: a nova desliza na direção do toque; começa só depois de a tela estar desenhada (sem travar) */
+function vwSlide(dir){const vw=$("view");if(RMO())return;const kids=[...vw.children].filter(k=>!k.classList.contains("gnav"));if(!kids.length)return;vw.classList.add("vw-pre");const tok=vwSlide.t=(vwSlide.t||0)+1;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{if(tok!==vwSlide.t)return;const dx=dir==="l"?-72:72;kids.forEach((k,i)=>{if(k.isConnected)jxAn(k,[{opacity:0,transform:`translateX(${dx}px)`},{opacity:1,transform:"translateX(0)"}],{duration:460,delay:Math.min(i,5)*45})});vw.classList.remove("vw-pre")}))}
+/* entrada na plataforma: a abertura some e a tela surge (menu da esquerda, barra do topo e os blocos, um a um) */
+function bootDone(){const h=document.documentElement;if(!h.hasAttribute("data-boot")||bootDone.on)return;bootDone.on=1;
+  requestAnimationFrame(()=>{h.setAttribute("data-in","1");h.removeAttribute("data-boot");try{localStorage.removeItem("jornada-boot-hide")}catch(e){}try{window.dispatchEvent(new Event("jornada-shown"))}catch(e){}
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{if(!RMO()){const sd=document.querySelector(".side"),tp=document.querySelector(".top");if(sd)jxAn(sd,[{opacity:0,transform:"translateX(-44px)"},{opacity:1,transform:"none"}],{duration:620,delay:60});if(tp)jxAn(tp,[{opacity:0,transform:"translateY(-20px)"},{opacity:1,transform:"none"}],{duration:560,delay:120});
+      [...$("view").children].forEach((k,i)=>jxAn(k,[{opacity:0,transform:"translateY(26px) scale(.975)"},{opacity:1,transform:"none"}],{duration:680,delay:200+Math.min(i,6)*80}))}h.removeAttribute("data-in")}))})}
+/* algo vai demorar (trocar ou apagar concurso): a tela sai suave e a abertura com o logo e a linha de carregamento volta */
+function jxBusy(msg,go){const h=document.documentElement;if(!RMO())h.setAttribute("data-out","1");setTimeout(()=>{try{if(window.jxSplash)window.jxSplash(true,msg);else h.setAttribute("data-boot","1")}catch(e){}if(go)setTimeout(go,120)},RMO()?0:280)}
 function obCheck(){if(obPending()&&!UI.np&&!$("layer3").innerHTML.trim())obModal()}
 setInterval(()=>{try{if(READY&&obPending()&&!UI.np&&!$("layer3").innerHTML.trim()){document.documentElement.dataset.ob="1";obModal()}}catch(e){}},700);
 function obModal(){const c=core(),nm=(c.cfg&&c.cfg.name)||UI.obName||"";
@@ -2445,7 +2452,7 @@ async function switchPlan(id,keep){if(id===ACTIVE){$("layer3").innerHTML="";retu
   try{localStorage.setItem("jornada-active",id)}catch(e){toast("Este navegador bloqueou o armazenamento: não dá para trocar de concurso aqui");return}
   try{history.replaceState(null,"",location.pathname+location.search+"#"+(keep?TAB:"meta"))}catch(e){}
   if(keep){try{sessionStorage.setItem("jornada-jtab",UI.jtab||"");sessionStorage.setItem("jornada-rmode",UI.rotMode||"");sessionStorage.setItem("jornada-pxday",UI.pxDay||"")}catch(e){}}
-  location.reload()}
+  jxBusy("Abrindo o seu concurso…",()=>location.reload())}
 /* PDFs locais (IndexedDB) */
 const idb=()=>new Promise((ok,no)=>{try{const r=indexedDB.open("jornada-tjsp-pdfs",1);r.onupgradeneeded=()=>r.result.createObjectStore("f");r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)}catch(e){no(e)}});
 const idbDo=(mode,fn)=>idb().then(d=>new Promise((ok,no)=>{const t=d.transaction("f",mode),r=fn(t.objectStore("f"));t.oncomplete=()=>ok(r&&r.result);t.onerror=()=>no(t.error)}));
@@ -4891,7 +4898,7 @@ function render(){
   const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,assinatura:vAssinatura}[TAB];
   {const vw=$("view"),ix=t=>TABS.findIndex(x=>x[0]===t),a=ix(render.lt),b=ix(TAB),sk=[UI.jtab,UI.dtab,UI.ctab,UI.mtab,UI.rsView,UI.rotMode,UI.dmode,UI.mview,UI.dsView].map(x=>x==null?"":String(x)).join("|"),subCh=render.lt===TAB&&render.lsk!=null&&render.lsk!==sk;
    const left=render.lt!==TAB?(UI.navDir==="l"||(!UI.navDir&&a>-1&&b>-1&&b<a)):(subCh&&UI.navDir==="l");
-   vw.classList.toggle("noanim",render.lt===TAB&&!subCh);vw.classList.toggle("vw-sub",subCh);vw.classList.toggle("vw-l",(render.lt!==TAB||subCh)&&left);vw.classList.toggle("vw-r",(render.lt!==TAB||subCh)&&!left);render.lsk=sk;UI.navDir=""}render.lt=TAB;$("view").innerHTML=gnavHTML()+V();try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
+   vw.classList.toggle("noanim",render.lt===TAB&&!subCh);vw.classList.toggle("vw-sub",subCh);vw.classList.toggle("vw-l",(render.lt!==TAB||subCh)&&left);vw.classList.toggle("vw-r",(render.lt!==TAB||subCh)&&!left);render.lsk=sk;UI.navDir=""}render.lt=TAB;$("view").innerHTML=gnavHTML()+V();{const vw=$("view");if(!vw.classList.contains("noanim")&&(vw.classList.contains("vw-r")||vw.classList.contains("vw-l"))&&!document.documentElement.hasAttribute("data-boot")&&!document.documentElement.hasAttribute("data-in"))vwSlide(vw.classList.contains("vw-l")?"l":"r")}try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
   if(UI.openT)renderDrawer();
 }
 /* concordância no singular quando o número é 1 */
@@ -4971,7 +4978,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261103200601";
+const JX_BUILD="20261103201843";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6572,7 +6579,7 @@ async function plRemove(){const R=UI.rm;if(!R||!R.ok||!R.info)return;const id=R.
     await savePlans();
     UI.rm=null;
     if(id===ACTIVE){dirty.clear();clearTimeout(saveT);const nx=allPlans().filter(x=>x.id!==id)[0];try{localStorage.setItem("jornada-rm-msg",name)}catch(e){}
-      try{localStorage.setItem("jornada-active",nx?nx.id:"tjsp");localStorage.setItem("jornada-boot-hide","1")}catch(e){}location.reload();return}
+      try{localStorage.setItem("jornada-active",nx?nx.id:"tjsp");localStorage.setItem("jornada-boot-hide","1")}catch(e){}jxBusy("Preparando a sua Jornada…",()=>location.reload());return}
     await flush();rotCats();render();okPop("Concurso removido",name+" saiu da plataforma. Os outros concursos foram readequados.")}
   catch(e){console.error(e);$("layer3").innerHTML="";toast("Não consegui remover tudo agora. Tente de novo.")}}
 
@@ -9686,7 +9693,7 @@ Object.assign(A,{
   plRmGo(){plRemove()}
 });
 document.addEventListener("change",e=>{const i=e.target;if(!i||!i.dataset||!UI.rm)return;if(i.dataset.c==="rmOk"){UI.rm.ok=i.checked;rmRender()}else if(i.dataset.c==="rmCross"){UI.rm.cross=i.checked;rmRender()}});
-function switchPlanReload(){(async()=>{try{clearTimeout(saveT);await flush()}catch(e){}location.reload()})()}
+function switchPlanReload(){(async()=>{try{clearTimeout(saveT);await flush()}catch(e){}jxBusy("Abrindo o seu concurso…",()=>location.reload())})()}
 document.addEventListener("change",e=>{if(e.target&&e.target.id==="jPlan"){const v=e.target.value;if(v==="__new"){e.target.value=ACTIVE;A.npOpen()}else switchPlan(v)}});
 (function brandInit(){if(IS_TJ)return;const m=$("brMark"),n=$("brName"),b=$("brSub");document.title="A JORNADA"+(APP_SUB?" "+APP_SUB:"")})();
 (function appSub(){if(!APP_SUB)return;const b=$("brSub");if(b)b.textContent=APP_SUB;document.title="A JORNADA "+APP_SUB})();
