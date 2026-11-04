@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611041416"></script>
+<script src="/claude-shim.js?v=202611041447"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1701,6 +1701,10 @@ h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
 .lq-r{border:1px solid var(--line);border-left:5px solid var(--line2);border-radius:12px;background:var(--sunk);padding:10px 12px;line-height:1.55;margin-bottom:12px}
 .lq-r.ok{border-left-color:#2f9a69}.lq-r.no{border-left-color:#e5484d}
 .lq-tr{margin-top:8px;padding:6px 10px;border-radius:8px;background:rgba(255,212,59,.22);font-size:14px}
+
+.box.mm-add{max-height:calc(100dvh - 40px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}.box.mm-add::-webkit-scrollbar{display:none}
+.mm-esq{max-height:min(70vh,760px);overflow-y:auto;scrollbar-width:thin;padding:4px 2px}
+.mm-esq h1{font-size:20px;margin:0 0 8px}.mm-esq h2{font-size:16px;margin:14px 0 6px;color:var(--lime-txt)}
 
 /* ---------- padrão de erros ---------- */
 .qzw{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:0 14px 14px}
@@ -4270,12 +4274,12 @@ function vMapas(){const sid=UI.mmSid&&EDI[UI.mmSid]!=null?UI.mmSid:ED[0].id;UI.m
   const cur=UI.mmC==="*"||tabs.some(t=>t.k===UI.mmC)?(UI.mmC||"*"):"*",L=(cur==="*"?all:all.filter(x=>x.course===cur)).slice().sort((a,b)=>(a.tp??99)-(b.tp??99)||(b.ts||0)-(a.ts||0));
   const chips=ED.map(s=>{const n=MM().items.filter(x=>x.sid===s.id).length;return`<button data-a="mmSid" data-s="${s.id}" aria-pressed="${s.id===sid}" style="--c:${s.col}"><span class="code" style="border-color:${s.col}">${esc(s.c)}</span>${esc(s.n.length>26?s.n.slice(0,24)+"…":s.n)}${n?`<small>${n}</small>`:""}</button>`}).join("");
   const ctabs=`<div class="tabs2 ctab" role="group" aria-label="Curso"><button data-a="mmC" data-v="*" aria-pressed="${cur==="*"}">Todos · ${all.length}</button>${tabs.map(t=>`<button data-a="mmC" data-v="${esc(t.k)}" aria-pressed="${cur===t.k}">${esc(t.n)} · ${cnt(t.k)}</button>`).join("")}</div>`;
-  const card=x=>{const tp=x.tp!=null&&S.t[x.tp]?S.t[x.tp][0]:"";const th=x.kind==="img"?`<img src="${esc(mmUrl(x))}" alt="" loading="lazy">`:x.kind==="ai"?`<span class="mm-ai">${ic("brain")}<small>${(x.tree&&x.tree.c||[]).length} ramos</small></span>`:x.kind==="pdf"?`<span class="mm-ai">${ic("materiais")}<small>PDF</small></span>`:`<span class="mm-ai">${ic("ext")}<small>Link</small></span>`;
+  const card=x=>{const tp=x.tp!=null&&S.t[x.tp]?S.t[x.tp][0]:"";const th=x.kind==="img"?`<img src="${esc(mmUrl(x))}" alt="" loading="lazy">`:x.kind==="ai"?`<span class="mm-ai">${ic("brain")}<small>${(x.tree&&x.tree.c||[]).length} ramos</small></span>`:x.kind==="esqai"?`<span class="mm-ai">${ic("list")}<small>Esquema</small></span>`:x.kind==="pdf"?`<span class="mm-ai">${ic("materiais")}<small>PDF</small></span>`:`<span class="mm-ai">${ic("ext")}<small>Link</small></span>`;
     return`<button class="mm-card" data-a="mmView" data-id="${x.id}"><span class="mm-th">${th}</span><span class="mm-ct"><b>${esc(x.title)}</b><small>${esc(mmCN(sid,x.course))}${tp?" · "+esc(tp.length>50?tp.slice(0,48)+"…":tp):""}</small></span></button>`};
   return`<div class="hello"><h1>Mapas Mentais</h1><p>Os mapas de cada matéria num lugar só, separados pelo curso de onde vieram. Envie imagens, PDFs ou links dos seus cursos, ou peça para a IA montar um mapa a partir dos seus resumos e esquemas (só com o que está no seu material). Os mapas da IA podem ser baixados em PDF.</p></div>
   <div class="mm-top"><span><b>Envie uma pasta inteira</b> <span class="muted small">e cada arquivo vai para a matéria e o assunto certos, pelo nome da pasta ou do arquivo. Você confere antes de enviar. Também dá para arrastar a pasta até aqui.</span></span><label class="btn pri">${ic("cloud")} Escolher pasta<input type="file" class="mmDir" webkitdirectory multiple hidden></label><label class="btn">${ic("plus")} Vários arquivos<input type="file" class="mmDir" accept="image/*,application/pdf" multiple hidden></label></div>
   <div class="mm-subs" role="group" aria-label="Matéria">${chips}</div>
-  <section class="card"><div class="card-h"><span class="code" style="border-color:${S.col}">${esc(S.c)}</span><h2>${esc(S.n)}</h2><span class="r row" style="gap:8px"><span class="seg mm-vw" role="group" aria-label="Ver"><button data-a="mmVw" data-v="all" aria-pressed="${UI.mmVw!=="tp"}">Mapas</button><button data-a="mmVw" data-v="tp" aria-pressed="${UI.mmVw==="tp"}">Por assunto</button></span><button class="btn sm" data-a="mmAdd">${ic("plus")} Enviar mapa</button>${SAMPLE?`<button class="btn sm" data-a="mmFromRes" data-s="${S.id}" ${UI.mmBusy||!mmResumos(S.id,null).length?"disabled":""} title="${mmResumos(S.id,null).length?"Monta um mapa para cada resumo pronto desta matéria":"Esta matéria ainda não tem resumo pronto (aba Resumos)"}">${ic("brain")} Gerar dos meus resumos</button>`:""}<button class="btn sm pri" data-a="mmAI">${ic("bulb")} Gerar com IA</button>${all.some(x=>x.kind==="ai")?`<button class="btn sm" data-a="mmPdfAll" data-s="${S.id}">${ic("dl")} Baixar mapas em PDF</button>`:""}</span></div>
+  <section class="card"><div class="card-h"><span class="code" style="border-color:${S.col}">${esc(S.c)}</span><h2>${esc(S.n)}</h2><span class="r row" style="gap:8px"><span class="seg mm-vw" role="group" aria-label="Ver"><button data-a="mmVw" data-v="all" aria-pressed="${UI.mmVw!=="tp"}">Mapas</button><button data-a="mmVw" data-v="tp" aria-pressed="${UI.mmVw==="tp"}">Por assunto</button></span><button class="btn sm" data-a="mmAdd">${ic("plus")} Enviar mapa</button>${SAMPLE?`<button class="btn sm" data-a="mmFromRes" data-s="${S.id}" ${UI.mmBusy||!mmResumos(S.id,null).length?"disabled":""} title="${mmResumos(S.id,null).length?"Monta um mapa para cada resumo pronto desta matéria":"Esta matéria ainda não tem resumo pronto (aba Resumos)"}">${ic("brain")} Gerar dos meus resumos</button>`:""}<button class="btn sm pri" data-a="mmAI">${ic("bulb")} Gerar com IA</button>${SAMPLE?`<button class="btn sm" data-a="mmEsqNew" title="Junta os seus resumos e os esquemas enviados num esquema novo de revisão">${ic("list")} Gerar esquema</button>`:""}${all.some(x=>x.kind==="ai")?`<button class="btn sm" data-a="mmPdfAll" data-s="${S.id}">${ic("dl")} Baixar mapas em PDF</button>`:""}</span></div>
    ${tabs.length?ctabs:""}
    <div class="card-b">${UI.mmVw==="tp"?mmTopicsHTML(S,cur==="*"?all:all.filter(x=>x.course===cur)):L.length?`<div class="mm-grid">${L.map(card).join("")}</div>`:`<p class="muted" style="margin:0">${all.length?"Nenhum mapa deste curso ainda.":"Nenhum mapa desta matéria ainda. Use “Adicionar mapa” para enviar os mapas dos seus cursos (Estratégia, Gran, Direção, o que você tiver) ou “Gerar com IA”."}</p>`}</div></section>`}
 function mmCourseField(sid,val){const CS=mmCourses(sid);
@@ -4290,12 +4294,13 @@ async function mmStore(blob){if(ASSETS){const r=await upTry(blob);return{asset:r
 function mmViewer(x){const S=ED[EDI[x.sid]]||ED[0],tp=x.tp!=null&&S.t[x.tp]?S.t[x.tp][0]:"";
   const body=x.kind==="img"?`<div class="mm-img"><img src="${esc(mmUrl(x))}" alt="${esc(x.title)}"></div>`
    :x.kind==="ai"?`<div class="mm-tree"><ul>${mmTreeHTML(x.tree,S.col)}</ul></div>`
+   :x.kind==="esqai"?`<div class="rsout mm-esq">${mdLite(String(x.md||"").replace(/^#\s+.+\n?/,""))}</div>`
    :x.kind==="pdf"?`<iframe class="mm-pdf" id="mmPdf" title="${esc(x.title)}"></iframe>`
    :`<p style="margin:0">Este mapa está fora do app. <a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.url.length>70?x.url.slice(0,68)+"…":x.url)}</a></p>`;
   $("layer3").innerHTML=`<div class="modal mm-modal" role="dialog" aria-modal="true" aria-label="${esc(x.title)}"><div class="box">
    <div class="vh"><h3>${esc(x.title)}<small class="muted">${esc(S.n)} · ${esc(mmCN(x.sid,x.course))}${x.src?" · base: "+({ambos:"resumos + esquemas",res:"resumos",esq:"esquemas"})[x.src]:""}${tp?" · "+esc(tp):""}</small></h3>
     ${x.kind==="img"||x.kind==="pdf"?`<a class="btn sm" href="${esc(mmUrl(x))}" target="_blank" rel="noopener" ${x.kind==="pdf"?'id="mmPdfA"':""}>${ic("ext")} Abrir em tela cheia</a>`:""}
-    ${x.kind==="ai"?`<button class="btn sm" data-a="mmRedo" data-id="${x.id}" ${UI.mmBusy?"disabled":""}>${ic("bulb")} ${UI.mmBusy?"Refazendo…":"Refazer com mais conteúdo"}</button><button class="btn sm pri" data-a="mmPdf" data-id="${x.id}">${ic("dl")} Baixar em PDF</button>`:""}<button class="btn sm ghost" data-a="mmDel" data-id="${x.id}">${ic("trash")} Excluir</button><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+    ${x.kind==="ai"?`<button class="btn sm" data-a="mmRedo" data-id="${x.id}" ${UI.mmBusy?"disabled":""}>${ic("bulb")} ${UI.mmBusy?"Refazendo…":"Refazer com mais conteúdo"}</button><button class="btn sm pri" data-a="mmPdf" data-id="${x.id}">${ic("dl")} Baixar em PDF</button>`:""}${x.kind==="esqai"?`<button class="btn sm" data-a="mmRedo" data-id="${x.id}" ${UI.mmBusy?"disabled":""}>${ic("bulb")} ${UI.mmBusy?"Refazendo…":"Refazer"}</button><button class="btn sm pri" data-a="mmPdf" data-id="${x.id}">${ic("dl")} Baixar em PDF</button>`:""}<button class="btn sm ghost" data-a="mmDel" data-id="${x.id}">${ic("trash")} Excluir</button><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
    ${body}</div></div>`;
   if(x.kind==="pdf"){fetch(mmUrl(x)).then(r=>r.ok?r.blob():null).then(b=>{if(!b)return;const u=URL.createObjectURL(new Blob([b],{type:"application/pdf"})),f=$("mmPdf"),a=$("mmPdfA");if(f)f.src=u;if(a)a.href=u}).catch(()=>{})}}
 /* fontes do mapa: resumos produzidos (aba Resumos) e esquemas enviados (PDF ou imagem, aba Mapas Mentais) */
@@ -4307,7 +4312,8 @@ async function mmPdfText(x,max){try{const r=await fetch(mmUrl(x));if(!r.ok)retur
   for(let i=1;i<=Math.min(doc.numPages,60)&&out.length<max;i++){const tc=await(await doc.getPage(i)).getTextContent();out+="\n"+tc.items.map(k=>k.str).join(" ")}return out.slice(0,max)}catch(e){return""}}
 /* folha que só aponta para o material ("conceito de X", "ver p. 5", "o PDF trata de…") em vez de trazer o conteúdo */
 const mmPointer=t=>{t=String(t||"").trim();const w=t.split(/\s+/).length;return /^(ver|veja|consulte|confira)\b|\b(o (pdf|material|texto|autor|professor) (trata|aborda|explica|apresenta|traz))|^(p|pág|página)\.?\s*\d+$/i.test(t)||(w<=4&&/^(conceito|definição|noções?|introdução|características|classificação|espécies|aspectos|exemplos?|hipóteses|requisitos|efeitos|princípios)( d[aoe]s?\b.*)?$/i.test(t))};
-async function mmGenerate(S,tp,src,extra,aula){const au_=aula?auOf(S.id,aula):null,as=au_?auLabel(S.id,aula)+" – "+au_.d:tp!=null&&S.t[tp]?S.t[tp][0]:S.n,useR=src!=="esq",useE=src!=="res";let txt="",imgs=[],nR=0,nE=0,nP=0;
+/* junta o material do aluno (resumos, teoria do PDF da aula, esquemas enviados e texto colado) para os mapas e os esquemas da IA */
+async function mmMaterial(S,tp,src,extra,aula){const au_=aula?auOf(S.id,aula):null,as=au_?auLabel(S.id,aula)+" – "+au_.d:tp!=null&&S.t[tp]?S.t[tp][0]:S.n,useR=src!=="esq",useE=src!=="res";let txt="",imgs=[],nR=0,nE=0,nP=0;
   if(useR){const R=aula?mmResumos(S.id,null).filter(r=>r.aula===aula):mmResumos(S.id,tp);nR=R.length;txt+=R.map(r=>"## Resumo "+auLabel(S.id,r.aula)+"\n"+String(r.txt).slice(0,9000)).join("\n\n").slice(0,useE?16000:24000)}
   /* a teoria do próprio PDF da aula entra junto: é dela que sai o conteúdo das folhas */
   if(useR){try{const aulas=aula?[aula]:AU(S.id).filter(a=>tp==null||(a.tp||[]).includes(tp)).map(a=>a.c);let got=0;
@@ -4316,6 +4322,8 @@ async function mmGenerate(S,tp,src,extra,aula){const au_=aula?auOf(S.id,aula):nu
     if(imgs.length){let lim=null;try{lim=await SAMPLE.limits()}catch(e){}const mx=lim&&lim.images?Math.min(4,lim.images.maxCount||lim.images.max||4):0;
       const bl=[];for(const x of imgs.slice(0,mx)){try{const r=await fetch(mmUrl(x));if(r.ok){const b=await r.blob();bl.push(new File([b],"esquema.jpg",{type:b.type||"image/jpeg"}));nE++}}catch(e){}}imgs=bl}}
   if(extra)txt+="\n\n## Texto do aluno\n"+extra.slice(0,8000);
+  return{txt,imgs,nR,nE,nP,as,au_}}
+async function mmGenerate(S,tp,src,extra,aula){const M=await mmMaterial(S,tp,src,extra,aula);let {txt,imgs,nR,nE,nP}=M;const as=M.as;
   if(!txt.trim()&&!imgs.length)throw{code:"vazio"};
   const fonte=src==="res"?"nos resumos e na teoria do PDF do aluno":src==="esq"?"nos esquemas enviados pelo aluno":"nos resumos, na teoria do PDF e nos esquemas do aluno";
   const mk=(extraRule)=>`Crie um MAPA MENTAL ESQUEMATIZADO de revisão para concurso público (${IS_TJ?"Fundação VUNESP, Oficial de Justiça do TJSP":[PLAN.banca,PLAN.cargo||PLAN.name].filter(Boolean).join(", ")}).
@@ -4354,18 +4362,45 @@ function mmAddModal(){const sid=UI.mmSid,S=ED[EDI[sid]],f=UI.mmF||{};
    <div class="field"><span class="small" style="font-weight:600">Arquivo</span><label class="btn" style="justify-content:center">${ic("plus")} ${f.busy?esc(f.busy):"Escolher imagens ou PDF"}<input type="file" class="mmf" accept="image/*,application/pdf" multiple hidden></label><span class="muted small">Pode escolher várias imagens de uma vez: cada uma vira um mapa.</span></div>
    <div class="field"><label for="mmLk">Ou cole um link</label><div class="row" style="gap:8px"><input class="inp" id="mmLk" placeholder="https://" style="flex:1 1 200px"><button class="btn" data-a="mmLink">Salvar link</button></div></div>
   </div></div>`}
-function mmAIModal(){const sid=UI.mmSid,S=ED[EDI[sid]],b=UI.mmBusy,tv=UI.mmTp??"",tp=tv===""?null:+tv,src=UI.mmSrc||"ambos",nR=mmResumos(sid,tp).length,nE=mmEsquemas(sid,tp).length;
+/* ESQUEMA NOVO: quadro de revisão em texto (tópicos, setas, comparações), feito só com o material do aluno */
+async function esqGenerate(S,tp,src,extra,aula){const M=await mmMaterial(S,tp,src,extra,aula),{txt,imgs}=M;
+  if(!txt.trim()&&!imgs.length)throw{code:"vazio"};
+  const fonte=src==="res"?"nos resumos e na teoria do PDF do aluno":src==="esq"?"nos esquemas enviados pelo aluno":"nos resumos, na teoria do PDF e nos esquemas do aluno";
+  const mk=extra2=>`Crie um ESQUEMA DE REVISÃO NOVO para concurso público (${IS_TJ?"Fundação VUNESP, Oficial de Justiça do TJSP":[PLAN.banca,PLAN.cargo||PLAN.name].filter(Boolean).join(", ")}).
+Matéria: ${S.n}. Assunto: ${M.as}.
+É um esquema para revisar rápido, do jeito dos esquemas de cursinho: tópicos curtos, setas, comparações lado a lado e listas numeradas. Não é texto corrido nem índice do material.
+Baseie o esquema SOMENTE ${fonte}${imgs.length?" (texto abaixo e imagens anexas)":""}. Junte o que os vários materiais dizem sobre o mesmo ponto num lugar só e corte o que se repete. Não use conhecimento próprio: nenhum artigo, prazo, número ou conceito que não esteja no material.
+<material>
+${txt.slice(0,45000)}
+</material>
+Formato (texto simples, sem tabelas e sem HTML):
+- Primeira linha: "# " + o assunto.
+- De 4 a 8 blocos "## ", do que mais cai para o que menos cai.
+- Dentro de cada bloco, itens "- " e subitens "  - ". Use "→" para consequência ou sequência (ex.: "Citação válida → réu passa a integrar a relação processual") e "x" para comparar (ex.: "**Prescrição** x **Decadência**: …").
+- Listas (requisitos, espécies, hipóteses) numeradas: "1. ", "2. "…
+- Palavras-chave em **negrito**. Comece com "ATENÇÃO:" o que mais cai ou o que o aluno errou. Cite o artigo quando o material citar.
+- Feche com "## Para não confundir": de 3 a 6 pares que a banca troca.${extra2||""}`;
+  let md="",tries=0;
+  for(;tries<2;tries++){const r=await SAMPLE(mk(tries?"\n- ATENÇÃO: a versão anterior trouxe números ou artigos que não estão no material. Use só o que está no material.":""),imgs.length?{images:imgs,modelTier:IA_LEVE}:{modelTier:IA_LEVE});
+    md=resClean(String(r&&r.text||"")).trim();if(!md)continue;if(imgs.length||gOk(md,txt))break}
+  if(!md)throw new Error("formato");
+  /* sobrou número que não está no material: tira só essas linhas */
+  if(!imgs.length&&!gOk(md,txt)){const bad=new Set(gMiss(md,txt));md=md.split("\n").filter(l=>!gMiss(l,txt).some(n=>bad.has(n))).join("\n")}
+  const t=(md.match(/^#\s+(.+)$/m)||[])[1]||M.as;return{md,title:String(t).replace(/\*/g,"").slice(0,120),nR:M.nR,nE:M.nE}}
+function mmAIModal(){const ESQ=UI.mmOut==="esq";const sid=UI.mmSid,S=ED[EDI[sid]],b=UI.mmBusy,tv=UI.mmTp??"",tp=tv===""?null:+tv,src=UI.mmSrc||"ambos",nR=mmResumos(sid,tp).length,nE=mmEsquemas(sid,tp).length;
   const n={ambos:nR+nE,res:nR,esq:nE}[src];
-  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Gerar mapa mental com IA"><div class="box mm-add">
-   <div class="vh"><h3>Gerar mapa mental com IA</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="${ESQ?"Gerar esquema com IA":"Gerar mapa mental com IA"}"><div class="box mm-add">
+   <div class="vh"><h3>${ESQ?"Gerar esquema novo com IA":"Gerar mapa mental com IA"}</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
    <span class="muted small">${esc(S.n)}</span>
+   <div class="field"><span class="small" style="font-weight:600">O que gerar</span><div class="tabs2" role="group"><button data-a="mmOut" data-v="mapa" aria-pressed="${!ESQ}">${ic("brain")} Mapa mental</button><button data-a="mmOut" data-v="esq" aria-pressed="${ESQ}">${ic("list")} Esquema</button></div>
+    <span class="muted small">${ESQ?"Quadro de revisão em tópicos, setas e comparações, juntando os seus resumos e os esquemas que você enviou.":"Árvore de ramos e folhas com o conteúdo, para ler e fixar."}</span></div>
    ${mmTopicField(S,tv)}
-   <div class="field"><span class="small" style="font-weight:600">Base do mapa</span><div class="mm-src" role="radiogroup">${MM_SRC.map(([k,l,d])=>{const c={ambos:nR+nE,res:nR,esq:nE}[k];return`<button role="radio" aria-checked="${src===k}" data-a="mmSrc" data-v="${k}"><b>${l}</b><small>${d}</small><span class="chip">${k==="ambos"?nR+" resumo"+(nR===1?"":"s")+" · "+nE+" esquema"+(nE===1?"":"s"):k==="res"?nR+" resumo"+(nR===1?"":"s"):nE+" esquema"+(nE===1?"":"s")}</span></button>`}).join("")}</div>
+   <div class="field"><span class="small" style="font-weight:600">Base ${ESQ?"do esquema":"do mapa"}</span><div class="mm-src" role="radiogroup">${MM_SRC.map(([k,l,d])=>{const c={ambos:nR+nE,res:nR,esq:nE}[k];return`<button role="radio" aria-checked="${src===k}" data-a="mmSrc" data-v="${k}"><b>${l}</b><small>${d}</small><span class="chip">${k==="ambos"?nR+" resumo"+(nR===1?"":"s")+" · "+nE+" esquema"+(nE===1?"":"s"):k==="res"?nR+" resumo"+(nR===1?"":"s"):nE+" esquema"+(nE===1?"":"s")}</span></button>`}).join("")}</div>
     ${n?"":`<span class="small" style="color:var(--warn)">${src==="esq"?"Nenhum esquema desta matéria ainda. Envie os PDFs em “Adicionar mapa”.":src==="res"?"Nenhum resumo pronto desta matéria ainda. Eles nascem na aba Resumos, ao carregar o PDF da aula.":"Ainda não há resumos nem esquemas desta matéria."} Você pode colar um texto abaixo.</span>`}</div>
-   <div class="field"><label for="mmTx">Texto extra (opcional)</label><textarea class="inp" id="mmTx" rows="3" placeholder="Cole um trecho para entrar junto no mapa"></textarea></div>
-   <label class="small" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="mmPdfToo" ${core().mmPdf?"checked":""}> Também baixar o mapa em PDF quando ficar pronto</label>
-   <p class="small muted" style="margin:0">O mapa usa só o seu material: nada de conteúdo de fora. Itens com números que não estão no material são descartados.</p>
-   <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn" data-a="volClose">Cancelar</button><button class="btn pri" data-a="mmGen" ${b?"disabled":""}>${ic("bulb")} ${b?"Montando o mapa…":"Gerar mapa"}</button></div></div></div>`}
+   <div class="field"><label for="mmTx">Texto extra (opcional)</label><textarea class="inp" id="mmTx" rows="3" placeholder="Cole um trecho para entrar junto ${ESQ?"no esquema":"no mapa"}"></textarea></div>
+   <label class="small" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="mmPdfToo" ${core().mmPdf?"checked":""}> Também baixar ${ESQ?"o esquema":"o mapa"} em PDF quando ficar pronto</label>
+   <p class="small muted" style="margin:0">${ESQ?"O esquema":"O mapa"} usa só o seu material: nada de conteúdo de fora. Itens com números que não estão no material são descartados.</p>
+   <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn" data-a="volClose">Cancelar</button><button class="btn pri" data-a="mmGen" ${b?"disabled":""}>${ic("bulb")} ${b?(ESQ?"Montando o esquema…":"Montando o mapa…"):(ESQ?"Gerar esquema":"Gerar mapa")}</button></div></div></div>`}
 /* Mapas por assunto e envio de uma pasta inteira, distribuída por matéria e assunto */
 const MM_STOP=new Set(["direito","lingua","nocoes","nocao","geral","gerais","basicos","aula","aulas","mapa","mapas","mental","mentais","resumo","resumos","parte","esquema","esquemas","pdf","para","como","sobre","curso","cursos","material","materiais","revisao","modulo","capitulo","final","volume","versao","tjsp","edital"]);
 const mmToks=s=>norm(String(s||"")).replace(/\.[a-z0-9]{2,4}$/,"").split(/[^a-z0-9]+/).filter(w=>w.length>=4&&!MM_STOP.has(w)&&!/^\d+$/.test(w)).map(w=>w.slice(0,5));
@@ -4412,7 +4447,7 @@ async function mmImpGo(){if(!MMI||MMI.busy)return;const co=((($("miCo")||{}).val
   toast(ok?ok+" mapa"+(ok>1?"s":"")+" em "+Object.keys(per).length+" matéria"+(Object.keys(per).length>1?"s":"")+(bad?" · alguns falharam: "+bad:""):"Não consegui guardar: "+(bad||"falha"))}
 /* visão por assunto: cada tópico do edital com os seus mapas e atalhos para enviar ou gerar */
 function mmTopicsHTML(S,all){const by=new Map();all.forEach(x=>{const k=x.tp!=null&&S.t[x.tp]?x.tp:-1;by.set(k,(by.get(k)||[]).concat(x))});
-  const th=x=>x.kind==="img"?`<img src="${esc(mmUrl(x))}" alt="" loading="lazy">`:ic(x.kind==="ai"?"brain":x.kind==="pdf"?"materiais":"ext");
+  const th=x=>x.kind==="img"?`<img src="${esc(mmUrl(x))}" alt="" loading="lazy">`:ic(x.kind==="ai"?"brain":x.kind==="esqai"?"list":x.kind==="pdf"?"materiais":"ext");
   const row=(k,lab)=>{const L=by.get(k)||[],op=UI.mmTo===k;return`<div class="mt-r ${L.length?"":"z"}"><button class="mt-h" data-a="mmTo" data-v="${k}" aria-expanded="${op}" ${L.length?"":"disabled"}><span class="mt-n">${k<0?"–":pad(k+1)}</span><b>${esc(lab)}</b><span class="mt-th">${L.slice(0,3).map(x=>`<i>${th(x)}</i>`).join("")}</span><small>${L.length?L.length+" mapa"+(L.length>1?"s":""):"nenhum mapa"}</small></button>
     <span class="mt-a"><button class="btn sm" data-a="mmAdd" data-tp="${k<0?"":k}" title="Enviar mapa deste assunto">${ic("plus")} Enviar</button><button class="btn sm ghost" data-a="mmAI" data-tp="${k<0?"":k}" title="Gerar mapa deste assunto com IA">${ic("bulb")} IA</button></span>
     ${op&&L.length?`<div class="mm-grid mt-g">${L.map(x=>`<button class="mm-card" data-a="mmView" data-id="${x.id}"><span class="mm-th">${x.kind==="img"?`<img src="${esc(mmUrl(x))}" alt="" loading="lazy">`:`<span class="mm-ai">${th(x)}</span>`}</span><span class="mm-ct"><b>${esc(x.title)}</b><small>${esc(mmCN(S.id,x.course))}</small></span></button>`).join("")}</div>`:""}</div>`};
@@ -4968,7 +5003,7 @@ const TUT=[
 ];
 const TUT_MIN_STEP=3400;
 let TUTP={i:0,s:0,play:1,t:0};
-const TUT_FAQ=[["As questões da lei seca são de provas reais?", "Tem dos dois tipos, e cada questão diz de onde veio. “Já caiu” são questões que você mesmo trouxe (listas dos PDFs e TEC colado nos resumos) e que citam o artigo. As outras são escritas pela IA no estilo da sua banca, só com o texto do artigo. Achou uma com problema? Toque em “Questão com problema” e ela some."], ["Posso mudar de curso depois?", "Pode. Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, troque o curso de qualquer matéria ou vincule um curso completo. As metas se ajustam."], ["Não tenho curso. Consigo estudar?", "Consegue. Escolha Pelo edital: as metas seguem os tópicos do edital, priorizados pelo peso de cada matéria na prova."], ["O edital ainda não saiu. E agora?", "Comece pelo último edital ou por um pré-edital. A contagem fica em ∞ até a data sair, e o que você estudou continua contando."], ["Atrasei a meta. Perdi o plano?", "Não. Em Hoje, toque em Recalcular plano: a Jornada refaz as próximas metas para caber até a prova."], ["Quando o dia conta na jornada da semana?", "Com pelo menos 60 minutos de estudo no dia. Dia de folga na sua rotina não quebra a sequência. Toque em 🎨 no card para trocar a paisagem."], ["Meus dados ficam salvos se eu trocar de aparelho?", "Ficam. Tudo é salvo na sua conta: entre com o mesmo e-mail no celular, no tablet ou no computador."], ["Preciso enviar o PDF de todas as aulas?", "Não. É opcional. Com o PDF, a aula ganha leitura com marca-texto, resumo e as questões daquele trecho."], ["A IA acabou por hoje. O que faço?", "Continue estudando normalmente: só os recursos de IA esperam. O limite (80 por dia na assinatura, 60 no teste) zera no dia seguinte."], ["Dá para estudar para dois concursos?", "Dá. Adicione o segundo em Meu plano › Concurso › Trocar de concurso. A compatibilidade mostra o quanto o estudo se aproveita."], ["Posso guardar provas que já fiz?", "Pode, quantas quiser, em Revisar › Minhas provas. A Jornada corrige, resume os erros e manda as erradas para a revisão."], ["O que acontece quando o teste grátis acaba?", "Escolha um plano em Meu plano › Assinatura para continuar. Seus dados ficam guardados."], ["Errei muito numa matéria. Como recupero?", "Faça as Erradas marcando o motivo do erro, siga a Trilha da Jornada todo dia e pergunte à Jornada o que focar."]];
+const TUT_FAQ=[["Dá para juntar os meus esquemas num esquema novo?", "Dá. Em Estudar › Mapas mentais, envie os esquemas em PDF ou imagem e toque em “Gerar esquema”. A IA junta os seus resumos e esquemas num quadro de revisão novo, só com o que está no seu material, e você baixa em PDF. Os esquemas também entram no resumo direcionado da aula."], ["As questões da lei seca são de provas reais?", "Tem dos dois tipos, e cada questão diz de onde veio. “Já caiu” são questões que você mesmo trouxe (listas dos PDFs e TEC colado nos resumos) e que citam o artigo. As outras são escritas pela IA no estilo da sua banca, só com o texto do artigo. Achou uma com problema? Toque em “Questão com problema” e ela some."], ["Posso mudar de curso depois?", "Pode. Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, troque o curso de qualquer matéria ou vincule um curso completo. As metas se ajustam."], ["Não tenho curso. Consigo estudar?", "Consegue. Escolha Pelo edital: as metas seguem os tópicos do edital, priorizados pelo peso de cada matéria na prova."], ["O edital ainda não saiu. E agora?", "Comece pelo último edital ou por um pré-edital. A contagem fica em ∞ até a data sair, e o que você estudou continua contando."], ["Atrasei a meta. Perdi o plano?", "Não. Em Hoje, toque em Recalcular plano: a Jornada refaz as próximas metas para caber até a prova."], ["Quando o dia conta na jornada da semana?", "Com pelo menos 60 minutos de estudo no dia. Dia de folga na sua rotina não quebra a sequência. Toque em 🎨 no card para trocar a paisagem."], ["Meus dados ficam salvos se eu trocar de aparelho?", "Ficam. Tudo é salvo na sua conta: entre com o mesmo e-mail no celular, no tablet ou no computador."], ["Preciso enviar o PDF de todas as aulas?", "Não. É opcional. Com o PDF, a aula ganha leitura com marca-texto, resumo e as questões daquele trecho."], ["A IA acabou por hoje. O que faço?", "Continue estudando normalmente: só os recursos de IA esperam. O limite (80 por dia na assinatura, 60 no teste) zera no dia seguinte."], ["Dá para estudar para dois concursos?", "Dá. Adicione o segundo em Meu plano › Concurso › Trocar de concurso. A compatibilidade mostra o quanto o estudo se aproveita."], ["Posso guardar provas que já fiz?", "Pode, quantas quiser, em Revisar › Minhas provas. A Jornada corrige, resume os erros e manda as erradas para a revisão."], ["O que acontece quando o teste grátis acaba?", "Escolha um plano em Meu plano › Assinatura para continuar. Seus dados ficam guardados."], ["Errei muito numa matéria. Como recupero?", "Faça as Erradas marcando o motivo do erro, siga a Trilha da Jornada todo dia e pergunte à Jornada o que focar."]];
 function vTutorial(){const id=UI.tut||TUT[0].id,ch=TUT.find(x=>x.id===id)||TUT[0];
   return`<div class="hello"><h1>Tutorial</h1><p>Cada função da Jornada em uma animação curta, com o passo a passo e dicas para você usar a plataforma do jeito que mais aproxima a aprovação. Escolha um tema ou siga na ordem.</p></div>
   <div class="tu-wrap"><nav class="tu-menu" aria-label="Temas do tutorial">${TUT.map((x,i)=>`<button data-a="tutGo" data-id="${x.id}" aria-current="${x.id===ch.id}">${ic(x.ic)}<span><small>${i+1}</small>${esc(x.t)}</span></button>`).join("")}</nav>
@@ -5243,7 +5278,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261104141654";
+const JX_BUILD="20261104144757";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -10362,7 +10397,7 @@ Object.assign(A,{
   mmSid(el){UI.mmSid=el.dataset.s;UI.mmC="*";render()},
   mmC(el){UI.mmC=el.dataset.v;render()},
   mmAdd(el){UI.mmF={tp:el&&el.dataset&&el.dataset.tp!=null?el.dataset.tp:""};mmAddModal()},
-  mmAI(el){if(el&&el.dataset&&el.dataset.tp!=null)UI.mmTp=el.dataset.tp;if(!SAMPLE){toast("A IA não está disponível nesta visualização. Envie os mapas dos seus cursos.");return}mmAIModal()},
+  mmAI(el){if(el&&el.dataset&&el.dataset.tp!=null)UI.mmTp=el.dataset.tp;UI.mmOut="mapa";if(!SAMPLE){toast("A IA não está disponível nesta visualização. Envie os mapas dos seus cursos.");return}mmAIModal()},
   /* mapa mental a partir dos resumos: de um resumo (aula) ou de todos os resumos prontos da matéria (um mapa por aula) */
   async mmFromRes(el){if(UI.mmBusy)return;if(!SAMPLE){toast("A IA não está disponível agora");return}const sid=el.dataset.s,S=ED[EDI[sid]],only=el.dataset.c||"";if(!S)return;
     const R=mmResumos(sid,null).filter(r=>!only||r.aula===only);if(!R.length){toast("Ainda não há resumo pronto. Gere na aba Resumos.");return}
@@ -10378,8 +10413,10 @@ Object.assign(A,{
   mmLink(){const u=(($("mmLk")||{}).value||"").trim(),co=mmReadCourse(),tp=($("mmTp")||{}).value,ti=(($("mmTi")||{}).value||"").trim();
     if(!/^https?:\/\/\S+$/i.test(u)){toast("Cole um link que comece com https://");return}if(!co){toast("Escolha o curso ou digite o nome dele");return}
     mmPut({kind:"link",url:u.slice(0,800),course:co,cn:co.startsWith("c:")?mmCN(UI.mmSid,co):"",tp:tp===""?null:+tp,title:ti||"Mapa mental"});$("layer3").innerHTML="";UI.mmC=co;render();toast("Link salvo")},
-  mmPdf(el){const x=MM().items.find(m=>m.id===el.dataset.id);if(x)mmPdfDl(x)},
+  async mmPdf(el){const x=MM().items.find(m=>m.id===el.dataset.id);if(!x)return;if(x.kind!=="esqai"){mmPdfDl(x);return}
+    try{toast("Montando o PDF do esquema…");const b=await mdToPdf("Esquema - "+SUB(x.sid).n,x.title||"",String(x.md||"").replace(/^#\s+.+\n?/,""),"A JORNADA - "+SUB(x.sid).c);await saveFile((x.title||"Esquema").replace(/[\\/:*?"<>|]/g,"").slice(0,80)+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
   async mmRedo(el){const x=MM().items.find(m=>m.id===el.dataset.id);if(!x||UI.mmBusy)return;if(!SAMPLE){toast("A IA não está disponível agora");return}const S=ED[EDI[x.sid]];if(!S)return;
+    if(x.kind==="esqai"){UI.mmBusy=1;mmViewer(x);toast("Montando o esquema de novo…");try{const g=await esqGenerate(S,x.tp,x.src||"ambos","",x.aula||null);x.md=g.md;x.title=g.title;x.ts=Date.now();touch("mm");UI.mmBusy=0;render();mmViewer(x);toast("Esquema refeito")}catch(e){UI.mmBusy=0;mmViewer(x);toast(e&&e.code==="vazio"?"Não há material para este esquema":"Não consegui refazer o esquema agora. Tente de novo.")}return}
     UI.mmBusy=1;mmViewer(x);toast("Lendo o material de novo e montando o mapa com o conteúdo…");
     try{const g=x.aula?await mmGenerate(S,null,x.src||"res","",x.aula):await mmGenerate(S,x.tp,x.src||"ambos","",null);x.tree=g.tree;x.title=(x.aula?auLabel(x.sid,x.aula)+" · ":"")+g.tree.t;x.v=3;x.ts=Date.now();touch("mm");UI.mmBusy=0;render();mmViewer(x);toast("Mapa refeito com o conteúdo do material")}
     catch(e){UI.mmBusy=0;mmViewer(x);toast(e&&e.code==="vazio"?"Não há material para este mapa":"Não consegui refazer o mapa agora. Tente de novo.")}},
@@ -10388,10 +10425,14 @@ Object.assign(A,{
       for(const x of L){const d=await PDFDocument.load(await (await mmToPdf(x)).arrayBuffer());(await out.copyPages(d,d.getPageIndices())).forEach(p=>out.addPage(p))}
       const b=new Blob([await out.save()],{type:"application/pdf"}),nm="Mapas mentais - "+SUB(sid).n.replace(/[\\/:*?"<>|]/g,"").slice(0,60)+".pdf";
       await saveFile(nm,b)}catch(e){toast("Não consegui montar o PDF agora")}},
+  mmEsqNew(){if(!SAMPLE){toast("A IA não está disponível nesta visualização.");return}UI.mmOut="esq";mmAIModal()},
+  mmOut(el){UI.mmOut=el.dataset.v;const t=$("mmTp"),x=$("mmTx");if(t)UI.mmTp=t.value;const keep=x?x.value:"";mmAIModal();const y=$("mmTx");if(y)y.value=keep},
   mmSrc(el){UI.mmSrc=el.dataset.v;const t=$("mmTp"),x=$("mmTx");if(t)UI.mmTp=t.value;const keep=x?x.value:"";mmAIModal();const y=$("mmTx");if(y)y.value=keep},
   async mmGen(){if(UI.mmBusy)return;const S=ED[EDI[UI.mmSid]],v=($("mmTp")||{}).value,tp=v===""?null:+v,txt=(($("mmTx")||{}).value||"").trim(),src=UI.mmSrc||"ambos";UI.mmTp=v;
     UI.mmBusy=1;const b=document.querySelector('[data-a="mmGen"]');if(b){b.disabled=true;b.textContent="Lendo o material e montando…"}
     const wantPdf=!!($("mmPdfToo")||{}).checked;if(!!core().mmPdf!==wantPdf){core().mmPdf=wantPdf;touch("core")}
+    if(UI.mmOut==="esq"){try{const r=await esqGenerate(S,tp,src,txt,null),x=mmPut({kind:"esqai",md:r.md,course:"ia",tp,src,title:r.title});UI.mmBusy=0;UI.mmC="ia";render();mmViewer(x);if(wantPdf)A.mmPdf({dataset:{id:x.id}});toast("Esquema pronto"+(r.nE?" (juntou "+r.nE+" esquema"+(r.nE>1?"s":"")+" seu"+(r.nE>1?"s":"")+")":""))}
+      catch(e){UI.mmBusy=0;mmAIModal();toast(e&&e.code==="vazio"?"Ainda não há material para o esquema. Escolha outra base ou cole um texto.":"Não consegui montar o esquema agora. Tente de novo.")}return}
     try{const r=await mmGenerate(S,tp,src,txt),x=mmPut({kind:"ai",tree:r.tree,course:"ia",tp,src,v:3,title:r.tree.t});UI.mmBusy=0;UI.mmC="ia";render();mmViewer(x);if(wantPdf)mmPdfDl(x);
       toast("Mapa montado com "+[src!=="esq"?r.nR+" resumo"+(r.nR===1?"":"s"):"",src!=="res"?r.nE+" esquema"+(r.nE===1?"":"s"):"",txt?"o texto colado":""].filter(Boolean).join(" e "))}
     catch(e){UI.mmBusy=0;if($("layer3").innerHTML)mmAIModal();toast(e&&e.code==="vazio"?"Não há material nessa base. Escolha outra opção ou cole um texto.":"Não consegui montar o mapa agora. Tente de novo.")}}
