@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611040604"></script>
+<script src="/claude-shim.js?v=202611040614"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1835,6 +1835,8 @@ html[data-ob] .app{visibility:hidden}html[data-ob] body{background:var(--bg)}htm
 .cs-c:hover,.cs-c:focus-visible{border-color:#b07cff;transform:translateY(-2px)}.cs-c b{font-size:18px}.cs-c span{font-size:14.5px;line-height:1.45;color:var(--fg2,inherit)}.cs-c em{font-style:normal;font-size:12.5px;color:var(--lime-txt);font-weight:600}
 .cs-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#7b3cff,#d6388f);color:#fff}.cs-ic svg.i{width:22px;height:22px}
 .cs-tip{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,#b07cff 12%,transparent)}.cs-tip svg.i{flex:none;width:18px;height:18px;margin-top:1px}
+.tu-rv{opacity:0;transform:translateY(6px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}.tu-rv.on{opacity:1;transform:none}
+.tu-faq{margin-top:16px}.tu-faq details{border-bottom:1px solid var(--line);padding:10px 2px}.tu-faq details:last-child{border-bottom:0}.tu-faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}.tu-faq summary::after{content:"+";color:var(--lime-txt);font-weight:700}.tu-faq details[open] summary::after{content:"–"}.tu-faq p{margin:6px 0 0;color:var(--fg2,inherit);line-height:1.5}
 .cs-how{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px}.box.cs .tabs2{flex-wrap:wrap}.cs-m select.inp{margin-top:4px;height:auto;padding:6px 8px;font-size:13.5px}
 .cs-pl{display:flex;flex-wrap:wrap;gap:8px}.cs-p{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:1px solid var(--line2);font-weight:600;font-size:14px}
 .cs-p[aria-pressed="true"]{background:linear-gradient(90deg,#7b3cff,#d6388f);border-color:transparent;color:#fff}.cs-p svg.i{width:15px;height:15px}
@@ -4628,28 +4630,79 @@ function renderTimerSel(){
    liga estados (on), digita textos (ty), move blocos (mv) e conta números (n) */
 const TUT=[
  {id:"inicio",t:"Roteiro da aprovação",ic:"meta",go:"meta",
-  p:"Antes de tudo, o caminho completo. A A Jornada funciona em ciclo: você configura uma vez (concurso, rotina, PDFs) e, todo dia, cumpre a meta, revisa e acompanha o desempenho. O painel ajusta o resto sozinho.",
-  s:`<div class="tu-flow">${["Concurso","Rotina","PDFs","Meta do dia","Revisar","Desempenho"].map((x,i)=>`<div class="tu-node" data-k="n${i}"><b>${i+1}</b><span>${x}</span></div>`).join('<i class="tu-arr"></i>')}</div><div class="tu-cap2" data-k="loop">↻ todo dia: Meta → Revisar → Desempenho</div>`,
+  p:"Antes de tudo, o caminho completo. A Jornada funciona em ciclo: você configura uma vez (concurso, cursos e rotina) e, todo dia, cumpre a meta, revisa e acompanha o desempenho. A plataforma ajusta o resto sozinha.",
+  s:`<div class="tu-flow">${["Concurso","Cursos","Rotina","Meta do dia","Revisar","Desempenho"].map((x,i)=>`<div class="tu-node" data-k="n${i}"><b>${i+1}</b><span>${x}</span></div>`).join('<i class="tu-arr"></i>')}</div><div class="tu-cap2" data-k="loop">↻ todo dia: Meta → Revisar → Desempenho</div>`,
   st:[{k:"n0",on:["n0"],c:"Escolha o concurso e envie o edital: o painel tira matérias, assuntos e a data da prova."},
-      {k:"n1",on:["n1"],c:"Monte a rotina da semana: os horários de estudo dizem quanto cabe em cada dia."},
-      {k:"n2",on:["n2"],c:"Envie o PDF de cada aula: viram atividades, questões, resumos, cards e mapas."},
+      {k:"n1",on:["n1"],c:"Diga como quer as metas: pelo seu curso (vincule o curso inteiro de uma vez) ou pelo edital."},
+      {k:"n2",on:["n2"],c:"Monte a rotina da semana: os horários de estudo dizem quanto cabe em cada dia."},
       {k:"n3",on:["n3"],c:"Todo dia, abra Hoje e cumpra as atividades da meta, uma por vez."},
       {k:"n4",on:["n4"],c:"Faça as revisões do dia: é o que fixa o conteúdo até a prova."},
       {k:"n5",on:["n5","loop"],c:"Acompanhe o Desempenho e recalcule o plano quando atrasar. Repita o ciclo."}],
-  d:["Configure as três primeiras etapas no primeiro dia. Depois, o seu trabalho diário é só Hoje + Revisar.","Constância vence intensidade: cumprir a meta de 3 h todos os dias rende mais que 10 h num domingo.","Se a vida apertar, não pule as revisões: elas são curtas e protegem o que você já estudou."]},
+  d:["Configure as três primeiras etapas no primeiro dia (os PDFs das aulas são opcionais e podem vir depois). Depois, o seu trabalho diário é só Hoje + Revisar.","Constância vence intensidade: cumprir a meta de 3 h todos os dias rende mais que 10 h num domingo.","Se a vida apertar, não pule as revisões: elas são curtas e protegem o que você já estudou."]},
+
+ {id:"primeiros",t:"Primeiros passos",ic:"flag",go:"concurso",
+  p:"Na primeira vez, a Jornada só pergunta o seu nome e qual concurso você vai estudar. Escolha na base (busque pelo órgão ou pelo cargo) ou, se já tem o edital, envie o PDF: a Jornada lê tudo sozinha e preenche o concurso, o cargo, a banca, as datas, as vagas (CR quando for só cadastro reserva), a remuneração e as matérias com os assuntos. Se o edital tiver mais de um cargo, ela pergunta qual é o seu. Você confere e cria o concurso.",
+  s:`<div class="tu-card"><div class="tu-row"><span class="tu-lbl">Seu nome</span><span class="tu-inp" data-k="nm"><em data-k="nmt"></em></span></div>
+     <div class="tu-row"><button class="tu-btn" data-k="pdf">📄 Enviar o PDF do edital</button><span class="tu-chip" data-k="or">ou busque na base</span></div><div class="tu-bar"><i data-k="bar"></i></div>
+     <div class="tu-res tu-rv" data-k="cg"><span class="tu-chip">Qual é o seu cargo?</span><span class="tu-chip ok">Técnico Judiciário</span><span class="tu-chip">Analista Judiciário</span></div>
+     <ul class="tu-list tu-rv" data-k="ok"><li>🏛️ TRF 3 · Técnico Judiciário · FCC</li><li>📅 Prova em <b>14/03</b> · inscrições até 10/12</li><li>💼 Vagas: <b>CR</b> (Cadastro Reserva) · R$ 9.052,00</li><li>📚 <b data-k="nma">0</b> matérias e <b data-k="nas">0</b> assuntos</li></ul></div>`,
+  st:[{k:"nm",ty:["nmt","Rafa"],c:"Diga como quer ser chamado(a) e toque em Escolher ou montar o meu concurso."},
+      {k:"pdf",c:"Tem o edital? Envie o PDF. Sem edital, busque o concurso na base ou comece por um pré-edital."},
+      {k:"bar",on:["bar"],c:"A Jornada lê o edital inteiro. Um edital grande leva de 1 a 3 minutos."},
+      {k:"cg",on:["cg"],c:"O edital tem mais de um cargo? Escolha o seu, uma vez só."},
+      {k:"ok",on:["ok"],n:[["nma",9],["nas",146]],c:"Confira o concurso identificado, as datas, as vagas e a remuneração, e toque em Criar."}],
+  d:["Use o edital oficial em PDF: é dele que saem os assuntos, as datas e o peso de cada matéria.","PDF escaneado (imagem) não dá para ler: copie o texto do edital no site da banca e use “Colar o texto”.","Depois de criar, a Jornada pergunta como você quer montar as metas: pelo curso ou pelo edital."]},
+
+ {id:"metas",t:"Como as metas são montadas",ic:"meta",go:"meta",
+  p:"A Jornada divide o estudo em metas com atividades diárias. A ordem das atividades pode vir do seu curso ou do edital, e você escolhe matéria a matéria. Pelo curso: as metas seguem a sequência das aulas (aula 00, 01, 02…). Pelo edital: as metas seguem os tópicos do edital, na ordem que a Jornada calcula pelo peso de cada matéria na prova. Dá para misturar: matéria com curso vinculado segue as aulas; as outras seguem o edital.",
+  s:`<div class="tu-card"><div class="tu-row"><button class="tu-btn" data-k="cur">📚 Pelo meu curso</button><button class="tu-btn ghost" data-k="edt">📋 Pelo edital</button></div>
+     <div class="tu-task tu-rv" data-k="a1"><i class="tu-ck"></i>Português · Aula 00 · Interpretação de textos</div>
+     <div class="tu-task tu-rv" data-k="a2"><i class="tu-ck"></i>Constitucional · Tópico 1 · Princípios fundamentais</div>
+     <div class="tu-row tu-rv" data-k="mix"><span class="tu-chip ok">Português: curso</span><span class="tu-chip">Constitucional: edital</span></div></div>`,
+  st:[{k:"cur",c:"Tem curso numa plataforma? Escolha Pelo meu curso e vincule as aulas."},
+      {k:"a1",on:["a1"],c:"A matéria vinculada passa a seguir as aulas do curso, na ordem dele."},
+      {k:"edt",c:"Estuda por PDFs, livros ou materiais variados? Escolha Pelo edital."},
+      {k:"a2",on:["a2"],c:"Sem curso, a matéria segue os tópicos do edital, priorizados pelo peso na prova."},
+      {k:"mix",on:["mix"],c:"Pode misturar. Mude quando quiser em Estudar › Aulas e PDFs › Meus cursos e assinaturas."}],
+  d:["Se você comprou um curso, vincule: estudar na ordem do professor rende mais.","Matéria sem curso não fica parada: ela segue o edital até você vincular.","Atrasou? Em Hoje, “Recalcular plano” refaz as próximas metas para caber até a prova."]},
+
+ {id:"curso",t:"Vincular o seu curso",ic:"materiais",go:"materiais",
+  p:"Traga o curso inteiro de uma vez: a Jornada identifica cada matéria do curso, liga à matéria do edital e coloca as aulas na ordem. Cole o link do curso; se a página não abrir pelo link (área do aluno com login, por exemplo), copie a página aberta no seu navegador e cole. Também dá para enviar fotos da tela ou o PDF do cronograma. Você confere as ligações e confirma. Opcional: baixe o PDF de cada aula na plataforma e envie em Estudar › Aulas e PDFs para ler, resumir e ligar as questões àquela aula.",
+  s:`<div class="tu-card"><div class="tu-row"><span class="tu-lbl">Link do curso</span><span class="tu-inp" data-k="lk"><em data-k="lkt"></em></span></div>
+     <div class="tu-txt tu-rv" data-k="cp"><b>Ctrl+A</b> e <b>Ctrl+C</b> na página do curso, depois cole aqui</div><div class="tu-bar"><i data-k="bar"></i></div>
+     <ul class="tu-list tu-rv" data-k="map"><li>✅ Português ← Língua Portuguesa · 24 aulas</li><li>✅ Constitucional ← Direito Constitucional · 18 aulas</li><li>➖ Informática ← sem curso: segue o edital</li></ul>
+     <button class="tu-btn tu-rv" data-k="ok">Vincular 2 matérias</button></div>`,
+  st:[{k:"lk",ty:["lkt","https://plataforma.com.br/curso/..."],c:"Em Pelo meu curso, marque a plataforma e cole o link do curso."},
+      {k:"cp",on:["cp"],c:"O link não abriu? Abra o curso logado, toque em Ctrl+A e Ctrl+C (no celular: Selecionar tudo e Copiar) e cole."},
+      {k:"bar",on:["bar"],c:"A IA lê o curso e separa as matérias e as aulas."},
+      {k:"map",on:["map"],c:"Confira: cada matéria do edital com o curso ligado. Errou? Troque na lista."},
+      {k:"ok",on:["ok"],c:"Toque em Vincular: as metas dessas matérias passam a seguir as aulas."}],
+  d:["Cole a página que mostra as matérias e as aulas, não a página de pagamento.","Se cada matéria fica numa página da plataforma, cole uma depois da outra.","Enviar o PDF da aula é opcional, mas libera leitura com marca-texto, resumo e questões daquele trecho."]},
 
  {id:"concurso",t:"Concurso e edital",ic:"concurso",go:"concurso",
-  p:"É o ponto de partida. Escolha o concurso (há centenas de órgãos na busca) e envie o edital em PDF: o painel monta o plano com as matérias, os assuntos e a data da prova. Sem edital aberto? Use o último edital publicado como base: o estudo segue as matérias dele, a prova fica “a definir” (∞) e, quando o novo sair, o plano se ajusta sozinho sem perder o que você já estudou.",
+  p:"É o ponto de partida. Escolha o concurso (há centenas de órgãos na busca) e envie o edital em PDF: a Jornada monta o plano com as matérias, os assuntos, a data da prova, as vagas e a remuneração do seu cargo, que aparecem no card do concurso em Hoje. Sem edital aberto? Use o último edital publicado como base: o estudo segue as matérias dele, a prova fica “a definir” (∞) e, quando o novo sair, o plano se ajusta sozinho sem perder o que você já estudou.",
   s:`<div class="tu-card"><div class="tu-row"><span class="tu-lbl">Concurso</span><span class="tu-inp" data-k="busca"><em data-k="bt"></em></span></div>
      <div class="tu-res" data-k="res"><span class="tu-chip">SEFAZ · Auditor Fiscal</span><span class="tu-chip ok" data-k="cmp">87% compatível com o principal</span></div>
      <div class="tu-row"><span class="tu-chip" data-k="tbd">Prova: ∞ a definir</span><button class="tu-btn sm" data-k="prev">Usar o último edital</button></div><div class="tu-bar"><i data-k="bar"></i></div>
      <ul class="tu-list" data-k="lst"><li>📚 <b data-k="nm">0</b> matérias do edital anterior</li><li>🧩 <b data-k="na">0</b> assuntos</li><li>🔁 Saiu o novo? Inclua e o plano se ajusta</li></ul></div>`,
-  st:[{k:"busca",ty:["bt","sefaz auditor"],c:"Digite o órgão ou o cargo: aparecem os concursos e o quanto cada um combina com o seu principal."},
+  st:[{k:"busca",ty:["bt","sefaz auditor"],c:"Digite o órgão ou o cargo: aparecem os concursos. Se você já tem outro concurso, aparece também o quanto cada um combina com ele."},
       {k:"res",on:["res"],c:"Escolha o concurso. O selo de compatibilidade mostra quanto do estudo de um serve para o outro."},
       {k:"tbd",on:["tbd"],c:"Concurso sem edital aberto: a contagem fica em ∞ até sair a data da prova."},
       {k:"prev",on:["bar"],c:"Toque em “Usar o último edital” e envie o PDF dele: as datas antigas ficam de fora."},
       {k:"lst",on:["lst"],n:[["nm",12],["na",184]],c:"Matérias e assuntos entram no plano. Quando o edital novo sair, inclua-o: o que você estudou continua contando."}],
   d:["Envie o edital oficial: é dele que saem os assuntos riscados no Edital e a prioridade das metas.","Sem edital? Comece pelo último: a maior parte do conteúdo costuma se repetir.","Estudando para dois concursos? Adicione os dois e priorize as matérias em comum."]},
+
+ {id:"concursos",t:"Vários concursos",ic:"swap",go:"concurso",
+  p:"Dá para estudar para mais de um concurso. Em Meu plano › Concurso › Trocar de concurso você adiciona outro, troca o que está aberto ou apaga um que não vai mais fazer. Com dois ou mais concursos, aparece a compatibilidade: quanto do estudo de um serve para o outro. Ao apagar, a Jornada pede confirmação, apaga os dados daquele concurso e readequa os outros.",
+  s:`<div class="tu-card"><div class="tu-task" data-k="c1"><i class="tu-ck on"></i>TRF 3 · Técnico Judiciário <span class="tu-chip ok" style="margin-left:auto">aberto</span></div>
+     <button class="tu-btn sm" data-k="add">+ Adicionar concurso</button>
+     <div class="tu-task tu-rv" data-k="c2"><i class="tu-ck"></i>TRT 2 · Técnico Judiciário <span class="tu-chip ok tu-rv" data-k="cmp" style="margin-left:auto">78% compatível</span></div>
+     <div class="tu-row tu-rv" data-k="rm"><span class="tu-chip">Apagar? Digite APAGAR para confirmar</span></div></div>`,
+  st:[{k:"add",c:"Toque em Adicionar concurso e escolha na base ou envie o edital."},
+      {k:"c2",on:["c2"],c:"O novo concurso entra na lista. Toque nele para abrir."},
+      {k:"cmp",on:["cmp"],c:"Com mais de um concurso, a compatibilidade mostra o quanto o estudo se aproveita."},
+      {k:"rm",on:["rm"],c:"Não vai mais fazer? Apague: a Jornada confirma antes e readequa os outros."}],
+  d:["Priorize as matérias em comum: estudam para os dois concursos ao mesmo tempo.","Apagar não tem volta: confira o nome antes de confirmar.","Cada concurso tem as suas metas, o seu edital e os seus cursos."]},
 
  {id:"rotina",t:"Rotina da semana",ic:"rotina",go:"rotina",
   p:"Aqui você diz quando estuda. Arraste os blocos (estudo, trabalho, refeição, treino, descanso, sono) para os dias e horários. Com a rotina pronta, o painel encaixa as atividades da meta exatamente nos seus tempos de estudo, sem passar do que cabe no dia.",
@@ -4684,7 +4737,7 @@ const TUT=[
   d:["Envie os PDFs das próximas aulas com antecedência: assim a meta nunca fica sem material.","Use sempre a versão completa da aula (com questões comentadas): é dela que nascem o resumo e os cards.","PDFs ficam na sua conta: abra no celular, no tablet ou no computador."]},
 
  {id:"hoje",t:"Hoje: a meta do dia",ic:"meta",go:"meta",
-  p:"É a tela do dia a dia. A meta tem as atividades que cabem na sua rotina. Cada atividade de teoria tem 3 passos: Ler (as páginas certas), O que cai aqui (o resumo do trecho e os cards) e Questões (só as daquele trecho). Ao terminar, toque em Finalizar. Aos domingos e segundas aparece o Check-in da semana com o seu balanço.",
+  p:"É a tela do dia a dia. A meta tem as atividades que cabem na sua rotina. Cada atividade de teoria tem 3 passos: Ler (as páginas certas), O que cai aqui (o resumo do trecho e os cards) e Questões (só as daquele trecho). Ao terminar, toque em Finalizar. A plataforma sempre abre aqui: no alto ficam a contagem até a prova e o card do concurso (datas, vagas e remuneração). Atrasou? Toque em Recalcular plano. Aos domingos e segundas aparece o Check-in da semana com o seu balanço.",
   s:`<div class="tu-card"><div class="tu-row"><b>Meta 03</b><span class="tu-prog"><i data-k="mp"></i></span><small data-k="mt">0 de 3</small></div>
      <div class="tu-task" data-k="t1"><i class="tu-ck" data-k="c1"></i>Teoria · Tributário · págs. 3 a 18</div>
      <div class="tu-steps" data-k="sp"><span data-k="p1">1 Ler</span><span data-k="p2">2 O que cai aqui</span><span data-k="p3">3 Questões</span></div>
@@ -4851,12 +4904,22 @@ const TUT=[
   st:[{k:"e0",on:["e0"],c:"Concluiu a teoria? O assunto é riscado sozinho no Edital."},
       {k:"e1",on:["e1","ep"],n:[["en",50]],c:"A barra mostra quanto do edital você já estudou."},
       {k:"en",c:"Na Jornada, veja os dias estudados e a sua sequência: não quebre a corrente."}],
-  d:["Antes da prova, todo assunto vermelho do edital precisa estar riscado.","Use a Jornada para ver se o ritmo da semana está no caminho da data da prova."]}
+  d:["Antes da prova, todo assunto vermelho do edital precisa estar riscado.","Use a Jornada para ver se o ritmo da semana está no caminho da data da prova."]},
+ {id:"assinatura",t:"Sua assinatura",ic:"lock",go:"assinatura",
+  p:"Toda conta nova tem 7 dias grátis com tudo liberado. Depois, escolha um plano (mensal, trimestral, semestral ou anual) em Meu plano › Assinatura: o pagamento é pela Kiwify e o acesso libera sozinho. A IA da plataforma tem um limite diário para manter tudo rápido: 80 pedidos por dia na assinatura e 60 no teste grátis; no dia seguinte libera de novo. Se a assinatura vencer, os seus dados continuam guardados.",
+  s:`<div class="tu-card"><div class="tu-row"><span class="tu-chip ok" data-k="tr">👣 Teste grátis · faltam <b data-k="dl">0</b> dias</span></div>
+     <div class="tu-res tu-rv" data-k="pl"><span class="tu-chip">Mensal</span><span class="tu-chip">Trimestral</span><span class="tu-chip">Semestral</span><span class="tu-chip ok">Anual</span></div>
+     <div class="tu-row tu-rv" data-k="ia"><span class="tu-lbl">IA hoje</span><span class="tu-prog" style="--w:30%"><i data-k="iab"></i></span><small><b data-k="ian">0</b> de 80</small></div></div>`,
+  st:[{k:"tr",n:[["dl",7]],c:"Nos primeiros 7 dias, tudo está liberado para você testar."},
+      {k:"pl",on:["pl"],c:"Para continuar, escolha o plano em Meu plano › Assinatura. O acesso libera assim que o pagamento é aprovado."},
+      {k:"ia",on:["ia","iab"],n:[["ian",24]],c:"A IA tem 80 pedidos por dia na assinatura (60 no teste). No dia seguinte, zera."}],
+  d:["Use a IA no que mais rende: resumos das aulas, cards e o “Recalcular plano”.","O plano anual sai mais barato por mês.","Assinatura vencida não apaga nada: renove e continue de onde parou."]}
 ];
 const TUT_MIN_STEP=3400;
 let TUTP={i:0,s:0,play:1,t:0};
+const TUT_FAQ=[["Posso mudar de curso depois?", "Pode. Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, troque o curso de qualquer matéria ou vincule um curso completo. As metas se ajustam."], ["Não tenho curso. Consigo estudar?", "Consegue. Escolha Pelo edital: as metas seguem os tópicos do edital, priorizados pelo peso de cada matéria na prova."], ["O edital ainda não saiu. E agora?", "Comece pelo último edital ou por um pré-edital. A contagem fica em ∞ até a data sair, e o que você estudou continua contando."], ["Atrasei a meta. Perdi o plano?", "Não. Em Hoje, toque em Recalcular plano: a Jornada refaz as próximas metas para caber até a prova."], ["Meus dados ficam salvos se eu trocar de aparelho?", "Ficam. Tudo é salvo na sua conta: entre com o mesmo e-mail no celular, no tablet ou no computador."], ["Preciso enviar o PDF de todas as aulas?", "Não. É opcional. Com o PDF, a aula ganha leitura com marca-texto, resumo e as questões daquele trecho."], ["A IA acabou por hoje. O que faço?", "Continue estudando normalmente: só os recursos de IA esperam. O limite (80 por dia na assinatura, 60 no teste) zera no dia seguinte."], ["Dá para estudar para dois concursos?", "Dá. Adicione o segundo em Meu plano › Concurso › Trocar de concurso. A compatibilidade mostra o quanto o estudo se aproveita."], ["O que acontece quando o teste grátis acaba?", "Escolha um plano em Meu plano › Assinatura para continuar. Seus dados ficam guardados."], ["Errei muito numa matéria. Como recupero?", "Faça as Erradas marcando o motivo do erro, siga a Trilha da Jornada todo dia e pergunte à Jornada o que focar."]];
 function vTutorial(){const id=UI.tut||TUT[0].id,ch=TUT.find(x=>x.id===id)||TUT[0];
-  return`<div class="hello"><h1>Tutorial</h1><p>Cada função da A Jornada em uma animação curta, com o passo a passo e dicas para você usar a plataforma do jeito que mais aproxima a aprovação. Escolha um tema ou siga na ordem.</p></div>
+  return`<div class="hello"><h1>Tutorial</h1><p>Cada função da Jornada em uma animação curta, com o passo a passo e dicas para você usar a plataforma do jeito que mais aproxima a aprovação. Escolha um tema ou siga na ordem.</p></div>
   <div class="tu-wrap"><nav class="tu-menu" aria-label="Temas do tutorial">${TUT.map((x,i)=>`<button data-a="tutGo" data-id="${x.id}" aria-current="${x.id===ch.id}">${ic(x.ic)}<span><small>${i+1}</small>${esc(x.t)}</span></button>`).join("")}</nav>
   <section class="tu-main card" aria-live="polite"><div class="tu-head"><h2>${esc(ch.t)}</h2><button class="btn sm" data-a="gtab" data-t="${ch.go}">Ir para esta tela →</button></div>
    <p class="tu-why"><b>Para que serve.</b> ${esc(ch.p)}</p>
@@ -4865,7 +4928,8 @@ function vTutorial(){const id=UI.tut||TUT[0].id,ch=TUT.find(x=>x.id===id)||TUT[0
    <ol class="tu-steps-l" id="tuList">${ch.st.map((x,i)=>`<li data-a="tutJump" data-s="${i}">${esc(x.c)}</li>`).join("")}</ol>
    <div class="tu-tips"><h3>${ic("bulb")} Dicas para a aprovação</h3><ul>${ch.d.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
    <div class="tu-foot">${TUT.indexOf(ch)>0?`<button class="btn ghost" data-a="tutGo" data-id="${TUT[TUT.indexOf(ch)-1].id}">← ${esc(TUT[TUT.indexOf(ch)-1].t)}</button>`:"<span></span>"}${TUT.indexOf(ch)<TUT.length-1?`<button class="btn pri" data-a="tutGo" data-id="${TUT[TUT.indexOf(ch)+1].id}">${esc(TUT[TUT.indexOf(ch)+1].t)} →</button>`:""}</div>
-  </section></div>`}
+  </section></div>
+  <section class="card tu-faq"><div class="card-h"><h2>${ic("bulb")} Perguntas rápidas</h2></div><div class="card-b">${TUT_FAQ.map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("")}</div></section>`}
 const tuRM=()=>{try{return matchMedia("(prefers-reduced-motion: reduce)").matches}catch(e){return false}};
 function tuEl(k){const sc=$("tuScene");return sc?sc.querySelector(`[data-k="${k}"]`):null}
 /* aplica todos os passos até s (assim, voltar ou pular para um passo mostra a tela certa) */
@@ -4979,7 +5043,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261104060432";
+const JX_BUILD="20261104061405";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5661,7 +5725,7 @@ function guide(t){
       G.steps.push(att("Os fatos com maior repercussão nacional e em São Paulo."));
     }else if(au&&t.whole){
       G.intro.push(`Hoje vamos estudar <b>${E(d)}</b>, tópico do edital de ${E(s.n)}.`,"Vamos decolar!");
-      G.steps.push({h:"1) TEORIA – estude o assunto indicado a seguir:",items:[`<b>${E(d)}</b> – use a aula do seu curso sobre o tema. Quando tiver o PDF, envie em Materiais para as metas indicarem as páginas.`]});
+      G.steps.push({h:"1) TEORIA – estude o assunto indicado a seguir:",items:[`<b>${E(d)}</b> – use a aula do seu curso sobre o tema. Quando tiver o PDF, envie em Estudar › Aulas e PDFs para as metas indicarem as páginas.`]});
       G.steps.push(att("Os conceitos, as fórmulas e as exceções do tópico."));
     }else if(au){
       const p=t.pdf?pdf(t.pdf):null,s0=p?secAt(t.pdf,t.pa):"",nx=p?secNext(t.pdf,t.pb):null;
@@ -7554,7 +7618,7 @@ function csModal(){const X=UI.cs;if(!X){$("layer3").innerHTML="";return}let body
      <button class="cs-c" data-a="csModo" data-v="curso"><span class="cs-ic">${ic("materiais")}</span><b>Pelo meu curso</b><span>Tenho curso em plataforma (Estratégia, Gran, Direção, Alfacon…). As metas seguem a <u>sequência das aulas</u> do curso, aula 00, 01, 02…, e acompanham o seu avanço nele.</span><em>Melhor para quem já comprou um curso</em></button>
      <button class="cs-c" data-a="csModo" data-v="edital"><span class="cs-ic">${ic("edital")}</span><b>Pelo edital</b><span>Estudo por PDFs, livros, resumos ou vários materiais. As metas seguem os <u>tópicos do edital</u>, na ordem que a Jornada calcula pelo peso de cada matéria na prova.</span><em>Melhor para quem estuda com materiais variados</em></button>
     </div>
-    <p class="cs-tip">${ic("bulb")} <span>Dá para <b>misturar</b>: as matérias com curso vinculado seguem as aulas, e as demais seguem o edital. Você pode mudar isso quando quiser em <b>Materiais › Meus cursos e assinaturas</b>.</span></p>
+    <p class="cs-tip">${ic("bulb")} <span>Dá para <b>misturar</b>: as matérias com curso vinculado seguem as aulas, e as demais seguem o edital. Você pode mudar isso quando quiser em <b>Estudar › Aulas e PDFs › Meus cursos e assinaturas</b>.</span></p>
     <div class="row" style="justify-content:flex-end"><button class="btn ghost" data-a="csLater">Decidir depois</button></div>`;
   else if(X.step==="plats"){const M=new Set(X.sel||csMine());
     body=`<p class="cs-k">Passo 1 de 3 · Pelo meu curso</p><h3>Quais cursos você tem?</h3><p class="muted">Marque as plataformas em que você tem curso ou assinatura para este concurso.</p>
@@ -7567,7 +7631,7 @@ function csModal(){const X=UI.cs;if(!X){$("layer3").innerHTML="";return}let body
     body=`<p class="cs-k">Pelo meu curso · matéria por matéria</p><h3>Vincule o curso de cada matéria</h3>
     <p class="muted">Toque em <b>Vincular curso</b> e traga a lista de aulas da página do curso: cole o texto, mande fotos da tela ou digite. A partir daí, as metas daquela matéria seguem a sequência das aulas. Se o seu pacote cobre todas as matérias, vincule uma a uma, na ordem que preferir.</p>
     <div class="cs-ms">${ED.map(s=>{const c=courseList(s.id).find(k=>k.role==="principal");return`<div class="cs-m ${c?"ok":""}"><span class="code" style="border-color:${s.col}">${s.c}</span><div style="min-width:0"><b>${esc(s.n)}</b><small>${c?ic("check")+" "+esc(cName(c))+(c.aulas?" · "+c.aulas.length+" aulas: metas pelo curso":""):"Sem curso: segue os tópicos do edital"}</small></div><button class="btn sm ${c?"ghost":""}" data-a="csImp" data-s="${s.id}">${c?"Trocar":ic("plus")+" Vincular curso"}</button></div>`}).join("")}</div>
-    <p class="cs-tip">${ic("bulb")} <span>${n?`<b>${n} de ${ED.length}</b> matérias seguem o seu curso. As outras seguem o edital.`:"Nenhuma matéria vinculada ainda. As que ficarem sem curso seguem o edital."} Dá para terminar depois em <b>Materiais › Meus cursos e assinaturas</b>.</span></p>
+    <p class="cs-tip">${ic("bulb")} <span>${n?`<b>${n} de ${ED.length}</b> matérias seguem o seu curso. As outras seguem o edital.`:"Nenhuma matéria vinculada ainda. As que ficarem sem curso seguem o edital."} Dá para terminar depois em <b>Estudar › Aulas e PDFs › Meus cursos e assinaturas</b>.</span></p>
     <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="csBack">Voltar</button><button class="btn pri" data-a="csFim">${n?"Concluir":"Concluir por enquanto"}</button></div>`}
   $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Como você vai estudar"><div class="box cs" data-step="${X.step}" data-n="${CS_ST.indexOf(X.step)}">${body}</div></div>`}
 /* ---------- Curso completo: link, página copiada, fotos ou PDF → a IA separa as matérias e as aulas ---------- */
@@ -7587,7 +7651,7 @@ function csTrazerHTML(X){const T=X.tb||"link",busy=X.busy,mot=X.lkFail;
    ${T==="pdf"?`<p class="muted small" style="margin:0">Muitos cursos têm um PDF com o cronograma ou a lista de aulas. Envie aqui.</p><span class="upw btn pri" role="button">${ic("plus")} Escolher o PDF<input type="file" accept="application/pdf,.pdf" data-c="csPdf" aria-label="Escolher o PDF"></span>`:""}
    ${busy?`<div class="npe busy"><b>${ic("bulb")} ${esc(busy)}</b><div class="npe-bar"><i style="width:${Math.round(X.pc||8)}%"></i></div><span class="muted small">Um curso grande leva de 30 segundos a 2 minutos.</span></div>`:""}
    ${X.err?`<p class="pwarn small" style="margin:0">${esc(X.err)}</p>`:""}
-   <p class="cs-tip">${ic("book")} <span><b>Opcional:</b> se quiser estudar as aulas aqui dentro, baixe o PDF de cada aula na plataforma e envie em <b>Materiais</b>. A Jornada divide a teoria em partes, faz o resumo e liga as questões àquela aula.</span></p>
+   <p class="cs-tip">${ic("book")} <span><b>Opcional:</b> se quiser estudar as aulas aqui dentro, baixe o PDF de cada aula na plataforma e envie em <b>Estudar › Aulas e PDFs</b>. A Jornada divide a teoria em partes, faz o resumo e liga as questões àquela aula.</span></p>
    <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="csBack">Voltar</button><button class="btn ghost" data-a="csSkip">Vincular matéria por matéria</button></div>`}
 function csConfHTML(X){const R=X.res||[],used=new Set(Object.values(X.map||{}).filter(v=>v!=null&&v!==""));
   const opts=(sid)=>`<option value="">Sem curso: segue o edital</option>`+R.map((r,i)=>`<option value="${i}" ${String((X.map||{})[sid])===String(i)?"selected":""}>${esc(r.curso.slice(0,70))} · ${r.aulas.length} aulas</option>`).join("");
@@ -7624,7 +7688,14 @@ document.addEventListener("change",async e=>{const i=e.target;if(!i||!i.dataset|
   if(i.dataset.c==="csMap"){X.map=X.map||{};X.map[i.dataset.s]=i.value;Object.keys(X.map).forEach(k=>{if(k!==i.dataset.s&&i.value!==""&&X.map[k]===i.value)X.map[k]=""});csModal();return}
   if(i.dataset.c==="csImg"){const F=[...(i.files||[])].slice(0,8);i.value="";if(!F.length)return;await csRun({images:F});return}
   if(i.dataset.c==="csPdf"){const f=i.files&&i.files[0];i.value="";if(!f)return;X.busy="Lendo o PDF…";X.pc=5;csModal();try{const r=await edPdfText(await f.arrayBuffer(),(p,n)=>{X.pc=Math.min(9,p/n*9)});X.busy="";if(r.txt.replace(/\s/g,"").length<300){X.err="Esse PDF não tem texto que dê para ler. Tente fotos da tela ou cole a página.";csModal();return}await csRun({txt:r.txt})}catch(err){X.busy="";X.err="Não consegui abrir esse PDF.";csModal()}}});
-function csSave(mode){const c=core();c.cs={mode,at:today()};touch("core")}
+/* convite para o tutorial, uma vez, logo depois de escolher como montar as metas */
+function tuInvite(){try{const c=core();if(c.tuInv||(UI.cs&&UI.cs.from==="mat"))return;c.tuInv=1;touch("core")}catch(e){return}
+  setTimeout(()=>{if($("layer3").innerHTML.trim())return;$("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Convite para o tutorial"><div class="box cs" style="max-width:460px;text-align:center;justify-items:center">
+    <span class="cs-ic" style="width:54px;height:54px">${ic("tutorial")}</span><h3>Quer ver em 1 minuto como a Jornada funciona?</h3>
+    <p class="muted">Um tutorial curto, com animações, mostra o caminho completo: a meta do dia, as revisões, a Trilha da Jornada e o desempenho.</p>
+    <div class="row" style="justify-content:center;gap:10px"><button class="btn ghost" data-a="tuInvX">Agora não</button><button class="btn pri" data-a="tuInvGo">${ic("play")} Ver o tutorial</button></div>
+    <small class="muted">Ele fica sempre no menu, em Tutorial.</small></div></div>`},700)}
+function csSave(mode){const c=core();c.cs={mode,at:today()};touch("core");tuInvite()}
 function impModal(){
   const I=UI.imp;if(!I){$("layer3").innerHTML="";return}
   const S=SUB(I.sid),C=core(),P=C.perfil||{plats:{}},pl=PLATS.filter(p=>P.plats[p]&&P.plats[p]!=="nao").concat(P.outro?[P.outro]:[]);
@@ -9283,7 +9354,7 @@ const A={
   impAdd(){const L=UI.imp.aulas=UI.imp.aulas||[];L.push({c:pad(L.length),d:"",tp:[],f:"",q:""});impModal();setTimeout(()=>{const x=document.querySelectorAll('[data-c="impD"]');if(x.length)x[x.length-1].focus()},30)},
   impDel(el){UI.imp.aulas.splice(+el.dataset.i,1);impModal()},
   impX(){UI.imp=null;$("layer3").innerHTML="";if(UI.cs)setTimeout(csModal,0)},
-  csModo(el){const v=el.dataset.v;if(v==="edital"){csSave("edital");UI.cs=null;$("layer3").innerHTML="";render();toast("Pronto: as metas seguem os tópicos do edital. Para vincular um curso depois: Materiais › Meus cursos");return}UI.cs={step:"plats",sel:csMine()};csModal()},
+  csModo(el){const v=el.dataset.v;if(v==="edital"){csSave("edital");UI.cs=null;$("layer3").innerHTML="";render();toast("Pronto: as metas seguem os tópicos do edital. Para vincular um curso depois: Estudar › Aulas e PDFs › Meus cursos");return}UI.cs={step:"plats",sel:csMine()};csModal()},
   csPl(el){const X=UI.cs,p=el.dataset.p;X.out=(($("csOut")||{}).value||"").trim();const S=new Set(X.sel||[]);S.has(p)?S.delete(p):S.add(p);X.sel=[...S];csModal()},
   csPlGo(){const X=UI.cs,C=core(),out=(($("csOut")||{}).value||"").trim();if(!(X.sel||[]).length&&!out){toast("Marque ao menos uma plataforma, ou volte e escolha Pelo edital");return}
     C.perfil=C.perfil||{plats:{}};C.perfil.plats=C.perfil.plats||{};PLATS.forEach(p=>{const has=(X.sel||[]).includes(p);if(has&&(!C.perfil.plats[p]||C.perfil.plats[p]==="nao"))C.perfil.plats[p]=p==="TEC Concursos"||p==="QConcursos"?"quest":"curso";if(!has)C.perfil.plats[p]="nao"});
@@ -9300,8 +9371,10 @@ const A={
   async csTxGo(){const X=UI.cs;csKeep();const t=(X.txt||"").trim();if(t.replace(/\s/g,"").length<200){toast("Cole a página do curso com a lista de aulas");return}await csRun({txt:t})},
   csConfOk(){const X=UI.cs;const n=csApply();X.step="mats";csModal();toast(n+" matéria"+(n>1?"s":"")+" vinculada"+(n>1?"s":"")+" ao seu curso: as metas seguem as aulas")},
   csFim(){const n=ED.filter(s=>courseList(s.id).some(c=>c.role==="principal")).length;csSave(n?"curso":"edital");UI.cs=null;$("layer3").innerHTML="";render();toast(n?n+" matéria"+(n>1?"s seguem":" segue")+" o seu curso; as outras seguem o edital":"As metas seguem o edital até você vincular um curso")},
+  tuInvGo(){$("layer3").innerHTML="";UI.tut="inicio";TUTP.s=0;TUTP.play=1;TAB="tutorial";try{history.replaceState(null,"","#tutorial")}catch(e){}render();window.scrollTo(0,0)},
+  tuInvX(){$("layer3").innerHTML="";toast("Quando quiser, o Tutorial fica no menu")},
   csFull(){UI.cs={step:"trazer",tb:"link",sel:csMine(),from:"mat"};csModal()},
-  csLater(){csSave("depois");UI.cs=null;$("layer3").innerHTML="";toast("Quando quiser, vincule os seus cursos em Materiais › Meus cursos e assinaturas")},
+  csLater(){csSave("depois");UI.cs=null;$("layer3").innerHTML="";toast("Quando quiser, vincule os seus cursos em Estudar › Aulas e PDFs › Meus cursos e assinaturas")},
   impOk(){const I=UI.imp,L=(I.aulas||[]).filter(a=>a.c&&a.d);if(!L.length){toast("Preencha pelo menos uma aula");return}
     const seen={};for(const a of L){if(seen[a.c]){toast("Código repetido: "+a.c);return}seen[a.c]=1}
     const course={id:I.cid||uid().slice(0,6),plat:I.plat||"",nome:I.nome||"",url:I.url||"",aulas:L.map(a=>[String(a.c).replace(/:/g,"."),a.d,a.tp||[],a.f||"",a.q||""]),role:I.role==="principal"?"principal":"complementar",metas:I.role!=="principal"&&!!I.metas,useRes:I.useRes!==false,useMap:!!I.useMap,at:today()};
