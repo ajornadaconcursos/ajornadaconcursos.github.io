@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611040627"></script>
+<script src="/claude-shim.js?v=202611040726"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1837,6 +1837,12 @@ html[data-ob] .app{visibility:hidden}html[data-ob] body{background:var(--bg)}htm
 .cs-tip{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,#b07cff 12%,transparent)}.cs-tip svg.i{flex:none;width:18px;height:18px;margin-top:1px}
 .tu-rv{opacity:0;transform:translateY(6px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}.tu-rv.on{opacity:1;transform:none}
 .tu-faq{margin-top:16px}.tu-faq details{border-bottom:1px solid var(--line);padding:10px 2px}.tu-faq details:last-child{border-bottom:0}.tu-faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}.tu-faq summary::after{content:"+";color:var(--lime-txt);font-weight:700}.tu-faq details[open] summary::after{content:"–"}.tu-faq p{margin:6px 0 0;color:var(--fg2,inherit);line-height:1.5}
+.jw{padding:0;overflow:hidden;margin-bottom:16px}.jw-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px 10px;border-bottom:1px solid var(--line)}
+.jw-t{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;min-width:0}.jw-t h2{margin:0;font-size:19px}.jw-t p{margin:0;color:var(--fg2,inherit);font-size:14.5px}.jw-t p b{color:#ff9bd0}.jw-t p b.g{color:var(--ok)}
+.jw-n{display:flex;align-items:baseline;gap:6px;white-space:nowrap}.jw-n b{font:600 24px/1 var(--f-display,Oswald),sans-serif;display:inline-block}.jw-n small{color:var(--mute)}.jw-pk{align-self:center;margin-left:4px}
+.jw-s{display:block;width:100%;height:auto}.jw-f{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 18px;font-size:13.5px;color:var(--fg2,inherit);border-top:1px solid var(--line)}.jw-f .lnk{font-weight:700;color:var(--lime-txt)}
+@media (max-width:700px){.jw-h{flex-wrap:wrap;padding:12px 14px 8px}.jw-t{display:grid;gap:2px}.jw-t h2{font-size:18px}.jw-f{padding:8px 14px}}
+.jw-pks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}@media (max-width:600px){.jw-pks{grid-template-columns:1fr}}.jw-op{all:unset;box-sizing:border-box;cursor:pointer;border:2px solid var(--line);border-radius:14px;overflow:hidden;display:grid;gap:0;background:var(--panel)}.jw-op svg{display:block;width:100%;height:auto}.jw-op b{padding:8px 10px;text-align:center}.jw-op[aria-pressed="true"]{border-color:#d6388f;box-shadow:0 0 0 3px rgba(214,56,143,.3)}.jw-op:hover{border-color:#b07cff}
 .pv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:12px}
 .pv-c{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:6px;align-content:start;padding:16px;border-radius:16px;border:1px solid var(--line);background:var(--panel);transition:transform .2s var(--ease-out),border-color .2s}.pv-c:hover,.pv-c:focus-visible{border-color:#b07cff;transform:translateY(-2px)}.pv-c b{font-size:17px}.pv-k{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-txt);font-weight:700}
 .pv-evo{display:flex;gap:14px;align-items:flex-end;overflow-x:auto}.pv-evo>div{display:grid;justify-items:center;gap:4px;min-width:64px}.pv-b{height:110px;width:26px;border-radius:8px;background:var(--line);display:flex;align-items:flex-end;overflow:hidden}.pv-b i{display:block;width:100%;height:var(--h);background:linear-gradient(180deg,#d6388f,#7b3cff);border-radius:8px}.pv-evo small{font-size:11px;color:var(--mute);text-align:center}
@@ -4744,7 +4750,7 @@ const TUT=[
   d:["Envie os PDFs das próximas aulas com antecedência: assim a meta nunca fica sem material.","Use sempre a versão completa da aula (com questões comentadas): é dela que nascem o resumo e os cards.","PDFs ficam na sua conta: abra no celular, no tablet ou no computador."]},
 
  {id:"hoje",t:"Hoje: a meta do dia",ic:"meta",go:"meta",
-  p:"É a tela do dia a dia. A meta tem as atividades que cabem na sua rotina. Cada atividade de teoria tem 3 passos: Ler (as páginas certas), O que cai aqui (o resumo do trecho e os cards) e Questões (só as daquele trecho). Ao terminar, toque em Finalizar. A plataforma sempre abre aqui: no alto ficam a contagem até a prova e o card do concurso (datas, vagas e remuneração). Atrasou? Toque em Recalcular plano. Aos domingos e segundas aparece o Check-in da semana com o seu balanço.",
+  p:"É a tela do dia a dia. A meta tem as atividades que cabem na sua rotina. Cada atividade de teoria tem 3 passos: Ler (as páginas certas), O que cai aqui (o resumo do trecho e os cards) e Questões (só as daquele trecho). Ao terminar, toque em Finalizar. A plataforma sempre abre aqui: no alto ficam a contagem até a prova e o card do concurso (datas, vagas e remuneração). Abaixo da meta fica Sua jornada da semana: o alpinista caminha pelos dias em que você estuda pelo menos 60 min, a folga da rotina não quebra a sequência e, se você parar, ele senta ao lado da bandeirinha. Toque em 🎨 para escolher a paisagem (Montanha, Floresta ou Mapa). Atrasou? Toque em Recalcular plano. Aos domingos e segundas aparece o Check-in da semana com o seu balanço.",
   s:`<div class="tu-card"><div class="tu-row"><b>Meta 03</b><span class="tu-prog"><i data-k="mp"></i></span><small data-k="mt">0 de 3</small></div>
      <div class="tu-task" data-k="t1"><i class="tu-ck" data-k="c1"></i>Teoria · Tributário · págs. 3 a 18</div>
      <div class="tu-steps" data-k="sp"><span data-k="p1">1 Ler</span><span data-k="p2">2 O que cai aqui</span><span data-k="p3">3 Questões</span></div>
@@ -4938,7 +4944,7 @@ const TUT=[
 ];
 const TUT_MIN_STEP=3400;
 let TUTP={i:0,s:0,play:1,t:0};
-const TUT_FAQ=[["Posso mudar de curso depois?", "Pode. Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, troque o curso de qualquer matéria ou vincule um curso completo. As metas se ajustam."], ["Não tenho curso. Consigo estudar?", "Consegue. Escolha Pelo edital: as metas seguem os tópicos do edital, priorizados pelo peso de cada matéria na prova."], ["O edital ainda não saiu. E agora?", "Comece pelo último edital ou por um pré-edital. A contagem fica em ∞ até a data sair, e o que você estudou continua contando."], ["Atrasei a meta. Perdi o plano?", "Não. Em Hoje, toque em Recalcular plano: a Jornada refaz as próximas metas para caber até a prova."], ["Meus dados ficam salvos se eu trocar de aparelho?", "Ficam. Tudo é salvo na sua conta: entre com o mesmo e-mail no celular, no tablet ou no computador."], ["Preciso enviar o PDF de todas as aulas?", "Não. É opcional. Com o PDF, a aula ganha leitura com marca-texto, resumo e as questões daquele trecho."], ["A IA acabou por hoje. O que faço?", "Continue estudando normalmente: só os recursos de IA esperam. O limite (80 por dia na assinatura, 60 no teste) zera no dia seguinte."], ["Dá para estudar para dois concursos?", "Dá. Adicione o segundo em Meu plano › Concurso › Trocar de concurso. A compatibilidade mostra o quanto o estudo se aproveita."], ["Posso guardar provas que já fiz?", "Pode, quantas quiser, em Revisar › Minhas provas. A Jornada corrige, resume os erros e manda as erradas para a revisão."], ["O que acontece quando o teste grátis acaba?", "Escolha um plano em Meu plano › Assinatura para continuar. Seus dados ficam guardados."], ["Errei muito numa matéria. Como recupero?", "Faça as Erradas marcando o motivo do erro, siga a Trilha da Jornada todo dia e pergunte à Jornada o que focar."]];
+const TUT_FAQ=[["Posso mudar de curso depois?", "Pode. Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, troque o curso de qualquer matéria ou vincule um curso completo. As metas se ajustam."], ["Não tenho curso. Consigo estudar?", "Consegue. Escolha Pelo edital: as metas seguem os tópicos do edital, priorizados pelo peso de cada matéria na prova."], ["O edital ainda não saiu. E agora?", "Comece pelo último edital ou por um pré-edital. A contagem fica em ∞ até a data sair, e o que você estudou continua contando."], ["Atrasei a meta. Perdi o plano?", "Não. Em Hoje, toque em Recalcular plano: a Jornada refaz as próximas metas para caber até a prova."], ["Quando o dia conta na jornada da semana?", "Com pelo menos 60 minutos de estudo no dia. Dia de folga na sua rotina não quebra a sequência. Toque em 🎨 no card para trocar a paisagem."], ["Meus dados ficam salvos se eu trocar de aparelho?", "Ficam. Tudo é salvo na sua conta: entre com o mesmo e-mail no celular, no tablet ou no computador."], ["Preciso enviar o PDF de todas as aulas?", "Não. É opcional. Com o PDF, a aula ganha leitura com marca-texto, resumo e as questões daquele trecho."], ["A IA acabou por hoje. O que faço?", "Continue estudando normalmente: só os recursos de IA esperam. O limite (80 por dia na assinatura, 60 no teste) zera no dia seguinte."], ["Dá para estudar para dois concursos?", "Dá. Adicione o segundo em Meu plano › Concurso › Trocar de concurso. A compatibilidade mostra o quanto o estudo se aproveita."], ["Posso guardar provas que já fiz?", "Pode, quantas quiser, em Revisar › Minhas provas. A Jornada corrige, resume os erros e manda as erradas para a revisão."], ["O que acontece quando o teste grátis acaba?", "Escolha um plano em Meu plano › Assinatura para continuar. Seus dados ficam guardados."], ["Errei muito numa matéria. Como recupero?", "Faça as Erradas marcando o motivo do erro, siga a Trilha da Jornada todo dia e pergunte à Jornada o que focar."]];
 function vTutorial(){const id=UI.tut||TUT[0].id,ch=TUT.find(x=>x.id===id)||TUT[0];
   return`<div class="hello"><h1>Tutorial</h1><p>Cada função da Jornada em uma animação curta, com o passo a passo e dicas para você usar a plataforma do jeito que mais aproxima a aprovação. Escolha um tema ou siga na ordem.</p></div>
   <div class="tu-wrap"><nav class="tu-menu" aria-label="Temas do tutorial">${TUT.map((x,i)=>`<button data-a="tutGo" data-id="${x.id}" aria-current="${x.id===ch.id}">${ic(x.ic)}<span><small>${i+1}</small>${esc(x.t)}</span></button>`).join("")}</nav>
@@ -4986,6 +4992,7 @@ function render(){
    const left=render.lt!==TAB?(UI.navDir==="l"||(!UI.navDir&&a>-1&&b>-1&&b<a)):(subCh&&UI.navDir==="l");
    vw.classList.toggle("noanim",render.lt===TAB&&!subCh);vw.classList.toggle("vw-sub",subCh);vw.classList.toggle("vw-l",(render.lt!==TAB||subCh)&&left);vw.classList.toggle("vw-r",(render.lt!==TAB||subCh)&&!left);render.lsk=sk;UI.navDir=""}render.lt=TAB;$("view").innerHTML=gnavHTML()+V();{const vw=$("view");if(!vw.classList.contains("noanim")&&(vw.classList.contains("vw-r")||vw.classList.contains("vw-l"))&&!document.documentElement.hasAttribute("data-boot")&&!document.documentElement.hasAttribute("data-in"))vwSlide(vw.classList.contains("vw-l")?"l":"r")}try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
   if(UI.openT)renderDrawer();
+  if(TAB==="meta"&&READY)setTimeout(jwAnim,900);
 }
 /* concordância no singular quando o número é 1 */
 const SING=[[/cards de revisão criados/,"card de revisão criado"],[/assuntos marcados como estudados/,"assunto marcado como estudado"],[/revisões criadas/,"revisão criada"],[/aulas com link/,"aula com link"],[/aulas de /,"aula de "],[/atividades novas/,"atividade nova"],[/reforços lidos/,"reforço lido"],[/reforços\b/,"reforço"],[/matérias novas/,"matéria nova"],[/assuntos adicionados/,"assunto adicionado"],[/questões prontas/,"questão pronta"],[/questões montadas/,"questão montada"],[/atividades lidas/,"atividade lida"],[/aulas ligadas/,"aula ligada"],[/assuntos riscados/,"assunto riscado"],[/questões com gabarito/,"questão com gabarito"]];
@@ -4998,6 +5005,154 @@ function spark(vals,color){
   const d=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" "),e=pts[pts.length-1];
   return`<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true"><path d="${d} L${w} ${h} L0 ${h}Z" fill="${color}" opacity=".16"/><path d="${d}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke"/><circle cx="${e[0]}" cy="${e[1]}" r="3.2" fill="${color}"/></svg>`;
 }
+
+/* ---------- Alpinista da Jornada (sem rosto) ---------- */
+/* bonequinho da Jornada: viajante com boné, jaqueta da marca, mochila e calçado de trilha */
+function jwSeg(x,y,ang,len,w,col){const r=ang*Math.PI/180,x2=x+Math.sin(r)*len,y2=y+Math.cos(r)*len;return{d:`<path d="M${x} ${y} L${x2.toFixed(2)} ${y2.toFixed(2)}" stroke="${col}" stroke-width="${w}" stroke-linecap="round"/>`,x:x2,y:y2}}
+function jwLeg(hx,hy,th,kn,back){const c1=back?"#232a4e":"#2f3866",t=jwSeg(hx,hy,th,12.5,7.5,c1),s=jwSeg(t.x,t.y,th-kn,12,6.6,c1);
+  const kx=t.x,ky=t.y,fx=s.x,fy=s.y,ang=th-kn;
+  return t.d+`<circle cx="${kx.toFixed(2)}" cy="${ky.toFixed(2)}" r="3.4" fill="${back?"#1b2140":"#252d57"}"/>`+s.d+
+  `<g transform="translate(${fx.toFixed(2)} ${fy.toFixed(2)}) rotate(${(-ang*0.25).toFixed(1)})"><path d="M-4.5 -5 h7 v3 h5.5 q2.5 0 2.5 3 v3.2 h-15z" fill="${back?"#7a3d12":"#a4521a"}"/><rect x="-4.5" y="3" width="15.5" height="2.6" rx="1.2" fill="#1a1a2e"/><path d="M-2 -3.5 l4 1.6 M-2 -1.2 l4 1.6" stroke="#ffcf6b" stroke-width=".9"/></g>`}
+function jwArm(sx,sy,a,el,back){const c=back?"#a02a6c":"#e0459b",u=jwSeg(sx,sy,a,9.5,7,c),f=jwSeg(u.x,u.y,a-el,9,6.4,c);
+  return u.d+`<path d="M${(sx+(u.x-sx)*.5).toFixed(2)} ${(sy+(u.y-sy)*.5-3).toFixed(2)} l0 6" stroke="${back?"#7d1f53":"#b8307d"}" stroke-width="1" opacity=".7"/>`+f.d+`<circle cx="${f.x.toFixed(2)}" cy="${f.y.toFixed(2)}" r="3.4" fill="#22223f"/>`}
+/* pose: {lt,lk,rt,rk,la,le,ra,re,lean,bob,sit,pole} ângulos em graus (0 = para baixo, positivo = para frente/direita) */
+function jwHero(p){p=Object.assign({lt:0,lk:0,rt:0,rk:0,la:6,le:-10,ra:-6,re:-10,lean:0,bob:0,sit:0,pole:0},p);
+  const hipY=p.sit?-13:-25+p.bob,hx=0;let s="";
+  s+=`<ellipse cx="0" cy="1.5" rx="${p.sit?16:13}" ry="3.6" fill="rgba(0,0,0,.35)"/>`;
+  s+=`<g transform="rotate(${p.lean} 0 ${hipY})">`;
+  s+=jwLeg(hx-1.5,hipY,p.rt,p.rk,1);s+=jwArm(-1,hipY-17,p.ra,p.re,1);
+  // mochila cargueira com piqueta e corda
+  s+=`<rect x="-17" y="${hipY-27}" width="13" height="23" rx="4" fill="#3f4a8a"/><rect x="-16" y="${hipY-14}" width="11" height="6" rx="2" fill="#323b72"/><path d="M-16.5 ${hipY-21} h12" stroke="#2a3263" stroke-width="1.4"/>`;
+  s+=`<ellipse cx="-10.5" cy="${hipY-28.5}" rx="7" ry="3.6" fill="#ffb347" stroke="#e08d1c" stroke-width="1"/>`;
+  s+=`<path d="M-15 ${hipY-38} L-12 ${hipY-6}" stroke="#9aa3c7" stroke-width="1.8" stroke-linecap="round"/><path d="M-19 ${hipY-37} q4 -3 8 0" stroke="#d8dcef" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+  // jaqueta acolchoada (puffer) com faixas
+  s+=`<path d="M-7 ${hipY-21} Q-8.5 ${hipY-2} -6 ${hipY+1.5} L7 ${hipY+1.5} Q9 ${hipY-2} 7.5 ${hipY-21} Q0 ${hipY-26} -7 ${hipY-21}Z" fill="url(#jwJk)"/>`;
+  [-16,-11,-6,-1].forEach(d=>{s+=`<path d="M-7.6 ${hipY+d} Q0 ${hipY+d+2.2} 8 ${hipY+d}" stroke="#a02a6c" stroke-width="1.1" fill="none" opacity=".8"/>`});
+  s+=`<path d="M.5 ${hipY-22} v23" stroke="#ffd2ec" stroke-width="1.1" opacity=".8"/>`;
+  // corda enrolada no ombro e cadeirinha
+  s+=`<path d="M-6 ${hipY-20} Q3 ${hipY-10} 6 ${hipY-1}" stroke="#ffcf3a" stroke-width="2.4" fill="none"/><path d="M-6.5 ${hipY-17} Q2 ${hipY-8} 5 ${hipY+.5}" stroke="#e9a812" stroke-width="1.4" fill="none"/>`;
+  s+=`<rect x="-7.5" y="${hipY-1}" width="15" height="3.6" rx="1.6" fill="#ff7a1a"/><circle cx="3.5" cy="${hipY+3.6}" r="1.9" fill="none" stroke="#d8dcef" stroke-width="1.2"/>`;
+  // alça da mochila
+  s+=`<path d="M-6 ${hipY-21} Q-2 ${hipY-12} -5 ${hipY-2}" stroke="#2a3263" stroke-width="2.4" fill="none"/>`;
+  // cabeça sem rosto: gola alta, touca com pompom e óculos de neve na touca
+  const hy=hipY-31;
+  s+=`<path d="M-6 ${hy+5} h12 v6 q-6 3 -12 0z" fill="#7b3cff"/>`;
+  s+=`<circle cx="1" cy="${hy}" r="9.4" fill="#f0c3a0"/>`;
+    s+=`<path d="M-8.8 ${hy-1.5} Q-9.4 ${hy-12.5} 1 ${hy-12.8} Q11 ${hy-12.5} 10.6 ${hy-1.5}Z" fill="url(#jwBn)"/>`;
+  s+=`<rect x="-9.4" y="${hy-3.4}" width="20.4" height="3.4" rx="1.6" fill="#5a2bd0"/>`;
+  [-6,-2,2,6].forEach(x=>{s+=`<path d="M${x} ${hy-11} v7" stroke="#b8307d" stroke-width=".9" opacity=".7"/>`});
+  s+=`<circle cx="1" cy="${hy-14.2}" r="3" fill="#ffe3f1"/>`;
+  s+=`<rect x="2.5" y="${hy-9}" width="8" height="4.4" rx="2" fill="#1b2140" stroke="#9aa3c7" stroke-width=".8"/><rect x="3.6" y="${hy-8.2}" width="5.8" height="2.6" rx="1.2" fill="#5ad1ff" opacity=".85"/>`;
+  s+=`<path d="M1 ${hy+9} q-6 -1 -8 -5" stroke="#5a2bd0" stroke-width="2" fill="none"/>`;
+  s+=jwLeg(hx+1.5,hipY,p.lt,p.lk,0);s+=jwArm(1,hipY-17,p.la,p.le,0);
+  // bastão de caminhada na mão da frente
+  if(p.pole){const r=p.la*Math.PI/180,ux=1+Math.sin(r)*9.5,uy=hipY-17+Math.cos(r)*9.5,r2=(p.la-p.le)*Math.PI/180,hx2=ux+Math.sin(r2)*9,hy2=uy+Math.cos(r2)*9;
+    s+=`<path d="M${(hx2-1).toFixed(1)} ${(hy2-4).toFixed(1)} L${(hx2+5).toFixed(1)} ${(-0.5-p.bob*0).toFixed(1)}" stroke="#c9cfe6" stroke-width="1.8" stroke-linecap="round"/>`}
+  s+=`</g>`;return s}
+function jwHeroDefs(){return`<linearGradient id="jwJk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5f8f"/><stop offset="1" stop-color="#d6388f"/></linearGradient><linearGradient id="jwBn" x1="0" x2="1"><stop offset="0" stop-color="#9b5cff"/><stop offset="1" stop-color="#7b3cff"/></linearGradient>`}
+/* ciclo de caminhada (ph em radianos) */
+function jwWalk(ph){const s=Math.sin(ph),c=Math.cos(ph);return{pole:1,lt:22*s,lk:s>0?6:20*Math.abs(s)+4,rt:-22*s,rk:s<0?6:20*Math.abs(s)+4,la:-26*s+4,le:-14,ra:26*s-4,re:-14,bob:Math.abs(c)*1.8,lean:4}}
+const jwIdle=b=>({pole:1,lt:3,lk:2,rt:-3,rk:2,la:8,le:-6,ra:-8,re:-6,bob:0,blink:b});
+const jwSit={sit:1,pole:0,lt:78,lk:78,rt:70,rk:74,la:28,le:-30,ra:20,re:-36,face:"sad",lean:-4};
+
+
+/* ================= Sua jornada da semana: a constância em forma de trilha =================
+   O dia conta com pelo menos 60 minutos de estudo. Folga da rotina (dia sem estudo planejado) não quebra a sequência.
+   O alpinista caminha pelos dias; se a caminhada para, ele senta ao lado da bandeirinha. Três paisagens à escolha
+   (Montanha, Floresta, Mapa) e o céu muda com a hora: sol de manhã e à tarde, lua e estrelas à noite. */
+const JW_MIN=60,JW_D=["SEG","TER","QUA","QUI","SEX","SÁB","DOM"],JW_T={montanha:"Montanha",floresta:"Floresta",mapa:"Mapa da expedição"};
+const jwTheme=()=>{const t=(PLANS.ui||{}).jwTheme;return JW_T[t]?t:"montanha"};
+const jwTod=()=>{const h=new Date().getHours();return h>=5&&h<12?"manha":h>=12&&h<18?"tarde":"noite"};
+function jwData(){const di=dayInfo(),td=today(),wd=wdOf(td),mon=addDays(td,-wd),days=[...Array(7)].map((_,i)=>addDays(mon,i));
+  const fol=d=>{try{return rotHas()&&rotStudyAll(wdOf(d))===0}catch(e){return false}},ok=d=>((di[d]||{}).m||0)>=JW_MIN;
+  const st=days.map(d=>d<td?(ok(d)?"ok":fol(d)?"fo":"no"):d===td?(ok(d)?"ok":"td"):(fol(d)?"fo":"fu"));
+  let streak=ok(td)?1:0,d=addDays(td,-1),stop=null;for(let i=0;i<500;i++){if(ok(d))streak++;else if(!fol(d)){stop=d;break}d=addDays(d,-1)}
+  /* onde a caminhada parou: o primeiro dia sem estudo depois do último dia estudado */
+  if(stop){let x=stop,y=addDays(x,-1);for(let i=0;i<60&&!ok(y);i++){if(!fol(y))x=y;y=addDays(y,-1)}stop=x}
+  let best=0,run=0;for(let i=400;i>=0;i--){const x=addDays(td,-i);if(ok(x)){run++;best=Math.max(best,run)}else if(!fol(x)&&x<td)run=0}
+  const had=[...Array(21)].some((_,i)=>ok(addDays(td,-i-1)));const broken=!streak&&had;
+  const mToday=(di[td]||{}).m||0;return{days,st,wd,streak,best:Math.max(best,streak),broken,stop,stopIdx:stop&&stop>=mon?days.indexOf(stop):-1,left:Math.max(0,JW_MIN-Math.round(mToday)),okToday:ok(td),fresh:!streak&&!had}}
+function jwCurve(P,a,b){let d="";for(let i=a;i<b;i++){const [x1,y1]=P[i],[x2,y2]=P[i+1],cx=(x1+x2)/2;d+=(i===a?`M${x1},${y1}`:"")+` C${cx},${y1} ${cx},${y2} ${x2},${y2}`}return d}
+const jwPt=(P,i,f)=>{if(i<0){const [x,y]=P[0];return{x:x-48*(1-f),y:y+6*(1-f)}}const p=document.createElementNS("http://www.w3.org/2000/svg","path");p.setAttribute("d",jwCurve(P,i,i+1));const L=p.getTotalLength();return p.getPointAtLength(L*Math.max(0,Math.min(1,f)))};
+const jwSun=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${(r||1)*46}" fill="url(#jwSunG)"/><circle cx="${x}" cy="${y}" r="${(r||1)*17}" fill="#ffd45a"/>`;
+const jwMoon=(x,y)=>`<circle cx="${x}" cy="${y}" r="34" fill="url(#jwMoonG)" opacity=".5"/><circle cx="${x}" cy="${y}" r="13" fill="#fff4cf"/>`;
+const jwStars=(n,W)=>{let s="";for(let i=0;i<n;i++){const x=(i*137.5)%W,y=(i*53.3)%120+70,r=(i%3)*.5+.6;s+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="#fff" opacity="${.3+(i%4)*.15}"/>`}return s};
+const jwTent=(x,y)=>`<g transform="translate(${x-15} ${y-40})"><path d="M0 26 L15 0 L30 26 Z" fill="#ff7a1a"/><path d="M15 0 L9 26 h12z" fill="#c45a0e"/><path d="M15 0 v-6" stroke="#e9e4ff" stroke-width="1.5"/></g>`;
+function jwDefs(){return`<defs>${jwHeroDefs()}<linearGradient id="jwGr" x1="0" x2="1"><stop offset="0" stop-color="#2fbf6a"/><stop offset="1" stop-color="#7cf0a8"/></linearGradient><filter id="jwGl"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <linearGradient id="jwSkyN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140f3a"/><stop offset=".7" stop-color="#2a1550"/><stop offset="1" stop-color="#3b1a5a"/></linearGradient><linearGradient id="jwSkyM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b4bb5"/><stop offset=".55" stop-color="#c76ba8"/><stop offset="1" stop-color="#ffb37a"/></linearGradient><linearGradient id="jwSkyT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f7fd6"/><stop offset="1" stop-color="#9fd0ff"/></linearGradient>
+ <linearGradient id="jwM1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3580"/><stop offset="1" stop-color="#211d4f"/></linearGradient><linearGradient id="jwM2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c2766"/><stop offset="1" stop-color="#17143c"/></linearGradient>
+ <linearGradient id="jwFN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f1a33"/><stop offset="1" stop-color="#1c2a3f"/></linearGradient><linearGradient id="jwFM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a5cc0"/><stop offset="1" stop-color="#ffc08a"/></linearGradient>
+ <radialGradient id="jwSunG"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#ffc24a" stop-opacity=".6"/><stop offset="1" stop-color="#ff9a3c" stop-opacity="0"/></radialGradient><radialGradient id="jwMoonG"><stop offset="0" stop-color="#fff6d8"/><stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/></radialGradient></defs>`}
+/* cena: devolve {svg, P, vb} para o tema, a hora e o tamanho (sm = celular) */
+function jwScene(theme,tod,sm,D){const W=sm?640:1100,sx=W/1100,H=300;
+  const R=sm?19:14,FS=sm?21:13,sky=tod==="manha"?"jwSkyM":tod==="tarde"?"jwSkyT":"jwSkyN";let g="",P,vb;
+  const lbl=(x,y,t,on,dy)=>`<text x="${x}" y="${y+(dy||(R+19))}" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="700" font-size="${FS}" fill="${on?"#fff":"#d9d4ff"}" style="paint-order:stroke" stroke="rgba(13,12,34,.75)" stroke-width="3">${t}</text>`;
+  const node=(x,y,s,on)=>{const fill=s==="ok"?"#3fd47a":s==="no"?"#3a1d3a":s==="td"?"rgba(23,22,58,.92)":s==="fo"?"rgba(36,35,79,.92)":"rgba(29,28,69,.92)",str=s==="ok"?"#a6f5c6":s==="no"?"#ff5f8f":s==="td"?"#fff":s==="fo"?"#8682b5":"#4a4880";
+    let q=`<circle cx="${x}" cy="${y}" r="${R}" fill="${fill}" stroke="${str}" stroke-width="${s==="td"?3:2}" ${s==="fo"?'stroke-dasharray="4 4"':""}/>`;
+    if(s==="ok")q+=`<path d="M${x-R*.43} ${y} l${R*.29} ${R*.29} l${R*.57} -${R*.64}" stroke="#0d3b22" stroke-width="${sm?3.6:3}" fill="none" stroke-linecap="round"/>`;
+    if(s==="no")q+=`<path d="M${x-R*.36} ${y-R*.36} l${R*.72} ${R*.72} M${x+R*.36} ${y-R*.36} l-${R*.72} ${R*.72}" stroke="#ff5f8f" stroke-width="2.6" stroke-linecap="round"/>`;return q};
+  if(theme==="floresta"){P=[80,235,390,545,700,855,1010].map((x,i)=>[Math.round(x*sx),[240,205,238,200,236,202,232][i]]);vb=`0 100 ${W} 190`;
+    g+=`<rect width="${W}" height="${H}" fill="url(#${tod==="noite"?"jwFN":tod==="manha"?"jwFM":"jwSkyT"})"/>`+(tod==="noite"?jwStars(30,W)+jwMoon(W*.63,128):jwSun(W*.6,tod==="manha"?168:128));
+    const pine=(x,y,s,c)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M0 -60 L14 -30 H7 L20 -6 H-20 L-7 -30 H-14Z" fill="${c}"/><rect x="-3" y="-6" width="6" height="10" fill="#3b2a1c"/></g>`;
+    g+=`<g transform="scale(${sx} 1)"><path d="M0 190 Q160 140 320 180 T640 170 T1100 160 V300 H0Z" fill="#17304a"/><path d="M0 220 Q200 170 420 210 T820 200 T1100 190 V300 H0Z" fill="#1c3d3a"/></g>`;
+    [[30,200,.9,"#14322d"],[130,186,.7,"#173a33"],[300,196,.8,"#14322d"],[470,182,.65,"#173a33"],[620,192,.85,"#14322d"],[770,180,.7,"#173a33"],[930,190,.9,"#14322d"],[1070,178,.7,"#173a33"]].forEach(([x,y,s,c])=>g+=pine(x*sx,y,s,c));
+    g+=`<g transform="scale(${sx} 1)"><path d="M0 300 V250 Q300 228 600 252 T1100 246 V300Z" fill="#1f4a3a"/></g>`;[[60,290,1.1],[330,296,1],[640,292,1.15],[980,296,1]].forEach(([x,y,s])=>g+=pine(x*sx,y,s,"#0f2a24"));
+    g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#5a4330" stroke-width="${sm?26:22}" stroke-linecap="round"/><path d="${jwCurve(P,0,6)}" fill="none" stroke="#7a5c40" stroke-width="${sm?15:12}" stroke-linecap="round"/>`}
+  else if(theme==="mapa"){P=[95,240,385,530,675,820,975].map((x,i)=>[Math.round(x*sx),[215,150,205,128,196,135,190][i]]);vb=`0 70 ${W} 190`;
+    g+=`<rect width="${W}" height="${H}" fill="#1a1838"/>`;for(let x=0;x<W;x+=50)g+=`<path d="M${x} 0 V${H}" stroke="#24224a"/>`;for(let y=0;y<H;y+=50)g+=`<path d="M0 ${y} H${W}" stroke="#24224a"/>`;
+    g+=`<g transform="scale(${sx} 1)">`;[[300,90,60],[300,90,95],[300,90,130],[760,240,50],[760,240,85],[760,240,120]].forEach(([cx,cy,r])=>g+=`<ellipse cx="${cx}" cy="${cy}" rx="${r*1.6}" ry="${r}" fill="none" stroke="#3a3670" stroke-width="1.4" opacity=".8"/>`);g+=`<path d="M0 270 Q200 250 380 280 T760 268 T1100 276" stroke="#2f5d8a" stroke-width="6" fill="none" opacity=".7"/></g>`;
+    g+=(tod==="noite"?jwMoon(W-120*sx-30,104):jwSun(W-120*sx-30,104,.65));
+    g+=`<g transform="translate(${W-48} 232)"><circle r="22" fill="none" stroke="#8682b5" stroke-width="1.5"/><path d="M0 -18 L5 0 L0 18 L-5 0Z" fill="#ff5f8f"/><text y="-26" text-anchor="middle" font-size="11" font-weight="800" fill="#c9a8ff" font-family="Source Sans 3">N</text></g>`;
+    g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#c9a8ff" stroke-width="${sm?4:3}" stroke-dasharray="9 8" stroke-linecap="round" opacity=".7"/>`}
+  else{P=[90,250,385,530,660,800,920].map((x,i)=>[Math.round(x*sx),[258,238,214,190,168,152,138][i]]);vb=`0 84 ${W} 214`;
+    g+=`<rect width="${W}" height="${H}" fill="url(#${sky})"/>`+(tod==="noite"?jwStars(46,W)+jwMoon(700*sx,118):tod==="manha"?jwSun(640*sx,150):jwSun(700*sx,112));
+    g+=`<g transform="scale(${sx} 1)"><path d="M0 230 L120 150 L220 210 L330 120 L460 200 L560 110 L700 190 L820 100 L1100 210 V300 H0Z" fill="url(#jwM2)" opacity=".9"/><path d="M0 300 L0 250 L300 232 L700 176 L920 110 L1010 150 L1100 170 V300Z" fill="url(#jwM1)"/>
+     <path d="M920 110 L892 134 L908 130 L921 140 L934 128 L950 135 Z" fill="#e9ecff"/><path d="M820 100 L800 116 L816 112 L828 120 L842 108Z" fill="#c9cdef" opacity=".7"/><path d="M560 110 L540 126 L556 122 L570 130 L582 120Z" fill="#c9cdef" opacity=".6"/></g>`;
+    g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#1b1846" stroke-width="${sm?20:16}" stroke-linecap="round"/><path d="${jwCurve(P,0,6)}" fill="none" stroke="#6b66b0" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round"/>`}
+  /* trilha verde: trechos entre dias que seguiram (estudo ou folga), até hoje */
+  const S=D.st,good=s=>s==="ok"||s==="fo";for(let i=0;i<6;i++){if(i+1>D.wd)break;if(good(S[i])&&(good(S[i+1])||(i+1===D.wd&&S[i+1]==="ok")))g+=`<path d="${jwCurve(P,i,i+1)}" class="jw-g" fill="none" stroke="url(#jwGr)" stroke-width="${theme==="mapa"?(sm?6:5):sm?13:11}" stroke-linecap="round" filter="url(#jwGl)"/>`}
+  g+=`<g id="jwGo"></g>`;
+  S.forEach((s,i)=>{if(s==="fo")g+=jwTent(P[i][0]+(theme==="montanha"?2:28*(sm?1.2:1)),P[i][1]-(theme==="montanha"?2:4))});
+  /* dias */
+  S.forEach((s,i)=>{const [x,y]=P[i];
+    if(theme==="floresta"){const pw=sm?62:44,ph=sm?26:18;g+=`<g transform="translate(${x} ${y-(sm?34:24)})"><path d="M0 0 v${sm?30:22}" stroke="#6b4a2e" stroke-width="4"/><rect x="${-pw/2}" y="${-ph+2}" width="${pw}" height="${ph}" rx="3" fill="#8a6440" stroke="#5a3e24" stroke-width="1.5"/><text y="${sm?-3:-3}" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="800" font-size="${sm?16:11}" fill="#fff3dd">${JW_D[i]}</text></g>`+node(x,y,s)}
+    else if(theme==="mapa"){const k=sm?1.35:1,c=s==="ok"?"#3fd47a":s==="no"?"#ff5f8f":s==="td"?"#fff":s==="fo"?"#8682b5":"#4a4880";g+=`<g transform="translate(${x} ${y}) scale(${k})"><path d="M0 0 C-12 -14 -12 -30 0 -30 C12 -30 12 -14 0 0Z" fill="${s==="ok"?"#3fd47a":s==="no"?"#3a1d3a":"#17163a"}" stroke="${c}" stroke-width="${s==="td"?3:2}" ${s==="fo"?'stroke-dasharray="3 3"':""}/>${s==="ok"?`<path d="M-5 -19 l3.5 3.5 l7 -8" stroke="#0d3b22" stroke-width="2.6" fill="none" stroke-linecap="round"/>`:s==="no"?`<path d="M-4 -23 l8 8 M4 -23 l-8 8" stroke="#ff5f8f" stroke-width="2.4" stroke-linecap="round"/>`:`<circle cy="-19" r="3.5" fill="${c}"/>`}</g>`+lbl(x,y,JW_D[i],i===D.wd,sm?26:18)}
+    else g+=node(x,y,s)+lbl(x,y,JW_D[i],i===D.wd)});
+  /* destino do domingo */
+  const [dx,dy]=P[6];g+=theme==="mapa"?`<g transform="translate(${dx+14} ${dy-6})"><path d="M-8 -8 l16 16 M8 -8 l-16 16" stroke="#ff5f8f" stroke-width="4" stroke-linecap="round"/></g>`:`<g transform="translate(${dx+4} ${dy-R})"><path d="M0 0 v-34" stroke="#e9e4ff" stroke-width="2.4"/><path d="M1 -34 h22 l-5 7 l5 7 h-22z" fill="#a06bff"/></g>`;
+  return{svg:jwDefs()+g,P,vb,sc:sm?1.5:theme==="mapa"?1.2:1.25}}
+/* onde fica o alpinista e em que pose */
+function jwPos(D,P){if(D.broken){const j=D.stopIdx;const at=j>0?jwPt(P,j-1,.6):jwPt(P,-1,0);return{pt:at,pose:"sit",flag:at}}
+  if(D.okToday)return{pt:jwPt(P,D.wd-1,1),pose:"idle",from:jwPt(P,D.wd-1,.45),seg:D.wd-1};
+  return{pt:D.wd>0?jwPt(P,D.wd-1,.45):jwPt(P,-1,.6),pose:"walk"}}
+const JW_DN=["segunda","terça","quarta","quinta","sexta","sábado","domingo"],jwNa=n=>(n>=5?"no ":"na ")+JW_DN[n];
+function jwMsg(D){const bom=jwTod()==="manha"?"Bom dia! ":"";
+  if(D.okToday)return`Hoje contou! <b class="g">✓</b> Mais um dia na trilha`;
+  if(D.broken)return`A caminhada parou${D.stop?" "+jwNa(wdOf(D.stop)):""}. Estude <b>${JW_MIN} min</b> hoje para voltar à trilha`;
+  if(D.fresh)return`${bom}Estude <b>${JW_MIN} min</b> hoje para dar o primeiro passo`;
+  return`${bom}Faltam <b>${D.left} min</b> para chegar ${D.wd>=5?"no":"na"} ${JW_DN[D.wd]}`}
+function jwCard(){try{const D=jwData(),th=jwTheme(),tod=jwTod(),sm=innerWidth<700,Sc=jwScene(th,tod,sm,D),ps=jwPos(D,Sc.P);
+  const pose=ps.pose==="sit"?jwSit:ps.pose==="idle"?jwIdle(0):jwWalk(1.1);
+  const flag=ps.flag?`<g transform="translate(${ps.flag.x+22*(sm?1.4:1)} ${ps.flag.y})"><path d="M0 0 v${sm?-70:-52}" stroke="#e9e4ff" stroke-width="2.6" stroke-linecap="round"/><path d="M1 ${sm?-70:-52} h${sm?28:22} l-6 8 l6 8 h-${sm?28:22}z" fill="#ff5f8f"/></g><ellipse cx="${ps.flag.x-1}" cy="${ps.flag.y-3}" rx="${sm?20:15}" ry="${sm?8:6}" fill="#3b3a7a"/>`:"";
+  const dim=D.broken?`<path d="${jwCurve(Sc.P,Math.max(0,D.stopIdx),6)}" fill="none" stroke="#0d0c22" stroke-opacity=".35" stroke-width="18" stroke-linecap="round"/>`:"";
+  const ico=D.broken?"🚩":"👣";
+  return`<section class="card jw jw-${th}" aria-label="Sua jornada da semana"><div class="jw-h"><div class="jw-t"><h2>Sua jornada da semana</h2><p>${jwMsg(D)}</p></div><div class="jw-n"><b>${ico} ${D.streak} ${D.streak===1?"dia":"dias"}</b><small>seguidos</small><button class="ibtn sm jw-pk" data-a="jwPick" aria-label="Trocar a paisagem" title="Trocar a paisagem">🎨</button></div></div>
+   <svg class="jw-s" viewBox="${Sc.vb}" role="img" aria-label="${esc(D.st.map((s,i)=>JW_D[i]+": "+({ok:"estudou",no:"não estudou",fo:"folga",td:"hoje",fu:"ainda vai chegar"})[s]).join(", "))}">${Sc.svg}${dim}${flag}<g id="jwWk" transform="translate(${ps.pt.x} ${ps.pt.y+1}) scale(${Sc.sc})">${jwHero(pose)}</g></svg>
+   <div class="jw-f"><span>Melhor sequência: <b>${D.best} ${D.best===1?"dia":"dias"}</b> · o dia conta com ${JW_MIN} min de estudo</span><button class="lnk" data-a="jwMes">Ver o mês inteiro →</button></div></section>`}catch(e){console.error(e);return""}}
+/* animação: quando o dia de hoje acaba de contar, o alpinista caminha até ele */
+function jwAnim(){try{const D=jwData();if(!D.okToday||D.wd<1)return;const k="jw-anim-"+LSK+"-"+today();if(localStorage.getItem(k))return;const g=document.getElementById("jwWk"),sv=g&&g.ownerSVGElement;if(!sv)return;localStorage.setItem(k,"1");
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const sm=innerWidth<700,Sc=jwScene(jwTheme(),jwTod(),sm,D),P=Sc.P,i=D.wd-1,t0=performance.now(),dur=1800;
+  const p=document.createElementNS("http://www.w3.org/2000/svg","path");p.setAttribute("d",jwCurve(P,i,i+1));const L=p.getTotalLength();
+  const gp=sv.querySelectorAll(".jw-g"),last=gp[gp.length-1];if(last){last.setAttribute("stroke-dasharray",L+" "+L);last.setAttribute("stroke-dashoffset",L*.55)}
+  const tg=sv.querySelector(`circle[cx="${P[D.wd][0]}"][cy="${P[D.wd][1]}"]`);
+  const step=t=>{if(!g.isConnected)return;const w=Math.min(1,(t-t0)/dur),e=w<.5?2*w*w:1-Math.pow(-2*w+2,2)/2,f=.45+.55*e,q=p.getPointAtLength(L*f);
+    g.setAttribute("transform",`translate(${q.x} ${q.y+1}) scale(${Sc.sc})`);g.innerHTML=jwHero(w<1?jwWalk(t/90):jwIdle(0));if(last)last.setAttribute("stroke-dashoffset",L*(1-f));
+    if(w<1)requestAnimationFrame(step);else{const n=document.querySelector(".jw-n b");if(n)n.animate([{transform:"scale(1)"},{transform:"scale(1.28)"},{transform:"scale(1)"}],{duration:480,easing:"ease-out"});if(tg)tg.animate([{transform:"scale(1)"},{transform:"scale(1.35)"},{transform:"scale(1)"}],{duration:480,easing:"ease-out",transformOrigin:"center"})}};
+  requestAnimationFrame(step)}catch(e){}}
+function jwPickModal(){const D=jwData(),cur=jwTheme(),tod=jwTod();
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Paisagem da jornada"><div class="box cs" style="max-width:720px"><p class="cs-k">Sua jornada da semana</p><h3>Escolha a paisagem</h3><p class="muted">O alpinista e as regras são os mesmos nas três. O céu muda sozinho com a hora do dia.</p>
+   <div class="jw-pks">${Object.entries(JW_T).map(([k,n])=>{const S=jwScene(k,tod,false,D);return`<button class="jw-op" data-a="jwSet" data-v="${k}" aria-pressed="${k===cur}"><svg viewBox="${S.vb}">${S.svg}</svg><b>${n}</b></button>`}).join("")}</div>
+   <div class="row" style="justify-content:flex-end"><button class="btn" data-a="cfNo">Fechar</button></div></div></div>`}
 
 /* ---------- Aba Meta ---------- */
 function kpiBlock(){
@@ -5064,7 +5219,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261104062735";
+const JX_BUILD="20261104072608";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5623,7 +5778,7 @@ function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
      <div class="segbar" aria-hidden="true">${pv.map(t=>`<i class="${t.ph} p"></i>`).join("")}</div>
      <div class="row"><div class="field" style="flex:0 1 260px"><label for="cfgHrs0">Horas de estudo por dia</label><select class="inp" id="cfgHrs0" data-c="hrs">${[...Array(10)].map((_,i)=>`<option value="${i+1}" ${c.cfg.hrs===i+1?"selected":""}>${i+1} h por dia, ${(i+1)*c.cfg.dias} h na meta</option>`).join("")}</select></div>
      <button class="btn pri" data-a="start">${ic("play")} Começar a Meta 01</button><button class="btn" data-a="tab" data-t="materiais">${ic("materiais")} Enviar PDFs antes</button></div></div></section>`;
-    h+=kpiBlock();
+    h+=jwCard();h+=kpiBlock();
     h+=`<section class="card"><div class="card-h"><h2>Atividades previstas na Meta 01</h2><span class="r chip">${pv.length} atividades · ${fmtM(sum(pv.map(t=>t.min)))}</span></div>${rowsHTML(pv,phaseLocks(pv),{},true)}</section>`;
     return h;
   }
@@ -5650,7 +5805,7 @@ function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
       ${notice}
     </div></section>
     ${nextCard(r,rem)}</div>`;
-  h+=kpiBlock();
+  h+=jwCard();h+=kpiBlock();
   const mv=UI.mview||"lista";
   h+=`<div class="mvt" role="group" aria-label="Visualização da meta"><button data-a="mview" data-v="lista" aria-pressed="${mv==="lista"}">${ic("list")} Lista</button><button data-a="mview" data-v="cal" aria-pressed="${mv==="cal"}">${ic("concurso")} Calendário</button>
     <span class="sp"></span><button class="btn sm pri" data-a="asOpen">${ic("bulb")} Assistente de planejamento</button><button class="btn sm" data-a="mtOpen">${ic("bulb")} Recalcular plano</button>${c.gj?`<button class="btn sm" data-a="gjOpen">${ic("ext")} Sincronizar com o Guruja</button>`:r.done?"":`<button class="btn sm" data-a="more2">${ic("plus")} Adicionar 2 atividades</button>`}</div>`;
@@ -9535,6 +9690,9 @@ const A={
   pvEdit(el){const id=el.dataset.id,P=PVS().find(x=>x.id===id),d=pvDoc(id);if(!P||!d)return;UI.pv={step:"gab",edit:id,nome:P.nome,banca:P.banca,ano:P.ano,cargo:P.cargo,mode:d.mode||"resp",qs:clone(d.qs||[]).map(q=>Object.assign(q,{xErr:q.res==="err"}))};pvModal()},
   pvSum(el){pvSumRun(el.dataset.id)},
   pvDel(el){const id=el.dataset.id;askConfirm("Apagar esta prova?","A prova, as fotos e o resumo saem da plataforma, e as questões dela saem de Erradas. Os cards que já estão na Trilha da Jornada continuam.","Apagar",async()=>{const d=pvDoc(id);if(ASSETS&&d)for(const f of d.files||[]){try{await ASSETS.delete(f.id)}catch(e){}}delete D["prova-"+id];dirty.add("prova-"+id);D.provas.list=PVS().filter(p=>p.id!==id);touch("provas");UI.pvOpen=null;render();toast("Prova apagada")})},
+  jwPick(){jwPickModal()},
+  jwSet(el){PLANS.ui=Object.assign({},PLANS.ui||{},{jwTheme:el.dataset.v});savePlans();$("layer3").innerHTML="";render();toast("Paisagem: "+JW_T[el.dataset.v])},
+  jwMes(){TAB="jornada";UI.gLast=UI.gLast||{};try{history.replaceState(null,"","#jornada")}catch(e){}render();window.scrollTo(0,0);setTimeout(()=>{const c=document.querySelector('#view .cal');if(c)c.scrollIntoView({behavior:"smooth",block:"center"})},350)},
   csFull(){UI.cs={step:"trazer",tb:"link",sel:csMine(),from:"mat"};csModal()},
   csLater(){csSave("depois");UI.cs=null;$("layer3").innerHTML="";toast("Quando quiser, vincule os seus cursos em Estudar › Aulas e PDFs › Meus cursos e assinaturas")},
   impOk(){const I=UI.imp,L=(I.aulas||[]).filter(a=>a.c&&a.d);if(!L.length){toast("Preencha pelo menos uma aula");return}
