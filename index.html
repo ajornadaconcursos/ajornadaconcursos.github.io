@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611040614"></script>
+<script src="/claude-shim.js?v=202611040627"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1837,6 +1837,13 @@ html[data-ob] .app{visibility:hidden}html[data-ob] body{background:var(--bg)}htm
 .cs-tip{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,#b07cff 12%,transparent)}.cs-tip svg.i{flex:none;width:18px;height:18px;margin-top:1px}
 .tu-rv{opacity:0;transform:translateY(6px);transition:opacity .5s var(--ease-out),transform .5s var(--ease-out)}.tu-rv.on{opacity:1;transform:none}
 .tu-faq{margin-top:16px}.tu-faq details{border-bottom:1px solid var(--line);padding:10px 2px}.tu-faq details:last-child{border-bottom:0}.tu-faq summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}.tu-faq summary::after{content:"+";color:var(--lime-txt);font-weight:700}.tu-faq details[open] summary::after{content:"–"}.tu-faq p{margin:6px 0 0;color:var(--fg2,inherit);line-height:1.5}
+.pv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:12px}
+.pv-c{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:6px;align-content:start;padding:16px;border-radius:16px;border:1px solid var(--line);background:var(--panel);transition:transform .2s var(--ease-out),border-color .2s}.pv-c:hover,.pv-c:focus-visible{border-color:#b07cff;transform:translateY(-2px)}.pv-c b{font-size:17px}.pv-k{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-txt);font-weight:700}
+.pv-evo{display:flex;gap:14px;align-items:flex-end;overflow-x:auto}.pv-evo>div{display:grid;justify-items:center;gap:4px;min-width:64px}.pv-b{height:110px;width:26px;border-radius:8px;background:var(--line);display:flex;align-items:flex-end;overflow:hidden}.pv-b i{display:block;width:100%;height:var(--h);background:linear-gradient(180deg,#d6388f,#7b3cff);border-radius:8px}.pv-evo small{font-size:11px;color:var(--mute);text-align:center}
+.pv-mats{display:grid;gap:8px}.pv-m{display:grid;grid-template-columns:auto minmax(0,1fr) minmax(80px,30%) auto;gap:10px;align-items:center}.pv-mn{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.pv-bar{height:8px;border-radius:6px;background:var(--line);overflow:hidden}.pv-bar i{display:block;height:100%;background:var(--ok)}.bad-t{color:var(--bad)}
+.pv-q{display:block!important;width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:12px;padding:10px 12px}.pv-q summary{cursor:pointer;display:flex!important;width:100%;gap:8px;align-items:center;list-style:none;grid-template-columns:none}.pv-q summary>b{flex:1;min-width:0;text-align:left!important}.pv-q>p,.pv-q>ul{display:block;width:100%;max-width:none;text-align:left;white-space:normal;word-break:normal}.pv-q summary::-webkit-details-marker{display:none}.pv-q[open]>*:not(summary){margin-top:8px}.pv-t{margin:4px 0 0;line-height:1.5}.pv-alts{margin:0;padding:0;list-style:none;display:grid;gap:4px}.pv-alts li{padding:6px 8px;border-radius:8px;border:1px solid var(--line);font-size:14px}.pv-alts li.ok{border-color:var(--ok);background:var(--ok-soft)}.pv-alts li.me{border-color:var(--bad)}.pv-li{margin:6px 0 0;padding-left:20px;display:grid;gap:4px}
+.pvm .pv-tab{max-height:44vh;overflow:auto;display:grid;gap:6px}.pv-tab.err{grid-template-columns:repeat(auto-fill,minmax(46px,1fr))}.pv-r{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:6px 8px;border:1px solid var(--line);border-radius:10px}.pv-r>b{min-width:28px}.pv-r label{display:flex;gap:6px;align-items:center;font-size:13px;color:var(--mute)}.pv-r select.inp{height:auto;padding:4px 6px;width:auto}
+.pv-e{all:unset;box-sizing:border-box;cursor:pointer;text-align:center;padding:10px 0;border-radius:10px;border:1px solid var(--line);font-weight:700}.pv-e[aria-pressed="true"]{background:var(--bad);border-color:var(--bad);color:#fff}
 .cs-how{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px}.box.cs .tabs2{flex-wrap:wrap}.cs-m select.inp{margin-top:4px;height:auto;padding:6px 8px;font-size:13.5px}
 .cs-pl{display:flex;flex-wrap:wrap;gap:8px}.cs-p{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:999px;border:1px solid var(--line2);font-weight:600;font-size:14px}
 .cs-p[aria-pressed="true"]{background:linear-gradient(90deg,#7b3cff,#d6388f);border-color:transparent;color:#fff}.cs-p svg.i{width:15px;height:15px}
@@ -4560,12 +4567,12 @@ function pv24Card(){if(!IS_TJ)return"";const x=SMX().filter(y=>y.kind==="prova"&
 setInterval(()=>{const id=UI.smOpen;if(!id||TAB!=="simulados")return;const x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run"||!d.t0)return;const r=smLeft(d),el=$("smClk");if(el){el.textContent=smClock(r);el.classList.toggle("low",r<600)}if(r<=0)smFinish(id,true)},1000);
 
 {const _vm=vMeta;vMeta=function(){const h=_vm(),b=smBanner();if(!b)return h;const i=h.indexOf("</div>");return h.startsWith("<div class=\"hello\"")&&i>0?h.slice(0,i+6)+b+h.slice(i+6):b+h}}
-const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Jornada na Lei Seca"],["arquivo","Arquivo"],["arena","Trilha da Jornada"],["assinatura","Assinatura"]];
+const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["provas","Minhas provas"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Jornada na Lei Seca"],["arquivo","Arquivo"],["arena","Trilha da Jornada"],["assinatura","Assinatura"]];
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
 /* Menu simples: 5 entradas. As telas de sempre continuam, agrupadas em abas dentro de cada entrada. */
 const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["arena","Trilha da Jornada"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
 const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["leiseca","Jornada na Lei Seca","edital"],["discursiva","Discursiva e redação","discursiva"]],
-  revisoes:[["revisoes","Revisões do dia","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"]],
+  revisoes:[["revisoes","Revisões do dia","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"],["provas","Minhas provas","prova"]],
   rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"],["arquivo","Arquivo","list"],["assinatura","Assinatura","lock"]]};
 const GP={};Object.entries(GROUPS).forEach(([g,L])=>L.forEach(([k])=>{GP[k.split(":")[0]]=g}));
 function gnavHTML(){const g=GP[TAB];if(!g)return"";const cur=TAB,due=dueRevs().length,ep=errPend(),rf=allRefs().filter(x=>!x.done).length;
@@ -4838,6 +4845,20 @@ const TUT=[
       {k:"gap",on:["gap","stk"],n:[["sd",7]],c:"Trechos difíceis treina só os cards que mais te pegam. Revise todo dia: cada dia vira uma pegada na sua caminhada."}],
   d:["Faça a Trilha da Jornada todo dia antes de teoria nova: 10 a 15 minutos bastam.","Em Ajustes escolha a intensidade (Conservador perto da prova) e o ritmo de cards novos.","Tem baralhos no Anki? Exporte em .apkg ou .txt e use Importar do Anki: os repetidos são pulados sozinhos.","As questões do TEC anotadas continuam em Revisar › Revisões do dia, no ciclo de 1, 7, 14, 30 e 60 dias."]},
 
+ {id:"provas",t:"Minhas provas",ic:"prova",go:"provas",
+  p:"Guarde as provas de concurso que você já fez. Envie o PDF da prova (ou fotos das páginas), informe as suas respostas e o gabarito (ou só toque nas que errou) e a Jornada corrige. A IA separa as questões por matéria do seu edital e faz o resumo de cada erro (o que a banca cobrou, por que o gabarito está certo e a pegadinha) e da prova inteira (onde você perdeu pontos, o estilo da banca e lições para a próxima). As erradas vão para Erradas e para a Trilha da Jornada, e as matérias em que você errou ganham peso nas próximas metas.",
+  s:`<div class="tu-card"><div class="tu-row"><button class="tu-btn" data-k="add">+ Adicionar prova</button><span class="tu-chip" data-k="pdf">📄 PDF ou fotos</span></div>
+     <div class="tu-res tu-rv" data-k="gab"><span class="tu-chip">Q1 · você C · gab. C</span><span class="tu-chip ok" style="border-color:var(--bad);background:transparent">Q2 · você B · gab. D</span><span class="tu-chip">Q3 · você A · gab. A</span></div>
+     <div class="tu-row tu-rv" data-k="nota"><b><span data-k="pc">0</span>% de acerto</b><span class="tu-chip">Constitucional: 4 erradas</span></div>
+     <div class="tu-pt tu-rv" data-k="res"><small>RESUMO DA PROVA</small>Você perdeu mais pontos em Constitucional (remédios). A banca troca uma palavra do artigo: leia o comando até o fim.</div>
+     <div class="tu-row tu-rv" data-k="go"><span class="tu-chip ok">→ Erradas</span><span class="tu-chip ok">→ Trilha da Jornada</span><span class="tu-chip ok">→ peso nas metas</span></div></div>`,
+  st:[{k:"add",c:"Em Revisar › Minhas provas, toque em Adicionar prova e diga qual foi."},
+      {k:"pdf",c:"Envie o PDF da prova (as bancas publicam) ou fotos das páginas."},
+      {k:"gab",on:["gab"],c:"Informe as suas respostas e o gabarito, ou só toque nas questões que errou."},
+      {k:"nota",on:["nota"],n:[["pc",72]],c:"A Jornada corrige e mostra onde você perdeu pontos, matéria por matéria."},
+      {k:"res",on:["res"],c:"A IA faz o resumo de cada erro e da prova inteira, com lições para a próxima."},
+      {k:"go",on:["go"],c:"As erradas viram revisão: vão para Erradas, para a Trilha e dão peso às metas."}],
+  d:["Prefira o PDF: é mais rápido e gasta menos IA que as fotos.","Guarde todas as provas que fizer, inclusive de outros concursos: o padrão da banca aparece.","Depois de corrigir, refaça as erradas em até 3 dias."]},
  {id:"erradas",t:"Erradas, reforços e bateria do TEC",ic:"erradas",go:"erradas",
   p:"Toda questão que você erra ou chuta entra em Erradas para refazer. Fez uma bateria no TEC? Em “Lançar bateria do TEC”, cole os números e marque cada uma (errei, não resolvi, chutei) com o motivo. Quando uma matéria fica abaixo de 75%, nasce um reforço com diagnóstico: onde você errou, por que errou e os passos para corrigir.",
   s:`<div class="tu-card"><div class="tu-row"><button class="tu-btn sm" data-k="tb">Lançar bateria do TEC</button></div>
@@ -4917,7 +4938,7 @@ const TUT=[
 ];
 const TUT_MIN_STEP=3400;
 let TUTP={i:0,s:0,play:1,t:0};
-const TUT_FAQ=[["Posso mudar de curso depois?", "Pode. Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, troque o curso de qualquer matéria ou vincule um curso completo. As metas se ajustam."], ["Não tenho curso. Consigo estudar?", "Consegue. Escolha Pelo edital: as metas seguem os tópicos do edital, priorizados pelo peso de cada matéria na prova."], ["O edital ainda não saiu. E agora?", "Comece pelo último edital ou por um pré-edital. A contagem fica em ∞ até a data sair, e o que você estudou continua contando."], ["Atrasei a meta. Perdi o plano?", "Não. Em Hoje, toque em Recalcular plano: a Jornada refaz as próximas metas para caber até a prova."], ["Meus dados ficam salvos se eu trocar de aparelho?", "Ficam. Tudo é salvo na sua conta: entre com o mesmo e-mail no celular, no tablet ou no computador."], ["Preciso enviar o PDF de todas as aulas?", "Não. É opcional. Com o PDF, a aula ganha leitura com marca-texto, resumo e as questões daquele trecho."], ["A IA acabou por hoje. O que faço?", "Continue estudando normalmente: só os recursos de IA esperam. O limite (80 por dia na assinatura, 60 no teste) zera no dia seguinte."], ["Dá para estudar para dois concursos?", "Dá. Adicione o segundo em Meu plano › Concurso › Trocar de concurso. A compatibilidade mostra o quanto o estudo se aproveita."], ["O que acontece quando o teste grátis acaba?", "Escolha um plano em Meu plano › Assinatura para continuar. Seus dados ficam guardados."], ["Errei muito numa matéria. Como recupero?", "Faça as Erradas marcando o motivo do erro, siga a Trilha da Jornada todo dia e pergunte à Jornada o que focar."]];
+const TUT_FAQ=[["Posso mudar de curso depois?", "Pode. Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, troque o curso de qualquer matéria ou vincule um curso completo. As metas se ajustam."], ["Não tenho curso. Consigo estudar?", "Consegue. Escolha Pelo edital: as metas seguem os tópicos do edital, priorizados pelo peso de cada matéria na prova."], ["O edital ainda não saiu. E agora?", "Comece pelo último edital ou por um pré-edital. A contagem fica em ∞ até a data sair, e o que você estudou continua contando."], ["Atrasei a meta. Perdi o plano?", "Não. Em Hoje, toque em Recalcular plano: a Jornada refaz as próximas metas para caber até a prova."], ["Meus dados ficam salvos se eu trocar de aparelho?", "Ficam. Tudo é salvo na sua conta: entre com o mesmo e-mail no celular, no tablet ou no computador."], ["Preciso enviar o PDF de todas as aulas?", "Não. É opcional. Com o PDF, a aula ganha leitura com marca-texto, resumo e as questões daquele trecho."], ["A IA acabou por hoje. O que faço?", "Continue estudando normalmente: só os recursos de IA esperam. O limite (80 por dia na assinatura, 60 no teste) zera no dia seguinte."], ["Dá para estudar para dois concursos?", "Dá. Adicione o segundo em Meu plano › Concurso › Trocar de concurso. A compatibilidade mostra o quanto o estudo se aproveita."], ["Posso guardar provas que já fiz?", "Pode, quantas quiser, em Revisar › Minhas provas. A Jornada corrige, resume os erros e manda as erradas para a revisão."], ["O que acontece quando o teste grátis acaba?", "Escolha um plano em Meu plano › Assinatura para continuar. Seus dados ficam guardados."], ["Errei muito numa matéria. Como recupero?", "Faça as Erradas marcando o motivo do erro, siga a Trilha da Jornada todo dia e pergunte à Jornada o que focar."]];
 function vTutorial(){const id=UI.tut||TUT[0].id,ch=TUT.find(x=>x.id===id)||TUT[0];
   return`<div class="hello"><h1>Tutorial</h1><p>Cada função da Jornada em uma animação curta, com o passo a passo e dicas para você usar a plataforma do jeito que mais aproxima a aprovação. Escolha um tema ou siga na ordem.</p></div>
   <div class="tu-wrap"><nav class="tu-menu" aria-label="Temas do tutorial">${TUT.map((x,i)=>`<button data-a="tutGo" data-id="${x.id}" aria-current="${x.id===ch.id}">${ic(x.ic)}<span><small>${i+1}</small>${esc(x.t)}</span></button>`).join("")}</nav>
@@ -4960,8 +4981,8 @@ function render(){
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
-  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,assinatura:vAssinatura}[TAB];
-  {const vw=$("view"),ix=t=>TABS.findIndex(x=>x[0]===t),a=ix(render.lt),b=ix(TAB),sk=[UI.jtab,UI.dtab,UI.ctab,UI.mtab,UI.rsView,UI.rotMode,UI.dmode,UI.mview,UI.dsView].map(x=>x==null?"":String(x)).join("|"),subCh=render.lt===TAB&&render.lsk!=null&&render.lsk!==sk;
+  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,assinatura:vAssinatura,provas:vProvas}[TAB];
+  {const vw=$("view"),ix=t=>TABS.findIndex(x=>x[0]===t),a=ix(render.lt),b=ix(TAB),sk=[UI.jtab,UI.dtab,UI.ctab,UI.mtab,UI.rsView,UI.rotMode,UI.dmode,UI.mview,UI.dsView,UI.pvOpen].map(x=>x==null?"":String(x)).join("|"),subCh=render.lt===TAB&&render.lsk!=null&&render.lsk!==sk;
    const left=render.lt!==TAB?(UI.navDir==="l"||(!UI.navDir&&a>-1&&b>-1&&b<a)):(subCh&&UI.navDir==="l");
    vw.classList.toggle("noanim",render.lt===TAB&&!subCh);vw.classList.toggle("vw-sub",subCh);vw.classList.toggle("vw-l",(render.lt!==TAB||subCh)&&left);vw.classList.toggle("vw-r",(render.lt!==TAB||subCh)&&!left);render.lsk=sk;UI.navDir=""}render.lt=TAB;$("view").innerHTML=gnavHTML()+V();{const vw=$("view");if(!vw.classList.contains("noanim")&&(vw.classList.contains("vw-r")||vw.classList.contains("vw-l"))&&!document.documentElement.hasAttribute("data-boot")&&!document.documentElement.hasAttribute("data-in"))vwSlide(vw.classList.contains("vw-l")?"l":"r")}try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
   if(UI.openT)renderDrawer();
@@ -5043,7 +5064,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261104061405";
+const JX_BUILD="20261104062735";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7695,6 +7716,10 @@ function tuInvite(){try{const c=core();if(c.tuInv||(UI.cs&&UI.cs.from==="mat"))r
     <p class="muted">Um tutorial curto, com animações, mostra o caminho completo: a meta do dia, as revisões, a Trilha da Jornada e o desempenho.</p>
     <div class="row" style="justify-content:center;gap:10px"><button class="btn ghost" data-a="tuInvX">Agora não</button><button class="btn pri" data-a="tuInvGo">${ic("play")} Ver o tutorial</button></div>
     <small class="muted">Ele fica sempre no menu, em Tutorial.</small></div></div>`},700)}
+document.addEventListener("change",e=>{const i=e.target;if(!i||!i.dataset||!UI.pv)return;const X=UI.pv,c=i.dataset.c;
+  if(c==="pvPdf"){const f=i.files&&i.files[0];i.value="";if(!f)return;if(!/pdf$/i.test(f.type)&&!/\.pdf$/i.test(f.name)){toast("Escolha a prova em PDF");return}pvKeep();X.pdf=f;X.err="";pvModal();return}
+  if(c==="pvImg"){const F=[...(i.files||[])].filter(f=>/^image\//.test(f.type));i.value="";if(!F.length)return;pvKeep();X.imgs=(X.imgs||[]).concat(F).slice(0,30);X.err="";pvModal();return}
+  if(c==="pvMeQ"||c==="pvOkQ"){const q=X.qs&&X.qs[+i.dataset.i];if(q)q[c==="pvMeQ"?"me":"ok"]=i.value}});
 function csSave(mode){const c=core();c.cs={mode,at:today()};touch("core");tuInvite()}
 function impModal(){
   const I=UI.imp;if(!I){$("layer3").innerHTML="";return}
@@ -7923,6 +7948,126 @@ function cardsReview(){
     <p class="muted small" style="margin:0">${all.length} cards no total · ${all.filter(c=>c.done).length} dominados. Cada card volta em 1, 7, 14, 30 e 60 dias; se esquecer, recomeça amanhã.</p></div></section>`;
 }
 
+/* peso nas metas: matérias com erro numa prova ganham um pouco mais de tempo nas próximas metas */
+function pvBoost(id){try{const d=pvDoc(id);if(!d)return;const c=core(),B={};(d.qs||[]).forEach(q=>{if(!q.sid)return;const b=B[q.sid]||(B[q.sid]={n:0,er:0});b.n++;if(q.res==="err")b.er++});
+  const w=Object.assign({},(c.mw&&c.mw.w)||{}),why=Object.assign({},(c.mw&&c.mw.why)||{});let k=0;Object.entries(B).forEach(([sid,b])=>{if(!b.er)return;const r=b.er/Math.max(1,b.n);w[sid]=Math.round(clamp(mwOf(sid)*(1+Math.min(.25,r*.5)),.6,1.6)*100)/100;why[sid]="Errou "+b.er+" de "+b.n+" na prova";k++});
+  if(k){c.mw=Object.assign({},c.mw||{},{w,why,src:(c.mw&&c.mw.src)||"prova",at:today()});touch("core");simCache.key=""}}catch(e){}}
+/* ================= Minhas provas: provas que o aluno já fez =================
+   O aluno guarda a prova (PDF ou fotos), informa as respostas e o gabarito (ou só marca as que errou).
+   A IA separa as questões por matéria do edital e faz o resumo de cada erro e da prova inteira.
+   Os erros vão para Erradas e para a Trilha da Jornada, e o acerto entra no Desempenho e no peso das metas. */
+const PVS=()=>(D.provas||(D.provas={list:[]})).list;
+const pvDoc=id=>D["prova-"+id];
+const PV_L="ABCDE";
+function pvStats(d){const Q=(d&&d.qs)||[],k=Q.filter(q=>q.res),ok=k.filter(q=>q.res==="ok").length,er=Q.filter(q=>q.res==="err").length;return{n:Q.length,k:k.length,ok,er,pct:k.length?Math.round(ok/k.length*100):null}}
+function pvErrs(){const L=[];PVS().forEach(p=>{const d=pvDoc(p.id);if(!d)return;(d.qs||[]).forEach(q=>{if(q.res!=="err"||!q.sid)return;const f=q.fx||{};
+  L.push({src:"prova",id:p.id+":"+q.n,sid:q.sid,as:q.as||(p.nome+" · "+(p.ano||"")),aula:"",label:p.nome+(p.ano?" "+p.ano:"")+" · questão "+q.n,note:[q.tema,q.porque&&"Por quê: "+q.porque,q.peg&&"Pegadinha: "+q.peg,(q.me?"Você marcou "+q.me:"Você errou")+(q.ok?"; gabarito "+q.ok:"")].filter(Boolean).join(" "),kind:"err",link:"",d:p.at,fixed:f.fixed||"",again:f.again||0})})});return L}
+function pvFx(id){const [pid,n]=String(id).split(":"),d=pvDoc(pid);if(!d)return null;const q=(d.qs||[]).find(x=>String(x.n)===n);if(!q)return null;return q.fx||(q.fx={})}
+function vProvas(){const P=UI.pvOpen&&PVS().find(x=>x.id===UI.pvOpen);if(P&&pvDoc(P.id))return pvDetail(P);UI.pvOpen=null;
+  const L=PVS().slice().sort((a,b)=>String(b.at).localeCompare(String(a.at)));
+  const evo=L.filter(p=>p.pct!=null).slice(0,8).reverse();
+  return`<div class="hello"><h1>Minhas provas</h1><p>Guarde as provas de concurso que você já fez. A Jornada corrige, mostra onde você perdeu pontos e transforma cada erro em revisão: as questões vão para Erradas e para a Trilha da Jornada, e os assuntos que você mais errou ganham peso nas próximas metas.</p></div>
+  <div class="row" style="justify-content:flex-end;margin:0 0 12px"><button class="btn pri" data-a="pvNew">${ic("plus")} Adicionar prova</button></div>
+  ${evo.length>1?`<section class="card"><div class="card-h"><h2>Sua evolução nas provas</h2></div><div class="card-b pv-evo">${evo.map(p=>`<div><span class="pv-b" style="--h:${p.pct}%"><i></i></span><b>${p.pct}%</b><small>${esc((p.nome||"").slice(0,16))} ${esc(p.ano||"")}</small></div>`).join("")}</div></section>`:""}
+  ${L.length?`<div class="pv-grid">${L.map(p=>{const d=pvDoc(p.id),S=pvStats(d);return`<button class="card pv-c" data-a="pvOpen" data-id="${p.id}"><span class="pv-k">${esc([p.banca,p.ano].filter(Boolean).join(" · ")||"Prova")}</span><b>${esc(p.nome)}</b>${p.cargo?`<small class="muted">${esc(p.cargo)}</small>`:""}
+     <span class="row" style="gap:6px;flex-wrap:wrap">${S.pct!=null?`<span class="chip ${S.pct>=70?"ok":S.pct>=50?"warn":"bad"}">${S.pct}% de acerto</span>`:""}<span class="chip">${S.n} questões</span>${S.er?`<span class="chip bad">${S.er} erradas</span>`:""}${d&&d.st==="pend"?`<span class="chip warn">falta corrigir</span>`:""}</span></button>`}).join("")}</div>`
+   :`<section class="card"><div class="card-b empty" style="display:grid;gap:10px;justify-items:center;text-align:center">${ic("prova")}<b>Nenhuma prova ainda</b><span class="muted small">Envie o PDF da prova (a banca costuma publicar no site) ou fotos das páginas. Dá para adicionar quantas quiser.</span><button class="btn pri" data-a="pvNew">${ic("plus")} Adicionar a primeira prova</button></div></section>`}`}
+function pvDetail(P){const d=pvDoc(P.id),S=pvStats(d),Q=d.qs||[],G=d.sum||null;
+  const bySid={};Q.forEach(q=>{if(!q.sid)return;const b=bySid[q.sid]||(bySid[q.sid]={n:0,ok:0,er:0});b.n++;if(q.res==="ok")b.ok++;if(q.res==="err")b.er++});
+  const mats=Object.entries(bySid).sort((a,b)=>b[1].er-a[1].er||b[1].n-a[1].n);
+  const errs=Q.filter(q=>q.res==="err");
+  const files=(d.files||[]).map((f,i)=>`<a class="btn sm ghost" href="${esc(skinUrl(f))}" target="_blank" rel="noopener">${ic(f.type==="pdf"?"book":"ext")} ${f.type==="pdf"?"Abrir a prova":"Página "+(i+1)}</a>`).join("");
+  return`<div class="row" style="justify-content:space-between;align-items:center;margin:0 0 10px"><button class="btn ghost" data-a="pvBack">← Minhas provas</button><span class="row" style="gap:8px"><button class="btn sm" data-a="pvEdit" data-id="${P.id}">Respostas e gabarito</button><button class="btn sm danger" data-a="pvDel" data-id="${P.id}">${ic("trash")} Apagar</button></span></div>
+  <div class="hello"><h1>${esc(P.nome)}</h1><p>${esc([P.cargo,P.banca,P.ano].filter(Boolean).join(" · "))}${S.pct!=null?` · <b>${S.ok} de ${S.k}</b> certas (${S.pct}%)`:""}</p></div>
+  ${files?`<div class="row" style="gap:8px;flex-wrap:wrap;margin:0 0 12px">${files}</div>`:""}
+  ${G?`<section class="card"><div class="card-h"><h2>${ic("bulb")} Resumo da prova</h2></div><div class="card-b" style="display:grid;gap:10px">${G.resumo?`<p style="margin:0">${esc(G.resumo)}</p>`:""}${G.estilo?`<p class="muted" style="margin:0"><b>Estilo da banca:</b> ${esc(G.estilo)}</p>`:""}
+     ${(G.licoes||[]).length?`<div><b>Lições para a próxima prova</b><ol class="pv-li">${G.licoes.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div>`:""}</div></section>`:(errs.length&&SAMPLE?`<section class="card"><div class="card-b row" style="justify-content:space-between;align-items:center"><span class="muted small">Ainda sem o resumo da IA.</span><button class="btn sm pri" data-a="pvSum" data-id="${P.id}">${ic("bulb")} Fazer o resumo</button></div></section>`:"")}
+  ${mats.length?`<section class="card"><div class="card-h"><h2>Onde caiu e onde você perdeu pontos</h2></div><div class="card-b pv-mats">${mats.map(([sid,b])=>{const s=SUB(sid);return`<div class="pv-m"><span class="code" style="border-color:${s.col}">${s.c}</span><span class="pv-mn">${esc(s.n)}</span><span class="pv-bar"><i style="width:${b.n?Math.round(b.ok/b.n*100):0}%"></i></span><small>${b.ok}/${b.n}${b.er?` · <b class="bad-t">${b.er} erradas</b>`:""}</small></div>`}).join("")}</div></section>`:""}
+  ${errs.length?`<section class="card"><div class="card-h"><h2>Questões que você errou</h2><span class="r muted small">${errs.length} · também em Erradas e na Trilha</span></div><div class="card-b" style="display:grid;gap:10px">${errs.map(q=>{const s=q.sid?SUB(q.sid):null;return`<details class="pv-q"><summary><span class="chip bad">${q.n}</span>${s?`<span class="code" style="border-color:${s.col}">${s.c}</span>`:""}<b>${esc(q.tema||q.as||(q.t||"").slice(0,90))}</b></summary>
+     ${q.t?`<p class="pv-t">${esc(q.t)}</p>`:""}${q.alts?`<ul class="pv-alts">${PV_L.split("").filter(l=>q.alts[l]).map(l=>`<li class="${l===q.ok?"ok":l===q.me?"me":""}"><b>${l}</b> ${esc(q.alts[l])}</li>`).join("")}</ul>`:""}
+     <p class="small" style="margin:0">${q.me?`Você marcou <b>${q.me}</b>`:"Você errou"}${q.ok?` · gabarito <b>${q.ok}</b>`:""}</p>
+     ${q.porque?`<p class="small" style="margin:0"><b>Por quê:</b> ${esc(q.porque)}</p>`:""}${q.peg?`<p class="small" style="margin:0"><b>A pegadinha:</b> ${esc(q.peg)}</p>`:""}</details>`}).join("")}</div></section>`:""}`}
+/* ---------- janela: adicionar prova ---------- */
+function pvModal(){const X=UI.pv;if(!X){$("layer3").innerHTML="";return}let body="";
+  if(X.step==="dados")body=`<p class="cs-k">Passo 1 de 2</p><h3>Adicionar prova</h3><p class="muted">Conte qual foi a prova e envie o PDF ou as fotos das páginas.</p>
+    <div class="row" style="gap:10px;flex-wrap:wrap"><div class="field" style="flex:2 1 220px"><label for="pvN">Concurso</label><input class="inp" id="pvN" value="${esc(X.nome||"")}" placeholder="Ex.: TRF 3 2024"></div><div class="field" style="flex:1 1 120px"><label for="pvB">Banca</label><input class="inp" id="pvB" value="${esc(X.banca||"")}" placeholder="Ex.: FCC"></div><div class="field" style="flex:0 1 100px"><label for="pvA">Ano</label><input class="inp" id="pvA" inputmode="numeric" value="${esc(X.ano||"")}" placeholder="2024"></div></div>
+    <div class="field"><label for="pvC">Cargo</label><input class="inp" id="pvC" value="${esc(X.cargo||"")}" placeholder="Ex.: Técnico Judiciário"></div>
+    <div class="tabs2" role="group"><button data-a="pvTb" data-v="pdf" aria-pressed="${X.tb!=="fotos"}">PDF da prova</button><button data-a="pvTb" data-v="fotos" aria-pressed="${X.tb==="fotos"}">Fotos das páginas</button></div>
+    ${X.tb==="fotos"?`<p class="muted small" style="margin:0">Fotografe cada página de frente, com boa luz e sem cortar as alternativas. Até 30 fotos.</p><span class="upw btn pri" role="button">${ic("plus")} Escolher as fotos${(X.imgs||[]).length?" ("+X.imgs.length+")":""}<input type="file" accept="image/*" multiple data-c="pvImg" aria-label="Escolher as fotos"></span>`
+      :`<p class="muted small" style="margin:0">As bancas costumam publicar a prova em PDF no site do concurso. Se o PDF tiver o gabarito, a Jornada já aproveita.</p><span class="upw btn pri" role="button">${ic("plus")} ${X.pdf?"Trocar o PDF ("+esc(X.pdf.name.slice(0,40))+")":"Escolher o PDF da prova"}<input type="file" accept="application/pdf,.pdf" data-c="pvPdf" aria-label="Escolher o PDF"></span>`}
+    ${X.busy?`<div class="npe busy"><b>${ic("bulb")} ${esc(X.busy)}</b><div class="npe-bar"><i style="width:${Math.round(X.pc||5)}%"></i></div><span class="muted small">Uma prova inteira leva de 1 a 3 minutos.</span></div>`:""}
+    ${X.err?`<p class="pwarn small" style="margin:0">${esc(X.err)}</p>`:""}
+    <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="pvX">Cancelar</button><button class="btn pri" data-a="pvRead" ${X.busy?"disabled":""}>${ic("bulb")} Ler a prova</button></div>`;
+  else if(X.step==="gab"){const Q=X.qs||[],mode=X.mode||"resp";
+    body=`<p class="cs-k">Passo 2 de 2</p><h3>Encontrei ${Q.length} questões</h3><p class="muted">Agora diga como você foi. Escolha o jeito mais fácil:</p>
+    <div class="tabs2" role="group"><button data-a="pvMode" data-v="resp" aria-pressed="${mode==="resp"}">Minhas respostas e o gabarito</button><button data-a="pvMode" data-v="err" aria-pressed="${mode==="err"}">Só marcar as que errei</button></div>
+    ${mode==="resp"?`<div class="row" style="gap:10px;flex-wrap:wrap"><div class="field" style="flex:1 1 220px"><label for="pvGab">Colar o gabarito oficial (opcional)</label><input class="inp" id="pvGab" placeholder="Ex.: C A B E D... ou 1-C 2-A 3-B"></div><div class="field" style="flex:1 1 220px"><label for="pvMe">Colar as suas respostas (opcional)</label><input class="inp" id="pvMe" placeholder="Ex.: C B B E D..."></div></div><div class="row"><button class="btn sm" data-a="pvFill">Preencher com o que colei</button></div>`:`<p class="muted small" style="margin:0">Toque nas questões que você errou. As outras contam como certas.</p>`}
+    <div class="pv-tab ${mode}">${Q.map((q,i)=>{const s=q.sid?SUB(q.sid):null;return mode==="resp"?`<div class="pv-r"><b>${q.n}</b>${s?`<span class="code" style="border-color:${s.col}">${s.c}</span>`:`<span class="code">?</span>`}<label>Você<select class="inp" data-c="pvMeQ" data-i="${i}"><option value=""></option>${PV_L.split("").map(l=>`<option ${q.me===l?"selected":""}>${l}</option>`).join("")}</select></label><label>Gabarito<select class="inp" data-c="pvOkQ" data-i="${i}"><option value=""></option>${PV_L.split("").map(l=>`<option ${q.ok===l?"selected":""}>${l}</option>`).join("")}<option value="X" ${q.ok==="X"?"selected":""}>Anulada</option></select></label></div>`
+      :`<button class="pv-e" data-a="pvErrT" data-i="${i}" aria-pressed="${!!q.xErr}">${q.n}</button>`}).join("")}</div>
+    ${X.busy?`<div class="npe busy"><b>${ic("bulb")} ${esc(X.busy)}</b><div class="npe-bar"><i style="width:${Math.round(X.pc||5)}%"></i></div></div>`:""}
+    ${X.err?`<p class="pwarn small" style="margin:0">${esc(X.err)}</p>`:""}
+    <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="pvX">${X.edit?"Fechar":"Cancelar"}</button><button class="btn pri" data-a="pvCorr" ${X.busy?"disabled":""}>${ic("check")} Corrigir e fazer o resumo</button></div>`}
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Adicionar prova"><div class="box cs pvm" data-step="${X.step}" data-n="${["dados","gab"].indexOf(X.step)}">${body}</div></div>`}
+function pvKeep(){const X=UI.pv;if(!X)return;[["pvN","nome"],["pvB","banca"],["pvA","ano"],["pvC","cargo"]].forEach(([i,k])=>{const e=$(i);if(e)X[k]=e.value.trim()})}
+function pvPrompt(txt,img){return`Você vai ler uma prova de concurso público brasileiro${img?" a partir das imagens das páginas":""} e separar as questões para um aplicativo de estudos.
+Matérias do edital do aluno (id: nome):
+${ED.map(s=>s.id+": "+s.n).join("\n")}
+Para cada questão, devolva: "n" (número da questão), "sid" (o id da matéria do edital que ela cobra, ou null), "mat" (a matéria como aparece na prova), "as" (o assunto em até 8 palavras), "t" (o enunciado, resumido em até 350 caracteres, sem perder o que é perguntado), "alts" (as alternativas, cada uma em até 140 caracteres; para certo/errado use {"C":"Certo","E":"Errado"}) e "ok" (a letra do gabarito só se ele estiver na prova; senão null).
+Ignore capa, instruções, folha de respostas e redação. Não invente questões.
+Responda só com um array JSON: [{"n":1,"sid":"id","mat":"...","as":"...","t":"...","alts":{"A":"...","B":"..."},"ok":null}]${txt?"\n<prova>\n"+txt+"\n</prova>":""}`}
+function pvMergeQs(arr){const M=new Map();(arr||[]).forEach(q=>{if(!q||q.n==null)return;const n=parseInt(q.n,10);if(!(n>0)||M.has(n))return;const alts={};if(q.alts&&typeof q.alts==="object")Object.keys(q.alts).forEach(k=>{const K=String(k).trim().toUpperCase().slice(0,1);if("ABCDE".includes(K)&&q.alts[k])alts[K]=String(q.alts[k]).slice(0,180)});
+  let sid=q.sid&&EDI[q.sid]!=null?q.sid:null;if(!sid&&q.mat){const m=edMatch(String(q.mat),ED.map(s=>({n:s.n,id:s.id})));if(m)sid=m.id}
+  const ok=String(q.ok||"").trim().toUpperCase().slice(0,1);M.set(n,{n,sid,mat:String(q.mat||"").slice(0,80),as:String(q.as||"").slice(0,90),t:String(q.t||"").slice(0,500),alts,ok:"ABCDE".includes(ok)&&ok?ok:"",me:""})});
+  return[...M.values()].sort((a,b)=>a.n-b.n)}
+async function pvShrink(f){try{const bmp=await createImageBitmap(f),k=Math.min(1,1600/Math.max(bmp.width,bmp.height)),cv=document.createElement("canvas");cv.width=Math.round(bmp.width*k);cv.height=Math.round(bmp.height*k);cv.getContext("2d").drawImage(bmp,0,0,cv.width,cv.height);return await new Promise(r=>cv.toBlob(r,"image/jpeg",.8))}catch(e){return f}}
+async function pvReadRun(){const X=UI.pv;if(!X)return;pvKeep();if(!X.nome){toast("Diga qual foi o concurso");return}if(!X.pdf&&!(X.imgs||[]).length){toast("Envie o PDF ou as fotos da prova");return}
+  if(!SAMPLE){X.err="A IA não está disponível agora. Tente de novo em instantes.";pvModal();return}
+  X.err="";let out=[];
+  try{if(X.tb!=="fotos"&&X.pdf){X.busy="Lendo o PDF…";X.pc=4;pvModal();const r=await edPdfText(await X.pdf.arrayBuffer(),(p,n)=>{X.pc=Math.min(12,p/n*12)});
+      if(r.txt.replace(/\s/g,"").length<600){X.busy="";X.err="Esse PDF não tem texto que dê para ler (parece escaneado). Use Fotos das páginas.";pvModal();return}
+      X.pages=r.n;const P=edChunks(r.txt,26000);for(let i=0;i<P.length;i++){X.busy=`A IA está separando as questões: parte ${i+1} de ${P.length}…`;X.pc=12+i/P.length*84;pvModal();const a=await SAMPLE.json(pvPrompt(P[i],false));if(Array.isArray(a))out=out.concat(a)}}
+    else{const F=X.imgs.slice(0,30),B=[];for(let i=0;i<F.length;i+=3)B.push(F.slice(i,i+3));for(let i=0;i<B.length;i++){X.busy=`A IA está lendo as fotos: ${Math.min(F.length,(i+1)*3)} de ${F.length}…`;X.pc=8+i/B.length*88;pvModal();const a=await SAMPLE.json(pvPrompt("",true),{images:B[i]});if(Array.isArray(a))out=out.concat(a)}}}
+  catch(e){X.busy="";X.err=e&&e.code==="rate_limited"?"A IA está ocupada ou o limite de hoje acabou. Tente de novo mais tarde: a prova não se perde.":"Não consegui ler a prova agora. Tente de novo.";pvModal();return}
+  X.busy="";const Q=pvMergeQs(out);if(Q.length<3){X.err="Não consegui separar as questões. Confira se o arquivo é a prova (e não só o gabarito).";pvModal();return}
+  X.qs=Q;X.mode=Q.some(q=>q.ok)?"resp":"resp";X.step="gab";pvModal()}
+function pvParseKey(s,n){s=String(s||"").toUpperCase();const out={};const pairs=[...s.matchAll(/(\d{1,3})\s*[-–:.)]?\s*([A-EX*])/g)];if(pairs.length>=Math.min(5,n)){pairs.forEach(m=>{out[+m[1]]=m[2]==="*"?"X":m[2]});return out}
+  const L=s.replace(/[^A-EX*]/g,"").split("");L.forEach((l,i)=>{out[i+1]=l==="*"?"X":l});return out}
+async function pvSave(){const X=UI.pv,Q=X.qs||[];const mode=X.mode||"resp";
+  Q.forEach(q=>{if(mode==="err"){q.res=q.xErr?"err":"ok"}else{if(q.ok==="X")q.res=null;else if(q.me&&q.ok)q.res=q.me===q.ok?"ok":"err";else q.res=null}});
+  if(!Q.some(q=>q.res)){toast(mode==="err"?"Marque as questões que você errou":"Preencha as suas respostas e o gabarito (ou use Só marcar as que errei)");return false}
+  let id=X.edit||"";const fresh=!id;if(!id)id=uid();
+  const old=pvDoc(id)||{};const files=old.files||[];
+  if(fresh&&ASSETS){X.busy="Guardando a prova…";X.pc=96;pvModal();try{if(X.tb!=="fotos"&&X.pdf){const r=await ASSETS.upload(X.pdf);files.push({id:r.id,url:r.url||"/_blob/"+r.id,type:"pdf",name:X.pdf.name})}else for(const f of (X.imgs||[]).slice(0,30)){const b=await pvShrink(f);const r=await ASSETS.upload(b);files.push({id:r.id,url:r.url||"/_blob/"+r.id,type:"img"})}}catch(e){}}
+  const prevErr=new Set((old.qs||[]).filter(q=>q.res==="err").map(q=>q.n));
+  D["prova-"+id]=Object.assign(old,{id,qs:Q.map(q=>{const o=(old.qs||[]).find(x=>x.n===q.n)||{};return Object.assign({},q,{fx:o.fx,tema:o.tema||q.tema,porque:o.porque||q.porque,peg:o.peg||q.peg})}),files,st:"ok",mode});
+  if(old.sum&&Q.some(q=>q.res==="err"&&!prevErr.has(q.n)))delete D["prova-"+id].sum;
+  touch("prova-"+id);const S=pvStats(D["prova-"+id]);
+  const L=PVS(),meta={id,nome:X.nome||"Prova",banca:X.banca||"",ano:X.ano||"",cargo:X.cargo||"",at:(L.find(p=>p.id===id)||{}).at||today(),n:S.n,pct:S.pct};
+  const i=L.findIndex(p=>p.id===id);if(i>=0)L[i]=meta;else L.push(meta);touch("provas");
+  /* erros viram cards na Trilha da Jornada (uma vez por questão) */
+  const d=D["prova-"+id];d.cards=d.cards||{};let nc=0;(d.qs||[]).forEach(q=>{if(q.res!=="err"||!q.sid||d.cards[q.n])return;const c=addCard({src:"prova",sid:q.sid,f:`(${[meta.banca,meta.ano].filter(Boolean).join(" ")||meta.nome}) ${(q.t||q.as||"Questão "+q.n).slice(0,300)}`,b:`Gabarito: ${q.ok||"?"}${q.ok&&q.alts&&q.alts[q.ok]?" · "+q.alts[q.ok]:""}`});if(c.held){c.st="new";delete c.held}d.cards[q.n]=c.id;nc++});
+  if(nc)touch("cards");
+  UI.pvOpen=id;simCache.key="";return id}
+async function pvSumRun(id){const d=pvDoc(id),P=PVS().find(x=>x.id===id);if(!d||!P||!SAMPLE)return;const E=(d.qs||[]).filter(q=>q.res==="err");const all=d.qs||[];
+  const bySid={};all.forEach(q=>{if(!q.sid)return;const b=bySid[q.sid]||(bySid[q.sid]={n:0,er:0});b.n++;if(q.res==="err")b.er++});
+  const ctx=Object.entries(bySid).map(([s,b])=>SUB(s).n+": "+b.n+" questões, "+b.er+" erradas").join("; ");
+  const chunks=[];for(let i=0;i<E.length;i+=20)chunks.push(E.slice(i,i+20));if(!chunks.length)chunks.push([]);
+  let geral=null;
+  for(let ci=0;ci<chunks.length;ci++){const C=chunks[ci];toast(chunks.length>1?`Fazendo o resumo: parte ${ci+1} de ${chunks.length}…`:"Fazendo o resumo da prova…");
+    const prompt=`Você é professor de cursinho para concursos. O aluno fez a prova "${P.nome}${P.ano?" "+P.ano:""}"${P.banca?" da banca "+P.banca:""}${P.cargo?", cargo "+P.cargo:""}. Distribuição da prova: ${ctx}.
+${C.length?`Questões que ele errou (número, enunciado resumido, alternativas, resposta dele e gabarito):
+${C.map(q=>`Q${q.n} [${q.sid?SUB(q.sid).n:q.mat}] ${q.t}\n${Object.entries(q.alts||{}).map(([l,v])=>l+") "+v).join(" | ")}\nAluno: ${q.me||"errou"} · Gabarito: ${q.ok||"?"}`).join("\n\n")}`:"Ele não marcou erros."}
+Para cada questão errada diga, em português do Brasil e de forma curta: "tema" (o que a banca cobrou, até 12 palavras), "porque" (por que o gabarito está certo, até 40 palavras, sem inventar lei ou artigo que não tenha certeza) e "peg" (a pegadinha ou a confusão que levou ao erro, até 25 palavras).
+${ci===0?`Depois, sobre a prova inteira: "resumo" (2 a 3 frases sobre o desempenho e onde ele perdeu mais pontos), "estilo" (1 a 2 frases sobre o estilo da banca nesta prova) e "licoes" (3 a 5 lições práticas para a próxima prova).`:""}
+Responda só com JSON: {"qs":[{"n":1,"tema":"...","porque":"...","peg":"..."}]${ci===0?`,"resumo":"...","estilo":"...","licoes":["..."]`:""}}`;
+    let r=null;try{r=await SAMPLE.json(prompt)}catch(e){toast(e&&e.code==="rate_limited"?"A IA está ocupada ou o limite de hoje acabou. Tente o resumo mais tarde.":"Não consegui fazer o resumo agora.");break}
+    if(r&&Array.isArray(r.qs))r.qs.forEach(x=>{const q=all.find(y=>y.n===+x.n);if(q){q.tema=String(x.tema||"").slice(0,140);q.porque=String(x.porque||"").slice(0,400);q.peg=String(x.peg||"").slice(0,260)}});
+    if(ci===0&&r)geral={resumo:String(r.resumo||"").slice(0,700),estilo:String(r.estilo||"").slice(0,400),licoes:(Array.isArray(r.licoes)?r.licoes:[]).map(x=>String(x).slice(0,240)).slice(0,6)}}
+  if(geral)d.sum=geral;
+  /* o resumo de cada erro também vai para o verso do card */
+  (d.qs||[]).forEach(q=>{const cid=d.cards&&d.cards[q.n];if(!cid||!q.porque)return;const c=CARDS().find(x=>x.id===cid);if(c)c.b=`Gabarito: ${q.ok||"?"}. ${q.porque}${q.peg?" Pegadinha: "+q.peg:""}`.slice(0,600)});
+  touch("prova-"+id);touch("cards");render()}
+
 /* ================= Aba Erradas: questões erradas, chutadas ou com dúvida, para reforço ================= */
 const EKN={err:"Errei",duv:"Dúvida",chu:"Chutei",fix:"Fixação",pdf:"PDF"};
 function errItems(){const L=[];
@@ -7930,11 +8075,12 @@ function errItems(){const L=[];
   PDFS().forEach(p=>(p.qs||[]).forEach(q=>{if(q.st==="err")L.push({src:"pdf",id:p.id+":"+q.n,sid:p.sid,as:"",aula:p.aula||"",label:(p.aula?auLabel(p.sid,p.aula):pdfName(p.id))+" · questão "+q.n+" (p. "+q.p+")",note:q.t||"",kind:"err",link:"",d:q.d||"",fixed:q.fixed||"",again:q.again||0,pid:p.id,qn:q.n})}));
   CARDS().filter(c=>c.src==="fix").forEach(c=>L.push({src:"fix",id:c.id,sid:c.sid,as:"",aula:c.aula||"",label:String(c.f||"").replace(/^Certo ou errado\?\s*/,""),note:c.b||"",kind:"fix",link:"",d:c.d0,fixed:c.fixed||"",again:c.again||0}));
   try{smErrs().forEach(x=>L.push(x))}catch(e){console.error(e)}
+  try{pvErrs().forEach(x=>L.push(x))}catch(e){console.error(e)}
   L.forEach(x=>{x.grp=x.as||(x.aula?auLabel(x.sid,x.aula)+((auOf(x.sid,x.aula)||{}).d?" · "+tShort(auOf(x.sid,x.aula).d):""):"Sem assunto definido")});
   return L.filter(x=>x.sid&&EDI[x.sid]!==undefined)}
 const errPend=()=>{try{return errItems().filter(x=>!x.fixed).length}catch(e){return 0}};
-function errFind(src,id){if(src==="sim")return smFx(id);if(src==="tec")return REV().find(r=>r.id===id);if(src==="fix")return CARDS().find(c=>c.id===id);const [pid,n]=id.split(":");const p=pdf(pid);return p&&(p.qs||[]).find(q=>q.n===+n)}
-const errTouch=(src,id)=>touch(src==="sim"?"sim-"+String(id).split(":")[0]:src==="tec"?"rev":src==="fix"?"cards":"pdf-"+String(id).split(":")[0]);
+function errFind(src,id){if(src==="sim")return smFx(id);if(src==="prova")return pvFx(id);if(src==="tec")return REV().find(r=>r.id===id);if(src==="fix")return CARDS().find(c=>c.id===id);const [pid,n]=id.split(":");const p=pdf(pid);return p&&(p.qs||[]).find(q=>q.n===+n)}
+const errTouch=(src,id)=>touch(src==="prova"?"prova-"+String(id).split(":")[0]:src==="sim"?"sim-"+String(id).split(":")[0]:src==="tec"?"rev":src==="fix"?"cards":"pdf-"+String(id).split(":")[0]);
 function vErradas(){const h0=vErradas0(),cta=`<div class="row" style="justify-content:flex-end;margin:0 0 10px"><button class="btn sm pri" data-a="tbOpen">${ic("plus")} Lançar bateria do TEC</button></div>`,k=h0.indexOf("</div>");return h0.startsWith('<div class="hello">')&&k>0?h0.slice(0,k+6)+cta+h0.slice(k+6):cta+h0}
 function vErradas0(){
   const all=errItems(),show=UI.erShow||"pend",fs=UI.erS||"",fk=UI.erK||"";
@@ -8000,6 +8146,7 @@ function dData(F){
     if(t.q){b.f+=t.q.f;b.a+=t.q.a}
     if(t.done&&!t.skip&&m>0){b.nA++;b.mA+=m;if(t.ph==="R"){b.nR++;b.mR+=m}}})});
   PDFS().forEach(p=>{if(!okS(p.sid)||!bys[p.sid])return;(p.qs||[]).forEach(q=>{if(!q.st)return;const n=q.d?metaOfDate(q.d):0;if(q.d&&!inM(n))return;bys[p.sid].f++;if(q.st==="ok")bys[p.sid].a++})});
+  try{PVS().forEach(pv=>{const d=pvDoc(pv.id);if(!d)return;const n=pv.at?metaOfDate(pv.at):0;if(pv.at&&!inM(n))return;(d.qs||[]).forEach(q=>{if(!q.res||!q.sid||!bys[q.sid]||!okS(q.sid))return;bys[q.sid].f++;if(q.res==="ok")bys[q.sid].a++})})}catch(e){}
   let free=0;const L=[];
   LOGS().forEach(l=>{const n=l.t?metaOfTask[l.t]:metaOfDate(l.d);if(!inM(n))return;if(l.t){const t=findTask(l.t);if(t&&!okS(t.t.sid))return;if(t)bys[t.t.sid].min+=l.m}else{if(F.sid)return;free+=l.m}L.push(l)});
   const tot={f:0,a:0,min:free,nA:0,mA:0,nR:0,mR:0};ED.forEach(s=>{const b=bys[s.id];Object.keys(tot).forEach(k=>{tot[k]+=b[k]})});
@@ -9373,6 +9520,21 @@ const A={
   csFim(){const n=ED.filter(s=>courseList(s.id).some(c=>c.role==="principal")).length;csSave(n?"curso":"edital");UI.cs=null;$("layer3").innerHTML="";render();toast(n?n+" matéria"+(n>1?"s seguem":" segue")+" o seu curso; as outras seguem o edital":"As metas seguem o edital até você vincular um curso")},
   tuInvGo(){$("layer3").innerHTML="";UI.tut="inicio";TUTP.s=0;TUTP.play=1;TAB="tutorial";try{history.replaceState(null,"","#tutorial")}catch(e){}render();window.scrollTo(0,0)},
   tuInvX(){$("layer3").innerHTML="";toast("Quando quiser, o Tutorial fica no menu")},
+  pvNew(){UI.pv={step:"dados",tb:"pdf",nome:"",banca:(PLAN&&PLAN.banca)||"",cargo:(PLAN&&PLAN.cargo)||"",ano:""};pvModal()},
+  pvTb(el){if(!UI.pv||UI.pv.busy)return;pvKeep();UI.pv.tb=el.dataset.v;UI.pv.err="";pvModal()},
+  pvRead(){if(UI.pv&&!UI.pv.busy)pvReadRun()},
+  pvMode(el){if(!UI.pv)return;UI.pv.mode=el.dataset.v;pvModal()},
+  pvErrT(el){const X=UI.pv;if(!X)return;const q=X.qs[+el.dataset.i];if(!q)return;q.xErr=!q.xErr;el.setAttribute("aria-pressed",String(q.xErr))},
+  pvFill(){const X=UI.pv;if(!X)return;const n=X.qs.length,g=pvParseKey(($("pvGab")||{}).value,n),m=pvParseKey(($("pvMe")||{}).value,n);let k=0;X.qs.forEach(q=>{if(g[q.n]){q.ok=g[q.n];k++}if(m[q.n]&&m[q.n]!=="X"){q.me=m[q.n];k++}});pvModal();toast(k?"Pronto: confira na lista":"Não reconheci as letras. Use, por exemplo: C A B E D ou 1-C 2-A")},
+  pvCorr(){(async()=>{const X=UI.pv;if(!X||X.busy)return;const id=await pvSave();if(!id){if(UI.pv){UI.pv.busy="";pvModal()}return}pvBoost(id);UI.pv=null;$("layer3").innerHTML="";TAB="provas";UI.pvOpen=id;try{history.replaceState(null,"","#provas")}catch(e){}render();window.scrollTo(0,0);
+    const d=pvDoc(id),S=pvStats(d);toast(S.pct!=null?`Corrigida: ${S.ok} de ${S.k} certas (${S.pct}%). ${S.er} questões foram para Erradas e para a Trilha.`:"Prova guardada");
+    if(SAMPLE&&S.er&&!d.sum)await pvSumRun(id)})()},
+  pvX(){if(UI.pv&&UI.pv.busy)return;UI.pv=null;$("layer3").innerHTML=""},
+  pvOpen(el){UI.pvOpen=el.dataset.id;render();window.scrollTo(0,0)},
+  pvBack(){UI.pvOpen=null;render();window.scrollTo(0,0)},
+  pvEdit(el){const id=el.dataset.id,P=PVS().find(x=>x.id===id),d=pvDoc(id);if(!P||!d)return;UI.pv={step:"gab",edit:id,nome:P.nome,banca:P.banca,ano:P.ano,cargo:P.cargo,mode:d.mode||"resp",qs:clone(d.qs||[]).map(q=>Object.assign(q,{xErr:q.res==="err"}))};pvModal()},
+  pvSum(el){pvSumRun(el.dataset.id)},
+  pvDel(el){const id=el.dataset.id;askConfirm("Apagar esta prova?","A prova, as fotos e o resumo saem da plataforma, e as questões dela saem de Erradas. Os cards que já estão na Trilha da Jornada continuam.","Apagar",async()=>{const d=pvDoc(id);if(ASSETS&&d)for(const f of d.files||[]){try{await ASSETS.delete(f.id)}catch(e){}}delete D["prova-"+id];dirty.add("prova-"+id);D.provas.list=PVS().filter(p=>p.id!==id);touch("provas");UI.pvOpen=null;render();toast("Prova apagada")})},
   csFull(){UI.cs={step:"trazer",tb:"link",sel:csMine(),from:"mat"};csModal()},
   csLater(){csSave("depois");UI.cs=null;$("layer3").innerHTML="";toast("Quando quiser, vincule os seus cursos em Estudar › Aulas e PDFs › Meus cursos e assinaturas")},
   impOk(){const I=UI.imp,L=(I.aulas||[]).filter(a=>a.c&&a.d);if(!L.length){toast("Preencha pelo menos uma aula");return}
