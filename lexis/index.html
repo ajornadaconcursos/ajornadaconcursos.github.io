@@ -1,8 +1,8 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>LEXIS · Leitura rápida, conhecimento que fica.</title>
+<title>Scribax · Leia, ouça e fixe</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Literata:opsz,wght@7..72,600;7..72,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Literata:opsz,wght@7..72,600;7..72,700&family=Oswald:wght@500;600;700&family=Source+Sans+3:wght@400;600;700;800&display=swap">
 <style>
 /* Layout: sidebar (add, home, library, folders, theme) beside one view: home, library list, or the reader with a tool rail and a floating player. */
 :root{
@@ -509,12 +509,115 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .sample-banner{display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;background:var(--accent-soft);color:var(--ink);font-size:13px;padding:8px 16px;border-radius:999px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 .prem{margin-top:10px;border:1px solid var(--line);border-radius:var(--r);padding:8px 10px}.prem summary{cursor:pointer;font-weight:700}.prem input{width:100%;box-sizing:border-box;margin:4px 0 8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+
+/* ===== Scribax com o visual da plataforma A Jornada ===== */
+html:root:not([data-theme="light"]){
+  --glow1:rgba(47,116,240,.20); --glow2:rgba(242,180,65,.09);
+  --side:#070d20; --desk:#0a1128; --surface:#111b3a; --raised:#19264d; --ink:#eef1f9; --muted:#9ba7c6; --line:#24335f;
+  --accent:#f2b441; --accent-ink:#0a1128; --accent-soft:rgba(242,180,65,.16);
+  --good:#5fcf95; --good-soft:rgba(95,207,149,.14); --bad:#ff8a80; --bad-soft:rgba(255,138,128,.14);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.38); color-scheme:dark;
+}
+html:root[data-theme="light"]{--glow1:rgba(47,116,240,.16);--glow2:rgba(242,180,65,.12)}
+:root{--f-ui:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--f-brand:"Oswald","Source Sans 3",system-ui,sans-serif;--sx-grad:linear-gradient(90deg,#f2b441,#ffd36e);--sx-blue:linear-gradient(120deg,#2f74f0,#0f3596);--rail:76px}
+body{background:radial-gradient(1000px 620px at 95% -10%,var(--glow1),transparent 62%),radial-gradient(900px 560px at -10% 110%,var(--glow2),transparent 60%),var(--desk);font-size:15.5px}
+.vtitle,.sec h2,.mbox h2{font-weight:600;letter-spacing:.01em}
+.sec h2{text-transform:uppercase;font-size:18px;letter-spacing:.06em}
+.sec h2::after{background:linear-gradient(90deg,rgba(242,180,65,.6),transparent)}
+/* menu lateral roxo da Jornada */
+.side{background:linear-gradient(180deg,#0d1838,#070d20);border-right:1px solid #1c2a52}
+.brand .bname{color:#fff;font-family:"Oswald",sans-serif;letter-spacing:.14em!important;background:linear-gradient(90deg,#ffe2a0,#f2b441);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand .bname small{-webkit-text-fill-color:#9ba7c6;letter-spacing:.02em}
+.tbrand{font-family:"Oswald",sans-serif;letter-spacing:.16em;background:var(--sx-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.navb{font-weight:600}
+.navb.on{background:rgba(242,180,65,.14);box-shadow:inset 3px 0 0 #f2b441;color:#ffe2a0}
+.fbtn.on{background:rgba(242,180,65,.14)}
+.addbtn,.btn.primary,.btn.pri{background:var(--sx-grad)!important;color:#0a1128!important;border-color:transparent!important;box-shadow:0 6px 20px rgba(242,180,65,.28)}
+.addbtn:hover,.btn.primary:hover{filter:brightness(1.1)}
+
+.jxtag{background:var(--sx-grad);color:#0a1128}
+.lbtn{background:var(--surface);border:1px solid var(--line)}
+.lbtn:hover{background:var(--raised);border-color:rgba(242,180,65,.55)}
+.ctile{border:1px solid transparent}
+.ctile:hover{background:var(--surface);border-color:var(--line)}
+.mbox{border:1px solid var(--line);border-radius:20px}
+/* botão recolher */
+.sidebot{display:block!important;padding-top:10px}
+.sxpin{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;color:#9ba7c6;border-radius:12px;padding:10px 12px;font-weight:600}
+.sxpin:hover{background:#17244b;color:#fff}
+.sxpin svg{width:20px;height:20px;flex:none;transition:transform .35s var(--ease)}
+/* computador: o menu recolhe para uma faixa de ícones, nunca some */
+@media (min-width:900px){
+  .side{box-sizing:border-box;transition:transform .38s var(--ease),width .34s var(--ease),box-shadow .38s var(--ease),padding .34s var(--ease)!important;transform:none!important}
+  .edge{display:none}
+  .mainwrap{padding-left:var(--rail);transition:padding .34s var(--ease)}
+  body.sx-pin .mainwrap{padding-left:290px}
+  body.sx-pin .side{width:290px;box-shadow:none}
+  body.sx-pin #scrim{display:none!important}
+  body:not(.sx-pin) .side:not(.open){width:var(--rail);padding-left:10px;padding-right:10px;overflow-x:hidden;overflow-y:auto;scrollbar-width:none}
+  body:not(.sx-pin) .side:not(.open)::-webkit-scrollbar{display:none}
+  body:not(.sx-pin) .side:not(.open) :is(.bname,h2,.fren,.n,.navb>span,.fbtn>span,.sxpin>span){display:none!important}
+  body:not(.sx-pin) .side:not(.open) :is(.navb,.fbtn,.sxpin){font-size:0;justify-content:center;padding:11px 0;gap:0}
+  body:not(.sx-pin) .side:not(.open) .brand{justify-content:center;padding:4px 0}
+  body:not(.sx-pin) .side:not(.open) .brand svg{height:42px}
+  body:not(.sx-pin) .side:not(.open) :is(.addbtn,.jxback){font-size:0;width:48px;height:48px;padding:0;align-self:center;gap:0}
+  body:not(.sx-pin) .side:not(.open) .sxpin svg{transform:rotate(180deg)}
+  body:not(.sx-pin) .side:not(.open) .navb.on{box-shadow:inset 0 0 0 1px rgba(242,180,65,.5)}
+  .topbar [data-menu],.rbar [data-menu]{display:none!important}
+}
+/* boas-vindas */
+.sxhero{position:relative;overflow:hidden;border-radius:22px;padding:24px 26px;margin:4px 0 26px;background:linear-gradient(120deg,rgba(47,116,240,.30),rgba(242,180,65,.10)),var(--surface);border:1px solid rgba(242,180,65,.35);box-shadow:var(--shadow)}
+.sxhero::after{content:"";position:absolute;right:-60px;top:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(242,180,65,.30),transparent 65%);pointer-events:none}
+.sxhero h1{font-family:var(--f-brand);font-weight:700;font-size:clamp(26px,4vw,36px);margin:0;letter-spacing:.01em;line-height:1.1}
+.sxhero h1 em{font-style:normal;background:linear-gradient(90deg,#ffe2a0,#f2b441);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sxhero p{margin:8px 0 0;color:var(--muted);font-size:16px;line-height:1.5;max-width:620px}
+.sxstats{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.sxstat{display:flex;flex-direction:column;min-width:96px;padding:10px 14px;border-radius:14px;background:rgba(7,13,32,.4);border:1px solid var(--line)}
+html:root[data-theme="light"] .sxstat{background:rgba(255,255,255,.7)}
+.sxstat b{font-family:var(--f-brand);font-size:22px;font-weight:600}
+.sxstat small{color:var(--muted);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em}
+.sxacts{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;position:relative;z-index:1}
+.sxbtn{height:42px;border-radius:999px;border:0;padding:0 18px;font-weight:700;display:inline-flex;align-items:center;gap:8px;background:var(--sx-grad);color:#0a1128;box-shadow:0 6px 18px rgba(242,180,65,.3);transition:transform .22s var(--ease),filter .2s}
+.sxbtn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.sxbtn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+.sxbtn svg{width:18px;height:18px}
+.view.anim .sxhero{animation:sxRise .7s var(--ease) both}
+.view.anim .sxstat{animation:sxRise .6s var(--ease) both;animation-delay:calc(.18s + var(--i,0)*70ms)}
+@keyframes sxRise{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:none}}
+/* troca de telas deslizando na direção certa */
+body[data-dir="l"] .view.anim{animation-name:lxInL}
+.view.anim{animation-duration:.5s}
+/* tutorial */
+.sxtut{width:min(560px,100%);padding:0;overflow:hidden}
+.sxtut .tv{height:150px;display:grid;place-items:center;background:linear-gradient(120deg,#2f74f0,#0f3596);color:#f5cf75;position:relative;overflow:hidden}
+.sxtut .tv svg{width:64px;height:64px;filter:drop-shadow(0 6px 16px rgba(0,0,0,.3))}
+.sxtut .tv::before,.sxtut .tv::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.12)}
+.sxtut .tv::before{width:220px;height:220px;left:-60px;top:-90px}.sxtut .tv::after{width:160px;height:160px;right:-40px;bottom:-70px}
+.sxtut .tb2{padding:20px 24px 8px;min-height:150px}
+.sxtut .tb2 small{color:var(--gold);font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:12px}
+.sxtut .tb2 h2{margin:4px 0 8px;font-size:24px}
+.sxtut .tb2 p{font-size:15.5px}
+.sxtut .tb2 ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.55}
+.sxtut .tf{display:flex;align-items:center;gap:10px;padding:12px 24px 20px}
+.sxtut .dots{display:flex;gap:6px;flex:1}
+.sxtut .dots i{width:8px;height:8px;border-radius:99px;background:var(--line);transition:width .3s var(--ease),background .3s}
+.sxtut .dots i.on{width:24px;background:var(--sx-grad)}
+.sxtut .anim-r{animation:lxIn .4s var(--ease) both}.sxtut .anim-l{animation:lxInL .4s var(--ease) both}
+@media (prefers-reduced-motion:reduce){.view.anim,.view.anim *,.sxtut *{animation:none!important}}
+@media (max-width:899px){.sxpin{display:none}}
+.addtop{background:var(--sx-grad)!important;color:#0a1128!important}
+.jxback2{border:1px solid rgba(242,180,65,.6)!important;background:rgba(242,180,65,.12)!important;color:#f5cf75!important;border-radius:999px!important;padding:0 14px!important;margin-left:4px;width:auto!important;flex:none}
+html:root[data-theme="light"] .jxback2{color:#16285e!important}
+
+html:root[data-theme="light"] .sxhero h1 em{background:linear-gradient(90deg,#2f74f0,#c9800f);-webkit-background-clip:text;background-clip:text}
+.tbrand{background:linear-gradient(90deg,#2f74f0,#f2b441)!important;-webkit-background-clip:text!important;background-clip:text!important}
+
 </style>
 
 <div class="app">
 <aside class="side" id="side" aria-label="Menu">
   <div class="sidetop">
-    <button class="brand" id="brandBtn" title="Início"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" aria-hidden="true"><defs><linearGradient id="zbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f74f0"/><stop offset="1" stop-color="#0f3596"/></linearGradient><linearGradient id="ztrail" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#ffc83a"/><stop offset="1" stop-color="#ffc83a" stop-opacity="0"/></linearGradient><linearGradient id="ztrailA" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#ffffff" stop-opacity=".85"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient><linearGradient id="zcover" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#f29a1a"/></linearGradient><radialGradient id="zhalo" cx="112" cy="98" r="66" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd25a" stop-opacity=".28"/><stop offset="1" stop-color="#ffd25a" stop-opacity="0"/></radialGradient><linearGradient id="zlxcream" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffbe8"/><stop offset="1" stop-color="#ffe9a8"/></linearGradient><linearGradient id="zlxgold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6cf"/><stop offset=".45" stop-color="#ffd25a"/><stop offset="1" stop-color="#f08a12"/></linearGradient><filter id="zlxglow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter><mask id="zcuts" maskUnits="userSpaceOnUse" x="-20" y="-20" width="160" height="100"><rect x="-20" y="-20" width="160" height="100" fill="#fff"/><path d="M-20 16H74M-20 30H120M30 44H130" stroke="#000" stroke-width="3.4"/></mask><filter id="zblur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter><g id="zbook"><path d="M136 56l12 6v84l-12-4z" fill="#fff7e6"/><path d="M140 58v84M144 60v84" stroke="#e2d2ad" stroke-width=".7"/><path d="M58 52h78a6 6 0 0 1 6 6v78a6 6 0 0 1-6 6H58a6 6 0 0 1-6-6V58a6 6 0 0 1 6-6z" fill="url(#zcover)"/><path d="M52 58a6 6 0 0 1 6-6h10v90H58a6 6 0 0 1-6-6z" fill="#c9750f"/><path d="M53 70h14M53 124h14" stroke="#ffd76a" stroke-width="1.4"/></g></defs><rect x=".75" y=".75" width="198.5" height="198.5" rx="43.5" fill="url(#zbg)" /><g stroke="#8fb6ff" stroke-linecap="round" fill="none" opacity=".55"><path d="M118 30h52M142 40h34" stroke-width="2.2"/><path d="M24 160c12-6 26-6 38 0" stroke-width="1.8"/><path d="M150 178h28M34 180h40" stroke-width="2"/></g><circle cx="112" cy="98" r="66" fill="url(#zhalo)"/><path d="M64 61.9L14 64L64 66.1Z" fill="url(#ztrail)"/><path d="M62 72.9L30 74L62 75.1Z" fill="url(#ztrailA)"/><path d="M60 83.5L4 86L60 88.5Z" fill="url(#ztrail)"/><path d="M58 96.8L24 98L58 99.2Z" fill="url(#ztrailA)"/><path d="M58 107.8L10 110L58 112.2Z" fill="url(#ztrail)"/><path d="M56 120.9L30 122L56 123.1Z" fill="url(#ztrailA)"/><path d="M56 132.2L16 134L56 135.8Z" fill="url(#ztrail)"/><use href="#zbook" transform="translate(-6 0) translate(0 100) skewX(-12) translate(0 -100)" opacity=".18" filter="url(#zblur)"/><g transform="translate(14 0) translate(0 100) skewX(-12) translate(0 -100)"><use href="#zbook"/><rect x="70" y="60" width="70" height="76" rx="6" fill="none" stroke="#b8650c" stroke-width="1.4" opacity=".75"/><g transform="translate(1.1 1.3) translate(105 98) scale(0.57) translate(-45 -30)" fill="#8a4706" opacity=".75"><rect x="-9" y="-9" width="108" height="78" rx="10"/></g><g transform="translate(105 98) scale(0.57) translate(-45 -30)" fill="url(#zlxcream)"><rect x="-9" y="-9" width="108" height="78" rx="10"/><path d="M0 0H13V47H40V60H0Z M50 0L70 21L90 0L79 30L90 60L70 39L50 60L61 30Z" fill="#f4a72a"/><circle cx="70" cy="30" r="3.4" fill="#fff"/></g></g><ellipse cx="118" cy="160" rx="46" ry="4" fill="#0a2a7a" opacity=".35"/><path d="M74 168H170" stroke="#ffc83a" stroke-width="3" stroke-linecap="round" opacity=".75"/><path d="M100 176H164" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity=".5"/><path d="M176 58l2.4 6.6 6.6 2.4-6.6 2.4-2.4 6.6-2.4-6.6-6.6-2.4 6.6-2.4z" fill="#ffd25a"/><g fill="#ffd25a"><circle cx="166" cy="92" r="1.6"/><circle cx="180" cy="112" r="1.2"/><circle cx="170" cy="134" r="1.4"/></g></svg><span class="bname">LEXIS<small>Leitura rápida, conhecimento que fica.</small></span></button>
+    <button class="brand" id="brandBtn" title="Início"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" aria-hidden="true"><defs><linearGradient id="zbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f74f0"/><stop offset="1" stop-color="#0f3596"/></linearGradient><linearGradient id="ztrail" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#ffc83a"/><stop offset="1" stop-color="#ffc83a" stop-opacity="0"/></linearGradient><linearGradient id="ztrailA" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#ffffff" stop-opacity=".85"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient><linearGradient id="zcover" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe08a"/><stop offset="1" stop-color="#f29a1a"/></linearGradient><radialGradient id="zhalo" cx="112" cy="98" r="66" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffd25a" stop-opacity=".28"/><stop offset="1" stop-color="#ffd25a" stop-opacity="0"/></radialGradient><linearGradient id="zlxcream" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffbe8"/><stop offset="1" stop-color="#ffe9a8"/></linearGradient><linearGradient id="zlxgold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6cf"/><stop offset=".45" stop-color="#ffd25a"/><stop offset="1" stop-color="#f08a12"/></linearGradient><filter id="zlxglow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3"/></filter><mask id="zcuts" maskUnits="userSpaceOnUse" x="-20" y="-20" width="160" height="100"><rect x="-20" y="-20" width="160" height="100" fill="#fff"/><path d="M-20 16H74M-20 30H120M30 44H130" stroke="#000" stroke-width="3.4"/></mask><filter id="zblur" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2"/></filter><g id="zbook"><path d="M136 56l12 6v84l-12-4z" fill="#fff7e6"/><path d="M140 58v84M144 60v84" stroke="#e2d2ad" stroke-width=".7"/><path d="M58 52h78a6 6 0 0 1 6 6v78a6 6 0 0 1-6 6H58a6 6 0 0 1-6-6V58a6 6 0 0 1 6-6z" fill="url(#zcover)"/><path d="M52 58a6 6 0 0 1 6-6h10v90H58a6 6 0 0 1-6-6z" fill="#c9750f"/><path d="M53 70h14M53 124h14" stroke="#ffd76a" stroke-width="1.4"/></g></defs><rect x=".75" y=".75" width="198.5" height="198.5" rx="43.5" fill="url(#zbg)" /><g stroke="#8fb6ff" stroke-linecap="round" fill="none" opacity=".55"><path d="M118 30h52M142 40h34" stroke-width="2.2"/><path d="M24 160c12-6 26-6 38 0" stroke-width="1.8"/><path d="M150 178h28M34 180h40" stroke-width="2"/></g><circle cx="112" cy="98" r="66" fill="url(#zhalo)"/><path d="M64 61.9L14 64L64 66.1Z" fill="url(#ztrail)"/><path d="M62 72.9L30 74L62 75.1Z" fill="url(#ztrailA)"/><path d="M60 83.5L4 86L60 88.5Z" fill="url(#ztrail)"/><path d="M58 96.8L24 98L58 99.2Z" fill="url(#ztrailA)"/><path d="M58 107.8L10 110L58 112.2Z" fill="url(#ztrail)"/><path d="M56 120.9L30 122L56 123.1Z" fill="url(#ztrailA)"/><path d="M56 132.2L16 134L56 135.8Z" fill="url(#ztrail)"/><use href="#zbook" transform="translate(-6 0) translate(0 100) skewX(-12) translate(0 -100)" opacity=".18" filter="url(#zblur)"/><g transform="translate(14 0) translate(0 100) skewX(-12) translate(0 -100)"><use href="#zbook"/><rect x="70" y="60" width="70" height="76" rx="6" fill="none" stroke="#b8650c" stroke-width="1.4" opacity=".75"/><g transform="translate(1.1 1.3) translate(105 98) scale(0.57) translate(-45 -30)" fill="#8a4706" opacity=".75"><rect x="-9" y="-9" width="108" height="78" rx="10"/></g><g transform="translate(105 98) scale(0.57) translate(-45 -30)" fill="url(#zlxcream)"><rect x="-9" y="-9" width="108" height="78" rx="10"/><path d="M0 0H40V13H13V23.5H40V60H0V47H27V36.5H0Z M50 0L70 21L90 0L79 30L90 60L70 39L50 60L61 30Z" fill="#f4a72a"/><circle cx="70" cy="30" r="3.4" fill="#fff"/></g></g><ellipse cx="118" cy="160" rx="46" ry="4" fill="#0a2a7a" opacity=".35"/><path d="M74 168H170" stroke="#ffc83a" stroke-width="3" stroke-linecap="round" opacity=".75"/><path d="M100 176H164" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity=".5"/><path d="M176 58l2.4 6.6 6.6 2.4-6.6 2.4-2.4 6.6-2.4-6.6-6.6-2.4 6.6-2.4z" fill="#ffd25a"/><g fill="#ffd25a"><circle cx="166" cy="92" r="1.6"/><circle cx="180" cy="112" r="1.2"/><circle cx="170" cy="134" r="1.4"/></g></svg><span class="bname">SCRIBAX<small>Leitura rápida, conhecimento que fica.</small></span></button>
     <button class="jxback" id="jxBack" hidden title="Voltar para A Jornada"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Voltar para A Jornada</button>
     <button class="addbtn" id="addBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Adicionar</button>
     <nav class="nav">
@@ -522,15 +625,16 @@ input[type=range]{width:100%;accent-color:var(--accent)}
       <button class="navb" data-new="batch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 11v6M9 14h6"/></svg>Importar em lote</button>
       <button class="navb" data-go="lib"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="13" height="15" rx="2"/><path d="M4 7v12a2 2 0 0 0 2 2h11M11 8h5M11 12h5"/></svg>Biblioteca</button>
       <button class="navb" data-go="reader" id="navReader" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg><span id="navReaderLbl">Ouvindo agora</span></button>
+      <button class="navb" id="sxTutBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6M12 17.2h.01"/></svg><span>Como usar</span></button>
     </nav>
     <div><h2>Pastas</h2><div class="folders" id="folders"></div></div>
   </div>
-  <div class="sidebot" hidden></div>
+  <div class="sidebot"><button class="sxpin" id="sxPin" title="Recolher o menu" aria-label="Recolher o menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/><path d="M20 18l-6-6 6-6" opacity=".45"/></svg><span>Recolher menu</span></button></div>
 </aside>
 <div class="scrim" id="scrim" hidden></div>
 <div class="edge" id="edge" aria-hidden="true"></div>
 <div class="mainwrap">
-  <header class="topbar" id="topbar"><button class="tb icon" data-menu title="Menu" aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button class="tb jxback2" id="jxBack3" hidden title="Voltar para A Jornada">A Jornada</button><button class="tbrand" data-go-home title="Início">LEXIS</button><span class="sp"></span><button class="addtop" id="addTop" title="Adicionar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span class="lbl">Adicionar</span></button><div class="theme" role="radiogroup" aria-label="Tema"><button data-th="light" role="radio" title="Claro" aria-label="Tema claro"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><button data-th="dark" role="radio" title="Escuro" aria-label="Tema escuro"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><button data-th="auto" role="radio" title="Automático: segue o aparelho" aria-label="Tema automático, segue o aparelho"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" stroke="none"/></svg></button></div><button class="tb icon" id="setSide" title="Ajustes" aria-label="Ajustes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></header>
+  <header class="topbar" id="topbar"><button class="tb icon" data-menu title="Menu" aria-label="Abrir menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button class="tb jxback2" id="jxBack3" hidden title="Voltar para A Jornada">A Jornada</button><button class="tbrand" data-go-home title="Início">SCRIBAX</button><span class="sp"></span><button class="addtop" id="addTop" title="Adicionar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span class="lbl">Adicionar</span></button><div class="theme" role="radiogroup" aria-label="Tema"><button data-th="light" role="radio" title="Claro" aria-label="Tema claro"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><button data-th="dark" role="radio" title="Escuro" aria-label="Tema escuro"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button><button data-th="auto" role="radio" title="Automático: segue o aparelho" aria-label="Tema automático, segue o aparelho"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" stroke="none"/></svg></button></div><button class="tb icon" id="setSide" title="Ajustes" aria-label="Ajustes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></header>
   <section class="view" id="home" aria-label="Início"><div class="vin" id="homein"></div></section>
   <section class="view" id="libview" aria-label="Biblioteca"><div class="vin" id="libmain"></div></section>
   <section class="view" id="reader" aria-label="Leitor">
@@ -737,7 +841,7 @@ async function handle(m) {
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
-/* ===== LEXIS dentro d'A Jornada: conta, IA, dados, PDFs das aulas, marcações e tempo vêm da plataforma (mesma origem) ===== */
+/* ===== Scribax dentro da plataforma A Jornada: conta, IA, dados, PDFs das aulas, marcações e tempo vêm da plataforma (mesma origem) ===== */
 const JXP = (() => { try { return window.parent !== window && window.parent.JX_LEXIS && window.parent.JX_LEXIS.ok ? window.parent.JX_LEXIS : null; } catch (e) { return null; } })();
 const LX_VOZ = /github\.io$/.test(location.hostname) || /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? new URL('voz/', location.href).href : 'https://ajornadaconcursos.github.io/lexis/voz/';
 const LX_C2P = { y: 'am', g: 'vd', b: 'az', p: 'rs', o: 'am' }, LX_P2C = { am: 'y', vd: 'g', az: 'b', rs: 'p', q: 'o' };
@@ -813,7 +917,7 @@ setInterval(() => {
   if (jxAcc >= 5) jxFlush();
 }, 30000);
 addEventListener('pagehide', jxFlush);
-/* comandos que a plataforma usa para abrir o LEXIS */
+/* comandos que a plataforma usa para abrir o Scribax */
 window.JXL = {
   ready: false,
   home() { syncLib(); setView('home'); },
@@ -1569,15 +1673,15 @@ function loadVoices() {
   const natNow = voices.some(v => /online|natural/i.test(v.name) && /^pt[-_]br/i.test(v.lang));
   const cur = curVoice(), isNat = !/^(nv|az):/.test(prefs.voice) && cur && /online|natural/i.test(cur.name);
   $('#voiceTip').innerHTML = isNat
-    ? 'Esta é uma voz natural da Microsoft, a mesma tecnologia das vozes premium, liberada de graça pelo Edge. Ela precisa de internet e toca com as pausas e o ritmo de leitura do LEXIS.'
+    ? 'Esta é uma voz natural da Microsoft, a mesma tecnologia das vozes premium, liberada de graça pelo Edge. Ela precisa de internet e toca com as pausas e o ritmo de leitura do Scribax.'
     : (/^nv:/.test(prefs.voice) ? 'As vozes neurais rodam dentro do leitor e soam iguais em qualquer aparelho. Na primeira vez cada uma baixa cerca de <b>35 MB</b> (melhor no Wi-Fi) e fica guardada.' : 'Vozes do aparelho começam a falar na hora; as que não são naturais costumam soar robóticas.')
-      + (natNow ? '' : ' <br><br><b>Quer vozes de cerca de 90%, de graça?</b> Abra o LEXIS no <b>Microsoft Edge</b> no computador. As vozes Thalita, Francisca e Antonio aparecem nesta lista e são escolhidas sozinhas.');
+      + (natNow ? '' : ' <br><br><b>Quer vozes de cerca de 90%, de graça?</b> Abra o Scribax no <b>Microsoft Edge</b> no computador. As vozes Thalita, Francisca e Antonio aparecem nesta lista e são escolhidas sozinhas.');
 }
 function voiceDiag(all) {
   const ua = navigator.userAgent;
   const nav = /Claude\//.test(ua) ? 'app do Claude' : /Edg(A|iOS)?\//.test(ua) ? 'Edge' : /SamsungBrowser/.test(ua) ? 'Samsung Internet' : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : /Firefox\//.test(ua) ? 'Firefox' : 'outro';
   const pt = all.filter(v => /^pt/i.test(v.lang)), nat = all.filter(v => /online|natural/i.test(v.name));
-  $('#voiceDiag').textContent = `Diagnóstico · LEXIS v26 · ${nav}${/Android|Mobile/.test(ua) ? ' (celular/tablet)' : ''} · vozes do aparelho: ${all.length}, em português: ${pt.length}, naturais: ${nat.length}`;
+  $('#voiceDiag').textContent = `Diagnóstico · Scribax v26 · ${nav}${/Android|Mobile/.test(ua) ? ' (celular/tablet)' : ''} · vozes do aparelho: ${all.length}, em português: ${pt.length}, naturais: ${nat.length}`;
 }
 function curVoice() { return voices.find(v => v.voiceURI === prefs.voice) || voices[0] || null; }
 
@@ -1788,7 +1892,7 @@ async function nvSpeak(text, gen, onFrac, onEnd, model, pause) {
     if (e.message === 'dropped') return nvSpeak(text, gen, onFrac, onEnd, model, pause);
     if (/^az:/.test(prefs.voice)) {
       NV.azFailed = true; prefs.voice = 'nv:dii'; savePrefs(); loadVoices();
-      toast(/azure 40[13]/.test(e.message) ? 'O Azure recusou a chave. Confira a chave e a região nos ajustes. Usando a Dii.' : 'Não consegui falar com o Azure. As vozes premium só funcionam com o LEXIS no seu próprio site. Usando a Dii.', 7000);
+      toast(/azure 40[13]/.test(e.message) ? 'O Azure recusou a chave. Confira a chave e a região nos ajustes. Usando a Dii.' : 'Não consegui falar com o Azure. As vozes premium só funcionam com o Scribax no seu próprio site. Usando a Dii.', 7000);
       return speakCurrent();
     }
     NV.failed = true;
@@ -2645,7 +2749,7 @@ $('#tabs').addEventListener('click', e => { const b = e.target.closest('button')
 const normT = t => String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
 function planOk() { const pl = S.rec && S.rec.study && S.rec.study.plan; return !!(pl && pl.from != null && S.units[pl.from] && normT(S.units[pl.from].text).slice(0, 40) === pl.fromKey); }
 function planHtml(pl) {
-  if (pl.from == null) return '<p class="note">Escreva do jeito que quiser: as páginas, onde começar e onde parar, e os assuntos que merecem mais atenção. O LEXIS lê tudo nesse trecho e avisa quando chega em cada assunto importante.</p>';
+  if (pl.from == null) return '<p class="note">Escreva do jeito que quiser: as páginas, onde começar e onde parar, e os assuntos que merecem mais atenção. O Scribax lê tudo nesse trecho e avisa quando chega em cada assunto importante.</p>';
   if (!planOk()) return '<p class="note">O documento mudou desde que o plano foi montado. Toque em <b>Montar de novo</b>.</p>';
   const a = S.units[pl.from], z = S.units[pl.to];
   return `<div class="rng"><b>Leitura:</b> da pág. ${a.page} (“${esc(a.text.trim().slice(0, 60))}…”) até a pág. ${z.page} (“${esc(z.text.trim().slice(0, 60))}…”).</div>` +
@@ -3148,7 +3252,7 @@ function batchModal() {
   BT.rows = []; BT.busy = false;
   const dirOK = 'webkitdirectory' in document.createElement('input') && !/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
   openModal(`<div class="bt"><h2 style="margin:0">Importar em lote</h2>
-    <p class="note" style="margin:6px 0 0">Escolha vários PDFs de uma vez${dirOK ? ' ou uma pasta inteira' : ''}. O LEXIS identifica a matéria e a aula de cada um e mostra tudo aqui antes de criar as pastas. Nada é criado até você confirmar.</p>
+    <p class="note" style="margin:6px 0 0">Escolha vários PDFs de uma vez${dirOK ? ' ou uma pasta inteira' : ''}. O Scribax identifica a matéria e a aula de cada um e mostra tudo aqui antes de criar as pastas. Nada é criado até você confirmar.</p>
     <div class="pickrow"><label class="btn primary upw"><input type="file" class="upb" accept="application/pdf,.pdf" multiple aria-label="Escolher PDFs">${FICON.plus} Escolher PDFs</label>${dirOK ? `<label class="btn upw"><input type="file" class="upb" webkitdirectory multiple aria-label="Escolher pasta">Escolher uma pasta</label>` : ''}<label class="btn upw"><input type="file" class="upb" multiple aria-label="Escolher qualquer arquivo">Não abriu? Tente assim</label></div>
     <div class="bdrop" id="btDrop">Ou arraste os PDFs para cá</div>
     <div id="btList"></div>
@@ -3773,6 +3877,77 @@ function loadSample() {
   return loadPdf(bytes, 'Exemplo – O sono e a memória.pdf', true);
 }
 function openSample() { setView('reader'); if (!S.isSample) loadSample(); }
+/* ===== Scribax: menu em faixa de ícones, boas-vindas, tutorial e telas deslizando ===== */
+const SX = (() => {
+  const ls = (k, v) => { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } };
+  const desk = () => matchMedia('(min-width:900px)').matches;
+  const setPin = on => { document.body.classList.toggle('sx-pin', !!on); ls('sx.pin', on ? '1' : '0'); const b = $('#sxPin'); if (b) { const t = on ? 'Recolher o menu' : 'Deixar o menu sempre aberto'; b.title = t; b.setAttribute('aria-label', t); b.querySelector('span').textContent = on ? 'Recolher menu' : 'Fixar menu aberto'; } };
+  const name = () => { let n = ''; try { n = (JXP && JXP.name && JXP.name()) || ''; } catch (e) {} return String(n).trim().split(/\s+/)[0] || ''; };
+  return { ls, desk, setPin, name };
+})();
+SX.setPin(SX.ls('sx.pin') === '1');
+document.querySelectorAll('.side .navb, .side .addbtn, .side .jxback').forEach(b => { if (!b.title) b.title = b.textContent.trim(); });
+$('#sxPin').onclick = () => { SX.setPin(!document.body.classList.contains('sx-pin')); sideOpen(false); };
+// passar o mouse na faixa de ícones abre o menu por cima; o botão de menu fixa ou recolhe
+let sxHovT = 0;
+$('#side').addEventListener('mouseenter', () => { if (!SX.desk() || document.body.classList.contains('sx-pin') || $('#side').classList.contains('open')) return; clearTimeout(sxHovT); sxHovT = setTimeout(() => sideOpen(true, true), 260); });
+$('#side').addEventListener('mouseleave', () => clearTimeout(sxHovT));
+const sxSideOpen0 = sideOpen;
+sideOpen = function (on, hover) {
+  if (SX.desk() && document.body.classList.contains('sx-pin')) on = false;
+  sxSideOpen0(on, hover);
+};
+// as telas deslizam para o lado de onde você vem
+const SX_ORD = { home: 0, lib: 1, reader: 2 };
+const sxSetView0 = setView;
+setView = function (v) {
+  const from = document.body.dataset.view;
+  if (from && from !== v) document.body.dataset.dir = (SX_ORD[v] ?? 0) < (SX_ORD[from] ?? 0) ? 'l' : 'r';
+  sxSetView0(v);
+};
+// boas-vindas na tela inicial
+const SX_I = { book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>', help: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6M12 17.2h.01"/></svg>', play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>' };
+const sxRenderHome0 = renderHome;
+renderHome = function () {
+  sxRenderHome0();
+  const head = $('#homein .lhead'); if (!head) return;
+  const h1 = head.querySelector('h1'); if (h1) h1.remove();
+  const docs = LIB.docs || [], nm = SX.name();
+  const last = [...docs].sort((a, b) => (b.opened || 0) - (a.opened || 0))[0];
+  const hero = document.createElement('div'); hero.className = 'sxhero';
+  hero.innerHTML = `<h1>${greeting()}${nm ? ', <em>' + esc(nm) + '</em>' : ''}!</h1>
+    <p>${docs.length ? 'Bem-vindo de volta ao <b>Scribax</b>. Continue de onde parou: leia, ouça e marque os seus PDFs. Tudo o que você marcar aparece também na plataforma A Jornada.' : 'Bem-vindo ao <b>Scribax</b>, o seu leitor que lê os PDFs em voz alta, com o texto acompanhando palavra por palavra. Envie um PDF ou abra uma aula da Jornada para começar.'}</p>
+    <div class="sxstats"><span class="sxstat" style="--i:0"><b>${docs.length}</b><small>PDFs</small></span><span class="sxstat" style="--i:1"><b>${(LIB.folders || []).length}</b><small>Pastas</small></span>${last && last.opened ? `<span class="sxstat" style="--i:2"><b>${esc(fmtDate(last.opened))}</b><small>Última leitura</small></span>` : ''}</div>
+    <div class="sxacts">${last && last.opened ? `<button class="sxbtn" data-open="${last.key}">${SX_I.play} Continuar “${esc(last.name.length > 34 ? last.name.slice(0, 33) + '…' : last.name)}”</button>` : ''}<button class="sxbtn ${last && last.opened ? 'ghost' : ''}" data-sxgo="lib">${SX_I.book} Biblioteca</button><button class="sxbtn ghost" data-sxtut>${SX_I.help} Como usar</button></div>`;
+  head.after(hero);
+  if (!head.querySelector('*')) head.remove();
+};
+// tutorial
+const SX_TUT = [
+  ['Boas-vindas', 'Este é o Scribax', 'O leitor da plataforma A Jornada: ele lê os seus PDFs em voz alta e destaca cada palavra enquanto fala. Assim você estuda com os olhos e os ouvidos ao mesmo tempo.', ['Os PDFs das suas aulas aparecem sozinhos na biblioteca, separados por matéria.', 'Também dá para enviar qualquer PDF ou colar um texto.'], 'M3 18v-6a9 9 0 0 1 18 0v6M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z'],
+  ['Menu', 'O menu nunca some', 'No computador o menu fica recolhido numa faixa de ícones. Passe o mouse para ver tudo, ou use o botão no pé do menu para deixá-lo aberto.', ['Início, Biblioteca, Importar em lote e as suas pastas ficam sempre à mão.', 'No celular, toque no ☰ para abrir.'], 'M4 6h16M4 12h10M4 18h16'],
+  ['Ouvir', 'Ouça no seu ritmo', 'Aperte o play e acompanhe. Escolha a voz e a velocidade nos ajustes do leitor.', ['Clique numa palavra para começar a ler dali.', 'Pule páginas ou selecione só uma área da página para ouvir.', 'Espaço pausa e retoma; as setas voltam ou avançam.'], 'M8 5.5v13l11-6.5z'],
+  ['Marcar', 'Marcações sincronizadas', 'Marque trechos com as cores do marca-texto. Elas aparecem no PDF da aula dentro da plataforma A Jornada, e o que você marcar lá aparece aqui.', ['Apagar uma marcação aqui apaga lá também.', 'Use as cores do mesmo jeito que usa na plataforma.'], 'M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z'],
+  ['Estudar', 'Estude a partir do PDF', 'No painel Estudar do leitor você gera resumo, flashcards, questões e até um podcast a duas vozes sobre o material aberto.', ['Tudo usa a IA da sua conta da plataforma A Jornada.', 'O que você gerou fica salvo junto do documento.'], 'M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z'],
+  ['Metas', 'O seu tempo conta', 'O tempo que você passa lendo ou ouvindo no Scribax entra nas suas metas e no seu desempenho da plataforma A Jornada.', ['Abriu pelo botão “Ouvir no Scribax” de uma tarefa? O tempo vai para essa tarefa.', 'Use “Voltar para A Jornada” quando terminar.'], 'M12 7v5l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z']
+];
+let sxTutI = 0;
+function sxTut(i, dir) {
+  sxTutI = Math.max(0, Math.min(SX_TUT.length - 1, i)); const [tag, t, p, li, ic] = SX_TUT[sxTutI], last = sxTutI === SX_TUT.length - 1;
+  const b = $('#mbox'); b.classList.add('sxtut');
+  b.innerHTML = `<div class="tv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="${dir ? 'anim-' + dir : ''}"><path d="${ic}"/></svg></div>
+    <div class="tb2 ${dir ? 'anim-' + dir : ''}"><small>${sxTutI + 1} de ${SX_TUT.length} · ${tag}</small><h2>${t}</h2><p>${p}</p><ul>${li.map(x => '<li>' + x + '</li>').join('')}</ul></div>
+    <div class="tf"><span class="dots">${SX_TUT.map((_, k) => `<i class="${k === sxTutI ? 'on' : ''}"></i>`).join('')}</span>${sxTutI ? '<button class="btn" data-sxt="-1">Voltar</button>' : '<button class="btn" data-sxt="x">Pular</button>'}<button class="btn primary" data-sxt="${last ? 'x' : '1'}">${last ? 'Começar' : 'Próximo'}</button></div>`;
+  $('#modal').hidden = false;
+  b.onsubmit = null;
+  b.onclick = e => { const x = e.target.closest('[data-sxt]'); if (!x) return; const v = x.dataset.sxt; if (v === 'x') closeModal(); else sxTut(sxTutI + (+v), +v > 0 ? 'r' : 'l'); };
+}
+$('#sxTutBtn').onclick = () => { sideOpen(false); sxTut(0); };
+document.addEventListener('click', e => { if (e.target.closest('[data-sxtut]')) { e.preventDefault(); sxTut(0); return; } const g = e.target.closest('[data-sxgo]'); if (g) { curFolder = 'all'; setView(g.dataset.sxgo); } });
+const sxClose0 = closeModal;
+closeModal = function () { if ($('#mbox').classList.contains('sxtut')) SX.ls('sx.tut1', '1'); $('#mbox').classList.remove('sxtut'); return sxClose0.apply(this, arguments); };
+setTimeout(() => { if (SX.ls('sx.tut1') !== '1' && $('#modal').hidden) sxTut(0); }, 1400);
+
 (async () => {
   for (const id of ['#setPanel', '#speedPanel', '#colorPanel']) document.body.appendChild($(id));
   applyTheme(); setView('home');
