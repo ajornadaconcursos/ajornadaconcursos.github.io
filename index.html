@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611050644"></script>
+<script src="/claude-shim.js?v=202611050650"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -4670,8 +4670,8 @@ const HOW={
   edital:"Aqui está o edital em tópicos. Você envia os PDFs das aulas em Materiais e conclui a teoria; o painel risca os tópicos abordados e marca os estudados. Também dá para marcar à mão.",
   incidencia:"Aqui você informa quanto cai de cada assunto: cole a estatística de um site de questões (TEC, QConcursos), use “Estimar com IA” ou ajuste as porcentagens. Com esses números o painel prioriza as metas, os resumos, os simulados e as questões.",
   materiais:"Aqui você envia o PDF de cada aula. O painel lê o arquivo, acha onde a teoria começa e termina, divide em partes de 15 a 18 páginas e cria as atividades das metas, os resumos e o mapeamento das questões.",
-  resumos:"Aqui ficam os resumos de cada aula. Eles nascem do PDF enviado em Materiais e crescem a cada atividade concluída. Você pode editar, completar com questões do TEC, gerar um mapa mental, resolver as questões só desta aula e baixar em PDF. Ligue “Marcações no resumo” para incluir o que você marcou com o marca-texto no PDF; os trechos em laranja vêm das questões que você resolveu.",
-  mapas:"Aqui ficam os mapas mentais. Envie os mapas dos seus cursos (imagem, PDF ou link) ou gere com a IA a partir dos seus resumos. Eles ficam separados por matéria e por assunto do edital para a revisão.",
+  resumos:"Aqui ficam os resumos de cada aula. Eles nascem do PDF enviado em Materiais e crescem a cada atividade concluída. Você pode editar, completar com questões do TEC, gerar um mapa mental, resolver as questões só desta aula, tirar dúvida com o professor (🎓) e baixar em PDF. Ligue “Marcações no resumo” para incluir o que você marcou com o marca-texto no PDF; os trechos em laranja vêm das questões que você resolveu.",
+  mapas:"Aqui ficam os mapas mentais. Envie os mapas dos seus cursos (imagem, PDF ou link) ou gere com a IA a partir dos seus resumos. “Gerar esquema” junta os seus resumos e esquemas num esquema novo. Eles ficam separados por matéria e por assunto do edital para a revisão.",
   revisoes:"Aqui aparecem as revisões do dia. Responda os cards e as questões que voltaram; o ciclo de 1, 7, 14, 30 e 60 dias se ajusta sozinho conforme você acerta ou erra.",
   erradas:"Aqui entram sozinhas as questões que você errou ou chutou (TEC, PDFs, simulados). Refaça, marque o resultado e transforme as de uma matéria num reforço.",
   reforcos:"Aqui ficam os reforços: questões extras que surgem quando uma matéria fica abaixo de 75% de acerto. Resolva dentro do prazo de 30 dias; eles não travam a meta.",
@@ -4682,7 +4682,7 @@ const HOW={
   assinatura:"Aqui você vê o seu plano (teste, mensal ou anual), assina ou renova pelo link de pagamento e lê os termos de uso e a política de privacidade. Pague com o mesmo e-mail da sua conta: a liberação é automática.",
   arena:"Aqui ficam os seus flash cards. Toque em Seguir a trilha, tente lembrar a resposta antes de revelar e diga com sinceridade se se perdeu, ficou quase lá ou dominou: a Trilha da Jornada decide quando cada card volta. Trechos difíceis treina só os cards que mais te pegam. Em Importar do Anki você traz os seus baralhos (.apkg ou .txt).",
   arquivo:"Aqui ficam as metas que já passaram: toque numa meta para ver as atividades, o tempo, o desempenho e o simuladinho dela. Procure uma atividade pelo código ou pelo título.",
-  leiseca:"Aqui fica a Jornada na Lei Seca: escolha a lei (ou escreva qual é), o texto oficial vem do site do Planalto e a IA destaca o que mais cai, grifa os trechos que a banca troca e escreve um bizu por artigo. Ligue a lei à matéria para ver quais artigos já caíram nas suas questões.",
+  leiseca:"Aqui fica a Jornada na Lei Seca: escolha a lei (ou escreva qual é), o texto oficial vem do site do Planalto e a IA destaca o que mais cai, grifa os trechos que a banca troca e escreve um bizu por artigo. Ligue a lei à matéria para ver quais artigos já caíram nas suas questões. Use “Dissecar a lei” para ter as listas de prazos, competências e sanções, e envie o PDF de normas que não estão no Planalto.",
   tutorial:"Aqui você aprende a usar cada função da plataforma: escolha um tema, assista à animação e leia as dicas. Use “Ir para esta tela” para praticar na hora.",
   compat:"Aqui você compara dois concursos: o painel mostra as matérias e os assuntos em comum para o estudo de um servir ao outro."};
 function howAttach(){const v=$("view"),t=HOW[TAB];if(!v||!t||v.querySelector(".how"))return;const p=document.createElement("details");p.className="how";p.innerHTML=`<summary>ⓘ Como usar esta tela</summary><span>${esc(t)}</span>`;
@@ -4876,7 +4876,7 @@ const TUT=[
   d:["Responda antes de olhar o comentário, mesmo sem certeza: o erro ensina mais que a leitura.","Marque o motivo de todo erro: em poucas semanas o painel mostra exatamente o que corrigir.","Marque “chutei” quando acertar sem saber: o painel trata como dúvida e traz de volta."]},
 
  {id:"resumos",t:"Resumos da aula",ic:"resumos",go:"resumos",
-  p:"O resumo nasce das questões. Cada bloco diz o Assunto; cada ponto traz “O que você precisa saber” (a regra, o artigo de lei ou, em Português, a técnica que resolve a questão) e “Como caiu” (a questão e a resposta), com a página do PDF e a pegadinha. Com a IA ligada, ele é reescrito de forma didática, só com o seu material.",
+  p:"O resumo nasce das questões. Cada bloco diz o Assunto; cada ponto traz “O que você precisa saber” (a regra, o artigo de lei ou, em Português, a técnica que resolve a questão) e “Como caiu” (a questão e a resposta), com a página do PDF e a pegadinha. Com a IA ligada, ele é reescrito de forma didática, só com o seu material. Ficou com dúvida? “🎓 Tirar dúvida com o professor” responde de forma técnica, no nível do seu cargo, com o seu material, a lei oficial e a jurisprudência que está no seu material (sempre dizendo de onde veio).",
   s:`<div class="tu-card"><div class="tu-tabs"><span class="on">Completo</span><span data-k="tc">Só o que cai</span><span data-k="te">Só o que errei</span><span data-k="tr">Resumão final</span></div>
      <div class="tu-row"><span class="tu-chip" data-k="as">Assunto · Exclusão do crédito</span></div>
      <div class="tu-pt" data-k="pt1"><small>O QUE VOCÊ PRECISA SABER · p. 3 · 4 questões</small>A exclusão do crédito não dispensa as obrigações acessórias.<em>Pegadinha: art. 175, parágrafo único.</em></div>
@@ -4887,10 +4887,10 @@ const TUT=[
       {k:"pt2",on:["pt2"],c:"“Como caiu”: a questão resumida e a resposta certa."},
       {k:"tr",on:["tr","ia"],c:"“Resumão final”: Assunto, Questão e Base para acertar, em 1 a 2 páginas para a véspera."},
       {k:"pdf",c:"Baixe em PDF para ler no celular ou imprimir."}],
-  d:["Leia o resumo da aula no dia seguinte ao estudo: é a primeira revisão.","Na reta final, estude pelo “Só o que cai” e pelo “Só o que errei”.","Lance as questões do TEC: o resumo cresce com o que a banca cobra fora do PDF."]},
+  d:["Leia o resumo da aula no dia seguinte ao estudo: é a primeira revisão.","Na reta final, estude pelo “Só o que cai” e pelo “Só o que errei”.","Lance as questões do TEC: o resumo cresce com o que a banca cobra fora do PDF.","Travou num ponto? Use o 🎓 da tarefa ou do resumo: são 10 dúvidas por dia."]},
 
  {id:"mapas",t:"Mapas mentais",ic:"mapas",go:"mapas",
-  p:"O mapa mental organiza a aula num só olhar, com o conteúdo em si: cada folha é uma frase com a regra, o prazo, a exceção ou a diferença, e cada ramo traz um exemplo (do PDF ou de fonte segura, sempre indicada). A IA monta um mapa por aula a partir do resumo e da teoria do PDF. Dá para refazer com mais conteúdo e baixar em PDF.",
+  p:"O mapa mental organiza a aula num só olhar, com o conteúdo em si: cada folha é uma frase com a regra, o prazo, a exceção ou a diferença, e cada ramo traz um exemplo (do PDF ou de fonte segura, sempre indicada). A IA monta um mapa por aula a partir do resumo e da teoria do PDF. Dá para refazer com mais conteúdo e baixar em PDF. Em “Gerar esquema”, a IA junta os seus resumos e os esquemas que você enviou num esquema novo de revisão, com tópicos, setas e comparações.",
   s:`<svg class="tu-mm" viewBox="0 0 320 170" aria-hidden="true"><g class="tu-ln" data-k="l"><path d="M160 85 L60 35"/><path d="M160 85 L60 135"/><path d="M160 85 L260 35"/><path d="M160 85 L260 135"/></g>
      <g data-k="r"><rect x="110" y="68" width="100" height="34" rx="17"/><text x="160" y="90">Exclusão</text></g>
      <g data-k="a"><rect x="10" y="20" width="96" height="30" rx="8"/><text x="58" y="40">Isenção</text></g><g data-k="b"><rect x="214" y="20" width="96" height="30" rx="8"/><text x="262" y="40">Anistia</text></g>
@@ -4899,10 +4899,10 @@ const TUT=[
       {k:"a",on:["l","a","b"],c:"Os ramos trazem o conteúdo em frases completas, só do que está no seu material."},
       {k:"c",on:["c"],c:"Cada ramo tem um exemplo: do PDF ou de fonte segura, sempre com a fonte indicada."},
       {k:"d",on:["d"],c:"Ao abrir o mapa: “Refazer com mais conteúdo” ou “Baixar em PDF”."}],
-  d:["Revise pelo mapa antes de dormir: 2 minutos por aula.","Tente reconstruir o mapa de memória e depois compare: é revisão ativa.","Baixe os mapas da matéria num PDF só para a reta final."]},
+  d:["Revise pelo mapa antes de dormir: 2 minutos por aula.","Tente reconstruir o mapa de memória e depois compare: é revisão ativa.","Baixe os mapas da matéria num PDF só para a reta final.","Envie os esquemas do seu curso e gere um esquema novo que junta todos num só."]},
 
  {id:"leiseca",t:"Jornada na Lei Seca",ic:"edital",go:"leiseca",
-  p:"Em Estudar › Lei seca, escolha a lei (ou escreva qual é): o texto oficial vem do site do Planalto, sem o que foi revogado. A IA marca a incidência de cada artigo, grifa os trechos que a banca troca e escreve um bizu curto, preso ao texto do artigo. Ligada à matéria, a lei mostra quais artigos já caíram nas suas questões. Em cada artigo, “🎯 Treinar este artigo” traz questões no estilo da sua banca (feitas só com o texto do artigo) e “📌 Já caiu” mostra as suas questões reais que citam ele; a “Bateria da lei” deixa você escolher quantas questões, quais artigos, o tipo e de onde vêm. O que errar vai para Erradas e para a Trilha.",
+  p:"Em Estudar › Lei seca, escolha a lei (ou escreva qual é): o texto oficial vem do site do Planalto, sem o que foi revogado. A IA marca a incidência de cada artigo, grifa os trechos que a banca troca e escreve um bizu curto, preso ao texto do artigo. Ligada à matéria, a lei mostra quais artigos já caíram nas suas questões. Em cada artigo, “🎯 Treinar este artigo” traz questões no estilo da sua banca (feitas só com o texto do artigo) e “📌 Já caiu” mostra as suas questões reais que citam ele; a “Bateria da lei” deixa você escolher quantas questões, quais artigos, o tipo e de onde vêm. O que errar vai para Erradas e para a Trilha. “🔎 Dissecar a lei” separa todos os prazos, as competências de cada órgão e as sanções, cada item com o artigo e o trecho que prova. Resolução ou regimento que não está no Planalto? Envie o PDF da norma.",
   s:`<div class="tu-card"><div class="tu-row"><span class="tu-inp" data-k="lq"><em data-k="lt"></em></span><button class="tu-btn sm" data-k="lb">Baixar e bizurar</button></div>
      <div class="tu-pt" data-k="art"><small>Art. 3 · ★★★ cai muito · caiu em 4 questões suas</small><span>Tributo é toda prestação <b>pecuniária compulsória</b> … cobrada mediante atividade administrativa <b>plenamente vinculada</b>.</span></div>
      <div class="tu-exp" data-k="biz" style="border-left-color:var(--lime);background:var(--sunk)">💡 Bizu: a banca troca “plenamente vinculada” por “discricionária”.</div>
@@ -4911,7 +4911,7 @@ const TUT=[
       {k:"art",on:["art"],c:"O texto vem organizado em artigos, parágrafos e incisos, com a incidência de cada artigo."},
       {k:"biz",on:["biz"],c:"Os trechos que a banca troca ficam grifados, e cada artigo importante ganha um bizu."},
       {k:"f3",on:["f1","f2","f3"],c:"Filtre por bizurados, “cai muito” ou “caiu nas suas questões”, e baixe em PDF."}],
-  d:["Leia a lei seca pelos filtros “Cai muito” e “Caiu nas suas questões” primeiro.","Leia em voz alta os trechos grifados: são as palavras que a banca troca.","Use o Estudo extra do tipo Lei seca para 30 minutos de leitura dirigida.","Depois de ler, faça uma Bateria da lei: artigo acertado 3 vezes fica como dominado."]},
+  d:["Leia a lei seca pelos filtros “Cai muito” e “Caiu nas suas questões” primeiro.","Leia em voz alta os trechos grifados: são as palavras que a banca troca.","Use o Estudo extra do tipo Lei seca para 30 minutos de leitura dirigida.","Depois de ler, faça uma Bateria da lei: artigo acertado 3 vezes fica como dominado.","Toque em “Dissecar a lei” e decore as listas de prazos, competências e sanções; depois faça “Questões destes pontos”."]},
 
  {id:"arena",t:"Trilha da Jornada",ic:"arena",go:"arena",
   p:"Novidade da plataforma: a Trilha da Jornada é a sua revisão da memória. Os flash cards chegam sozinhos dos resumos das aulas, das questões que você erra e dos testes de fixação; você também pode criar os seus em + Novo card ou trazer os seus baralhos em Importar do Anki. A trilha mostra onde cada card está: Partida (novos), Na trilha (aprendendo), Checkpoint (para revisar) e a bandeira da Aprovação (os que já estão na memória longa). Em Seguir a trilha, cada card é uma ficha: tente lembrar antes de revelar e diga com sinceridade Me perdi, Quase lá ou Dominei. A Trilha da Jornada calcula quando cada um volta: o que você domina se espaça, o que te pega volta mais cedo. Há também afirmações de Certo ou Errado, como na prova, e Trechos difíceis treina só os seus pontos fracos. Cada dia de revisão vira uma pegada na sua caminhada.",
@@ -4984,7 +4984,7 @@ const TUT=[
   d:["Recalcule o plano sempre que atrasar mais de 2 dias.","Esquecimento é revisão; falta de atenção é técnica de leitura do comando.","Matéria abaixo de 75% merece mais questões, não mais teoria."]},
 
  {id:"mentor",t:"Pergunte à Jornada",ic:"revisoes",go:"meta",
-  p:"Uma conversa com a IA sobre os seus estudos, com os seus números de verdade: horas, metas, acerto por matéria, erros, revisões e projeção. Pergunte “Como estou em cada matéria?”, “Quais são meus pontos fracos?” ou “O que focar na próxima semana?” e receba um diagnóstico com passos nas telas da plataforma. Fica em Hoje e em Desempenho.",
+  p:"Uma conversa com a IA sobre os seus estudos, com os seus números de verdade: horas, metas, acerto por matéria, erros, revisões e projeção. Pergunte “Como estou em cada matéria?”, “Quais são meus pontos fracos?” ou “O que focar na próxima semana?” e receba um diagnóstico com passos nas telas da plataforma. Fica em Hoje e em Desempenho. Para dúvida de conteúdo (um conceito, uma regra, uma súmula), use o “🎓 Tirar dúvida com o professor” na tarefa ou no resumo.",
   s:`<div class="tu-card"><div class="tu-row"><button class="tu-btn sm ghost" data-k="bt">Pergunte à Jornada</button></div>
      <div class="tu-txt" data-k="q" style="align-self:flex-end;max-width:80%;min-height:0"><em data-k="qt"></em></div>
      <div class="tu-pt" data-k="a"><small>MENTOR</small>Você fez 26 min de 28 h planejadas. Português está em 68%: 1. zere as 6 revisões; 2. refaça as Erradas marcando o motivo; 3. ajuste a Rotina para caber.</div></div>`,
@@ -5297,7 +5297,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261105064422";
+const JX_BUILD="20261105065056";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
