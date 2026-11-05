@@ -611,6 +611,14 @@ html:root[data-theme="light"] .jxback2{color:#16285e!important}
 
 html:root[data-theme="light"] .sxhero h1 em{background:linear-gradient(90deg,#2f74f0,#c9800f);-webkit-background-clip:text;background-clip:text}
 .tbrand{background:linear-gradient(90deg,#2f74f0,#f2b441)!important;-webkit-background-clip:text!important;background-clip:text!important}
+/* faixa de ícones: todas as pastas viram um ícone só; abrindo o menu, aparecem todas */
+.sxfold{display:none!important;position:relative}
+.sxfold svg{color:inherit!important}
+.sxfn{position:absolute;top:3px;right:8px;min-width:16px;height:16px;border-radius:99px;background:var(--gold);color:#0a1128;font-size:10px;font-style:normal;font-weight:800;display:grid;place-items:center;padding:0 3px}
+@media (min-width:900px){
+  body:not(.sx-pin) .side:not(.open) .sxfold{display:flex!important}
+  body:not(.sx-pin) .side:not(.open) .folders{display:none}
+}
 
 </style>
 
@@ -627,7 +635,7 @@ html:root[data-theme="light"] .sxhero h1 em{background:linear-gradient(90deg,#2f
       <button class="navb" data-go="reader" id="navReader" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg><span id="navReaderLbl">Ouvindo agora</span></button>
       <button class="navb" id="sxTutBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6M12 17.2h.01"/></svg><span>Como usar</span></button>
     </nav>
-    <div><h2>Pastas</h2><div class="folders" id="folders"></div></div>
+    <div><h2>Pastas</h2><button class="fbtn sxfold" id="sxFold" title="Pastas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Pastas</span><em class="sxfn" id="sxFoldN"></em></button><div class="folders" id="folders"></div></div>
   </div>
   <div class="sidebot"><button class="sxpin" id="sxPin" title="Recolher o menu" aria-label="Recolher o menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/><path d="M20 18l-6-6 6-6" opacity=".45"/></svg><span>Recolher menu</span></button></div>
 </aside>
@@ -3947,6 +3955,9 @@ document.addEventListener('click', e => { if (e.target.closest('[data-sxtut]')) 
 const sxClose0 = closeModal;
 closeModal = function () { if ($('#mbox').classList.contains('sxtut')) SX.ls('sx.tut1', '1'); $('#mbox').classList.remove('sxtut'); return sxClose0.apply(this, arguments); };
 setTimeout(() => { if (SX.ls('sx.tut1') !== '1' && $('#modal').hidden) sxTut(0); }, 1400);
+$('#sxFold').onclick = () => sideOpen(true);
+const sxRF0 = renderFolders;
+renderFolders = function () { const r = sxRF0.apply(this, arguments); const n = (LIB.folders || []).length; const e = $('#sxFoldN'); if (e) { e.textContent = n; e.hidden = !n; } const f = $('#sxFold'); if (f) f.title = n ? 'Pastas (' + n + ')' : 'Pastas'; return r; };
 
 (async () => {
   for (const id of ['#setPanel', '#speedPanel', '#colorPanel']) document.body.appendChild($(id));
