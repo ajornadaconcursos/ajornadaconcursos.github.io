@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611041447"></script>
+<script src="/claude-shim.js?v=202611050644"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1706,6 +1706,19 @@ h1,h2,h3,h4,.card-h h2,.hello h1{text-wrap:balance;letter-spacing:normal}
 .mm-esq{max-height:min(70vh,760px);overflow-y:auto;scrollbar-width:thin;padding:4px 2px}
 .mm-esq h1{font-size:20px;margin:0 0 8px}.mm-esq h2{font-size:16px;margin:14px 0 6px;color:var(--lime-txt)}
 
+.dis .card-h h2{display:flex;gap:8px;align-items:center}.dis .card-h h2 svg{width:18px;height:18px}
+.dis-l,.dis-g ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}.dis-g{display:grid;gap:6px}.dis-g>b{font-size:13.5px;color:var(--lime-txt)}
+.dis-i{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;border:1px solid var(--line);background:var(--sunk);border-radius:10px;padding:8px 11px;line-height:1.5}
+.dis-i .lnk{white-space:nowrap;font-weight:700}.dis-i small{display:block;color:var(--mute);font-size:12.5px;margin-top:2px}
+.lz-a.lz-hl{outline:3px solid var(--lime);outline-offset:2px;transition:outline .3s}
+.box.cs.duvm{width:min(860px,100%);max-width:860px;max-height:calc(100dvh - 40px);overflow-y:auto;scrollbar-width:none}.duvm::-webkit-scrollbar{display:none}
+.duv-a{border:1px solid var(--line);border-left:5px solid var(--lime);background:var(--sunk);border-radius:12px;padding:12px 14px}
+.duv-a .rsout h2{font-size:15.5px;margin:12px 0 4px;color:var(--lime-txt)}.duv-a .rsout h2:first-child{margin-top:0}
+.duv-src{display:grid;gap:2px;font-size:12.5px;color:var(--mute);border-top:1px solid var(--line);padding-top:10px}.duv-src b{color:var(--fg2)}
+.duv-h summary{cursor:pointer;font-size:13.5px;color:var(--lime-txt)}.duv-h details{margin:8px 0 0 10px}.duv-h details summary{color:var(--fg)}
+.duvm .vh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.duvm .vh h3{margin:0}
+.duv-b{white-space:nowrap}@media (max-width:620px){.duv-b span{display:none}}
+
 /* ---------- padrão de erros ---------- */
 .qzw{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:0 14px 14px}
 .qzw b{font-size:13px;margin-right:4px}
@@ -2932,6 +2945,12 @@ function pdMapModal(){const p=pdf(UI.pdMap);if(!p){$("layer3").innerHTML="";retu
     <div class="row" style="justify-content:flex-end;gap:8px">${p.cuts&&p.cuts.length?`<button class="btn" data-a="pdAuto">Voltar ao automático</button>`:""}<button class="btn pri" data-a="pdMapClose">Pronto</button></div></div></div>`}
 function pdCutSet(k,x){const p=pdf(UI.pdMap);if(!stOk(p))return;const L=stPlan(p,null);const cuts=L.slice(0,k).map(o=>o.b);cuts.push(+x);p.cuts=cuts;PLC.clear();touch("pdf-"+p.id);
   alignKey="";simCache.key="";{const r1=curMeta(),md1=r1&&metaDoc(r1.n);if(md1&&md1.std)md1.std=0}pdMapModal();render();toast("Divisão ajustada. As próximas atividades desta aula seguem o novo corte")}
+document.addEventListener("change",async e=>{const i=e.target;if(!i||!i.dataset||i.dataset.c!=="lzPdfUp")return;const f=i.files&&i.files[0];i.value="";if(!f)return;
+  try{UI.lzUp="Lendo o PDF…";render();const r=await edPdfText(await f.arrayBuffer(),(p,n)=>{UI.lzUp="Lendo a página "+p+" de "+n+"…";try{const b=document.querySelector('[data-c="lzPdfUp"]'),tn=b&&[...b.parentNode.childNodes].find(n=>n.nodeType===3&&n.textContent.trim());if(tn)tn.textContent=" "+UI.lzUp}catch(e){}});
+    const P=leiParse(r.txt);UI.lzUp="";if(P.arts.length<3){render();toast(r.txt.replace(/\s/g,"").length<200?"Este PDF parece ser só imagem. Envie um PDF com texto.":"Não achei os artigos neste PDF (procuro por “Art. 1º”, “Art. 2º”…).");return}
+    const id=uid(),nome=(P.intro.match(/(RESOLU[ÇC][ÃA]O|PORTARIA|REGIMENTO|INSTRU[ÇC][ÃA]O NORMATIVA|PROVIMENTO|DECRETO|LEI)[^.]{0,90}/i)||[f.name.replace(/\.pdf$/i,"")])[0].replace(/\s+/g," ").trim().slice(0,90);
+    D["lei-"+id]={id,nome,url:"",pdf:1,sid:($("lzSid")||{}).value||"",at:Date.now(),intro:P.intro,arts:P.arts,biz:{},fetched:today()};touch("lei-"+id);UI.lei=id;render();
+    toast(P.arts.length+" artigos lidos do PDF"+(SAMPLE?". A IA começou a bizurar.":""));if(SAMPLE)leiBizurar(id)}catch(err){UI.lzUp="";render();toast("Não consegui ler este PDF")}});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="pdCut")pdCutSet(+el.dataset.i,el.value)});
 document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset||(el.dataset.c!=="qfAs"&&el.dataset.c!=="qfBn"))return;const f=UI[el.dataset.k];if(!f)return;f[el.dataset.c==="qfAs"?"as":"bn"]=el.value;UI[el.dataset.pk]=0;UI.qzKeep=null;rerenderQz()});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="corte"){core().corte=clamp(+el.value||0,0,100);touch("core");render()}});
@@ -5003,7 +5022,7 @@ const TUT=[
 ];
 const TUT_MIN_STEP=3400;
 let TUTP={i:0,s:0,play:1,t:0};
-const TUT_FAQ=[["Dá para juntar os meus esquemas num esquema novo?", "Dá. Em Estudar › Mapas mentais, envie os esquemas em PDF ou imagem e toque em “Gerar esquema”. A IA junta os seus resumos e esquemas num quadro de revisão novo, só com o que está no seu material, e você baixa em PDF. Os esquemas também entram no resumo direcionado da aula."], ["As questões da lei seca são de provas reais?", "Tem dos dois tipos, e cada questão diz de onde veio. “Já caiu” são questões que você mesmo trouxe (listas dos PDFs e TEC colado nos resumos) e que citam o artigo. As outras são escritas pela IA no estilo da sua banca, só com o texto do artigo. Achou uma com problema? Toque em “Questão com problema” e ela some."], ["Posso mudar de curso depois?", "Pode. Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, troque o curso de qualquer matéria ou vincule um curso completo. As metas se ajustam."], ["Não tenho curso. Consigo estudar?", "Consegue. Escolha Pelo edital: as metas seguem os tópicos do edital, priorizados pelo peso de cada matéria na prova."], ["O edital ainda não saiu. E agora?", "Comece pelo último edital ou por um pré-edital. A contagem fica em ∞ até a data sair, e o que você estudou continua contando."], ["Atrasei a meta. Perdi o plano?", "Não. Em Hoje, toque em Recalcular plano: a Jornada refaz as próximas metas para caber até a prova."], ["Quando o dia conta na jornada da semana?", "Com pelo menos 60 minutos de estudo no dia. Dia de folga na sua rotina não quebra a sequência. Toque em 🎨 no card para trocar a paisagem."], ["Meus dados ficam salvos se eu trocar de aparelho?", "Ficam. Tudo é salvo na sua conta: entre com o mesmo e-mail no celular, no tablet ou no computador."], ["Preciso enviar o PDF de todas as aulas?", "Não. É opcional. Com o PDF, a aula ganha leitura com marca-texto, resumo e as questões daquele trecho."], ["A IA acabou por hoje. O que faço?", "Continue estudando normalmente: só os recursos de IA esperam. O limite (80 por dia na assinatura, 60 no teste) zera no dia seguinte."], ["Dá para estudar para dois concursos?", "Dá. Adicione o segundo em Meu plano › Concurso › Trocar de concurso. A compatibilidade mostra o quanto o estudo se aproveita."], ["Posso guardar provas que já fiz?", "Pode, quantas quiser, em Revisar › Minhas provas. A Jornada corrige, resume os erros e manda as erradas para a revisão."], ["O que acontece quando o teste grátis acaba?", "Escolha um plano em Meu plano › Assinatura para continuar. Seus dados ficam guardados."], ["Errei muito numa matéria. Como recupero?", "Faça as Erradas marcando o motivo do erro, siga a Trilha da Jornada todo dia e pergunte à Jornada o que focar."]];
+const TUT_FAQ=[["Posso tirar dúvida com um professor?", "Pode. Na janela de cada tarefa e na aba Resumos tem o botão “Tirar dúvida com o professor”. A resposta é técnica, no nível do seu cargo, e usa o seu material, a lei oficial (se você baixou na Jornada na Lei Seca) e a jurisprudência que está no seu material, sempre dizendo de onde veio. São 10 dúvidas por dia."], ["O que é “Dissecar a lei”?", "Na Jornada na Lei Seca, a IA separa todos os prazos, as competências de cada órgão e as sanções da lei, cada item com o artigo e o trecho que prova. Depois, “Questões destes pontos” monta uma bateria só com eles. Também dá para enviar o PDF de uma resolução ou regimento que não está no Planalto."], ["Dá para juntar os meus esquemas num esquema novo?", "Dá. Em Estudar › Mapas mentais, envie os esquemas em PDF ou imagem e toque em “Gerar esquema”. A IA junta os seus resumos e esquemas num quadro de revisão novo, só com o que está no seu material, e você baixa em PDF. Os esquemas também entram no resumo direcionado da aula."], ["As questões da lei seca são de provas reais?", "Tem dos dois tipos, e cada questão diz de onde veio. “Já caiu” são questões que você mesmo trouxe (listas dos PDFs e TEC colado nos resumos) e que citam o artigo. As outras são escritas pela IA no estilo da sua banca, só com o texto do artigo. Achou uma com problema? Toque em “Questão com problema” e ela some."], ["Posso mudar de curso depois?", "Pode. Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, troque o curso de qualquer matéria ou vincule um curso completo. As metas se ajustam."], ["Não tenho curso. Consigo estudar?", "Consegue. Escolha Pelo edital: as metas seguem os tópicos do edital, priorizados pelo peso de cada matéria na prova."], ["O edital ainda não saiu. E agora?", "Comece pelo último edital ou por um pré-edital. A contagem fica em ∞ até a data sair, e o que você estudou continua contando."], ["Atrasei a meta. Perdi o plano?", "Não. Em Hoje, toque em Recalcular plano: a Jornada refaz as próximas metas para caber até a prova."], ["Quando o dia conta na jornada da semana?", "Com pelo menos 60 minutos de estudo no dia. Dia de folga na sua rotina não quebra a sequência. Toque em 🎨 no card para trocar a paisagem."], ["Meus dados ficam salvos se eu trocar de aparelho?", "Ficam. Tudo é salvo na sua conta: entre com o mesmo e-mail no celular, no tablet ou no computador."], ["Preciso enviar o PDF de todas as aulas?", "Não. É opcional. Com o PDF, a aula ganha leitura com marca-texto, resumo e as questões daquele trecho."], ["A IA acabou por hoje. O que faço?", "Continue estudando normalmente: só os recursos de IA esperam. O limite (80 por dia na assinatura, 60 no teste) zera no dia seguinte."], ["Dá para estudar para dois concursos?", "Dá. Adicione o segundo em Meu plano › Concurso › Trocar de concurso. A compatibilidade mostra o quanto o estudo se aproveita."], ["Posso guardar provas que já fiz?", "Pode, quantas quiser, em Revisar › Minhas provas. A Jornada corrige, resume os erros e manda as erradas para a revisão."], ["O que acontece quando o teste grátis acaba?", "Escolha um plano em Meu plano › Assinatura para continuar. Seus dados ficam guardados."], ["Errei muito numa matéria. Como recupero?", "Faça as Erradas marcando o motivo do erro, siga a Trilha da Jornada todo dia e pergunte à Jornada o que focar."]];
 function vTutorial(){const id=UI.tut||TUT[0].id,ch=TUT.find(x=>x.id===id)||TUT[0];
   return`<div class="hello"><h1>Tutorial</h1><p>Cada função da Jornada em uma animação curta, com o passo a passo e dicas para você usar a plataforma do jeito que mais aproxima a aprovação. Escolha um tema ou siga na ordem.</p></div>
   <div class="tu-wrap"><nav class="tu-menu" aria-label="Temas do tutorial">${TUT.map((x,i)=>`<button data-a="tutGo" data-id="${x.id}" aria-current="${x.id===ch.id}">${ic(x.ic)}<span><small>${i+1}</small>${esc(x.t)}</span></button>`).join("")}</nav>
@@ -5278,7 +5297,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261104144757";
+const JX_BUILD="20261105064422";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5363,8 +5382,9 @@ function vLeiseca(){const L=LEIS(),cur=UI.lei&&D["lei-"+UI.lei]?D["lei-"+UI.lei]
     return hello+`<section class="card"><div class="card-h"><h2>Adicionar uma lei</h2></div><div class="card-b" style="display:grid;gap:10px">
      <div class="row" style="gap:8px;flex-wrap:wrap"><select class="inp" id="lzCat" style="flex:1 1 280px"><option value="">Escolha uma lei da lista…</option>${opts}</select><button class="btn pri" data-a="lzCat">${ic("dl")} Baixar e bizurar</button></div>
      <div class="row" style="gap:8px;flex-wrap:wrap"><input class="inp" id="lzQ" style="flex:1 1 280px" placeholder="Ou escreva qual lei: ex. Lei 8.137/1990, crimes contra a ordem tributária"><button class="btn" data-a="lzFind">${ic("bulb")} Procurar no Planalto</button></div>
+     <div class="row" style="gap:8px;flex-wrap:wrap;align-items:center"><label class="btn" style="cursor:pointer">${ic("materiais")} ${UI.lzUp?esc(UI.lzUp):"Enviar o PDF de uma norma"}<input type="file" accept="application/pdf,.pdf" data-c="lzPdfUp" hidden></label><span class="muted small" style="flex:1 1 240px">Para resolução, regimento, portaria ou norma que não está no Planalto. O PDF precisa ter texto (não pode ser só imagem).</span></div>
      <div class="field"><label for="lzSid">Matéria ligada (para achar os artigos que caíram nas suas questões)</label><select class="inp" id="lzSid"><option value="">Nenhuma</option>${ED.map(s=>`<option value="${s.id}">${esc(s.n)}</option>`).join("")}</select></div>
-     <p class="muted small" style="margin:0">Só aceitamos o texto do planalto.gov.br. Uma lei média (como o CTN) leva de 2 a 4 minutos para ser bizurada, cerca de US$ 0,40; a Constituição inteira custa perto de US$ 2,50.</p></div></section>
+     <p class="muted small" style="margin:0">Pela busca, só aceitamos o texto do planalto.gov.br. Uma lei média (como o CTN) leva de 2 a 4 minutos para ser bizurada, cerca de US$ 0,40; a Constituição inteira custa perto de US$ 2,50.</p></div></section>
      ${L.length?`<section class="card"><div class="card-h"><h2>Suas leis</h2></div><div class="card-b lz-list">${L.map(x=>{const n=x.arts.length,b=Object.keys(x.biz||{}).length,busy=LEI_BUSY.has(x.id);return`<button class="lz-it" data-a="lzOpen" data-id="${x.id}"><b>${esc(x.nome)}</b><small>${n} artigos · ${x.done?"bizurada":busy?"bizurando "+(x.cur||0)+" de "+(x.tot||"?"):b?"bizurada em parte ("+Math.round(b/n*100)+"%)":"sem bizus ainda"}${x.sid&&SUB(x.sid)?" · "+esc(SUB(x.sid).n):""}</small></button>`}).join("")}</div></section>`:""}`}
   const caiu=leiCaiu(cur),f=UI.lzF||"biz",q=norm(UI.lzQ||""),B=cur.biz||{},busy=LEI_BUSY.has(cur.id);
   let A=cur.arts.filter(a=>{const b=B[a.i];if(f==="biz"&&!(b&&b.v>=1))return false;if(f==="alta"&&!(b&&b.v>=3))return false;if(f==="caiu"&&!caiu[a.n.split("-")[0].replace(/\./g,"")])return false;
@@ -5375,12 +5395,12 @@ function vLeiseca(){const L=LEIS(),cur=UI.lei&&D["lei-"+UI.lei]?D["lei-"+UI.lei]
     return hd+`<article class="lz-a v${b.v||0}" id="lz${a.i}"><div class="lz-ah"><b>Art. ${esc(a.n)}</b>${b.v>=1?`<span class="lz-st v${b.v}" title="Incidência em prova">${"★".repeat(b.v)}<s>${"★".repeat(3-b.v)}</s> ${["","cai pouco","cai às vezes","cai muito"][b.v]}</span>`:""}${c?`<span class="chip warn">caiu em ${c} quest${c>1?"ões":"ão"} suas</span>`:""}</div>
      <div class="lz-t">${leiFmt(a.t,b.g)}</div>${b.b?`<div class="lz-b"><span>${ic("bulb")}</span><p><b>Bizu:</b> ${esc(b.b)}</p></div>`:""}
      <div class="lz-q">${SAMPLE?`<button class="btn sm" data-a="lqArt" data-i="${a.i}">🎯 Treinar este artigo</button>`:""}${(RQ[lqArtN(a)]||[]).length?`<button class="btn sm ghost" data-a="lqJa" data-i="${a.i}">📌 Já caiu (${RQ[lqArtN(a)].length})</button>`:""}${(()=>{const s=QS[a.i];if(!s)return"";return lqDom(cur,a.i)?`<span class="chip ok">✓ dominado</span>`:`<span class="muted small">${s.ok} de ${s.ok+s.er} certas</span>`})()}</div></article>`};
-  return hello+`<section class="card lz-top"><div class="card-h"><button class="btn sm ghost" data-a="lzBack">← Leis</button><h2>${esc(cur.nome)}</h2><span class="r row" style="gap:6px"><a class="btn sm ghost" href="${esc(cur.url)}" target="_blank" rel="noopener">${ic("ext")} Planalto</a><button class="btn sm pri" data-a="lqBat">🎯 Bateria da lei</button><button class="btn sm" data-a="lzPdf">${ic("dl")} PDF</button><button class="btn sm ghost" data-a="lzDel">${ic("trash")}</button></span></div>
+  return hello+`<section class="card lz-top"><div class="card-h"><button class="btn sm ghost" data-a="lzBack">← Leis</button><h2>${esc(cur.nome)}</h2><span class="r row" style="gap:6px">${cur.url?`<a class="btn sm ghost" href="${esc(cur.url)}" target="_blank" rel="noopener">${ic("ext")} Planalto</a>`:""}<button class="btn sm" data-a="lzDis" aria-pressed="${!!UI.lzDis}">🔎 Dissecar a lei</button><button class="btn sm pri" data-a="lqBat">🎯 Bateria da lei</button><button class="btn sm" data-a="lzPdf">${ic("dl")} PDF</button><button class="btn sm ghost" data-a="lzDel">${ic("trash")}</button></span></div>
    <div class="card-b" style="display:grid;gap:10px">${!cur.done?`<div class="edprev small row" style="gap:10px;align-items:center"><span style="flex:1 1 260px">${busy?`<span class="spin"></span> Bizurando: parte ${cur.cur||0} de ${cur.tot||"?"}. Pode continuar usando a plataforma.`:`Bizus em ${Math.round(Object.keys(B).length/cur.arts.length*100)}% dos artigos.`}</span>${busy||!SAMPLE?"":`<button class="btn sm pri" data-a="lzGo">${ic("bulb")} ${Object.keys(B).length?"Continuar":"Bizurar com a IA"}</button>`}</div>`:""}
     <div class="row" style="gap:8px;flex-wrap:wrap"><div class="tabs2" role="group" aria-label="Mostrar">${[["biz","Bizurados ("+nb+")"],["alta","Cai muito ("+na+")"],["caiu","Caiu nas suas questões ("+nc+")"],["all","Lei inteira ("+cur.arts.length+")"]].map(([k,l])=>`<button data-a="lzF" data-v="${k}" aria-pressed="${f===k}">${l}</button>`).join("")}</div>
      <input class="inp" id="lzS" style="flex:1 1 200px" value="${esc(UI.lzQ||"")}" placeholder="Buscar: número do artigo (ex. 175) ou palavra" data-c="lzS"></div>
-    <span class="muted small">Texto do Planalto baixado em ${dmy(cur.fetched||today())}. Os trechos revogados ficam de fora.${nq?` · ${nq} questões suas citam esta lei`:""}${ndom?` · ${ndom} artigos dominados`:""}</span></div></section>
-   <div class="lz-wrap">${A.length?A.map(card).join(""):`<p class="muted">${f==="biz"&&!nb?(busy?"Os bizus estão sendo feitos. Os primeiros aparecem em instantes.":"Ainda sem bizus. Toque em “Bizurar com a IA”."):"Nenhum artigo com esse filtro."}</p>`}
+    <span class="muted small">${cur.pdf?"Texto do PDF enviado em "+dmy(cur.fetched||today())+".":"Texto do Planalto baixado em "+dmy(cur.fetched||today())+". Os trechos revogados ficam de fora."}${nq?` · ${nq} questões suas citam esta lei`:""}${ndom?` · ${ndom} artigos dominados`:""}</span></div></section>
+   ${lzDisHTML(cur)}<div class="lz-wrap">${A.length?A.map(card).join(""):`<p class="muted">${f==="biz"&&!nb?(busy?"Os bizus estão sendo feitos. Os primeiros aparecem em instantes.":"Ainda sem bizus. Toque em “Bizurar com a IA”."):"Nenhum artigo com esse filtro."}</p>`}
    ${tot>lim?`<div class="row" style="justify-content:center"><button class="btn" data-a="lzMore">Mostrar mais (${tot-lim} artigos)</button></div>`:""}</div>`}
 async function leiPdf(L,only){const B=L.biz||{},out=[];let lh="";
   L.arts.forEach(a=>{const b=B[a.i]||{};if(only&&!(b.v>=1))return;if(a.h&&a.h!==lh){out.push("## "+a.h);lh=a.h}
@@ -5403,13 +5423,13 @@ function lqReal(L){const ns=new Set(L.arts.map(lqArtN)),by={},subs=new Set([L.si
     (R.tecQs||[]).forEach((q,x)=>{const t=(q.cob||"")+" "+(q.pq||"");if(t.trim())hit(t,{src:"tec",id:"t:"+k+":"+x,s:String(q.pq||q.cob||"").slice(0,900),j:String(q.cob||"").slice(0,700),from:"TEC"})});
     (R.tq||[]).forEach((q,x)=>{const t=(q.q||"")+" "+(q.com||"");if(t.trim())hit(t,{src:"tec",id:"q:"+k+":"+x,s:String(q.q||"").slice(0,900),j:String(q.com||"").slice(0,700),from:"TEC"})})});
   return by}
-async function lqGen(L,arts,per,kind){const Q=lqDoc(L.id),B=L.biz||{},ce=kind==="ce"||(kind!=="me"&&lqCE()),ex=[];
+async function lqGen(L,arts,per,kind,hint){const Q=lqDoc(L.id),B=L.biz||{},ce=kind==="ce"||(kind!=="me"&&lqCE()),ex=[];
   try{PDFS().some(p=>{const Z=qzDoc(p.id);if(!Z)return false;Z.L.slice(0,40).forEach(q=>{if(ex.length<2&&q.s&&q.o&&!!q.ce===ce)ex.push(q.s.slice(0,300)+(q.o?"\n"+q.o.map(o=>o[0]+") "+String(o[1]).slice(0,80)).join("\n"):""))});return ex.length>=2})}catch(e){}
   const out=[],why=[];const step=Math.max(1,Math.min(6,Math.floor(18/Math.max(1,per))));for(let i=0;i<arts.length;i+=step){const G=arts.slice(i,i+step);
     const mat=G.map(a=>{const b=B[a.i]||{};return`[${a.i}] Art. ${a.n}. ${leiAnn(a.t).slice(0,2400)}${(b.g||[]).length?"\nTrechos que a banca troca: "+b.g.map(x=>"«"+x+"»").join("; "):""}`}).join("\n\n");
     const prompt=`Você é elaborador de provas da banca ${dsBanca()||"do concurso"} e escreve questões de LEI SECA de "${L.nome}" para ${dsCargo()}.
 Para cada artigo abaixo, escreva ${per} quest${per>1?"ões":"ão"} ${ce?"de CERTO ou ERRADO (metade certas, metade erradas)":"de múltipla escolha com 5 alternativas (A a E), uma só correta"}.
-Regras: use SOMENTE o texto do artigo; as erradas devem ter pegadinha sutil, como a banca faz (troca de prazo, de "salvo" por "inclusive", de quem pode, de "vedado" por "permitido", de "e" por "ou"), nunca absurdos. Não cite número de lei ou artigo que não esteja no texto. Linguagem de prova, sem dar a resposta no enunciado.
+${hint?hint+"\n":""}Regras: use SOMENTE o texto do artigo; as erradas devem ter pegadinha sutil, como a banca faz (troca de prazo, de "salvo" por "inclusive", de quem pode, de "vedado" por "permitido", de "e" por "ou"), nunca absurdos. Não cite número de lei ou artigo que não esteja no texto. Linguagem de prova, sem dar a resposta no enunciado.
 Para cada questão: "i" (o número entre colchetes do artigo), "s" (enunciado${ce?", a afirmação a julgar":""}), ${ce?"":'"o" ({"A":"...","B":"...","C":"...","D":"...","E":"..."}), '}"k" (${ce?'"C" ou "E"':"a letra correta"}), "j" (justificativa curta, até 40 palavras) e "tr" (o trecho do artigo que resolve a questão, copiado EXATAMENTE do texto, até 200 caracteres).
 ${ex.length?"Estilo das questões que o aluno já resolveu desta matéria:\n"+ex.join("\n---\n")+"\n":""}Responda só com um array JSON.
 <artigos>
@@ -5443,7 +5463,7 @@ function lqFx(id){const [lid,qid]=String(id).split(":"),Q=D["lq-"+lid];if(!Q)ret
 function lqModal(){const X=UI.lq;if(!X){$("layer3").innerHTML="";return}const L=D["lei-"+X.lid];if(!L){UI.lq=null;$("layer3").innerHTML="";return}let body="";
   if(X.step==="cfg"){const ce=lqCE();body=`<p class="cs-k">Jornada na Lei Seca</p><h3>Bateria da lei</h3><p class="muted">${esc(L.nome)}. Escolha como quer treinar:</p>
     <div class="lq-cfg"><div><b>Quantas questões</b><div class="lq-ch" role="group">${[5,10,15,20].map(n=>`<button data-a="lqSet" data-k="n" data-v="${n}" aria-pressed="${X.n===n}">${n}</button>`).join("")}</div></div>
-     <div><b>Quais artigos</b><div class="lq-ch" role="group">${[["alta","Os que mais caem"],["caiu","Os que já caíram nas suas questões"],["erro","Os que você errou"],["todos","Todos os bizurados"]].map(([k,l])=>`<button data-a="lqSet" data-k="foco" data-v="${k}" aria-pressed="${X.foco===k}">${l}</button>`).join("")}</div></div>
+     <div><b>Quais artigos</b><div class="lq-ch" role="group">${[["alta","Os que mais caem"],["caiu","Os que já caíram nas suas questões"],["erro","Os que você errou"],["todos","Todos os bizurados"],...(((lqDoc(L.id).dis||{}).items||[]).length?[["dis","Prazos, competências e sanções"]]:[])].map(([k,l])=>`<button data-a="lqSet" data-k="foco" data-v="${k}" aria-pressed="${X.foco===k}">${l}</button>`).join("")}</div></div>
      <div><b>Tipo de questão</b><div class="lq-ch" role="group">${[["auto","Como a sua banca ("+(ce?"Certo ou Errado":"múltipla escolha")+")"],["ce","Certo ou Errado"],["me","Múltipla escolha"]].map(([k,l])=>`<button data-a="lqSet" data-k="kind" data-v="${k}" aria-pressed="${X.kind===k}">${l}</button>`).join("")}</div></div>
      <div><b>De onde vêm</b><div class="lq-ch" role="group">${[["mix","As que já caíram + novas da IA"],["ia","Só novas da IA"],["real","Só as que já caíram"]].map(([k,l])=>`<button data-a="lqSet" data-k="fonte" data-v="${k}" aria-pressed="${X.fonte===k}">${l}</button>`).join("")}</div></div></div>
     ${X.err?`<p class="pwarn small" style="margin:0">${esc(X.err)}</p>`:""}${X.busy?`<div class="npe busy"><b>${ic("bulb")} ${esc(X.busy)}</b><div class="npe-bar"><i style="width:60%"></i></div></div>`:""}
@@ -5474,7 +5494,7 @@ function lqModal(){const X=UI.lq;if(!X){$("layer3").innerHTML="";return}const L=
 async function lqStart(){const X=UI.lq,L=D["lei-"+X.lid];if(!L)return;const B=L.biz||{},Q=lqDoc(L.id),R=lqReal(L),caiuN=new Set(Object.keys(R));
   let arts;if(X.art!=null)arts=L.arts.filter(a=>a.i===X.art);
   else{const all=L.arts.filter(a=>(B[a.i]||{}).v>=1||caiuN.has(lqArtN(a)));
-    arts=X.foco==="alta"?all.filter(a=>(B[a.i]||{}).v>=3||caiuN.has(lqArtN(a))):X.foco==="caiu"?all.filter(a=>caiuN.has(lqArtN(a))):X.foco==="erro"?L.arts.filter(a=>(Q.st[a.i]||{}).er>0):all;
+    arts=X.foco==="dis"?(()=>{const ds=new Set(((Q.dis||{}).items||[]).map(z=>z.i));return L.arts.filter(a=>ds.has(a.i))})():X.foco==="alta"?all.filter(a=>(B[a.i]||{}).v>=3||caiuN.has(lqArtN(a))):X.foco==="caiu"?all.filter(a=>caiuN.has(lqArtN(a))):X.foco==="erro"?L.arts.filter(a=>(Q.st[a.i]||{}).er>0):all;
     if(!arts.length)arts=all.length?all:L.arts.slice(0,30);
     arts=arts.slice().sort((a,b)=>((B[b.i]||{}).v||0)-((B[a.i]||{}).v||0)+(caiuN.has(lqArtN(b))?1:0)-(caiuN.has(lqArtN(a))?1:0)+(Math.random()-.5)*.8)}
   const n=X.art!=null?3:X.n,ce=X.kind==="ce"||(X.kind!=="me"&&lqCE());let real=[],ia=[];
@@ -5483,9 +5503,121 @@ async function lqStart(){const X=UI.lq,L=D["lei-"+X.lid];if(!L)return;const B=L.
       ia=have.sort((a,b)=>(sn[a.id]?1:0)-(sn[b.id]?1:0)+(Math.random()-.5)*.5).slice(0,need);
       if(ia.length<need){if(!SAMPLE){X.err="A IA não está disponível agora. Use “Só as que já caíram” ou tente mais tarde.";X.busy="";lqModal();return}
         const miss=need-ia.length,pick=arts.slice(0,Math.min(12,Math.max(1,Math.ceil(miss/2)))),per=X.art!=null?3:Math.min(5,Math.max(1,Math.ceil(miss/pick.length)));X.busy="A IA está preparando as questões no estilo da banca…";X.err="";lqModal();
-        try{const nw=await lqGen(L,pick,per,ce?"ce":"me");if(UI.lq!==X)return;ia=ia.concat(nw.filter(q=>!ia.includes(q))).slice(0,need)}catch(e){if(UI.lq!==X)return;X.busy="";X.err=e&&e.code==="rate_limited"?"A IA está ocupada ou o limite de hoje acabou. Tente mais tarde.":e&&e.code==="not_granted"?"A IA não está liberada na sua conta agora.":"A IA não conseguiu montar as questões desta vez ("+String((e&&e.message)||"erro").slice(0,60)+"). Toque em Começar de novo.";if(X.step!=="cfg")X.step="cfg";lqModal();return}}}}
+        try{const nw=await lqGen(L,pick,per,ce?"ce":"me",X.foco==="dis"?"Foque nos pontos que a banca mais cobra em lei seca: os prazos, as competências de cada órgão e as sanções com os seus critérios.":"");if(UI.lq!==X)return;ia=ia.concat(nw.filter(q=>!ia.includes(q))).slice(0,need)}catch(e){if(UI.lq!==X)return;X.busy="";X.err=e&&e.code==="rate_limited"?"A IA está ocupada ou o limite de hoje acabou. Tente mais tarde.":e&&e.code==="not_granted"?"A IA não está liberada na sua conta agora.":"A IA não conseguiu montar as questões desta vez ("+String((e&&e.message)||"erro").slice(0,60)+"). Toque em Começar de novo.";if(X.step!=="cfg")X.step="cfg";lqModal();return}}}}
   const qs=real.concat(ia).sort(()=>Math.random()-.5);X.busy="";if(!qs.length){X.err=X.fonte==="real"?"Ainda não há questões suas que citem estes artigos. Escolha “Só novas da IA”.":"Não consegui montar questões agora.";X.step="cfg";lqModal();return}
   Object.assign(X,{step:"run",qs,k:0,ans:{}});lqModal()}
+
+/* ================= C) Dissecar a lei: prazos, competências e sanções, conferidos no texto ================= */
+const DIS_K=[["prazo","Prazos","clock"],["comp","Competências","target"],["sanc","Sanções","close"]];
+async function lzDissecar(id){const L=D["lei-"+id];if(!L||!SAMPLE||LEI_BUSY.has("d"+id))return;LEI_BUSY.add("d"+id);const Q=lqDoc(id);
+  Q.dis=Q.dis&&Q.dis.v===1&&!Q.dis.done?Q.dis:{v:1,items:[],seen:[],cur:0,tot:0,done:false};const seen=new Set(Q.dis.seen);render();
+  try{const todo=L.arts.filter(a=>!seen.has(a.i)),groups=[];let g=[],len=0;
+    for(const a of todo){const tx=leiAnn(a.t);if(len+tx.length>14000&&g.length){groups.push(g);g=[];len=0}g.push(a);len+=tx.length+30}if(g.length)groups.push(g);
+    Q.dis.tot=Q.dis.cur+groups.length;
+    for(const G of groups){if(!SAMPLE||AI_OFF)break;Q.dis.cur++;if(TAB==="leiseca")render();
+      const mat=G.map(a=>`[${a.i}] Art. ${a.n}. ${leiAnn(a.t)}`).join("\n\n");
+      const prompt=`Você disseca a norma "${L.nome}" para um candidato a ${dsCargo()} (banca ${dsBanca()}).
+Nos artigos abaixo, extraia TODOS os itens destes três tipos:
+- "prazo": todo prazo ou período (dias, meses, anos, "imediatamente", "até o dia", "antes de", "no prazo de").
+- "comp": toda competência ou atribuição de um órgão, cargo ou autoridade ("compete", "cabe", "é competente", "privativamente", "exclusivamente"). Em "o", diga o órgão ou cargo.
+- "sanc": toda sanção ou penalidade (multa, advertência, suspensão, demissão, cassação, pena, perda) com o critério ou a hipótese em que se aplica.
+Para cada item: "k" (prazo, comp ou sanc), "i" (o número entre colchetes do artigo), "o" (órgão ou cargo, só em comp), "d" (o item explicado em até 25 palavras, do jeito que a banca cobra) e "tr" (o trecho do artigo que prova o item, copiado EXATAMENTE do texto, até 220 caracteres).
+Use só o texto dos artigos. Se um artigo não tiver nenhum desses itens, não liste nada dele.
+Responda só com um array JSON.
+<artigos>
+${mat}
+</artigos>`;
+      let arr=null;for(let t=0;t<2&&arr==null;t++){try{arr=await SAMPLE.json(prompt,{modelTier:IA_LEVE,maxTokens:10000})}catch(e){if(e&&e.code==="rate_limited"){await new Promise(r=>setTimeout(r,20000))}else if(t)console.warn("dis",e)}}
+      lqArr(arr).forEach(x=>{if(!x||typeof x!=="object")return;const k=String(x.k||"").toLowerCase().slice(0,4),kk=k.startsWith("pra")?"prazo":k.startsWith("com")?"comp":k.startsWith("san")?"sanc":"";
+        const ii=parseInt(String(x.i??"").replace(/\D/g,""),10),a=G.find(z=>z.i===ii)||(G.length===1?G[0]:null);if(!kk||!a)return;const tx=leiAnn(a.t),tr=String(x.tr||"").trim(),d=String(x.d||"").trim();
+        if(tr.length<6||!tx.includes(tr)||!d)return;if(!gOk(d,tx))return;/* nada de número que não está no artigo */
+        if(Q.dis.items.some(z=>z.i===a.i&&z.tr===tr&&z.k===kk))return;Q.dis.items.push({k:kk,i:a.i,n:a.n,o:kk==="comp"?String(x.o||"").slice(0,80):"",d:d.slice(0,300),tr:tr.slice(0,240)})});
+      G.forEach(a=>Q.dis.seen.push(a.i));Q.dis.upd=Date.now();touch("lq-"+id);await new Promise(r=>setTimeout(r,600))}
+    Q.dis.done=L.arts.every(a=>Q.dis.seen.includes(a.i));touch("lq-"+id);if(Q.dis.done)toast("Lei dissecada: "+Q.dis.items.length+" itens conferidos no texto")}
+  catch(e){toast("A IA parou no meio. Toque em Continuar para seguir de onde parou.")}finally{LEI_BUSY.delete("d"+id);render()}}
+function lzDisHTML(L){const Q=D["lq-"+L.id],X=Q&&Q.dis,busy=LEI_BUSY.has("d"+L.id);if(!UI.lzDis)return"";
+  const tab=UI.lzDisK||"prazo",it=X?X.items.filter(z=>z.k===tab).sort((a,b)=>a.i-b.i):[],cnt=k=>X?X.items.filter(z=>z.k===k).length:0;
+  const by={};if(tab==="comp")it.forEach(z=>{const o=z.o||"Sem órgão definido";(by[o]=by[o]||[]).push(z)});
+  const row=z=>`<li class="dis-i"><button class="lnk" data-a="lzArt" data-i="${z.i}">Art. ${esc(z.n)}</button><span>${esc(z.d)}<small>“${esc(z.tr)}”</small></span></li>`;
+  return`<section class="card dis"><div class="card-h"><h2>${ic("list")} Lei dissecada</h2><span class="r row" style="gap:6px">${X&&X.items.length?`<button class="btn sm pri" data-a="lzDisQ">🎯 Questões destes pontos</button><button class="btn sm" data-a="lzDisPdf">${ic("dl")} PDF</button>`:""}<button class="ibtn" data-a="lzDisX" aria-label="Fechar">${ic("close")}</button></span></div>
+   <div class="card-b" style="display:grid;gap:10px">
+    ${!X||!X.done?`<div class="edprev small row" style="gap:10px;align-items:center"><span style="flex:1 1 260px">${busy?`<span class="spin"></span> Dissecando: parte ${X?X.cur:0} de ${X&&X.tot||"?"}. Pode continuar usando a plataforma.`:X&&X.cur?`Dissecada em parte (${Math.round(X.seen.length/L.arts.length*100)}% dos artigos).`:"A IA lê a lei inteira e separa os prazos, as competências por órgão e as sanções. Cada item só aparece se o trecho existir no texto da lei."}</span>${busy||!SAMPLE?"":`<button class="btn sm pri" data-a="lzDisGo">${ic("bulb")} ${X&&X.cur?"Continuar":"Dissecar agora"}</button>`}</div>`:""}
+    <div class="tabs2" role="group" aria-label="Tipo">${DIS_K.map(([k,l])=>`<button data-a="lzDisK" data-v="${k}" aria-pressed="${tab===k}">${l} (${cnt(k)})</button>`).join("")}</div>
+    ${it.length?tab==="comp"?Object.entries(by).sort((a,b)=>b[1].length-a[1].length).map(([o,L2])=>`<div class="dis-g"><b>${esc(o)}</b><ul>${L2.map(row).join("")}</ul></div>`).join(""):`<ul class="dis-l">${it.map(row).join("")}</ul>`
+      :`<p class="muted small" style="margin:0">${X&&X.done?"Esta lei não tem itens deste tipo.":"Os itens aparecem aqui conforme a IA avança."}</p>`}</div></section>`}
+
+/* ================= B) Tirar dúvida com o professor ================= */
+const DUV_MAX=10,DUV=()=>D.duv||(D.duv={items:[]});
+const JUR_RE=/s[úu]mula|vinculante|\btema\s*(n[º°o.]*\s*)?\d|\bstf\b|\bstj\b|\btst\b|informativo|julgad|jurisprud|\bre\s*\d|\bresp\b|\bare?sp\b|\badi\b|\badpf\b|\bhc\s*\d|repercuss[ãa]o geral|recurso repetitivo|precedente/i;
+const duvWords=q=>[...new Set(norm(q).replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(w=>w.length>=4&&!/^(qual|quais|como|quando|onde|porque|sobre|entre|para|pode|podem|seria|sendo|esse|essa|isso|este|esta|isto|aqui|ainda|tambem|mais|menos|muito|pela|pelo|pelas|pelos|numa|dele|dela|deles|elas|eles|voce|explique|explica|duvida|entendi|entender)$/.test(w)))];
+function duvChunks(txt,src,size){const out=[];const T=String(txt||"").replace(/\r/g,"");const P=T.split(/\n{2,}|\n(?=\s*(?:art\.|§|[IVXLC]{1,5}\s*[-–]|\d+\.\s|•|-\s))/i);let cur="";
+  for(const p of P){if((cur+"\n"+p).length>size&&cur){out.push({t:cur.trim(),src});cur=p}else cur+=(cur?"\n":"")+p}if(cur.trim())out.push({t:cur.trim(),src});
+  return out.flatMap(c=>c.t.length>size*1.6?c.t.match(new RegExp(".{1,"+size+"}(\\s|$)","gs")).map(t=>({t:t.trim(),src})):[c])}
+function duvScore(c,W){const n=norm(c.t);let s=0;W.forEach(w=>{if(n.includes(w))s+=w.length>6?2:1});return s}
+async function duvMaterial(sid,c,q){const W=duvWords(q),S=SUB(sid),parts=[];
+  const aulas=c?[c]:[];const ps=[];aulas.forEach(a=>{(partsOf(sid,a)||[]).forEach(p=>ps.push(p));const p0=pdfOfAula(sid,a);if(p0&&!ps.includes(p0))ps.unshift(p0);(xFor(sid,auOf(sid,a))||[]).forEach(x=>{const xp=pdfOfAula(sid,x.x);if(xp&&!ps.includes(xp))ps.push(xp)})});
+  for(const p of ps.slice(0,4)){if(!p||p.raw||!p.pages)continue;try{const t=await pagesText(p,1,p.pages,90000);const lab=(p.aula?auLabel(p.sid,p.aula):pdfName(p.id));parts.push(...duvChunks(t,lab,900))}catch(e){}}
+  if(c){const R=resDoc(sid,c);if(R&&R.txt)parts.push(...duvChunks(R.txt,"Resumo da "+auLabel(sid,c),900));if(R){(R.tecQs||[]).forEach((x,i)=>parts.push({t:((x.pq||"")+"\n"+(x.cob||"")).trim(),src:"Questão do TEC"}));(R.tq||[]).forEach(x=>parts.push({t:((x.q||"")+"\n"+(x.com||"")).trim(),src:"Questão comentada do TEC"}))}}
+  else{Object.keys(D).filter(k=>k.startsWith("res-"+sid+"-")&&D[k]&&D[k].txt).slice(0,6).forEach(k=>parts.push(...duvChunks(D[k].txt,"Resumo da "+auLabel(sid,D[k].aula),900)))}
+  try{PDFS().filter(p=>p.sid===sid).forEach(p=>{const Z=qzDoc(p.id);if(!Z||(c&&p.aula!==c))return;Z.L.forEach(x=>{if(x.c)parts.push({t:(x.s||"").slice(0,700)+"\nComentário: "+x.c,src:(p.aula?auLabel(p.sid,p.aula):pdfName(p.id))+" · questão "+x.n})})})}catch(e){}
+  const sc=parts.map(p=>({...p,s:duvScore(p,W),j:JUR_RE.test(p.t)})).filter(p=>p.t.length>40);
+  const gen=sc.filter(p=>p.s>0).sort((a,b)=>b.s-a.s).slice(0,10),jur=sc.filter(p=>p.j&&p.s>0).sort((a,b)=>b.s-a.s).slice(0,8);
+  /* lei seca da matéria: artigos citados na pergunta ou que batem com as palavras dela */
+  const leis=LEIS().filter(L=>L.sid===sid),lei=[];const cit=[...String(q).matchAll(/\bart(?:igo|\.)?\s*(\d{1,4})/gi)].map(m=>m[1]);
+  leis.forEach(L=>{const sc2=L.arts.map(a=>({a,s:(cit.includes(lqArtN(a))?20:0)+duvScore({t:leiAnn(a.t)+" "+(a.h||"")},W)})).filter(x=>x.s>1).sort((a,b)=>b.s-a.s).slice(0,5);sc2.forEach(({a})=>lei.push({nome:L.nome,n:a.n,t:leiAnn(a.t).slice(0,2500)}))});
+  return{gen,jur,lei:lei.slice(0,8),W}}
+function duvCheck(ans,srcTxt){let out=ans,cut=0;const S=norm(srcTxt);
+  const has=(kind,num)=>new RegExp(kind+"[^0-9]{0,25}"+num+"(?!\\d)","i").test(S);
+  out=out.split("\n").filter(l=>{const bad=[...l.matchAll(/s[úu]mula(?:\s+vinculante)?\s*(?:n[º°o.]*\s*)?(\d{1,4})/gi)].some(m=>!has("sumula",m[1]))||[...l.matchAll(/\btema\s*(?:n[º°o.]*\s*)?(\d{1,5})/gi)].some(m=>!has("tema",m[1]))
+    ||[...l.matchAll(/\b(RE|REsp|AREsp|ADI|ADPF|HC|RHC|MS)\s*(?:n[º°o.]*\s*)?([\d.]{3,})/g)].some(m=>!new RegExp(m[1]+"[^0-9]{0,10}"+m[2].replace(/\./g,"\\.?"),"i").test(srcTxt));if(bad)cut++;return!bad}).join("\n");
+  /* nas seções de lei e jurisprudência, nada de número que não está nas fontes */
+  const secs=out.split(/(?=^## )/m);out=secs.map(s=>/^## (Na lei|Jurisprud|Como a banca)/i.test(s)?s.split("\n").filter((l,i)=>{if(!i)return true;const ok=gOk(l,srcTxt);if(!ok)cut++;return ok}).join("\n"):s).join("");
+  return{txt:out,cut}}
+function duvToday(){const d=today(),c=core();if(!c.duv||c.duv.d!==d)c.duv={d,n:0};return c.duv}
+function duvModal(){const X=UI.duv;if(!X){$("layer3").innerHTML="";return}const S=SUB(X.sid),H=DUV().items.filter(z=>z.sid===X.sid&&(!X.c||z.c===X.c)).slice(-6).reverse(),left=Math.max(0,DUV_MAX-duvToday().n);
+  const cur=X.ans?`<div class="duv-a">${X.busy?`<p class="muted small" style="margin:0"><span class="spin"></span> ${esc(X.busy)}</p>`:""}<div class="rsout" id="duvOut">${mdLite(X.ans)}</div>${X.cut?`<p class="muted small" style="margin:6px 0 0">${ic("close")} ${X.cut} trecho${X.cut>1?"s":""} com citação que não está no seu material ${X.cut>1?"foram retirados":"foi retirado"}.</p>`:""}</div>`:X.busy?`<p class="muted small" style="margin:0"><span class="spin"></span> ${esc(X.busy)}</p>`:"";
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Tirar dúvida com o professor"><div class="box cs duvm">
+   <div class="vh"><h3>🎓 Tirar dúvida com o professor</h3><button class="ibtn" data-a="duvX" aria-label="Fechar">${ic("close")}</button></div>
+   <span class="muted small">${esc(S.n)}${X.c?" · "+esc(auLabel(X.sid,X.c)):""} · resposta técnica no nível de ${esc(dsCargo())}</span>
+   <textarea class="inp" id="duvQ" rows="3" placeholder="Ex.: Qual a diferença entre prescrição e decadência no CTN? Quando cabe a citação por hora certa?" ${X.busy?"disabled":""}>${esc(X.q||"")}</textarea>
+   <div class="row" style="justify-content:space-between;align-items:center;gap:8px"><span class="muted small">${left} de ${DUV_MAX} dúvidas restantes hoje</span><button class="btn pri" data-a="duvAsk" ${X.busy||!left?"disabled":""}>${ic("bulb")} Perguntar</button></div>
+   ${cur}
+   <div class="duv-src"><b>De onde vem a resposta</b><span>A explicação usa o seu material (PDF da aula, resumos e questões comentadas) e, se você tiver baixado a lei na Jornada na Lei Seca, o texto oficial dela. Jurisprudência só entra se estiver no seu material, com a página de onde veio. Citação que não está nas fontes é retirada.</span></div>
+   ${H.length?`<details class="duv-h"><summary>Dúvidas anteriores (${H.length})</summary>${H.map(z=>`<details><summary>${esc(z.q.slice(0,120))}</summary><div class="rsout">${mdLite(z.a)}</div></details>`).join("")}</details>`:""}
+  </div></div>`}
+async function duvAsk(){const X=UI.duv;if(!X||X.busy)return;const q=(($("duvQ")||{}).value||"").trim();if(q.length<8){toast("Escreva a sua dúvida com um pouco mais de detalhe");return}
+  if(!SAMPLE){toast("A IA não está disponível agora");return}const T=duvToday();if(T.n>=DUV_MAX){toast("Você usou as "+DUV_MAX+" dúvidas de hoje. Amanhã libera de novo.");return}
+  X.q=q;X.ans="";X.cut=0;X.busy="Procurando no seu material…";duvModal();
+  try{const M=await duvMaterial(X.sid,X.c,q);if(UI.duv!==X)return;const S=SUB(X.sid);
+    const mat=M.gen.map((p,i)=>`[M${i+1}] (${p.src})\n${p.t}`).join("\n\n"),jur=M.jur.map((p,i)=>`[J${i+1}] (${p.src})\n${p.t}`).join("\n\n"),lei=M.lei.map(a=>`${a.nome}, Art. ${a.n}. ${a.t}`).join("\n\n");
+    const prompt=`Atue como professor especialista em ${S.n}, preparando um candidato a ${dsCargo()} (banca ${dsBanca()}).
+Dúvida do aluno: "${q}"
+Explique de forma técnica e aprofundada, no nível da prova, sem explicação genérica e sem enrolação. Use os termos técnicos corretos.
+Fontes que você pode usar:
+${lei?"- <lei>: texto oficial da lei (Planalto). Cite o artigo exatamente como está.":"- Não há texto oficial da lei disponível: não transcreva artigos de memória; quando precisar, diga \"confira na lei\"."}
+- <material>: trechos do material do aluno.
+${jur?"- <jurisprudencia>: trechos do material do aluno que citam jurisprudência.":"- O material do aluno não traz jurisprudência sobre este ponto."}
+Regras obrigatórias:
+- Jurisprudência (súmula, tema, julgado, informativo) SÓ se estiver em <jurisprudencia> ou <material>, com o número exatamente como aparece, e diga de onde veio entre parênteses, ex.: "(Aula 03)". Nunca cite jurisprudência de memória.
+- Artigo de lei com texto: só o que estiver em <lei> ou no material.
+- Se as fontes não respondem à dúvida, diga isso com honestidade e explique só o que dá para afirmar.
+Formato (texto simples, "## " para seções, "- " para itens, **negrito** nas palavras-chave):
+## Resposta direta (2 a 4 frases)
+## Explicação técnica
+## Na lei${lei?"":" (se houver no material)"}
+## Jurisprudência do seu material${jur?"":" → escreva apenas: \"O seu material não traz jurisprudência sobre este ponto.\""}
+## Como a banca cobra (pegadinhas e o que decorar)
+${lei?"<lei>\n"+lei.slice(0,14000)+"\n</lei>":""}
+<material>
+${(mat||"(nenhum trecho do material bateu com a dúvida)").slice(0,16000)}
+</material>
+${jur?"<jurisprudencia>\n"+jur.slice(0,10000)+"\n</jurisprudencia>":""}`;
+    X.busy="O professor está escrevendo…";duvModal();
+    const r=await SAMPLE(prompt,{modelTier:"default",onText:({text})=>{if(UI.duv!==X)return;X.ans=text;const o=$("duvOut");if(o)o.innerHTML=mdLite(text);else duvModal()}});
+    if(UI.duv!==X)return;const src=[lei,mat,jur].join("\n\n"),C=duvCheck(resClean(String(r&&r.text||"")),src);
+    X.ans=C.txt.trim()||"Não consegui responder agora.";X.cut=C.cut;X.busy="";T.n++;touch("core");
+    DUV().items.push({id:uid(),sid:X.sid,c:X.c||"",q,a:X.ans,at:Date.now()});if(DUV().items.length>200)DUV().items=DUV().items.slice(-200);touch("duv");duvModal()}
+  catch(e){if(UI.duv!==X)return;X.busy="";X.ans="";toast(e&&e.code==="rate_limited"?"A IA está ocupada ou o limite de hoje acabou. Tente mais tarde.":"Não consegui responder agora. Tente de novo.");duvModal()}}
 
 /* ================= 1) Reforço com diagnóstico ================= */
 /* junta os erros da matéria: assuntos onde mais erra (pelos resumos das aulas) e o motivo que mais aparece */
@@ -7177,7 +7309,7 @@ function renderDrawer0(){
   $("layer").innerHTML=`<div class="av-scrim" data-a="closeT"><section class="av" role="dialog" aria-modal="true" aria-label="Tarefa ${t.k}: ${esc(taskTitle(t))}" data-stop="1">
     <header class="av-h"><div class="crumb"><span class="ph ${t.ph}">${PHN[t.ph]}</span><b>${esc(s.n)}</b><span class="sep"></span><span class="tt" title="${esc(taskTitle(t))}">${esc(readInfo(t).lab||taskTitle(t))}${readInfo(t).d?" · "+esc(readInfo(t).d):""}</span></div>
       <div class="tools"><div class="atimer ${run?"run":""}" title="Tempo de estudo desta atividade">${ic("clock")}<b id="avClock">${hms(tsec.tot)}</b>${canTime?`<button class="ibtn" data-a="avPlay" data-id="${t.id}" aria-label="${run?"Pausar":"Iniciar"} o cronômetro desta atividade">${ic(run?"pause":"play")}</button><button class="ibtn" data-a="avReset" data-id="${t.id}" aria-label="Descartar a sessão atual" ${TM.tid===t.id&&elapsed()>0?"":"disabled"}>${ic("reset")}</button>`:""}</div>
-      <button class="ibtn" data-a="openT" data-id="${prev?prev.id:""}" ${prev?"":"disabled"} aria-label="Atividade anterior">${ic("left")}</button><button class="ibtn" data-a="openT" data-id="${next?next.id:""}" ${next?"":"disabled"} aria-label="Próxima atividade">${ic("right")}</button><button class="ibtn" data-a="closeT" data-x="1" aria-label="Fechar">${ic("close")}</button></div></header>
+      <button class="ibtn" data-a="openT" data-id="${prev?prev.id:""}" ${prev?"":"disabled"} aria-label="Atividade anterior">${ic("left")}</button><button class="ibtn" data-a="openT" data-id="${next?next.id:""}" ${next?"":"disabled"} aria-label="Próxima atividade">${ic("right")}</button>${SAMPLE?`<button class="btn sm duv-b" data-a="duvOpen" data-s="${t.sid}" data-c="${esc(t.aula&&!String(t.aula).startsWith("x:")?t.aula:"")}" title="Tirar dúvida com o professor">🎓<span> Dúvida</span></button>`:""}<button class="ibtn" data-a="closeT" data-x="1" aria-label="Fechar">${ic("close")}</button></div></header>
     ${SIMPLE?"":(()=>{const I=readInfo(t);return I.pg?`<div class="rdbar">${ic("book")}<b>${t.ph==="T"&&t.pa?"Ler: ":""}${esc(I.pg)}</b><span class="muted small">${t.ph==="T"&&t.pa?rdStop(t):""}${t.min?" · previsto "+fmtM(t.min):""}</span></div>`:""})()}
     ${SIMPLE?tSteps(t,p,pa,pb,G,mat,tform):`<div class="av-body"><nav class="av-rail" aria-label="Seções da atividade">${[["A","list","Assuntos abordados"],["M","book","Material"],["C","target","Comando"],["B","bulb","Bizu"],["F","brain","Fixação Ativa"]].map(([k,i2,l])=>`<button data-a="avTab" data-k="${k}" title="${l}" aria-label="${l}" aria-pressed="${(["A","M","C","B","F"].includes(UI.avTab)?UI.avTab:"C")===k}">${ic(i2)}<span>${l}</span></button>`).join("")}</nav>
     <div class="av-main" data-tab="${["A","M","C","B","F"].includes(UI.avTab)?UI.avTab:"C"}">
@@ -7805,7 +7937,7 @@ function vResumos(){
       ${vw==="full"&&aiOk?`<div class="row" style="gap:6px"><div class="tabs2" role="group" aria-label="Versão"><button data-a="rsAIv" data-v="1" aria-pressed="${showAI}">Explicado pela IA</button><button data-a="rsAIv" data-v="0" aria-pressed="${!showAI}">Direto das questões</button></div>${aiOld&&!busy?`<span class="muted small">Há questões novas desde a versão da IA.</span>`:""}</div>`:""}
       ${vw==="fin"?`<p class="muted small" style="margin:0">${cycleDone(sid,c)?"Ciclo da aula concluído (teoria, revisão, mapeamento e questões): este é o seu resumão para a véspera.":"Fica completo quando você fechar o ciclo da aula (teoria, revisão, mapeamento e questões). Já dá para ver com o que existe até agora."}</p>`:""}
       <div class="rsout" id="rsOut">${vw==="fin"?(qResumao(sid,c)?mdLite(qResumao(sid,c)):'<p class="muted">Ainda não há questões nesta aula para montar o resumão.</p>'):busy&&vw==="full"?'<p class="muted"><span class="spin"></span> A IA está escrevendo…</p>':showAI?mdLite(R0.qai.txt):qResHTML(sid,c,vw)}</div>
-      <div class="row" style="gap:8px;flex-wrap:wrap">${SAMPLE&&(X.groups.length||X.extra.length)?`<button class="btn ${aiOk&&!aiOld?"ghost":"pri"} sm" data-a="rsAI" ${busy?"disabled":""}>${ic("bulb")} ${aiOk?(aiOld?"Atualizar com a IA":"Refazer com a IA"):"Melhorar com a IA"}</button>`:""}${vw==="fin"?`<button class="btn sm pri" data-a="rsResumaoPdf">${ic("dl")} Baixar o resumão em PDF</button>`:R0.txt?`<button class="btn sm" data-a="rsPdf">${ic("dl")} Baixar em PDF</button>`:""}${SAMPLE&&R0.txt?`<button class="btn sm ghost" data-a="mmFromRes" data-s="${sid}" data-c="${c}" ${UI.mmBusy?"disabled":""}>${ic("brain")} Mapa mental</button>`:""}${p?`<button class="btn sm ghost" data-a="rsQz">${ic("list")} Resolver as questões desta aula</button>`:""}</div>
+      <div class="row" style="gap:8px;flex-wrap:wrap">${SAMPLE?`<button class="btn sm" data-a="duvOpen" data-s="${sid}" data-c="${esc(c||"")}">🎓 Tirar dúvida com o professor</button>`:""}${SAMPLE&&(X.groups.length||X.extra.length)?`<button class="btn ${aiOk&&!aiOld?"ghost":"pri"} sm" data-a="rsAI" ${busy?"disabled":""}>${ic("bulb")} ${aiOk?(aiOld?"Atualizar com a IA":"Refazer com a IA"):"Melhorar com a IA"}</button>`:""}${vw==="fin"?`<button class="btn sm pri" data-a="rsResumaoPdf">${ic("dl")} Baixar o resumão em PDF</button>`:R0.txt?`<button class="btn sm" data-a="rsPdf">${ic("dl")} Baixar em PDF</button>`:""}${SAMPLE&&R0.txt?`<button class="btn sm ghost" data-a="mmFromRes" data-s="${sid}" data-c="${c}" ${UI.mmBusy?"disabled":""}>${ic("brain")} Mapa mental</button>`:""}${p?`<button class="btn sm ghost" data-a="rsQz">${ic("list")} Resolver as questões desta aula</button>`:""}</div>
       ${SAMPLE?`<label class="small muted" style="display:flex;gap:8px;align-items:center"><input type="checkbox" data-c="resAI" ${resAIOn()?"checked":""}> Usar a IA: monta o resumo, os cards e o mapa mental de cada aula com PDF, sozinho e uma aula por vez (cerca de US$ 0,30 por aula)</label>`:""}
       ${rsHlBox(sid,c)}
     </div></section>
@@ -9712,6 +9844,18 @@ const A={
   lzF(el){UI.lzF=el.dataset.v;UI.lzLim=60;render()},
   lzMore(){UI.lzLim=(UI.lzLim||60)+80;render()},
   lzGo(){if(UI.lei)leiBizurar(UI.lei)},
+  lzDis(){UI.lzDis=!UI.lzDis;render();if(UI.lzDis)setTimeout(()=>{const s=document.querySelector(".card.dis");if(s)s.scrollIntoView({behavior:"smooth",block:"start"})},80)},
+  lzDisGo(){if(!UI.lei)return;if(!SAMPLE){toast("A IA não está disponível agora");return}lzDissecar(UI.lei)},
+  lzDisK(el){UI.lzDisK=el.dataset.v;render()},
+  lzDisX(){UI.lzDis=false;render()},
+  lzArt(el){const L=UI.lei&&D["lei-"+UI.lei];if(!L)return;const a=L.arts.find(z=>z.i===+el.dataset.i);if(!a)return;UI.lzF="all";UI.lzQ=a.n.split("-")[0];UI.lzLim=60;render();setTimeout(()=>{const x=$("lz"+a.i);if(x){x.scrollIntoView({behavior:"smooth",block:"center"});x.classList.add("lz-hl");setTimeout(()=>x.classList.remove("lz-hl"),1800)}},60)},
+  lzDisQ(){if(!UI.lei)return;UI.lq={lid:UI.lei,art:null,step:"cfg",n:10,foco:"dis",kind:"auto",fonte:SAMPLE?"mix":"real"};lqModal()},
+  async lzDisPdf(){const L=UI.lei&&D["lei-"+UI.lei],X=L&&(D["lq-"+L.id]||{}).dis;if(!X||!X.items.length)return;
+    const md=DIS_K.map(([k,l])=>{const it=X.items.filter(z=>z.k===k).sort((a,b)=>a.i-b.i);if(!it.length)return"";return"## "+l+"\n"+it.map(z=>"- Art. "+z.n+(z.o?" ("+z.o+")":"")+": "+z.d+"\n  - \""+z.tr+"\"").join("\n")}).filter(Boolean).join("\n\n");
+    try{toast("Montando o PDF…");const b=await mdToPdf("Lei dissecada · "+L.nome,"Prazos, competências e sanções, conferidos no texto da lei",md,"A JORNADA · lei seca");await saveFile("Lei dissecada - "+L.nome.replace(/[\\/:*?"<>|]/g,"").slice(0,70)+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
+  duvOpen(el){if(!SAMPLE){toast("A IA não está disponível agora");return}UI.duv={sid:el.dataset.s,c:el.dataset.c||"",q:"",ans:""};duvModal();setTimeout(()=>{const q=$("duvQ");if(q)q.focus()},60)},
+  duvAsk(){duvAsk()},
+  duvX(){UI.duv=null;$("layer3").innerHTML=""},
   async lzPdf(){const L=UI.lei&&D["lei-"+UI.lei];if(!L)return;try{toast("Montando o PDF…");const b=await leiPdf(L,(UI.lzF||"biz")!=="all");await saveFile("Jornada na Lei Seca - "+L.nome.replace(/[\\/:*?"<>|]/g,"").slice(0,70)+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
   lzDel(){const L=UI.lei&&D["lei-"+UI.lei];if(!L)return;askConfirm("Remover esta lei?","“"+L.nome+"” e os bizus dela saem da plataforma.","Remover",()=>{D["lei-"+L.id]=undefined;touch("lei-"+L.id);if(D["lq-"+L.id]){D["lq-"+L.id]=undefined;touch("lq-"+L.id)}UI.lei=null;render()},"danger")},
   refDiagAI(el){refDiagAI(el.dataset.id)},
