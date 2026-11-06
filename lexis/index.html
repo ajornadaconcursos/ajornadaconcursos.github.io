@@ -3910,13 +3910,19 @@ const SX_ORD = { home: 0, lib: 1, reader: 2 };
 const sxSetView0 = setView;
 setView = function (v) {
   const from = document.body.dataset.view;
+  if (v !== S.lastView) { const el = $({ home: '#home', lib: '#libview', reader: '#reader' }[v] || '#home'); if (el) el.dataset.sxr = ''; }
   if (from && from !== v) document.body.dataset.dir = (SX_ORD[v] ?? 0) < (SX_ORD[from] ?? 0) ? 'l' : 'r';
   sxSetView0(v);
 };
 // boas-vindas na tela inicial
 const SX_I = { book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>', help: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.2-2.4 3.6M12 17.2h.01"/></svg>', play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>' };
+/* a animação de entrada roda só quando a tela abre; se a lista se atualiza logo depois (sincronização), ela não pisca de novo */
+function sxOnce(el) { if (!el) return; if (el.classList.contains('anim') && el.dataset.sxr === '1') el.classList.remove('anim'); el.dataset.sxr = '1'; }
+const sxRenderLib0 = renderLib;
+renderLib = function () { sxOnce($('#libview')); return sxRenderLib0.apply(this, arguments); };
 const sxRenderHome0 = renderHome;
 renderHome = function () {
+  sxOnce($('#home'));
   sxRenderHome0();
   const head = $('#homein .lhead'); if (!head) return;
   const h1 = head.querySelector('h1'); if (h1) h1.remove();
