@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611070855"></script>
+<script src="/claude-shim.js?v=202611070910"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1879,6 +1879,8 @@ html[data-ob] .app{visibility:hidden}html[data-ob] body{background:var(--bg)}htm
 .npe-or{text-align:center;border-top:1px dashed var(--line2);padding-top:8px}
 
 .box.cs{max-width:680px;display:grid;gap:14px}
+.gx{display:grid;gap:6px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--sunk,rgba(0,0,0,.12));margin-bottom:12px}.gx-h{display:grid;gap:2px;padding-bottom:8px;border-bottom:1px solid var(--line)}.gx-h b{font-size:16px}.gx h4{margin:10px 0 2px;font-size:14.5px}.gx p{margin:2px 0}.gx ul{margin:2px 0 0;padding-left:20px}.gx-k{margin:6px 0 4px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}.gx-as li{margin:3px 0}
+.bizu h3:first-child{text-align:center;font-size:18px;margin-top:0}.esql{display:grid;gap:8px;margin-top:10px}.esqi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--panel)}.esqi summary{display:flex;gap:10px;align-items:center;cursor:pointer;flex-wrap:wrap}.esqi summary small{flex:1 1 auto}.esqi .rsout{margin-top:8px}
 .modal .box{position:relative}.modal .box>.mx{position:absolute;top:10px;right:10px;z-index:3}.modal .box:has(>.mx)>:nth-child(2){padding-right:40px}
 .dorig .dgr td{background:var(--sunk,rgba(0,0,0,.15))}.dorig .dsr td:first-child{padding-left:26px;color:var(--fg2,inherit)}.kchip{display:inline-flex;gap:6px;align-items:baseline;padding:6px 12px;border:1px solid var(--line);border-radius:999px;font-size:13px}.kchip b{font-size:16px}
 .mur-new{display:grid;gap:10px}.mur-cs{display:inline-flex;gap:6px}.mur-c{width:28px;height:28px;border-radius:50%;border:2px solid transparent;background:var(--c);cursor:pointer}.mur-c[aria-pressed="true"]{border-color:var(--fg);box-shadow:0 0 0 2px var(--panel) inset}.mur-f{margin:4px 0 0}
@@ -2996,6 +2998,8 @@ document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset)ret
 let arqT=0;document.addEventListener("input",e=>{const el=e.target;if(!el||el.id!=="arqQ")return;clearTimeout(arqT);arqT=setTimeout(()=>{UI.arqQ=el.value;render();const i=$("arqQ");if(i){i.focus();const n=i.value.length;i.setSelectionRange(n,n)}},300)});
 let lzT=0;document.addEventListener("input",e=>{const el=e.target;if(!el||el.id!=="lzS")return;clearTimeout(lzT);lzT=setTimeout(()=>{UI.lzQ=el.value;UI.lzLim=60;render();const i=$("lzS");if(i){i.focus();const n=i.value.length;i.setSelectionRange(n,n)}},350)});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="r3hl"){UI.r3hl=el.checked}});
+document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset)return;if(el.dataset.c==="esqS"){UI.esqS=el.value;UI.esqA="";UI.esqKeep={t:($("esqT")||{}).value||"",x:($("esqX")||{}).value||""};render();const k=UI.esqKeep;if($("esqT"))$("esqT").value=k.t;if($("esqX"))$("esqX").value=k.x}
+  if(el.dataset.c==="esqFile"){const F=[...(el.files||[])];el.value="";if(F.length)esqFromFiles(F)}});
 document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="resAI"){core().resAI=el.checked;touch("core");render();if(el.checked)setTimeout(aiBgRun,500)}});
 /* corte digitado: a parte termina antes da página digitada; se houver um tópico nessa página, para antes dele */
 function pdCutPg(el){const n=parseInt(el.value,10),lo=+el.dataset.lo,hi=+el.dataset.hi;if(!n)return;if(n<Math.ceil(lo)||n>Math.floor(hi)){toast("Para esta parte, digite uma página de "+Math.ceil(lo)+" a "+Math.floor(hi));el.value="";return}
@@ -3574,9 +3578,9 @@ async function extractPdf(buf,sid,onp){
     if(onp)onp(p,n);
     const pg_=await doc.getPage(p),tc=await pg_.getTextContent();try{RP.push({p,L:richLines(tc,pg_.getViewport({scale:1}).height)})}catch(e){}
     const lines=[];let cur="",y=null;
-    for(const it of tc.items){if(typeof it.str!=="string")continue;const yy=it.transform[5];if(y!==null&&Math.abs(yy-y)>3){lines.push(cur);cur=""}y=yy;cur+=it.str+" "}
+    for(const it of tc.items){if(typeof it.str!=="string")continue;const yy=it.transform[5];if(y!==null&&Math.abs(yy-y)>3){lines.push(cur);cur=""}y=yy;cur+=(cur&&!/\s$/.test(cur)&&!/^\s/.test(it.str)?" ":"")+it.str}
     lines.push(cur);
-    const L=lines.map(l=>l.replace(/\s+/g," ").trim()).filter(Boolean);
+    const L=lines.map(l=>fixSpaced(l.replace(/\s+/g," ").trim())).filter(Boolean);
     LP.push(L);TXT.push(norm(L.join(" ")));
     L.forEach(l=>{if(l.length<80&&HD.test(l))heads.push({p,t:l.slice(0,90)});if(!qc&&p>2&&l.length<70&&/^(\d+(\.\d+)*\.?\s*[-–]?\s*)?(listadequestoes|questoes(comentadas|deconcursos|propostas)|exercicios(comentados|propostos)|bateriadequest)/i.test(norm(l).replace(/\s+/g,""))&&!/\.{4,}|\s\d+\s*$/.test(l))qc=p});
   }
@@ -3727,7 +3731,7 @@ async function openReader(id,a,b){
 }
 async function rdSearch(q){q=norm(String(q||"").trim());const info=$("rdQi");RD.q=q;RD.hits=[];RD.hi=-1;if(!q||q.length<2||!RD.doc){if(info)info.textContent="";drawPage();return}
   if(info)info.textContent="procurando…";
-  for(let i=1;i<=RD.n;i++){if(RD.txt[i]==null){try{const tc=await(await RD.doc.getPage(i)).getTextContent();RD.txt[i]=norm(tc.items.map(x=>x.str).join(" ")).replace(/\s+/g," ")}catch(e){RD.txt[i]=""}}
+  for(let i=1;i<=RD.n;i++){if(RD.txt[i]==null){try{const tc=await(await RD.doc.getPage(i)).getTextContent();RD.txt[i]=norm(tcText(tc.items)).replace(/\s+/g," ")}catch(e){RD.txt[i]=""}}
     if(RD.q!==q)return;if(RD.txt[i].includes(q))RD.hits.push(i)}
   if(!RD.hits.length){if(info)info.textContent="nada encontrado";drawPage();return}
   RD.hi=Math.max(0,RD.hits.findIndex(p=>p>=RD.p));RD.p=RD.hits[RD.hi];rdHitInfo();drawPage()}
@@ -4367,7 +4371,7 @@ function mmResumos(sid,tp){const all=Object.keys(D).filter(k=>k.startsWith("res-
   if(tp==null)return all;const m=all.filter(r=>{const a=auOf(sid,r.aula);return a&&(a.tp||[]).includes(tp)});return m.length?m:all}
 function mmEsquemas(sid,tp){const L=MM().items.filter(x=>x.sid===sid&&(x.kind==="pdf"||x.kind==="img"));if(tp==null)return L;const m=L.filter(x=>x.tp==null||x.tp===tp);return m.length?m:L}
 async function mmPdfText(x,max){try{const r=await fetch(mmUrl(x));if(!r.ok)return"";const buf=await r.arrayBuffer(),doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise;let out="";
-  for(let i=1;i<=Math.min(doc.numPages,60)&&out.length<max;i++){const tc=await(await doc.getPage(i)).getTextContent();out+="\n"+tc.items.map(k=>k.str).join(" ")}return out.slice(0,max)}catch(e){return""}}
+  for(let i=1;i<=Math.min(doc.numPages,60)&&out.length<max;i++){const tc=await(await doc.getPage(i)).getTextContent();out+="\n"+tcText(tc.items)}return out.slice(0,max)}catch(e){return""}}
 /* folha que só aponta para o material ("conceito de X", "ver p. 5", "o PDF trata de…") em vez de trazer o conteúdo */
 const mmPointer=t=>{t=String(t||"").trim();const w=t.split(/\s+/).length;return /^(ver|veja|consulte|confira)\b|\b(o (pdf|material|texto|autor|professor) (trata|aborda|explica|apresenta|traz))|^(p|pág|página)\.?\s*\d+$/i.test(t)||(w<=4&&/^(conceito|definição|noções?|introdução|características|classificação|espécies|aspectos|exemplos?|hipóteses|requisitos|efeitos|princípios)( d[aoe]s?\b.*)?$/i.test(t))};
 /* junta o material do aluno (resumos, teoria do PDF da aula, esquemas enviados e texto colado) para os mapas e os esquemas da IA */
@@ -4690,12 +4694,12 @@ function pv24Card(){if(!IS_TJ)return"";const x=SMX().filter(y=>y.kind==="prova"&
 setInterval(()=>{const id=UI.smOpen;if(!id||TAB!=="simulados")return;const x=smGet(id),d=smDoc(id);if(!x||!d||x.st!=="run"||!d.t0)return;const r=smLeft(d),el=$("smClk");if(el){el.textContent=smClock(r);el.classList.toggle("low",r<600)}if(r<=0)smFinish(id,true)},1000);
 
 {const _vm=vMeta;vMeta=function(){const h=_vm(),b=smBanner();if(!b)return h;const i=h.indexOf("</div>");return h.startsWith("<div class=\"hello\"")&&i>0?h.slice(0,i+6)+b+h.slice(i+6):b+h}}
-const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["provas","Minhas provas"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Jornada na Lei Seca"],["arquivo","Arquivo"],["arena","Trilha da Jornada"],["assinatura","Assinatura"],["mural","Mural"]];
+const TABS=[["meta","Meta"],["rotina","Rotina"],["jornada","Jornada"],["edital","Edital"],["incidencia","Incidência"],["materiais","Materiais"],["resumos","Resumos"],["mapas","Mapas Mentais"],["revisoes","Revisões"],["erradas","Erradas"],["reforcos","Reforços"],["discursiva","Discursiva e Redação"],["simulados","Simulados"],["provas","Minhas provas"],["desempenho","Desempenho"],["concurso","Concurso"],["tutorial","Tutorial"],["leiseca","Jornada na Lei Seca"],["arquivo","Arquivo"],["arena","Trilha da Jornada"],["assinatura","Assinatura"],["mural","Mural"],["esquemas","Esquemas"]];
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
 /* Menu simples: 5 entradas. As telas de sempre continuam, agrupadas em abas dentro de cada entrada. */
 const LX_ICO=`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5z" fill="#f2b441"/><path d="M5 4h2.4v16H5z" fill="#2f74f0"/><path d="M14.2 8.4h-3.1a1.7 1.7 0 0 0 0 3.4h2a1.7 1.7 0 0 1 0 3.4h-3.3" fill="none" stroke="#16285e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["arena","Trilha da Jornada"],["rotina","Meu plano"],["desempenho","Desempenho"],["tutorial","Tutorial"]];
-const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["leiseca","Jornada na Lei Seca","edital"],["discursiva","Discursiva e redação","discursiva"]],
+const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["esquemas","Esquemas resumidos","list"],["leiseca","Jornada na Lei Seca","edital"],["discursiva","Discursiva e redação","discursiva"]],
   revisoes:[["revisoes","Revisões do dia","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"],["provas","Minhas provas","prova"],["mural","Mural de lembretes","list"]],
   rotina:[["rotina","Rotina","rotina"],["jornada","Jornada","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"],["arquivo","Arquivo","list"],["assinatura","Assinatura","lock"]]};
 const GP={};Object.entries(GROUPS).forEach(([g,L])=>L.forEach(([k])=>{GP[k.split(":")[0]]=g}));
@@ -4718,6 +4722,7 @@ const HOW={
   simulados:"Aqui você faz os simulados quando são liberados: responda no tempo indicado e veja a correção comentada. Os erros vão para Erradas e a matéria abaixo de 75% ganha reforço.",
   discursiva:"Aqui você treina a parte escrita: escolha discursiva ou redação, escreva (ou envie a foto da folha) e receba a nota e a correção da IA, quesito por quesito.",
   desempenho:"Aqui você acompanha os resultados. Não há nada para preencher: os números vêm do cronômetro, das questões resolvidas e dos simulados. A tabela Questões por origem separa as questões das metas, as avulsas e as dos simulados, e Simulados das metas mostra o simuladinho de cada meta e o simulado a cada 3 metas.",
+  esquemas:"Aqui ficam os seus esquemas resumidos, por matéria e aula. Cole o texto ou envie PDF e fotos: a plataforma transcreve e usa o esquema como base do 1º resumo, do bizu e da orientação das tarefas daquela aula.",
   mural:"Aqui fica o seu mural: escreva um lembrete, escolha a matéria e a cor e cole. Fixe no topo o que é mais importante e tire do mural o que já aprendeu.",
   concurso:"Aqui você cuida do concurso: troque ou adicione concursos, inclua o edital em PDF (o painel tira datas, matérias e assuntos) e acompanhe o cronograma até a prova.",
   assinatura:"Aqui você vê o seu plano (teste, mensal ou anual), assina ou renova pelo link de pagamento e lê os termos de uso e a política de privacidade. Pague com o mesmo e-mail da sua conta: a liberação é automática.",
@@ -5064,7 +5069,7 @@ const TUT=[
 ];
 const TUT_MIN_STEP=3400;
 let TUTP={i:0,s:0,play:1,t:0};
-const TUT_FAQ=[["Como marco o PDF pelo celular?", "No leitor, toque numa cor do marca-texto. Depois toque no começo do trecho e, em seguida, no fim: tudo entre os dois toques fica marcado. Para marcar uma linha só, toque duas vezes nela. A borracha apaga com um toque na marcação."],["Para que serve o Mural de lembretes?", "Fica em Revisar › Mural de lembretes. Escreva o que quiser lembrar, escolha a matéria e a cor e toque em Colar no mural. Dá para filtrar por matéria, fixar no topo e tirar do mural."],["Onde vejo as questões das metas, as avulsas e os simulados?", "Na aba Desempenho. A tabela Questões por origem separa as questões das metas (blocos e reforços), as avulsas (estudo extra, cadernos dos PDFs, lei seca e provas anteriores) e as dos simulados, e mostra tudo junto. O quadro Simulados das metas mostra o simuladinho de cada meta (todas as matérias) e o simulado a cada 3 metas."],["Como funcionam os três resumos de cada aula?", "Cada etapa da aula produz um resumo. Na revisão sai o 1º resumo: a teoria organizada, com o que você marcou no PDF ou no Scribax (marcado com ★), se você quiser incluir. No mapeamento sai o 2º resumo: a IA cruza as questões com a teoria, mostra onde cada uma está e soma ao 1º. Depois das questões do TEC ou de outra fonte sai o 3º, o resumão: a IA vê o que mais cai e onde você errou, põe em ordem de prioridade, completa as lacunas e reforça o que decide a prova. Do resumão você gera esquema e mapa mental. Todos ficam em Estudar › Resumos."],["Como trago o meu curso (Estratégia, Gran ou outro)?", "Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, toque em Adicionar curso e cole o link do curso. A plataforma lê a página, identifica o concurso, as matérias e as aulas, liga cada aula aos assuntos do edital e mostra a comparação: quando os nomes são parecidos, aparece o nome do curso e, entre parênteses, o do edital; quando são iguais, um só; quando não batem, aparece como divergência. Se o link pedir login, use o botão ➜ A Jornada: arraste para a barra de favoritos, abra o curso já logado e clique nele. No Estratégia ele traz também o link de cada aula, que abre direto no vídeo."],["Como uso o TEC nas questões da aula?", "O botão Filtro do TEC abre o filtro do próprio TEC e já deixa copiados a matéria, os assuntos da aula, a banca e a quantidade (de 20 a 30 questões). Marque esses itens no TEC, gere o caderno e guarde o link dele na tarefa: daí em diante, aquela aula abre direto no caderno. Ao terminar, envie o print do resultado do TEC: a plataforma lê quantas questões, os acertos, os minutos e onde você errou."],["O que é o Scribax?", "É o leitor que lê os seus PDFs em voz alta, com o texto acompanhando palavra por palavra. Fica no menu, logo abaixo de Estudar. Os PDFs das suas aulas aparecem lá sozinhos, numa pasta por matéria; o que você marca no Scribax aparece no marca-texto do PDF aqui (e o contrário também), e o tempo lendo ou ouvindo conta nas suas metas. Na tarefa de teoria, use “🎧 Ouvir no Scribax” para abrir direto nas páginas do dia."], ["Posso tirar dúvida com um professor?", "Pode. Na janela de cada tarefa e na aba Resumos tem o botão “Tirar dúvida com o professor”. A resposta é técnica, no nível do seu cargo, e usa o seu material, a lei oficial (se você baixou na Jornada na Lei Seca) e a jurisprudência que está no seu material, sempre dizendo de onde veio. São 10 dúvidas por dia."], ["O que é “Dissecar a lei”?", "Na Jornada na Lei Seca, a IA separa todos os prazos, as competências de cada órgão e as sanções da lei, cada item com o artigo e o trecho que prova. Depois, “Questões destes pontos” monta uma bateria só com eles. Também dá para enviar o PDF de uma resolução ou regimento que não está no Planalto."], ["Dá para juntar os meus esquemas num esquema novo?", "Dá. Em Estudar › Mapas mentais, envie os esquemas em PDF ou imagem e toque em “Gerar esquema”. A IA junta os seus resumos e esquemas num quadro de revisão novo, só com o que está no seu material, e você baixa em PDF. Os esquemas também entram no resumo direcionado da aula."], ["As questões da lei seca são de provas reais?", "Tem dos dois tipos, e cada questão diz de onde veio. “Já caiu” são questões que você mesmo trouxe (listas dos PDFs e TEC colado nos resumos) e que citam o artigo. As outras são escritas pela IA no estilo da sua banca, só com o texto do artigo. Achou uma com problema? Toque em “Questão com problema” e ela some."], ["Posso mudar de curso depois?", "Pode. Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, troque o curso de qualquer matéria ou vincule um curso completo. As metas se ajustam."], ["Não tenho curso. Consigo estudar?", "Consegue. Escolha Pelo edital: as metas seguem os tópicos do edital, priorizados pelo peso de cada matéria na prova."], ["O edital ainda não saiu. E agora?", "Comece pelo último edital ou por um pré-edital. A contagem fica em ∞ até a data sair, e o que você estudou continua contando."], ["Atrasei a meta. Perdi o plano?", "Não. Em Hoje, toque em Recalcular plano: a Jornada refaz as próximas metas para caber até a prova."], ["Quando o dia conta na jornada da semana?", "Com pelo menos 60 minutos de estudo no dia. Dia de folga na sua rotina não quebra a sequência. Toque em 🎨 no card para trocar a paisagem."], ["Meus dados ficam salvos se eu trocar de aparelho?", "Ficam. Tudo é salvo na sua conta: entre com o mesmo e-mail no celular, no tablet ou no computador."], ["Preciso enviar o PDF de todas as aulas?", "Não. É opcional. Com o PDF, a aula ganha leitura com marca-texto, resumo e as questões daquele trecho."], ["A IA acabou por hoje. O que faço?", "Continue estudando normalmente: só os recursos de IA esperam. O limite (80 por dia na assinatura, 60 no teste) zera no dia seguinte."], ["Dá para estudar para dois concursos?", "Dá. Adicione o segundo em Meu plano › Concurso › Trocar de concurso. A compatibilidade mostra o quanto o estudo se aproveita."], ["Posso guardar provas que já fiz?", "Pode, quantas quiser, em Revisar › Minhas provas. A Jornada corrige, resume os erros e manda as erradas para a revisão."], ["O que acontece quando o teste grátis acaba?", "Escolha um plano em Meu plano › Assinatura para continuar. Seus dados ficam guardados."], ["Errei muito numa matéria. Como recupero?", "Faça as Erradas marcando o motivo do erro, siga a Trilha da Jornada todo dia e pergunte à Jornada o que focar."]];
+const TUT_FAQ=[["Para que serve a aba Esquemas resumidos?", "Fica em Estudar › Esquemas resumidos. Guarde ali os seus esquemas, por matéria e aula: cole o texto ou envie PDF e fotos (a plataforma transcreve). Eles viram base do 1º resumo, do bizu e da orientação das tarefas da aula correspondente, e aparecem em Material dentro da tarefa."],["Um card não tem nada a ver com a matéria. O que faço?", "Na Trilha da Jornada, abra Cards e filtre pela disciplina: o botão Conferir com a IA arquiva os cards que são de outra matéria (filtrando por Arquivado dá para restaurar). Os cards novos só são criados se o material da atividade for mesmo daquela matéria."],["Como marco o PDF pelo celular?", "No leitor, toque numa cor do marca-texto. Depois toque no começo do trecho e, em seguida, no fim: tudo entre os dois toques fica marcado. Para marcar uma linha só, toque duas vezes nela. A borracha apaga com um toque na marcação."],["Para que serve o Mural de lembretes?", "Fica em Revisar › Mural de lembretes. Escreva o que quiser lembrar, escolha a matéria e a cor e toque em Colar no mural. Dá para filtrar por matéria, fixar no topo e tirar do mural."],["Onde vejo as questões das metas, as avulsas e os simulados?", "Na aba Desempenho. A tabela Questões por origem separa as questões das metas (blocos e reforços), as avulsas (estudo extra, cadernos dos PDFs, lei seca e provas anteriores) e as dos simulados, e mostra tudo junto. O quadro Simulados das metas mostra o simuladinho de cada meta (todas as matérias) e o simulado a cada 3 metas."],["Como funcionam os três resumos de cada aula?", "Cada etapa da aula produz um resumo. Na revisão sai o 1º resumo: a teoria organizada, com o que você marcou no PDF ou no Scribax (marcado com ★), se você quiser incluir. No mapeamento sai o 2º resumo: a IA cruza as questões com a teoria, mostra onde cada uma está e soma ao 1º. Depois das questões do TEC ou de outra fonte sai o 3º, o resumão: a IA vê o que mais cai e onde você errou, põe em ordem de prioridade, completa as lacunas e reforça o que decide a prova. Do resumão você gera esquema e mapa mental. Todos ficam em Estudar › Resumos."],["Como trago o meu curso (Estratégia, Gran ou outro)?", "Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, toque em Adicionar curso e cole o link do curso. A plataforma lê a página, identifica o concurso, as matérias e as aulas, liga cada aula aos assuntos do edital e mostra a comparação: quando os nomes são parecidos, aparece o nome do curso e, entre parênteses, o do edital; quando são iguais, um só; quando não batem, aparece como divergência. Se o link pedir login, use o botão ➜ A Jornada: arraste para a barra de favoritos, abra o curso já logado e clique nele. No Estratégia ele traz também o link de cada aula, que abre direto no vídeo."],["Como uso o TEC nas questões da aula?", "O botão Filtro do TEC abre o filtro do próprio TEC e já deixa copiados a matéria, os assuntos da aula, a banca e a quantidade (de 20 a 30 questões). Marque esses itens no TEC, gere o caderno e guarde o link dele na tarefa: daí em diante, aquela aula abre direto no caderno. Ao terminar, envie o print do resultado do TEC: a plataforma lê quantas questões, os acertos, os minutos e onde você errou."],["O que é o Scribax?", "É o leitor que lê os seus PDFs em voz alta, com o texto acompanhando palavra por palavra. Fica no menu, logo abaixo de Estudar. Os PDFs das suas aulas aparecem lá sozinhos, numa pasta por matéria; o que você marca no Scribax aparece no marca-texto do PDF aqui (e o contrário também), e o tempo lendo ou ouvindo conta nas suas metas. Na tarefa de teoria, use “🎧 Ouvir no Scribax” para abrir direto nas páginas do dia."], ["Posso tirar dúvida com um professor?", "Pode. Na janela de cada tarefa e na aba Resumos tem o botão “Tirar dúvida com o professor”. A resposta é técnica, no nível do seu cargo, e usa o seu material, a lei oficial (se você baixou na Jornada na Lei Seca) e a jurisprudência que está no seu material, sempre dizendo de onde veio. São 10 dúvidas por dia."], ["O que é “Dissecar a lei”?", "Na Jornada na Lei Seca, a IA separa todos os prazos, as competências de cada órgão e as sanções da lei, cada item com o artigo e o trecho que prova. Depois, “Questões destes pontos” monta uma bateria só com eles. Também dá para enviar o PDF de uma resolução ou regimento que não está no Planalto."], ["Dá para juntar os meus esquemas num esquema novo?", "Dá. Em Estudar › Mapas mentais, envie os esquemas em PDF ou imagem e toque em “Gerar esquema”. A IA junta os seus resumos e esquemas num quadro de revisão novo, só com o que está no seu material, e você baixa em PDF. Os esquemas também entram no resumo direcionado da aula."], ["As questões da lei seca são de provas reais?", "Tem dos dois tipos, e cada questão diz de onde veio. “Já caiu” são questões que você mesmo trouxe (listas dos PDFs e TEC colado nos resumos) e que citam o artigo. As outras são escritas pela IA no estilo da sua banca, só com o texto do artigo. Achou uma com problema? Toque em “Questão com problema” e ela some."], ["Posso mudar de curso depois?", "Pode. Em Estudar › Aulas e PDFs › Meus cursos e assinaturas, troque o curso de qualquer matéria ou vincule um curso completo. As metas se ajustam."], ["Não tenho curso. Consigo estudar?", "Consegue. Escolha Pelo edital: as metas seguem os tópicos do edital, priorizados pelo peso de cada matéria na prova."], ["O edital ainda não saiu. E agora?", "Comece pelo último edital ou por um pré-edital. A contagem fica em ∞ até a data sair, e o que você estudou continua contando."], ["Atrasei a meta. Perdi o plano?", "Não. Em Hoje, toque em Recalcular plano: a Jornada refaz as próximas metas para caber até a prova."], ["Quando o dia conta na jornada da semana?", "Com pelo menos 60 minutos de estudo no dia. Dia de folga na sua rotina não quebra a sequência. Toque em 🎨 no card para trocar a paisagem."], ["Meus dados ficam salvos se eu trocar de aparelho?", "Ficam. Tudo é salvo na sua conta: entre com o mesmo e-mail no celular, no tablet ou no computador."], ["Preciso enviar o PDF de todas as aulas?", "Não. É opcional. Com o PDF, a aula ganha leitura com marca-texto, resumo e as questões daquele trecho."], ["A IA acabou por hoje. O que faço?", "Continue estudando normalmente: só os recursos de IA esperam. O limite (80 por dia na assinatura, 60 no teste) zera no dia seguinte."], ["Dá para estudar para dois concursos?", "Dá. Adicione o segundo em Meu plano › Concurso › Trocar de concurso. A compatibilidade mostra o quanto o estudo se aproveita."], ["Posso guardar provas que já fiz?", "Pode, quantas quiser, em Revisar › Minhas provas. A Jornada corrige, resume os erros e manda as erradas para a revisão."], ["O que acontece quando o teste grátis acaba?", "Escolha um plano em Meu plano › Assinatura para continuar. Seus dados ficam guardados."], ["Errei muito numa matéria. Como recupero?", "Faça as Erradas marcando o motivo do erro, siga a Trilha da Jornada todo dia e pergunte à Jornada o que focar."]];
 function vTutorial(){const id=UI.tut||TUT[0].id,ch=TUT.find(x=>x.id===id)||TUT[0];
   return`<div class="hello"><h1>Tutorial</h1><p>Cada função da Jornada em uma animação curta, com o passo a passo e dicas para você usar a plataforma do jeito que mais aproxima a aprovação. Escolha um tema ou siga na ordem.</p></div>
   <div class="tu-wrap"><nav class="tu-menu" aria-label="Temas do tutorial">${TUT.map((x,i)=>`<button data-a="tutGo" data-id="${x.id}" aria-current="${x.id===ch.id}">${ic(x.ic)}<span><small>${i+1}</small>${esc(x.t)}</span></button>`).join("")}</nav>
@@ -5107,7 +5112,7 @@ function render(){
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
-  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,mural:vMural,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,assinatura:vAssinatura,provas:vProvas}[TAB];
+  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,mural:vMural,esquemas:vEsquemas,rotina:vRotina,erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,assinatura:vAssinatura,provas:vProvas}[TAB];
   {const vw=$("view"),ix=t=>TABS.findIndex(x=>x[0]===t),a=ix(render.lt),b=ix(TAB),sk=[UI.jtab,UI.dtab,UI.ctab,UI.mtab,UI.rsView,UI.rotMode,UI.dmode,UI.mview,UI.dsView,UI.pvOpen].map(x=>x==null?"":String(x)).join("|"),subCh=render.lt===TAB&&render.lsk!=null&&render.lsk!==sk;
    const left=render.lt!==TAB?(UI.navDir==="l"||(!UI.navDir&&a>-1&&b>-1&&b<a)):(subCh&&UI.navDir==="l");
    vw.classList.toggle("noanim",render.lt===TAB&&!subCh);vw.classList.toggle("vw-sub",subCh);vw.classList.toggle("vw-l",(render.lt!==TAB||subCh)&&left);vw.classList.toggle("vw-r",(render.lt!==TAB||subCh)&&!left);render.lsk=sk;UI.navDir=""}render.lt=TAB;$("view").innerHTML=gnavHTML()+V();{const vw=$("view");if(!vw.classList.contains("noanim")&&(vw.classList.contains("vw-r")||vw.classList.contains("vw-l"))&&!document.documentElement.hasAttribute("data-boot")&&!document.documentElement.hasAttribute("data-in"))vwSlide(vw.classList.contains("vw-l")?"l":"r")}try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
@@ -5339,7 +5344,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261107085551";
+const JX_BUILD="20261107091045";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5683,7 +5688,7 @@ window.JX_LEXIS={
   open:o=>lxOpen(o)
 };
 function lxOpen(o){o=o||{};if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261107085551" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261107091045" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -5924,7 +5929,7 @@ function arCardsV(){const F=UI.arF||(UI.arF={q:"",st:"",tp:"",sid:""}),q=norm(F.
   const sel=(k,o)=>`<select class="inp" data-c="arF" data-k="${k}">${o.map(([v,l])=>`<option value="${v}" ${F[k]===v?"selected":""}>${l}</option>`).join("")}</select>`;
   const rp=c=>c.st==="new"?"Ainda não visto":c.st==="arch"?"—":(c.due||td)<td?"Vencido":c.due===td?"Hoje":dm(c.due);
   return arBack("Cards")+`<div class="ar-flt"><input class="inp" id="arQ" placeholder="Buscar card" value="${esc(F.q||"")}">${sel("st",[["","Status"],["new","Novo"],["learn","Aprendendo"],["rev","Em revisão"],["arch","Arquivado"]])}${sel("tp",[["","Tipo"],["m","Manual"],["a","Automático"]])}${sel("sid",[["","Disciplina"],...ED.map(s=>[s.id,s.n])])}</div>
-   <p class="muted small">Mostrando ${Math.min(L.length,300)} de ${CARDS().length}</p>
+   <p class="muted small">Mostrando ${Math.min(L.length,300)} de ${CARDS().length}${F.sid&&SAMPLE?` · <button class="lnk" data-a="cAudit" data-s="${F.sid}" ${UI.cAud?"disabled":""}>${UI.cAud?"Conferindo…":"Conferir com a IA se estes cards são de "+esc(SUB(F.sid).n)}</button>`:""}</p>
    ${L.length?`<div class="ar-tw"><table class="ar-tb"><thead><tr><th>Card</th><th>Disciplina</th><th>Tipo</th><th>Revisão programada</th><th>Status</th><th></th></tr></thead><tbody>${L.slice(0,300).map(c=>{const s=c.sid?SUB(c.sid):null,S=AR_ST[c.st]||AR_ST.new;
     return`<tr class="${c.st==="arch"?"off":""}"><td class="ar-cf" data-l="Card"><span>${arCE(c)?`<em>C/E</em> `:""}${esc(arCE(c)?arStmt(c):c.f)}</span></td><td data-l="Disciplina">${s?esc(s.c):"–"}</td><td data-l="Tipo">${arAuto(c)?"Automático":"Manual"}</td><td data-l="Revisão">${rp(c)}</td><td data-l="Status"><span class="ar-stc ${S[1]}">${S[0]}</span></td>
      <td class="ar-ac"><button class="btn sm" data-a="arArch" data-id="${c.id}">${c.st==="arch"?"Restaurar":"Arquivar"}</button><button class="ibtn" data-a="arDel" data-id="${c.id}" aria-label="Excluir">${ic("trash")}</button></td></tr>`}).join("")}</tbody></table></div>`:`<div class="empty">Nenhum card com esses filtros.</div>`}`}
@@ -6981,7 +6986,7 @@ async function pdfLinesAll(p,a,b){const buf=await pdfBytes(p);if(!buf||!(await e
   for(let i=Math.max(1,a);i<=Math.min(b,doc.numPages);i++){const tc=await(await doc.getPage(i)).getTextContent();const lines=[];let cur="",y=null;
     let xe=null;for(const it of tc.items){if(typeof it.str!=="string")continue;const yy=it.transform[5],x=it.transform[4];if(y!==null&&Math.abs(yy-y)>3){lines.push(cur);cur="";xe=null}
       const gap=xe===null?0:x-xe,fs=Math.abs(it.transform[0])||10;if(cur&&!/\s$/.test(cur)&&!/^\s/.test(it.str)&&(gap>fs*.18||gap<-fs))cur+=" ";cur+=it.str;y=yy;xe=x+(it.width||0)}lines.push(cur);
-    out.push({p:i,L:lines.map(l=>l.replace(/[​­]/g,"").replace(/\s+/g," ").trim()).filter(Boolean)})}
+    out.push({p:i,L:lines.map(l=>fixSpaced(l.replace(/[​­]/g,"").replace(/\s+/g," ").trim())).filter(Boolean)})}
   return{pages:out,n:doc.numPages}}
 function parseQuiz(pages){
   /* cabeçalho e rodapé que se repetem nas páginas saem */
@@ -7233,9 +7238,13 @@ async function genBizu(t){
     if(SAMPLE&&(mat0||(rd0&&rd0.txt))){const mat=mat0,rd=rd0;
       const prompt=`Você escreve o BIZU de uma atividade de estudo para candidato a ${dsCargo()} (banca ${dsBanca()}).
 ${C.head}
-Um bizu é um resumo CURTO (no máximo 220 palavras) só com o que mais cai em prova e as pegadinhas. Formato em texto simples:
-"## " para títulos (1 a 3 títulos), "- " para itens curtos, **negrito** para as palavras-chave, e comece com "ATENÇÃO:" os 1 ou 2 itens de maior incidência em prova. Se houver uma comparação clássica (ex.: direta x indireta), faça 2 itens lado a lado no formato "X: ... | Y: ...".
-${mat?"Use SOMENTE o conteúdo do material abaixo (páginas desta atividade). Não invente artigos nem números.\n<material>\n"+mat+"\n</material>":"Use SOMENTE o resumo da aula abaixo. Não invente artigos nem números.\n<resumo>\n"+String(rd&&rd.txt||"").slice(0,8000)+"\n</resumo>"}`;
+Atue como especialista em mentorias de alto desempenho para concursos. O BIZU é um resumo para revisão ativa, CURTO (até 260 palavras), sempre nesta estrutura, em texto simples:
+1. Primeira linha: "# " + o nome do tópico principal (o título).
+2. "## Dispositivos": os dispositivos constitucionais/legais aplicáveis (ex.: Art. 37, CF/88), transcrevendo só o trecho indispensável ou resumindo de forma cirúrgica. Se o material não citar lei, pule esta seção.
+3. "## Conceitos-chave": itens "- " curtos com **negrito** nos conceitos; comparações diretas no formato "**X** x **Y**: diferença em poucas palavras" (ex.: **Subsídio** x **Vencimento** x **Salário**).
+4. "## Alertas de prova": itens começando por "ATENÇÃO!", "Grave:" ou "Jurisprudência:" (este só se o material trouxer súmula ou julgado).
+Linguagem direta, para memorização rápida, sem enrolação teórica.
+${(()=>{const e=esqTxt(t.sid,t.aula,6000);return e?"Os esquemas do aluno desta aula também são base:\n<esquemas_do_aluno>\n"+e+"\n</esquemas_do_aluno>\n":""})()}${mat?"Use SOMENTE o conteúdo do material abaixo (páginas desta atividade). Não invente artigos nem números.\n<material>\n"+mat+"\n</material>":"Use SOMENTE o resumo da aula abaixo. Não invente artigos nem números.\n<resumo>\n"+String(rd&&rd.txt||"").slice(0,8000)+"\n</resumo>"}`;
       const r=await SAMPLE(prompt,{modelTier:IA_LEVE,onText:({text})=>{const o=$("bzOut");if(o&&UI.openT===t.id)o.innerHTML=mdLite(text)}});txt=(r&&r.text||"").trim()}
     if(txt){t.bizu={txt,at:Date.now()};touch("m-"+(findTask(t.id)||{n:0}).n)}
   }catch(e){if(!BZ_WARN++)toast("A IA ainda não está disponível: o bizu foi montado com as questões do PDF destas páginas.")}
@@ -7271,7 +7280,7 @@ function fixHTML(t){
       ${q.v===null?`<p class="muted small">${esc(q.e)}</p>`:a==null?`<div class="fxb"><button class="btn" data-a="fxAns" data-v="1">Certo</button><button class="btn" data-a="fxAns" data-v="0">Errado</button></div>`:`<div class="fxr ${a?"ok":"bad"}"><b>${a?"Acertou!":"Não foi desta vez."}</b> O item está <b>${q.v?"CERTO":"ERRADO"}</b>. ${esc(q.e)}</div>`}</div>
     <div class="row" style="justify-content:space-between"><button class="btn sm ghost" data-a="fxNav" data-d="-1" ${i?"":"disabled"}>← Anterior</button><button class="btn sm ${a!=null||q.v===null?"pri":"ghost"}" data-a="fxNav" data-d="1">${a!=null||q.v===null?"Próximo →":"Pular →"}</button></div></div>`;
 }
-function renderDrawer(){try{const r=renderDrawer0();brandDom($("layer"));return r}catch(e){
+function renderDrawer(){try{const r=renderDrawer0();brandDom($("layer"));try{const f=findTask(UI.openT);if(f&&SAMPLE&&!f.t.ref){const t=f.t;if(!t.gx&&!GX_TRY.has(t.id)){GX_TRY.add(t.id);setTimeout(()=>genGuia(t),60)}if(!t.bizu&&(t.ph==="T"||t.ph==="Q")&&!AUX_BUSY.has("b"+t.id)&&!GX_TRY.has("b"+t.id)){GX_TRY.add("b"+t.id);setTimeout(()=>genBizu(t),400)}}}catch(x){}return r}catch(e){
   const f=findTask(UI.openT);if(!f){UI.openT=null;$("layer").innerHTML="";return}const t=f.t,I=readInfo(t);
   $("layer").innerHTML=`<div class="av-scrim" data-a="closeT"><section class="av" role="dialog" aria-modal="true" data-stop="1"><header class="av-h"><div class="crumb"><span class="ph ${t.ph}">${PHN[t.ph]}</span><b>${esc(SUB(t.sid).n)}</b></div><button class="ibtn" data-a="closeT" data-x="1" aria-label="Fechar">${ic("close")}</button></header>
     <div class="av-main" style="padding:18px"><h3 style="margin:0 0 8px">${esc(I.lab)}${I.d?" · "+esc(I.d):""}</h3>${I.pg?`<p class="rdline"><b>${esc(I.pg)}</b></p>`:""}<p class="muted small">Não consegui montar a tela completa desta atividade (${esc(String(e&&e.message||e))}). Os dados dela estão salvos.</p></div>
@@ -7388,12 +7397,12 @@ function renderDrawer0(){
     ${SIMPLE?"":(()=>{const I=readInfo(t);return I.pg?`<div class="rdbar">${ic("book")}<b>${t.ph==="T"&&t.pa?"Ler: ":""}${esc(I.pg)}</b><span class="muted small">${t.ph==="T"&&t.pa?rdStop(t):""}${t.min?" · previsto "+fmtM(t.min):""}</span></div>`:""})()}
     ${SIMPLE?tSteps(t,p,pa,pb,G,mat,tform):`<div class="av-body"><nav class="av-rail" aria-label="Seções da atividade">${avKeys(t).map(k=>AV_SEC[k]).map(([k,i2,l])=>`<button data-a="avTab" data-k="${k}" title="${l}" aria-label="${l}" aria-pressed="${(avKeys(t).includes(UI.avTab)?UI.avTab:"C")===k}">${ic(i2)}<span>${l}</span></button>`).join("")}</nav>
     <div class="av-main" data-tab="${avKeys(t).includes(UI.avTab)?UI.avTab:"C"}">
-      <details class="sec" data-k="A" id="avA" open><summary>${ic("list")} Assuntos abordados <span class="n">${G.topics.length||1}</span></summary><div class="sb"><ul style="margin:0">${(G.topics.length?G.topics:[s.n]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></details>
-      <details class="sec" data-k="M" id="avM" open><summary>${ic("book")} Material</summary><div class="sb">${platBox(t)}${mat}</div></details>
+      <details class="sec" data-k="A" id="avA" open><summary>${ic("list")} Assuntos abordados <span class="n">${t.gx&&t.gx.assuntos&&t.gx.assuntos.length?t.gx.assuntos.length:G.topics.length||1}</span></summary><div class="sb">${t.gx&&t.gx.assuntos&&t.gx.assuntos.length?`<ul class="gx-as">${t.gx.assuntos.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><p class="muted small" style="margin:8px 0 0"><b>Tópicos do edital ligados:</b> ${(G.topics.length?G.topics:[s.n]).map(x=>esc(x)).join(" · ")}</p>`:`${GX_BUSY.has(t.id)?`<p class="muted small"><span class="spin"></span> Extraindo os assuntos do seu material…</p>`:""}<ul style="margin:0">${(G.topics.length?G.topics:[s.n]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`}</div></details>
+      <details class="sec" data-k="M" id="avM" open><summary>${ic("book")} Material</summary><div class="sb">${platBox(t)}${mat}${(()=>{const E=t.ref?[]:esqOfAula(t.sid,t.aula);return E.length?`<div class="dica"><b>${ic("list")} Seus esquemas desta aula (${E.length})</b><span>${E.map(x=>esc(x.ti||"Esquema")).join(" · ")}. Eles entram como base no 1º resumo, no bizu e nesta orientação. <button class="lnk" data-a="tab" data-t="esquemas">Ver esquemas</button></span></div>`:""})()}</div></details>
       <details class="sec" data-k="C" id="avC" open><summary>${ic("target")} Comando</summary><div class="sb">
-        ${G.intro.map((x,j)=>`<p>${j===0?"<b>"+x+"</b>":x}</p>`).join("")}
-        ${G.dica?`<div class="dica"><b>${ic("bulb")} Dica de estudo</b><span>${G.dica}</span></div>`:""}
-        ${steps}${t.ph==="T"&&!t.ref?`<div class="dica"><b>${ic("bulb")} Marque enquanto lê</b><span>Use o marca-texto no PDF ou no Scribax (🎧 Ouvir no Scribax, em Material) no que achar importante. Na revisão desta aula, as suas marcações podem entrar no seu 1º resumo.</span></div>`:""}${r3Box(t)}</div></details>
+        ${t.gx&&!t.gx.outra?"":`${G.intro.map((x,j)=>`<p>${j===0?"<b>"+x+"</b>":x}</p>`).join("")}
+        ${G.dica?`<div class="dica"><b>${ic("bulb")} Dica de estudo</b><span>${G.dica}</span></div>`:""}`}
+        ${guiaHTML(t)}${steps}${t.ph==="T"&&!t.ref?`<div class="dica"><b>${ic("bulb")} Marque enquanto lê</b><span>Use o marca-texto no PDF ou no Scribax (🎧 Ouvir no Scribax, em Material) no que achar importante. Na revisão desta aula, as suas marcações podem entrar no seu 1º resumo.</span></div>`:""}${r3Box(t)}</div></details>
       ${t.ph==="Q"&&!t.ref?`<details class="sec" data-k="Q" id="avTq" open><summary>${ic("target")} Questões</summary><div class="sb">${tecBlock(t)}</div></details>`:""}
       ${avKeys(t).includes("B")?`<details class="sec" data-k="B" id="avB" open><summary>${ic("bulb")} Bizu</summary><div class="sb">${(()=>{const ai=t.bizu&&t.bizu.txt,loc=ai?"":bizuLocal(t),busy=AUX_BUSY.has("b"+t.id);
         return`<div class="rsout bizu" id="bzOut">${ai?mdLite(t.bizu.txt):loc?mdLite(loc):`<p class="muted">${busy?'<span class="spin"></span> Escrevendo o bizu…':"Abra o PDF desta aula em Materiais para o bizu ser montado com as questões destas páginas."}</p>`}</div>
@@ -7645,7 +7654,7 @@ function vEdital(){
 /* Resumos: lê o PDF em blocos de páginas inteiras (com uma página de sobreposição) e resume cada questão, sem cortar nada */
 async function pagesChunks(p,a,b,size){size=size||38000;const out=[];
   try{const buf=await pdfBytes(p);if(!buf||!(await ensurePdfjs()))return out;const doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise;const pages=[];
-    for(let i=Math.max(1,a);i<=Math.min(b,doc.numPages);i++){const tc=await(await doc.getPage(i)).getTextContent();const t=tc.items.map(x=>x.str).join(" ").replace(/\s+/g," ").trim();if(t)pages.push({i,t:"[p."+i+"] "+t})}
+    for(let i=Math.max(1,a);i<=Math.min(b,doc.numPages);i++){const tc=await(await doc.getPage(i)).getTextContent();const t=tcText(tc.items).replace(/\s+/g," ").trim();if(t)pages.push({i,t:"[p."+i+"] "+t})}
     let cur=[],len=0;pages.forEach(pg=>{if(len+pg.t.length>size&&cur.length){out.push(cur);const last=cur[cur.length-1];cur=[last];len=last.t.length}cur.push(pg);len+=pg.t.length});if(cur.length)out.push(cur);
     return out.map(c=>({a:c[0].i,b:c[c.length-1].i,t:c.map(x=>x.t).join("\n")}))}catch(e){return out}}
 async function qDigest(ch,ctx){
@@ -7680,7 +7689,7 @@ const resDoc=(sid,c)=>D[resKey(sid,c)]||null;
 const resGet=(sid,c)=>D[resKey(sid,c)]||(D[resKey(sid,c)]={sid,aula:c,txt:"",tq:[],upd:0});
 const RES_BUSY=new Set();
 function mdLite(t){
-  const e=esc(String(t||"")).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(ATEN[ÇC][ÃA]O:)/g,"<mark>$1</mark>");let h="",ul=false;
+  const e=esc(String(t||"")).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(ATEN[ÇC][ÃA]O[:!]|Grave:|Jurisprud[êe]ncia:)/g,"<mark>$1</mark>");let h="",ul=false;
   e.split(/\n/).forEach(l=>{const x=l.trim();
     if(/^[-•*]\s+/.test(x)){if(!ul){h+="<ul>";ul=true}h+="<li>"+x.replace(/^[-•*]\s+/,"")+"</li>";return}
     if(ul){h+="</ul>";ul=false}
@@ -7841,10 +7850,10 @@ function r3Paint(){try{if(UI.openT)renderDrawer();if(TAB==="resumos")render()}ca
 function r3Live(bk){return({text})=>{const o=$("r3Out");if(o&&o.dataset.k===bk)o.innerHTML=mdLite(text)}}
 async function res1Gen(sid,c,opt){opt=opt||{};const bk=r3Bk(sid,c,1);if(R3_BUSY.has(bk))return;if(!SAMPLE){toast("O 1º resumo precisa da IA");return}
   const p=pdfOfAula(sid,c),L=hlAula(sid,c).filter(h=>h.c!=="q"),useHl=opt.hl!==false&&L.length>0;
-  if(!p&&!useHl){if(!opt.auto)toast("Envie o PDF desta aula em Materiais (ou marque trechos) para montar o 1º resumo");return}
+  if(!p&&!useHl&&!esqOfAula(sid,c).length){if(!opt.auto)toast("Envie o PDF desta aula em Materiais (ou marque trechos) para montar o 1º resumo");return}
   R3_BUSY.add(bk);r3Paint();
   try{const s=SUB(sid),au=auOf(sid,c);let pts=[];if(p&&p.pages){try{pts=await theoryDigest(p,s.n+(au?" · "+auLabel(sid,c)+" – "+au.d:""),{n:0,d:0})}catch(e){}}
-    const marks=useHl?hlMd(L,true).slice(0,20000):"";if(!pts.length&&!marks)throw Object.assign(new Error("vazio"),{code:"vazio"});
+    const marks=useHl?hlMd(L,true).slice(0,20000):"";if(!pts.length&&!marks&&!esqOfAula(sid,c).length)throw Object.assign(new Error("vazio"),{code:"vazio"});
     const prompt=`Você monta o 1º RESUMO de uma aula (etapa de revisão) para um candidato a ${dsCargo()} (banca ${dsBanca()}).
 Matéria: ${s.n}. ${au?"Aula: "+auLabel(sid,c)+" – "+au.d+".":""}
 Organize TODA a teoria da aula para releitura: por assunto, na ordem da aula, com conceitos, regras, exceções, prazos, números e artigos de lei.${marks?`
@@ -7852,7 +7861,7 @@ O aluno marcou trechos no PDF: é o que ELE achou importante. Inclua todos, cada
 Escreva em português do Brasil, em texto simples: "## " para assuntos, "### " para subtítulos, "- " para itens e **negrito** nas palavras-chave, com a página no fim do item, ex.: "(p. 12)". Sem tabelas, sem HTML.
 Use só o que está nas fontes abaixo; não invente artigos, prazos ou números. Nunca diga que o material está cortado ou incompleto.
 ${pts.length?"<pontos_da_teoria>\n"+pts.join("\n").slice(0,60000)+"\n</pontos_da_teoria>":""}
-${marks?"<marcacoes_do_aluno>\n"+marks+"\n</marcacoes_do_aluno>":""}`;
+${marks?"<marcacoes_do_aluno>\n"+marks+"\n</marcacoes_do_aluno>":""}${(()=>{const e=esqTxt(sid,c,12000);return e?"\nOs ESQUEMAS do aluno desta aula também são base: use a estrutura e as comparações deles.\n<esquemas_do_aluno>\n"+e+"\n</esquemas_do_aluno>":""})()}`;
     const r=await SAMPLE(prompt,{modelTier:IA_LEVE,onText:r3Live(bk)});
     if(r&&r.text){const R0=resGet(sid,c);R0.r1={txt:resClean(r.text).trim(),at:Date.now(),hl:useHl,nhl:useHl?L.length:0};touch(resKey(sid,c));toast("1º resumo de "+s.c+" · "+auLabel(sid,c)+" pronto")}}
   catch(e){if(!opt.auto)toast(e&&e.code==="not_granted"?"Você não permitiu usar a IA.":e&&e.code==="vazio"?"Não achei a teoria desta aula no PDF para montar o 1º resumo.":"Não consegui montar o 1º resumo agora. Tente de novo.")}
@@ -7901,7 +7910,7 @@ async function genFinal(sid,c,auto){const key=resKey(sid,c),bk=key+":fin";if(RES
     const tq=[(R0.tecQs||[]).map(tecLine).join("\n"),(R0.tq||[]).map(tecText).join("\n\n")].filter(Boolean).join("\n\n").slice(0,30000),ann=annotatedFor(sid,c).map(r=>"- "+r.label+(r.note?": "+r.note:"")).join("\n");
     const P=incShow(sid)||[],S=ED[EDI[sid]],tps=(au&&au.tp||[]).map(j=>"- "+S.t[j][0]+(P[j]?" (≈"+Math.round(P[j])+"% das questões da matéria)":"")).join("\n");
     /* esquemas em PDF que o aluno enviou (aba Mapas Mentais) dos assuntos desta aula entram como fonte */
-    let esq="";try{const atp=new Set(au&&au.tp||[]);const E=MM().items.filter(x=>x.sid===sid&&x.kind==="pdf"&&(x.tp==null?atp.size===0:atp.has(x.tp))).slice(0,4);
+    let esq=esqTxt(sid,c,10000);try{const atp=new Set(au&&au.tp||[]);const E=MM().items.filter(x=>x.sid===sid&&x.kind==="pdf"&&(x.tp==null?atp.size===0:atp.has(x.tp))).slice(0,4);
       for(const x of E){const tx=await mmPdfText(x,8000);if(tx&&tx.trim())esq+="### "+(x.title||"Esquema")+"\n"+tx.trim()+"\n\n"}}catch(e){}
     let prompt=`Você monta o 3º RESUMO de uma aula, o RESUMÃO, para um candidato a ${dsCargo()} (banca ${dsBanca()}), para a revisão final antes da prova.
 Matéria: ${s.n}. ${au?"Aula: "+auLabel(sid,c)+" – "+au.d+".":""}
@@ -8547,10 +8556,15 @@ function rvUndo(t){const x=RVA().find(z=>z.id===t.rva);if(x&&x.done){x.done=null
 const refLeft=r=>dbet(today(),r.due);
 function addCard(o){const c=Object.assign({id:uid(),d0:today(),step:0,done:false,st:"new"},o);if(c.src!=="meu"&&c.src!=="anki"&&!ARC().auto){c.st="arch";c.held=1}CARDS().push(c);touch("cards");return c}
 const cardDue=c=>c.st&&c.st!=="new"&&c.due?c.due:addDays(c.d0,OFF[c.step]||1);
+/* texto do PDF sem palavras espaçadas: junta os pedaços que o PDF parte no meio da palavra e as letras soltas ("D I R E I T O") */
+function fixSpaced(t){return String(t||"").replace(/(?<![\p{L}\p{N}])(?:(?:\p{Lu} ){3,}\p{Lu}|(?:\p{Ll} ){3,}\p{Ll})(?![\p{L}\p{N}])/gu,m=>m.replace(/ /g,""))}
+function tcText(items){let out="",p=null;for(const it of items){if(typeof it.str!=="string")continue;const s=it.str,h=Math.hypot(it.transform[2],it.transform[3])||Math.abs(it.transform[0])||10;
+  if(p){if(Math.abs(it.transform[5]-p.transform[5])>h*.6)out+="\n";else{const gap=it.transform[4]-(p.transform[4]+(p.width||0));if(!/\s$/.test(out)&&!/^\s/.test(s)&&(gap>h*.18||gap<-h*2))out+=" "}}
+  out+=s;p=it;if(it.hasEOL){out+="\n";p=null}}return fixSpaced(out)}
 async function pagesText(p,a,b,max){max=max||45000;
   try{const buf=await pdfBytes(p);if(!buf||!(await ensurePdfjs()))return"";
     const doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise;let out="";
-    for(let i=Math.max(1,a);i<=Math.min(b,doc.numPages)&&out.length<max;i++){const tc=await(await doc.getPage(i)).getTextContent();out+="\n[p."+i+"] "+tc.items.map(x=>x.str).join(" ")}
+    for(let i=Math.max(1,a);i<=Math.min(b,doc.numPages)&&out.length<max;i++){const tc=await(await doc.getPage(i)).getTextContent();out+="\n[p."+i+"] "+tcText(tc.items).replace(/[ \t]+/g," ")}
     return out.slice(0,max)}catch(e){return""}
 }
 /* Destaques da parte de teoria do PDF: quadros "Importante", "Atenção", "Esquematizando", súmulas, exceções e linhas em negrito */
@@ -8585,6 +8599,7 @@ Matéria: ${s.n}. ${a?"Aula: "+auLabel(t.sid,t.aula)+" – "+a.d+".":""}
 Atividade concluída: ${taskTitle(t)}.
 Assuntos: ${tps.join("; ")||s.n}.
 Use SOMENTE o conteúdo do material abaixo (trecho do PDF estudado ou resumo da aula). Não invente artigos, prazos, números nem conceitos que não estejam nele; se o material não traz, não faça o card.
+Antes de tudo, confira se o material é mesmo da matéria ${s.n}${a?" e da aula "+a.d:""}. Se for de outra matéria ou assunto, responda só [] (nenhum card).
 <material>
 ${txt}
 </material>
@@ -8594,7 +8609,7 @@ Responda só com um array JSON, por exemplo: [{"f":"Qual o prazo...?","b":"15 di
       const arr=await SAMPLE.json(prompt,{modelTier:IA_LEVE});
       if(Array.isArray(arr))arr.slice(0,10).forEach(x=>{if(x&&x.f&&x.b&&gOk(x.f+" "+x.b,txt)){addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:String(x.f).slice(0,400),b:String(x.b).slice(0,900),src:"ia",pdf:!!txt});made++}});
     }catch(e){if(manual)toast(e&&e.code==="not_granted"?"Você não permitiu gerar cards com IA. Crie os seus abaixo.":"Não consegui gerar com IA agora. Tente de novo em instantes.")}}
-    if(!made&&!manual){tps.slice(0,5).forEach(x=>{addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:"Sem consultar: quais são os pontos principais de “"+tShort(x)+"”?",b:"Confira nas suas anotações"+(p&&t.pa?" e no PDF, págs. "+t.pa+" a "+t.pb:"")+". Se esqueceu algo, marque “Esqueci” e reforce o resumo.",src:"auto"});made++})}
+    if(!made&&!manual&&!(SAMPLE&&txt)){tps.slice(0,5).forEach(x=>{addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:"Sem consultar: quais são os pontos principais de “"+tShort(x)+"”?",b:"Confira nas suas anotações"+(p&&t.pa?" e no PDF, págs. "+t.pa+" a "+t.pb:"")+". Se esqueceu algo, marque “Esqueci” e reforce o resumo.",src:"auto"});made++})}
     t.cardsOk=1;touch("m-"+taskMeta(t));
     if(made)toast(made+" cards de revisão criados"+(SAMPLE?"":" (modelo simples)"));
   }finally{CARD_BUSY.delete(t.id);render()}
@@ -8947,6 +8962,76 @@ document.addEventListener("click",e=>{const c=UI.rdMk;if(!c||c==="x"||!RD_TOUCH(
   let a=RD.mk0,b=sp.indexOf(s);if(a>b)[a,b]=[b,a];const pick=sp.slice(a,b+1);RD.mk0=null;tl.querySelectorAll(".hl-pend").forEach(x=>x.classList.remove("hl-pend"));
   const ix=pick.map(x=>+x.dataset.i),t=pick.map(x=>x.textContent).join(" ").replace(/\s+/g," ").trim();if(!ix.length)return;
   HLS(RD.id).push({id:uid(),p:RD.p,c,ix,t:t.slice(0,600),at:today()});touch("hl-"+RD.id);rdPaint();toast("Marcado: "+HLC[c][0])},true);
+/* ---------- Esquemas resumidos do aluno: ficam por matéria e aula e servem de base para os resumos, o bizu e a orientação da aula ---------- */
+const ESQ=()=>{const c=core();return c.esq||(c.esq=[])};
+const esqOfAula=(sid,c)=>ESQ().filter(x=>x.sid===sid&&(!x.aula||!c||x.aula===c));
+const esqTxt=(sid,c,max)=>esqOfAula(sid,c).map(x=>"### "+(x.ti||"Esquema")+(x.aula?" (Aula "+x.aula+")":"")+"\n"+x.txt).join("\n\n").slice(0,max||15000);
+function vEsquemas(){const f=UI.esqF||"",L=ESQ().filter(x=>!f||x.sid===f).sort((a,b)=>b.at-a.at),s0=UI.esqS||(f||ED[0].id),A0=AU(s0);
+  return`<div class="hello"><h1>Esquemas resumidos</h1><p>Guarde aqui os seus esquemas, por matéria e aula: cole o texto, envie um PDF ou fotos. Eles viram base do 1º resumo, do bizu e da orientação das tarefas da aula correspondente.</p></div>
+  <section class="card"><div class="card-b" style="display:grid;gap:10px">
+   <div class="row" style="gap:10px;flex-wrap:wrap"><select class="inp" id="esqS" data-c="esqS" style="flex:1 1 220px" aria-label="Matéria">${ED.map(s=>`<option value="${s.id}" ${s0===s.id?"selected":""}>${esc(s.n)}</option>`).join("")}</select>
+    <select class="inp" id="esqA" style="flex:1 1 220px" aria-label="Aula"><option value="">Toda a matéria</option>${A0.map(a=>`<option value="${esc(a.c)}" ${UI.esqA===a.c?"selected":""}>${esc(auLabel(s0,a.c))} – ${esc(String(a.d).slice(0,70))}</option>`).join("")}</select></div>
+   <input class="inp" id="esqT" maxlength="120" placeholder="Título do esquema (ex.: Princípios da Administração)">
+   <textarea class="inp" id="esqX" rows="6" placeholder="Cole aqui o esquema (tópicos, setas, comparações)…"></textarea>
+   <div class="row" style="gap:10px;flex-wrap:wrap;align-items:center"><button class="btn pri" data-a="esqAdd">${ic("plus")} Guardar esquema</button>
+    <label class="btn" style="cursor:pointer">${ic("plus")} ${UI.esqBusy?'<span class="spin"></span> '+esc(UI.esqBusy):"Enviar PDF ou fotos"}<input type="file" accept="application/pdf,image/*" multiple data-c="esqFile" hidden ${UI.esqBusy?"disabled":""}></label>
+    <span class="muted small">Fotos e PDFs são transcritos para texto, para a IA usar nos resumos.</span></div></div></section>
+  <div class="tabs2" role="group" aria-label="Filtrar" style="margin-top:6px"><button data-a="esqF" data-v="" aria-pressed="${!f}">Todas (${ESQ().length})</button>${ED.filter(s=>ESQ().some(x=>x.sid===s.id)).map(s=>`<button data-a="esqF" data-v="${s.id}" aria-pressed="${f===s.id}">${esc(s.c)} (${ESQ().filter(x=>x.sid===s.id).length})</button>`).join("")}</div>
+  <div class="esql">${L.length?L.map(x=>{const S=SUB(x.sid);return`<details class="esqi"><summary><span class="code" style="border-color:${S.col}">${esc(S.c)}</span><b>${esc(x.ti||"Esquema")}</b><small class="muted">${x.aula?esc(auLabel(x.sid,x.aula)):"Toda a matéria"} · ${x.src==="pdf"?"PDF":x.src==="img"?"foto":"texto"} · ${dm(x.d)}</small><button class="ibtn" data-a="esqDel" data-id="${x.id}" aria-label="Apagar esquema">${ic("trash")}</button></summary><div class="rsout">${mdLite(x.txt)}</div></details>`}).join(""):`<p class="muted">Nenhum esquema ainda. Guarde o primeiro acima.</p>`}</div>`}
+async function esqFromFiles(files){const sid=($("esqS")||{}).value||ED[0].id,aula=($("esqA")||{}).value||"",ti=(($("esqT")||{}).value||"").trim();let n=0;
+  const pdfs=files.filter(f=>/pdf/i.test(f.type)),imgs=files.filter(f=>/^image\//.test(f.type));
+  for(const f of pdfs){UI.esqBusy="Lendo "+f.name;render();try{if(!(await ensurePdfjs()))throw 0;const doc=await pdfjsLib.getDocument({data:await f.arrayBuffer(),isEvalSupported:false}).promise;let t="";for(let i=1;i<=Math.min(doc.numPages,40)&&t.length<20000;i++){const tc=await(await doc.getPage(i)).getTextContent();t+="\n"+tcText(tc.items)}
+    t=t.replace(/[ \t]+/g," ").trim();if(t.length<40&&SAMPLE){toast("Esse PDF é só imagem: envie como fotos para eu transcrever");continue}ESQ().unshift({id:uid(),sid,aula,ti:ti||f.name.replace(/\.pdf$/i,""),txt:t.slice(0,20000),src:"pdf",d:today(),at:Date.now()});n++}catch(e){toast("Não consegui ler "+f.name)}}
+  if(imgs.length){if(!SAMPLE)toast("Para transcrever fotos é preciso a IA");else{UI.esqBusy="Transcrevendo "+imgs.length+" foto"+(imgs.length>1?"s":"");render();
+    try{const r=await SAMPLE(`As imagens são esquemas de estudo de um aluno de concurso. Transcreva fielmente para texto simples, mantendo a estrutura: "## " para títulos, "- " para itens, "→" para setas e "X x Y" para comparações. Não acrescente nada que não esteja nas imagens.`,{images:imgs.slice(0,8),modelTier:IA_LEVE});const t=(r&&r.text||"").trim();if(t){ESQ().unshift({id:uid(),sid,aula,ti:ti||"Esquema em foto",txt:t.slice(0,20000),src:"img",d:today(),at:Date.now()});n++}}catch(e){toast("Não consegui transcrever as fotos agora")}}}
+  UI.esqBusy="";if(n){touch("core");toast(n+" esquema"+(n>1?"s guardados":" guardado"))}render()}
+/* ---------- Orientação da atividade no padrão das mentorias: assuntos abordados, mensagem, teoria, pontos-chave e fixação ---------- */
+const GX_BUSY=new Set(),GX_TRY=new Set();
+const GX_LAB={T:"Orientações de teoria",R:"Orientações da revisão",M:"Orientações do mapeamento",Q:"Orientações das questões"};
+async function genGuia(t,force){if(!SAMPLE||t.ref||GX_BUSY.has(t.id)||(t.gx&&!force))return;const p=t.pdf?pdf(t.pdf):(t.aula?pdfOfAula(t.sid,t.aula):null);
+  GX_BUSY.add(t.id);if(UI.openT===t.id)renderDrawer();
+  try{const C=auxCtx(t),mat=await srcText(t,26000),rd=t.aula?resDoc(t.sid,t.aula):null,es=esqTxt(t.sid,t.aula,8000);
+    const base=mat||(rd&&(rd.r1||{}).txt)||(rd&&rd.txt)||es;if(!base){return}
+    const pa=t.pa||(p&&p.ts)||0,pb=t.pb||(p?teoEnd(p):0);
+    const r=await SAMPLE.json(`Você é um planejador pedagógico sênior e curador de editais, no padrão das plataformas de mentoria para concursos. Monte a orientação desta atividade para um candidato a ${dsCargo()} (banca ${dsBanca()}).
+${C.head}
+Etapa: ${PHN[t.ph]||"Teoria"}.${pa&&pb?` Páginas do PDF desta atividade: ${pa} a ${pb} (${pb-pa+1} páginas).`:""}
+Primeiro confira se o material abaixo é da matéria ${C.s.n}. Se for de outra matéria, responda só {"outra":true}.
+Responda só com JSON:
+{"assuntos":["4 a 10 tópicos curtos e objetivos, no estilo de ementa/edital, com os artigos de lei, súmulas ou julgados entre parênteses no fim quando o material citar (ex.: arts. 39 a 41 da CF/1988)"],
+"mensagem":"1 a 2 frases acolhedoras e motivadoras para o aluno",
+"dicas":["2 a 3 dicas práticas de estudo para este tema (ex.: lei seca, mapa mental, esquema)"],
+"orientacao":"instrução principal: onde começar e onde terminar${pa&&pb?" (as páginas "+pa+" a "+pb+")":""} e o foco desta ${PHN[t.ph]||"atividade"}",
+"abordagem":"1 frase: como estudar com produtividade e retenção",
+"atencao":["3 a 5 pontos-chave de maior incidência em prova ou maior complexidade, curtos"],
+"fixacao":"1 sugestão rápida de fixação ativa para consolidar esta sessão"}
+Regras: português do Brasil, linguagem objetiva e encorajadora, tópicos curtos. Não invente nada que não esteja no material.
+<material>
+${String(base).slice(0,26000)}
+</material>${es&&mat?"\n<esquemas_do_aluno>\n"+es+"\n</esquemas_do_aluno>":""}`,{modelTier:IA_LEVE});
+    if(r&&r.outra){t.gx={outra:1,at:Date.now()};toast("O PDF ligado a esta atividade parece ser de outra matéria. Confira em Estudar › Aulas e PDFs.")}
+    else if(r&&(Array.isArray(r.assuntos)||r.orientacao)){const a=x=>Array.isArray(x)?x.map(v=>fixSpaced(String(v).trim())).filter(Boolean):[];
+      t.gx={assuntos:a(r.assuntos).slice(0,12),msg:fixSpaced(String(r.mensagem||"").trim()),dicas:a(r.dicas).slice(0,4),ori:fixSpaced(String(r.orientacao||"").trim()),abo:fixSpaced(String(r.abordagem||"").trim()),at0:a(r.atencao).slice(0,5),fix:fixSpaced(String(r.fixacao||"").trim()),at:Date.now()}}
+    touch("m-"+(findTask(t.id)||{n:0}).n)}
+  catch(e){}finally{GX_BUSY.delete(t.id);if(UI.openT===t.id)renderDrawer()}}
+function guiaHTML(t){if(t.ref)return"";const G=t.gx,s=SUB(t.sid),au=t.aula?auOf(t.sid,t.aula):null,busy=GX_BUSY.has(t.id);
+  const head=`<div class="gx-h"><b>${esc(s.n)}</b><span><b>Assunto:</b> ${au?esc(auLabel(t.sid,t.aula))+" – "+esc(au.d):esc(taskTitle(t))}</span></div>`;
+  if(!G||G.outra)return`<div class="gx">${head}${busy?`<p class="muted small"><span class="spin"></span> Montando a orientação desta atividade com o seu material…</p>`:G&&G.outra?`<div class="pwarn small">O PDF ligado a esta atividade parece ser de outra matéria. Confira em Estudar › Aulas e PDFs.</div>`:SAMPLE?`<button class="btn sm" data-a="gxGen" data-id="${t.id}">${ic("bulb")} Montar a orientação desta atividade</button>`:""}</div>`;
+  const L=x=>x&&x.length?`<ul>${x.map(v=>`<li>${esc(v)}</li>`).join("")}</ul>`:"";
+  return`<div class="gx">${head}
+   <h4>💬 Mensagem e instruções iniciais</h4>${G.msg?`<p>${esc(G.msg)}</p>`:""}${L(G.dicas)}
+   <h4>📚 1) ${GX_LAB[t.ph]||"Orientações"}</h4>${G.ori?`<p><b>Instrução principal:</b> ${esc(G.ori)}</p>`:""}${G.abo?`<p><b>Abordagem:</b> ${esc(G.abo)}</p>`:""}
+   <h4>🔍 2) Tópicos de maior atenção</h4>${L(G.at0)}
+   <h4>⚡ 3) Fixação ativa</h4>${G.fix?`<p>${esc(G.fix)}</p>`:""}
+   <div class="row" style="justify-content:flex-end"><button class="lnk small" data-a="gxGen" data-id="${t.id}" data-f="1">Refazer orientação</button></div></div>
+   <p class="gx-k">Passo a passo na plataforma</p>`}
+/* cards: confere com a IA se os cards de uma matéria são mesmo dela e arquiva os que não são (dá para restaurar) */
+async function cardsAudit(sid){if(!SAMPLE){toast("Precisa da IA");return}const S=SUB(sid),L=CARDS().filter(c=>c.sid===sid&&c.st!=="arch"&&c.src!=="meu"&&c.src!=="anki").slice(0,120);if(!L.length){toast("Nenhum card automático nesta matéria");return}
+  UI.cAud=1;render();try{const r=await SAMPLE.json(`Matéria: ${S.n}. Assuntos do edital: ${S.t.slice(0,25).map(x=>tShort(x[0])).join("; ")}.
+Abaixo estão cards de revisão (índice: frente | verso). Diga quais NÃO são desta matéria (assunto de outra disciplina). Responda só com JSON: {"fora":[índices]}.
+${L.map((c,i)=>i+": "+String(c.f).slice(0,160)+" | "+String(c.b).slice(0,120)).join("\n")}`,{modelTier:IA_LEVE});
+    const ix=(r&&Array.isArray(r.fora)?r.fora:[]).map(Number).filter(i=>L[i]);ix.forEach(i=>{L[i].st="arch";L[i].fora=1});if(ix.length)touch("cards");toast(ix.length?ix.length+" card"+(ix.length>1?"s":"")+" de outra matéria arquivado"+(ix.length>1?"s":"")+" (filtre por Arquivado para restaurar)":"Todos os cards conferidos são desta matéria")}
+  catch(e){toast("Não consegui conferir agora")}finally{UI.cAud=0;render()}}
 function vDesempenho(){const h0=vDesempenho0(),cta=`<div class="row" style="justify-content:flex-end;margin:0 0 10px"><button class="btn sm pri" data-a="mchOpen">${ic("bulb")} Pergunte à Jornada sobre o seu desempenho</button></div>`,k=h0.indexOf("</div>");return(h0.startsWith('<div class="hello">')&&k>0?h0.slice(0,k+6)+cta+h0.slice(k+6):cta+h0)+errPatHTML()}
 function vDesempenho0(){
   const c=core(),F=dFilter(),R0=dData(F),bys=R0.bys,T=R0.tot,ms=c.metas;
@@ -9809,7 +9894,7 @@ async function edPdfText(buf,onp){if(!(await ensurePdfjs()))throw new Error("lei
   const doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise,n=doc.numPages,P=[];
   for(let i=1;i<=n;i++){if(onp)onp(i,n);const tc=await(await doc.getPage(i)).getTextContent();const L=[];let cur="",y=null;
     for(const it of tc.items){if(typeof it.str!=="string")continue;const yy=it.transform[5];if(y!==null&&Math.abs(yy-y)>3){L.push(cur);cur=""}y=yy;cur+=(cur&&!/\s$/.test(cur)&&!/^\s/.test(it.str)?" ":"")+it.str}
-    L.push(cur);P.push(L.map(l=>l.replace(/\s+/g," ").trim()).filter(Boolean).join("\n"))}
+    L.push(cur);P.push(L.map(l=>fixSpaced(l.replace(/\s+/g," ").trim())).filter(Boolean).join("\n"))}
   return{txt:P.join("\n"),n}}
 /* onde começa o conteúdo programático: a primeira menção seguida de uma lista densa de assuntos */
 function edSplit(T){const re=/conte[úu]dos?\s+program[áa]tico|conhecimentos\s+(gerais|b[áa]sicos|espec[íi]ficos)\b|objetos?\s+de\s+avalia[çc][ãa]o/gi,C=[];let m;
@@ -10100,6 +10185,11 @@ const A={
   murDel(el){const L=MUR(),i=L.findIndex(x=>x.id===el.dataset.id);if(i>=0){L.splice(i,1);touch("core");render()}},
   murPin(el){const x=MUR().find(x=>x.id===el.dataset.id);if(x){x.pin=!x.pin;touch("core");render()}},
   murF(el){UI.murF=el.dataset.v;render()},
+  esqAdd(){const t=(($("esqX")||{}).value||"").trim();if(t.length<10){toast("Cole o esquema (ou envie PDF/fotos)");return}const sid=$("esqS").value,aula=$("esqA").value||"";UI.esqS=sid;UI.esqA=aula;ESQ().unshift({id:uid(),sid,aula,ti:(($("esqT")||{}).value||"").trim()||"Esquema",txt:t.slice(0,20000),src:"txt",d:today(),at:Date.now()});touch("core");render();toast("Esquema guardado: ele entra nos resumos dessa aula")},
+  esqDel(el){const L=ESQ(),i=L.findIndex(x=>x.id===el.dataset.id);if(i>=0){L.splice(i,1);touch("core");render()}},
+  esqF(el){UI.esqF=el.dataset.v;render()},
+  gxGen(el){const f=findTask(el.dataset.id);if(f){if(el.dataset.f)f.t.gx=null;genGuia(f.t,!!el.dataset.f)}},
+  cAudit(el){cardsAudit(el.dataset.s)},
   mxClose(el){const b=el.closest(".box");if(b&&b.classList.contains("cs")&&UI.cs&&$("layer3").contains(b)){A.csLater();return}const L=el.closest("#layer3,#layer2");if(L)L.innerHTML="";UI.cmp=null;render()},
   r3Gen(el){r3Gen(el.dataset.s,el.dataset.c,+el.dataset.n,{hl:UI.r3hl!==false})},
   r3Open(el){UI.rsSid=el.dataset.s;UI.rsAula=el.dataset.c;UI.rsView="r"+el.dataset.n;A.tab({dataset:{t:"resumos"}})},
