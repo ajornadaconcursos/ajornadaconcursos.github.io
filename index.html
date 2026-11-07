@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611070934"></script>
+<script src="/claude-shim.js?v=202611070941"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -5121,7 +5121,7 @@ function render(){
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
-  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,mural:vMural,esquemas:vEsquemas,rotina:()=>{const h=vRotina(),k=actCardHTML();if(!k)return h;const i=h.indexOf("</div>",h.indexOf('class="hello"'));return i>0?h.slice(0,i+6)+k+h.slice(i+6):k+h},erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,assinatura:vAssinatura,provas:vProvas}[TAB];
+  const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,mural:vMural,esquemas:vEsquemas,rotina:()=>{const h=vRotina(),k=afCardHTML()+actCardHTML();if(!k)return h;const i=h.indexOf("</div>",h.indexOf('class="hello"'));return i>0?h.slice(0,i+6)+k+h.slice(i+6):k+h},erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,assinatura:vAssinatura,provas:vProvas}[TAB];
   {const vw=$("view"),ix=t=>TABS.findIndex(x=>x[0]===t),a=ix(render.lt),b=ix(TAB),sk=[UI.jtab,UI.dtab,UI.ctab,UI.mtab,UI.rsView,UI.rotMode,UI.dmode,UI.mview,UI.dsView,UI.pvOpen].map(x=>x==null?"":String(x)).join("|"),subCh=render.lt===TAB&&render.lsk!=null&&render.lsk!==sk;
    const left=render.lt!==TAB?(UI.navDir==="l"||(!UI.navDir&&a>-1&&b>-1&&b<a)):(subCh&&UI.navDir==="l");
    vw.classList.toggle("noanim",render.lt===TAB&&!subCh);vw.classList.toggle("vw-sub",subCh);vw.classList.toggle("vw-l",(render.lt!==TAB||subCh)&&left);vw.classList.toggle("vw-r",(render.lt!==TAB||subCh)&&!left);render.lsk=sk;UI.navDir=""}render.lt=TAB;$("view").innerHTML=gnavHTML()+V();{const vw=$("view");if(!vw.classList.contains("noanim")&&(vw.classList.contains("vw-r")||vw.classList.contains("vw-l"))&&!document.documentElement.hasAttribute("data-boot")&&!document.documentElement.hasAttribute("data-in"))vwSlide(vw.classList.contains("vw-l")?"l":"r")}try{howAttach()}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
@@ -5353,7 +5353,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261107093452";
+const JX_BUILD="20261107094139";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5697,7 +5697,7 @@ window.JX_LEXIS={
   open:o=>lxOpen(o)
 };
 function lxOpen(o){o=o||{};if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261107093452" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261107094139" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -9159,6 +9159,10 @@ function actModal(){const c=core(),L=UI.actSel||(UI.actSel=c.act&&c.act.length?c
    <div class="actl">${[...ED].sort((a,b)=>(b.w||1)-(a.w||1)).map(s=>`<label class="actr"><input type="checkbox" data-c="actChk" value="${s.id}" ${L.includes(s.id)?"checked":""}><span class="code" style="border-color:${s.col}">${esc(s.c)}</span><span>${esc(s.n)}</span>${s.w?`<small class="muted">peso ${s.w}</small>`:""}</label>`).join("")}</div>
    <p class="small" style="margin:0"><b id="actN">${L.length}</b> matéria${L.length>1?"s":""} de cada vez · as outras entram na ordem de peso, uma a cada matéria terminada.</p>
    <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn ghost" data-a="actAll">Estudar todas juntas</button><button class="btn pri" data-a="actSave">${ic("check")} Começar assim</button></div></div></div>`}
+function afCardHTML(){const M=afMissing();if(!M.length)return"";return`<section class="card" style="border-color:var(--gold,#f2b441)"><div class="card-b" style="display:grid;gap:8px">
+   <b>Faltam ${M.length} matéria${M.length>1?"s":""} das 22 mínimas do Auditor Fiscal (Regular)</b>
+   <span class="muted small">${M.map(x=>esc(x.n)).join(" · ")}</span>
+   <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn pri sm" data-a="afAdd">${ic("plus")} Adicionar as ${M.length} ao meu concurso</button><span class="muted small">Elas entram no planejamento pela ordem de peso, sem bagunçar o que você já estudou.</span></div></div></section>`}
 function actCardHTML(){const n=ED.length,L=core().act;if(n<=ACT_MIN&&!(L&&L.length))return"";const ctx=makeCtx(Math.max(0,...core().metas.map(m=>m.n))),A=matActive(ctx);
   const on=A?[...A].filter(id=>ctx.prog[id]&&ctx.prog[id].i<AU(id).length):ED.map(s=>s.id),next=A?matOrder().filter(id=>!A.has(id)):[];
   return`<section class="card"><div class="card-h"><h2>Matérias em estudo</h2><span class="r"><button class="btn sm" data-a="actOpen">Ajustar</button></span></div><div class="card-b" style="display:grid;gap:8px">
@@ -9815,12 +9819,28 @@ const PB={
  cban:["Conhecimentos Bancários",null,["Sistema Financeiro Nacional","Banco Central e Conselho Monetário Nacional","Produtos e serviços bancários","Mercado de capitais e de câmbio","Garantias do sistema financeiro","Prevenção à lavagem de dinheiro","Pix e open finance"]],
  vend:["Vendas e Negociação",null,["Técnicas de vendas","Marketing e atendimento","Negociação","Código de Defesa do Consumidor","Ética e conduta profissional"]],
  ing:["Língua Inglesa",null,["Compreensão de textos","Vocabulário e falsos cognatos","Gramática aplicada à leitura"]],
+ rlmm:["Raciocínio Lógico e Matemática",null,["Proposições, conectivos e tabelas-verdade","Equivalências e negações lógicas","Argumentação e silogismos","Diagramas lógicos e conjuntos","Análise combinatória e probabilidade","Razão, proporção, porcentagem e regra de três","Sequências e problemas aritméticos","Juros simples e compostos","Descontos e taxas equivalentes","Rendas, amortização (SAC e Price), VPL e TIR"]],
+ ltest:["Legislação Tributária Estadual",null,["ICMS na Constituição e na LC 87/1996 (Lei Kandir)","ICMS: fato gerador, contribuintes e base de cálculo","ICMS: alíquotas, não cumulatividade e créditos","ICMS: substituição tributária e diferencial de alíquotas (DIFAL)","Benefícios fiscais e convênios do CONFAZ (LC 24/1975)","IPVA","ITCMD","Obrigações acessórias, documentos fiscais e escrituração (SPED)","Processo administrativo tributário estadual","Código Tributário e Regulamento do ICMS do estado"]],
+ ltmun:["Legislação Tributária Municipal",null,["ISS: LC 116/2003 e lista de serviços","ISS: local da incidência, contribuintes e responsáveis","ISS: base de cálculo, alíquota mínima e máxima","IPTU","ITBI","Taxas municipais e contribuição de iluminação pública (COSIP)","Código Tributário do município","Processo administrativo tributário municipal"]],
+ ti:["Tecnologia da Informação",null,["Banco de dados relacional e SQL","Modelagem de dados","Business Intelligence, data warehouse e mineração de dados","Big data e ciência de dados","Inteligência artificial e aprendizado de máquina","Governança de TI (COBIT e ITIL)","Engenharia de software e métodos ágeis","Segurança da informação e LGPD","Redes e computação em nuvem"]],
+ ecof:["Economia e Finanças Públicas",null,["Microeconomia: demanda, oferta, equilíbrio e elasticidades","Teoria do consumidor e da firma","Estruturas de mercado","Macroeconomia: contas nacionais","Políticas fiscal e monetária","Inflação, desemprego e setor externo","Funções do governo e falhas de mercado","Tributação: princípios, incidência e efeitos","Federalismo fiscal","Déficit, dívida pública e LRF"]],
+ disc:["Discursiva (Sem Correção)",null,["Estrutura da dissertação: introdução, desenvolvimento e conclusão","Argumentação, coesão e coerência","Questões discursivas de conteúdo técnico","Temas da área fiscal e tributária","Gestão do tempo e critérios de correção (espelho)"]],
+ cust:["Contabilidade de Custos",null,["Terminologia e classificação de custos","Custos diretos, indiretos, fixos e variáveis","Departamentalização e rateio","Custeio por absorção","Custeio variável e margem de contribuição","Custeio baseado em atividades (ABC)","Custo-padrão","Ponto de equilíbrio e alavancagem operacional","Produção conjunta: coprodutos e subprodutos"]],
+ ltc:["Legislação Tributária sobre o Consumo (LTC) - Reforma Tributária (EC nº 132/2023 e LC nº 214/2025)",null,["EC 132/2023: princípios e nova estrutura da tributação do consumo","IBS e CBS: incidência, fato gerador e sujeição passiva","IBS e CBS: base de cálculo e alíquotas","Não cumulatividade e apropriação de créditos","Regimes diferenciados: reduções de 30% e 60% e alíquota zero","Regimes específicos (combustíveis, financeiros, imóveis etc.)","Imposto Seletivo","Pagamento: split payment e recolhimento","Devolução personalizada (cashback) e cesta básica nacional","Simples Nacional, ZFM e regras de transição (2026 a 2033)"]],
+ lc227:["Reforma Tributária - Lei Complementar nº 227/2026",null,["Comitê Gestor do IBS: natureza, sede e competências","Governança: Conselho Superior e decisões por maioria qualificada","Regulamento único do IBS","Distribuição da arrecadação entre estados e municípios","Fiscalização, lançamento e cobrança do IBS","Processo administrativo tributário do IBS (contencioso)","Administração integrada do IBS e da CBS","Transição e ano-teste de 2026","Alterações na LC 214/2025"]],
  cnt0:["Noções de Contabilidade",null,["Patrimônio e equação patrimonial","Atos e fatos contábeis","Escrituração e lançamentos","Balanço patrimonial e DRE"]]
 };
 const pbd=(...k)=>k.map(x=>{const p=PB[x];return [p[0],p[1],p[2].slice()]});
+/* Auditor Fiscal (Regular): as 22 matérias mínimas, com peso de partida (o iniciante começa pelas de maior peso) */
+const AF22=[["demp",4],["dciv",4],["dp",3],["lp",8],["rlmm",6],["est",4],["dc",6],["da",6],["dt",10],["aud",6],["cont",10],["ltest",8],["ecof",5],["ltmun",4],["ti",3],["inf",3],["afo",4],["cpub",4],["disc",2],["cust",4],["ltc",8],["lc227",5]];
+const af22=()=>AF22.map(([k,w])=>{const p=PB[k];return [p[0],w,p[2].slice()]});
+/* para quem já tem o concurso: que matérias das 22 ainda faltam (por nome parecido) */
+const AF_ALIAS={rlmm:/raciocinio/,ecof:/economia/,ltest:/estadual|icms/,ltmun:/municipal/,ti:/tecnologia da informacao|^ti$/,inf:/informatica/,disc:/discursiva|redacao/,cust:/custos/,ltc:/consumo|ltc|ec n?º? ?132|lc n?º? ?214/,lc227:/227/,cont:/contabilidade geral|contabilidade avancada|^contabilidade$/,cpub:/contabilidade publica|setor publico/,lp:/portugues/,est:/estatistica/,afo:/orcament|afo/,demp:/empresarial|comercial/};
+function afMissing(){const p=curPlan()||{};if(!(p.cat==="pre-fiscal"||/auditor fiscal \(regular\)/i.test((p.name||"")+" "+(p.cargo||""))))return[];
+  const have=ED.map(s=>norm(s.n));return AF22.filter(([k])=>{const n=norm(PB[k][0]),re=AF_ALIAS[k];return!have.some(h=>h===n||(re&&re.test(h)))}).map(([k,w])=>({n:PB[k][0],q:w,t:PB[k][2].slice()}))}
 const PRE=[
  {id:"pre-fiscal",o:"Pré-edital",n:"Área Fiscal – Auditor Fiscal (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital preedital regular base auditor fiscal sefaz receita iss icms tributos area fiscal",
-  cg:[{n:"Auditor Fiscal – matérias-base",s:"Auditor Fiscal (Regular)",ds:pbd("lp","rlm","mf","est","dc","da","dt","cont","aud","afo","eco","dciv","demp","ltrib")}]},
+  cg:[{n:"Auditor Fiscal – matérias-base",s:"Auditor Fiscal (Regular)",ds:af22()}]},
  {id:"pre-trib-aj",o:"Pré-edital",n:"Tribunais – Analista Judiciário, Área Judiciária (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base tribunais tribunal analista judiciario area judiciaria tj trf trt tre",
   cg:[{n:"Analista Judiciário – matérias-base",s:"Analista Judiciário (Regular)",ds:pbd("lp","rlm","dc","da","dciv","dpc","dp","dpp")}]},
  {id:"pre-trib-tj",o:"Pré-edital",n:"Tribunais – Técnico Judiciário (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base tribunais tribunal tecnico judiciario escrevente tj trf trt tre",
@@ -9849,7 +9869,7 @@ const DCG={
   pm:()=>[{n:"Soldado / Oficial",ds:[...pbd("lp","mat","inf","dc","da","dp","dh"),PBX.atu]}],
   cbm:()=>[{n:"Soldado / Oficial Bombeiro",ds:[...pbd("lp","mat","inf","dc","da"),PBX.atu]}],
   pp:()=>[{n:"Policial Penal",ds:pbd("lp","rlm","inf","dc","da","dp","dpp","leg","dh")}],
-  fis:()=>[{n:"Auditor Fiscal",ds:pbd("lp","rlm","mf","est","dc","da","dt","cont","aud","afo","eco","dciv","demp","ltrib")}],
+  fis:()=>[{n:"Auditor Fiscal",ds:af22()}],
   iss:()=>[{n:"Auditor Fiscal de Tributos Municipais",ds:pbd("lp","rlm","dc","da","dt","ltrib","cont","aud","afo")}],
   ctrl:()=>[{n:"Auditor / Analista de Controle Externo",ds:pbd("lp","rlm","est","dc","da","afo","cpub","ctrl","audg","adm")},{n:"Técnico de Controle Externo",ds:pbd("lp","rlm","inf","dc","da","afo","ctrl")}],
   banc:()=>[{n:"Escriturário / Técnico Bancário",ds:pbd("lp","mat","mf","cban","vend","inf","ing")}],
@@ -10319,6 +10339,7 @@ const A={
   murPin(el){const x=MUR().find(x=>x.id===el.dataset.id);if(x){x.pin=!x.pin;touch("core");render()}},
   murF(el){UI.murF=el.dataset.v;render()},
   actOpen(){UI.actSel=null;actModal()},
+  afAdd(){const M=afMissing();if(!M.length)return;UI.np={edit:true,txt:"",subs:M};A.npSave()},
   actK(el){const k=+el.dataset.k;UI.actSel=k>=ED.length?ED.map(s=>s.id):matSuggest(k);actModal()},
   actAll(){const c=core();c.act=[];c.actAsk=1;UI.actSel=null;touch("core");$("layer3").innerHTML="";replanCurrent();render();toast("Você vai estudar as "+ED.length+" matérias juntas")},
   actSave(){const L=UI.actSel||[];if(L.length<3){toast("Escolha pelo menos 3 matérias");return}const c=core();c.act=L.length>=ED.length?[]:L.slice();c.actAsk=1;UI.actSel=null;touch("core");$("layer3").innerHTML="";replanCurrent();render();toast(c.act.length?"Começando com "+L.length+" matérias: as outras entram quando uma terminar":"Você vai estudar todas as matérias juntas")},
