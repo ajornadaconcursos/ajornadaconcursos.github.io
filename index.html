@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611091553"></script>
+<script src="/claude-shim.js?v=202611091622"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -56,6 +56,31 @@
 .mmi-q{display:grid;gap:2px}.mmi-q b{font-size:16px}
 .mmi-src{display:grid;gap:6px}.mmi-src blockquote,.mmi-loc blockquote{margin:0;padding:8px 10px;border-left:3px solid var(--lime,#9be15d);background:var(--sunk,rgba(255,255,255,.03));border-radius:6px;font-size:13.5px}
 .mmi-loc{display:grid;gap:6px}.mmi-loc summary{cursor:pointer;font-size:13px;color:var(--muted)}
+
+.ob-modal{background:var(--bg,#0f1020)}
+.ob-modal .ibtn.mx{display:none}
+.ob-box{width:min(620px,100%);display:flex;flex-direction:column;gap:14px;max-height:calc(100dvh - 32px);overflow:auto;padding:22px 22px 18px}
+.ob-bar{display:flex;gap:5px}.ob-bar i{flex:1;height:5px;border-radius:5px;background:var(--line)}.ob-bar i.on{background:linear-gradient(90deg,#7c5cff,#d946ef)}
+.ob-k{color:var(--acc,#a78bfa);font-weight:600;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.ob-body{display:grid;gap:12px}.ob-body h3{margin:6px 0 0;font-size:19px;line-height:1.25}.ob-body h3:first-child{margin-top:0}.ob-body p{margin:0;line-height:1.5}
+.ob-body .field{display:grid;gap:5px;margin:0}.ob-body .field label{font-weight:600;font-size:14px}.ob-body .field small{font-size:12px}
+.ob-av{display:flex;gap:14px;align-items:center}.ob-av>div{display:grid;gap:2px}
+.ob-ph{width:68px;height:68px;border-radius:50%;flex:none;display:grid;place-items:center;cursor:pointer;border:2px dashed var(--acc,#7c5cff);background:linear-gradient(150deg,#2b0f63,#170b38);overflow:hidden;color:#fff}.ob-ph img{width:100%;height:100%;object-fit:cover}.ob-ph svg{width:22px;height:22px}
+.ob-ck{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--muted);cursor:pointer;line-height:1.45}.ob-ck input{margin-top:3px;accent-color:#7c5cff;width:16px;height:16px;flex:none}
+.ob-chips{display:flex;flex-wrap:wrap;gap:8px}
+.ob-ch{all:unset;cursor:pointer;padding:9px 14px;border-radius:999px;border:1px solid var(--line);font-size:14px;line-height:1.2;color:var(--text)}
+.ob-ch:hover,.ob-ch:focus-visible{border-color:var(--acc,#a78bfa)}.ob-ch.on{background:rgba(124,92,255,.22);border-color:#7c5cff;color:#fff;font-weight:600}
+.ob-big{width:100%;justify-content:flex-start;text-align:left;padding:14px 16px;height:auto;white-space:normal;gap:12px}.ob-big span:last-child{display:grid;gap:3px}.ob-big small{opacity:.85;font-weight:500}
+.ob-foot{display:flex;gap:8px;align-items:center;position:sticky;bottom:-18px;background:inherit;padding:10px 0 2px;border-top:1px solid var(--line)}.ob-foot .sp{flex:1}
+@media (max-width:600px){.ob-modal{align-items:stretch;padding:0}.ob-box{width:100%;max-height:100dvh;height:100dvh;border-radius:0;padding:18px 16px 12px}.ob-foot .btn{flex:1 1 auto;justify-content:center}.ob-foot .sp{display:none}.ob-body h3{font-size:18px}.ob-ch{font-size:13.5px;padding:8px 12px}}
+.ob-card .card-b{padding:14px 18px}.ob-card svg{flex:none}
+.ob-sl{display:grid;gap:8px}.ob-si{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:14px}
+.ob-sd{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:grid;place-items:center}.ob-si.ok .ob-sd{background:#2bb673;border-color:#2bb673;color:#fff}.ob-sd svg{width:13px;height:13px}
+.ob-st{display:grid;gap:2px;min-width:0}.ob-st small{color:var(--muted)}
+@media (max-width:600px){.ob-si{grid-template-columns:26px minmax(0,1fr)}.ob-si>.btn,.ob-si>.chip{grid-column:2;justify-self:start}}
+#avn.ph{width:100%;height:100%;display:block;border-radius:50%;overflow:hidden}#avn.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ob-adm{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:10px}.ob-adm-g{display:grid;gap:6px}
+.ob-adm-r{display:grid;grid-template-columns:minmax(0,1.3fr) 1fr 34px;gap:8px;align-items:center;font-size:13px}.ob-adm-r span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ob-adm-r i{height:8px;border-radius:6px;background:var(--line);overflow:hidden}.ob-adm-r s{display:block;height:100%;background:linear-gradient(90deg,#7c5cff,#d946ef)}.ob-adm-r em{font-style:normal;text-align:right;font-weight:700}
 </style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -2690,17 +2715,73 @@ function bootDone(){const h=document.documentElement;if(!h.hasAttribute("data-bo
 function jxBusy(msg,go){const h=document.documentElement;if(!RMO())h.setAttribute("data-out","1");setTimeout(()=>{try{if(window.jxSplash)window.jxSplash(true,msg);else h.setAttribute("data-boot","1")}catch(e){}if(go)setTimeout(go,120)},RMO()?0:280)}
 function obCheck(){if(obPending()&&!UI.np&&!$("layer3").innerHTML.trim())obModal()}
 setInterval(()=>{try{if(READY&&obPending()&&!UI.np&&!$("layer3").innerHTML.trim()){document.documentElement.dataset.ob="1";obModal()}}catch(e){}},700);
-function obModal(){const c=core(),nm=(c.cfg&&c.cfg.name)||UI.obName||"";
-  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Boas-vindas" style="background:var(--bg,#0f1020)"><div class="box npm" style="max-width:560px">
-    <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px"><div style="width:52px;height:52px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(150deg,#2b0f63,#170b38);box-shadow:0 0 0 1px rgba(160,107,255,.35),0 8px 24px rgba(123,60,255,.35);flex:none">${(()=>{const m=$("brMark");return m?m.innerHTML.replace(/id="([^"]+)"/g,'id="$1ob"').replace(/url\(#([^)]+)\)/g,"url(#$1ob)").replace(/class="jlogo"/,'class="jlogo" style="width:40px;height:40px"'):""})()}</div><b style="font:700 20px Oswald,Figtree,sans-serif;letter-spacing:.02em">A JORNADA</b></div>
-    <h3 style="margin:0">Boas-vindas à Jornada!</h3>
-    <p class="muted" style="margin:6px 0 0">Vamos montar a sua trilha de estudos. Leva menos de um minuto.</p>
-    <div class="field" style="margin-top:14px"><label for="obN">Como você quer ser chamado(a)?</label><input class="inp" id="obN" autocomplete="given-name" maxlength="40" value="${esc(nm)}" placeholder="Seu nome"></div>
-    <p style="margin:16px 0 8px"><b>Qual concurso você vai estudar?</b></p>
-    <button class="btn pri" data-a="obMine" style="width:100%;justify-content:flex-start;text-align:left;padding:14px 16px;height:auto;white-space:normal"><span>${ic("plus")}</span><span><b>Escolher ou montar o meu concurso</b><br><small style="opacity:.85;font-weight:500">Busque na base (SEFAZ, tribunais, polícias, CGU, TCEs…) ou cadastre as matérias do seu edital.</small></span></button>
-    <p class="muted small" style="margin:14px 0 0">Você pode adicionar outros concursos depois, em “Trocar de concurso”.${document.getElementById("jx-fab")?" Já usava a Jornada e tem uma cópia dos dados? Clique na engrenagem ⚙, no canto de baixo, e em “Importar meus dados…”.":""}</p>
-  </div></div>`;setTimeout(()=>{const e=$("obN");if(e&&!e.value)e.focus()},40)}
-function obName(){const e=$("obN"),v=(e?e.value:"").trim().replace(/\s+/g," ").slice(0,40);UI.obName=v;if(v){const c=core();c.cfg=c.cfg||{};c.cfg.name=v;touch("core");PLANS.ui=Object.assign({},PLANS.ui,{name:v})}return v}
+function obModal(){obWizard(UI.obStep||1,"novo")}
+/* ================= Entrevista inicial: quem é você, como conheceu, momento, cursos, concurso ================= */
+const OB_ORIG=["Instagram","YouTube","TikTok","Indicação de amigo","Google","Grupo de WhatsApp ou Telegram","Professor ou curso","Outro"];
+const OB_MOM=["Começando agora","Estudo há menos de 1 ano","De 1 a 3 anos","Mais de 3 anos"];
+const OB_PRV=["Nunca","1 ou 2","3 ou mais","Já passei e quero outro"];
+const OB_CUR=["Estratégia","Gran","TEC Concursos","QConcursos","Direção","AlfaCon","Nova Concursos","CERS","Focus","CP Iuris","Aprova Concursos"];
+const OB_PLAT={"Estratégia":["Estratégia Concursos","curso"],"Gran":["Gran Cursos Online","curso"],"TEC Concursos":["TEC Concursos","quest"],"QConcursos":["QConcursos","quest"],"Direção":["Direção Concursos","curso"],"AlfaCon":["Alfacon","curso"],"Focus":["Focus Concursos","curso"],"CP Iuris":["CP Iuris","curso"]};
+const ME=()=>PLANS.me||(PLANS.me={});
+const obPhone=v=>{const d=String(v||"").replace(/\D/g,"").slice(0,11);if(d.length<3)return d;if(d.length<=6)return"("+d.slice(0,2)+") "+d.slice(2);if(d.length<=10)return"("+d.slice(0,2)+") "+d.slice(2,6)+"-"+d.slice(6);return"("+d.slice(0,2)+") "+d.slice(2,7)+"-"+d.slice(7)};
+function obWizard(step,mode){UI.obStep=step;UI.obMode=mode||UI.obMode||"novo";const M=ME(),nov=UI.obMode==="novo",tot=nov?4:3,em=(window.JX_ACESSO&&window.JX_ACESSO.email)||M.email||"";
+  const bar=`<div class="ob-bar" aria-hidden="true">${[...Array(tot)].map((_,i)=>`<i class="${i<step?"on":""}"></i>`).join("")}</div><small class="ob-k">${step} de ${tot} · ${["Quem é você","Você e a Jornada","Seus cursos","Seu concurso"][step-1]}</small>`;
+  const chips=(k,L,multi)=>`<div class="ob-chips" role="group">${L.map(v=>{const on=multi?(M[k]||[]).includes(v):M[k]===v;return`<button type="button" class="ob-ch ${on?"on":""}" data-a="obCh" data-k="${k}" data-v="${esc(v)}" data-m="${multi?1:""}" aria-pressed="${on}">${esc(v)}${multi&&on?" ✓":""}</button>`}).join("")}</div>`;
+  let body="";
+  if(step===1)body=`<h3>${nov?"Boas-vindas à Jornada!":"Complete o seu perfil"}</h3><p class="muted">${nov?"Vamos montar o seu plano de estudos. Leva uns 3 minutos.":"Leva 1 minuto e deixa a plataforma com a sua cara."}</p>
+    <div class="ob-av"><label class="ob-ph" title="Escolher foto">${M.photo?`<img src="${esc(M.photo)}" alt="">`:ic("plus")}<input type="file" accept="image/*" data-c="obFoto" hidden></label><div><b>Sua foto</b><span class="muted small">Opcional. Aparece só no seu painel.${M.photo?` <button class="lnk" data-a="obFotoX">Tirar foto</button>`:""}</span></div></div>
+    <div class="field"><label for="obFull">Nome completo</label><input class="inp" id="obFull" autocomplete="name" maxlength="80" value="${esc(M.full||"")}" placeholder="Seu nome completo"></div>
+    <div class="field"><label for="obN">Como quer ser chamado(a)</label><input class="inp" id="obN" autocomplete="given-name" maxlength="40" value="${esc(M.nick||(core().cfg||{}).name||UI.obName||"")}" placeholder="Seu primeiro nome"></div>
+    ${em?`<div class="field"><label>E-mail</label><input class="inp" value="${esc(em)}" readonly aria-readonly="true"><small class="muted">É o e-mail da sua conta.</small></div>`:""}
+    <div class="field"><label for="obTel">WhatsApp <span class="muted">(opcional)</span></label><input class="inp" id="obTel" type="tel" inputmode="tel" autocomplete="tel" maxlength="16" value="${esc(M.tel||"")}" placeholder="(00) 00000-0000"></div>
+    <label class="ob-ck"><input type="checkbox" id="obWa" ${M.waOk?"checked":""}> Quero receber lembretes de estudo e avisos de metas pelo WhatsApp.</label>`;
+  if(step===2)body=`<h3>Como conheceu a Jornada?</h3>${chips("orig",OB_ORIG)}
+    ${M.orig==="Indicação de amigo"?`<div class="field"><label for="obInd">Quem indicou? <span class="muted">(opcional)</span></label><input class="inp" id="obInd" maxlength="60" value="${esc(M.ind||"")}" placeholder="Nome de quem indicou"></div>`:""}
+    <h3>Em que momento você está?</h3>${chips("mom",OB_MOM)}
+    <h3>Já fez alguma prova de concurso?</h3>${chips("prv",OB_PRV)}
+    <p class="muted small">Isso ajusta o ritmo: quem está começando recebe mais teoria; quem já estuda há anos, mais questões e revisão.</p>`;
+  if(step===3)body=`<h3>Quais cursos e plataformas você já tem?</h3><p class="muted">Marque todos. As metas passam a usar as aulas e os PDFs que você já tem.</p>${chips("cur",OB_CUR,1)}
+    <div class="field"><label for="obOut">Outro curso ou plataforma <span class="muted">(opcional)</span></label><input class="inp" id="obOut" maxlength="60" value="${esc(M.out||"")}" placeholder="Nome do curso"></div>
+    ${chips("sem",["Não tenho curso: vou pelo edital"])}`;
+  if(step===4)body=`<h3>Qual concurso você vai estudar?</h3><p class="muted">Busque na base (SEFAZ, tribunais, polícias, CGU, TCEs…) ou cadastre as matérias do seu edital. Depois a plataforma mostra como ligar os seus cursos e PDFs.</p>
+    <button class="btn pri ob-big" data-a="obNext" data-v="5"><span>${ic("plus")}</span><span><b>Escolher ou montar o meu concurso</b><small>Você pode adicionar outros concursos depois, em “Trocar de concurso”.</small></span></button>`;
+  const back=step>1?`<button class="btn ghost" data-a="obNext" data-v="${step-1}">Voltar</button>`:"";
+  const skip=step===2||step===3?`<button class="btn ghost" data-a="obNext" data-v="${step+1}" data-skip="1">Pular</button>`:!nov&&step===1?`<button class="btn ghost" data-a="obLater">Agora não</button>`:"";
+  const next=step<4&&(nov||step<3)?`<button class="btn pri" data-a="obNext" data-v="${step+1}">Continuar</button>`:!nov&&step===3?`<button class="btn pri" data-a="obNext" data-v="9">Concluir</button>`:"";
+  $("layer3").innerHTML=`<div class="modal ob-modal" role="dialog" aria-modal="true" aria-label="Entrevista inicial"><div class="box ob-box">${bar}<div class="ob-body">${body}</div><div class="ob-foot">${back}<span class="sp"></span>${skip}${next}</div></div></div>`;
+  setTimeout(()=>{const e=step===1?$(M.full?"obN":"obFull"):null;if(e&&!e.value)e.focus()},40)}
+function obGrab(){const M=ME(),v=id=>{const e=$(id);return e?e.value.trim().replace(/\s+/g," "):null};
+  if(UI.obStep===1){const f=v("obFull"),n=v("obN"),t=v("obTel"),w=$("obWa");if(f!=null)M.full=f.slice(0,80);if(n!=null)M.nick=(n||f.split(" ")[0]||"").slice(0,40);if(t!=null)M.tel=obPhone(t);if(w)M.waOk=!!w.checked&&!!M.tel;if(window.JX_ACESSO&&window.JX_ACESSO.email)M.email=window.JX_ACESSO.email}
+  if(UI.obStep===2){const i=v("obInd");if(i!=null)M.ind=i.slice(0,60)}
+  if(UI.obStep===3){const o=v("obOut");if(o!=null)M.out=o.slice(0,60)}}
+function obApplyCursos(){const M=PLANS.me;if(!M||!(M.cur||M.out))return;const c=core();if(c.perfil&&c.perfil.fromOb)return;const P=c.perfil||{plats:{}};P.plats=P.plats||{};
+  (M.cur||[]).forEach(k=>{const m=OB_PLAT[k];if(m&&!P.plats[m[0]])P.plats[m[0]]=m[1]});const extra=(M.cur||[]).filter(k=>!OB_PLAT[k]).concat(M.out?[M.out]:[]);if(extra.length&&!P.outro)P.outro=extra.join(", ");
+  P.fromOb=1;c.perfil=P;touch("core")}
+async function obSave(){const M=ME();M.at=M.at||Date.now();try{await savePlans()}catch(e){}
+  try{if(window.jxEntrevista)await window.jxEntrevista.salvar({nome:M.full||"",tel:M.tel||"",whats:!!M.waOk,origem:M.orig||"",indicou:M.ind||"",momento:M.mom||"",provas:M.prv||"",cursos:(M.cur||[]).concat(M.out?[M.out]:[]).concat(M.sem?["Sem curso"]:[]),em:new Date().toISOString()})}catch(e){}}
+function obFotoSet(file){if(!file||!/^image\//.test(file.type))return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const S=192,cv=document.createElement("canvas");cv.width=cv.height=S;const x=cv.getContext("2d"),m=Math.min(im.width,im.height);x.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,S,S);obGrab();ME().photo=cv.toDataURL("image/jpeg",.82);obWizard(UI.obStep,UI.obMode);try{renderNav()}catch(e){}};im.src=r.result};r.readAsDataURL(file)}
+document.addEventListener("change",e=>{const el=e.target;if(el&&el.dataset&&el.dataset.c==="obFoto"&&el.files&&el.files[0])obFotoSet(el.files[0])});
+document.addEventListener("input",e=>{const el=e.target;if(el&&el.id==="obTel"){const p=el.selectionStart===el.value.length;el.value=obPhone(el.value);if(p)el.selectionStart=el.selectionEnd=el.value.length}});
+/* Hoje: perfil incompleto (quem já usava) e “Ligue os seus materiais” (depois da entrevista) */
+function obPerfilCard(){if(!PLANS.onb||PLANS.me&&PLANS.me.at||PLANS.meSkip&&PLANS.meSkip>Date.now())return"";
+  return`<section class="card ob-card"><div class="card-b row" style="justify-content:space-between;gap:12px;flex-wrap:wrap"><span class="row" style="gap:12px;flex:1 1 280px">${ic("plus")}<span><b>Complete o seu perfil</b><br><span class="muted small">Foto, WhatsApp, como conheceu a Jornada e os cursos que você já tem. Leva 1 minuto.</span></span></span><span class="row" style="gap:8px"><button class="btn sm ghost" data-a="obLater">Agora não</button><button class="btn sm pri" data-a="obPerfil">Completar</button></span></div></section>`}
+function obSetupCard(){const M=PLANS.me;if(!M||!M.at||M.setupOk||!PLANS.onb)return"";const cur=(M.cur||[]),L=[];
+  const linked=ED.some(x=>courseList(x.id).some(c=>c.id!=="std"));
+  cur.filter(k=>!["TEC Concursos","QConcursos"].includes(k)).concat(M.out?[M.out]:[]).forEach(k=>L.push({t:k+": vincule o curso",s:"Cole o link do curso e a plataforma liga as aulas às metas",ok:linked,b:`<button class="btn sm pri" data-a="csFull">Vincular</button>`}));
+  if(cur.includes("TEC Concursos"))L.push({t:"TEC Concursos",s:IS_TJ?"O Guia do cargo já está ligado às tarefas de questões":"Traga os cadernos do Guia do seu cargo",ok:IS_TJ,b:IS_TJ?"":`<button class="btn sm pri" data-a="gtab" data-t="edital">Ligar</button>`});
+  if(cur.includes("QConcursos"))L.push({t:"QConcursos",s:"Guarde o link dos seus cadernos em Estudar › Aulas e PDFs",ok:false,b:`<button class="btn sm" data-a="gtab" data-t="materiais">Abrir</button>`});
+  L.push({t:"PDFs das aulas",s:"Envie ou arraste a pasta: as metas indicam as páginas exatas",ok:PDFS().length>0,b:`<button class="btn sm pri" data-a="gtab" data-t="materiais">Enviar</button>`});
+  L.push({t:"Horas e dias de estudo",s:"Ajuste a sua semana para as metas caberem na rotina",ok:!!M.rotSeen,b:`<button class="btn sm" data-a="gtab" data-t="rotina">Ajustar</button>`});
+  const done=L.filter(x=>x.ok).length;
+  return`<section class="card ob-setup"><div class="card-h"><h2>${ic("check")} Ligue os seus materiais</h2><span class="r muted small">${done} de ${L.length} prontos</span></div><div class="card-b ob-sl">${L.map(x=>`<div class="ob-si ${x.ok?"ok":""}"><span class="ob-sd">${x.ok?ic("check"):""}</span><span class="ob-st"><b>${esc(x.t)}</b><small>${esc(x.s)}</small></span>${x.ok?`<span class="chip ok">pronto</span>`:x.b}</div>`).join("")}
+   <div class="row" style="justify-content:flex-end"><button class="btn sm ghost" data-a="obSetupOk">${done===L.length?"Esconder":"Fazer depois"}</button></div></div></section>`}
+/* ADM: o que os alunos responderam na entrevista (só contagens) */
+async function obAdmLoad(){const box=$("obAdm");if(!box)return;box.innerHTML='<p class="muted"><span class="spin"></span> Carregando…</p>';
+  try{if(!window.jxEntrevista)throw new Error("x");const R=await window.jxEntrevista.resumo()||{};const bars=(t,o)=>{const E=Object.entries(o||{}).sort((a,b)=>b[1]-a[1]),mx=Math.max(1,...E.map(x=>x[1]));return`<div class="ob-adm-g"><b>${t}</b>${E.length?E.map(([k,n])=>`<div class="ob-adm-r"><span>${esc(k||"Não respondeu")}</span><i><s style="width:${Math.round(n/mx*100)}%"></s></i><em>${n}</em></div>`).join(""):'<span class="muted small">Ainda sem respostas.</span>'}</div>`};
+    box.innerHTML=`<p class="muted small" style="margin:0">${R.total||0} alunos responderam · ${R.whats||0} aceitaram lembretes no WhatsApp</p><div class="ob-adm">${bars("Como conheceram",R.origem)}${bars("Cursos que já têm",R.cursos)}${bars("Momento",R.momento)}</div>`}
+  catch(e){box.innerHTML=`<p class="muted small" style="margin:0">Para ver este quadro, rode uma vez no Supabase o arquivo <b>supabase-entrevista.sql</b> (SQL Editor › colar › Run). Ele só acrescenta uma coluna e duas funções; não apaga nada.</p>`}}
+{const _va=vAssinatura;vAssinatura=function(){const h=_va();const A=window.JX_ACESSO||{};if(A.st!=="dono")return h;setTimeout(obAdmLoad,60);const k=`<section class="card"><div class="card-h"><h2>${ic("desempenho")} Entrevistas dos alunos</h2><button class="btn sm ghost r" data-a="obAdm">${ic("reset")} Atualizar</button></div><div class="card-b" id="obAdm"></div></section>`;const i=h.indexOf("</div>",h.indexOf('class="hello"'));return i>0?h.slice(0,i+6)+k+h.slice(i+6):k+h}}
+function obName(){const e=$("obN"),v=((e?e.value:"")||(PLANS.me&&PLANS.me.nick)||UI.obName||"").trim().replace(/\s+/g," ").slice(0,40);UI.obName=v;if(v){const c=core();c.cfg=c.cfg||{};c.cfg.name=v;touch("core");PLANS.ui=Object.assign({},PLANS.ui,{name:v})}return v}
 /* Lista de concursos: salva neste navegador e na conta */
 const PDOC=()=>"data/users/"+UID+"/plans";
 async function syncPlans(){if(!DB)return false;try{const sn=await DB.doc(PDOC()).get();const r=sn.exists?sn.data():null;
@@ -5043,7 +5124,7 @@ function renderNav(){
   $("nav").innerHTML=NAV.map(([k,l])=>`<button data-a="tab" data-t="${k}" title="${l}" ${k==="motivacao"?'class="nav-mot"':""} ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${ic(k==="assinatura"?"lock":k)}<span>${l}</span>${k==="revisoes"&&due+errPend()+arNowN()?`<span class="cnt">${due+errPend()+arNowN()}</span>`:""}</button>`+(k==="materiais"?LXB:"")).join("");
   $("mtabs").innerHTML=("")+NAV.map(([k,l])=>`<button data-a="tab" data-t="${k}" ${k==="motivacao"?'class="mt-mot"':""} ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${k==="motivacao"?"🤍 ":""}${l}${k==="revisoes"&&due+errPend()?" · "+(due+errPend()):""}</button>`+(k==="materiais"?`<button class="mt-lx" data-a="lxOpen">🎧 Scribax</button>`:"")).join("");
   const c=core(),es=edStats(),PG=progData(),p=Math.round(PG.tot);
-  $("av").style.setProperty("--p",p);$("avn").textContent=(c.cfg.name||"?").trim().charAt(0).toUpperCase()||"?";
+  $("av").style.setProperty("--p",p);{const ph=PLANS.me&&PLANS.me.photo,an=$("avn");if(ph){an.innerHTML=`<img src="${esc(ph)}" alt="">`;an.classList.add("ph")}else{an.classList.remove("ph");an.textContent=(c.cfg.name||"?").trim().charAt(0).toUpperCase()||"?"}}
   $("whoName").textContent=c.cfg.name||"Você";try{const w=document.querySelector(".who");let ch=$("asnChipW");if(!ch&&w){ch=document.createElement("div");ch.id="asnChipW";w.appendChild(ch)}if(ch)ch.innerHTML=asnChip()}catch(e){}$("whoSub").textContent=(PG.src==="gj"?"Planejamento: ":"Edital estudado: ")+(PG.src==="gj"?pctTxt(PG.tot):p+"%");
   const TBD=provaTBD();$("miniDays").textContent=TBD?"∞":provaDias();const mdt=$("miniDate");if(mdt)mdt.textContent=TBD?"data a definir":new Date(prova()+"T12:00").toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"});
   const pt=$("ptabs");if(pt){const L=allPlans();pt.innerHTML=L.length>1?L.map(p=>`<span class="ptw ${p.id===ACTIVE?"on":""}"><button class="ptab" ${p.id===ACTIVE?'aria-current="page"':`data-a="plGo" data-id="${p.id}"`} title="${esc(pDesc(p))}"><span class="pm">${esc(planMark(p))}</span><span class="pn">${esc(pName(p))}</span></button><button class="ptx" data-a="plRm" data-id="${p.id}" aria-label="Remover o concurso ${esc(pName(p))}" title="Remover este concurso">${ic("close")}</button></span>`).join("")+`<button class="ptab add" data-a="npOpen" aria-label="Adicionar outro concurso">${ic("plus")}</button>`:"";pt.hidden=L.length<2}
@@ -5510,6 +5591,7 @@ function render(){
   if(READY&&obPending()){document.documentElement.dataset.ob="1";$("view").innerHTML="";if(!UI.np&&!$("layer3").innerHTML.trim())obModal();bootDone();return}
   if(document.documentElement.dataset.ob){delete document.documentElement.dataset.ob}
   if(READY)bootDone();
+  if(READY&&!(DB&&!PULLED))try{obApplyCursos()}catch(e){}
   if(READY&&!(DB&&!PULLED)&&!core().metas.length&&createMeta())toast("Meta 01 liberada. Toque numa atividade para ver os comandos.");
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
@@ -5518,7 +5600,7 @@ function render(){
   const V={meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:vMateriais,revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,mural:vMural,motivacao:vMotivacao,comparativo:vComparativo,esquemas:vEsquemas,rotina:()=>{const h=vRotina(),k=afCardHTML()+actCardHTML();if(!k)return h;const i=h.indexOf("</div>",h.indexOf('class="hello"'));return i>0?h.slice(0,i+6)+k+h.slice(i+6):k+h},erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,pontos:vPontos,assinatura:vAssinatura,provas:vProvas}[TAB];
   {const vw=$("view"),ix=t=>TABS.findIndex(x=>x[0]===t),a=ix(render.lt),b=ix(TAB),sk=[UI.jtab,UI.dtab,UI.ctab,UI.mtab,UI.rsView,UI.rotMode,UI.dmode,UI.mview,UI.dsView,UI.pvOpen].map(x=>x==null?"":String(x)).join("|"),subCh=render.lt===TAB&&render.lsk!=null&&render.lsk!==sk;
    const left=render.lt!==TAB?(UI.navDir==="l"||(!UI.navDir&&a>-1&&b>-1&&b<a)):(subCh&&UI.navDir==="l");
-   vw.classList.toggle("noanim",render.lt===TAB&&!subCh);vw.classList.toggle("vw-sub",subCh);vw.classList.toggle("vw-l",(render.lt!==TAB||subCh)&&left);vw.classList.toggle("vw-r",(render.lt!==TAB||subCh)&&!left);render.lsk=sk;UI.navDir=""}render.lt=TAB;$("view").innerHTML=gnavHTML()+V();{const vw=$("view");if(!vw.classList.contains("noanim")&&(vw.classList.contains("vw-r")||vw.classList.contains("vw-l"))&&!document.documentElement.hasAttribute("data-boot")&&!document.documentElement.hasAttribute("data-in"))vwSlide(vw.classList.contains("vw-l")?"l":"r")}try{howAttach()}catch(e){}try{cntUp($("view"))}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina")initWheels($("view"));if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
+   vw.classList.toggle("noanim",render.lt===TAB&&!subCh);vw.classList.toggle("vw-sub",subCh);vw.classList.toggle("vw-l",(render.lt!==TAB||subCh)&&left);vw.classList.toggle("vw-r",(render.lt!==TAB||subCh)&&!left);render.lsk=sk;UI.navDir=""}render.lt=TAB;$("view").innerHTML=gnavHTML()+V();{const vw=$("view");if(!vw.classList.contains("noanim")&&(vw.classList.contains("vw-r")||vw.classList.contains("vw-l"))&&!document.documentElement.hasAttribute("data-boot")&&!document.documentElement.hasAttribute("data-in"))vwSlide(vw.classList.contains("vw-l")?"l":"r")}try{howAttach()}catch(e){}try{cntUp($("view"))}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina"){initWheels($("view"));if(PLANS.me&&PLANS.me.at&&!PLANS.me.rotSeen){PLANS.me.rotSeen=1;savePlans()}}if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
   if(UI.openT)renderDrawer();
   if(TAB==="meta"&&READY){setTimeout(jwAnim,900);if(!PLANS.tour5)setTimeout(tourMaybe,1600)}
 }
@@ -5752,7 +5834,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261109155336";
+const JX_BUILD="20261109162232";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6251,7 +6333,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109155336" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109162232" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -6743,7 +6825,7 @@ function iaModal(){$("layer3").innerHTML=`<div class="modal" role="dialog" aria-
 
 function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
-  let h=greetHTML(name)+edThinHTML();
+  let h=greetHTML(name)+obPerfilCard()+obSetupCard()+edThinHTML();
   if(!r){
     const pv=previewMeta(),tot=remainingMetas();
     h+=`<section class="card mandado"><div class="m-head"><div class="m-num"><small>Prévia</small><b>Meta 01</b></div><div class="m-meta"><span class="code">OJ-TJSP · 01/${pad(tot)}</span><span class="muted small">${tot} metas previstas para cobrir o edital</span></div></div>
@@ -10014,7 +10096,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109155336&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109162232&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -12250,6 +12332,17 @@ Object.assign(A,{async rsRedoAll(){if(UI.rsAll)return;const L=resOld();if(!L.len
   for(const R of L){try{await genResumo(R.sid,R.aula,null,true)}catch(e){}UI.rsAll.d++;if(TAB==="resumos")render()}
   UI.rsAll=null;render();toast("Resumos refeitos com o método novo")}});
 Object.assign(A,{
+  obCh(el){obGrab();const M=ME(),k=el.dataset.k,v=el.dataset.v;if(el.dataset.m){const L=M[k]||[];M[k]=L.includes(v)?L.filter(x=>x!==v):L.concat(v);if(M[k].length)M.sem=null}else if(k==="sem"){M.sem=M.sem?null:v;if(M.sem)M.cur=[]}else M[k]=M[k]===v?null:v;obWizard(UI.obStep,UI.obMode)},
+  async obNext(el){obGrab();const M=ME(),to=+el.dataset.v;
+    if(UI.obStep===1&&to>1){if(!M.full){toast("Digite o seu nome completo");const e=$("obFull");if(e)e.focus();return}if(M.tel&&M.tel.replace(/\D/g,"").length<10){toast("Confira o WhatsApp: DDD e número");return}UI.obName=M.nick;const c=core();c.cfg=c.cfg||{};c.cfg.name=M.nick;PLANS.ui=Object.assign({},PLANS.ui,{name:M.nick});try{touch("core")}catch(e){}try{renderNav()}catch(e){}}
+    if(to===9){await obSave();obApplyCursos();$("layer3").innerHTML="";UI.obMode=null;render();toast("Perfil completo. Obrigado!");return}
+    if(to===5){await obSave();UI.obStep=null;A.obMine();return}
+    obWizard(to,UI.obMode)},
+  obFotoX(){obGrab();delete ME().photo;obWizard(UI.obStep,UI.obMode);try{renderNav()}catch(e){}},
+  obPerfil(){obWizard(1,"perfil")},
+  async obLater(){PLANS.meSkip=Date.now()+7*864e5;$("layer3").innerHTML="";UI.obMode=null;await savePlans();render()},
+  async obSetupOk(){ME().setupOk=1;await savePlans();render()},
+  obAdm(){obAdmLoad()},
   async obMine(){obName();PLANS.onb=1;UI.obNew=1;await savePlans();$("layer3").innerHTML="";A.npOpen()},
   async obTj(){obName();PLANS.onb=1;UI.obNew=0;await savePlans();$("layer3").innerHTML="";render();toast("Tudo pronto. Bons estudos!")}
 });
