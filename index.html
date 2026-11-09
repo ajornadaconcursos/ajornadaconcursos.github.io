@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611091516"></script>
+<script src="/claude-shim.js?v=202611091553"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -27,6 +27,35 @@
 .tour5 .t5-hl{position:fixed;border-radius:14px;box-shadow:0 0 0 3px var(--acc,#a78bfa),0 0 0 9999px rgba(6,9,24,.35);pointer-events:none;transition:all .25s}
 .tour5 .t5-b{position:fixed;width:min(360px,calc(100vw - 32px));background:var(--card,#151b3a);border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:grid;gap:8px;box-shadow:0 20px 50px rgba(0,0,0,.45)}
 .tour5 .t5-b.mob{left:16px;right:16px;bottom:16px;width:auto}.tour5 .t5-b small{color:var(--acc,#a78bfa);font-weight:600}.tour5 .t5-b b{font-size:18px}.tour5 .t5-b p{margin:0;color:var(--muted);line-height:1.5}
+
+.tecga{display:grid;gap:8px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--sunk,rgba(255,255,255,.03))}.tecga-l{margin:0;padding-left:20px;display:grid;gap:4px}.tec-next{margin-top:10px}
+
+.mmi-wrap{display:grid;gap:10px}.mmi-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.mmi-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:14px;align-items:start}
+@media (max-width:900px){.mmi-grid{grid-template-columns:1fr}}
+.mmi{overflow:auto;padding:14px 8px 18px;border:1px solid var(--line);border-radius:16px;background:var(--sunk,rgba(255,255,255,.02));max-height:68vh}
+.mmi ul{list-style:none;margin:0;padding:0 0 0 38px;display:flex;flex-direction:column;justify-content:center;gap:8px;position:relative}
+.mmi ul.mmi-root{padding-left:0}
+.mmi li{display:flex;align-items:center;position:relative}
+.mmi ul:not(.mmi-root)::before{content:"";position:absolute;left:0;top:50%;width:19px;border-top:2px solid var(--line2,#3a4677)}
+.mmi ul:not(.mmi-root)>li::before{content:"";position:absolute;left:-19px;top:50%;width:19px;border-top:2px solid var(--line2,#3a4677)}
+.mmi ul:not(.mmi-root)>li::after{content:"";position:absolute;left:-19px;top:-4px;bottom:-4px;border-left:2px solid var(--line2,#3a4677)}
+.mmi ul:not(.mmi-root)>li:first-child::after{top:50%}.mmi ul:not(.mmi-root)>li:last-child::after{bottom:50%}.mmi ul:not(.mmi-root)>li:only-child::after{display:none}
+.mmi-n{display:flex;align-items:center;gap:4px;flex:none;max-width:330px}
+.mmi-t{all:unset;cursor:pointer;padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card,#151b3a);font-size:14px;line-height:1.35;color:var(--text)}
+.mmi-t:hover,.mmi-t:focus-visible{border-color:var(--acc,#a78bfa);box-shadow:0 0 0 2px rgba(167,139,250,.25)}
+.mmi-n.d0 .mmi-t{background:var(--mc,#7c5cff);border-color:var(--mc,#7c5cff);color:#fff;font-weight:700;font-size:15px}
+.mmi-n.d1 .mmi-t{background:rgba(124,92,255,.16);border-color:rgba(124,92,255,.45);font-weight:600}
+.mmi-n.d2 .mmi-t{background:rgba(155,225,93,.10);border-color:rgba(155,225,93,.35)}
+.mmi-n.on .mmi-t{outline:2px solid var(--acc,#a78bfa);outline-offset:2px}
+.mmi-x{all:unset;cursor:pointer;display:grid;place-items:center;min-width:26px;height:26px;border-radius:50%;border:1px solid var(--line);font-weight:700;color:var(--muted);position:relative}
+.mmi-x small{position:absolute;top:-8px;right:-8px;font-size:10px;background:var(--line);border-radius:8px;padding:0 4px;color:var(--text)}
+.mmi-x:hover,.mmi-x.op{color:var(--text);border-color:var(--acc,#a78bfa)}
+.mmi-ans{position:sticky;top:0;border:1px solid var(--line);border-radius:16px;padding:14px;display:grid;gap:10px;background:var(--card,#151b3a);max-height:68vh;overflow:auto}
+.mmi-empty{display:grid;gap:6px;justify-items:start;color:var(--muted)}.mmi-empty p{margin:0;color:var(--text)}
+.mmi-q{display:grid;gap:2px}.mmi-q b{font-size:16px}
+.mmi-src{display:grid;gap:6px}.mmi-src blockquote,.mmi-loc blockquote{margin:0;padding:8px 10px;border-left:3px solid var(--lime,#9be15d);background:var(--sunk,rgba(255,255,255,.03));border-radius:6px;font-size:13.5px}
+.mmi-loc{display:grid;gap:6px}.mmi-loc summary{cursor:pointer;font-size:13px;color:var(--muted)}
 </style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -3622,7 +3651,7 @@ if(!IS_TJ){[CURSO,QUIZ,ALT,TECN,TECL.sub].forEach(o=>Object.keys(o).forEach(k=>d
 /* Cadernos do Guia TEC "Oficial de Justiça (TJ SP) 2024" (questões VUNESP do cargo, separadas por matéria) */
 const TECGC={lp:106449834,dpen:106449860,dpp:106449862,dpc:106449861,dcon:106449859,dadm:106449857,dciv:106449858,lesp:106449866,atu:106449855,mrl:106449867,inf:106449865};
 const tecGuiaCad=sid=>IS_TJ&&TECGC[sid]?TB+"/questoes/cadernos/"+TECGC[sid]:"";
-function tecKind(sid){const T=core().cfg.tecs||{};return T[sid]?"seu":TECL.sub[sid]?"guia":"busca"}
+function tecKind(sid){const T=core().cfg.tecs||{};return T[sid]?"seu":(tecGuiaCad(sid)||TECL.sub[sid])?"guia":"busca"}
 function tecUrl(sid){
   const c=core().cfg,T=c.tecs||{};
   if(!sid)return c.tec||TECL.guia;
@@ -3643,10 +3672,31 @@ function taskEdTopics(t){
 /* o TEC não aceita link com o filtro pronto: o botão abre o filtro do TEC e já deixa copiados matéria, assuntos, banca e quantidade */
 function tecFtxt(sid,tps){const p=curPlan()||{};return["Matéria: "+(TECN[sid]||SUB(sid).n),tps&&tps.length?"Assuntos: "+tps.map(tShort).join("; "):"",p.banca?"Banca: "+p.banca:"",(p.orgao||p.cargo)?"Órgão e cargo: "+[p.orgao,p.cargo].filter(Boolean).join(" · "):"","Quantidade: 25 questões (de 20 a 30), as mais recentes primeiro"].filter(Boolean).join("\n")}
 document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-tecf]");if(!a)return;const t=a.dataset.tecf;try{navigator.clipboard.writeText(t)}catch(x){}toast("Filtro copiado. No TEC, em Matéria e assunto, marque esses itens e gere o caderno com 20 a 30 questões. Depois guarde o link do caderno aqui")},true);
+/* Índice do Guia TEC "Oficial de Justiça (TJ SP) 2024": para cada aula, os assuntos do Índice do caderno da matéria e quantas
+   questões cada um tem (só o nome e a quantidade; nenhuma questão é copiada). Levantado em 09/11/2026. */
+const TECGA={"lp|00": [["Substantivo", 12], ["Adjetivo", 13], ["Advérbio", 25], ["Numeral", 5]], "lp|01": [["Preposição", 17], ["Conjunção", 68]], "lp|02": [["Pronomes", 60], ["Colocação Pronominal", 58]], "lp|03": [["Verbo", 60]], "lp|04": [["Vozes (Voz Passiva e Voz Ativa)", 13], ["Correlação Verbal", 7]], "lp|05": [["Pontuação (Ponto, Vírgula, Travessão, Aspas, Parênteses, etc)", 77]], "lp|06": [["Concordância (Verbal e Nominal)", 108]], "lp|07": [["Regência Nominal e Verbal (Casos Gerais)", 72], ["Crase", 78]], "lp|08": [["Coerência. Coesão", 53]], "lp|09": [["Sinônimos e Antônimos", 40], ["Significação de Vocábulo e Expressões", 29]], "lp|10": [["Interpretação de Textos (Compreensão)", 295]], "dpen|00": [["Aplicação da Lei Penal (arts. 1º a 12 do CP)", 212], ["Princípios da Legalidade e Anterioridade Penal", 19]], "dpen|01": [["Da Extinção da Punibilidade", 103], ["Da Ação Penal", 28]], "dpen|02": [["Homicídio", 49], ["Das Lesões Corporais", 52], ["Dos Crimes contra a Inviolabilidade de Domicílio", 9]], "dpen|03": [["Da Falsidade Documental", 94], ["Da Falsidade de Títulos e Outros Papéis Públicos", 10], ["Falsa Identidade", 7]], "dpen|04": [["Peculato", 88], ["Funcionário Público para Fins Penais", 23], ["Peculato Mediante Erro de Outrem", 8]], "dpen|05": [["Dos Crimes Praticados por Particular contra a Administração", 87]], "dpen|06": [["Dos Crimes contra a Administração da Justiça", 50]], "dpp|00": [["Da Ação Penal", 35], ["Da Ação Civil Ex Delicto", 38], ["Competência Processual Penal", 16]], "dpp|01": [["Da Prisão, das Medidas Cautelares e da Liberdade Provisória", 53], ["Provas em Espécie", 48]], "dpp|02": [["Habeas Corpus", 10], ["Da Apelação", 4]], "dpc|00": [["Aplicação das Normas Processuais", 9]], "dpc|01": [["Da Jurisdição", 42]], "dpc|02": [["Da Competência Interna", 15]], "dpc|03": [["Da Capacidade Processual", 148], ["Da Intervenção de Terceiros", 15]], "dpc|04": [["Do Ministério Público", 65], ["Da Advocacia Pública", 22], ["Da Defensoria Pública", 15]], "dpc|05": [["Dos Prazos", 119], ["Do Tempo e Do Lugar dos Atos Processuais", 32]], "dpc|06": [["Da Citação", 166], ["Das Intimações", 30]], "dpc|07": [["Da Prova Testemunhal", 3]], "dpc|08": [["Do Cumprimento da Sentença", 10], ["Da Sentença e Da Coisa Julgada", 3]], "dpc|09": [["Das Ações Possessórias", 7]], "dpc|10": [["Do Processo de Execução", 9]], "dpc|11": [["Dos Recursos", 17]], "dpc|12": [["Lei nº 9.099/1995 - Juizados Especiais Cíveis", 19]], "dcon|01": [["Dos Princípios Fundamentais da Constituição", 94]], "dcon|02": [["Dos Direitos e Deveres Individuais e Coletivos", 432]], "dcon|03": [["Dos Direitos e Deveres Individuais e Coletivos", 432], ["Remédios Constitucionais", 162]], "dcon|04": [["Dos Direitos Sociais", 117]], "dcon|05": [["Da Nacionalidade", 92]], "dcon|06": [["Direitos Políticos", 134]], "dcon|07": [["Da Organização Político-Administrativa", 37]], "dcon|08": [["Disposições Gerais (Administração Pública - arts. 37 e 38 da CF)", 287], ["Dos Servidores Públicos", 119]], "dcon|09": [["Órgãos do Poder Judiciário", 8], ["Do Estatuto da Magistratura", 23], ["Das Garantias e Vedações (Poder Judiciário)", 13]], "dcon|10": [["Do Poder Judiciário", 67], ["Funções Essenciais à Justiça", 17]], "dadm|01": [["Dos Atos de Improbidade", 108], ["Da Declaração de Bens", 7]], "dadm|02": [["Dos Atos de Improbidade", 108], ["Das Penas", 28]], "dadm|03": [["Dos Deveres e das Proibições", 23]], "dadm|U": [["Lei nº 10.261/1968 - Estatuto dos Servidores", 46], ["Improbidade Administrativa - Lei nº 8.429/1992", 143]], "dciv|00": [["Lei de Introdução às Normas do Direito Brasileiro", 128]], "dciv|02": [["Domicílio das Pessoas Naturais e Jurídicas", 16], ["Das Pessoas Jurídicas", 22]], "dciv|03": [["Dos Bens", 46]], "dciv|04": [["Invalidade do Negócio Jurídico", 49], ["Da Representação", 4]], "dciv|05": [["Dos Atos Ilícitos", 7]], "dciv|06": [["Prescrição e Decadência", 10], ["Prova do Negócio Jurídico", 7]], "dciv|07": [["Do Mandato", 11]], "dciv|08": [["Da Posse", 32]], "dciv|09": [["Do Penhor", 13]], "dciv|10": [["Da Tutela e da Curatela", 4]], "dciv|11": [["Do Direito das Sucessões", 3]], "lesp|00": [["Funções Essenciais à Justiça", 17, "dcon"]], "lesp|01": [["Normas de Serviço da Corregedoria-Geral", 64]], "lesp|02": [["Normas de Serviço da Corregedoria-Geral", 64]], "lesp|03": [["Normas de Serviço da Corregedoria-Geral", 64]], "lesp|04": [["Normas de Serviço da Corregedoria-Geral", 64]], "lesp|05": [["Normas de Serviço da Corregedoria-Geral", 64]], "lesp|06": [["Resolução CNJ nº 354/2020", 3]], "lesp|07": [["Lei Estadual nº 11.608/2003 - Taxa Judiciária", 23]], "lesp|08": [["Lei nº 6.830/1980 - Lei de Execução Fiscal", 13]], "mrl|00": [["Lógica de Proposições", 193]], "mrl|01": [["Equivalências Lógicas", 60]], "mrl|02": [["Diagramas Lógicos, Proposições Categóricas", 32]], "mrl|03": [["Lógica de Argumentação", 74]], "mrl|04": [["Sequências de Números, Figuras, Letras e Palavras", 80]], "mrl|05": [["Princípio da Casa dos Pombos", 5]], "mrl|07": [["Conjuntos", 273]], "mrl|08": [["Adição, Subtração, Multiplicação e Divisão", 36], ["Radiciação e Potenciação", 9]], "mrl|09": [["Unidades de Medida", 37]], "mrl|10": [["Divisibilidade, Números Primos, Fatores Primos", 91]], "mrl|11": [["Proporcionalidade", 146]], "mrl|12": [["Regra de Três", 91]], "mrl|13": [["Porcentagem", 138]], "mrl|14": [["Juros Simples", 12]], "mrl|15": [["Equações", 147]], "mrl|16": [["Geometria Plana", 200]], "mrl|17": [["Geometria Espacial", 71]], "mrl|19": [["Média", 83]], "inf|00": [["Internet", 671]], "inf|01": [["Navegadores (Browsers)", 235], ["Conceitos de Internet", 96]], "inf|02": [["Correio Eletrônico (E-mail)", 205]], "inf|03": [["Excel", 258]], "inf|04": [["Word", 240]], "inf|05": [["Windows", 337]], "inf|06": [["Windows", 337]], "inf|07": [["Microsoft Teams", 54], ["Computação em Nuvem (Cloud Computing)", 41]], "atu|09": [["Lei nº 13.146/2015 - Estatuto da Pessoa com Deficiência", 211, "pcd"]]};
+const TECGC_X={pcd:106449863};
+function tecGA(t){if(!IS_TJ||!t||!t.sid)return[];const out=[],seen=new Set();(aSet(t).length?aSet(t):[t.aula]).forEach(c=>{(TECGA[t.sid+"|"+c]||[]).forEach(([n,q,cs])=>{const k=(cs||t.sid)+"|"+n;if(seen.has(k))return;seen.add(k);const cid=cs?(TECGC[cs]||TECGC_X[cs]):TECGC[t.sid];out.push({n,q,cad:cid?TB+"/questoes/cadernos/"+cid:tecUrl(t.sid),mat:cs==="pcd"?"Estatuto da Pessoa com Deficiência":TECN[cs||t.sid]||SUB(cs||t.sid).n})})});return out}
+function tecGuiaHTML(t,o){o=o||{};const G=tecGA(t);if(!G.length)return"";const nq=t.nq||25,tot=G.reduce((a,x)=>a+x.q,0),cads=[...new Map(G.map(x=>[x.cad,x])).values()];
+  const dist=G.length>1&&tot>0?G.map(x=>Math.max(1,Math.round(nq*x.q/tot))):[nq];
+  return`<div class="tecga"><div class="tecb-h">${ic("target")} <b>${o.title||"No Guia do TEC (Oficial de Justiça TJ SP)"}</b><span class="muted small">${tot} questões da VUNESP nesses assuntos</span></div>
+   <ol class="tecga-l">${G.map((x,i)=>`<li><b>${esc(x.n)}</b> <span class="muted small">· ${x.q} ${x.q>1?"questões":"questão"}${G.length>1&&!o.short?" · faça ~"+dist[i]:""}</span></li>`).join("")}</ol>
+   ${o.short?"":`<p class="muted small" style="margin:0">Abra o caderno, toque em <b>Índice</b> e vá até o assunto. Resolva ${nq} questões no total${tot<20?" (este assunto tem poucas: complete com as do assunto vizinho no Índice)":""}, das mais recentes para as mais antigas.</p>`}
+   <div class="row">${cads.map(x=>`<a class="btn sm pri" href="${esc(x.cad)}" target="_blank" rel="noopener" data-tas="${esc(G.filter(y=>y.cad===x.cad).map(y=>y.n).join(" / "))}">${ic("ext")} Caderno do Guia: ${esc(x.mat)}</a>`).join("")}</div></div>`}
+function tecCadMini(t){const ck=t.sid+"|"+aSet(t).join(","),cad=(core().tecCad||{})[ck];const g=tecGuiaHTML(t,{short:1,title:"Questões desta aula no Guia do TEC"});if(!cad&&!g)return"";
+  return`<div class="tecb">${g}${cad?`<div class="row"><a class="btn sm" href="${esc(cad)}" target="_blank" rel="noopener">${ic("ext")} O seu caderno do TEC desta aula</a></div>`:""}</div>`}
+function tecNextHTML(t){const G=tecGA(t);if(!G.length)return"";return`<div class="dica tec-next"><b>${ic("target")} No fim do ciclo</b><span>Depois da Teoria, Revisão e Mapeamento, a tarefa de Questões traz ${t.nq||25} questões VUNESP de ${G.slice(0,3).map(x=>esc(x.n)).join(", ")}${G.length>3?"…":""}, no caderno do Guia do TEC.</span></div>`}
+/* lê "X acertos" / "X de Y" do que o aluno colou do TEC, sem precisar da IA */
+function tecParseRes(tx){tx=String(tx||"");let a=null,e=null,f=null,m;
+  if((m=tx.match(/(\d{1,3})\s*acertos?/i)))a=+m[1];if((m=tx.match(/(\d{1,3})\s*erros?/i)))e=+m[1];
+  if((m=tx.match(/acert\w*\s*(\d{1,3})\s*(?:de|\/)\s*(\d{1,3})/i))){a=+m[1];f=+m[2]}
+  if(f==null&&(m=tx.match(/(\d{1,3})\s*(?:de|\/)\s*(\d{1,3})\s*quest/i))){a=a==null?+m[1]:a;f=+m[2]}
+  if(f==null&&a!=null&&e!=null)f=a+e;if(f==null||a==null||a>f||f>300)return null;return{f,a}}
 function tecBlock(t){
   const tps=taskEdTopics(t),mat=TECN[t.sid]||SUB(t.sid).n;
   return`<div class="tecb"><div class="tecb-h">${ic("target")} <b>Questões no TEC Concursos</b><span class="muted small">Filtro: banca VUNESP · cargo Oficial de Justiça TJ SP · ${esc(mat)}${tps.length?" › "+tps.map(x=>esc(tShort(x))).join(" / "):""}</span></div>
-    <div class="row">${t.aula?`<button class="btn sm" data-a="goRes" data-s="${t.sid}" data-c="${t.aula}">${ic("resumos")} Resumo desta aula</button>`:""}<a class="btn sm pri" href="${esc(tecUrl(t.sid))}" target="_blank" rel="noopener" ${IS_TJ||tecKind(t.sid)==="seu"?"":`data-tecf="${esc(tecFtxt(t.sid,tps))}"`}>${ic("ext")} ${IS_TJ||tecKind(t.sid)==="seu"?"":"Filtro do TEC · "}Matéria: ${esc(mat)}</a>${tps.map(x=>`<a class="btn sm" href="${esc(tecTopicUrl(t.sid,x))}" target="_blank" rel="noopener" ${IS_TJ?"":`data-tecf="${esc(tecFtxt(t.sid,[x]))}"`}>${ic("ext")} Assunto: ${esc(tShort(x))}</a>`).join("")}</div>
+    ${tecGuiaHTML(t)}
+    <div class="row">${t.aula?`<button class="btn sm" data-a="goRes" data-s="${t.sid}" data-c="${t.aula}">${ic("resumos")} Resumo desta aula</button>`:""}<a class="btn sm ${tecGA(t).length?"":"pri"}" href="${esc(tecUrl(t.sid))}" target="_blank" rel="noopener" ${IS_TJ||tecKind(t.sid)==="seu"?"":`data-tecf="${esc(tecFtxt(t.sid,tps))}"`}>${ic("ext")} ${IS_TJ||tecKind(t.sid)==="seu"?"":"Filtro do TEC · "}Matéria: ${esc(mat)}</a>${tps.map(x=>`<a class="btn sm" href="${esc(tecTopicUrl(t.sid,x))}" target="_blank" rel="noopener" ${IS_TJ?"":`data-tecf="${esc(tecFtxt(t.sid,[x]))}"`}>${ic("ext")} Assunto: ${esc(tShort(x))}</a>`).join("")}</div>
     ${t.ph==="Q"&&t.aula?tecFiltroHTML(t):""}
     ${t.ph==="Q"&&t.aula?(()=>{const ck=t.sid+"|"+aSet(t).join(","),cad=(core().tecCad||{})[ck];return`<div class="row" style="align-items:flex-end;gap:8px">${cad?`<a class="btn sm pri" href="${esc(cad)}" target="_blank" rel="noopener">${ic("ext")} Abrir o caderno do TEC desta aula</a>`:""}<div class="field" style="flex:1 1 240px"><label for="tcad${t.id}" class="small">${cad?"Trocar o link do caderno":"Criou um caderno no TEC com "+(t.nq||25)+" questões destes assuntos? Guarde o link aqui"}</label><input class="inp" id="tcad${t.id}" inputmode="url" placeholder="https://www.tecconcursos.com.br/cadernos/..." value=""></div><button class="btn sm" data-a="tecCadSave" data-id="${t.id}">Guardar</button></div>`})():""}</div>`;
 }
@@ -4539,15 +4589,70 @@ async function mmImgBlob(file){const bmp=await createImageBitmap(file),max=3000,
   const g=cv.getContext("2d");g.fillStyle="#fff";g.fillRect(0,0,cv.width,cv.height);g.drawImage(bmp,0,0,cv.width,cv.height);return await new Promise(r=>cv.toBlob(r,"image/jpeg",.9))}
 async function mmStore(blob){if(ASSETS){const r=await upTry(blob);return{asset:r.id}}
   if(DB)throw{code:"offline"};if(blob.size>600000)throw{code:"too_large"};const url=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(blob)});return{url}}
-function mmViewer(x){const S=ED[EDI[x.sid]]||ED[0],tp=x.tp!=null&&S.t[x.tp]?S.t[x.tp][0]:"";
+/* ================= Mapa interativo: clica na seta e abre; clica no tópico e a IA explica só com o material do aluno ================= */
+const MMIX={mat:{},busy:new Set()};
+function mmMdTree(md,title){const root={t:title||"Esquema",c:[]},st=[{lv:0,n:root}];
+  String(md||"").split("\n").forEach(raw=>{const l=raw.replace(/\s+$/,"");if(!l.trim())return;let lv,t,m;
+    if((m=l.match(/^(#{1,6})\s+(.*)$/))){lv=m[1].length;t=m[2]}else if((m=l.match(/^(\s*)(?:[-*•]|\d+[.)])\s+(.*)$/))){lv=7+Math.floor(m[1].replace(/\t/g,"  ").length/2);t=m[2]}else{lv=99;t=l.trim()}
+    t=t.replace(/\*\*/g,"").trim();if(!t)return;if(lv===1&&!root.c.length&&st.length===1){root.t=t;return}
+    while(st.length>1&&st[st.length-1].lv>=lv)st.pop();const n={t:t.slice(0,240),c:[]};st[st.length-1].n.c.push(n);if(lv<99)st.push({lv,n})});
+  return root}
+function mmiTree(x){return x.kind==="ai"?x.tree:x.kind==="esqai"?mmMdTree(String(x.md||""),x.title):null}
+const mmiGet=(T,p)=>{if(p==="r")return T;let n=T;for(const i of String(p).split(".").slice(1)){n=(n.c||[])[+i];if(!n)return null}return n};
+const mmiChain=(T,p)=>{const out=[];let n=T,ps=String(p).split(".");out.push(T.t);for(const i of ps.slice(1)){n=(n.c||[])[+i];if(!n)break;out.push(n.t)}return out};
+function mmiOpenSet(id){UI.mmiO=UI.mmiO||{};return UI.mmiO[id]||(UI.mmiO[id]=new Set(["r"]))}
+function mmiNode(n,p,d,O,col,sel){const kids=(n.c||[]).filter(k=>k&&k.t),op=O.has(p);
+  return`<li><div class="mmi-n d${Math.min(d,3)} ${sel===p?"on":""}" ${d===0?`style="--mc:${col}"`:""}><button class="mmi-t" data-a="mmiAsk" data-p="${p}" title="Perguntar à IA sobre este tópico">${esc(n.t)}</button>${kids.length?`<button class="mmi-x ${op?"op":""}" data-a="mmiTg" data-p="${p}" aria-expanded="${op}" aria-label="${op?"Recolher":"Abrir"} ${esc(n.t.slice(0,40))}">${op?"‹":"›"}<small>${kids.length}</small></button>`:""}</div>${kids.length&&op?`<ul>${kids.map((k,i)=>mmiNode(k,p+"."+i,d+1,O,col,sel)).join("")}</ul>`:""}</li>`}
+function mmiHTML(x,S){const T=mmiTree(x);if(!T)return"";const O=mmiOpenSet(x.id),sel=UI.mmiSel&&UI.mmiSel.id===x.id?UI.mmiSel.p:"";
+  return`<div class="mmi-wrap"><div class="mmi-bar"><span class="muted small">Toque na seta <b>›</b> para abrir os ramos. Toque num tópico para a IA explicar com base só no seu material.</span><span class="row" style="gap:6px"><button class="btn sm ghost" data-a="mmiAll" data-v="1">Abrir tudo</button><button class="btn sm ghost" data-a="mmiAll" data-v="0">Recolher</button></span></div>
+   <div class="mmi-grid"><div class="mmi"><ul class="mmi-root">${mmiNode(T,"r",0,O,S.col,sel)}</ul></div><aside class="mmi-ans" id="mmiAns" aria-live="polite">${mmiAnsHTML(x)}</aside></div></div>`}
+function mmiAnsHTML(x){const s=UI.mmiSel;if(!s||s.id!==x.id)return`<div class="mmi-empty">${ic("bulb")}<p>Toque num tópico do mapa para ver o que o seu material diz sobre ele.</p><small class="muted">A resposta usa só os seus resumos, a teoria dos seus PDFs e os esquemas que você enviou. Se não estiver no seu material, a plataforma avisa em vez de inventar.</small></div>`;
+  const T=mmiTree(x),n=mmiGet(T,s.p);if(!n)return"";const ch=mmiChain(T,s.p),qa=(x.qa||{})[s.p],busy=MMIX.busy.has(x.id+"|"+s.p);
+  const loc=mmiLocal(x,n.t,ch);
+  return`<div class="mmi-q"><small class="muted">${esc(ch.slice(0,-1).join(" › "))||"Assunto"}</small><b>${esc(n.t)}</b></div>
+   ${busy?`<p class="muted"><span class="spin"></span> Procurando no seu material…</p>`:qa?(qa.ok?`<div class="rsout mmi-r">${mdLite(qa.txt)}</div>${(qa.tr||[]).length?`<div class="mmi-src"><b>Do seu material</b>${qa.tr.map(t=>`<blockquote>“${esc(t)}”</blockquote>`).join("")}${(qa.f||[]).length?`<small class="muted">Fonte: ${esc(qa.f.join(" · "))}</small>`:""}</div>`:""}`:`<div class="notice"><div class="tx"><b>Não encontrei isso no seu material.</b>Para não inventar, a plataforma só responde com o que está nos seus resumos, PDFs e esquemas. Adicione material sobre este tópico e pergunte de novo.</div></div>`)
+     :SAMPLE?`<button class="btn sm pri" data-a="mmiAsk" data-p="${s.p}" data-go="1">${ic("bulb")} Explicar com o meu material</button>`:""}
+   ${loc.length?`<details class="mmi-loc" ${qa?"":"open"}><summary>Trechos do seu material que citam este tópico (${loc.length})</summary>${loc.map(l=>`<blockquote>${esc(l.t)}<small class="muted"> · ${esc(l.f)}</small></blockquote>`).join("")}</details>`:qa?"":`<p class="muted small">Não achei este tópico escrito nos seus resumos e esquemas de texto.</p>`}
+   ${qa?`<div class="row"><button class="btn sm ghost" data-a="mmiAsk" data-p="${s.p}" data-go="1" data-re="1">${ic("reset")} Perguntar de novo</button></div>`:""}`}
+/* trechos do material que citam o tópico, sem IA (resumos de texto e esquemas da IA) */
+function mmiLocal(x,t,ch){const sid=x.sid;const kw=t2=>[...new Set(normTxt(t2).split(/[^a-z0-9]+/).filter(w=>w.length>=5))];let K=kw(t);if(K.length<2)K=[...new Set(K.concat(kw(ch[ch.length-2]||"")))];if(!K.length)return[];
+  const src=[];(x.aula?mmResumos(sid,null).filter(r=>r.aula===x.aula):mmResumos(sid,x.tp)).forEach(r=>src.push([String(r.txt||""),"Resumo "+auLabel(sid,r.aula)]));
+  MM().items.filter(m=>m.sid===sid&&m.kind==="esqai"&&m.id!==x.id).forEach(m=>src.push([String(m.md||""),"Esquema: "+m.title]));
+  const out=[];src.forEach(([tx,f])=>tx.split(/\n+|(?<=[.;!?])\s+/).forEach(sn=>{const s2=sn.replace(/[#*>_`]/g,"").trim();if(s2.length<25||s2.length>420)return;const n=normTxt(s2);const hit=K.filter(w=>n.includes(w)).length;if(hit>=Math.min(2,K.length))out.push({t:s2,f,h:hit})}));
+  return out.sort((a,b)=>b.h-a.h).filter((v,i,a)=>a.findIndex(z=>z.t===v.t)===i).slice(0,4)}
+const normTxt=s=>String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+async function mmiAskAI(x,p,re){const S=ED[EDI[x.sid]];if(!S||!SAMPLE)return;const T=mmiTree(x),n=mmiGet(T,p);if(!n)return;const k=x.id+"|"+p;if(MMIX.busy.has(k))return;
+  if(!re&&x.qa&&x.qa[p])return;MMIX.busy.add(k);mmiRefresh(x);
+  try{let M=MMIX.mat[x.id];if(!M){M=await mmMaterial(S,x.tp,x.kind==="esqai"?(x.src||"ambos"):(x.src||"ambos"),"",x.aula||null);MMIX.mat[x.id]=M}
+    let txt=M.txt||"";if(x.kind==="esqai")txt+="\n\n## Esquema: "+(x.title||"")+"\n"+String(x.md||"");
+    if(!txt.trim()){x.qa=Object.assign({},x.qa,{[p]:{ok:false,at:Date.now()}});touch("mm");return}
+    const ch=mmiChain(T,p);
+    const o=await SAMPLE.json(`Você é o professor de ${S.n} de um aluno de concurso público. Ele clicou no tópico "${n.t}" de um mapa mental${ch.length>1?`, dentro de "${ch.slice(0,-1).join(" › ")}"`:""}.
+Explique esse tópico usando SOMENTE o material do aluno abaixo. Não use conhecimento próprio: nenhum artigo, prazo, número, conceito ou exemplo que não esteja escrito no material.
+<material>
+${txt.slice(0,40000)}
+</material>
+Regras:
+- Se o material não trata desse tópico, responda {"ok":false}.
+- Se trata: explique em 3 a 8 linhas, direto, como um professor (o que é, a regra, a exceção, o que a banca cobra), sempre fiel ao material.
+- Em "trechos", copie de 1 a 3 trechos CURTOS (até 30 palavras cada) EXATAMENTE como estão no material, que provam a explicação.
+- Em "fontes", diga de onde veio (o título da seção do material, como "Resumo Aula 02" ou "Teoria do PDF Aula 02").
+Responda só com JSON: {"ok":true,"txt":"explicação","trechos":["..."],"fontes":["..."]}`,{modelTier:IA_LEVE});
+    const N=normTxt(txt).replace(/\s+/g," ");const tr=(o&&Array.isArray(o.trechos)?o.trechos:[]).map(t=>String(t).trim()).filter(t=>t.length>8&&N.includes(normTxt(t).replace(/\s+/g," ").replace(/[“”"…]/g,"").trim().slice(0,120)));
+    const ok=!!(o&&o.ok&&o.txt&&tr.length);
+    x.qa=Object.assign({},x.qa,{[p]:ok?{ok:true,txt:String(o.txt).slice(0,2000),tr:tr.slice(0,3),f:(Array.isArray(o.fontes)?o.fontes:[]).map(String).slice(0,3),at:Date.now()}:{ok:false,at:Date.now()}});touch("mm")}
+  catch(e){toast("A IA não respondeu agora. Tente de novo")}
+  finally{MMIX.busy.delete(k);mmiRefresh(x)}}
+function mmiRefresh(x){const a=$("mmiAns");if(a&&UI.mmiSel&&UI.mmiSel.id===x.id)a.innerHTML=mmiAnsHTML(x)}
+function mmViewer(x){UI.mmiCur=x.id;const S=ED[EDI[x.sid]]||ED[0],tp=x.tp!=null&&S.t[x.tp]?S.t[x.tp][0]:"";
   const body=x.kind==="img"?`<div class="mm-img"><img src="${esc(mmUrl(x))}" alt="${esc(x.title)}"></div>`
-   :x.kind==="ai"?`<div class="mm-tree"><ul>${mmTreeHTML(x.tree,S.col)}</ul></div>`
-   :x.kind==="esqai"?`<div class="rsout mm-esq">${mdLite(String(x.md||"").replace(/^#\s+.+\n?/,""))}</div>`
+   :x.kind==="ai"?(UI.mmTxt?`<div class="mm-tree"><ul>${mmTreeHTML(x.tree,S.col)}</ul></div>`:mmiHTML(x,S))
+   :x.kind==="esqai"?(UI.mmTxt?`<div class="rsout mm-esq">${mdLite(String(x.md||"").replace(/^#\s+.+\n?/,""))}</div>`:mmiHTML(x,S))
    :x.kind==="pdf"?`<iframe class="mm-pdf" id="mmPdf" title="${esc(x.title)}"></iframe>`
    :`<p style="margin:0">Este mapa está fora do app. <a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.url.length>70?x.url.slice(0,68)+"…":x.url)}</a></p>`;
   $("layer3").innerHTML=`<div class="modal mm-modal" role="dialog" aria-modal="true" aria-label="${esc(x.title)}"><div class="box">
    <div class="vh"><h3>${esc(x.title)}<small class="muted">${esc(S.n)} · ${esc(mmCN(x.sid,x.course))}${x.src?" · base: "+({ambos:"resumos + esquemas",res:"resumos",esq:"esquemas"})[x.src]:""}${tp?" · "+esc(tp):""}</small></h3>
-    ${x.kind==="img"||x.kind==="pdf"?`<a class="btn sm" href="${esc(mmUrl(x))}" target="_blank" rel="noopener" ${x.kind==="pdf"?'id="mmPdfA"':""}>${ic("ext")} Abrir em tela cheia</a>`:""}
+    ${x.kind==="ai"||x.kind==="esqai"?`<span class="seg" role="group" aria-label="Ver como"><button data-a="mmTxt" data-id="${x.id}" data-v="0" aria-pressed="${!UI.mmTxt}">Interativo</button><button data-a="mmTxt" data-id="${x.id}" data-v="1" aria-pressed="${!!UI.mmTxt}">Lista</button></span>`:""}${x.kind==="img"||x.kind==="pdf"?`<a class="btn sm" href="${esc(mmUrl(x))}" target="_blank" rel="noopener" ${x.kind==="pdf"?'id="mmPdfA"':""}>${ic("ext")} Abrir em tela cheia</a>`:""}
     ${x.kind==="ai"?`<button class="btn sm" data-a="mmRedo" data-id="${x.id}" ${UI.mmBusy?"disabled":""}>${ic("bulb")} ${UI.mmBusy?"Refazendo…":"Refazer com mais conteúdo"}</button><button class="btn sm pri" data-a="mmPdf" data-id="${x.id}">${ic("dl")} Baixar em PDF</button>`:""}${x.kind==="esqai"?`<button class="btn sm" data-a="mmRedo" data-id="${x.id}" ${UI.mmBusy?"disabled":""}>${ic("bulb")} ${UI.mmBusy?"Refazendo…":"Refazer"}</button><button class="btn sm pri" data-a="mmPdf" data-id="${x.id}">${ic("dl")} Baixar em PDF</button>`:""}<button class="btn sm ghost" data-a="mmDel" data-id="${x.id}">${ic("trash")} Excluir</button><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
    ${body}</div></div>`;
   if(x.kind==="pdf"){fetch(mmUrl(x)).then(r=>r.ok?r.blob():null).then(b=>{if(!b)return;const u=URL.createObjectURL(new Blob([b],{type:"application/pdf"})),f=$("mmPdf"),a=$("mmPdfA");if(f)f.src=u;if(a)a.href=u}).catch(()=>{})}}
@@ -4903,7 +5008,7 @@ const HOW={
   incidencia:"Aqui você informa quanto cai de cada assunto: cole a estatística de um site de questões (TEC, QConcursos), use “Estimar com IA” ou ajuste as porcentagens. Com esses números o painel prioriza as metas, os resumos, os simulados e as questões.",
   materiais:"Aqui você envia o PDF de cada aula. O painel lê o arquivo, acha onde a teoria começa e termina, divide em partes de 15 a 18 páginas e cria as atividades das metas, os resumos e o mapeamento das questões.",
   resumos:"Aqui ficam os resumos de cada aula. Eles nascem do PDF enviado em Materiais e crescem a cada atividade concluída. Você pode editar, completar com questões do TEC, gerar um mapa mental, resolver as questões só desta aula, tirar dúvida com o professor (🎓) e baixar em PDF. Ligue “Marcações no resumo” para incluir o que você marcou com o marca-texto no PDF; os trechos em laranja vêm das questões que você resolveu.",
-  mapas:"Aqui ficam os mapas mentais. Envie os mapas dos seus cursos (imagem, PDF ou link) ou gere com a IA a partir dos seus resumos. “Gerar esquema” junta os seus resumos e esquemas num esquema novo. Eles ficam separados por matéria e por assunto do edital para a revisão.",
+  mapas:"Aqui ficam os mapas mentais. Envie os mapas dos seus cursos (imagem, PDF ou link) ou gere com a IA a partir dos seus resumos. “Gerar esquema” junta os seus resumos e esquemas num esquema novo. Eles ficam separados por matéria e por assunto do edital para a revisão. Os mapas e esquemas da IA abrem interativos: toque na seta para abrir os ramos e toque num tópico para a IA explicar com base só no seu material, mostrando o trecho de onde tirou.",
   revisoes:"Aqui fica a Fila de hoje: os cards da Trilha que voltaram, as revisões das aulas e das questões, as Erradas e os reforços perto do prazo. Siga de cima para baixo. O ciclo de 1, 7, 14, 30 e 60 dias se ajusta sozinho conforme você acerta ou erra.",
   erradas:"Aqui entram sozinhas as questões que você errou ou chutou (TEC, PDFs, simulados). Refaça, marque o resultado e transforme as de uma matéria num reforço.",
   reforcos:"Aqui ficam os reforços: questões extras que surgem quando uma matéria fica abaixo de 75% de acerto. Resolva dentro do prazo de 30 dias; eles não travam a meta.",
@@ -5142,7 +5247,7 @@ const TUT=[
   d:["Leia o resumo da aula no dia seguinte ao estudo: é a primeira revisão.","Na reta final, estude pelo “Só o que cai” e pelo “Só o que errei”.","Lance as questões do TEC: o resumo cresce com o que a banca cobra fora do PDF.","Travou num ponto? Use o 🎓 da tarefa ou do resumo: são 10 dúvidas por dia."]},
 
  {id:"mapas",t:"Mapas mentais",ic:"mapas",go:"mapas",
-  p:"O mapa mental organiza a aula num só olhar, com o conteúdo em si: cada folha é uma frase com a regra, o prazo, a exceção ou a diferença, e cada ramo traz um exemplo (do PDF ou de fonte segura, sempre indicada). A IA monta um mapa por aula a partir do resumo e da teoria do PDF. Dá para refazer com mais conteúdo e baixar em PDF. Em “Gerar esquema”, a IA junta os seus resumos e os esquemas que você enviou num esquema novo de revisão, com tópicos, setas e comparações.",
+  p:"O mapa mental organiza a aula num só olhar, com o conteúdo em si. Ele abre interativo: toque na seta › para abrir cada ramo e toque num tópico para a IA explicar aquele ponto usando só os seus resumos, PDFs e esquemas, com o trecho do seu material que prova a explicação (se não estiver no seu material, ela avisa em vez de inventar). No mapa, cada folha é uma frase com a regra, o prazo, a exceção ou a diferença, e cada ramo traz um exemplo (do PDF ou de fonte segura, sempre indicada). A IA monta um mapa por aula a partir do resumo e da teoria do PDF. Dá para refazer com mais conteúdo e baixar em PDF. Em “Gerar esquema”, a IA junta os seus resumos e os esquemas que você enviou num esquema novo de revisão, com tópicos, setas e comparações.",
   s:`<svg class="tu-mm" viewBox="0 0 320 170" aria-hidden="true"><g class="tu-ln" data-k="l"><path d="M160 85 L60 35"/><path d="M160 85 L60 135"/><path d="M160 85 L260 35"/><path d="M160 85 L260 135"/></g>
      <g data-k="r"><rect x="110" y="68" width="100" height="34" rx="17"/><text x="160" y="90">Exclusão</text></g>
      <g data-k="a"><rect x="10" y="20" width="96" height="30" rx="8"/><text x="58" y="40">Isenção</text></g><g data-k="b"><rect x="214" y="20" width="96" height="30" rx="8"/><text x="262" y="40">Anistia</text></g>
@@ -5647,7 +5752,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261109151602";
+const JX_BUILD="20261109155336";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6146,7 +6251,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109151602" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109155336" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -6695,7 +6800,7 @@ function refsHTML(){
   const head=`<div class="rhead" aria-hidden="true"><span></span><span>#</span><span>Disciplina</span><span>Grau</span><span>Título</span><span>Relevância</span><span>Tempo</span><span>Prazo</span></div>`;
   const rows=L.map((t,i)=>{const s=SUB(t.sid),lf=refLeft(t),sp=mbt[t.id]||t.gsp||0,st=core().gj&&t.rel?t.rel:relInfo(t).n;
     return`<button class="rrow ${t.done?"done":""}" data-a="openT" data-id="${t.id}"><span class="sdot"></span><span class="num">${i+1}</span><span class="cl"><span class="code" style="border-color:${s.col}">${s.c}</span><span class="nm">${esc(s.n)}</span></span>${grauBars(t.grau)}<span class="ttl">${esc(taskTitle(t))}${t.done?"":t.meta?` <small class="chip">na Meta ${pad(t.meta)}</small>`:` <small class="chip">aguardando a próxima meta</small>`}</span><span class="stars ${relCls(st)}" title="Relevância ${st} de 5">${"★".repeat(st)}<s>${"★".repeat(5-st)}</s></span><span class="tm">${sp?fmtM(sp):"00h00m"}</span><span class="dl ${t.done?"ok":lf<0?"bad":lf<=5?"warn":""}">${t.done?ic("check"):lf<0?"-"+(-lf)+"d":lf+"d"}</span></button>`}).join("");
-  return`<section class="card"><div class="cal-bar"><span class="muted small" style="flex:1">Quando você acerta menos de 75% num bloco de questões, nasce um reforço com questões do TEC sobre aquele assunto (10 questões entre 50% e 74%, 20 abaixo de 50%) e uma revisão rápida. Os reforços não se acumulam: cada meta nova recebe no máximo 2, os mais urgentes primeiro, e o resto espera a meta seguinte.</span><label class="small muted" style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-c="rfAll" ${UI.rfAll?"checked":""}> Mostrar concluídos</label></div>
+  return`<section class="card"><div class="cal-bar"><span class="muted small" style="flex:1">Quando você acerta menos de 75% num bloco de questões, nasce um reforço com questões do TEC sobre aquele assunto (10 questões entre 50% e 74%, 20 abaixo de 50%) e uma revisão rápida. Os reforços não se acumulam: cada meta nova recebe no máximo 2, os mais urgentes primeiro, e o resto espera a meta seguinte. Toque no reforço para ver o assunto no Guia do TEC e o seu caderno daquela aula.</span><label class="small muted" style="display:flex;gap:6px;align-items:center"><input type="checkbox" data-c="rfAll" ${UI.rfAll?"checked":""}> Mostrar concluídos</label></div>
     ${L.length?`<div class="rlist">${head}${rows}</div>`:`<div class="empty">Nenhum reforço pendente. Eles aparecem quando o acerto num bloco de questões fica abaixo de 75%.</div>`}</section>`;
 }
 function calHTML(r,ts,locks){
@@ -6812,8 +6917,9 @@ function guide(t){
     if(IS_TJ){const ps=[...new Set(aSet(t).flatMap(c=>partsOf(t.sid,c)))];const nq=ps.reduce((a,p)=>{const Z=qzDoc(p.id);return a+(Z&&Z.L?Z.L.length:(p.qs||[]).length)},0);
       G.steps.push({h:ps.length?`${n++}) NO PAINEL – resolva aqui ${nq?"as "+nq+" questões":"as questões"} da lista do PDF ${E(grpDa(t))}, na seção “Resolver as questões aqui” logo abaixo: marque a alternativa e veja na hora se acertou (verde) ou errou (vermelho).`:`${n++}) NO PAINEL – envie o PDF ${E(grpDa(t))} em Materiais para as questões da aula aparecerem aqui para resolver.`})}
     if(t.quiz){G.steps.push({h:t.quiz.includes(",")?`${n++}) QUIZ – resolva os Quizzes Estratégicos ${E(t.quiz)} (aulas extras, somente PDF).`:`${n++}) QUIZ – resolva o Quiz Estratégico da Aula ${E(t.quiz)} (aula extra, somente PDF).`})}
-    const cadG=tecGuiaCad(t.sid);
-    G.steps.push({h:`${n++}) ${IS_TJ?"NO TEC – resolva uma bateria":"QUESTÕES – resolva no TEC uma bateria"} de ${t.nq} questões da VUNESP de ${E(TECN[t.sid]||s.n)}${cadG?`, no <a href="${E(cadG)}" target="_blank" rel="noopener">caderno do Guia Oficial de Justiça (TJ SP)</a>`:""}, filtrando pelos assuntos da aula:`,items:etp.length?etp.map(x=>`<a href="${E(tecTopicUrl(t.sid,x))}" target="_blank" rel="noopener">${E(tShort(x))}</a>`):(tp.length?li(tp):null)});
+    const cadG=tecGuiaCad(t.sid),GA0=tecGA(t);
+    if(GA0.length)G.steps.push({h:`${n++}) NO TEC – resolva uma bateria de ${t.nq} questões da VUNESP no <a href="${E(GA0[0].cad)}" target="_blank" rel="noopener">caderno do Guia Oficial de Justiça (TJ SP)</a>: toque em Índice e vá até ${GA0.length>1?"estes assuntos":"este assunto"}:`,items:GA0.map(x=>`<b>${E(x.n)}</b> (${x.q} ${x.q>1?"questões":"questão"}${x.cad!==GA0[0].cad?", no caderno de "+E(x.mat):""})`)});
+    else G.steps.push({h:`${n++}) ${IS_TJ?"NO TEC – resolva uma bateria":"QUESTÕES – resolva no TEC uma bateria"} de ${t.nq} questões da VUNESP de ${E(TECN[t.sid]||s.n)}${cadG?`, no <a href="${E(cadG)}" target="_blank" rel="noopener">caderno do Guia Oficial de Justiça (TJ SP)</a>`:""}, filtrando pelos assuntos da aula:`,items:etp.length?etp.map(x=>`<a href="${E(tecTopicUrl(t.sid,x))}" target="_blank" rel="noopener">${E(tShort(x))}</a>`):(tp.length?li(tp):null)});
     G.steps.push({h:`${n++}) Confira o comentário das questões que errou e, se necessário, aprimore seu material de revisão.`});
     G.steps.push({h:`${n++}) Ao finalizar, registre quantas questões fez, quantas acertou e os assuntos que errou: eles entram nas revisões de 1, 7, 14, 30 e 60 dias.`});
   }
@@ -7869,7 +7975,7 @@ function renderDrawer0(){
   const mat=`${p?`<div class="mat"><div class="pdfic">PDF</div><div style="min-width:0"><b>${esc(p.name)}</b><div class="muted small">${t.pdf?"Trecho desta atividade":"Material de referência"}: págs. ${pa} a ${pb} de ${p.pages}</div></div>${t.ph==="T"?ppRing(p.id,pa,pb):""}</div><div class="row"><button class="btn pri" data-a="read" data-id="${p.id}" data-pa="${pa}" data-pb="${pb}">${ic("book")} Abrir páginas ${pa} a ${pb}</button><button class="btn lx-btn" data-a="lxOpen" data-pid="${p.id}" data-pa="${pa}" data-tid="${t.id}" title="Ler e ouvir no Scribax">🎧 Ouvir no Scribax</button><button class="btn" data-a="read" data-id="${p.id}" data-pa="1" data-pb="${p.pages}">${t.aula&&partsOf(t.sid,t.aula).length>1?"Parte "+(p.part||1)+" completa":"PDF completo"}</button><button class="btn" data-a="aulaDl" data-s="${t.sid}" data-c="${t.aula&&!String(t.aula).startsWith("x:")?t.aula:""}" data-id="${p.id}">${ic("dl")} Baixar a aula inteira</button></div>`:t.aula?`<p class="muted small" style="margin:0">Com o PDF desta aula no painel, as páginas exatas da atividade abrem aqui e a teoria é cortada por assunto.</p>`:""}
     ${t.quiz?(qz?`<div class="row"><button class="btn" data-a="read" data-id="${qz.id}" data-pa="1" data-pb="${qz.pages}">${ic("book")} Abrir o Quiz ${esc(t.quiz)}</button></div>`:`<p class="muted small" style="margin:0">Envie o PDF do Quiz Estratégico da Aula ${esc(t.quiz)} em Materiais para abri-lo aqui.</p>`):""}
     ${t.ph==="M"&&t.aula&&!String(t.aula).startsWith("x:")?(()=>{const xs=secSources(t.sid,t.aula,useMap);if(!xs.length)return"";return`<div class="tecb"><div class="tecb-h">${ic("list")} <b>Questões comentadas do outro olhar</b><span class="muted small">Extra desta atividade, sem aumentar a meta</span></div>${xs.map(x=>`<div class="row" style="align-items:center"><span style="flex:1 1 220px"><b>${esc(cName(x.a.course))} · Aula ${esc(x.a.c)}</b>${x.p.qc?` – págs. ${x.p.qc} a ${x.p.pages}`:""}</span><button class="btn sm" data-a="read" data-id="${x.p.id}" data-pa="${x.p.qc||1}" data-pb="${x.p.pages}">${ic("book")} Abrir questões</button></div>`).join("")}</div>`})():""}
-    ${t.ph==="M"?tecBlock(t):""}
+    ${t.ph==="M"?tecBlock(t):""}${t.ph==="T"&&t.aula&&!t.ref?tecNextHTML(t):""}${t.ph==="R"&&t.aula?tecCadMini(t):""}
     ${(()=>{if(t.ph!=="T"||!t.aula)return"";if(t.xo){const a=auOf(t.sid,t.aula);return a&&a.course&&a.course.url?`<div class="row"><a class="btn" href="${esc(a.course.url)}" target="_blank" rel="noopener">${ic("ext")} Abrir o curso ${esc(cName(a.course))}</a></div>`:""}
       const xs=xFor(t.sid,auOf(t.sid,t.aula));if(!xs.length)return"";
       return`<div class="tecb"><div class="tecb-h">${ic("book")} <b>Outro olhar</b><span class="muted small">O mesmo assunto nos seus cursos complementares</span></div>${xs.map(a=>{const xp=pdfOfAula(t.sid,a.x);return`<div class="row" style="align-items:center"><span style="flex:1 1 220px"><b>${esc(cName(a.course))} · Aula ${esc(a.c)}</b> – ${esc(a.d)}</span>${xp?`<button class="btn sm" data-a="read" data-id="${xp.id}" data-pa="1" data-pb="${xp.pages}">${ic("book")} Abrir PDF</button>`:""}${a.course.url?`<a class="btn sm" href="${esc(a.course.url)}" target="_blank" rel="noopener">${ic("ext")} Curso</a>`:""}</div>`}).join("")}</div>`})()}`;
@@ -7910,7 +8016,7 @@ function renderDrawer0(){
         ${t.gx&&!t.gx.outra?"":`${G.intro.map((x,j)=>`<p>${j===0?"<b>"+x+"</b>":x}</p>`).join("")}
         ${G.dica?`<div class="dica"><b>${ic("bulb")} Dica de estudo</b><span>${G.dica}</span></div>`:""}`}
         ${guiaHTML(t)}${steps}${t.ph==="T"&&!t.ref?`<div class="dica"><b>${ic("bulb")} Marque enquanto lê</b><span>Use o marca-texto no PDF ou no Scribax (🎧 Ouvir no Scribax, em Material) no que achar importante. Na revisão desta aula, as suas marcações podem entrar no seu 1º resumo.</span></div>`:""}${r3Box(t)}</div></details>
-      ${t.ph==="Q"&&!t.ref?`<details class="sec" data-k="Q" id="avTq" open><summary>${ic("target")} Questões</summary><div class="sb">${tecBlock(t)}</div></details>`:""}
+      ${t.ph==="Q"?`<details class="sec" data-k="Q" id="avTq" open><summary>${ic("target")} ${t.ref?"Questões do reforço":"Questões"}</summary><div class="sb">${tecBlock(t)}</div></details>`:""}
       ${avKeys(t).includes("B")?`<details class="sec" data-k="B" id="avB" open><summary>${ic("bulb")} Bizu</summary><div class="sb">${(()=>{const ai=t.bizu&&t.bizu.txt,loc=ai?"":bizuLocal(t),busy=AUX_BUSY.has("b"+t.id);
         return`<div class="rsout bizu" id="bzOut">${ai?mdLite(t.bizu.txt):loc?mdLite(loc):`<p class="muted">${busy?'<span class="spin"></span> Escrevendo o bizu…':"Abra o PDF desta aula em Materiais para o bizu ser montado com as questões destas páginas."}</p>`}</div>
         <div class="row">${busy?(ai||loc?'<span class="muted small"><span class="spin"></span> A IA está escrevendo uma versão mais completa…</span>':""):SAMPLE?`<button class="btn sm ${ai?"ghost":""}" data-a="bzGen" data-id="${t.id}">${ic(ai?"reset":"bulb")} ${ai?"Refazer bizu":"Melhorar com a IA"}</button>`:""}${!ai&&loc&&!busy?'<span class="muted small">Montado sem IA: o que as questões do PDF cobram destas páginas, a incidência e as suas marcações.</span>':""}</div>`})()}</div></details>
@@ -9908,7 +10014,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109151602&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109155336&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -11572,7 +11678,7 @@ const A={
       if(L[idx]&&L[idx].tp.length&&!C.pend.some(x=>x.sid===t.sid&&x.c===t.aula)){C.xq=C.xq||{};pushPend(C.pend,t.sid,L[idx],C.xq);simCache.key="";msg="Teoria "+daLabel(t.sid,t.aula)+" concluída: a revisão, o mapeamento e as questões entram na próxima meta"}}
     else{let nx=pg+1;same.forEach(x=>{const len=x.pb-x.pa+1;x.pa=nx;x.pb=nx+len-1;nx=x.pb+1});if(pr.i===idx)pr.pg=nx}
     UI.tform=null;touch("core");finishTask(t);render();if(msg)toast(msg)},
-  saveQ(el){grabMin(el.dataset.id);const f=findTask(el.dataset.id);if(!f)return;const F=Math.max(0,parseInt($("qF").value,10)||0),Ac=clamp(parseInt($("qA").value,10)||0,0,F);
+  saveQ(el){grabMin(el.dataset.id);const f=findTask(el.dataset.id);if(!f)return;{const qf=$("qF"),qa=$("qA");if(qf&&!(parseInt(qf.value,10)>0)){const R=tecParseRes((($("qTec")||{}).value||""));if(R){qf.value=R.f;if(qa)qa.value=R.a;toast("Li no texto do TEC: "+R.a+" acertos de "+R.f)}}}const F=Math.max(0,parseInt($("qF").value,10)||0),Ac=clamp(parseInt($("qA").value,10)||0,0,F);
     if(!F){toast("Informe quantas questões você fez");return}
     f.t.q={f:F,a:Ac};($("qE").value||"").split("\n").map(x=>x.trim()).filter(Boolean).forEach(l=>addMiss("t:"+uid(),l,f.t.sid));
     {const tx=(($("qTec")||{}).value||"").trim(),tp=UI.tecPdf&&UI.tecPdf[f.t.id],all=[tp,tx.length>80?tx:""].filter(Boolean).join("\n\n");if(all&&SAMPLE&&aSet(f.t).length){toast("Lendo as questões do TEC para o resumo…");TEC_PEND.set(f.t.id,tecIngest(f.t.sid,aSet(f.t),all).catch(()=>0));if(UI.tecPdf)delete UI.tecPdf[f.t.id]}}
@@ -12044,6 +12150,11 @@ Object.assign(A,{
     finally{UI.mmBusy=0}
     UI.mmSid=sid;UI.mmC="ia";render();if(only&&last)mmViewer(last);
     toast(ok?ok+" mapa"+(ok>1?"s":"")+" montado"+(ok>1?"s":"")+" a partir dos seus resumos (aba Mapas Mentais)":"Não consegui montar o mapa agora. Tente de novo.")},
+  mmTxt(el){UI.mmTxt=el.dataset.v==="1";const x=MM().items.find(k=>k.id===el.dataset.id);if(x)mmViewer(x)},
+  mmiTg(el){const box=el.closest(".mm-modal");const id=UI.mmiCur;const x=MM().items.find(k=>k.id===id);if(!x)return;const O=mmiOpenSet(id),p=el.dataset.p;if(O.has(p)){[...O].forEach(q=>{if(q===p||q.startsWith(p+"."))O.delete(q)})}else O.add(p);const sc=box&&box.querySelector(".mmi");const l=sc?sc.scrollLeft:0,t=sc?sc.scrollTop:0;mmViewer(x);const sc2=document.querySelector(".mm-modal .mmi");if(sc2){sc2.scrollLeft=l;sc2.scrollTop=t}},
+  mmiAll(el){const x=MM().items.find(k=>k.id===UI.mmiCur);if(!x)return;const O=mmiOpenSet(x.id);O.clear();O.add("r");if(el.dataset.v==="1"){const walk=(n,p)=>{if((n.c||[]).length){O.add(p);n.c.forEach((k,i)=>walk(k,p+"."+i))}};walk(mmiTree(x),"r")}mmViewer(x)},
+  mmiAsk(el){const x=MM().items.find(k=>k.id===UI.mmiCur);if(!x)return;const p=el.dataset.p;UI.mmiSel={id:x.id,p};document.querySelectorAll(".mmi-n.on").forEach(e=>e.classList.remove("on"));const nn=el.closest(".mmi-n");if(nn)nn.classList.add("on");mmiRefresh(x);
+    if(SAMPLE&&(el.dataset.go||!(x.qa&&x.qa[p])))mmiAskAI(x,p,!!el.dataset.re);if(innerWidth<900){const a=$("mmiAns");if(a)a.scrollIntoView({behavior:"smooth",block:"start"})}},
   mmView(el){const x=MM().items.find(k=>k.id===el.dataset.id);if(x)mmViewer(x)},
   mmDel(el){const d=MM(),x=d.items.find(k=>k.id===el.dataset.id);if(!x)return;d.items=d.items.filter(k=>k!==x);touch("mm");if(x.asset&&ASSETS)ASSETS.delete(x.asset).catch(()=>{});$("layer3").innerHTML="";render();toast("Mapa excluído")},
   mmLink(){const u=(($("mmLk")||{}).value||"").trim(),co=mmReadCourse(),tp=($("mmTp")||{}).value,ti=(($("mmTi")||{}).value||"").trim();
