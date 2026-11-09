@@ -628,6 +628,16 @@ html:root[data-theme="light"] .sxhero h1 em{background:linear-gradient(90deg,#2f
 .sxw-box h3{margin:0;font:600 20px Oswald,system-ui}.sxw-box p{margin:0}.sxw-w{color:#ffb4a2;font-size:13px}.sxw-r{display:flex;justify-content:flex-end;gap:8px}
 .sxw-r button{border-radius:999px;padding:8px 16px;font-weight:700;cursor:pointer;border:1px solid #2a3a6e;background:transparent;color:#eef1f9}.sxw-r .sxw-ok{background:linear-gradient(90deg,#f2b441,#ffd36e);color:#0a1128;border:0}.sxw-r .sxw-ok:disabled{opacity:.5}
 @media (max-width:640px){.sxw-n{display:none}}
+.sxhist,.sxpg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0;font-size:14px;color:var(--muted)}
+.sxhist select,.sxpg input{background:var(--panel,#111b3a);color:inherit;border:1px solid var(--line,#24335f);border-radius:10px;padding:6px 8px}.sxpg input{width:76px}
+.sxref{margin:10px 0;border:1px dashed var(--line,#24335f);border-radius:12px;padding:8px 10px}.sxref summary{cursor:pointer;font-weight:700}.sxref textarea{width:100%;margin-top:8px;background:var(--panel,#111b3a);color:inherit;border:1px solid var(--line,#24335f);border-radius:10px;padding:8px;font:inherit}
+.qstat{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}.qstat span{padding:6px 12px;border-radius:999px;background:var(--panel,#111b3a);border:1px solid var(--line,#24335f);font-weight:700;font-size:13.5px}.qstat .ok{color:#3ecf8e}.qstat .no{color:#ff7a7a}.qstat .pc{color:#f2b441}
+.sxfind-b{position:fixed;top:12px;right:150px;z-index:60;width:40px;height:40px;border-radius:12px;border:1px solid var(--line,#24335f);background:var(--panel,#111b3a);color:inherit;display:grid;place-items:center;cursor:pointer}.sxfind-b svg{width:19px;height:19px}.sxfind-b[hidden]{display:none}
+.sxfind{position:fixed;top:60px;right:14px;z-index:9998;width:min(420px,calc(100vw - 28px));max-height:min(70vh,560px);display:grid;grid-template-rows:auto auto 1fr;background:#0d1838;color:#eef1f9;border:1px solid #f2b441;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.5);overflow:hidden}
+.sxfind-h{display:flex;gap:6px;padding:10px}.sxfind-h input{flex:1;min-width:0;background:#111b3a;color:#eef1f9;border:1px solid #24335f;border-radius:10px;padding:9px 12px;font-size:15px}.sxfind-x{background:none;border:0;color:#9ba7c6;font-size:24px;cursor:pointer}
+.sxfind-s{padding:0 12px 6px;font-size:12.5px;color:#9ba7c6}.sxfind-r{overflow:auto;padding:0 8px 10px;display:grid;gap:4px}
+.sxfind-r button{all:unset;cursor:pointer;display:grid;gap:2px;padding:8px 10px;border-radius:10px;font-size:13.5px;line-height:1.4}.sxfind-r button:hover,.sxfind-r button:focus-visible{background:#16285e}.sxfind-r b{color:#f2b441;font-size:12px}
+html.sx-win{--rail:58px}
 
 </style>
 
@@ -2546,6 +2556,7 @@ let markFilter = 'all';
 const marksFor = () => (S.rec ? S.rec.highlights : []).filter(h => markFilter === 'all' || (h.color || 'y') === markFilter);
 function heardUpTo() { return S.q && S.q.main ? S.pos.u : (S.curTok ? S.curTok.u : 0); }
 function curSrc() {
+  if (src === 'pages' && S.pgA) return 'pages';
   if (src === 'plan' && planOk()) return 'plan';
   if (src === 'sel' && S.selText) return 'sel';
   if (src === 'heard' && heardUpTo() > 0) return 'heard';
@@ -2560,6 +2571,7 @@ function srcTextOf(s) {
     for (let i = 0; i <= end && i < S.units.length; i++) { const u = S.units[i]; if (u.page !== pg) { pg = u.page; out += `\n\n[p. ${pg}] `; } out += u.type === 'f' ? (u.toks[0].desc ? ` [Figura: ${u.toks[0].desc}] ` : u.toks[0].inner ? ` [Esquema: ${u.toks[0].inner}] ` : ' [Figura] ') : u.text; }
     return { kind: 'heard', text: out.trim().slice(-90000) };
   }
+  if (s === 'pages') return { kind: 'pages', text: pagesText() };
   if (s === 'sel') return { kind: 'sel', text: S.selText };
   if (s === 'plan') { const pl = S.rec.study.plan; let out = '', pg = 0; for (let i = pl.from; i <= pl.to && i < S.units.length; i++) { const u = S.units[i]; if (u.page !== pg) { pg = u.page; out += `\n\n[p. ${pg}] `; } out += u.type === 'f' ? ' [Figura] ' : u.text; } return { kind: 'plan', text: out.trim().slice(0, 90000) }; }
   if (s === 'marks') return { kind: 'marks', text: marksFor().map(h => `(p. ${h.page}${h.color && h.color !== 'y' ? ', ' + colorOf(h.color).name.toLowerCase() : ''}) ${h.text}`).join('\n') };
@@ -2583,7 +2595,7 @@ function srcBar() {
   let h = `<div class="srcsel">Usar: ${S.selText ? `<button data-src="sel" class="${cur === 'sel' ? 'on' : ''}">Trecho selecionado</button>` : ''}<button data-src="marks" class="${cur === 'marks' ? 'on' : ''}" ${n ? '' : 'disabled'}>${lbl} (${n})</button>${heardUpTo() > 0 ? `<button data-src="heard" class="${cur === 'heard' ? 'on' : ''}">O que já ouvi</button>` : ''}<button data-src="doc" class="${cur === 'doc' ? 'on' : ''}">PDF inteiro</button>${planOk() ? `<button data-src="plan" class="${cur === 'plan' ? 'on' : ''}">Plano de estudo</button>` : ''}</div>`;
   if (cur === 'marks' && all) h += colorChips(true);
   if (cur === 'sel') h += `<p class="srcnote">${esc(S.selText.slice(0, 140))}${S.selText.length > 140 ? '…' : ''}</p>`;
-  return h;
+  return h + pagesBar() + histBar();
 }
 function studySelection(pg, toks) {
   S.selText = `(p. ${pg}) ` + textFromToks(toks);
@@ -2591,7 +2603,7 @@ function studySelection(pg, toks) {
   toggleStudy(true);
   runAI('sum');
 }
-function srcLabel(k) { return k === 'plan' ? 'plano de estudo' : k === 'heard' ? 'o que você já ouviu' : k === 'sel' ? 'trecho selecionado' : k === 'marks' ? (markFilter === 'all' ? 'suas marcações' : 'marcações “' + colorOf(markFilter).name + '”') : 'PDF inteiro'; }
+function srcLabel(k) { return k === 'pages' ? 'págs. ' + S.pgA + ' a ' + S.pgB : k === 'plan' ? 'plano de estudo' : k === 'heard' ? 'o que você já ouviu' : k === 'sel' ? 'trecho selecionado' : k === 'marks' ? (markFilter === 'all' ? 'suas marcações' : 'marcações “' + colorOf(markFilter).name + '”') : 'PDF inteiro'; }
 function madeOf(s) { return s ? `<p class="srcnote">Feito a partir de: ${esc(s)}</p>` : ''; }
 function noAI() { return S.sample ? '' : (JXP ? `<p class="empty">O resumo, os flashcards e o questionário usam a IA da Jornada, que não está disponível agora. Tente de novo em instantes.</p>` : `<p class="empty">O resumo, os flashcards e o questionário usam o Claude e funcionam quando esta página é aberta no Claude, com a sua conta.</p>`); }
 function mdLite(s) {
@@ -2639,7 +2651,7 @@ function renderStudy() {
   }
   if (tab === 'quiz') {
     const qs = st.quiz || [];
-    b.innerHTML = noAI() + srcBar() + `<div class="acts"><button class="btn primary" id="genQuiz" ${S.sample ? '' : 'disabled'}>${qs.length ? 'Novo questionário' : 'Criar questionário'}</button><select id="nQuiz" class="btn"><option>5</option><option selected>10</option><option>15</option></select>${qs.length ? '<button class="btn" id="redoQuiz">Refazer</button>' : ''}</div><div id="quizArea"></div>`;
+    b.innerHTML = noAI() + srcBar() + `<div class="acts"><button class="btn primary" id="genQuiz" ${S.sample ? '' : 'disabled'}>${qs.length ? 'Novo questionário' : 'Criar questionário'}</button><select id="nQuiz" class="btn"><option>5</option><option selected>10</option><option>15</option><option>20</option><option>25</option><option>30</option></select>${qs.length ? '<button class="btn" id="redoQuiz">Refazer</button>' : ''}</div><div id="quizArea"></div>`;
     drawQuiz();
     if (qs.length) $('#quizArea').insertAdjacentHTML('afterbegin', madeOf(st.quizOf));
   }
@@ -2664,7 +2676,8 @@ function drawQuiz() {
   const qs = (S.rec.study.quiz) || []; const ans = S.rec.study.quizAns || {};
   if (!qs.length) { a.innerHTML = '<p class="note">Perguntas de múltipla escolha com a explicação de cada resposta.</p>'; return; }
   const done = Object.keys(ans).length, ok = qs.filter((q, i) => ans[i] === q.correta).length;
-  a.innerHTML = `<div class="score">${done < qs.length ? `Respondidas ${done} de ${qs.length} · ${ok} certas` : `Resultado: ${ok} de ${qs.length} certas`}</div>` +
+  const QT = S.rec.study.qTot || { ok: 0, err: 0 }, pc = done ? Math.round(ok / done * 100) : 0, tq = QT.ok + QT.err;
+  a.innerHTML = `<div class="qstat"><span class="pc">${pc}% de acertos</span><span class="ok">✔ ${ok} certas</span><span class="no">✘ ${done - ok} erradas</span><span>${done} de ${qs.length} respondidas</span>${tq ? `<span>Acumulado: ${QT.ok} de ${tq} (${Math.round(QT.ok / tq * 100)}%)</span>` : ''}</div>` +
     qs.map((q, i) => {
       const r = ans[i];
       return `<div class="q"><div class="qt"><span>${i + 1}.</span>${esc(q.pergunta)}</div>` +
@@ -2692,7 +2705,7 @@ Termine com a seção "## Pontos para lembrar" com 3 a 5 itens. Não invente nad
 MATERIAL:
 ${text}`;
       const { text: t } = await S.sample(prompt, { signal: sig, cache: false, onText: ({ text }) => { const o = $('#sumOut'); if (o) o.innerHTML = mdLite(text); } });
-      st.summary = t; st.summaryOf = srcLabel(sk); saveRecord(); renderStudy();
+      stHist(st, 'summary'); st.summary = t; st.summaryOf = srcLabel(sk); saveRecord(); renderStudy();
     } else if (kind === 'cards') {
       const n = +($('#nCards') ? $('#nCards').value : 10);
       $('#fcArea').innerHTML = '<p class="thinking">Criando flashcards…</p>'; $('#genCards').disabled = true;
@@ -2705,12 +2718,12 @@ ${text}`;
       const arr = await S.sample.json(prompt, { signal: sig, cache: false });
       const cards = (Array.isArray(arr) ? arr : []).filter(c => c && c.frente && c.verso).map(c => ({ frente: String(c.frente), verso: String(c.verso), pagina: c.pagina ?? null }));
       if (!cards.length) throw { code: 'invalid_json' };
-      st.cards = cards; st.cardsOf = srcLabel(sk); resetFc(); saveRecord(); renderStudy();
+      stHist(st, 'cards'); st.cards = cards; st.cardsOf = srcLabel(sk); resetFc(); saveRecord(); renderStudy();
     } else if (kind === 'quiz') {
       const n = +($('#nQuiz') ? $('#nQuiz').value : 10);
       $('#quizArea').innerHTML = '<p class="thinking">Criando questionário…</p>'; $('#genQuiz').disabled = true;
       const prompt = `Crie ${n} questões de múltipla escolha em português do Brasil sobre o material abaixo (${what}, do documento "${S.name}").
-Cada questão: "pergunta", "alternativas" (array com exatamente 4 textos curtos), "correta" (índice 0 a 3 da alternativa certa), "explicacao" (1 ou 2 frases dizendo por que está certa) e "pagina" (número ou null).
+Cada questão: "pergunta" (prefira um caso concreto com personagem e termine com a pergunta direta, citando o dispositivo quando houver, ex.: "Carlos teve ... Qual é o efeito, segundo o art. 176?"), "alternativas" (array com exatamente 4 textos), "correta" (índice 0 a 3), "explicacao" (JUSTIFICATIVA TÉCNICA: comece com "Resposta correta: X." e explique pela literalidade do dispositivo por que ela está certa e por que as outras estão erradas) e "pagina" (número ou null).
 Teste compreensão, não só memorização. Varie a posição da resposta certa. Alternativas erradas devem ser plausíveis. Responda somente com um array JSON.${foc}
 
 MATERIAL:
@@ -2719,7 +2732,7 @@ ${text}`;
       const qs = (Array.isArray(arr) ? arr : []).filter(q => q && q.pergunta && Array.isArray(q.alternativas) && q.alternativas.length >= 2 && Number.isInteger(+q.correta))
         .map(q => ({ pergunta: String(q.pergunta), alternativas: q.alternativas.slice(0, 4).map(String), correta: Math.min(+q.correta, q.alternativas.length - 1), explicacao: String(q.explicacao || ''), pagina: q.pagina ?? null }));
       if (!qs.length) throw { code: 'invalid_json' };
-      st.quiz = qs; st.quizOf = srcLabel(sk); st.quizAns = {}; saveRecord(); renderStudy();
+      stHist(st, 'quiz'); st.quiz = qs; st.quizOf = srcLabel(sk); st.quizAns = {}; saveRecord(); renderStudy();
     }
   } catch (e) {
     if (e && e.code === 'cancelled') return;
@@ -2736,7 +2749,7 @@ $('#sbody').addEventListener('click', e => {
   if (t.dataset.tp != null) { const pl = S.rec.study.plan, tp = pl.topics[+t.dataset.tp]; if (tp && tp.units.length) { if (innerWidth < 760) toggleStudy(false); S.planRun = true; pause(); jumpTo(tp.units[0], 0); } return; }
   if (t.dataset.go) { const h = S.rec.highlights.find(x => x.id === t.dataset.go); if (h) { if (innerWidth < 760) toggleStudy(false); scrollToBox(h.page, h.rects[0], true); } return; }
   if (t.dataset.q != null) {
-    const st = S.rec.study; st.quizAns = st.quizAns || {}; st.quizAns[+t.dataset.q] = +t.dataset.o; saveRecord(); drawQuiz(); return;
+    const st = S.rec.study; st.quizAns = st.quizAns || {}; st.quizAns[+t.dataset.q] = +t.dataset.o; { const q0 = (st.quiz || [])[+t.dataset.q]; st.qTot = st.qTot || { ok: 0, err: 0 }; if (q0 && +t.dataset.o === q0.correta) st.qTot.ok++; else st.qTot.err++; } saveRecord(); drawQuiz(); return;
   }
   switch (t.id) {
     case 'readMarks': pause(); playQueue(marksFor().flatMap(h => plainUnits(h.text)), 'plain'); break;
@@ -3559,7 +3572,7 @@ function renderLib() {
   const folder = LIB.folders.find(f => f.id === curFolder);
   const title = curFolder === 'all' ? 'Biblioteca' : curFolder === 'none' ? 'Sem pasta' : folder.name;
   let list = docs.filter(d => curFolder === 'all' || (curFolder === 'none' ? !d.folder : d.folder === curFolder));
-  if (libQuery) { const q = libQuery.toLowerCase(); list = list.filter(d => d.name.toLowerCase().includes(q)); }
+  if (libQuery) { const q = normT(libQuery); list = list.filter(d => normT(d.name + ' ' + (d.mat || '') + ' ' + (d.folder || '')).includes(q)); }
   const when = d => d.opened || d.added;
   if (libSort === 'name' || (libSort === 'recent' && folder && folder.auto)) list.sort((a, b) => (a.aula ?? 1e9) - (b.aula ?? 1e9) || a.name.localeCompare(b.name, 'pt-BR', { numeric: true }));
   else if (libSort === 'progress') list.sort((a, b) => docStats(b).pct - docStats(a).pct);
@@ -3992,6 +4005,49 @@ renderFolders = function () { const r = sxRF0.apply(this, arguments); const n = 
     document.body.appendChild(ov);ov.querySelector('.sxw-no').onclick=()=>ov.remove();
     ov.querySelector('.sxw-ok').onclick=()=>{const jj=J();if(!jj)return;const dn=!!(ov.querySelector('.sxw-d')&&ov.querySelector('.sxw-d').checked);try{jj.finish({min:m,pid:jxAccPid||S.jxPid||pid0,tid,done:dn})}catch(e){}pend=0;jxAcc=0;try{localStorage.removeItem('jx-sx-pend')}catch(e){}ov.remove();if(typeof toast==='function')toast(m>=1?m+' min registrados na plataforma':'Pronto')}};
 })();
+
+/* ===== Scribax 2: busca no PDF, voz sem travar, blocos salvos, trecho por páginas, resumo refinado ===== */
+const sxN=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' ').trim();
+/* blocos salvos: nada se perde ao gerar de novo */
+function stHist(st,key){try{const v=st[key];if(!v||(Array.isArray(v)&&!v.length))return;st.hist=st.hist||[];st.hist.unshift({k:key,v:JSON.parse(JSON.stringify(v)),of:st[key+'Of']||'',ans:key==='quiz'?JSON.parse(JSON.stringify(st.quizAns||{})):null,at:Date.now()});if(st.hist.length>30)st.hist.length=30}catch(e){}}
+function histBar(){try{const st=S.rec&&S.rec.study||{},k=tab==='sum'?'summary':tab==='cards'?'cards':tab==='quiz'?'quiz':'';if(!k)return'';const H=(st.hist||[]).map((h,i)=>({h,i})).filter(x=>x.h.k===k);
+  let out='';if(H.length)out+=`<div class="sxhist"><span>Blocos salvos:</span><select id="sxHist"><option value="">Escolher um bloco anterior (${H.length})</option>${H.map(x=>`<option value="${x.i}">${new Date(x.h.at).toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'})} · ${esc(x.h.of||'')}</option>`).join('')}</select></div>`;
+  if(k==='summary'&&st.summary&&S.sample)out+=`<details class="sxref"><summary>Acrescentar o meu texto ou esquema e reorganizar</summary><textarea id="sxRefTx" rows="4" placeholder="Cole aqui um texto, esquema ou norma que deve entrar no resumo"></textarea><div class="acts"><button class="btn primary" id="sxRefGo">Reorganizar o resumo</button>${JXP?'<button class="btn" id="sxToPlat">Mandar para o resumo da aula na plataforma</button>':''}</div></details>`;
+  else if(k==='summary'&&st.summary&&JXP)out+=`<div class="acts"><button class="btn" id="sxToPlat">Mandar para o resumo da aula na plataforma</button></div>`;
+  return out}catch(e){return''}}
+/* trecho por páginas */
+function pagesBar(){try{if(!S.pages||!S.pages.length)return'';const a=S.pgA||'',b=S.pgB||'';return`<div class="sxpg"><span>Ou só estas páginas:</span><input id="sxPgA" type="number" min="1" max="${S.pages.length}" value="${a}" placeholder="de"><input id="sxPgB" type="number" min="1" max="${S.pages.length}" value="${b}" placeholder="até"><button class="btn ${src==='pages'?'primary':''}" id="sxPgUse">Usar estas páginas</button></div>`}catch(e){return''}}
+function pagesText(){const a=+S.pgA||1,b=+S.pgB||a;let out='',pg=0;for(const u of S.units){if(u.page<a||u.page>b)continue;if(u.page!==pg){pg=u.page;out+=`\n\n[p. ${pg}] `}out+=u.type==='f'?' [Figura] ':u.text;if(out.length>90000)break}return out.trim()}
+document.addEventListener('click',async e=>{const t=e.target;if(!t||!t.closest)return;
+  if(t.closest('#sxPgUse')){const a=+($('#sxPgA')||{}).value,b=+($('#sxPgB')||{}).value||a;if(!(a>=1)){toast('Escolha a página inicial.');return}S.pgA=Math.min(a,b);S.pgB=Math.max(a,b);src='pages';renderStudy();toast('Usando as págs. '+S.pgA+' a '+S.pgB);return}
+  if(t.closest('#sxRefGo')){const st=S.rec.study,tx=(($('#sxRefTx')||{}).value||'').trim();if(!tx){toast('Escreva ou cole o texto que deve entrar.');return}const b=t.closest('#sxRefGo');b.disabled=true;b.textContent='Reorganizando…';
+    try{const r=await S.sample(`Reorganize o resumo de estudo abaixo, juntando o texto novo do estudante, no padrão da plataforma A Jornada: do conceito para a regra, da regra para o exemplo de prova e do exemplo para a pegadinha; literalidade dos dispositivos (artigo, inciso, parágrafo); títulos "## ", itens "- ", termos-chave em **negrito**, página entre parênteses quando houver; termine com "## Pontos para lembrar". Não invente nada fora do resumo e do texto novo. Português do Brasil.\n\nRESUMO ATUAL:\n${st.summary}\n\nTEXTO NOVO DO ESTUDANTE:\n${tx}`,{cache:false});
+      stHist(st,'summary');st.summary=r.text||st.summary;st.summaryOf=(st.summaryOf||'')+' + seu texto';saveRecord();renderStudy();toast('Resumo reorganizado com o seu texto')}catch(x){toast('Não consegui reorganizar agora');b.disabled=false;b.textContent='Reorganizar o resumo'}return}
+  if(t.closest('#sxToPlat')){const st=S.rec.study;try{const ok=JXP&&JXP.addNote&&JXP.addNote({pid:S.jxPid||'',text:st.summary,src:'Resumo do Scribax'});toast(ok?'Pronto: o resumo entrou nas anotações da aula na plataforma':'Este PDF não está ligado a uma aula da plataforma')}catch(x){toast('Não consegui mandar agora')}return}
+});
+document.addEventListener('change',e=>{if(e.target&&e.target.id==='sxHist'&&e.target.value!==''){const st=S.rec.study,h=(st.hist||[])[+e.target.value];if(!h)return;stHist(st,h.k);st.hist.splice(+e.target.value+1,1);st[h.k]=h.v;st[h.k+'Of']=h.of;if(h.k==='quiz')st.quizAns=h.ans||{};if(h.k==='cards')resetFc();saveRecord();renderStudy();toast('Bloco anterior aberto')}});
+/* busca no PDF: sem acento, sem maiúsculas, no documento inteiro */
+(function(){const bt=document.createElement('button');bt.className='sxfind-b';bt.title='Buscar no PDF (Ctrl+F)';bt.setAttribute('aria-label','Buscar no PDF');bt.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>';document.body.appendChild(bt);
+  const pn=document.createElement('div');pn.className='sxfind';pn.hidden=true;pn.innerHTML='<div class="sxfind-h"><input id="sxFindIn" type="search" placeholder="Buscar palavra, artigo ou expressão" aria-label="Buscar no PDF"><button class="sxfind-x" aria-label="Fechar">×</button></div><div class="sxfind-s"></div><div class="sxfind-r"></div>';document.body.appendChild(pn);
+  const vis=()=>{bt.hidden=!(S&&S.key&&S.units&&S.units.length)};setInterval(vis,1200);vis();
+  const open=()=>{pn.hidden=false;const i=pn.querySelector('input');i.focus();i.select();run()};
+  bt.onclick=open;pn.querySelector('.sxfind-x').onclick=()=>{pn.hidden=true};
+  addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='f'&&S&&S.key){e.preventDefault();open()}if(e.key==='Escape'&&!pn.hidden)pn.hidden=true});
+  let tm=0;pn.querySelector('input').addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(run,180)});
+  function run(){const q=sxN(pn.querySelector('input').value),R=pn.querySelector('.sxfind-r'),St=pn.querySelector('.sxfind-s');if(q.length<2){R.innerHTML='';St.textContent='Digite pelo menos 2 letras. Acentos e maiúsculas não importam.';return}
+    const out=[];const U=S.units||[];for(let i=0;i<U.length&&out.length<200;i++){const u=U[i];if(u.type==='f')continue;const a=sxN(u.text),b=a+' '+sxN(U[i+1]&&U[i+1].type!=='f'?U[i+1].text:'');let pos=a.indexOf(q);if(pos<0){const p2=b.indexOf(q);if(p2<0||p2>=a.length)continue;pos=p2}
+      const raw=String(u.text||'');const st=Math.max(0,pos-50);out.push({i,pg:u.page,sn:(st?'…':'')+raw.slice(st,pos+q.length+70)+'…'})}
+    const pend=S.processing?' Ainda preparando páginas; a busca aumenta sozinha quando terminar.':'';
+    St.textContent=out.length?out.length+(out.length>=200?'+':'')+' resultado'+(out.length>1?'s':'')+'.'+pend:'Nada encontrado.'+pend;
+    R.innerHTML=out.map(o=>`<button data-u="${o.i}"><b>p. ${o.pg}</b><span>${esc(o.sn)}</span></button>`).join('')}
+  pn.addEventListener('click',e=>{const b=e.target.closest('[data-u]');if(!b)return;try{jumpTo(+b.dataset.u,0,false)}catch(x){}});
+})();
+/* voz sem travar: vigia o avanço e retoma sozinho; mantém o leitor do navegador acordado em frases longas */
+(function(){let last=Date.now(),lp='';setInterval(()=>{try{if(!S.playing){last=Date.now();lp='';return}const p=S.pos.u+':'+S.pos.k+':'+(S.curTok?S.curTok.k:'');if(p!==lp){lp=p;last=Date.now();return}
+  if(S.processing&&S.q&&!S.q.units[S.pos.u]){last=Date.now();return}if(Date.now()-last>15000){last=Date.now();try{synth&&synth.cancel()}catch(e){}try{nvStop()}catch(e){}S.natural=false;speakCurrent()}}catch(e){}},2500);
+  setInterval(()=>{try{if(S.playing&&!isNeural()&&synth&&synth.speaking&&!synth.paused){synth.pause();synth.resume()}}catch(e){}},9000)})();
+/* janela própria: menu em trilho fino */
+try{if(document.documentElement.classList.contains('sx-win')&&window.SX&&SX.setPin)SX.setPin(false)}catch(e){}
 
 (async () => {
   for (const id of ['#setPanel', '#speedPanel', '#colorPanel']) document.body.appendChild($(id));
