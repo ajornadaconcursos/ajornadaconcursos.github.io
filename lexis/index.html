@@ -632,7 +632,6 @@ html:root[data-theme="light"] .sxhero h1 em{background:linear-gradient(90deg,#2f
 .sxhist select,.sxpg input{background:var(--panel,#111b3a);color:inherit;border:1px solid var(--line,#24335f);border-radius:10px;padding:6px 8px}.sxpg input{width:76px}
 .sxref{margin:10px 0;border:1px dashed var(--line,#24335f);border-radius:12px;padding:8px 10px}.sxref summary{cursor:pointer;font-weight:700}.sxref textarea{width:100%;margin-top:8px;background:var(--panel,#111b3a);color:inherit;border:1px solid var(--line,#24335f);border-radius:10px;padding:8px;font:inherit}
 .qstat{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}.qstat span{padding:6px 12px;border-radius:999px;background:var(--panel,#111b3a);border:1px solid var(--line,#24335f);font-weight:700;font-size:13.5px}.qstat .ok{color:#3ecf8e}.qstat .no{color:#ff7a7a}.qstat .pc{color:#f2b441}
-.sxfind-b{position:fixed;top:12px;right:150px;z-index:60;width:40px;height:40px;border-radius:12px;border:1px solid var(--line,#24335f);background:var(--panel,#111b3a);color:inherit;display:grid;place-items:center;cursor:pointer}.sxfind-b svg{width:19px;height:19px}.sxfind-b[hidden]{display:none}
 .sxfind{position:fixed;top:60px;right:14px;z-index:9998;width:min(420px,calc(100vw - 28px));max-height:min(70vh,560px);display:grid;grid-template-rows:auto auto 1fr;background:#0d1838;color:#eef1f9;border:1px solid #f2b441;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.5);overflow:hidden}
 .sxfind-h{display:flex;gap:6px;padding:10px}.sxfind-h input{flex:1;min-width:0;background:#111b3a;color:#eef1f9;border:1px solid #24335f;border-radius:10px;padding:9px 12px;font-size:15px}.sxfind-x{background:none;border:0;color:#9ba7c6;font-size:24px;cursor:pointer}
 .sxfind-s{padding:0 12px 6px;font-size:12.5px;color:#9ba7c6}.sxfind-r{overflow:auto;padding:0 8px 10px;display:grid;gap:4px}
@@ -643,6 +642,28 @@ html.sx-win{--rail:58px}
 #readSum.on{border-color:#f2b441;color:#f2b441}
 .sxref textarea{min-height:150px;resize:vertical;line-height:1.55;padding:12px!important;font-size:15px!important;margin-top:10px!important}
 .sxref{padding:12px 14px!important}.sxref summary{padding:2px 0}
+
+/* busca no PDF: na barra do leitor, junto das ferramentas */
+.rbar .sxfind-b{gap:8px;padding:0 10px 0 12px;min-width:38px;color:var(--muted,#9ba7c6);border:1px solid var(--line,#24335f);background:var(--bg2,rgba(255,255,255,.03))}
+.rbar .sxfind-b:hover{color:var(--text,#eef1f9)}
+.rbar .sxfind-b svg{width:17px;height:17px;flex:none}
+.rbar .sxfind-b .lbl{font-weight:500}
+.rbar .sxfind-b kbd{font:600 11px/1 inherit;font-family:inherit;padding:3px 6px;border-radius:6px;border:1px solid var(--line,#24335f);opacity:.75}
+.sxfind-b[hidden]{display:none!important}
+.sxfind{top:62px}
+@media (max-width:1180px){.rbar .sxfind-b kbd{display:none}}
+@media (max-width:900px){.rbar .sxfind-b .lbl{display:none}.rbar .sxfind-b{width:38px;padding:0;justify-content:center}}
+/* painel Estudar: ao lado do PDF no computador, mais estreito e sem sombra pesada */
+@media (min-width:1024px){
+  #study{width:400px;box-shadow:none}
+  #study .tabs{gap:0;padding:0 6px}#study .tabs button{padding:10px 8px;font-size:13.5px}
+  body.sx-stud #reader{margin-right:400px;transition:margin-right .22s ease}
+  #reader{transition:margin-right .22s ease}
+  body.sx-stud .rbar .sxfind-b kbd,body.sx-stud .rbar #areaBtn .lbl{display:none}
+  body.sx-stud .rbar #areaBtn{width:38px;padding:0;justify-content:center}
+}
+@media (min-width:1024px) and (max-width:1280px){body.sx-stud .rbar .sxfind-b .lbl{display:none}body.sx-stud .rbar .sxfind-b{width:38px;padding:0;justify-content:center}}
+@media (max-width:600px){.rbar .sxfind-b{min-width:0;flex:0 1 38px;border:0;background:none}}
 
 </style>
 
@@ -4052,11 +4073,14 @@ document.addEventListener('click',async e=>{const t=e.target;if(!t||!t.closest)r
 });
 document.addEventListener('change',e=>{if(e.target&&e.target.id==='sxHist'&&e.target.value!==''){const st=S.rec.study,h=(st.hist||[])[+e.target.value];if(!h)return;stHist(st,h.k);st.hist.splice(+e.target.value+1,1);st[h.k]=h.v;st[h.k+'Of']=h.of;if(h.k==='quiz')st.quizAns=h.ans||{};if(h.k==='cards')resetFc();saveRecord();renderStudy();toast('Bloco anterior aberto')}});
 /* busca no PDF: sem acento, sem maiúsculas, no documento inteiro */
-(function(){const bt=document.createElement('button');bt.className='sxfind-b';bt.title='Buscar no PDF (Ctrl+F)';bt.setAttribute('aria-label','Buscar no PDF');bt.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>';document.body.appendChild(bt);
+(function(){const bt=document.createElement('button');bt.className='tb sxfind-b';bt.id='sxFindTop';bt.type='button';bt.title='Buscar no PDF (Ctrl+F)';bt.setAttribute('aria-label','Buscar no PDF');bt.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span class="lbl">Buscar no PDF</span><kbd>Ctrl F</kbd>';
+  const ab=document.getElementById('areaBtn');if(ab&&ab.parentNode)ab.parentNode.insertBefore(bt,ab);else document.body.appendChild(bt);
   const pn=document.createElement('div');pn.className='sxfind';pn.hidden=true;pn.innerHTML='<div class="sxfind-h"><input id="sxFindIn" type="search" placeholder="Buscar palavra, artigo ou expressão" aria-label="Buscar no PDF"><button class="sxfind-x" aria-label="Fechar">×</button></div><div class="sxfind-s"></div><div class="sxfind-r"></div>';document.body.appendChild(pn);
   const vis=()=>{bt.hidden=!(S&&S.key&&S.units&&S.units.length)};setInterval(vis,1200);vis();
-  const open=()=>{pn.hidden=false;const i=pn.querySelector('input');i.focus();i.select();run()};
-  bt.onclick=open;pn.querySelector('.sxfind-x').onclick=()=>{pn.hidden=true};
+  const place=()=>{const r=bt.getBoundingClientRect();if(!r.width){pn.style.cssText='';return}const w=Math.min(420,innerWidth-28);pn.style.top=Math.round(r.bottom+8)+'px';pn.style.left=Math.round(Math.max(14,Math.min(r.left,innerWidth-w-14)))+'px';pn.style.right='auto'};
+  const open=()=>{pn.hidden=false;place();const i=pn.querySelector('input');i.focus();i.select();run()};addEventListener('resize',()=>{if(!pn.hidden)place()});
+  document.addEventListener('mousedown',e=>{if(!pn.hidden&&!pn.contains(e.target)&&!bt.contains(e.target))pn.hidden=true});
+  bt.onclick=()=>{pn.hidden?open():pn.hidden=true};pn.querySelector('.sxfind-x').onclick=()=>{pn.hidden=true};
   addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='f'&&S&&S.key){e.preventDefault();open()}if(e.key==='Escape'&&!pn.hidden)pn.hidden=true});
   let tm=0;pn.querySelector('input').addEventListener('input',()=>{clearTimeout(tm);tm=setTimeout(run,180)});
   function run(){const q=sxN(pn.querySelector('input').value),R=pn.querySelector('.sxfind-r'),St=pn.querySelector('.sxfind-s');if(q.length<2){R.innerHTML='';St.textContent='Digite pelo menos 2 letras. Acentos e maiúsculas não importam.';return}
@@ -4092,6 +4116,12 @@ try{if(document.documentElement.classList.contains('sx-win')&&window.SX&&SX.setP
     const blk=e.target.closest('li,p,h2,h3,h4');if(!blk)return;const tx=blk.textContent.replace(/\s+/g,' ').trim().slice(0,30);const i=list.findIndex(s=>s.startsWith(tx.slice(0,20))||tx.startsWith(s.slice(0,20)));if(i<0)return;
     try{pause();S.pos={u:i,k:0};S.playing=true;updatePlayBtn();speakCurrent()}catch(err){}});
 })();
+
+/* ---------- painel Estudar ao lado do PDF (empurra a leitura em vez de cobrir) ---------- */
+(function(){const st=document.getElementById('study');if(!st)return;let last=null,tm=0;
+  const sync=()=>{const on=st.classList.contains('open');if(on===last)return;last=on;document.body.classList.toggle('sx-stud',on);
+    if(innerWidth>=1024){const v=document.getElementById('viewer'),r=v&&v.scrollHeight?v.scrollTop/v.scrollHeight:0;clearTimeout(tm);tm=setTimeout(()=>{dispatchEvent(new Event('resize'));setTimeout(()=>{try{if(v)v.scrollTop=r*v.scrollHeight}catch(e){}},260)},240)}};
+  new MutationObserver(sync).observe(st,{attributes:true,attributeFilter:['class']});sync()})();
 
 (async () => {
   for (const id of ['#setPanel', '#speedPanel', '#colorPanel']) document.body.appendChild($(id));
