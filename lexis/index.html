@@ -619,6 +619,15 @@ html:root[data-theme="light"] .sxhero h1 em{background:linear-gradient(90deg,#2f
   body:not(.sx-pin) .side:not(.open) .sxfold{display:flex!important}
   body:not(.sx-pin) .side:not(.open) .folders{display:none}
 }
+.sxw-chip{position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:10px;padding:8px 10px 8px 14px;border-radius:999px;background:rgba(13,24,56,.92);border:1px solid #f2b441;color:#eef1f9;font:600 13px 'Source Sans 3',system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.4);backdrop-filter:blur(6px);opacity:.82;transition:opacity .2s}
+.sxw-chip:hover{opacity:1}.sxw-dot{width:8px;height:8px;border-radius:50%;background:#3ecf8e;animation:sxwP 1.6s infinite}@keyframes sxwP{50%{opacity:.3}}
+.sxw-n{max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:.8}.sxw-t{font-variant-numeric:tabular-nums;color:#f2b441}
+.sxw-b{border:0;border-radius:999px;padding:6px 12px;background:linear-gradient(90deg,#f2b441,#ffd36e);color:#0a1128;font-weight:700;cursor:pointer}
+.sxw-ov{position:fixed;inset:0;z-index:10000;background:rgba(5,10,30,.55);display:grid;place-items:center;animation:sxwF .2s}@keyframes sxwF{from{opacity:0}}
+.sxw-box{width:min(420px,calc(100vw - 32px));background:#0d1838;color:#eef1f9;border:1px solid #f2b441;border-radius:16px;padding:18px;display:grid;gap:10px;font:15px/1.45 'Source Sans 3',system-ui,sans-serif}
+.sxw-box h3{margin:0;font:600 20px Oswald,system-ui}.sxw-box p{margin:0}.sxw-w{color:#ffb4a2;font-size:13px}.sxw-r{display:flex;justify-content:flex-end;gap:8px}
+.sxw-r button{border-radius:999px;padding:8px 16px;font-weight:700;cursor:pointer;border:1px solid #2a3a6e;background:transparent;color:#eef1f9}.sxw-r .sxw-ok{background:linear-gradient(90deg,#f2b441,#ffd36e);color:#0a1128;border:0}.sxw-r .sxw-ok:disabled{opacity:.5}
+@media (max-width:640px){.sxw-n{display:none}}
 
 </style>
 
@@ -850,7 +859,7 @@ async function handle(m) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 /* ===== Scribax dentro da plataforma A Jornada: conta, IA, dados, PDFs das aulas, marcações e tempo vêm da plataforma (mesma origem) ===== */
-const JXP = (() => { try { return window.parent !== window && window.parent.JX_LEXIS && window.parent.JX_LEXIS.ok ? window.parent.JX_LEXIS : null; } catch (e) { return null; } })();
+const JXP = (() => { try { return window.parent !== window && window.parent.JX_LEXIS && window.parent.JX_LEXIS.ok ? window.parent.JX_LEXIS : (window.opener && window.opener.JX_LEXIS && window.opener.JX_LEXIS.ok ? window.opener.JX_LEXIS : null); } catch (e) { return null; } })();
 const LX_VOZ = /github\.io$/.test(location.hostname) || /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? new URL('voz/', location.href).href : 'https://ajornadaconcursos.github.io/lexis/voz/';
 const LX_C2P = { y: 'am', g: 'vd', b: 'az', p: 'rs', o: 'am' }, LX_P2C = { am: 'y', vd: 'g', az: 'b', rs: 'p', q: 'o' };
 function jxDbAdapter() {
@@ -2990,7 +2999,7 @@ async function uploadAsset(d, bytes) {
   catch (e) { d.upErr = (e && e.code) || 'erro'; }
 }
 async function docBytes(d) {
-  if (d.jx && JXP) { toast('Abrindo o PDF da aula…', 4000); try { const b = await JXP.pdfBytes(d.jx); if (b) return b instanceof ArrayBuffer ? b : (b.buffer ? b.buffer.slice(b.byteOffset || 0, (b.byteOffset || 0) + b.byteLength) : b); } catch {} return null; }
+  if (d.jx && JXP) { toast('Abrindo o PDF da aula…', 4000); try { const b = await JXP.pdfBytes(d.jx); if (b) { const src = b.buffer ? new Uint8Array(b.buffer, b.byteOffset || 0, b.byteLength) : new Uint8Array(b); const u = new Uint8Array(src.byteLength); u.set(src); return u.buffer; } } catch {} return null; }
   let buf = await idbGet('pdf', d.key);
   if (buf) return buf;
   if (d.asset) {
@@ -3964,6 +3973,25 @@ setTimeout(() => { if (SX.ls('sx.tut1') !== '1' && $('#modal').hidden) sxTut(0);
 $('#sxFold').onclick = () => sideOpen(true);
 const sxRF0 = renderFolders;
 renderFolders = function () { const r = sxRF0.apply(this, arguments); const n = (LIB.folders || []).length; const e = $('#sxFoldN'); if (e) { e.textContent = n; e.hidden = !n; } const f = $('#sxFold'); if (f) f.title = n ? 'Pastas (' + n + ')' : 'Pastas'; return r; };
+
+/* ===== Janela própria (aberta pela plataforma A Jornada): abre a atividade, cronometra e pergunta antes de registrar ===== */
+(function(){const Q=new URLSearchParams(location.search);if(Q.get('win')!=='1')return;document.documentElement.classList.add('sx-win');
+  const tid=Q.get('tid')||'',pid0=Q.get('pid')||'',pa0=+Q.get('pa')||1;let pend=0;
+  const J=()=>{try{return window.opener&&!window.opener.closed&&window.opener.JX_LEXIS&&window.opener.JX_LEXIS.ok?window.opener.JX_LEXIS:null}catch(e){return null}};
+  const save=()=>{try{const m=pend+jxAcc;if(m>=.5)localStorage.setItem('jx-sx-pend',JSON.stringify({min:m,pid:jxAccPid||S.jxPid||pid0,tid,at:Date.now()}));}catch(e){}};
+  try{jxFlush=function(){const m=Math.floor(jxAcc);if(m>=1){pend+=m;jxAcc-=m;save()}jxAccPid=S.jxPid||null}}catch(e){}
+  setInterval(save,10000);addEventListener('beforeunload',save);addEventListener('pagehide',save);
+  const go=()=>{if(window.JXL&&window.JXL.ready){if(pid0)window.JXL.open(pid0,pa0);return true}return false};if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>120)clearInterval(t)},250)}
+  const tk=(()=>{try{const j=J();return j&&j.task?j.task():null}catch(e){return null}})();
+  const c=document.createElement('div');c.className='sxw-chip';c.innerHTML='<span class="sxw-dot"></span><span class="sxw-n"></span><b class="sxw-t">00:00</b><button class="sxw-b" type="button">Concluir bloco</button>';document.body.appendChild(c);
+  c.querySelector('.sxw-n').textContent=tk&&tk.title?tk.title.slice(0,46):'Scribax';
+  setInterval(()=>{const s=Math.round((pend+jxAcc)*60);c.querySelector('.sxw-t').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')},1000);
+  c.querySelector('.sxw-b').onclick=()=>{pend+=jxAcc;jxAcc=0;save();const m=Math.round(pend);const j=J();
+    const ov=document.createElement('div');ov.className='sxw-ov';
+    ov.innerHTML='<div class="sxw-box"><h3>Registrar na plataforma?</h3><p>Você leu e ouviu por <b>'+m+' min</b>'+(tk&&tk.title?' em <b>'+tk.title.replace(/[<>&]/g,'')+'</b>':'')+'.</p>'+(tid?'<label><input type="checkbox" class="sxw-d"> Marcar a atividade como feita</label>':'')+(j?'':'<p class="sxw-w">A aba da plataforma foi fechada. O tempo fica guardado e será oferecido quando você abrir a plataforma de novo.</p>')+'<div class="sxw-r"><button type="button" class="sxw-no">Agora não</button><button type="button" class="sxw-ok"'+(j?'':' disabled')+'>Registrar</button></div></div>';
+    document.body.appendChild(ov);ov.querySelector('.sxw-no').onclick=()=>ov.remove();
+    ov.querySelector('.sxw-ok').onclick=()=>{const jj=J();if(!jj)return;const dn=!!(ov.querySelector('.sxw-d')&&ov.querySelector('.sxw-d').checked);try{jj.finish({min:m,pid:jxAccPid||S.jxPid||pid0,tid,done:dn})}catch(e){}pend=0;jxAcc=0;try{localStorage.removeItem('jx-sx-pend')}catch(e){}ov.remove();if(typeof toast==='function')toast(m>=1?m+' min registrados na plataforma':'Pronto')}};
+})();
 
 (async () => {
   for (const id of ['#setPanel', '#speedPanel', '#colorPanel']) document.body.appendChild($(id));
