@@ -85,6 +85,9 @@ section.s{padding:84px 0 0}.h2{font:800 clamp(32px,4.4vw,54px)/1 var(--cond);tex
 .offer{position:relative;border-radius:24px;padding:40px clamp(20px,4vw,48px);background:linear-gradient(160deg,rgba(143,92,255,.16),rgba(15,16,40,.9) 55%);border:1px solid rgba(180,140,255,.45);box-shadow:0 0 0 1px rgba(255,127,192,.08) inset,0 30px 80px -40px rgba(143,92,255,.8)}
 .offer .h2{font-size:clamp(30px,3.8vw,46px)}.price{margin:20px 0 6px;font:800 clamp(54px,7vw,84px)/1 var(--cond)}.price small{font:700 24px var(--cond);margin-right:4px}.price em{font:700 22px var(--cond);font-style:normal;color:var(--fg2)}
 .plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:10px;text-align:left}
+.plans2{grid-template-columns:repeat(2,minmax(0,320px));justify-content:center}
+.pg{margin:28px 0 6px;font:700 24px var(--cond);text-transform:uppercase;letter-spacing:.04em}.pg small{display:block;font:400 15px "Source Sans 3",system-ui,sans-serif;text-transform:none;letter-spacing:0;color:var(--fg2)}
+.cmpw{overflow-x:auto;margin-top:26px}.cmp{width:100%;max-width:820px;margin:0 auto;border-collapse:collapse;text-align:left;font-size:15px}.cmp th,.cmp td{padding:11px 12px;border-bottom:1px solid var(--line)}.cmp th{color:var(--fg2);font-size:13px}.cmp td:not(:first-child),.cmp th:not(:first-child){text-align:center;width:110px}.cmp .ok{color:var(--ok)}.cmp .no{color:var(--fg2)}
 .pl{position:relative;min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px 22px;display:grid;gap:8px;align-content:start;transition:transform .2s,border-color .2s}.pl:hover{transform:translateY(-4px);border-color:var(--v)}
 .pl.best{border-color:var(--v);background:linear-gradient(165deg,rgba(143,92,255,.25),var(--panel) 65%);box-shadow:0 0 0 1px var(--v) inset,0 24px 60px -30px rgba(143,92,255,.95)}
 .tag{position:absolute;top:-13px;right:18px;font:700 12px var(--cond);letter-spacing:.12em;text-transform:uppercase;border-radius:99px;padding:5px 12px;background:var(--ok);color:#052512}.tag.pop{background:var(--grad);color:#fff}
@@ -111,7 +114,7 @@ summary::after{content:"+";float:right;color:var(--v2);font-size:20px;line-heigh
 footer{margin-top:84px;background:#06061a;border-top:1px solid rgba(180,140,255,.25)}footer .w{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:28px;padding:46px 20px 30px}
 footer h4{margin:0 0 12px;font:700 18px var(--cond);text-transform:uppercase;letter-spacing:.06em}footer a{display:block;color:var(--fg2);text-decoration:none;margin:0 0 8px;font-size:15px}footer a:hover{color:#fff}footer p{color:var(--mute);font-size:14px;margin:12px 0 0}
 .copy{border-top:1px solid rgba(255,255,255,.06);text-align:center;color:var(--mute);font-size:13px;padding:16px}
-@media (max-width:1020px){.links{display:none}.plans{grid-template-columns:repeat(2,minmax(0,1fr))}.duo,.contact{grid-template-columns:1fr}.lap{margin:0 auto}.grid3{grid-template-columns:1fr 1fr}footer .w{grid-template-columns:1fr 1fr}}
+@media (max-width:1020px){.links{display:none}.plans{grid-template-columns:repeat(2,minmax(0,1fr))}.plans2{grid-template-columns:repeat(2,minmax(0,1fr))}.duo,.contact{grid-template-columns:1fr}.lap{margin:0 auto}.grid3{grid-template-columns:1fr 1fr}footer .w{grid-template-columns:1fr 1fr}}
 @media (max-width:640px){.stage{min-height:0;padding:20px 0 70px}.lap{width:94%;margin:0 auto}.tab{width:52%;left:-1%;bottom:-2%;border-radius:16px}.tab .bez{border-radius:13px}.ph{width:29%;border-radius:24px}.ph .bez{border-radius:21px}.ph .scr{border-radius:17px}.seal{display:none}.stage .chip{font-size:11.5px;padding:7px 10px}.stage .c2{display:none}.stage .c1{left:0;top:0}.nav .w{min-height:64px;gap:10px}.brand img{width:38px;height:38px}.brand b{font-size:14px}.nav .act .btn{min-height:40px;padding:0 14px;font-size:13.5px}.nav .act .ghost{display:none}
  .plans,.grid3,.steps{grid-template-columns:1fr}.hero{padding-top:34px}.btn{width:100%}.nav .act .btn{width:auto}.cta{flex-direction:column}.seal{width:34%}footer .w{grid-template-columns:1fr}.final .btn{justify-self:stretch}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}.btn:hover,.pl:hover{transform:none}}
@@ -182,15 +185,19 @@ footer h4{margin:0 0 12px;font:700 18px var(--cond);text-transform:uppercase;let
    <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>IA para resumos, cards, mapas, simulados e ajustes do plano.</li>
    <li><i><svg viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg></i>Jornada na Lei Seca com o texto oficial do Planalto.</li>
   </ul></div>
- <div class="center"><p style="margin:0;color:var(--fg2);font-size:17px">No plano anual, a partir de</p>
+ <div class="center"><p style="margin:0;color:var(--fg2);font-size:17px">No Básico anual, a partir de</p>
   <div class="price"><small>R$</small><span id="pAno">45,82</span><em>/MÊS</em></div>
-  <p class="note" id="pAnoTot">R$ 549,90 por ano · todas as funções incluídas</p>
+  <p class="note" id="pAnoTot">R$ 358,80 por ano no Básico</p>
   <div class="cta"><a class="btn pri" href="#planos">Escolher meu plano</a></div></div>
 </div></div></section>
 
 <section class="s center" id="planos"><div class="w"><span class="kick">✦ Planos</span><h2 class="h2">Escolha o seu <span class="acc">ritmo</span></h2>
- <p class="sub">Todos os planos têm acesso completo. Quanto maior o período, menor o valor por mês.</p>
+ <p class="sub">Comece com 7 dias grátis com tudo liberado. Depois, escolha o Básico ou o Premium.</p>
+ <h3 class="pg">Básico <small>o essencial para estudar todos os dias</small></h3>
+ <div class="plans plans2" id="plansB"></div>
+ <h3 class="pg">Premium <small>tudo do Básico, mais os recursos avançados</small></h3>
  <div class="plans" id="plans"></div>
+ <div class="cmpw"><table class="cmp"><thead><tr><th>Recurso</th><th>Básico</th><th>Premium</th></tr></thead><tbody id="cmpB"></tbody></table></div>
  <p class="note" style="margin-top:18px">Pagamento seguro pela Hotmart ou Kiwify: Pix, cartão (com parcelamento) ou boleto. 7 dias para desistir e receber o valor de volta (art. 49 do CDC).</p>
 </div></section>
 
@@ -236,13 +243,20 @@ footer h4{margin:0 0 12px;font:700 18px var(--cond);text-transform:uppercase;let
 <script>
 (function(){
  document.getElementById("yr").textContent=new Date().getFullYear();
- const PL=[["mensal","Mensal","mês",1,"79,90"],["trimestral","Trimestral","trimestre",3,"179,90"],["semestral","Semestral","semestre",6,"329,90"],["anual","Anual","ano",12,"549,90"]];
+ const PL=[["mensal","Mensal","mês",1,"79,90"],["trimestral","Trimestral","trimestre",3,"179,70"],["semestral","Semestral","semestre",6,"299,40"],["anual","Anual","ano",12,"478,80"]];
+ const PB=[["basico_mensal","Mensal","mês",1,"49,90"],["basico_anual","Anual","ano",12,"358,80"]];
+ const CMP=[["Metas diárias, edital, revisões e Trilha da Jornada",1,1],["Resumos, cards, mapas mentais e questões com IA",1,1],["Cantinho da Motivação e Pomodoro em tela cheia",1,1],["Erradas com Favoritas e questões gerais",1,1],["Comparativo: você contra a média geral",1,1],["Scribax em janela própria",0,1],["Tire sua dúvida na atividade",0,1],["Incluir no resumo com IA",0,1],["Matriz de prioridade",0,1],["Comparativo: desvio por matéria e ranking",0,1],["Pedidos de IA por dia","50","80"]];
  const num=v=>parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0,brl=n=>n.toFixed(2).replace(".",",");
  const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
- function draw(V){const pm=num(V.preco_mensal||"79,90"),pa=V.preco_anual||"549,90";
-  document.getElementById("pAno").textContent=brl(num(pa)/12);document.getElementById("pAnoTot").textContent="R$ "+pa+" por ano · todas as funções incluídas";
+ function draw(V){const pm=num(V.preco_mensal||"79,90"),pbm=num(V.preco_basico_mensal||"49,90"),pa=V.preco_basico_anual||"358,80";
+  document.getElementById("pAno").textContent=brl(num(pa)/12);document.getElementById("pAnoTot").textContent="R$ "+pa+" por ano no Básico · Premium a partir de R$ "+brl(num(V.preco_anual||"478,80")/12)+" por mês";
+  const ck='<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m5 12 4 4 10-10"/></svg>';
+  document.getElementById("cmpB").innerHTML=CMP.map(([n,b,p])=>`<tr><td>${n}</td>${[b,p].map(v=>`<td>${v===1?'<span class="ok">'+ck+'</span>':v===0?'<span class="no">—</span>':"<b>"+v+"</b>"}</td>`).join("")}</tr>`).join("");
+  document.getElementById("plansB").innerHTML=PB.map(([k,n,per,m,def])=>{const p=V["preco_"+k]||def,eco=m>1&&pbm?Math.round((1-num(p)/(pbm*m))*100):0;
+   return`<div class="pl"><span class="nm">Básico ${n}</span><div class="v"><small>R$</small>${esc(p)}<em>/${per}</em></div><p class="eq">${m>1?"Equivale a R$ "+brl(num(p)/m)+" por mês":"Cobrança mensal, cancele quando quiser"}</p><p class="eco">${eco>0?"Economize "+eco+"%":""}</p>
+    <a class="btn" href="./?cadastro&plano=${k}">Começar 7 dias grátis</a></div>`}).join("");
   document.getElementById("plans").innerHTML=PL.map(([k,n,per,m,def])=>{const p=V["preco_"+k]||def,eco=m>1&&pm?Math.round((1-num(p)/(pm*m))*100):0;
-   return`<div class="pl ${k==="anual"?"best":""}">${k==="anual"?'<span class="tag">Melhor preço</span>':k==="semestral"?'<span class="tag pop">Mais escolhido</span>':""}<span class="nm">${n}</span>
+   return`<div class="pl ${k==="anual"?"best":""}">${k==="anual"?'<span class="tag">Melhor preço</span>':k==="semestral"?'<span class="tag pop">Mais escolhido</span>':""}<span class="nm">Premium ${n}</span>
     <div class="v"><small>R$</small>${esc(p)}<em>/${per}</em></div><p class="eq">${m>1?"Equivale a R$ "+brl(num(p)/m)+" por mês":"Cobrança mensal, cancele quando quiser"}</p><p class="eco">${eco>0?"Economize "+eco+"%":""}</p>
     <a class="btn ${k==="anual"||k==="semestral"?"pri":""}" href="./?cadastro&plano=${k}">Começar 7 dias grátis</a></div>`}).join("");
   const wa=String(V.whatsapp||"").replace(/\D/g,"");if(wa){const a=document.getElementById("wa");a.href="https://wa.me/"+(wa.length<=11?"55"+wa:wa);a.target="_blank";a.rel="noopener"}

@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611090633"></script>
+<script src="/claude-shim.js?v=202611090702"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1895,6 +1895,10 @@ html[data-ob] .app{visibility:hidden}html[data-ob] body{background:var(--bg)}htm
 .npe-or{text-align:center;border-top:1px dashed var(--line2);padding-top:8px}
 
 .box.cs{max-width:680px;display:grid;gap:14px}
+.prem-lock .card-b{display:grid;gap:8px;justify-items:start;border:1px dashed color-mix(in srgb,var(--gold,#f2b441) 55%,transparent);border-radius:14px;background:color-mix(in srgb,var(--gold,#f2b441) 6%,transparent)}
+.asn-g{margin:18px 0 8px;font:600 22px var(--f-display);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.asn-g small{font:400 14px var(--f-body)}
+.asn-pl2{grid-template-columns:repeat(auto-fit,minmax(220px,320px))!important}
+.asn-cmp td:not(:first-child),.asn-cmp th:not(:first-child){text-align:center;width:120px}.asn-cmp svg{width:18px;height:18px;vertical-align:-4px}
 .rsnotes{border:1px solid color-mix(in srgb,var(--gold,#f2b441) 45%,var(--line));border-radius:12px;padding:10px 12px;display:grid;gap:8px;margin-bottom:10px}.rsn{display:flex;gap:8px;justify-content:space-between;border-top:1px dashed var(--line);padding-top:8px}.rsn p{margin:2px 0}.rsn small{display:block}
 .mot-stack{display:flex;flex-wrap:wrap;justify-content:center;gap:0;padding:26px 10px 10px;margin:8px 0}
 .mot-pol{position:relative;width:min(220px,44vw);margin:-10px -14px 0;padding:10px 10px 30px;background:#fbf8f1;border-radius:4px;box-shadow:0 14px 30px -12px rgba(0,0,0,.55),0 2px 6px rgba(0,0,0,.25);transform:rotate(var(--r)) translateX(var(--dx));transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s;cursor:zoom-in;animation:polIn .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--d)}
@@ -5546,7 +5550,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261109063316";
+const JX_BUILD="20261109070216";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -5895,7 +5899,7 @@ window.JX_LEXIS={
 function lxOpen(o){o=o||{};if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109063316" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109070216" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -6311,19 +6315,33 @@ document.addEventListener("keydown",e=>{if(TAB!=="arena"||!UI.ar||$("layer3").in
   else if(arCE(c)&&S.pick==null&&(e.key==="c"||e.key==="e")){e.preventDefault();A.arPick({dataset:{v:e.key==="c"?"1":"0"}})}});
 
 /* ================= Assinatura: planos, status, pagamento (Hotmart/Kiwify) e termos ================= */
-const ASN_PL=[["mensal","Plano mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","79,90"],["trimestral","Plano trimestral","trimestre",3,"","179,90"],["semestral","Plano semestral","semestre",6,"","329,90"],["anual","Plano anual","ano",12,"","549,90"]];
-const ASN_CFG=[...ASN_PL.map(p=>["preco_"+p[0],"Preço do "+p[1].toLowerCase()+" (R$)",p[5]]),...ASN_PL.map(p=>["checkout_"+p[0],"Link de pagamento do "+p[1].toLowerCase()+" (Hotmart ou Kiwify)","https://pay.hotmart.com/..."]),
+const ASN_PL=[["mensal","Premium mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","79,90"],["trimestral","Premium trimestral","trimestre",3,"","179,70"],["semestral","Premium semestral","semestre",6,"","299,40"],["anual","Premium anual","ano",12,"","478,80"]];
+const ASN_BAS=[["basico_mensal","Básico mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","49,90"],["basico_anual","Básico anual","ano",12,"","358,80"]];
+/* O que só o Premium tem. O Básico experimenta cada um algumas vezes (degustação) antes do bloqueio. */
+const PREM_F={popup:["Scribax em janela própria",3],duvida:["Tire sua dúvida",3],resIA:["Incluir no resumo com IA",3],prio:["Matriz de prioridade",2],comp:["Desvio por matéria e ranking do Comparativo",1]};
+const ASN_CMP=[["Metas diárias, edital, revisões e Trilha da Jornada",1,1],["Resumos, cards, mapas mentais e questões com IA",1,1],["Cantinho da Motivação e Pomodoro em tela cheia",1,1],["Erradas com Favoritas e questões gerais",1,1],["Comparativo: você contra a média geral",1,1],["Scribax em janela própria",0,1],["Tire sua dúvida na atividade",0,1],["Incluir no resumo com IA",0,1],["Matriz de prioridade",0,1],["Comparativo: desvio por matéria e ranking",0,1],["Pedidos de IA por dia","50","80"]];
+const TIER=()=>{const A=window.JX_ACESSO;return A&&A.st==="ativo"&&/^basico_/.test(A.plano||"")?"basico":"premium"};
+function premLeft(k){const F=PREM_F[k];if(!F)return 0;const d=core().deg||{};return Math.max(0,F[1]-(d[k]||0))}
+function premOk(k,quiet){if(TIER()!=="basico"||!PREM_F[k])return true;const F=PREM_F[k],n=premLeft(k);
+  if(n>0){const c=core();c.deg=c.deg||{};c.deg[k]=(c.deg[k]||0)+1;touch("core");toast(`Amostra do Premium: ${F[0]}. ${n-1?"Restam "+(n-1)+" usos grátis.":"Este foi o último uso grátis."}`);return true}
+  if(!quiet)premModal(k);return false}
+function premModal(k){const F=PREM_F[k]||["Este recurso"];$("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Recurso do Premium"><div class="box cs" style="max-width:520px"><div class="vh"><h3>${ic("lock")} ${esc(F[0])} é do Premium</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+  <p style="margin:0">Você já usou as amostras grátis deste recurso no plano Básico. No Premium ele fica liberado, junto com o Scribax em janela, o Tire sua dúvida, o Incluir no resumo com IA, a matriz de prioridade e o ranking do Comparativo.</p>
+  <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn" data-a="volClose">Agora não</button><button class="btn pri" data-a="premGo">${ic("star")} Conhecer o Premium</button></div></div></div>`}
+function premLock(k,txt){const F=PREM_F[k],n=premLeft(k);return`<section class="card prem-lock"><div class="card-b"><span class="chip">${ic("lock")} Premium</span><b>${esc(F[0])}</b><p class="muted small" style="margin:0">${txt}</p>
+  <div class="row" style="gap:8px">${n?`<button class="btn sm" data-a="premTry" data-k="${k}">Ver uma amostra grátis (${n} restante${n>1?"s":""})</button>`:""}<button class="btn sm pri" data-a="premGo">${ic("star")} Conhecer o Premium</button></div></div></section>`}
+const ASN_CFG=[...ASN_BAS.map(p=>["preco_"+p[0],"Preço do "+p[1]+" (R$)",p[5]]),...ASN_BAS.map(p=>["checkout_"+p[0],"Link de pagamento do "+p[1]+" (o nome da oferta precisa ter “Básico”)","https://pay.hotmart.com/..."]),...ASN_PL.map(p=>["preco_"+p[0],"Preço do "+p[1].toLowerCase()+" (R$)",p[5]]),...ASN_PL.map(p=>["checkout_"+p[0],"Link de pagamento do "+p[1].toLowerCase()+" (Hotmart ou Kiwify)","https://pay.hotmart.com/..."]),
   ["empresa","Razão social (aparece nos termos)","Sua Empresa Ltda"],["cnpj","CNPJ","00.000.000/0001-00"],["suporte_email","E-mail de suporte","suporte@seudominio.com.br"],["whatsapp","WhatsApp de atendimento (com DDD)","65 99999-9999"],["termos_versao","Versão dos termos (mude para pedir novo aceite)","2026-11"]];
 const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Trilha da Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte à Jornada","Jornada na Lei Seca com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
 function asnNum(v){return parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0}
 function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"79,90";
   const ate=A.plano_ate?new Date(A.plano_ate).toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"}):"";
   const stH=A.st==="dono"?`<span class="chip ok">Conta de administrador</span><p>Acesso livre e vitalício nesta conta, sem limite de IA. Aqui você também configura os preços, os links de pagamento e os dados da empresa.</p>`
-   :A.st==="ativo"?`<span class="chip ok">Assinatura ativa</span><p>Plano <b>${["mensal","trimestral","semestral","anual"].includes(A.plano)?A.plano:"cortesia"}</b>${ate?" · válido até <b>"+ate+"</b>":""}${A.origem?" · pago pela "+(A.origem==="hotmart"?"Hotmart":"Kiwify"):""}. A renovação é automática; para cancelar, use a plataforma onde você comprou.</p>`
+   :A.st==="ativo"?`<span class="chip ok">Assinatura ativa</span><p>Plano <b>${/^basico_/.test(A.plano)?"Básico "+A.plano.slice(7):["mensal","trimestral","semestral","anual"].includes(A.plano)?"Premium "+A.plano:"cortesia"}</b>${ate?" · válido até <b>"+ate+"</b>":""}${A.origem?" · pago pela "+(A.origem==="hotmart"?"Hotmart":"Kiwify"):""}. A renovação é automática; para cancelar, use a plataforma onde você comprou.</p>`
    :A.st==="teste"?`<span class="chip warn">Teste grátis</span><p>${A.left<=1?"O seu teste termina <b>hoje</b>.":"Faltam <b>"+A.left+" dias</b> de teste."} Assine para não perder o ritmo: seus dados continuam todos com você.</p>`
    :`<span class="chip bad">Sem acesso</span><p>O seu acesso terminou. Assine para continuar.</p>`;
-  const cap=A.st==="dono"?"sem limite":A.st==="teste"?60:80;
-  const plan=(t,nome,per,mes,sub0,def)=>{const preco=V["preco_"+t]||def,u=window.jxCheckout?window.jxCheckout(t):"",best=t==="anual",eco=mes>1&&asnNum(pm)?Math.round((1-asnNum(preco)/(asnNum(pm)*mes))*100):0,sub=sub0||("Equivale a R$ "+(asnNum(preco)/mes).toFixed(2).replace(".",",")+" por mês."+(eco>0?" Economize "+eco+"%.":""));
+  const cap=A.st==="dono"?"sem limite":A.st==="teste"?60:TIER()==="basico"?50:80;
+  const pb=V.preco_basico_mensal||"49,90",plan=(t,nome,per,mes,sub0,def)=>{const preco=V["preco_"+t]||def,u=window.jxCheckout?window.jxCheckout(t):"",best=t==="anual",bm=/^basico/.test(t)?pb:pm,eco=mes>1&&asnNum(bm)?Math.round((1-asnNum(preco)/(asnNum(bm)*mes))*100):0,sub=sub0||("Equivale a R$ "+(asnNum(preco)/mes).toFixed(2).replace(".",",")+" por mês."+(eco>0?" Economize "+eco+"%.":""));
     return`<div class="asn-p ${best?"best":""}">${best?`<span class="asn-tag">Melhor preço</span>`:t==="semestral"?`<span class="asn-tag pop">Mais escolhido</span>`:""}<b>${nome}</b><div class="asn-v"><small>R$</small>${esc(preco)}<em>/${per}</em></div><p class="muted small">${sub}</p>
     ${A.st==="dono"?`<span class="muted small">${u?"Link configurado ✓":"Link ainda não configurado"}</span>`:u?`<a class="btn ${best?"pri":""}" href="${esc(u)}" target="_blank" rel="noopener">${A.st==="ativo"?"Trocar para o "+nome.toLowerCase():"Assinar o "+nome.toLowerCase()}</a>`:`<span class="muted small">Pagamento em breve.</span>`}</div>`};
   const cfg=A.st!=="dono"?"":`<section class="card"><div class="card-h"><h2>${ic("gear")} Configuração da venda</h2><span class="r muted small">só você vê</span></div><div class="card-b" style="display:grid;gap:12px">
@@ -6336,7 +6354,9 @@ function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_
      <p class="muted small" style="margin:0">Depois, no Supabase (Edge Functions › Secrets), guarde o token do Hotmart como <b>HOTMART_HOTTOK</b> e o da Kiwify como <b>KIWIFY_TOKEN</b>. O aluno precisa pagar com o mesmo e-mail da conta.</p></div></div></section>`;
   return`<div class="hello"><h1>Assinatura</h1><p>Seu plano, o pagamento e os termos de uso da A Jornada.</p></div>
    <section class="card"><div class="card-b asn-st">${stH}<div class="asn-ia"><small>IA hoje</small><b>${A.ia_hoje||0}${typeof cap==="number"?" / "+cap:""}</b><span class="muted small">${typeof cap==="number"?"pedidos por dia":cap}</span></div></div></section>
-   <div class="asn-pl">${ASN_PL.map(p=>plan(...p)).join("")}</div>
+   <h2 class="asn-g">Básico <small class="muted">o essencial para estudar todos os dias</small></h2><div class="asn-pl asn-pl2">${ASN_BAS.map(p=>plan(...p)).join("")}</div>
+   <h2 class="asn-g">Premium <small class="muted">tudo do Básico, mais os recursos avançados</small></h2><div class="asn-pl">${ASN_PL.map(p=>plan(...p)).join("")}</div>
+   <section class="card"><div class="card-h"><h2>Básico ou Premium</h2><span class="r muted small">o teste grátis de 7 dias libera tudo</span></div><div class="card-b" style="overflow-x:auto"><table class="cmpt asn-cmp"><thead><tr><th>Recurso</th><th>Básico</th><th>Premium</th></tr></thead><tbody>${ASN_CMP.map(([n,b,pr])=>`<tr><td>${n}</td>${[b,pr].map(v=>`<td>${v===1?`<span class="okc">${ic("check")}</span>`:v===0?`<span class="muted">${ic("lock")} amostra</span>`:`<b>${v}</b>`}</td>`).join("")}</tr>`).join("")}</tbody></table></div></section>
    <section class="card"><div class="card-h"><h2>O que está incluído</h2></div><div class="card-b"><ul class="asn-ft">${ASN_FEAT.map(f=>`<li>${ic("check")}${f}</li>`).join("")}</ul>
     <p class="muted small" style="margin:10px 0 0">Pague com o mesmo e-mail da sua conta (<b>${esc(A.email||"")}</b>): a liberação é automática em poucos minutos. Você tem 7 dias para desistir e receber o valor de volta (art. 49 do CDC).</p>
     <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn" data-a="asnCheck">${ic("reset")} Já paguei: verificar</button><a class="btn" href="termos.html#termos" target="_blank" rel="noopener">Termos de Uso ↗</a><a class="btn" href="termos.html#privacidade" target="_blank" rel="noopener">Política de Privacidade ↗</a></div></div></section>${cfg}`}
@@ -7755,7 +7775,7 @@ document.addEventListener("toggle",e=>{const d=e.target;if(d&&d.classList&&d.cla
   if(d.open){d.classList.remove("pv-go");void d.offsetWidth;d.classList.add("pv-go")}}},true);
 function cntUp(root){if(!root)return;const rm=matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;root.querySelectorAll("[data-cnt]:not([data-done])").forEach(el=>{el.dataset.done=1;const v=+el.dataset.cnt;if(rm||!(v>0))return;const t0=performance.now(),D=900,f=x=>(Math.round(x*10)/10).toLocaleString("pt-BR",{minimumFractionDigits:1,maximumFractionDigits:1})+"%";
   const st=()=>{const k=Math.min(1,(performance.now()-t0)/D),e=1-Math.pow(1-k,3);el.textContent=f(v*e);if(k<1)requestAnimationFrame(st)};el.textContent=f(0);requestAnimationFrame(st)})}
-function vIncidencia(){return vIncidencia0()+prioHTML()}
+function vIncidencia(){return vIncidencia0()+(TIER()==="basico"&&!UI.premSee?.prio?premLock("prio","Cruza a incidência de cada assunto com o seu acerto e mostra o que estudar primeiro em cada matéria."):prioHTML())}
 function vIncidencia0(){const h=vProva().replace(/^<p class="muted" style="margin:0;max-width:75ch">[\s\S]*?<\/p>/,"");
   return`<div class="hello"><h1>Incidência</h1><p>Quanto cada matéria vale na prova${IS_TJ?" de Oficial de Justiça do TJSP":PLAN&&PLAN.name?" de "+esc(PLAN.name):""} e quais assuntos mais caem em cada matéria. A IA se baseia nessas informações para montar os seus resumos, os simulados e a prioridade das questões; o planejamento das metas também.</p></div>${h}`}
 /* ---------- Aba Estrutura da prova ---------- */
@@ -9387,7 +9407,7 @@ const erKey=x=>x.src+":"+x.id;
 const erHid=x=>!!ERM().hide[erKey(x)],erFav=x=>!!ERM().fav[erKey(x)];
 const QZR_BUSY=new Set();
 function qzAulaOf(p,Z){if(p.aula)return p.aula;const f=Z&&Z.tid?findTask(Z.tid):null;if(f&&f.t){const a=aSet(f.t);return a[0]||f.t.aula||""}return""}
-async function qzToRes(pid,qid){const p=qzP(pid),Z=qzDoc(pid);if(!p||!Z)return;const q=Z.L.find(x=>x.id===qid);if(!q)return;const A=Z.ans[qid]||{},sid=p.sid,c=qzAulaOf(p,Z);
+async function qzToRes(pid,qid){const p=qzP(pid),Z=qzDoc(pid);if(!p||!Z)return;if(!premOk("resIA"))return;const q=Z.L.find(x=>x.id===qid);if(!q)return;const A=Z.ans[qid]||{},sid=p.sid,c=qzAulaOf(p,Z);
   if(!sid||!c){toast("Não achei a aula desta questão para guardar no resumo");return}
   const R0=resGet(sid,c);R0.err=R0.err||[];if(R0.err.some(e=>e.qk===pid+"|"+qid)){toast("Esta questão já está no resumo da aula");return}
   const kk=q.ce?(q.k==="C"?"Certo":"Errado"):q.k,ch=A.a?(q.ce?(A.a==="C"?"Certo":"Errado"):A.a):"";
@@ -9444,7 +9464,7 @@ function dvHTML(t){if(t.ref&&!t.sid)return"";const L=t.dv||[],busy=DV_BUSY.has(t
    <p class="muted small" style="margin:0">Pergunte sobre o trecho desta atividade. A resposta segue a literalidade da lei e o material da aula; jurisprudência só é citada se estiver no seu material ou na base de conhecimento, senão vem marcada para você conferir.</p>
    ${L.map((x,i)=>`<div class="dvq"><b>${esc(x.q)}</b><div class="rsout">${mdLite(x.a)}</div><button class="lnk small" data-a="dvDel" data-id="${t.id}" data-i="${i}">apagar</button></div>`).join("")}
    ${SAMPLE?`<textarea class="inp" id="dvIn" rows="2" placeholder="Ex.: Qual a diferença entre suspensão e exclusão do crédito tributário?"></textarea><div class="row"><button class="btn sm pri" data-a="dvAsk" data-id="${t.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Respondendo…':ic("bulb")+" Perguntar"}</button></div>`:`<p class="muted small">A dúvida precisa da IA ligada.</p>`}</div></details>`}
-async function dvAsk(id){const f=findTask(id);if(!f)return;const t=f.t,q=(($("dvIn")||{}).value||"").trim();if(q.length<5){toast("Escreva a sua dúvida");return}
+async function dvAsk(id){const f=findTask(id);if(!f)return;if(!premOk("duvida"))return;const t=f.t,q=(($("dvIn")||{}).value||"").trim();if(q.length<5){toast("Escreva a sua dúvida");return}
   DV_BUSY.add(id);renderDrawer();
   try{const mat=await srcText(t,14000).catch(()=>""),es=esqTxt(t.sid,t.aula||aSet(t)[0],5000);
     const a=await SAMPLE(`Você é o consultor técnico de dúvidas da plataforma A Jornada para um candidato a ${dsCargo()} (banca ${dsBanca()}). Matéria: ${SUB(t.sid).n}.
@@ -9529,7 +9549,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){const u="lexis/index.html?v=20261109063316&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109070216&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -9617,9 +9637,9 @@ function vComparativo(){const c=core(),C=c.comp||{},S=compStats(),G=UI.compG,n=G
    ${!okG?`<p class="muted small">A média geral aparece quando houver pelo menos 5 alunos participando deste concurso. Por enquanto você vê só os seus números.${UI.compBusy?' <span class="spin"></span>':""}</p>`:""}
    <div class="grid2"><section class="card"><div class="card-h"><h2>Evolução de desempenho por meta</h2></div><div class="card-b">${S.metas.length?svgLine(S.metas,okG&&G.metas||[]):'<p class="muted">Faça questões nas metas para ver a sua linha.</p>'}<p class="cmpl"><i class="ly"></i>Você ${okG?'<i class="lg"></i>Geral':""}</p></div></section>
     <section class="card"><div class="card-h"><h2>Perfil de desempenho</h2></div><div class="card-b">${mats.length>=3?svgRadar(mats.slice(0,12)):'<p class="muted">O radar aparece com 3 matérias com questões.</p>'}<p class="cmpl"><i class="ly"></i>Você ${okG?'<i class="lg"></i>Geral':""}</p></div></section></div>
-   ${dev.length?`<section class="card"><div class="card-h"><h2>Desvio para a média por matéria</h2></div><div class="card-b cmpdev">${dev.map(m=>`<div class="cdr"><span class="code">${esc(m.c)}</span><span class="cdb"><i class="${m.d>=0?"p":"n"}" style="--w:${Math.abs(m.d)/md*50}%"></i></span><b class="${m.d>=0?"okc":"badc"}">${m.d>0?"+":""}${m.d.toLocaleString("pt-BR")}%</b></div>`).join("")}</div></section>`:""}
+   ${TIER()==="basico"&&!UI.premSee?.comp?premLock("comp","Mostra em quais matérias você está acima ou abaixo da média dos alunos e a sua posição no ranking por apelido."):""}${dev.length&&(TIER()!=="basico"||UI.premSee?.comp)?`<section class="card"><div class="card-h"><h2>Desvio para a média por matéria</h2></div><div class="card-b cmpdev">${dev.map(m=>`<div class="cdr"><span class="code">${esc(m.c)}</span><span class="cdb"><i class="${m.d>=0?"p":"n"}" style="--w:${Math.abs(m.d)/md*50}%"></i></span><b class="${m.d>=0?"okc":"badc"}">${m.d>0?"+":""}${m.d.toLocaleString("pt-BR")}%</b></div>`).join("")}</div></section>`:""}
    <section class="card"><div class="card-h"><h2>Análise geral</h2></div><div class="card-b" style="overflow-x:auto"><table class="cmpt"><thead><tr><th>Matéria</th><th>Questões</th><th>Acertos</th><th>Taxa</th><th>Média geral</th><th>Diferença</th></tr></thead><tbody>${mats.map(m=>`<tr><td>${esc(m.n)}</td><td>${m.q}</td><td>${m.a}</td><td><span class="chip ${m.y>=80?"ok":m.y>=65?"warn":"bad"}">${m.y.toLocaleString("pt-BR")}%</span></td><td>${m.g!=null?m.g.toLocaleString("pt-BR")+"%":"—"}</td><td>${m.g!=null?`<b class="${m.y>=m.g?"okc":"badc"}">${m.y>=m.g?"↑":"↓"} ${Math.abs(Math.round((m.y-m.g)*10)/10).toLocaleString("pt-BR")}%</b>`:"—"}</td></tr>`).join("")||'<tr><td colspan="6" class="muted">Ainda não há questões registradas.</td></tr>'}</tbody></table></div></section>
-   ${okG&&G.rank&&G.rank.length?`<section class="card"><div class="card-h"><h2>Ranking por apelido</h2><span class="r muted small">quem tem 30 questões ou mais</span></div><div class="card-b cmprk">${G.rank.map((r,i)=>`<div class="rkr ${C.rank&&r.a===C.apelido?"me":""}"><b>${i+1}º</b><span>${esc(r.a)}</span><small class="muted">${r.q} questões</small><b>${(+r.acc).toLocaleString("pt-BR")}%</b></div>`).join("")}</div></section>`:""}`}
+   ${okG&&G.rank&&G.rank.length&&(TIER()!=="basico"||UI.premSee?.comp)?`<section class="card"><div class="card-h"><h2>Ranking por apelido</h2><span class="r muted small">quem tem 30 questões ou mais</span></div><div class="card-b cmprk">${G.rank.map((r,i)=>`<div class="rkr ${C.rank&&r.a===C.apelido?"me":""}"><b>${i+1}º</b><span>${esc(r.a)}</span><small class="muted">${r.q} questões</small><b>${(+r.acc).toLocaleString("pt-BR")}%</b></div>`).join("")}</div></section>`:""}`}
 
 /* ================= Cantinho: fotos em polaroid ================= */
 function motPhotosHTML(fotos){if(!fotos.length)return"";return`<div class="mot-stack">${fotos.map((x,i)=>{const r=((i*37)%13)-6,dx=((i*53)%9)-4;return`<figure class="mot-pol" style="--r:${r}deg;--dx:${dx}px;--d:${i*80}ms" data-a="motZoom" data-id="${x.id}" tabindex="0" aria-label="Ampliar a foto"><img data-mot="${x.id}" alt="${esc(x.tx||"Foto do cantinho")}"><figcaption>${esc(x.tx||"")}</figcaption><button class="ibtn" data-a="motDel" data-id="${x.id}" aria-label="Remover">${ic("trash")}</button></figure>`}).join("")}</div>`}
@@ -10805,6 +10825,8 @@ const A={
   murF(el){UI.murF=el.dataset.v;render()},
   actOpen(){UI.actSel=null;actModal()},
   raOpen(el){resAddModal(el.dataset.s,el.dataset.c)},
+  premGo(){$("layer3").innerHTML="";A.tab({dataset:{t:"assinatura"}})},
+  premTry(el){const k=el.dataset.k;if(premOk(k)){UI.premSee=UI.premSee||{};UI.premSee[k]=1;render()}},
   raSave(){const R=UI.ra,t=(($("raTx")||{}).value||"").trim();if(!R||!t){toast("Escreva o que vai entrar no resumo");return}const R0=resGet(R.sid,R.c);R0.notes=R0.notes||[];R0.notes.push({id:uid(),txt:t.slice(0,8000),src:"Você",at:Date.now()});touch(resKey(R.sid,R.c));$("layer3").innerHTML="";UI.ra=null;render();if(UI.openT)renderDrawer();toast("Adicionado ao resumo com ênfase");setTimeout(()=>{try{kbTick(true)}catch(e){}},500)},
   raDel(el){const R0=resDoc(el.dataset.s,el.dataset.c);if(R0&&R0.notes){R0.notes=R0.notes.filter(n=>n.id!==el.dataset.id);touch(resKey(el.dataset.s,el.dataset.c));render();if(UI.openT)renderDrawer()}},
   cmpNickSave(){const c=core();c.comp=c.comp||{};c.comp.apelido=((($("cmpNick")||{}).value)||"").trim().slice(0,24);c.comp.at=0;touch("core");compSync(true).then(()=>compLoad());toast("Apelido salvo")},
