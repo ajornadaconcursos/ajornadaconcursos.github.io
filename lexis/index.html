@@ -2,7 +2,7 @@
 <title>Scribax · Leia, ouça e fixe</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Literata:opsz,wght@7..72,600;7..72,700&family=Oswald:wght@500;600;700&family=Source+Sans+3:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Literata:opsz,wght@7..72,600;7..72,700&family=Oswald:wght@500;600;700&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap">
 <style>
 /* Layout: sidebar (add, home, library, folders, theme) beside one view: home, library list, or the reader with a tool rail and a floating player. */
 :root{
@@ -519,7 +519,7 @@ html:root:not([data-theme="light"]){
   --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px rgba(0,0,0,.38); color-scheme:dark;
 }
 html:root[data-theme="light"]{--glow1:rgba(47,116,240,.16);--glow2:rgba(242,180,65,.12)}
-:root{--f-ui:"Source Sans 3",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--f-brand:"Oswald","Source Sans 3",system-ui,sans-serif;--sx-grad:linear-gradient(90deg,#f2b441,#ffd36e);--sx-blue:linear-gradient(120deg,#2f74f0,#0f3596);--rail:76px}
+:root{--f-ui:"Barlow",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--f-brand:"Barlow Semi Condensed","Barlow",system-ui,sans-serif;--sx-grad:linear-gradient(90deg,#f2b441,#ffd36e);--sx-blue:linear-gradient(120deg,#2f74f0,#0f3596);--rail:76px}
 body{background:radial-gradient(1000px 620px at 95% -10%,var(--glow1),transparent 62%),radial-gradient(900px 560px at -10% 110%,var(--glow2),transparent 60%),var(--desk);font-size:15.5px}
 .vtitle,.sec h2,.mbox h2{font-weight:600;letter-spacing:.01em}
 .sec h2{text-transform:uppercase;font-size:18px;letter-spacing:.06em}
@@ -625,7 +625,7 @@ html:root[data-theme="light"] .sxhero h1 em{background:linear-gradient(90deg,#2f
 .sxw-b{border:0;border-radius:999px;padding:6px 12px;background:linear-gradient(90deg,#f2b441,#ffd36e);color:#0a1128;font-weight:700;cursor:pointer}
 .sxw-ov{position:fixed;inset:0;z-index:10000;background:rgba(5,10,30,.55);display:grid;place-items:center;animation:sxwF .2s}@keyframes sxwF{from{opacity:0}}
 .sxw-box{width:min(420px,calc(100vw - 32px));background:#0d1838;color:#eef1f9;border:1px solid #f2b441;border-radius:16px;padding:18px;display:grid;gap:10px;font:15px/1.45 'Source Sans 3',system-ui,sans-serif}
-.sxw-box h3{margin:0;font:600 20px Oswald,system-ui}.sxw-box p{margin:0}.sxw-w{color:#ffb4a2;font-size:13px}.sxw-r{display:flex;justify-content:flex-end;gap:8px}
+.sxw-box h3{margin:0;font:600 20px var(--f-brand)}.sxw-box p{margin:0}.sxw-w{color:#ffb4a2;font-size:13px}.sxw-r{display:flex;justify-content:flex-end;gap:8px}
 .sxw-r button{border-radius:999px;padding:8px 16px;font-weight:700;cursor:pointer;border:1px solid #2a3a6e;background:transparent;color:#eef1f9}.sxw-r .sxw-ok{background:linear-gradient(90deg,#f2b441,#ffd36e);color:#0a1128;border:0}.sxw-r .sxw-ok:disabled{opacity:.5}
 @media (max-width:640px){.sxw-n{display:none}}
 .sxhist,.sxpg{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0;font-size:14px;color:var(--muted)}
