@@ -4041,6 +4041,12 @@ renderFolders = function () { const r = sxRF0.apply(this, arguments); const n = 
   try{jxFlush=function(){const m=Math.floor(jxAcc);if(m>=1){pend+=m;jxAcc-=m;save()}jxAccPid=S.jxPid||null}}catch(e){}
   setInterval(save,10000);addEventListener('beforeunload',save);addEventListener('pagehide',save);
   const go=()=>{if(window.JXL&&window.JXL.ready){if(pid0)window.JXL.open(pid0,pa0);return true}return false};if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>120)clearInterval(t)},250)}
+  /* "A Jornada": volta para a janela da plataforma que já está aberta (não abre a plataforma aqui dentro) */
+  document.addEventListener('click',e=>{const b=e.target&&e.target.closest&&e.target.closest('#jxBack,#jxBack2,#jxBack3');if(!b)return;e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+    try{if(S.playing&&typeof pause==='function')pause()}catch(x){}try{jxFlush()}catch(x){}try{pend+=jxAcc;jxAcc=0}catch(x){}save();
+    let op=null;try{op=window.opener&&!window.opener.closed?window.opener:null}catch(x){}
+    if(op){try{op.focus()}catch(x){}window.close();setTimeout(()=>{if(!window.closed){try{op.focus()}catch(x){}}},300)}
+    else{location.href=new URL('../index.html',location.href).href}},true);
   const tk=(()=>{try{const j=J();return j&&j.task?j.task():null}catch(e){return null}})();
   const c=document.createElement('div');c.className='sxw-chip';c.innerHTML='<span class="sxw-dot"></span><span class="sxw-n"></span><b class="sxw-t">00:00</b><button class="sxw-b" type="button">Concluir bloco</button>';document.body.appendChild(c);
   c.querySelector('.sxw-n').textContent=tk&&tk.title?tk.title.slice(0,46):'Scribax';
