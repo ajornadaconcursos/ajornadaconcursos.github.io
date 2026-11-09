@@ -471,6 +471,11 @@
   }
   window.jxAcesso = async () => { const { data } = await sb.auth.getUser(); await loadVenda(); return loadAcesso(data.user); };
   window.jxSalvarConfig = async (k, v) => { const { error } = await sb.rpc("salvar_config", { chave: k, valor: v }); if (error) throw error; await loadVenda(); };
+  window.jxComp = {
+    salvar: async o => { const { data: u } = await sb.auth.getUser(); if (!u || !u.user) throw new Error("sem login"); const { error } = await sb.from("comparativo").upsert({ user_id: u.user.id, concurso: o.concurso, apelido: o.apelido, ranking: !!o.ranking, stats: o.stats, updated_at: new Date().toISOString() }); if (error) throw error; },
+    sair: async () => { const { data: u } = await sb.auth.getUser(); if (u && u.user) await sb.from("comparativo").update({ concurso: "_saiu", apelido: null, ranking: false, stats: {}, updated_at: new Date().toISOString() }).eq("user_id", u.user.id); },
+    geral: async k => { const { data, error } = await sb.rpc("comparativo_geral", { p_concurso: k }); if (error) throw error; return data || { n: 0 }; }
+  };
   window.jxAceitar = async v => { const { error } = await sb.rpc("aceitar_termos", { versao: v }); if (error) throw error; if (window.JX_ACESSO) window.JX_ACESSO.aceite = v; };
   async function trialCheck(u) {
     await loadVenda(); const A = await loadAcesso(u);
