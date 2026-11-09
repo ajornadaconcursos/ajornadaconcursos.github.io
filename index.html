@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611091103"></script>
+<script src="/claude-shim.js?v=202611091108"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -2124,7 +2124,7 @@ html body .alist .arow .tpc{font-size:14.5px;padding:3px 10px;border-radius:999p
 .ar-lb{font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--lime-txt)}
 .ar-q{margin:0;font:500 clamp(18px,2vw,21px)/1.5 var(--f-body);text-align:left;hyphens:none}
 .ar-ans{border-top:1px dashed var(--line2);padding-top:14px}.ar-card.an2 .ar-ans,.ar-card.an2 .ar-rate{animation:arIn .26s ease-out}
-@keyframes arNext{from{opacity:.55;transform:translateX(14px)}to{opacity:1;transform:none}}.ar-ans p{margin:6px 0 0;font-size:16px;line-height:1.55;color:var(--fg)}
+@keyframes arNext{from{opacity:.55;transform:translateX(14px)}to{opacity:1;transform:none}}.ar-ans p{margin:6px 0 0;font-size:16px;line-height:1.55;color:var(--fg);white-space:pre-line}.ar-ans .ar-k{color:var(--lime-txt,#c6f04d)}
 .ar-ans.ok{border:1px solid var(--ok);background:var(--ok-soft);border-radius:12px;padding:12px 14px}.ar-ans.ok .ar-lb{color:var(--ok)}
 .ar-ans.bad{border:1px solid var(--bad);background:var(--bad-soft);border-radius:12px;padding:12px 14px}.ar-ans.bad .ar-lb{color:var(--bad)}
 .ar-show{justify-self:center;border:1px solid var(--lime);background:var(--lime-soft);color:var(--fg);font:600 16px var(--f-body);border-radius:12px;padding:14px 26px;cursor:pointer;display:flex;gap:10px;align-items:center}
@@ -5608,7 +5608,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261109110330";
+const JX_BUILD="20261109110854";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6076,7 +6076,7 @@ window.JX_LEXIS={
 function lxOpen(o){o=o||{};if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109110330" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109110854" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -6293,7 +6293,7 @@ function arHome(){arMig();const C=arCounts(),st=arStreak(),nNew=Math.min(C.lim,C
      <nav class="tj-links"><button data-a="arV" data-v="met">${ic("desempenho")} Métricas</button><button data-a="arV" data-v="cards">${ic("arena")} Cards</button><button data-a="arV" data-v="disc">${ic("book")} Disciplinas</button><button data-a="arV" data-v="cfg">${ic("gear")} Ajustes</button><button data-a="arNew" class="nw">+ Novo card</button><button data-a="akOpen" class="ak-btn">${ic("dl")} Importar do Anki</button></nav>
    </aside></div>
    ${all.length?"":`<p class="muted small" style="margin-top:14px;text-align:center">Os cards entram sozinhos: dos resumos das aulas (com a IA), das questões que você erra e anota, e dos testes de fixação. Você também pode criar os seus em "+ Novo card" ou trazer os seus baralhos em "Importar do Anki".</p>`}</div>`}
-function arSession(){const S=UI.ar;if(S.i>=S.q.length)return arEnd();const c=CARDS().find(x=>x.id===S.q[S.i]);if(!c){S.i++;return arSession()}
+function arSession(){const S=UI.ar;if(S.i>=S.q.length)return arEnd();const c=CARDS().find(x=>x.id===S.q[S.i]);if(!c||c.st==="arch"){S.i++;return arSession()}
   const s=c.sid?SUB(c.sid):null,ce=arCE(c),tot=S.q.length,pc=Math.round(S.i/tot*100),stl=AR_ST[c.st]||AR_ST.new;
   /* só anima quando muda o card (ou quando a resposta aparece); redesenhos da tela no meio não piscam */
   const rvK=S.show||S.pick!=null?1:0,anC=UI.arAnId!==c.id,anR=!anC&&rvK&&UI.arAnRv!==rvK;UI.arAnId=c.id;UI.arAnRv=rvK;
@@ -6305,7 +6305,7 @@ function arSession(){const S=UI.ar;if(S.i>=S.q.length)return arEnd();const c=CAR
      ${pk==null?`<div class="ar-ce"><button data-a="arPick" data-v="1" class="ok">${ic("check")} Certo</button><button data-a="arPick" data-v="0" class="bad">${ic("close")} Errado</button></div><p class="ar-tip">Julgue antes de ver o gabarito.</p>`
       :`<div class="ar-ans ${ok?"ok":"bad"}"><div class="ar-lb">${ok?"VOCÊ ACERTOU":"VOCÊ ERROU"} · GABARITO: ${arAns(c)?"CERTO":"ERRADO"}</div><p>${esc(arExp(c))}</p></div>${ok?rate([2,3]):rate([1])}`}`}
   else body=`<div class="ar-lb">PERGUNTA</div><p class="ar-q">${esc(c.f)}</p>
-     ${S.show?`<div class="ar-ans"><div class="ar-lb">RESPOSTA</div><p>${esc(c.b)}${c.link?` <a href="${esc(c.link)}" target="_blank" rel="noopener">Abrir no TEC ↗</a>`:""}</p></div>${rate()}`
+     ${S.show?`<div class="ar-ans"><div class="ar-lb">RESPOSTA</div><p>${esc(c.b).replace(/(^|\n)(Base legal|Explicação):/g,'$1<b class="ar-k">$2:</b>')}${c.link?` <a href="${esc(c.link)}" target="_blank" rel="noopener">Abrir no TEC ↗</a>`:""}</p></div>${rate()}`
       :`<button class="ar-show" data-a="arShow">Mostrar resposta <kbd>espaço</kbd></button><p class="ar-tip">Tente lembrar antes: o esforço de recuperar é o que grava.</p>`}`;
   return`<div class="ar-ses">${arEye(S.mode==="gap"?"TRECHOS DIFÍCEIS":"NA TRILHA")}
    <div class="ar-top"><span>Passo ${S.i+1} de ${tot}</span><div class="tj-prog" aria-hidden="true"><i style="width:${pc}%"></i><b style="left:${pc}%">${ic("foot")}</b><em>${ic("flag")}</em></div><button class="btn sm" data-a="arQuit">Encerrar</button></div>
@@ -6357,7 +6357,7 @@ function arNovo(){const A=ARC();if(A.nov||A.intro)return"";const n=CARDS().filte
    <div class="nv-tx"><span class="nv-tag">✦ NOVIDADE NA PLATAFORMA</span><h2>Conheça a Trilha da Jornada</h2><p>Sua trilha da memória: flash cards que voltam na hora certa, pouco antes de você esquecer. Eles chegam sozinhos dos seus resumos, dos erros e dos testes${n?`, e você já tem <b>${n} card${n===1?"":"s"}</b> esperando`:""}. Dá também para trazer os seus baralhos do Anki.</p>
    <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn pri" data-a="arNovoGo">${ic("foot")} Conhecer a Trilha da Jornada</button><button class="btn ghost" data-a="arNovoX">Agora não</button></div></div></section>`}
 function arPromo(){arMig();const C=arCounts();return`<section class="card arv-p"><div class="card-b arv-pr"><span class="chip sm-k mini">${ic("arena")} Trilha da Jornada</span><span style="flex:1 1 260px"><b>Os cards agora ficam na Trilha da Jornada.</b><br><span class="muted small">${C.now} para agora · ${CARDS().length} no total. Revise com Me perdi, Quase lá ou Dominei e cada card volta na hora certa.</span></span><button class="btn pri" data-a="tab" data-t="arena">Abrir a Trilha da Jornada</button></div></section>`}
-function vArena(){if(!UI.akDd&&!IDBW){UI.akDd=1;const r=akDedupe();if(r){touch("cards");setTimeout(()=>toast(`${r} card${r===1?"":"s"} repetido${r===1?"":"s"} removido${r===1?"":"s"} da Trilha da Jornada`),300)}}if(UI.ar)return arSession();const v=UI.arV||"";
+function vArena(){if(!UI.arFixT){UI.arFixT=1;setTimeout(()=>{try{cardsFixGeneric()}catch(e){}},1500)}if(!UI.akDd&&!IDBW){UI.akDd=1;const r=akDedupe();if(r){touch("cards");setTimeout(()=>toast(`${r} card${r===1?"":"s"} repetido${r===1?"":"s"} removido${r===1?"":"s"} da Trilha da Jornada`),300)}}if(UI.ar)return arSession();const v=UI.arV||"";
   const body=v==="cards"?arCardsV():v==="disc"?arDiscV():v==="met"?arMetV():v==="cfg"?arCfgV():arHome();
   if(!ARC().intro&&!v)setTimeout(()=>{if(TAB==="arena"&&!$("layer3").innerHTML)arIntro(0)},300);
   return`<div class="arena-v">${body}</div>`}
@@ -9016,6 +9016,29 @@ async function pdfHighlights(p){
 }
 const RES_V=3;
 const CARD_BUSY=new Set();
+/* verso do card: resposta, base legal e explicação do professor, cada um na sua linha */
+function cardBack(x){if(!x)return"";if(x.b&&!x.r)return String(x.b);const r=String(x.r||"").trim();if(!r)return"";const ba=String(x.base||"").trim(),ex=String(x.exp||"").trim();
+  return r+(ba?"\n\nBase legal: "+ba:"")+(ex?"\n\nExplicação: "+ex:"")}
+/* cards pelos assuntos quando não há o texto do PDF (só com IA): base legal só quando é certa */
+async function cardsByTopic(sid,tps,o){if(!SAMPLE||!tps.length)return 0;const s=SUB(sid);let made=0;
+  const prompt=`Você é professor de cursinho preparando flashcards para um candidato a ${dsCargo()} (banca ${dsBanca()}).
+Matéria: ${s?s.n:""}. Assuntos: ${tps.slice(0,8).join("; ")}.
+Crie de 5 a 8 cards sobre o que a ${dsBanca()} mais cobra nesses assuntos. Cada card tem:
+- "f": pergunta curta e concreta (um prazo, um conceito, quem é competente, qual a exceção). Nunca escreva "sem consultar" nem "quais são os pontos principais".
+- "r": resposta direta em 1 ou 2 frases.
+- "base": a base legal com a lei e o artigo (ex.: "CPP, art. 24"). Só cite número de artigo se tiver certeza absoluta; se o tema é doutrinário ou você não tiver certeza do número, escreva "doutrina" ou só o nome da lei.
+- "exp": a explicação, em 1 ou 2 frases, como um professor explicaria: por que é assim e a pegadinha que a banca usa.
+Escreva em português do Brasil. Responda só com um array JSON: [{"f":"...","r":"...","base":"...","exp":"..."}]`;
+  try{const arr=await SAMPLE.json(prompt,{modelTier:IA_LEVE});(Array.isArray(arr)?arr:[]).slice(0,8).forEach(x=>{const b=cardBack(x);if(x&&x.f&&b&&!/sem consultar/i.test(x.f)){addCard(Object.assign({sid,f:String(x.f).slice(0,400),b:b.slice(0,1400),src:"ia",geral:1},o||{}));made++}})}catch(e){}
+  return made}
+/* conserta os cards genéricos antigos ("Sem consultar…"): troca por cards com resposta de verdade */
+async function cardsFixGeneric(){if(cardsFixGeneric.busy||!SAMPLE)return;const G=CARDS().filter(c=>c.st!=="arch"&&/^Sem consultar: quais são os pontos principais de/.test(c.f||""));if(!G.length)return;cardsFixGeneric.busy=1;
+  const by={};G.forEach(c=>{const k=(c.tid||"")+"|"+(c.sid||"");(by[k]=by[k]||[]).push(c)});let made=0,fixed=0;toast("Refazendo "+G.length+" cards sem resposta, com base legal e explicação…");
+  try{for(const k of Object.keys(by)){const L=by[k],c0=L[0],f=c0.tid?findTask(c0.tid):null;let n=0;
+    if(f){f.t.cardsOk=0;const before=CARDS().length;await makeCards(f.t,false);n=CARDS().length-before}
+    if(!n){const tps=L.map(c=>((c.f||"").match(/“([^”]+)”/)||[])[1]).filter(Boolean);n=await cardsByTopic(c0.sid,tps,{tid:c0.tid||"",aula:c0.aula||""})}
+    if(n){L.forEach(c=>{c.st="arch";c.rep=1});fixed+=L.length;made+=n;touch("cards")}}
+  }finally{cardsFixGeneric.busy=0}if(made){toast(made+" cards novos no lugar de "+fixed+" genéricos");if(TAB==="arena"&&!UI.ar)render()}}
 async function makeCards(t,manual){
   if(CARD_BUSY.has(t.id)||(t.cardsOk&&!manual))return;CARD_BUSY.add(t.id);if(UI.openT===t.id)renderDrawer();
   try{
@@ -9034,14 +9057,19 @@ Antes de tudo, confira se o material é mesmo da matéria ${s.n}${a?" e da aula 
 <material>
 ${txt}
 </material>
-Crie de 5 a 8 cards objetivos sobre os pontos que a ${dsBanca()} mais cobra (prazos, exceções, competências, literalidade da lei): pergunta curta na frente, resposta direta no verso (1 a 3 frases, com o artigo quando houver). Escreva em português do Brasil.
+Crie de 5 a 8 cards objetivos sobre os pontos que a ${dsBanca()} mais cobra (prazos, exceções, competências, literalidade da lei). Cada card tem:
+- "f": a pergunta, curta e direta (nunca "sem consultar", nunca "quais os pontos principais"; pergunte uma coisa concreta: um prazo, quem é competente, qual a exceção, o que a lei diz sobre X).
+- "r": a resposta direta, em 1 ou 2 frases.
+- "base": a base legal como está no material (lei e artigo, ex.: "CPP, art. 100, § 1º"); se o material não cita lei, escreva a fonte doutrinária que o material usa ou deixe vazio.
+- "exp": a explicação do professor, em 1 ou 2 frases, como ele explica no material (por que é assim, a pegadinha que a banca usa).
+Escreva em português do Brasil.
 PRECISÃO: copie exatamente do texto prazos, números, graus de parentesco, requisitos e expressões que mudam o sentido (como "em sua falta", "salvo", "ressalvado", "até", "pelo menos", "preferencialmente", "exclusivamente"). Não resuma uma condição ou uma ordem de preferência: se a lei diz "família ou, em sua falta, vizinho", escreva assim.
-Responda só com um array JSON, por exemplo: [{"f":"Qual o prazo...?","b":"15 dias (CPC, art. 335)."}]`;
+Responda só com um array JSON, por exemplo: [{"f":"Qual o prazo para a contestação no procedimento comum?","r":"15 dias úteis.","base":"CPC, art. 335","exp":"O prazo conta da audiência de conciliação; a banca troca por 10 dias."}]`;
       const arr=await SAMPLE.json(prompt,{modelTier:IA_LEVE});
-      if(Array.isArray(arr))arr.slice(0,10).forEach(x=>{if(x&&x.f&&x.b&&gOk(x.f+" "+x.b,txt)){addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:String(x.f).slice(0,400),b:String(x.b).slice(0,900),src:"ia",pdf:!!txt});made++}});
+      if(Array.isArray(arr))arr.slice(0,10).forEach(x=>{const b=cardBack(x);if(x&&x.f&&b&&gOk(x.f+" "+b,txt)){addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:String(x.f).slice(0,400),b:b.slice(0,1400),src:"ia",pdf:!!txt});made++}});
     }catch(e){if(manual)toast(e&&e.code==="not_granted"?"Você não permitiu gerar cards com IA. Crie os seus abaixo.":"Não consegui gerar com IA agora. Tente de novo em instantes.")}}
-    if(!made&&!manual&&!(SAMPLE&&txt)){tps.slice(0,5).forEach(x=>{addCard({sid:t.sid,tid:t.id,aula:t.aula||"",f:"Sem consultar: quais são os pontos principais de “"+tShort(x)+"”?",b:"Confira nas suas anotações"+(p&&t.pa?" e no PDF, págs. "+t.pa+" a "+t.pb:"")+". Se esqueceu algo, marque “Esqueci” e reforce o resumo.",src:"auto"});made++})}
-    t.cardsOk=1;touch("m-"+taskMeta(t));
+    if(!made&&SAMPLE&&!txt&&tps.length)made=await cardsByTopic(t.sid,tps,{tid:t.id,aula:t.aula||""});
+    if(made||txt||SAMPLE){t.cardsOk=1;touch("m-"+taskMeta(t))}
     if(made)toast(made+" cards de revisão criados"+(SAMPLE?"":" (modelo simples)"));
   }finally{CARD_BUSY.delete(t.id);render()}
 }
@@ -9728,7 +9756,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109110330&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109110854&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
