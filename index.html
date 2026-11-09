@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611091047"></script>
+<script src="/claude-shim.js?v=202611091103"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -2118,12 +2118,13 @@ html body .alist .arow .tpc{font-size:14.5px;padding:3px 10px;border-radius:999p
 .ar-links{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;margin-top:10px}.ar-links button{border:0;background:none;color:var(--fg);font:600 14.5px var(--f-body);cursor:pointer;padding:4px 2px}.ar-links button:hover{color:var(--lime-txt)}
 .ar-ses{display:grid;gap:14px;padding-top:6px}
 .ar-top{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--fg2);font-variant-numeric:tabular-nums}.ar-pb{flex:1;height:6px;border-radius:99px;background:var(--sunk);overflow:hidden}.ar-pb i{display:block;height:100%;background:linear-gradient(90deg,#7b3cff,#d6388f);transition:width .4s}
-.ar-card{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:22px clamp(16px,4vw,34px) 26px;display:grid;gap:14px;min-height:300px;align-content:start;animation:arIn .35s var(--ease-out,ease-out)}
+.ar-card{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:22px clamp(16px,4vw,34px) 26px;display:grid;gap:14px;min-height:300px;align-content:start}.ar-card.an{animation:arNext .24s var(--ease-out,ease-out)}
 @keyframes arIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
 .ar-card header{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.ar-card header .ar-stc{margin-left:auto}
 .ar-lb{font-size:11.5px;font-weight:700;letter-spacing:.02em;color:var(--lime-txt)}
 .ar-q{margin:0;font:500 clamp(18px,2vw,21px)/1.5 var(--f-body);text-align:left;hyphens:none}
-.ar-ans{border-top:1px dashed var(--line2);padding-top:14px;animation:arIn .3s ease-out}.ar-ans p{margin:6px 0 0;font-size:16px;line-height:1.55;color:var(--fg)}
+.ar-ans{border-top:1px dashed var(--line2);padding-top:14px}.ar-card.an2 .ar-ans,.ar-card.an2 .ar-rate{animation:arIn .26s ease-out}
+@keyframes arNext{from{opacity:.55;transform:translateX(14px)}to{opacity:1;transform:none}}.ar-ans p{margin:6px 0 0;font-size:16px;line-height:1.55;color:var(--fg)}
 .ar-ans.ok{border:1px solid var(--ok);background:var(--ok-soft);border-radius:12px;padding:12px 14px}.ar-ans.ok .ar-lb{color:var(--ok)}
 .ar-ans.bad{border:1px solid var(--bad);background:var(--bad-soft);border-radius:12px;padding:12px 14px}.ar-ans.bad .ar-lb{color:var(--bad)}
 .ar-show{justify-self:center;border:1px solid var(--lime);background:var(--lime-soft);color:var(--fg);font:600 16px var(--f-body);border-radius:12px;padding:14px 26px;cursor:pointer;display:flex;gap:10px;align-items:center}
@@ -5607,7 +5608,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261109104742";
+const JX_BUILD="20261109110330";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6075,7 +6076,7 @@ window.JX_LEXIS={
 function lxOpen(o){o=o||{};if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109104742" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109110330" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -6294,6 +6295,8 @@ function arHome(){arMig();const C=arCounts(),st=arStreak(),nNew=Math.min(C.lim,C
    ${all.length?"":`<p class="muted small" style="margin-top:14px;text-align:center">Os cards entram sozinhos: dos resumos das aulas (com a IA), das questões que você erra e anota, e dos testes de fixação. Você também pode criar os seus em "+ Novo card" ou trazer os seus baralhos em "Importar do Anki".</p>`}</div>`}
 function arSession(){const S=UI.ar;if(S.i>=S.q.length)return arEnd();const c=CARDS().find(x=>x.id===S.q[S.i]);if(!c){S.i++;return arSession()}
   const s=c.sid?SUB(c.sid):null,ce=arCE(c),tot=S.q.length,pc=Math.round(S.i/tot*100),stl=AR_ST[c.st]||AR_ST.new;
+  /* só anima quando muda o card (ou quando a resposta aparece); redesenhos da tela no meio não piscam */
+  const rvK=S.show||S.pick!=null?1:0,anC=UI.arAnId!==c.id,anR=!anC&&rvK&&UI.arAnRv!==rvK;UI.arAnId=c.id;UI.arAnRv=rvK;
   const iv=[1,2,3].map(g=>arLbl(arNext(c,g).days));
   const rate=(only)=>`<div class="ar-rate">${[[1,"Me perdi","bad","reset"],[2,"Quase lá","warn","foot"],[3,"Dominei","ok","flag"]].filter(x=>!only||only.includes(x[0])).map(([g,l,k,ii])=>`<button class="${k}" data-a="arRate" data-g="${g}">${ic(ii)}<b>${l}</b><small>${iv[g-1]}</small><kbd>${g}</kbd></button>`).join("")}</div>`;
   let body;
@@ -6306,7 +6309,7 @@ function arSession(){const S=UI.ar;if(S.i>=S.q.length)return arEnd();const c=CAR
       :`<button class="ar-show" data-a="arShow">Mostrar resposta <kbd>espaço</kbd></button><p class="ar-tip">Tente lembrar antes: o esforço de recuperar é o que grava.</p>`}`;
   return`<div class="ar-ses">${arEye(S.mode==="gap"?"TRECHOS DIFÍCEIS":"NA TRILHA")}
    <div class="ar-top"><span>Passo ${S.i+1} de ${tot}</span><div class="tj-prog" aria-hidden="true"><i style="width:${pc}%"></i><b style="left:${pc}%">${ic("foot")}</b><em>${ic("flag")}</em></div><button class="btn sm" data-a="arQuit">Encerrar</button></div>
-   <article class="ar-card tj-ficha ${S.show||S.pick!=null?"rv":""}" style="--sc:${s?s.col:"var(--lime)"}" aria-live="polite"><header><span class="tj-no">FICHA ${String(S.i+1).padStart(2,"0")}</span>${s?`<span class="code" style="border-color:${s.col}">${esc(s.c)}</span><span class="muted small">${esc(s.n)}${c.aula?" · "+esc(auLabel(c.sid,c.aula)):""}</span>`:`<span class="muted small">Sem matéria</span>`}<span class="ar-stc ${stl[1]}">${stl[0]}</span></header>${body}</article></div>`}
+   <article class="ar-card tj-ficha ${S.show||S.pick!=null?"rv":""} ${anC?"an":""} ${anR?"an2":""}" style="--sc:${s?s.col:"var(--lime)"}" aria-live="polite"><header><span class="tj-no">FICHA ${String(S.i+1).padStart(2,"0")}</span>${s?`<span class="code" style="border-color:${s.col}">${esc(s.c)}</span><span class="muted small">${esc(s.n)}${c.aula?" · "+esc(auLabel(c.sid,c.aula)):""}</span>`:`<span class="muted small">Sem matéria</span>`}<span class="ar-stc ${stl[1]}">${stl[0]}</span></header>${body}</article></div>`}
 function arEnd(){const S=UI.ar,n=S.n,t=Math.max(1,Math.round((Date.now()-S.t0)/60000)),st=arStreak();
   return`<div class="tj-end">${arEye()}<div class="tj-stamp"><small>${dm(today())}</small><b>ETAPA<br>CONCLUÍDA</b>${ic("flag")}</div><h1>Mais um trecho vencido!</h1><p class="muted">${S.done} card${S.done===1?"":"s"} em ${t} min · ${st} dia${st===1?"":"s"} de caminhada</p>
    <div class="ar-tiles"><div class="bad"><small>ME PERDI</small><b>${n[1]||0}</b></div><div class="warn"><small>QUASE LÁ</small><b>${n[2]||0}</b></div><div class="ok"><small>DOMINEI</small><b>${n[3]||0}</b></div></div>
@@ -9725,7 +9728,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109104742&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109110330&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -11170,7 +11173,7 @@ const A={
   arGo(){arStart("due")},arGap(){arStart("gap")},
   arShow(){if(UI.ar){UI.ar.show=1;render()}},
   arPick(el){const S=UI.ar;if(!S)return;S.pick=+el.dataset.v;const c=CARDS().find(x=>x.id===S.q[S.i]);if(c&&(S.pick===1)!==arAns(c))try{fxVib([30])}catch(e){}render()},
-  arRate(el){const S=UI.ar;if(!S)return;arRate(S.q[S.i],+el.dataset.g);render();scrollTo(0,0)},
+  arRate(el){const S=UI.ar;if(!S)return;arRate(S.q[S.i],+el.dataset.g);render();const cd=document.querySelector(".ar-card");if(cd){const r=cd.getBoundingClientRect();if(r.top<0||r.top>innerHeight*.5)cd.scrollIntoView({block:"start",behavior:"smooth"})}},
   arQuit(){UI.ar=null;render();scrollTo(0,0)},
   arV(el){UI.arV=el.dataset.v||"";UI.arOff=null;render();scrollTo(0,0)},
   arArch(el){const c=CARDS().find(x=>x.id===el.dataset.id);if(!c)return;if(c.st==="arch"){c.st=c.reps?"rev":"new";c.due=c.due||today();c.done=false;c.held=0;toast("Card de volta à fila")}else{c.st="arch";c.done=today();toast("Card arquivado")}touch("cards");render()},
