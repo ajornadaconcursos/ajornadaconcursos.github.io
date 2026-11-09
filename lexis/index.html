@@ -2782,7 +2782,7 @@ function planHtml(pl) {
   if (pl.from == null) return '<p class="note">Escreva do jeito que quiser: as páginas, onde começar e onde parar, e os assuntos que merecem mais atenção. O Scribax lê tudo nesse trecho e avisa quando chega em cada assunto importante.</p>';
   if (!planOk()) return '<p class="note">O documento mudou desde que o plano foi montado. Toque em <b>Montar de novo</b>.</p>';
   const a = S.units[pl.from], z = S.units[pl.to];
-  return `<div class="rng"><b>Leitura:</b> da pág. ${a.page} (“${esc(a.text.trim().slice(0, 60))}…”) até a pág. ${z.page} (“${esc(z.text.trim().slice(0, 60))}…”).</div>` +
+  return `<div class="rng"><b>Leitura:</b> da pág. ${a.page} (“${esc(sxTxtNear(pl.from, 1).slice(0, 60))}…”) até a pág. ${z.page} (“${esc(sxTxtNear(pl.to, -1).slice(0, 60))}…”).</div>` +
     (pl.topics.length ? '<b>Ênfase em:</b>' + pl.topics.map((t, i) => `<div class="tp"><i></i><span>${esc(t.t)}<br><small>${t.units.length ? 'págs. ' + [...new Set(t.units.map(u => S.units[u] && S.units[u].page))].filter(Boolean).join(', ') : 'não encontrado no trecho'}</small></span>${t.units.length ? `<button class="btn" data-tp="${i}">Ir</button>` : ''}</div>`).join('') : '') +
     (S.sample ? `<div class="acts" style="margin-top:12px"><button class="btn" id="planSum">Resumo com ênfase</button><button class="btn" id="planCards">Flashcards</button><button class="btn" id="planQuiz">Questões</button></div>` : '');
 }
@@ -2805,6 +2805,7 @@ async function buildPlan() {
   const out = $('#planOut'); out.innerHTML = '<p class="thinking">Lendo o seu pedido…</p>'; $('#planGo').disabled = true;
   try {
     await whenProcessed();
+    if (!S.units.some(u => u.type === 's' && (u.text || '').trim())) { out.innerHTML = '<p class="err">Este PDF parece ser só imagem (escaneado): não há texto para achar os assuntos. Use um PDF com texto selecionável.</p>'; $('#planGo').disabled = false; return; }
     const N = S.pages.length;
     const r = !S.sample ? planParseLocal(txt) : await S.sample.json(`Um estudante escreveu o que quer estudar num PDF de ${N} páginas. Extraia do pedido, em JSON:
 {"pagina_inicio": número ou null, "comeca_em": título ou frase onde começar (ou null), "pagina_fim": número ou null, "parar_antes_de": título onde parar, sem incluí-lo (ou null), "topicos": [lista dos assuntos que ele quer com atenção especial, cada um curto, como ele escreveu]}
@@ -2818,11 +2819,15 @@ ${txt}`, { cache: false });
     let to = Math.max(from, lastOn(p1));
     if (r.parar_antes_de) { const f = findUnit(from + 1, lastOn(p1 + 1), r.parar_antes_de); if (f > from) to = f - 1; }
     const topics = (Array.isArray(r.topicos) ? r.topicos : []).map(String).filter(Boolean).slice(0, 12);
-    let tmap = [];
-    if (topics.length && !S.sample) tmap = topics.map(t => ({ t, units: localTopicUnits(t, from, to) }));
+    let tmap = [], plan_cand = [];
+    if (topics.length && !S.sample) tmap = topics.map(t => ({ t, units: sxExpand(sxTopicHits(t, from, to), from, to) }));
     else if (topics.length) {
       out.innerHTML = '<p class="thinking">Procurando cada assunto no texto…</p>';
-      let mat = ''; for (let i = from; i <= to; i++) { const u = S.units[i]; if (u.type === 's' && u.text.trim()) mat += `[${i}] ${u.text.trim()}\n`; if (mat.length > 80000) break; }
+      const cand = topics.map(t => sxTopicHits(t, from, to)), keep = new Set();
+      cand.forEach(h => h.forEach(i => { for (let k = i - 4; k <= i + 28; k++) if (k >= from && k <= to) keep.add(k); }));
+      if (keep.size < 40) for (let i = from; i <= to && keep.size < 400; i++) keep.add(i);
+      let mat = ''; for (const i of [...keep].sort((a, b) => a - b)) { const u = S.units[i]; if (u && u.type === 's' && u.text.trim()) mat += `[${i}] ${u.text.trim()}\n`; if (mat.length > 90000) break; }
+      plan_cand = cand;
       const arr = await S.sample.json(`Abaixo está um trecho de material de estudo, dividido em frases numeradas. Para cada tópico da lista, diga quais frases explicam esse tópico: as que definem, dão as regras, as exceções e as diferenças. Inclua o título do tópico se houver. Normalmente de 3 a 20 frases por tópico, em sequência. Responda somente com um array JSON no formato [{"topico":"...","frases":[12,13,14]}], na mesma ordem da lista.
 
 TÓPICOS:
@@ -2830,8 +2835,10 @@ ${topics.map((t, i) => (i + 1) + '. ' + t).join('\n')}
 
 MATERIAL:
 ${mat}`, { cache: false });
-      tmap = topics.map((t, i) => { const a = (Array.isArray(arr) ? arr : [])[i] || {}; return { t, units: [...new Set((a.frases || []).map(Number).filter(n => Number.isInteger(n) && n >= from && n <= to && S.units[n]))].sort((x, y) => x - y) }; });
+      tmap = topics.map((t, i) => { const L = Array.isArray(arr) ? arr : []; const a = L.find(z => z && normT(z.topico || '') === normT(t)) || L[i] || {}; let u = [...new Set((a.frases || []).map(Number).filter(n => Number.isInteger(n) && n >= from && n <= to && S.units[n]))].sort((x, y) => x - y);
+        if (!u.length && plan_cand[i] && plan_cand[i].length) u = sxExpand(plan_cand[i], from, to); return { t, units: u }; });
     }
+    if (!r.pagina_inicio && !r.comeca_em && !r.pagina_fim && !r.parar_antes_de) { const all = tmap.flatMap(x => x.units); if (all.length) { from = Math.max(from, Math.min(...all)); to = Math.min(to, Math.max(...all) + 30); while (from < to && !(S.units[from].text || '').trim()) from++; } }
     st.plan = { text: txt, mark, from, to, fromKey: normT(S.units[from].text).slice(0, 40), topics: tmap, made: Date.now() };
     if (mark) {
       let n = 0;
@@ -2859,6 +2866,19 @@ function planParseLocal(txt) {
   return { pagina_inicio: pm[0] || null, pagina_fim: pm.length > 1 ? Math.max(pm[0], pm[1]) : pm[0] || null, comeca_em: st ? st[1].trim() : null, parar_antes_de: sp ? sp[1].trim() : null, topicos };
 }
 const PSTOP = new Set('a o as os um uma de da do das dos e em no na nos nas por para com sem que qual quais como entre sobre ao aos se ou mas mais ser sao esta este isso essa esse ate pelo pela diferenca conceito tema topico'.split(' '));
+const sxStem = w => w.length > 5 ? w.slice(0, w.length - 2) : w;
+function sxTopicHits(topic, from, to) {
+  const kw = normT(topic).split(' ').filter(w => w.length > 3 && !PSTOP.has(w)).map(sxStem); if (!kw.length) return [];
+  const sc = [];
+  for (let i = Math.max(0, from); i <= to && i < S.units.length; i++) { const u = S.units[i]; if (u.type !== 's') continue; const n = ' ' + normT(u.text) + ' ';
+    let v = 0, all = true; kw.forEach(w => { if (n.includes(' ' + w)) v += w.length > 5 ? 2 : 1; else all = false; }); if (!v) continue;
+    if (all) v += 3; const tl = u.text.trim(); if (tl.length < 100 && !/[.;,]$/.test(tl)) v += 2; sc.push([i, v]); }
+  const best = Math.max(0, ...sc.map(x => x[1])); if (!best) return [];
+  const need = Math.max(Math.min(2, kw.length), best * 0.6);
+  return sc.filter(x => x[1] >= need).sort((a, b) => b[1] - a[1] || a[0] - b[0]).slice(0, 12).map(x => x[0]).sort((a, b) => a - b);
+}
+function sxExpand(hits, from, to) { const out = new Set(); (hits.length ? [hits[0]] : []).forEach(h => { let k = 0; for (let i = h; i <= to && k < 10 && i < S.units.length; i++) { if (S.units[i].type === 's' && S.units[i].text.trim()) { out.add(i); k++; } } }); hits.slice(1, 4).forEach(h => out.add(h)); return [...out].sort((a, b) => a - b); }
+const sxTxtNear = (i, dir) => { for (let k = i; k >= 0 && k < S.units.length; k += dir) { const t = (S.units[k].text || '').trim(); if (t) return t; } return ''; };
 function localTopicUnits(topic, from, to) {
   const kw = normT(topic).split(' ').filter(w => w.length > 3 && !PSTOP.has(w));
   if (!kw.length) return [];
