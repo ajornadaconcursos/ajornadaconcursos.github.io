@@ -638,6 +638,11 @@ html:root[data-theme="light"] .sxhero h1 em{background:linear-gradient(90deg,#2f
 .sxfind-s{padding:0 12px 6px;font-size:12.5px;color:#9ba7c6}.sxfind-r{overflow:auto;padding:0 8px 10px;display:grid;gap:4px}
 .sxfind-r button{all:unset;cursor:pointer;display:grid;gap:2px;padding:8px 10px;border-radius:10px;font-size:13.5px;line-height:1.4}.sxfind-r button:hover,.sxfind-r button:focus-visible{background:#16285e}.sxfind-r b{color:#f2b441;font-size:12px}
 html.sx-win{--rail:58px}
+#sumOut .sxnow{background:rgba(242,180,65,.42);color:inherit;border-radius:4px;padding:1px 0;box-shadow:0 0 0 2px rgba(242,180,65,.25)}
+#sumOut .sxnowb{background:rgba(242,180,65,.07);border-radius:8px;transition:background .25s}
+#readSum.on{border-color:#f2b441;color:#f2b441}
+.sxref textarea{min-height:150px;resize:vertical;line-height:1.55;padding:12px!important;font-size:15px!important;margin-top:10px!important}
+.sxref{padding:12px 14px!important}.sxref summary{padding:2px 0}
 
 </style>
 
@@ -4068,6 +4073,25 @@ document.addEventListener('change',e=>{if(e.target&&e.target.id==='sxHist'&&e.ta
   setInterval(()=>{try{if(S.playing&&!isNeural()&&synth&&synth.speaking&&!synth.paused){synth.pause();synth.resume()}}catch(e){}},9000)})();
 /* janela própria: menu em trilho fino */
 try{if(document.documentElement.classList.contains('sx-win')&&window.SX&&SX.setPin)SX.setPin(false)}catch(e){}
+
+/* ---------- Ouvir o resumo com marcador: a frase que está sendo lida fica destacada e a tela acompanha ---------- */
+(function(){let tm=0,last=-1,qref=null,list=[];
+  const sents=t=>(String(t||'').replace(/\*\*/g,'').replace(/^#+\s*/gm,'').replace(/^\s*[-•]\s*/gm,'').match(/[^.!?\n]+[.!?]*\s*/g)||[]).filter(s=>s.trim()).map(s=>s.replace(/\s+/g,' ').trim());
+  function clear(){document.querySelectorAll('#sumOut .sxnow').forEach(m=>{const p=m.parentNode;if(!p)return;while(m.firstChild)p.insertBefore(m.firstChild,m);p.removeChild(m);p.normalize()});document.querySelectorAll('#sumOut .sxnowb').forEach(e=>e.classList.remove('sxnowb'))}
+  function mark(t){const root=document.getElementById('sumOut');if(!root||!t)return;clear();
+    const W=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);const ns=[];let s='',n;while((n=W.nextNode())){ns.push([n,s.length]);s+=n.nodeValue}
+    const flat=s.replace(/\s/g,' ');let at=-1;for(const L of [50,28,16]){const k=t.slice(0,Math.min(L,t.length));if(k.length<6)continue;at=flat.indexOf(k);if(at>=0)break}if(at<0)return;
+    const end=Math.min(s.length,at+t.length);
+    for(const [nd,o] of ns){const L=nd.nodeValue.length,a=Math.max(at,o),b=Math.min(end,o+L);if(a>=b)continue;const r=document.createRange();try{r.setStart(nd,a-o);r.setEnd(nd,b-o);const m=document.createElement('mark');m.className='sxnow';r.surroundContents(m)}catch(e){}}
+    const f=root.querySelector('.sxnow');if(f){const blk=f.closest('li,p,h2,h3,h4');if(blk)blk.classList.add('sxnowb');f.scrollIntoView({block:'center',behavior:'smooth'})}}
+  function stop(){clearInterval(tm);tm=0;last=-1;qref=null;clear();const b=document.getElementById('readSum');if(b)b.classList.remove('on')}
+  function tick(){if(!qref||S.q!==qref){stop();return}const i=S.pos&&S.pos.u;if(i!==last){last=i;mark(list[i])}}
+  document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#readSum');if(!b)return;list=sents(S.rec&&S.rec.study&&S.rec.study.summary);setTimeout(()=>{qref=S.q&&!S.q.main?S.q:null;last=-1;b.classList.add('on');clearInterval(tm);if(qref)tm=setInterval(tick,180)},60)},true);
+  /* tocar numa frase do resumo enquanto ouve: a leitura pula para ela */
+  document.addEventListener('click',e=>{if(!qref)return;const out=e.target.closest&&e.target.closest('#sumOut');if(!out||e.target.closest('button,a'))return;const sel=getSelection();if(sel&&!sel.isCollapsed)return;
+    const blk=e.target.closest('li,p,h2,h3,h4');if(!blk)return;const tx=blk.textContent.replace(/\s+/g,' ').trim().slice(0,30);const i=list.findIndex(s=>s.startsWith(tx.slice(0,20))||tx.startsWith(s.slice(0,20)));if(i<0)return;
+    try{pause();S.pos={u:i,k:0};S.playing=true;updatePlayBtn();speakCurrent()}catch(err){}});
+})();
 
 (async () => {
   for (const id of ['#setPanel', '#speedPanel', '#colorPanel']) document.body.appendChild($(id));
