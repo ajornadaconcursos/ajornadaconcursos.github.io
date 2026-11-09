@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611091108"></script>
+<script src="/claude-shim.js?v=202611091122"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
 #jx-splash.out{opacity:0;pointer-events:none}#jx-splash .sp-box{display:grid;justify-items:center;gap:14px}
@@ -1932,6 +1932,7 @@ html[data-ob] .app{visibility:hidden}html[data-ob] body{background:var(--bg)}htm
 .npe-or{text-align:center;border-top:1px dashed var(--line2);padding-top:8px}
 
 .box.cs{max-width:680px;display:grid;gap:14px}
+.kbm-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}.kbm-c{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--sunk)}.kbm-c b{font-size:14px}.kbm-c ul{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:6px}.kbm-c li{display:flex;gap:6px;align-items:flex-start;justify-content:space-between;font-size:14px}.kbm-c li .ibtn{width:24px;height:24px;flex:none;opacity:.6}
 .box.cs>.vh{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:nowrap}.box.cs>.vh h3{margin:0}
 @media (min-width:1024px){
 html body .alist{padding:0 0 6px;gap:0!important;row-gap:0!important}
@@ -5608,7 +5609,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261109110854";
+const JX_BUILD="20261109112206";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6076,7 +6077,7 @@ window.JX_LEXIS={
 function lxOpen(o){o=o||{};if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109110854" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109112206" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -9023,7 +9024,7 @@ function cardBack(x){if(!x)return"";if(x.b&&!x.r)return String(x.b);const r=Stri
 async function cardsByTopic(sid,tps,o){if(!SAMPLE||!tps.length)return 0;const s=SUB(sid);let made=0;
   const prompt=`Você é professor de cursinho preparando flashcards para um candidato a ${dsCargo()} (banca ${dsBanca()}).
 Matéria: ${s?s.n:""}. Assuntos: ${tps.slice(0,8).join("; ")}.
-Crie de 5 a 8 cards sobre o que a ${dsBanca()} mais cobra nesses assuntos. Cada card tem:
+${kbMetTxt(sid)?kbMetTxt(sid)+"\nUse esse método na explicação.\n":""}Crie de 5 a 8 cards sobre o que a ${dsBanca()} mais cobra nesses assuntos. Cada card tem:
 - "f": pergunta curta e concreta (um prazo, um conceito, quem é competente, qual a exceção). Nunca escreva "sem consultar" nem "quais são os pontos principais".
 - "r": resposta direta em 1 ou 2 frases.
 - "base": a base legal com a lei e o artigo (ex.: "CPP, art. 24"). Só cite número de artigo se tiver certeza absoluta; se o tema é doutrinário ou você não tiver certeza do número, escreva "doutrina" ou só o nome da lei.
@@ -9053,7 +9054,7 @@ Matéria: ${s.n}. ${a?"Aula: "+auLabel(t.sid,t.aula)+" – "+a.d+".":""}
 Atividade concluída: ${taskTitle(t)}.
 Assuntos: ${tps.join("; ")||s.n}.
 Use SOMENTE o conteúdo do material abaixo (trecho do PDF estudado ou resumo da aula). Não invente artigos, prazos, números nem conceitos que não estejam nele; se o material não traz, não faça o card.
-Antes de tudo, confira se o material é mesmo da matéria ${s.n}${a?" e da aula "+a.d:""}. Se for de outra matéria ou assunto, responda só [] (nenhum card).
+${kbMetTxt(t.sid)?kbMetTxt(t.sid)+"\nUse esse método na explicação dos cards.\n":""}Antes de tudo, confira se o material é mesmo da matéria ${s.n}${a?" e da aula "+a.d:""}. Se for de outra matéria ou assunto, responda só [] (nenhum card).
 <material>
 ${txt}
 </material>
@@ -9426,8 +9427,8 @@ document.addEventListener("click",e=>{const c=UI.rdMk;if(!c||c==="x"||!RD_TOUCH(
 const ESQ=()=>{const c=core();return c.esq||(c.esq=[])};
 const esqOfAula=(sid,c)=>{const au=c?auOf(sid,c):null,T=new Set(au&&au.tp||[]);return ESQ().filter(x=>x.sid===sid&&(!c||x.aula===c||(!x.aula&&(!x.tps||!x.tps.length||x.tps.some(n=>T.has(n))))))};
 const esqTxt=(sid,c,max)=>{max=max||15000;const au=c?auOf(sid,c):null,e=esqOfAula(sid,c).map(x=>"### "+(x.ti||"Esquema")+(x.aula?" (Aula "+x.aula+")":"")+"\n"+x.txt).join("\n\n"),k=kbTxt(sid,au&&au.tp&&au.tp.length?au.tp:null,Math.min(5000,Math.round(max*.4)));
-  const nt=c?resNotesTxt(sid,c):"";
-  return((nt?"### Ênfases que o aluno acrescentou (dê destaque)\n"+nt+"\n\n":"")+e.slice(0,k?max-k.length-80:max)+(k?"\n\n### Base de conhecimento da plataforma A Jornada (aprendida dos materiais do aluno)\n"+k:"")).trim()};
+  const nt=c?resNotesTxt(sid,c):"",mt=kbMetTxt(sid);
+  return((mt?mt+"\n\n":"")+(nt?"### Ênfases que o aluno acrescentou (dê destaque)\n"+nt+"\n\n":"")+e.slice(0,k?max-k.length-80:max)+(k?"\n\n### Base de conhecimento da plataforma A Jornada (aprendida dos materiais do aluno)\n"+k:"")).trim()};
 /* ---------- Base de conhecimento: a plataforma aprende com cada material (esquemas, resumos e PDFs) e liga ao tópico do edital ---------- */
 const KBK=sid=>"kb-"+sid;
 const KB=sid=>D[KBK(sid)]||(D[KBK(sid)]={sid,t:{},seen:{},n:0});
@@ -9440,6 +9441,23 @@ function kbMerge(sid,items,fonte){const K=KB(sid),S=SUB(sid),nT=(ED[EDI[sid]]||{
   K.n=(K.n||0)+1;touch(KBK(sid));return add}
 function kbTxt(sid,tps,max){const K=D[KBK(sid)];if(!K||!K.t)return"";const S=ED[EDI[sid]];if(!S)return"";const keys=tps&&tps.length?[...tps.map(String),"-1"]:Object.keys(K.t);
   return keys.filter(k=>K.t[k]&&(K.t[k].p.length||K.t[k].a.length||K.t[k].l.length)).map(k=>{const N=K.t[k];return"## "+(k==="-1"?"Geral":S.t[+k]?S.t[+k][0]:"Tópico")+"\n"+N.p.map(x=>"- "+x).join("\n")+(N.a.length?"\n"+N.a.map(x=>"- ATENÇÃO: "+x).join("\n"):"")+(N.l.length?"\n"+N.l.map(x=>"- Dispositivo: "+x).join("\n"):"")}).join("\n\n").slice(0,max||6000)}
+/* método de ensino aprendido dos materiais do aluno (só o jeito de ensinar, nunca o texto) */
+const KBM=[["esquema","Como monta esquemas"],["macetes","Macetes e memorização"],["explica","Como explica"],["destaca","O que destaca como importante"]];
+function kbMetMerge(sid,m,fonte){if(!m||typeof m!=="object")return 0;const K=KB(sid),M=K.m||(K.m={});let add=0;
+  KBM.forEach(([k])=>{const arr=M[k]||(M[k]=[]);(Array.isArray(m[k])?m[k]:[]).forEach(v=>{v=fixSpaced(String(v||"").trim()).slice(0,200);if(v.length<8)return;const kk=kbKey(v);if(arr.some(x=>kbKey(x.t||x)===kk))return;if(arr.length>=8)arr.shift();arr.push({t:v,f:fonte||""});add++})});
+  if(add)touch(KBK(sid));return add}
+function kbMetTxt(sid){const K=D[KBK(sid)],M=K&&K.m;if(!M)return"";const L=KBM.filter(([k])=>(M[k]||[]).length).map(([k,l])=>l+":\n"+M[k].map(x=>"- "+(x.t||x)).join("\n"));
+  return L.length?"### Método de ensino aprendido dos materiais do aluno (siga este estilo de explicar, organizar e memorizar; não copie textos)\n"+L.join("\n"):""}
+const kbMetN=sid=>{const M=(D[KBK(sid)]||{}).m;return M?KBM.reduce((a,[k])=>a+(M[k]||[]).length,0):0};
+const KBM_PROMPT=`"metodo":{"esquema":["como o material organiza o conteúdo e os esquemas, descrito de forma genérica (ex.: quadro regra × exceção; linha do tempo do procedimento)"],"macetes":["tipo de macete ou técnica de memorização usada (ex.: sigla com as iniciais dos incisos; frase com a palavra-chave)"],"explica":["como o professor explica (ex.: parte de um caso concreto e depois mostra o artigo; compara com o instituto parecido)"],"destaca":["o que ele marca como importante (ex.: prazos em destaque; lista das pegadinhas da banca)"]}`;
+async function kbLearnMet(sid,text,fonte,key){if(!SAMPLE||!ED[EDI[sid]])return null;const K=KB(sid);K.ms=K.ms||{};if(key&&K.ms[key])return null;text=String(text||"").trim();if(text.length<300){if(key){K.ms[key]=Date.now();touch(KBK(sid))}return null}
+  const r=await SAMPLE.json(`Você analisa o MÉTODO DE ENSINO de um material de estudo de ${SUB(sid).n} que o aluno adicionou à plataforma A Jornada. Não resuma o conteúdo e não copie frases: descreva só, de forma genérica e reaproveitável, como o material ensina.
+Não cite nomes de professores, cursos ou marcas.
+Responda só com JSON: {${KBM_PROMPT}} (no máximo 3 itens em cada lista; listas vazias se o material não mostrar aquilo).
+<material>
+${text.slice(0,12000)}
+</material>`,{modelTier:IA_LEVE}).catch(()=>null);
+  if(key)K.ms[key]=Date.now();const n=kbMetMerge(sid,r&&(r.metodo||r),fonte);touch(KBK(sid));return{n}}
 const kbCount=sid=>{const K=D[KBK(sid)];if(!K)return{p:0,m:0,t:0};let p=0,t=0;Object.values(K.t||{}).forEach(N=>{const n=N.p.length+N.a.length+N.l.length;p+=n;if(n)t++});return{p,m:Object.keys(K.seen||{}).length,t}};
 async function kbLearn(sid,text,fonte,key){if(!SAMPLE||!ED[EDI[sid]])return null;const K=KB(sid);if(key&&K.seen[key])return null;text=String(text||"").trim();if(text.length<120){if(key){K.seen[key]=Date.now();touch(KBK(sid))}return null}
   const S=ED[EDI[sid]],known=kbTxt(sid,null,3500);
@@ -9448,26 +9466,30 @@ Tópicos do edital (número: tópico):
 ${S.t.map((t,j)=>j+": "+t[0]).join("\n").slice(0,5000)}
 ${known?"O que a base já sabe (NÃO repita):\n"+known+"\n":""}
 Leia o material e extraia só conhecimento NOVO e útil para a prova, ligado ao tópico certo do edital. Se o material não for de ${S.n}, responda só {"outra":true}.
-Responda só com JSON: {"itens":[{"tp":número do tópico (ou -1 se não houver),"pontos":["conceito, regra ou distinção em 1 frase curta e objetiva"],"alertas":["pegadinha ou ponto de alta incidência em prova"],"artigos":["dispositivo citado e o que diz, curto (ex.: Art. 37, caput, CF/88 – princípios LIMPE)"]}]}
+Responda só com JSON: {"itens":[{"tp":número do tópico (ou -1 se não houver),"pontos":["conceito, regra ou distinção em 1 frase curta e objetiva"],"alertas":["pegadinha ou ponto de alta incidência em prova"],"artigos":["dispositivo citado e o que diz, curto (ex.: Art. 37, caput, CF/88 – princípios LIMPE)"]}],${KBM_PROMPT}}
+Em "metodo", descreva de forma genérica COMO o material ensina (sem copiar frases, sem nomes de professores ou cursos), no máximo 3 itens por lista.
 Regras: no máximo 6 pontos, 3 alertas e 4 artigos por tópico; nada que não esteja no material; português do Brasil.
 <material fonte="${esc(fonte||"")}">
 ${text.slice(0,16000)}
 </material>`,{modelTier:IA_LEVE});
   if(key)K.seen[key]=Date.now();
   if(r&&r.outra){touch(KBK(sid));return{outra:1}}
-  const n=kbMerge(sid,r&&r.itens,fonte);return{n}}
+  const n=kbMerge(sid,r&&r.itens,fonte);if(r&&r.metodo){kbMetMerge(sid,r.metodo,fonte);if(key){K.ms=K.ms||{};K.ms[key]=Date.now()}}return{n}}
 /* fila: um material por vez, em segundo plano, com limite diário */
 async function kbNext(){
   for(const x of ESQ()){const k="esq:"+x.id;if(ED[EDI[x.sid]]&&!KB(x.sid).seen[k])return{sid:x.sid,k,f:"Esquema: "+(x.ti||"sem título"),get:async()=>x.txt}}
   for(const k0 of Object.keys(D).filter(k=>k.startsWith("res-")&&D[k]&&D[k].sid)){const R0=D[k0],tx=[(R0.r1||{}).txt,(R0.r2||{}).txt,(R0.fin||{}).txt,R0.txt,...(R0.notes||[]).map(n=>n.txt)].filter(Boolean).join("\n\n");if(tx.length<200)continue;const k="res:"+k0+":"+Math.round(tx.length/400);if(ED[EDI[R0.sid]]&&!KB(R0.sid).seen[k])return{sid:R0.sid,k,f:"Resumo "+(R0.c?auLabel(R0.sid,R0.c):""),get:async()=>tx}}
   for(const p of PDFS()){if(!p||p.raw||!p.sid||!ED[EDI[p.sid]]||!p.pages)continue;const a0=p.ts||1,b0=Math.max(a0,teoEnd(p));for(let a=a0,i=0;a<=b0&&i<5;a+=20,i++){const k="pdf:"+p.id+":"+a;if(!KB(p.sid).seen[k]){const b=Math.min(b0,a+19);return{sid:p.sid,k,f:String(p.name||"PDF").replace(/\.pdf$/i,"")+" (págs. "+a+"–"+b+")",get:async()=>pagesText(p,a,b)}}}}
+  for(const x of ESQ()){const k="esq:"+x.id,K=KB(x.sid);if(ED[EDI[x.sid]]&&!(K.ms||{})[k])return{sid:x.sid,k,met:1,f:"Esquema: "+(x.ti||"sem título"),get:async()=>x.txt}}
+  for(const k0 of Object.keys(D).filter(k=>k.startsWith("res-")&&D[k]&&D[k].sid)){const R0=D[k0],tx=[(R0.r1||{}).txt,(R0.r2||{}).txt,(R0.fin||{}).txt,R0.txt].filter(Boolean).join("\n\n");if(tx.length<300)continue;const k="resm:"+k0;if(ED[EDI[R0.sid]]&&!(KB(R0.sid).ms||{})[k])return{sid:R0.sid,k,met:1,f:"Resumo "+(R0.c?auLabel(R0.sid,R0.c):""),get:async()=>tx}}
+  for(const p of PDFS()){if(!p||p.raw||!p.sid||!ED[EDI[p.sid]]||!p.pages)continue;const a0=p.ts||1,k="pdf:"+p.id+":"+a0;if(!(KB(p.sid).ms||{})[k]){const b=Math.min(Math.max(a0,teoEnd(p)),a0+14);return{sid:p.sid,k,met:1,f:String(p.name||"PDF").replace(/\.pdf$/i,"")+" (método)",get:async()=>pagesText(p,a0,b)}}}
   return null}
 function kbPending(){let n=0;ESQ().forEach(x=>{if(ED[EDI[x.sid]]&&!KB(x.sid).seen["esq:"+x.id])n++});PDFS().forEach(p=>{if(p&&!p.raw&&p.sid&&ED[EDI[p.sid]]&&p.pages){const a0=p.ts||1,b0=Math.max(a0,teoEnd(p));for(let a=a0,i=0;a<=b0&&i<5;a+=20,i++)if(!KB(p.sid).seen["pdf:"+p.id+":"+a])n++}});return n}
 async function kbTick(force){try{if(!SAMPLE||KB_BUSY||!READY||(DB&&!PULLED))return;if(!force&&(document.hidden||Date.now()-KB_LAST<40000))return;
   const c=core(),d=today();if(!c.kbDay||c.kbDay.d!==d)c.kbDay={d,n:0};if(!force&&c.kbDay.n>=40)return;
   const nx=await kbNext();if(!nx)return;KB_BUSY=nx.f;KB_LAST=Date.now();if(TAB==="esquemas")render();
   let txt="";try{txt=await nx.get()}catch(e){}
-  const r=await kbLearn(nx.sid,txt,nx.f,nx.k).catch(()=>null);c.kbDay.n++;touch("core");
+  const r=await (nx.met?kbLearnMet(nx.sid,txt,nx.f,nx.k):kbLearn(nx.sid,txt,nx.f,nx.k)).catch(()=>null);c.kbDay.n++;touch("core");
   if(r&&r.n&&TAB==="esquemas")toast("A base aprendeu "+r.n+" ponto"+(r.n>1?"s":"")+" com "+nx.f)}catch(e){}finally{KB_BUSY="";if(TAB==="esquemas")render()}}
 setInterval(()=>kbTick(false),15000);
 /* esquema: a IA identifica a matéria, a aula e os tópicos do edital */
@@ -9509,6 +9531,9 @@ function kbViewHTML(){const sid=UI.kbS&&ED[EDI[UI.kbS]]?UI.kbS:ED[0].id,S=SUB(si
     ${KB_BUSY?`<span class="muted small"><span class="spin"></span> Aprendendo com ${esc(KB_BUSY)}…</span>`:SAMPLE?`<button class="btn sm" data-a="kbGo" ${pend?"":"disabled"}>${ic("bulb")} Aprender agora</button>`:`<span class="muted small">A base precisa da IA ligada.</span>`}</div>
    <select class="inp" data-c="kbS" aria-label="Matéria">${ED.map(s=>`<option value="${s.id}" ${s.id===sid?"selected":""}>${esc(s.n)} (${kbCount(s.id).p})</option>`).join("")}</select>
    <p class="muted small" style="margin:0">${esc(S.n)}: ${C.p} pontos em ${C.t} tópico${C.t===1?"":"s"}, de ${C.m} parte${C.m===1?"":"s"} de material lida${C.m===1?"":"s"}.</p></div></section>
+  ${(()=>{const M=(K&&K.m)||{},n=kbMetN(sid);return`<section class="card kbm"><div class="card-h"><h2>${ic("brain")} Método aprendido com os seus materiais</h2><span class="r muted small">${n?n+" padrões de ensino":"ainda aprendendo"}</span></div><div class="card-b" style="display:grid;gap:10px">
+   <p class="muted small" style="margin:0">A plataforma aprende <b>como</b> os seus materiais ensinam esta matéria (o jeito de montar esquemas, os macetes, a forma de explicar e o que é destacado) e usa esse estilo nos seus resumos, bizus e cards. Ela não copia os textos e não guarda nomes de professores ou cursos.</p>
+   ${n?`<div class="kbm-g">${KBM.filter(([k])=>(M[k]||[]).length).map(([k,l])=>`<div class="kbm-c"><b>${l}</b><ul>${M[k].map((x,i)=>`<li><span>${esc(x.t||x)}</span><button class="ibtn" data-a="kbMetDel" data-s="${sid}" data-k="${k}" data-i="${i}" aria-label="Apagar este padrão">${ic("close")}</button></li>`).join("")}</ul></div>`).join("")}</div>`:`<p class="muted" style="margin:0">Ainda não há padrões desta matéria. Adicione PDFs das aulas, esquemas ou resumos: a leitura do método acontece sozinha, em segundo plano.</p>`}</div></section>`})()}
   <div class="esql">${rows.filter(r=>r.N&&(r.N.p.length||r.N.a.length||r.N.l.length)).map(r=>`<details class="esqi"><summary><b>${esc(r.n)}</b><small class="muted">${r.N.p.length} ponto${r.N.p.length===1?"":"s"}${r.N.a.length?" · "+r.N.a.length+" alerta"+(r.N.a.length>1?"s":""):""}${r.N.l.length?" · "+r.N.l.length+" dispositivo"+(r.N.l.length>1?"s":""):""}</small><button class="ibtn" data-a="kbClr" data-s="${sid}" data-j="${r.j}" aria-label="Apagar o que a base sabe deste tópico">${ic("trash")}</button></summary>
     <div class="rsout"><ul>${r.N.p.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>${r.N.a.length?`<p><b>ATENÇÃO!</b></p><ul>${r.N.a.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}${r.N.l.length?`<p><b>Dispositivos</b></p><ul>${r.N.l.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}<p class="muted small">Fontes: ${r.N.f.map(esc).join(" · ")||"—"}</p></div></details>`).join("")||`<p class="muted">Ainda não há nada desta matéria na base. Adicione esquemas ou PDFs das aulas: a plataforma aprende com eles sozinha, em segundo plano.</p>`}</div>`}
 
@@ -9756,7 +9781,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109110854&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109112206&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -11032,6 +11057,7 @@ const A={
   murF(el){UI.murF=el.dataset.v;render()},
   actOpen(){UI.actSel=null;actModal()},
   raOpen(el){resAddModal(el.dataset.s,el.dataset.c)},
+  kbMetDel(el){const K=D[KBK(el.dataset.s)];if(!K||!K.m||!K.m[el.dataset.k])return;K.m[el.dataset.k].splice(+el.dataset.i,1);touch(KBK(el.dataset.s));render()},
   premGo(){$("layer3").innerHTML="";A.tab({dataset:{t:"assinatura"}})},
   premTry(el){const k=el.dataset.k;if(premOk(k)){UI.premSee=UI.premSee||{};UI.premSee[k]=1;render()}},
   raSave(){const R=UI.ra,t=(($("raTx")||{}).value||"").trim();if(!R||!t){toast("Escreva o que vai entrar no resumo");return}const R0=resGet(R.sid,R.c);R0.notes=R0.notes||[];R0.notes.push({id:uid(),txt:t.slice(0,8000),src:"Você",at:Date.now()});touch(resKey(R.sid,R.c));$("layer3").innerHTML="";UI.ra=null;render();if(UI.openT)renderDrawer();toast("Adicionado ao resumo com ênfase");setTimeout(()=>{try{kbTick(true)}catch(e){}},500)},
