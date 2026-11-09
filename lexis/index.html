@@ -664,6 +664,10 @@ html.sx-win{--rail:58px}
 }
 @media (min-width:1024px) and (max-width:1280px){body.sx-stud .rbar .sxfind-b .lbl{display:none}body.sx-stud .rbar .sxfind-b{width:38px;padding:0;justify-content:center}}
 @media (max-width:600px){.rbar .sxfind-b{min-width:0;flex:0 1 38px;border:0;background:none}}
+.sxpp{display:flex;align-items:center;gap:6px;padding:0 10px;height:34px;border-radius:999px;border:1px solid var(--line,#24335f);color:var(--muted,#9ba7c6);font-size:13px;white-space:nowrap;flex:none}
+.sxpp[hidden]{display:none!important}.sxpp svg{width:20px;height:20px;transform:rotate(-90deg)}.sxpp .b{fill:none;stroke:var(--line,#24335f);stroke-width:3}.sxpp .f{fill:none;stroke:#9be15d;stroke-width:3;stroke-linecap:round}
+.sxpp b{color:var(--text,#eef1f9)}.sxpp em{font-style:normal}
+@media (max-width:1180px){.sxpp em{display:none}}body.sx-stud .sxpp em{display:none}
 
 </style>
 
@@ -4128,6 +4132,33 @@ try{if(document.documentElement.classList.contains('sx-win')&&window.SX&&SX.setP
   const sync=()=>{const on=st.classList.contains('open');if(on===last)return;last=on;document.body.classList.toggle('sx-stud',on);
     if(innerWidth>=1024){const v=document.getElementById('viewer'),r=v&&v.scrollHeight?v.scrollTop/v.scrollHeight:0;clearTimeout(tm);tm=setTimeout(()=>{dispatchEvent(new Event('resize'));setTimeout(()=>{try{if(v)v.scrollTop=r*v.scrollHeight}catch(e){}},260)},240)}};
   new MutationObserver(sync).observe(st,{attributes:true,attributeFilter:['class']});sync()})();
+
+/* ---------- Scribax conversa com a plataforma: cards vão para a Trilha e questões erradas vão para Erradas ---------- */
+(function(){const P=()=>{try{return JXP&&JXP.addCards?JXP:null}catch(e){return null}};
+  const why=r=>r&&r.why==='pdf'?'Este PDF não está ligado a uma matéria da plataforma. Abra-o pela aula em A Jornada para mandar.':'Não consegui mandar agora.';
+  function bar(){try{if(tab!=='cards'||!P())return;const st=S.rec&&S.rec.study||{},cards=st.cards||[];if(!cards.length)return;const a=document.getElementById('fcArea');if(!a||document.getElementById('sxToTrilha'))return;
+    const d=document.createElement('div');d.className='acts sxsend';d.innerHTML=st.cardsSent===st.cardsOf+':'+cards.length?'<span class="note">✔ Estes cards já estão na Trilha da Jornada.</span>':'<button class="btn" id="sxToTrilha">Mandar estes '+cards.length+' cards para a Trilha da Jornada</button>';a.after(d)}catch(e){}}
+  try{const _rs=renderStudy;renderStudy=function(){const r=_rs.apply(this,arguments);bar();return r}}catch(e){}
+  document.addEventListener('click',e=>{const t=e.target;if(!t||!t.closest)return;
+    if(t.closest('#sxToTrilha')){const st=S.rec.study,J=P();if(!J)return;const r=J.addCards({pid:S.jxPid||'',cards:(st.cards||[]).map(c=>({f:c.frente,b:c.verso+(c.pagina?' (p. '+c.pagina+')':'')}))});
+      if(r&&r.n>=0&&!r.why){st.cardsSent=st.cardsOf+':'+(st.cards||[]).length;saveRecord();renderStudy();toast(r.n?r.n+' cards foram para a Trilha da Jornada':'Esses cards já estavam na Trilha')}else toast(why(r));return}
+    const o=t.closest('#sbody .opt[data-q]');if(!o)return;const qi=+o.dataset.q;setTimeout(()=>{try{const J=P();if(!J||!J.addErrs)return;const st=S.rec.study,i=qi,q=(st.quiz||[])[i];if(!q)return;const ans=(st.quizAns||{})[i];if(ans==null||ans===q.correta)return;
+      st.sentQ=st.sentQ||{};const k=q.pergunta.slice(0,80);if(st.sentQ[k])return;
+      const f=q.pergunta+'\n'+q.alternativas.map((x,j)=>'ABCD'[j]+') '+x).join('\n'),b='Gabarito: '+'ABCD'[q.correta]+') '+q.alternativas[q.correta]+'. Você marcou '+'ABCD'[ans]+'.\n\n'+(q.explicacao||'')+(q.pagina?' (p. '+q.pagina+')':'');
+      const r=J.addErrs({pid:S.jxPid||'',items:[{q:f,b}]});if(r&&!r.why){st.sentQ[k]=1;saveRecord();if(r.n)toast('Esta questão foi para Erradas, na plataforma')}}catch(x){}},30)},true);
+})();
+
+/* ---------- Progresso do trecho de hoje: anel na barra do leitor e posição salva na plataforma ---------- */
+(function(){const J=()=>{try{return typeof JXP!=='undefined'&&JXP?JXP:null}catch(e){return null}};let last='',chip=null;
+  const cur=()=>{try{const u=S.units&&S.pos?S.units[S.pos.u]:null;return u&&u.page?u.page:0}catch(e){return 0}};
+  const tick=()=>{const j=J();if(!j||!S.jxPid)return;const pg=cur(),tot=(S.pages||[]).length;
+    if(pg&&j.pagePos){const k=S.jxPid+':'+pg;if(k!==last){last=k;try{j.pagePos({pid:S.jxPid,pg,tot})}catch(e){}}}
+    let tk=null;try{tk=j.task&&j.task()}catch(e){}
+    if(!tk||tk.pid!==S.jxPid||!tk.pa||!tk.pb||!pg){if(chip)chip.hidden=true;return}
+    if(!chip){chip=document.createElement('div');chip.id='sxPP';chip.className='sxpp';chip.title='Quanto do trecho de hoje você já leu';const ref=document.getElementById('sxFindTop')||document.getElementById('areaBtn');if(ref&&ref.parentNode)ref.parentNode.insertBefore(chip,ref);else return}
+    const n=tk.pb-tk.pa+1,rd=Math.max(0,Math.min(n,pg-tk.pa+1)),pc=Math.round(rd/n*100),r=8,C=2*Math.PI*r;
+    chip.hidden=false;chip.innerHTML='<svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="'+r+'" class="b"/><circle cx="11" cy="11" r="'+r+'" class="f" stroke-dasharray="'+C.toFixed(1)+'" stroke-dashoffset="'+(C*(1-pc/100)).toFixed(1)+'"/></svg><span><b>'+pc+'%</b> <em>de hoje · págs. '+tk.pa+'–'+tk.pb+'</em></span>'};
+  setInterval(tick,3000);setTimeout(tick,1500)})();
 
 (async () => {
   for (const id of ['#setPanel', '#speedPanel', '#colorPanel']) document.body.appendChild($(id));
