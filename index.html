@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611101003"></script>
+<script src="/claude-shim.js?v=202611101020"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -5953,7 +5953,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261110100339";
+const JX_BUILD="20261110102000";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6452,7 +6452,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261110100339" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261110102000" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -6920,7 +6920,7 @@ function asnChip(){const A=window.JX_ACESSO;if(A&&A.st==="dono")return`<button c
 
 /* ---------- Hoje enxuto: o concurso (card, contagem e roteiro) fica num card que abre e fecha ---------- */
 function hjOrgHTML(){if(SKIN()!=="arena")return"";let I={};try{I=orgInfo()}catch(e){}const open=!!(PLANS.ui||{}).hjOrg,d=(()=>{try{return provaTBD()?"prova a definir":"prova em "+daysToExam()+" dias"}catch(e){return""}})();
-  return`<details class="card hj-org" ${open?"open":""}><summary><span class="hj-s">${ic("concurso")}<b>${esc(I.sig||"Concurso")}</b><span class="muted">${esc(I.org||"")}</span></span><span class="chip">${esc(d)}</span><span class="hj-t">${open?"Recolher":"Ver concurso, contagem e roteiro"}</span></summary>${orgHero()}</details>`}
+  return`<details class="card hj-org" ${open?"open":""}><summary><span class="hj-s">${ic("concurso")}<b>${esc(cargoTitulo(I.cargo)||I.sig||"Concurso")}</b><span class="muted">${esc(I.org||"")}</span></span><span class="chip">${esc(d)}</span><span class="hj-t">${open?"Recolher":"Ver concurso, contagem e roteiro"}</span></summary>${orgHero()}</details>`}
 document.addEventListener("toggle",e=>{const t=e.target;if(!t||!t.classList||!t.classList.contains("hj-org"))return;PLANS.ui=PLANS.ui||{};PLANS.ui.hjOrg=t.open?1:0;try{savePlans()}catch(x){}const l=t.querySelector(".hj-t");if(l)l.textContent=t.open?"Recolher":"Ver concurso, contagem e roteiro"},true);
 /* ---------- Ajustar plano: um lugar só para recalcular, editar a meta, montar a próxima e pedir por frase ---------- */
 function apModal(){const c=core(),r=curMeta();if(c.gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}
@@ -7602,7 +7602,9 @@ function crestSVG0(sig){const t=sig.split(/\s+/).filter(Boolean),a=(t.length>1?t
    <text x="52" y="${70+fs/3}" text-anchor="middle" font-family="Oswald,Figtree,sans-serif" font-weight="800" font-size="${fs}" fill="#fff">${esc(a)}</text>
    <path d="M30 96c8 6 14 8 22 9 8-1 14-3 22-9" stroke="#ffe08a" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`}
 /* cargo sem observações repetidas, ex.: "(único cargo do edital)" */
-const cargoLimpo=c=>{let t=String(c||"").replace(/\s*\((?:o\s+)?[uú]nico\s+cargo[^)]*\)/gi,"");const seen=new Set();t=t.replace(/\s*\(([^)]*)\)/g,(m,x)=>{const k=norm(x).trim();if(seen.has(k))return"";seen.add(k);return m});return t.replace(/\s{2,}/g," ").trim()};
+/* cargo: embaixo, sem parênteses repetidos; no título, só o nome ("Oficial de Justiça") */
+const cargoLimpo=c=>{let t=String(c||"").normalize("NFC");const seen=new Set();t=t.replace(/\s*\(([^)]*)\)/g,(m,x)=>{const k=norm(x).trim();if(seen.has(k))return"";seen.add(k);return m});return t.replace(/\s{2,}/g," ").trim()};
+const cargoTitulo=c=>String(c||"").normalize("NFC").replace(/\s*\([^)]*\)/g,"").replace(/\s*[–—-]\s*$/,"").replace(/\s{2,}/g," ").trim();
 /* remuneração curta no quadro (o texto completo fica no balão) */
 const salCurto=v=>{const t=String(v||"").trim(),m=t.match(/R\$\s?[\d.]+(?:,\d{2})?/);if(!m)return{v:t.length>28?t.slice(0,26)+"…":t,x:""};return{v:m[0].replace(/R\$\s?/,"R$ "),x:/aux[ií]lio|benef[ií]cio|vantage/i.test(t.slice(m.index+m[0].length))?"+ auxílios":""}};
 function orgHero(){const I=orgInfo(),c=core(),sk=c.skin||{},td=today(),dp=dbet(td,I.prova);
@@ -7612,7 +7614,7 @@ function orgHero(){const I=orgInfo(),c=core(),sk=c.skin||{},td=today(),dp=dbet(t
   const steps=I.cr.length?I.cr:[{d:I.prova,l:"Prova objetiva",k:"prova"}];const nx=steps.findIndex(x=>x.d>=td);
   const TBD=provaTBD(),tb=x=>TBD&&x.k==="prova";const rows=steps.map((x,i)=>{const past=x.d<td,isN=i===nx,n=dbet(td,x.d);return`<div class="ah-row ${past?"past":""} ${isN?"next":""}"><span class="n">${past?ic("check"):i+1}</span><span class="t"><span>${esc(x.l)}</span><small>${tb(x)?"data a definir":(x.a?"de "+dm(x.a)+" a "+dm(x.d)+" · ":"")+(past?"concluída":n===0?"é hoje":"em "+dias(x.k==="prova"&&x.d===I.prova?provaDias(x.d):n))}</small></span><span class="dt">${tb(x)?"∞":dmy(x.d)}</span></div>`}).join("");
   return`<section class="ah" aria-label="Seu concurso">
-   <div class="card ah-org"><div class="ah-in"><div class="ah-l">${esc(cargoLimpo(I.cargo)||I.sig)}<span class="ah-bars" aria-hidden="true"><i></i><i></i></span></div>
+   <div class="card ah-org"><div class="ah-in"><div class="ah-l">${esc(cargoTitulo(I.cargo)||I.sig)}<span class="ah-bars" aria-hidden="true"><i></i><i></i></span></div>
      <div class="ah-club"><div class="ah-crest">${sk.logo&&(sk.logo.id||sk.logo.url)?`<img src="${esc(skinUrl(sk.logo))}" alt="Logo do órgão" onerror="this.replaceWith(document.createRange().createContextualFragment(crestSVG(orgInfo().sig)))">`:crestSVG(I.sig)}</div>
       <div class="ah-nm"><b>${esc(I.org)}</b><span>${esc(cargoLimpo(I.cargo))}${I.banca?" · banca "+esc(I.banca):""}</span></div></div>
      <div class="ah-stats"><div><small>Inscrições</small><b><span class="ah-chip ${st.c}">${st.t}</span></b></div><div><small>Período</small><b>${per}</b></div><div><small>Prova</small><b>${provaTBD()?"A definir":dmy(I.prova)}</b></div>
@@ -10337,7 +10339,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261110100339&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261110102000&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
