@@ -41,6 +41,10 @@
     if(!M.length){show('<p style="margin:0">Não consegui ler o TEC. Confira se você está logado no TEC Concursos e toque de novo no favorito ➜ A Jornada.</p>');return}
     var bn=norm(J.banca||"").replace(/[^a-z0-9 ]/g," ").trim(),banca=null;
     if(bn)B.forEach(function(b){var s=norm(b.sigla+" "+b.nome);if(!banca&&(norm(b.sigla)===bn||s.split(/[^a-z0-9]+/).indexOf(bn.split(" ")[0])>=0))banca=b});
+    /* incidência: compara pelo radical de 5 letras e aceita o assunto do TEC cujo nome está todo dentro do assunto do edital */
+    function t5(x){var o={};norm(x).replace(/\([^)]*\)/g," ").replace(/[^a-z0-9 ]/g," ").split(/\s+/).forEach(function(w){if(w.length>2&&!SW[w])o[w.length>5?w.slice(0,5):w]=1});return o}
+    function sc5(T,nome){var N=t5(nome),a=Object.keys(T),b=Object.keys(N);if(!a.length||!b.length)return 0;var i=0;b.forEach(function(x){if(T[x])i++});return Math.max(2*i/(a.length+b.length),.9*i/b.length)}
+    function cand5(tp){var c=cands(tp),w=String(tp).replace(/\([^)]*\)/g," ").split(/[:;,]/)[0].split(/[\s\-\/]+/).filter(function(x){return x.length>=4&&!SW[norm(x)]});if(w.length<=3)w.forEach(function(x){if(c.indexOf(x)<0)c.push(x)});return c}
     async function incRun(){var OUT={},tot=J.items.length,nA=0;J.items.forEach(function(it){nA+=(it.t||[]).length});var dn=0,CG=null;
       /* provas anteriores do mesmo cargo no mesmo órgão (é o que o TEC mostra nas estatísticas do cargo) */
       if(J.orgao&&J.cargo){try{show('<p style="margin:0">Procurando as provas anteriores de '+esc(J.cargo)+' ('+esc(J.orgao)+') no TEC…</p>');
@@ -56,9 +60,9 @@
         if(!banca||nb<40){n=await count(MF);g=1;if(!CG)f="g"}
         var useC=CG&&nc>=25;if(CG&&!useC)f=g?"g":"b";
         var p=[],tops=(it.t||[]).slice(0,40);
-        for(var j=0;j<tops.length;j++){if(STOP)break;dn++;if(j%3===0)ip(it.m+" · "+tops[j]);var tp=tops[j],T=toks(tp),cs=cands(tp),got=[];
-          for(var c=0;c<cs.length;c++){var L=await search(cs[c]);L.forEach(function(r){if(!(r.materia&&mi.indexOf(r.materia.id)>=0))return;var v=dice(T,toks(r.nome));if(norm(r.nome).indexOf(norm(cs[c]))>=0)v+=/^\d/.test(cs[c])?.5:.15;if(v>=.45)got.push([r.id,v])});if(got.some(function(x){return x[1]>=.7}))break}
-          got.sort(function(a,b){return b[1]-a[1]});var ids=[];got.forEach(function(x){if(ids.length<3&&ids.indexOf(x[0])<0&&(!ids.length||x[1]>=.6))ids.push(x[0])});
+        for(var j=0;j<tops.length;j++){if(STOP)break;dn++;if(j%3===0)ip(it.m+" · "+tops[j]);var tp=tops[j],T=t5(tp),cs=cand5(tp),got=[];
+          for(var c=0;c<cs.length;c++){var L=await search(cs[c]);L.forEach(function(r){if(!(r.materia&&mi.indexOf(r.materia.id)>=0))return;var v=sc5(T,r.nome);if(norm(r.nome).indexOf(norm(cs[c]))>=0)v+=/^\d/.test(cs[c])?.5:.15;if(v>=.62)got.push([r.id,v])});if(got.some(function(x){return x[1]>=.85}))break}
+          got.sort(function(a,b){return b[1]-a[1]});var ids=[];got.forEach(function(x){if(ids.length<3&&ids.indexOf(x[0])<0&&(!ids.length||x[1]>=.75))ids.push(x[0])});
           if(!ids.length){p.push(-1);continue}
           var F=ids.map(function(x){return["ASSUNTO",x]});if(useC)F.push(["CARGO",CG.id]);else if(!g&&banca)F.push(["BANCA",banca.id]);p.push(await count(F));await sleep(40)}
         while(p.length<tops.length)p.push(-1);OUT[it.k]={n:n,nc:nc,p:p,g:g,f:f}}
