@@ -1,4 +1,14 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+/* visual Jornada: a subida da leitura */
+.sxh{display:grid;gap:12px;margin:4px 0 26px}
+.sxh-m{position:relative;height:170px;border-radius:18px;overflow:hidden;border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);background:radial-gradient(1px 1px at 12% 22%,#fff9,transparent 70%),radial-gradient(1.2px 1.2px at 36% 14%,#fffa,transparent 70%),radial-gradient(1px 1px at 62% 30%,#fff8,transparent 70%),radial-gradient(1px 1px at 80% 12%,#fff9,transparent 70%),linear-gradient(180deg,#0e1a3d,#16285e)}
+.sxh-m svg{position:absolute;inset:0;width:100%;height:100%}
+.sxh-m .mt{fill:#111b3a}.sxh-m .sn{fill:#f5cf75;opacity:.85}.sxh-m .tr{fill:none;stroke:rgba(238,241,249,.32);stroke-width:3;stroke-dasharray:2 9;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.sxh-m .dn{fill:none;stroke:#f2b441;stroke-width:5;stroke-linecap:round;vector-effect:non-scaling-stroke}.sxh-m .me{fill:#fff;stroke:#f2b441;stroke-width:3;vector-effect:non-scaling-stroke}.sxh-m .fl{fill:#f2b441;stroke:#f5cf75;stroke-width:2;vector-effect:non-scaling-stroke}
+.sxh-t{position:absolute;left:20px;top:16px;display:grid;gap:3px;max-width:min(520px,70%)}.sxh-t small{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#f2b441}.sxh-t b{font-size:21px;color:#eef1f9}.sxh-t span{font-size:13px;color:#b9c3dd}
+.sxh-k{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.sxh-k span{display:grid;padding:12px 14px;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-size:12px;color:var(--muted)}.sxh-k b{font-size:24px;color:var(--accent)}
+@media (max-width:620px){.sxh-k{grid-template-columns:repeat(3,minmax(0,1fr))}.sxh-m{height:150px}.sxh-t span{display:none}}
+</style></head><body>
 <title>Scribax · Leia, ouça e fixe</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3581,7 +3591,7 @@ function renderFolders() {
 function renderHome() {
   const recent = [...LIB.docs].sort((a, b) => (b.opened || b.added) - (a.opened || a.added)).slice(0, 4);
   const tile = (id, bg, fg, icon, title, sub) => `<button class="ctile" data-create="${id}"><span class="ic" style="background:${bg};color:${fg}">${icon}</span><span><b>${title}</b><small>${sub}</small></span></button>`;
-  $('#homein').innerHTML = `<div class="lhead">${mobMenu}<h1 class="vtitle">${greeting()}</h1></div>
+  $('#homein').innerHTML = `<div class="lhead">${mobMenu}<h1 class="vtitle">${greeting()}</h1></div>${sxHero()}
   ${recent.length ? `<div class="sec"><h2>Continuar</h2><div class="cont">` + recent.map(d => { const { pct } = docStats(d); return `<button class="ccard" data-open="${d.key}"><span class="ccover">${esc(d.name.trim().charAt(0).toUpperCase())}<img alt="" hidden data-th="${d.key}"><span class="bar" style="width:${pct}%"></span></span><span>${esc(d.name)}</span></button>`; }).join('') + `</div></div>` : ''}
   <div class="sec"><h2>Ouvir</h2><div class="listen">
     <label class="lbtn upw"><input type="file" class="upi" accept="application/pdf,.pdf" multiple aria-label="Escolher PDF">${FICON.plus} Enviar arquivo</label>
@@ -3596,6 +3606,19 @@ function renderHome() {
     ${tile('cards', 'rgba(52,199,107,.16)', '#22a35a', FICON.cards, 'Flashcards', 'Revise com cartões de pergunta e resposta')}
   </div>${S.sample ? '' : (JXP ? '<p class="homenote">Os recursos de Criar usam a IA da Jornada, que não está disponível agora.</p>' : '<p class="homenote">Os recursos de Criar usam o Claude e funcionam com esta página aberta no Claude.</p>')}</div>`;
   fillThumbs(recent);
+}
+/* visual Jornada no Scribax: a subida da leitura (azul-marinho e ouro) */
+function sxHero() {
+  const docs = LIB.docs || [], st = docs.map(docStats), n = docs.length;
+  const avg = n ? Math.round(st.reduce((a, x) => a + x.pct, 0) / n) : 0, mk = st.reduce((a, x) => a + x.hs.length, 0), done = st.filter(x => x.pct >= 100).length;
+  let tk = null; try { tk = typeof JXP !== 'undefined' && JXP && JXP.task ? JXP.task() : null; } catch (e) {}
+  const P = [[0, 150], [120, 134], [260, 122], [420, 100], [560, 92], [700, 66], [860, 42], [940, 18]], X = avg / 100 * 940;
+  let i = 0; while (i < P.length - 2 && P[i + 1][0] < X) i++;
+  const [x1, y1] = P[i], [x2, y2] = P[i + 1], Y = y1 + (y2 - y1) * ((X - x1) / ((x2 - x1) || 1));
+  const done1 = P.filter(p => p[0] < X).map(p => p.join(' ')).concat([X.toFixed(0) + ' ' + Y.toFixed(0)]).join(' L ');
+  return `<section class="sxh" aria-label="A subida da leitura"><div class="sxh-m"><svg viewBox="0 0 1000 170" preserveAspectRatio="none" aria-hidden="true"><path d="M0 170 L0 158 ${P.map(p => 'L' + p[0] + ' ' + (p[1] + 8)).join(' ')} L1000 70 L1000 170Z" class="mt"/><path d="M940 18 L924 36 L934 34 L940 40 L948 34 L958 38Z" class="sn"/><path d="M ${P.map(p => p.join(' ')).join(' L ')}" class="tr"/>${avg ? `<path d="M ${done1}" class="dn"/>` : ''}<circle cx="${X.toFixed(0)}" cy="${Y.toFixed(0)}" r="7" class="me"/><path d="M948 18 v-16 l16 5 -16 5" class="fl"/></svg>
+    <div class="sxh-t"><small>Scribax · leia, ouça e fixe</small><b>A subida da leitura</b><span>${tk && tk.pa ? 'Trecho de hoje: págs. ' + tk.pa + '–' + tk.pb + '. O anel no leitor mostra quanto já foi.' : 'O cume é a sua biblioteca toda lida. Cada PDF lido ou ouvido sobe a trilha.'}</span></div></div>
+    <div class="sxh-k"><span><b>${avg}%</b>lido em média</span><span><b>${done}</b>concluídos</span><span><b>${mk}</b>marcações</span></div></section>`;
 }
 function greeting() { const h = new Date().getHours(); return h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite'; }
 
