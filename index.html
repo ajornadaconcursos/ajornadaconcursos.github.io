@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611100637"></script>
+<script src="/claude-shim.js?v=202611100809"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -2700,7 +2700,7 @@ async function pullImport(){if(!DB)return;try{const sn=await DB.doc(BASE+"imp").
     window.addEventListener("focus",()=>pull(false));
     setInterval(()=>{if(document.visibilityState==="visible")pull(false)},45000);
     document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&dirty.size){clearTimeout(saveT);flush()}});
-  }catch(e){}finally{setTimeout(()=>{READY=true;try{undoInit()}catch(e){}render();setTimeout(retryRaw,1500);setTimeout(obCheck,400);setTimeout(npePend,1300);setTimeout(tcaAuto,5000);setTimeout(estPend,1800);setTimeout(()=>{csCheck();const t=setInterval(()=>{if(core().cs||IS_TJ){clearInterval(t);return}if(!UI.cs)csCheck()},2500);setTimeout(()=>clearInterval(t),120000)},2600);setTimeout(()=>{try{window.dispatchEvent(new Event("jornada-ready"))}catch(e){}},520)},0)}
+  }catch(e){}finally{setTimeout(()=>{READY=true;try{undoInit()}catch(e){}render();setTimeout(retryRaw,1500);setTimeout(obCheck,400);setTimeout(npePend,1300);setTimeout(tcaAuto,5000);setTimeout(qwFix,2500);setTimeout(estPend,1800);setTimeout(()=>{csCheck();const t=setInterval(()=>{if(core().cs||IS_TJ){clearInterval(t);return}if(!UI.cs)csCheck()},2500);setTimeout(()=>clearInterval(t),120000)},2600);setTimeout(()=>{try{window.dispatchEvent(new Event("jornada-ready"))}catch(e){}},520)},0)}
 })();
 
 /* ================= Boas-vindas: conta nova escolhe o próprio concurso =================
@@ -3786,6 +3786,71 @@ function tcaAuto(){try{if(!READY||IS_TJ||obPending())return;const L3=$("layer3")
   const c=core(),pj=tecJob().length;if(!pj)return;if(c.tcaAsk&&pj<=(c.tcaPend||0))return;c.tcaAsk=Date.now();c.tcaPend=pj;touch("core");tcaModal()}catch(e){}}
 function tecAutoSave(P){const c=core();c.tecAuto=c.tecAuto||{};let n=0;(P.cads||[]).forEach(x=>{if(!x||!x.k||!(+x.id>0))return;c.tecAuto[x.k]={id:+x.id,n:+x.n||25,b:String(x.b||"").slice(0,30),as:String(x.as||"").slice(0,300),g:x.g?1:0,at:today()};n++});
   c.tcaPend=tecJob().length;touch("core");render();const f=(P.fail||[]).length;toast(n?n+" caderno"+(n>1?"s":"")+" do TEC gravado"+(n>1?"s":"")+" nas tarefas de questões"+(f?" · "+f+" aula"+(f>1?"s":"")+" sem questões no TEC":""):"Nenhum caderno chegou do TEC")}
+/* ---------- Questões por matéria quando o edital dá o número do BLOCO, e incidência pelo TEC ----------
+   Ex.: "BLOCO II: Conhecimentos em Direito – 40 questões" vale para Penal, Processo Penal, Civil… juntos.
+   Esse total é repartido entre as matérias do bloco pela quantidade de questões que a banca já fez de cada uma no TEC
+   (antes de ler o TEC, pelo número de assuntos do edital). */
+const QB_G=new Set("bloco modulo conhecimento conhecimentos especificos especifico gerais geral basicos basicas parte grupo eixo prova objetiva nocoes area areas comuns comum complementares".split(" "));
+const QB_PFX=/^\s*(bloco|m[oó]dulo|parte|grupo|eixo)\s+[ivxl\d]+\s*[:–.\-]?\s*/;
+const qbGen=n=>/^\s*(bloco|m[oó]dulo|parte|grupo|eixo)\b/i.test(n)||/\bconhecimentos?\b/i.test(n);
+function qbMembers(label,XS){const L0=norm(label).trim(),nl=L0.replace(QB_PFX,"").trim(),hit=new Set();
+  const same=b=>{const nb=norm(b).trim(),nc=nb.replace(QB_PFX,"").trim();return!!nb&&(nb===L0||(nl.length>4&&nc.length>4&&(nc.includes(nl)||nl.includes(nc))))};
+  (XS||[]).forEach(x=>{if(x&&x.bloco&&same(x.bloco)){const s=edMatch(x.n,ED);if(s)hit.add(s.id)}});
+  ED.forEach(s=>{if(s.bl&&same(s.bl))hit.add(s.id)});
+  if(!hit.size){const tk=nl.split(/[^a-z]+/).filter(w=>w.length>3&&!QB_G.has(w));if(tk.length)ED.forEach(s=>{const n=norm(s.n);if(tk.some(w=>n.includes(w)))hit.add(s.id)})}
+  return[...hit]}
+function qwBuild(P,XS){const M=((P&&P.materias)||[]).filter(m=>m&&m.n&&+m.q>0).map(m=>({n:String(m.n),q:Math.round(+m.q),bl:m.bloco?String(m.bloco):""}));
+  (XS||[]).forEach(x=>{if(x&&x.q>0&&!x.qe&&!M.some(m=>edMatch(m.n,[x])))M.push({n:x.n,q:Math.round(+x.q),bl:x.bloco||""})});
+  const best=n=>{let b=null,v=0;const nn=norm(n).trim();ED.forEach(s=>{const x=norm(s.n).trim()===nn?1:cdice(nTok(s.n),nTok(n));if(x>v){v=x;b=s}});if(v<.5){const e=edMatch(n,ED);if(e){b=e;v=.6}}return[b,v]};
+  const sing=[],blk=[];
+  M.forEach(m=>{const parts=m.n.replace(QB_PFX,"").split(/\s*[,;\/]\s*|\s+e\s+/).map(x=>x.trim()).filter(x=>x.length>3);
+    const pm=parts.length>1?[...new Set(parts.map(p=>(edMatch(p,ED)||{}).id).filter(Boolean))]:[];
+    const[s,v]=best(m.n);
+    if(pm.length>1)blk.push({n:m.n,q:m.q,ids:pm,src:m.n});
+    else if(s&&v>=.5&&!(qbGen(m.n)&&v<.8))sing.push({m,s});
+    else blk.push({n:m.n,q:m.q,ids:null,src:m.n})});
+  /* matéria sozinha no seu bloco com o número do bloco inteiro: o número é do bloco */
+  const byB={};sing.forEach(x=>{x.m.bl=x.m.bl||x.s.bl||"";if(x.m.bl){const k=norm(x.m.bl);(byB[k]=byB[k]||[]).push(x)}});
+  Object.values(byB).forEach(L=>{if(L.length!==1)return;const x=L[0],mem=qbMembers(x.m.bl,XS);if(mem.length>1&&mem.includes(x.s.id)&&!sing.some(y=>y!==x&&mem.includes(y.s.id))){sing.splice(sing.indexOf(x),1);blk.push({n:x.m.bl,q:x.m.q,ids:mem,src:x.m.n})}});
+  const qw={},own=new Set();sing.forEach(({m,s})=>{qw[s.id]=Math.max(qw[s.id]||0,Math.min(120,m.q));own.add(s.id)});
+  const qb=[],taken=new Set();
+  blk.forEach(b=>{const mem=(b.ids||qbMembers(b.n,XS)).filter(id=>EDI[id]!=null);if(!mem.length)return;const rem=b.q-mem.filter(id=>own.has(id)).reduce((a,id)=>a+(qw[id]||0),0),free=mem.filter(id=>!own.has(id)&&!taken.has(id));
+    if(rem>0&&free.length){free.forEach(id=>taken.add(id));qb.push({n:b.n.replace(/\s+/g," ").slice(0,90),q:rem,ids:free,src:b.src})}});
+  const obj=Math.round(+(P&&P.obj)||0);if(obj>0){const asg=Object.values(qw).reduce((a,v)=>a+v,0)+qb.reduce((a,b)=>a+b.q,0),rest=obj-asg,free=ED.map(s=>s.id).filter(id=>!own.has(id)&&!taken.has(id));
+    if(rest>0&&free.length)qb.push({n:"Demais matérias",q:rest,ids:free,src:""})}
+  return{qw,qb}}
+const qbW=(id,allT)=>{const t=(core().tecN||{})[id];if(allT&&t)return Math.max(.5,+t.n||0);const S=ED[EDI[id]];return Math.max(1,(S&&S.t.length)||1)};
+/* reparte o total de cada bloco entre as matérias dele, pelo TEC (ou pelo nº de assuntos) */
+function qwRebalance(){const c=core(),Q=c.qb||[];if(!Q.length)return 0;c.qw=c.qw||{};c.qwe=c.qwe||{};let n=0;
+  Q.forEach(b=>{const ids=(b.ids||[]).filter(id=>EDI[id]!=null);if(!ids.length||!(b.q>0))return;const T=c.tecN||{},allT=ids.every(id=>T[id])&&ids.some(id=>T[id].n>0);
+    const w=ids.map(id=>qbW(id,allT)),sm=w.reduce((a,x)=>a+x,0)||1,raw=w.map(x=>b.q*x/sm);let fl=raw.map(Math.floor);if(b.q>=ids.length)fl=fl.map(v=>Math.max(1,v));
+    let rest=b.q-fl.reduce((a,x)=>a+x,0);const ord=raw.map((v,i)=>[v-Math.floor(v),i]).sort((a,z)=>z[0]-a[0]);for(let k=0;rest>0;k++){fl[ord[k%ord.length][1]]++;rest--}
+    while(rest<0){const i=fl.indexOf(Math.max(...fl));fl[i]--;rest++}
+    ids.forEach((id,i)=>{c.qw[id]=fl[i];c.qwe[id]={b:b.n,t:allT?1:0};n++})});
+  simCache.key="";return n}
+/* planos que já tinham o número do bloco gravado numa matéria só: corrige uma vez */
+function qwFix(){try{const c=core();if((c.qbv|0)>=1||!c.edital||!c.edital.prova)return;c.qbv=1;const R=qwBuild(c.edital.prova,null);
+  if(R.qb.some(b=>b.n!=="Demais matérias")){c.qw=c.qw||{};Object.assign(c.qw,R.qw);c.qb=R.qb;qwRebalance()}touch("core")}catch(e){}}
+/* --- TEC: questões da banca por matéria e por assunto do edital --- */
+function tecIncUrl(){const items=ED.map(s=>({k:s.id,m:s.n,t:s.t.map(x=>x[0]).slice(0,40)}));return TB+"/questoes/filtrar#jxcad="+encodeURIComponent(JSON.stringify({v:1,mode:"inc",o:location.origin,banca:tecBanca(),orgao:(curPlan()||{}).orgao||"",cargo:(curPlan()||{}).cargo||"",items}))}
+function tecIncModal(){const b=tecBanca(),c=core(),T=c.tecN||{},nT=ED.filter(s=>T[s.id]).length,nA=ED.reduce((a,s)=>a+s.t.length,0);
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Incidência pelo TEC"><div class="box cs" style="max-width:640px"><div class="vh"><h3>Incidência pelo TEC Concursos</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+   <p class="muted" style="margin:0">A plataforma conta no TEC as questões das <b>provas anteriores de ${esc((curPlan()||{}).cargo||"seu cargo")}${(curPlan()||{}).orgao?" ("+esc(curPlan().orgao)+")":""}</b> (se o TEC não tiver provas suficientes do cargo, usa as questões ${b?`da <b>${esc(b)}</b>`:"das bancas"}) em cada uma das <b>${ED.length} matérias</b> e de cada um dos <b>${nA} assuntos</b> do seu edital. Com isso: os assuntos de cada matéria ganham a porcentagem real de cobrança, e quando o edital dá o número de questões de um bloco inteiro (ex.: 40 de Conhecimentos em Direito), o total é repartido entre as matérias do bloco pelo que mais cai. Nada é criado na sua conta do TEC: só contagens.${nT?` Última leitura: ${nT} matérias.`:""}</p>
+   <div class="lks"><div class="lkst"><b>1</b><div><b>Tenha o botão ➜ A Jornada nos favoritos</b><p class="muted small" style="margin:4px 0 8px">Se ele já estava lá antes de hoje, arraste de novo para atualizar:</p><a class="lkbm" href="${esc(estBm())}" draggable="true" onclick="event.preventDefault()">➜ A Jornada</a></div></div>
+   <div class="lkst"><b>2</b><div><b>Abra o TEC já logado na sua conta</b><p class="muted small" style="margin:4px 0 8px">O botão abaixo abre o TEC com as matérias e os assuntos do seu edital.</p><a class="btn pri sm" href="${esc(tecIncUrl())}" target="_blank" rel="noopener">${ic("ext")} Abrir o TEC e contar as questões</a></div></div>
+   <div class="lkst"><b>3</b><div><b>No TEC, toque no favorito ➜ A Jornada</b><p class="muted small" style="margin:4px 0 0">Ele conta tudo (cerca de ${Math.max(1,Math.round(nA*1.2/60))} min) e mostra <b>Voltar para A Jornada</b>: toque nele e a incidência entra no app.</p></div></div></div>
+   <div class="row" style="justify-content:flex-end"><button class="btn" data-a="volClose">Fechar</button></div></div></div>`}
+function tecIncSave(P){const c=core();c.inc=c.inc||{};c.tecN=c.tecN||{};let n=0,nm=0;const b=String(P.b||"").slice(0,30),cg=String(P.cg||"").slice(0,80);
+  c.tecCg=cg?{n:cg,t:+P.ct||0,at:today()}:null;
+  Object.entries(P.inc||{}).forEach(([sid,x])=>{const S=ED[EDI[sid]];if(!S||!x)return;const useC=cg&&+x.nc>=0;if(+x.n>0||useC){c.tecN[sid]={n:useC?+x.nc:+x.n,c:useC?1:0,g:x.g?1:0,at:today()};nm++}
+    const p=(Array.isArray(x.p)?x.p:[]).slice(0,S.t.length).map(v=>+v>=0?+v:-1);while(p.length<S.t.length)p.push(-1);
+    const cur=c.inc[sid],man=cur&&(cur.src==="manual"||cur.src==="fonte");
+    if(!man&&p.some(v=>v>0)){c.inc[sid]={p,src:"tec",fonte:"TEC Concursos · "+(x.f==="c"?"provas anteriores de "+cg:x.g||!b?"questões de todas as bancas":"questões da "+b),n:p.reduce((a,v)=>a+(v>0?v:0),0),at:today()};n++}});
+  const nb=qwRebalance();touch("core");simCache.key="";render();
+  toast(n||nm?`Incidência do TEC: ${n} matéria${n!==1?"s":""} com assuntos${nb?" · questões dos blocos repartidas":""}`:"Nenhuma contagem chegou do TEC")}
+function tecIncCard(){if(IS_TJ&&!tecBanca())return"";const c=core(),T=c.tecN||{},nT=ED.filter(s=>T[s.id]).length,nI=ED.filter(s=>((c.inc||{})[s.id]||{}).src==="tec").length,Q=(c.qb||[]).filter(b=>b.n!=="Demais matérias");
+  return`<section class="card"><div class="card-b row" style="align-items:center;gap:12px;flex-wrap:wrap"><span style="flex:1 1 320px"><b>${ic("target")} Incidência pelo TEC Concursos</b><br><span class="muted small">${nT?`${c.tecCg?"Base: provas anteriores de <b>"+esc(c.tecCg.n)+"</b> no TEC ("+c.tecCg.t+" questões). ":""}${nI} de ${ED.length} matérias com a porcentagem de cada assunto contada no TEC${T[ED[0].id]?" em "+dmt0(T[ED[0].id].at):""}.`:`Conta no TEC quantas questões ${tecBanca()?"da "+esc(tecBanca()):"das bancas"} existem de cada matéria e de cada assunto do seu edital, e usa isso como referência da incidência.`}${Q.length?` O edital dá o total de ${Q.length>1?"blocos":"um bloco"} (${Q.map(b=>esc(b.n)+": "+b.q).join("; ")}): ${nT?"repartido pelo que mais cai no TEC":"repartido pelo nº de assuntos até você ler o TEC"}.`:""}</span></span><button class="btn ${nT?"":"pri"} sm" data-a="tecIncOpen">${nT?"Atualizar pelo TEC":"Ler a incidência no TEC"}</button></div></section>`}
+const dmt0=s=>/^\d{4}-\d\d-\d\d$/.test(String(s))?dm(s):"";
 const tecCadMin=c=>({i:Math.round(c.n*1.6),x:Math.round(c.n*1.8)});
 function tecCadFor(t){if(!t||!t.sid)return null;{const A=tecAutoFor(t);if(A)return A}const sub=norm([TECN[t.sid],(SUB(t.sid)||{}).n].filter(Boolean).join(" "));
   const txt=[...aSet(t).map(c=>{const a=auOf(t.sid,c);return a?[a.d,a.t,a.n].filter(Boolean).join(" "):""}),...taskEdTopics(t),t.topic?topicName(t.topic):"",t.tit||""].filter(Boolean).map(x=>norm(String(x)));
@@ -5887,7 +5952,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261110063725";
+const JX_BUILD="20261110080953";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6386,7 +6451,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261110063725" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261110080953" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -8355,12 +8420,12 @@ function vProva(){const T=qTot(),L=ED.map(s=>({s,q:qOf(s)})).sort((a,b)=>b.q-a.q
    <span class="small muted"><b>Bloco I</b> Língua Portuguesa (15). <b>Bloco II</b> Conhecimentos Específicos (40). <b>Bloco III</b> Atualidades e PcD (3), Matemática e Raciocínio Lógico (7), Informática (5).</span>
    <span class="small muted">Os blocos I e II são eliminatórios: é preciso acertar pelo menos 50% de cada um. A nota mínima no conjunto é 5 de 10. A discursiva tem 2 questões de conhecimentos específicos.</span></div></section>`:"");
   const rows=L.map(({s,q},ri)=>{const pp=T?q/T*100:0,mp=ts.length?(tc[s.id]||0)/ts.length*100:null,ov=(c.qw||{})[s.id]>0,bw=mx?q/mx*100:0;
-    return`<div class="pv-r"><span class="code" style="border-color:${s.col}">${esc(s.c)}</span><span class="pv-n" title="${esc(s.n)}">${esc(s.n)}${ov?` <small class="muted">· ajustado</small>`:""}</span>
+    return`<div class="pv-r"><span class="code" style="border-color:${s.col}">${esc(s.c)}</span><span class="pv-n" title="${esc(s.n)}">${esc(s.n)}${ov?` <small class="muted">· ${(c.qwe||{})[s.id]?"estimado"+((c.qwe[s.id]||{}).t?" pelo TEC":"")+" ("+esc(String((c.qwe[s.id]||{}).b||"bloco").slice(0,40))+")":"ajustado"}</small>`:""}</span>
      <span class="pv-bw" style="--w:${bw.toFixed(1)};--d:${Math.min(ri,20)*45}ms" title="${pv1(pp)}% da prova"><span class="pv-b"><i style="width:${bw.toFixed(1)}%;background:${s.col}"></i></span><em class="pv-pl" style="color:${s.col}" data-cnt="${pp.toFixed(2)}">${pv1(pp)}%</em></span>
      ${qe?`<input class="inp pv-q" type="number" min="0" max="120" inputmode="numeric" value="${q}" data-c="pvQ" data-s="${s.id}" aria-label="Questões de ${esc(s.n)}">`:`<b class="pv-k">${q}<small>questões</small></b>`}
      <b class="pv-k"><span data-cnt="${pp.toFixed(2)}">${pv1(pp)}%</span><small>da prova</small></b><span class="pv-k m" title="Parte das atividades da meta atual que é desta matéria">${mp==null?"–":pv1(mp)+"%"}<small>da meta atual</small></span></div>`}).join("");
   const subs=L.map(({s,q},k)=>{const P=incShow(s.id),has=incHas(s.id),x=incRec(s.id)||{},ord=s.t.map((t,j)=>({t:t[0],j,p:P[j],m:incMiss(s.id,j)})).sort((a,b)=>(a.m-b.m)||b.p-a.p||a.j-b.j),pm=Math.max(...P,1),ed=UI.pvT===s.id,pa=UI.pvP===s.id,top=ord.find(o=>!o.m)||ord[0];
-    const srcL=!has?"":x.src==="ia"?"Estimativa da IA pelo histórico da banca"+(x.at?", feita em "+dm(x.at):"")+(x.obs?". "+esc(String(x.obs).replace(/[.\s]+$/,"")):"")+".":x.src==="fonte"?`Fonte: ${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.fonte||"link")}</a>`:esc(x.fonte||"dados colados")}${x.refs?" ("+x.refs.map(r=>`<a href="${esc(r[1])}" target="_blank" rel="noopener">${esc(r[0])}</a>`).join(", ")+")":""}${x.n?" · "+x.n+" questões analisadas":""}${x.at&&!x.seed?" · em "+dm(x.at):""}.${x.seed==="oj"?" As provas do TJ-SP contam em dobro. Questões de outros estados fora do seu edital ficaram de fora."+(x.n<20?" Ainda são poucas questões: trate como tendência.":""):""}`:"Ajustado por você"+(x.at?" em "+dm(x.at):"")+".";
+    const srcL=!has?"":x.src==="ia"?"Estimativa da IA pelo histórico da banca"+(x.at?", feita em "+dm(x.at):"")+(x.obs?". "+esc(String(x.obs).replace(/[.\s]+$/,"")):"")+".":x.src==="tec"?`Fonte: ${esc(x.fonte||"TEC Concursos")} · ${x.n} questões nos assuntos do edital${x.at?" · em "+dm(x.at):""}. Assunto sem correspondência no TEC conta como a média da matéria.`:x.src==="fonte"?`Fonte: ${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.fonte||"link")}</a>`:esc(x.fonte||"dados colados")}${x.refs?" ("+x.refs.map(r=>`<a href="${esc(r[1])}" target="_blank" rel="noopener">${esc(r[0])}</a>`).join(", ")+")":""}${x.n?" · "+x.n+" questões analisadas":""}${x.at&&!x.seed?" · em "+dm(x.at):""}.${x.seed==="oj"?" As provas do TJ-SP contam em dobro. Questões de outros estados fora do seu edital ficaram de fora."+(x.n<20?" Ainda são poucas questões: trate como tendência.":""):""}`:"Ajustado por você"+(x.at?" em "+dm(x.at):"")+".";
     const list=ed?`<div class="pv-ed">${s.t.map((t,j)=>`<label class="pv-er"><span>${esc(t[0])}</span><input class="inp" type="number" min="0" max="100" step="0.1" inputmode="decimal" id="pvt${j}" value="${has&&!incMiss(s.id,j)?Math.round(P[j]*10)/10:""}" placeholder="sem dado"></label>`).join("")}
        <p class="muted small" style="margin:0">Use porcentagens ou números de questões. Deixe em branco o assunto sem dado: ele conta como a média da matéria.</p>
        <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn" data-a="pvTCancel">Cancelar</button><button class="btn pri" data-a="pvTSave" data-s="${s.id}">Salvar</button></div></div>`
@@ -8382,6 +8447,7 @@ function vProva(){const T=qTot(),L=ED.map(s=>({s,q:qOf(s)})).sort((a,b)=>b.q-a.q
   <section class="card"><div class="card-h"><h2>Peso de cada matéria</h2><span class="r">${qe?`<button class="btn sm" data-a="pvQReset">Voltar ao edital</button> <button class="btn sm pri" data-a="pvQEd">Pronto</button>`:`<button class="btn sm" data-a="pvQEd">Ajustar questões</button>`}</span></div>
    <div class="card-b pv-tb">${rows}</div>
    <div class="card-b" style="border-top:1px solid var(--line)"><p class="muted small" style="margin:0">${qe?"Mude o número de questões se o edital trouxer outro valor. Vale para as próximas metas.":"“Da meta atual” mostra quanto das suas atividades desta meta é de cada matéria. Matérias que ficam abaixo do peso na prova ganham mais espaço nas próximas metas."}</p></div></section>
+  ${tecIncCard()}
   <section class="card"><div class="card-b row" style="align-items:center;gap:12px"><span style="flex:1 1 300px"><b>Assuntos que mais caem</b> <span class="muted small">Use números reais sempre que puder: em cada matéria, “Colar dados de um site” recebe a estatística de assuntos do <a href="https://www.tecconcursos.com.br" target="_blank" rel="noopener">TEC</a>, <a href="https://www.qconcursos.com" target="_blank" rel="noopener">QConcursos</a>, Estratégia ou Gran. Sem dados, a IA estima pelo histórico da ${IS_TJ?"VUNESP":esc(PLAN.banca||"banca")}.${IS_TJ?" As matérias já vêm com as provas de Oficial de Justiça de 2022 a 2024 (TJ-SP 2023 e 2024, TJ-MT, TJ-MA, TJ-GO e TJDFT) classificadas questão a questão nos assuntos do seu edital.":""}</span></span>
    ${nInc<ED.length||busy?`<button class="btn pri" data-a="pvAI" data-s="*" ${busy?"disabled":""}>${ic("bulb")} ${busy?"Estimando "+esc(busy)+"…":nInc?"Estimar com IA as que faltam":"Estimar todas com IA"}</button>`:""}</div></section>
   ${subs}`}
@@ -9274,6 +9340,7 @@ async function estPend(){let raw="";try{raw=sessionStorage.getItem("jx-estr")||"
   const isTec=/"src":"tec"|%22src%22%3A%22tec%22/.test(raw);
   if(!READY||obPending()||(DB&&!PULLED)||(IS_TJ&&!isTec)){setTimeout(estPend,1500);return}
   try{sessionStorage.removeItem("jx-estr")}catch(e){}let P=null;try{P=JSON.parse(decodeURIComponent(raw))}catch(e){try{P=JSON.parse(raw)}catch(x){}}
+  if(P&&P.src==="tecinc"){tecIncSave(P);return}
   if(P&&P.src==="teccad"){tecAutoSave(P);return}
   if(P&&P.src==="tec"){await tecLink(P);return}
   if(P&&P.src==="page"){UI.cs={step:"trazer",tb:"link",sel:csMine(),link:P.url||"",pageLinks:Array.isArray(P.links)?P.links:[]};csModal();await csRun({txt:[P.title,P.text].filter(Boolean).join("\n").slice(0,260000),fromLink:1});return}
@@ -10263,7 +10330,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261110063725&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261110080953&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -10925,7 +10992,7 @@ function parseEdital(txt){
   const out=[];subs.forEach(x=>{if(!x.t.length)return;const o=out.find(y=>norm(y.n)===norm(x.n));if(o){o.t.push(...x.t);o.q=o.q||x.q}else out.push(x)});
   out.forEach(x=>{x.t=[...new Set(x.t)]});edQSplit(out);return out}
 const PCOLS=["#e0457b","#f07b3c","#3f9cea","#a98cf8","#2fb8a5","#e9b325","#58b724","#8f9bb0","#f2695c","#29a3d6","#c48a4a","#7c6fd6","#d4569e","#3aa86b"];
-function makeSubs(raw,start,used){used=used||new Set();return raw.map((x,i)=>({id:"s"+(start+i+1),c:subCode(x.n,used),n:x.n,w:x.q&&x.q>0?Math.min(40,x.q):Math.max(3,Math.min(12,Math.round(x.t.length*.7))),b:1,col:PCOLS[(start+i)%PCOLS.length],t:x.t.map(t=>[t,kwOf(t)])}))}
+function makeSubs(raw,start,used){used=used||new Set();return raw.map((x,i)=>({id:"s"+(start+i+1),c:subCode(x.n,used),n:x.n,...(x.bloco?{bl:String(x.bloco).slice(0,90)}:{}),w:x.q&&x.q>0?Math.min(40,x.q):Math.max(3,Math.min(12,Math.round(x.t.length*.7))),b:1,col:PCOLS[(start+i)%PCOLS.length],t:x.t.map(t=>[t,kwOf(t)])}))}
 function plansCard(){
   const L=allPlans();
   return`<section class="card"><div class="card-h"><h2>Meus concursos</h2><span class="r muted small">cada um com edital, metas e progresso próprios</span></div><div class="card-b pll">
@@ -11292,8 +11359,11 @@ function edQFill(subs,prog){if(!subs||!subs.length||!prog)return;const L=String(
     const s=edMatch(h,subs);if(s&&!s.q)s.q=q})}
 /* número de questões de um bloco com várias matérias: reparte entre as que não têm número próprio */
 function edQSplit(subs){const B={};subs.forEach(x=>{if(x.bloco&&x.qb>0){const k=norm(x.bloco);(B[k]=B[k]||{qb:x.qb,L:[]}).L.push(x)}});
-  Object.values(B).forEach(b=>{const has=b.L.filter(x=>x.q>0),free=b.L.filter(x=>!(x.q>0));let rest=b.qb-has.reduce((a,x)=>a+x.q,0);if(!free.length||rest<free.length)return;
-    const base=Math.floor(rest/free.length);let extra=rest-base*free.length;free.forEach(x=>{x.q=base+(extra-->0?1:0);x.qe=1})})}
+  Object.values(B).forEach(b=>{if(b.L.length>1)b.L.forEach(x=>{if(x.q>0&&x.q>=b.qb)x.q=0});/* o total do bloco não é de uma matéria só */
+    const has=b.L.filter(x=>x.q>0),free=b.L.filter(x=>!(x.q>0));let rest=b.qb-has.reduce((a,x)=>a+x.q,0);if(!free.length||rest<free.length)return;
+    const w=free.map(x=>Math.max(1,(x.t||[]).length)),sm=w.reduce((a,v)=>a+v,0),raw=w.map(v=>rest*v/sm),fl=raw.map(v=>Math.max(1,Math.floor(v)));let r=rest-fl.reduce((a,v)=>a+v,0);
+    raw.map((v,i)=>[v-Math.floor(v),i]).sort((a,z)=>z[0]-a[0]).forEach(([,i])=>{if(r>0){fl[i]++;r--}});while(r<0){const i=fl.indexOf(Math.max(...fl));fl[i]--;r++}
+    free.forEach((x,i)=>{x.q=fl[i];x.qe=1})})}
 function edInfoTxt(T,S){if(T.length<=140000)return T;const ql=S&&S.prog?edQLines(S.prog):"",qx=ql?"\n[...]\n[Questões por matéria escritas no conteúdo programático]\n"+ql:"";let out=S.body.slice(0,120000-qx.length)+qx;
   if(S.at>=0){const re=/cronograma|data\s+prov[áa]vel|calend[áa]rio|quadro\s+de\s+vagas|distribui[çc][ãa]o\s+das\s+vagas|remunera[çc][ãa]o|vencimento\s+b[áa]sico/gi;let m,k=0;const tail=T.slice(S.at);while((m=re.exec(tail))&&k<8){out+="\n[...]\n"+tail.slice(Math.max(0,m.index-300),m.index+4000);k++;re.lastIndex=m.index+4000}}
   return out.slice(0,150000)}
@@ -11404,8 +11474,8 @@ async function edtApplyM(){edRead();const X=UI.edx;if(!X)return;const I=X.info||
     C.forEach(x=>{let k=EDK[x.k]?x.k:"o";if(used.has(k)||k==="o"){let n=1;while(used.has(k+n))n++;k=(k==="o"?"o":k)+n}used.add(k);L.push({k,l:String(x.l||EDK[x.k]||"Evento").slice(0,90),...(x.a&&edOk(x.a)&&x.a<x.d?{a:x.a}:{}),d:x.d})});
     if(!L.some(x=>x.k==="prova")){const pv=edOk(P.data)?P.data:prova();L.push({k:"prova",l:"Prova",d:pv});L.sort((a,b)=>a.d>b.d?1:-1)}
     if(L.length){c.cron=L;if(!IS_TJ){PLAN.prova=L.find(x=>x.k==="prova").d;const i1=L.find(x=>x.k==="ins1");if(i1)PLAN.ins=i1.d}msg.push(L.length+" datas")}}
-  if(sel.prova){const Q=(P.materias||[]).filter(m=>m&&m.n&&+m.q>0);(X.subs||[]).forEach(x=>{if(x.q>0&&!Q.some(m=>edMatch(m.n,[x])))Q.push({n:x.n,q:x.q})});let n=0;c.qw=c.qw||{};Q.forEach(m=>{const s=edMatch(m.n,ED);if(s){c.qw[s.id]=Math.min(120,Math.round(+m.q));n++}});
-    if(n)msg.push("questões de "+n+" matérias");else if(P.disc||P.obj)msg.push("estrutura da prova")}
+  if(sel.prova){const R=qwBuild(P,X.subs);c.qw=Object.assign(c.qw||{},R.qw);c.qb=R.qb;c.qwe={};c.qbv=1;const nb=qwRebalance(),n=Object.keys(R.qw).length+nb;
+    if(n)msg.push("questões de "+n+" matérias"+(R.qb.some(b=>b.n!=="Demais matérias")?" (blocos repartidos)":""));else if(P.disc||P.obj)msg.push("estrutura da prova")}
   if(sel.subs&&!IS_TJ&&(X.subs||[]).length){const used=new Set(ED.map(x=>x.c)),extra=[];let add=0,addS=0;
     X.subs.forEach(x=>{const o=PLAN.ed.find(y=>norm(y.n)===norm(x.n))||edMatch(x.n,PLAN.ed);if(o){x.t.forEach(t=>{if(!o.t.some(y=>norm(y[0])===norm(t))){o.t.push([t,kwOf(t)]);add++}})}else extra.push(x)});
     const ns=makeSubs(extra,PLAN.ed.reduce((m,x)=>Math.max(m,+String(x.id).replace(/\D/g,"")||0),0),used);ns.forEach(x=>{PLAN.ed.push(x);addS++;add+=x.t.length});
@@ -11435,7 +11505,7 @@ function edProvaCard(){const E=edE();if(!E||!E.ap||!E.ap.prova||!E.prova)return"
   const B={};M.forEach(m=>{const b=m.bloco||"Prova objetiva";(B[b]=B[b]||[]).push(m)});const bl=Object.entries(B),tot=M.reduce((a,m)=>a+(+m.q),0)||1;
   return`<section class="card"><div class="card-h"><h2>Como a prova é dividida</h2><span class="r muted small">pelo edital${E.info&&E.info.banca?" · "+esc(E.info.banca):""}</span></div><div class="card-b" style="display:grid;gap:12px">
    ${bl.length>1?`<div class="blocks">${bl.map(([b,L],i)=>{const q=L.reduce((a,m)=>a+(+m.q),0);return`<div style="flex:${q};background:${PCOLS[i%PCOLS.length]}" title="${esc(b)}: ${q} questões">${q/tot>.18?esc(b.length>18?b.slice(0,16)+"…":b)+" · ":""}${q}</div>`}).join("")}</div>`:""}
-   <span class="small muted">${bl.map(([b,L])=>`<b>${esc(b)}</b> ${L.map(m=>esc(m.n)+" ("+m.q+(m.peso&&+m.peso!==1?", peso "+m.peso:"")+")").join(", ")}.`).join(" ")}</span>
+   <span class="small muted">${bl.map(([b,L])=>`<b>${esc(b)}</b> ${L.map(m=>{const B=(core().qb||[]).find(x=>x.src&&norm(x.src)===norm(m.n));return B?m.q+" questões no total ("+B.ids.filter(id=>EDI[id]!=null).map(id=>esc(SUB(id).n)+" ≈ "+qOf(SUB(id))).join(", ")+")":esc(m.n)+" ("+m.q+(m.peso&&+m.peso!==1?", peso "+m.peso:"")+")"}).join(", ")}.`).join(" ")}</span>
    ${P.min?`<span class="small muted">${esc(P.min)}</span>`:""}${P.disc?`<span class="small muted"><b>Discursiva:</b> ${esc([P.disc.qtd?P.disc.qtd+" "+(P.disc.tipo||"questões"):P.disc.tipo,P.disc.linhas,P.disc.pontos?P.disc.pontos+" pontos":"",P.disc.min?"mínimo "+P.disc.min:"",P.disc.temas].filter(Boolean).join(" · "))}.</span>`:""}</div></section>`}
 document.addEventListener("change",e=>{const i=e.target;if(!i||!i.dataset||i.dataset.c!=="edFile")return;const f=i.files&&i.files[0];i.value="";if(!f)return;
   if(!/pdf$/i.test(f.type)&&!/\.pdf$/i.test(f.name)){toast("Escolha o edital em PDF");return}f.arrayBuffer().then(b=>edStart(b,f.name,f.size)).catch(()=>toast("Não consegui abrir o arquivo"))});
@@ -11600,6 +11670,7 @@ const A={
   tlHelp(){tecHelpModal()},
   tlSave(){const T=UI.tl;if(!T)return;const c=core();c.cfg.tecs=c.cfg.tecs||{};let n=0;T.L.forEach(x=>{if(!x.sid)return;c.cfg.tecs[x.sid]=x.cid?TB+"/questoes/cadernos/"+x.cid:TB+x.u;n++});c.tecGuia={t:T.guia.t||"",u:T.guia.u||"",at:Date.now()};touch("core");UI.tl=null;$("layer3").innerHTML="";render();toast(n?"TEC ligado: "+n+" matéria"+(n>1?"s":"")+" agora abrem direto no caderno":"Nenhum caderno ligado");if(tecJob().length)setTimeout(tcaModal,500)},
   tcaOpen(){tcaModal()},
+  tecIncOpen(){tecIncModal()},
   qzRes(el){qzToRes(el.dataset.id,el.dataset.q)},
   resErrDel(el){const R0=resDoc(el.dataset.s,el.dataset.c);if(R0&&R0.err){R0.err=R0.err.filter(e=>e.id!==el.dataset.id);touch(resKey(el.dataset.s,el.dataset.c));render();if(UI.openT)renderDrawer()}},
   qgDel(el){const L=QGER(el.dataset.s),i=L.findIndex(x=>x.id===el.dataset.id);if(i>=0){L.splice(i,1);touch("core");render()}},
@@ -12160,7 +12231,7 @@ Texto do edital:
       await savePlans();touch("core");toast(addS+" matérias novas e "+add+" assuntos adicionados. Recarregando…");setTimeout(()=>switchPlanReload(),600);return}
     if(!N.name){toast("Dê um nome ao concurso");const e=$("np_name");if(e)e.focus();return}
     const id="c"+Date.now().toString(36);
-    PLANS.list.push({id,name:N.name.slice(0,80),cargo:(N.cargo||"").slice(0,80),orgao:(N.orgao||"").slice(0,30),banca:(N.banca||"").slice(0,40),prova:N.prova||"",ins:N.ins||"",edUrl:N.edUrl||"",cat:N.cat||"",created:today(),ed:makeSubs(N.subs.map(x=>({n:x.n,q:x.q,t:x.t})),0)});
+    PLANS.list.push({id,name:N.name.slice(0,80),cargo:(N.cargo||"").slice(0,80),orgao:(N.orgao||"").slice(0,30),banca:(N.banca||"").slice(0,40),prova:N.prova||"",ins:N.ins||"",edUrl:N.edUrl||"",cat:N.cat||"",created:today(),ed:makeSubs(N.subs.map(x=>({n:x.n,q:x.q,t:x.t,bloco:x.bloco||""})),0)});
     if(N.ed&&N.ed.info){try{localStorage.setItem(NPE_K(id),JSON.stringify({info:N.ed.info,cargo:N.ed.cargo||N.cargo||"",file:N.ed.file||"",pages:N.ed.pages||0}))}catch(e){}}
     if(UI.obNew){PLANS.tjOff=1;UI.obNew=0}await savePlans();UI.np=null;switchPlan(id)},
   plEdit(){if(IS_TJ)return;const v=k=>($(k)||{value:""}).value.trim();const n=v("peN");if(!n){toast("O nome não pode ficar vazio");return}
