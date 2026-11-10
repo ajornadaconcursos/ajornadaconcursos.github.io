@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611092055"></script>
+<script src="/claude-shim.js?v=202611092122"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -1372,6 +1372,16 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 .crow .nt{display:block;font-size:13px;color:var(--mute);margin-top:2px}
 .chip.bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
 .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line2);border-top-color:var(--lime);border-radius:50%;animation:upspin .9s linear infinite;vertical-align:-2px;margin-right:6px}
+.tcad{display:grid;gap:10px;margin:8px 0 4px;padding:12px;border:1px solid var(--line);border-radius:14px;background:var(--raise)}
+.tcad-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}.tcad-g span{display:grid;gap:2px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);min-width:0}
+.tcad-g span.w{grid-column:span 2}.tcad-g small{color:var(--muted);font-size:.72rem}.tcad-g b{font-size:.9rem;overflow-wrap:anywhere}.tcad-go{background:#b6e93a!important;color:#14200a!important;border-color:#b6e93a!important}
+@media(max-width:560px){.tcad-g span.w{grid-column:1/-1}}
+.modal .box.qd{max-width:880px;width:100%}.qd{display:grid;gap:14px}.qd-h{display:flex;justify-content:space-between;align-items:center}.qd-h h3{margin:0}
+.qd-b{display:grid;grid-template-columns:1fr 1fr;gap:16px}.qd-l{display:grid;gap:12px;align-content:start}.qd-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qd-q{display:grid;gap:6px}.qd-rd{display:flex;gap:8px;align-items:center;cursor:pointer}.qd-rd input{width:18px;height:18px}
+.qd-r{display:grid;gap:8px;align-content:start;padding:14px;border-radius:12px;background:var(--raise);border:1px solid var(--line)}
+.qd-m{display:grid;grid-template-columns:1fr 34px 30px 34px;align-items:center;gap:6px}.qd-m b{text-align:center}.qd-ok{color:#9be15d}
+.qd-f{display:flex;justify-content:flex-end;gap:8px}@media(max-width:720px){.qd-b{grid-template-columns:1fr}}
 .tecb{display:grid;gap:10px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--raise)}
 .tecb-h{display:flex;gap:6px 10px;align-items:center;flex-wrap:wrap}.tecb-h svg{width:16px;height:16px}
 .tprow{display:flex;gap:6px;align-items:stretch}.tprow .tp{flex:1;min-width:0}
@@ -3741,6 +3751,22 @@ function tecUrl(sid){
   if(TECL.sub[sid])return TECL.sub[sid];
   return tecSearch(tecMatTerm(sid),false);
 }
+/* ================= Cadernos prontos do TEC por aula (compartilhados, como o Guruja) =================
+   Cada caderno foi gerado no TEC com 20 a 30 questões dos assuntos da aula e compartilhado: o aluno abre o link,
+   salva o caderno na conta dele e resolve. Depois registra o desempenho aqui, ligado à matéria e aos assuntos da aula.
+   m: palavras da matéria · a: assuntos ou títulos da aula que usam o caderno · s: código do link de compartilhamento */
+const TECCAT=[
+ {m:["empresarial","comercial"],a:["empresario e empresa","empresario","empresa","caracterizacao e inscricao do empresario","capacidade do empresario"],id:108295856,s:"Q7KOhM",t:"A Jornada - Direito Empresarial - Empresário e empresa",n:25,b:"Geral",l:"Empresário e empresa",as:"Do Empresário (arts. 966 a 980 do CC)"}
+];
+const tecCadLink=c=>TB+"/s/"+c.s;
+const tecCadMin=c=>({i:Math.round(c.n*1.6),x:Math.round(c.n*1.8)});
+function tecCadFor(t){if(!t||!t.sid)return null;const sub=norm([TECN[t.sid],(SUB(t.sid)||{}).n].filter(Boolean).join(" "));
+  const txt=[...aSet(t).map(c=>{const a=auOf(t.sid,c);return a?[a.d,a.t,a.n].filter(Boolean).join(" "):""}),...taskEdTopics(t),t.topic?topicName(t.topic):"",t.tit||""].filter(Boolean).map(x=>norm(String(x)));
+  let best=null,bv=0;TECCAT.forEach(c=>{if(!c.m.some(w=>sub.includes(w)))return;let v=0;c.a.forEach(al=>{txt.forEach(x=>{if(x.includes(al))v=Math.max(v,al.length>10?1:.7);else{const d=cdice(nTok(al),nTok(x));if(d>=.5)v=Math.max(v,d*.9)}})});if(v>bv){bv=v;best=c}});return bv>=.6?best:null}
+function tecCadCard(c,t){const tm=tecCadMin(c),done=t&&t.done;
+  return`<div class="tcad"><div class="tcad-g"><span><small>ID</small><b>${c.id}</b></span><span class="w"><small>Título</small><b>${esc(c.t)}</b></span><span><small>Banca</small><b>${esc(c.b||"Geral")}</b></span><span><small>Questões</small><b>${c.n}</b></span><span><small>Tempo ideal</small><b>${tm.i}min</b></span><span><small>Tempo máximo</small><b>${tm.x}min</b></span></div>
+   <div class="row" style="gap:8px"><a class="btn pri tcad-go" href="${esc(tecCadLink(c))}" target="_blank" rel="noopener">${ic("ext")} Resolver questões</a>${t&&!done?`<button class="btn" data-a="qdOpen" data-id="${t.id}">${ic("check")} Registrar desempenho</button>`:""}</div>
+   <span class="muted small">No TEC, toque em “clique aqui” no aviso amarelo para salvar o caderno na sua conta e contar as resoluções. Terminou e quer treinar mais? Crie outro caderno no TEC com o assunto ${esc(c.as||"da aula")}.</span></div>`}
 /* TEC por assunto */
 const tShort=x=>{let y=String(x).split(/[:(;]/)[0].trim();if(y.length>70)y=y.slice(0,70).replace(/\s+\S*$/,"");return y||String(x).slice(0,70)};
 function tecTopicUrl(sid,topic){const T=core().cfg.tecs||{};if(T[sid])return T[sid];if(tecGuiaCad(sid))return tecGuiaCad(sid);return tecSearch(tecTerm(topic))}
@@ -5834,7 +5860,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261109205550";
+const JX_BUILD="20261109212236";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6333,7 +6359,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109205550" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109212236" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -6999,11 +7025,12 @@ function guide(t){
     if(IS_TJ){const ps=[...new Set(aSet(t).flatMap(c=>partsOf(t.sid,c)))];const nq=ps.reduce((a,p)=>{const Z=qzDoc(p.id);return a+(Z&&Z.L?Z.L.length:(p.qs||[]).length)},0);
       G.steps.push({h:ps.length?`${n++}) NO PAINEL – resolva aqui ${nq?"as "+nq+" questões":"as questões"} da lista do PDF ${E(grpDa(t))}, na seção “Resolver as questões aqui” logo abaixo: marque a alternativa e veja na hora se acertou (verde) ou errou (vermelho).`:`${n++}) NO PAINEL – envie o PDF ${E(grpDa(t))} em Materiais para as questões da aula aparecerem aqui para resolver.`})}
     if(t.quiz){G.steps.push({h:t.quiz.includes(",")?`${n++}) QUIZ – resolva os Quizzes Estratégicos ${E(t.quiz)} (aulas extras, somente PDF).`:`${n++}) QUIZ – resolva o Quiz Estratégico da Aula ${E(t.quiz)} (aula extra, somente PDF).`})}
-    const cadG=tecGuiaCad(t.sid),GA0=tecGA(t);
-    if(GA0.length)G.steps.push({h:`${n++}) NO TEC – resolva uma bateria de ${t.nq} questões da VUNESP no <a href="${E(GA0[0].cad)}" target="_blank" rel="noopener">caderno do Guia Oficial de Justiça (TJ SP)</a>: toque em Índice e vá até ${GA0.length>1?"estes assuntos":"este assunto"}:`,items:GA0.map(x=>`<b>${E(x.n)}</b> (${x.q} ${x.q>1?"questões":"questão"}${x.cad!==GA0[0].cad?", no caderno de "+E(x.mat):""})`)});
+    const cadG=tecGuiaCad(t.sid),GA0=tecGA(t),CDA=tecCadFor(t);
+    if(CDA)G.steps.push({h:`${n++}) QUESTÕES – resolva no TEC o caderno desta aula: ${CDA.n} questões de ${E(TECN[t.sid]||s.n)} sobre ${E(CDA.l||tShort(etp[0]||""))}.`,html:tecCadCard(CDA,t)});
+    else if(GA0.length)G.steps.push({h:`${n++}) NO TEC – resolva uma bateria de ${t.nq} questões da VUNESP no <a href="${E(GA0[0].cad)}" target="_blank" rel="noopener">caderno do Guia Oficial de Justiça (TJ SP)</a>: toque em Índice e vá até ${GA0.length>1?"estes assuntos":"este assunto"}:`,items:GA0.map(x=>`<b>${E(x.n)}</b> (${x.q} ${x.q>1?"questões":"questão"}${x.cad!==GA0[0].cad?", no caderno de "+E(x.mat):""})`)});
     else G.steps.push({h:`${n++}) ${IS_TJ?"NO TEC – resolva uma bateria":"QUESTÕES – resolva no TEC uma bateria"} de ${t.nq} questões da VUNESP de ${E(TECN[t.sid]||s.n)}${cadG?`, no <a href="${E(cadG)}" target="_blank" rel="noopener">caderno do Guia Oficial de Justiça (TJ SP)</a>`:""}, filtrando pelos assuntos da aula:`,items:etp.length?etp.map(x=>`<a href="${E(tecTopicUrl(t.sid,x))}" target="_blank" rel="noopener">${E(tShort(x))}</a>`):(tp.length?li(tp):null)});
     G.steps.push({h:`${n++}) Confira o comentário das questões que errou e, se necessário, aprimore seu material de revisão.`});
-    G.steps.push({h:`${n++}) Ao finalizar, registre quantas questões fez, quantas acertou e os assuntos que errou: eles entram nas revisões de 1, 7, 14, 30 e 60 dias.`});
+    G.steps.push({h:`${n++}) Ao finalizar, ${CDA?"toque em Registrar desempenho e informe":"registre"} quantas questões fez, quantas acertou e os assuntos que errou: eles entram nas revisões de 1, 7, 14, 30 e 60 dias.`});
   }
   G.topics=MT?MT.top:nmTopics(t,tp);return G;
 }
@@ -8051,7 +8078,7 @@ function renderDrawer0(){
   const {t,n}=f,s=SUB(t.sid),ts=tasksOf(n),lk=phaseLocks(ts)[t.id],isCur=n===core().cur||!!t.ref,i=ts.indexOf(t),G=guide(t);
   const prev=ts[i-1],next=ts[i+1],run=TM.run&&TM.tid===t.id,tsec=taskSecs(t.id),canTime=isCur&&!lk&&!t.done;
   const keepOpen={};document.querySelectorAll(".av details[id]").forEach(d=>{keepOpen[d.id]=d.open});const op=(id,def)=>(id in keepOpen?keepOpen[id]:def)?"open":"";
-  const steps=G.steps.map(x=>`<div><span class="hl">${x.h}</span>${x.items&&x.items.length?`<ul>${x.items.map(z=>`<li>${z}</li>`).join("")}</ul>`:""}</div>`).join("");
+  const steps=G.steps.map(x=>`<div><span class="hl">${x.h}</span>${x.items&&x.items.length?`<ul>${x.items.map(z=>`<li>${z}</li>`).join("")}</ul>`:""}${x.html||""}</div>`).join("");
   const ap=t.aula?pdfOfAula(t.sid,t.aula):null,p=t.pdf?pdf(t.pdf):ap?ap:t.rpdf?pdf(t.rpdf):null,pa=t.pdf&&t.pa?t.pa:(p&&t.ph==='T'&&t.pa?t.pa:t.rpa||1),pb=t.pdf&&t.pb?t.pb:(p&&t.ph==='T'&&t.pb?t.pb:t.rpb||(p?p.pages:1));
   const qz=t.quiz?PDFS().find(x=>x.sid===t.sid&&x.aula===t.quiz):null,SIMPLE=false;
   const mat=`${p?`<div class="mat"><div class="pdfic">PDF</div><div style="min-width:0"><b>${esc(p.name)}</b><div class="muted small">${t.pdf?"Trecho desta atividade":"Material de referência"}: págs. ${pa} a ${pb} de ${p.pages}</div></div>${t.ph==="T"?ppRing(p.id,pa,pb):""}</div><div class="row"><button class="btn pri" data-a="read" data-id="${p.id}" data-pa="${pa}" data-pb="${pb}">${ic("book")} Abrir páginas ${pa} a ${pb}</button><button class="btn lx-btn" data-a="lxOpen" data-pid="${p.id}" data-pa="${pa}" data-tid="${t.id}" title="Ler e ouvir no Scribax">🎧 Ouvir no Scribax</button><button class="btn" data-a="read" data-id="${p.id}" data-pa="1" data-pb="${p.pages}">${t.aula&&partsOf(t.sid,t.aula).length>1?"Parte "+(p.part||1)+" completa":"PDF completo"}</button><button class="btn" data-a="aulaDl" data-s="${t.sid}" data-c="${t.aula&&!String(t.aula).startsWith("x:")?t.aula:""}" data-id="${p.id}">${ic("dl")} Baixar a aula inteira</button></div>`:t.aula?`<p class="muted small" style="margin:0">Com o PDF desta aula no painel, as páginas exatas da atividade abrem aqui e a teoria é cortada por assunto.</p>`:""}
@@ -8128,6 +8155,34 @@ function renderDrawer0(){
 }
 function grabMin(id){const h=$("avHh"),m=$("avMm");if(!h||!m)return;const v=(parseInt(h.value,10)||0)*60+(parseInt(m.value,10)||0);UI.tmin=UI.tmin||{};if(v>0)UI.tmin[id]=v;else delete UI.tmin[id]}
 function commitMin(id){const v=UI.tmin&&UI.tmin[id];if(v>0){logMinutes(Math.min(v,720),id);delete UI.tmin[id];return v}return 0}
+const QD_MOT=[["desc","Desconhecimento"],["esq","Esquecimento"],["conf","Confusão conceitual"],["int","Erro de interpretação"],["aten","Falta de atenção"],["tempo","Falta de tempo"]];
+function qdModal(){const X=UI.qd;if(!X)return;const f=findTask(X.id);if(!f){UI.qd=null;return}const t=f.t,c=tecCadFor(t),nq=c?c.n:(t.nq||25);
+  const er=Math.max(0,(X.f||0)-(X.a||0)),soma=QD_MOT.reduce((a,[k])=>a+(X.m[k]||0),0),ne=Math.max(0,er-soma);
+  const rd=(k,v,l)=>`<label class="qd-rd"><input type="radio" name="qd_${k}" value="${v}" ${X[k]===v?"checked":""} data-c="qdR" data-k="${k}"> ${l}</label>`;
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Registrar desempenho"><div class="box qd">
+   <div class="qd-h"><h3>Registrar desempenho</h3><button class="ibtn" data-a="qdClose" aria-label="Fechar">${ic("close")}</button></div>
+   <div class="qd-b"><div class="qd-l">
+     <div class="qd-2"><div class="field"><label for="qdF">Questões resolvidas (${nq})</label><input class="inp" id="qdF" type="number" min="0" max="${Math.max(nq,200)}" value="${X.f||0}" data-c="qdN"></div>
+       <div class="field"><label for="qdA">Total de acertos</label><input class="inp" id="qdA" type="number" min="0" value="${X.a||0}" ${X.f?"":"disabled"} data-c="qdN"></div>
+       <div class="field"><label for="qdH">Horas</label><input class="inp" id="qdH" type="number" min="0" value="${X.h||0}" data-c="qdN"></div>
+       <div class="field"><label for="qdM">Minutos</label><input class="inp" id="qdM" type="number" min="0" max="59" value="${X.mi||0}" data-c="qdN"></div></div>
+     <div class="qd-q"><b>Revisou antes de resolver?</b>${rd("rev","s","Sim")}${rd("rev","n","Não")}</div>
+     <div class="qd-q"><b>Quando conferiu os gabaritos e comentários?</b>${rd("cf","q","A cada questão")}${rd("cf","f","Só ao final")}</div>
+     <div class="field"><label for="qdE">Assuntos que você errou, um por linha (opcional)</label><textarea class="inp" id="qdE" rows="3" placeholder="Ex.: Capacidade do empresário">${esc(X.e||"")}</textarea></div></div>
+    <div class="qd-r"><b>Detalhe os erros <span class="muted">(opcional)</span></b><span class="muted small">Atribua motivos aos erros para definir o seu padrão de erros e personalizar o seu planejamento.</span>
+     ${QD_MOT.map(([k,l])=>`<div class="qd-m"><span>${l}</span><button class="ibtn" data-a="qdMot" data-k="${k}" data-d="-1" aria-label="Menos ${l}" ${(X.m[k]||0)?"":"disabled"}>−</button><b id="qdV_${k}">${X.m[k]||0}</b><button class="ibtn" data-a="qdMot" data-k="${k}" data-d="1" aria-label="Mais ${l}" ${ne?"":"disabled"}>+</button></div>`).join("")}
+     <div class="qd-m"><span>Não especificado</span><b style="grid-column:3" id="qdNe">${ne}</b></div>
+     <span id="qdSum" class="${er?"muted":"qd-ok"} small">${er?er+" erro"+(er>1?"s":"")+(soma?": "+soma+" com motivo":""):"Nenhum erro registrado"}</span></div></div>
+   <div class="qd-f"><button class="btn" data-a="qdClose">Cancelar</button><button class="btn pri" data-a="qdSave" ${X.f>0?"":"disabled"}>Salvar</button></div></div></div>`}
+function qdRead(){const X=UI.qd;if(!X)return;const v=id=>Math.max(0,parseInt(($(id)||{}).value,10)||0);X.f=v("qdF");X.a=Math.min(v("qdA"),X.f);X.h=v("qdH");X.mi=Math.min(59,v("qdM"));const e=$("qdE");if(e)X.e=e.value;
+  const er=X.f-X.a;let s0=0;QD_MOT.forEach(([k])=>{X.m[k]=Math.min(X.m[k]||0,Math.max(0,er-s0));s0+=X.m[k]})}
+/* atualiza o modal sem redesenhar (redesenhar no meio de um clique perde o clique) */
+function qdSync(){const X=UI.qd;if(!X)return;const er=Math.max(0,X.f-X.a),soma=QD_MOT.reduce((a,[k])=>a+(X.m[k]||0),0),ne=Math.max(0,er-soma);const q=$("qdA");if(q)q.disabled=!X.f;
+  QD_MOT.forEach(([k])=>{const v=$("qdV_"+k);if(v)v.textContent=X.m[k]||0;document.querySelectorAll(`[data-a="qdMot"][data-k="${k}"]`).forEach(b=>{b.disabled=+b.dataset.d<0?!(X.m[k]||0):!ne})});
+  const n=$("qdNe");if(n)n.textContent=ne;const sm=$("qdSum");if(sm){sm.className=(er?"muted":"qd-ok")+" small";sm.textContent=er?er+" erro"+(er>1?"s":"")+(soma?": "+soma+" com motivo":""):"Nenhum erro registrado"}
+  const sv=document.querySelector('[data-a="qdSave"]');if(sv)sv.disabled=!(X.f>0)}
+document.addEventListener("change",e=>{const i=e.target;if(!i||!i.dataset||!UI.qd)return;if(i.dataset.c==="qdR")UI.qd[i.dataset.k]=i.value});
+document.addEventListener("input",e=>{const i=e.target;if(!i||!i.dataset||!UI.qd||i.dataset.c!=="qdN")return;qdRead();qdSync()});
 function finishTask(t){
   grabMin(t.id);const tv=commitMin(t.id);UI.finAsk=null;
   t.done=today();if(t.ph!=="Q"&&!t.skip&&!t.ref)setTimeout(()=>makeCards(t,false),60);if(t.ph==="T")markStudied(t);
@@ -10096,7 +10151,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109205550&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109212236&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -11816,6 +11871,18 @@ const A={
     if(pc<REF_T()){const r0=f.t.ref?null:makeRef(f.t,f.t.grau,pc),w=rvQuick(f.t,pc);
       setTimeout(()=>toast("Você acertou "+pc+"% (abaixo de "+REF_T()+"%): "+(r0?"reforço de "+r0.nq+" questões na próxima meta e ":"")+"revisão rápida "+(w==="meta"?"já nesta meta":"na próxima meta")),900)}
     finishTask(f.t);render()},
+  qdOpen(el){const f=findTask(el.dataset.id);if(!f)return;const c=tecCadFor(f.t),q0=qzTask(f.t),m=(UI.tmin||{})[f.t.id]||0;UI.qd={id:f.t.id,f:q0.f||0,a:q0.f?q0.ok:0,h:Math.floor(m/60),mi:m%60,rev:"",cf:"",e:"",m:{}};qdModal()},
+  qdClose(){UI.qd=null;$("layer3").innerHTML=""},
+  qdMot(el){qdRead();const X=UI.qd;if(!X)return;const k=el.dataset.k,d=+el.dataset.d,er=X.f-X.a,s0=QD_MOT.reduce((a,[q])=>a+(X.m[q]||0),0);if(d>0&&s0>=er)return;X.m[k]=Math.max(0,(X.m[k]||0)+d);qdSync()},
+  qdSave(){qdRead();const X=UI.qd;if(!X||!(X.f>0))return;const f=findTask(X.id);if(!f)return;const t=f.t,F=X.f,Ac=X.a,min=X.h*60+X.mi,c=tecCadFor(t);
+    if(min>0){UI.tmin=UI.tmin||{};UI.tmin[t.id]=min}
+    t.q={f:F,a:Ac,...(min?{min}:{}),...(X.rev?{rev:X.rev}:{}),...(X.cf?{cf:X.cf}:{}),...(Object.values(X.m).some(v=>v>0)?{mot:Object.fromEntries(Object.entries(X.m).filter(([,v])=>v>0))}:{}),...(c?{cad:c.id}:{})};
+    String(X.e||"").split("\n").map(x=>x.trim()).filter(Boolean).forEach(l=>addMiss("t:"+uid(),l,t.sid));
+    UI.qd=null;UI.qform=null;$("layer3").innerHTML="";
+    const pc=Math.round(Ac/F*100);t.grau=pc<50?3:pc<75?2:1;
+    if(pc<REF_T()){const r0=t.ref?null:makeRef(t,t.grau,pc),w=rvQuick(t,pc);setTimeout(()=>toast("Você acertou "+pc+"% (abaixo de "+REF_T()+"%): "+(r0?"reforço de "+r0.nq+" questões na próxima meta e ":"")+"revisão rápida "+(w==="meta"?"já nesta meta":"na próxima meta")),900)}
+    else toast("Desempenho registrado: "+Ac+" de "+F+" ("+pc+"%)");
+    finishTask(t);render()},
   reopen(el){const f=findTask(el.dataset.id);if(!f)return;if(f.t.rv)rvUndo(f.t);f.t.done=null;pxUnTask(f.t);delete f.t.skip;touch("m-"+f.n);toast("Atividade reaberta");render()},
   _x(){},
   timeT(el){TM.tid=el.dataset.id;if(!TM.run){TM.run=true;TM.t0=Date.now()}saveTM();startTick();toast("Cronômetro iniciado nesta atividade");render()},
