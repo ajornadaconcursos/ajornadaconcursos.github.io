@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611100809"></script>
+<script src="/claude-shim.js?v=202611100830"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -5188,9 +5188,9 @@ const TABS=[["comparativo","Comparativo"],["motivacao","Cantinho da Motivação"
 /* Menu enxuto: abas irmãs ficam dentro de um item só, com um seletor no topo da página */
 /* Menu simples: 5 entradas. As telas de sempre continuam, agrupadas em abas dentro de cada entrada. */
 const LX_ICO=`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5z" fill="#f2b441"/><path d="M5 4h2.4v16H5z" fill="#2f74f0"/><path d="M14.2 8.4h-3.1a1.7 1.7 0 0 0 0 3.4h2a1.7 1.7 0 0 1 0 3.4h-3.3" fill="none" stroke="#16285e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["rotina","Meu plano"],["desempenho","Desempenho"],["motivacao","Cantinho da Motivação"],["assinatura","Assinatura"],["tutorial","Tutorial"]];
+const NAV=[["meta","Hoje"],["materiais","Estudar"],["revisoes","Revisar"],["arena","Trilha"],["rotina","Meu plano"],["desempenho","Desempenho"],["motivacao","Cantinho da Motivação"],["assinatura","Assinatura"],["tutorial","Tutorial"]];
 const GROUPS={materiais:[["materiais","Aulas e PDFs","materiais"],["resumos","Resumos","resumos"],["mapas","Mapas mentais","mapas"],["esquemas","Esquemas resumidos","list"],["leiseca","Lei seca","edital"],["discursiva","Discursiva e redação","discursiva"]],
-  revisoes:[["revisoes","Fila de hoje","revisoes"],["arena","Trilha (cards)","arena"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"],["provas","Minhas provas","prova"],["mural","Mural de lembretes","list"]],
+  revisoes:[["revisoes","Fila de hoje","revisoes"],["erradas","Erradas","erradas"],["reforcos","Reforços","target"],["simulados","Simulados","simulados"],["provas","Minhas provas","prova"],["mural","Mural de lembretes","list"]],
   desempenho:[["desempenho","Desempenho","desempenho"],["pontos","Pontos fracos","target"],["comparativo","Comparativo","compat"]],
   rotina:[["rotina","Rotina","rotina"],["jornada","Caminho até a prova","jornada"],["edital","Edital","edital"],["incidencia","Incidência","incidencia"],["concurso","Concurso","concurso"],["arquivo","Arquivo","list"]]};
 const GP={};Object.entries(GROUPS).forEach(([g,L])=>L.forEach(([k])=>{GP[k.split(":")[0]]=g}));
@@ -5239,7 +5239,7 @@ try{const j=sessionStorage.getItem("jornada-jtab");if(j){UI.jtab=j;sessionStorag
 function renderNav(){
   const due=dueRevs().length;
   const LXB=`<button class="nav-lx" data-a="lxOpen" title="Scribax: ler e ouvir os seus PDFs"><span class="lx-ic">${LX_ICO}</span><span>Scribax</span><em>Ouvir</em></button>`;
-  $("nav").innerHTML=NAV.map(([k,l])=>`<button data-a="tab" data-t="${k}" title="${l}" ${k==="motivacao"?'class="nav-mot"':""} ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${ic(k==="assinatura"?"lock":k)}<span>${l}</span>${k==="revisoes"&&due+errPend()+arNowN()?`<span class="cnt">${due+errPend()+arNowN()}</span>`:""}</button>`+(k==="materiais"?LXB:"")).join("");
+  $("nav").innerHTML=NAV.map(([k,l])=>`<button data-a="tab" data-t="${k}" title="${l}" ${k==="motivacao"?'class="nav-mot"':""} ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${ic(k==="assinatura"?"lock":k)}<span>${l}</span>${k==="revisoes"&&due+errPend()?`<span class="cnt">${due+errPend()}</span>`:k==="arena"&&arNowN()?`<span class="cnt">${arNowN()}</span>`:""}</button>`+(k==="materiais"?LXB:"")).join("");
   $("mtabs").innerHTML=("")+NAV.map(([k,l])=>`<button data-a="tab" data-t="${k}" ${k==="motivacao"?'class="mt-mot"':""} ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${k==="motivacao"?"🤍 ":""}${l}${k==="revisoes"&&due+errPend()?" · "+(due+errPend()):""}</button>`+(k==="materiais"?`<button class="mt-lx" data-a="lxOpen">🎧 Scribax</button>`:"")).join("");
   const c=core(),es=edStats(),PG=progData(),p=Math.round(PG.tot);
   $("av").style.setProperty("--p",p);{const ph=PLANS.me&&PLANS.me.photo,an=$("avn");if(ph){an.innerHTML=`<img src="${esc(ph)}" alt="">`;an.classList.add("ph")}else{an.classList.remove("ph");an.textContent=(c.cfg.name||"?").trim().charAt(0).toUpperCase()||"?"}}
@@ -5952,7 +5952,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261110080953";
+const JX_BUILD="20261110083006";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6434,7 +6434,7 @@ function ppRing(pid,pa,pb){const x=ppPct(pid,pa,pb);if(!x)return"";const r=17,C=
 setInterval(()=>{try{if(typeof RD!=="undefined"&&RD.doc&&RD.id&&RD.p)ppSet(RD.id,RD.p,RD.n)}catch(e){}},4000);
 /* ---------- Tour rápido: as 5 telas que mais importam (aparece uma vez; dá para rever no Tutorial) ---------- */
 const TOUR5=[
- {t:"meta",sel:'#nav [data-t="meta"]',h:"Hoje",p:"Comece sempre por aqui. A meta e as atividades do dia ficam no topo: toque numa atividade para abrir o PDF nas páginas certas, o cronômetro e as questões."},
+ {t:"meta",sel:'#nav [data-t="meta"]',h:"Hoje",p:"Comece sempre por aqui. No topo ficam o seu concurso, o desempenho e a semana; logo abaixo, a meta e as atividades do dia: toque numa atividade para abrir o PDF nas páginas certas, o cronômetro e as questões."},
  {t:"materiais",sel:'#nav [data-t="materiais"]',h:"Estudar",p:"Aulas e PDFs, resumos, mapas mentais, esquemas, lei seca e discursiva. Envie os PDFs das aulas para as metas indicarem as páginas exatas."},
  {t:null,sel:'#nav .nav-lx',h:"Scribax",p:"O leitor que lê os seus PDFs em voz alta e destaca cada palavra. Mostra quanto do trecho de hoje você já leu, e os cards e questões que você fizer lá vêm para a plataforma."},
  {t:"revisoes",sel:'#nav [data-t="revisoes"]',h:"Revisar",p:"A Fila de hoje junta tudo o que voltou: cards da Trilha, revisões das aulas, Erradas e reforços. Siga de cima para baixo, 10 a 20 minutos por dia."},
@@ -6451,7 +6451,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261110080953" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261110083006" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -6944,19 +6944,21 @@ function iaModal(){$("layer3").innerHTML=`<div class="modal" role="dialog" aria-
 function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
   let h=greetHTML(name)+obPerfilCard()+obSetupCard()+edThinHTML();
+  /* topo do Hoje: cabeçalho do concurso, desempenho e o trilheiro da semana; depois a meta e as tarefas */
+  const topo=()=>hjOrgHTML()+kpiBlock()+jwCard();
   if(!r){
+    h+=topo();
     const pv=previewMeta(),tot=remainingMetas();
     h+=`<section class="card mandado"><div class="m-head"><div class="m-num"><small>Prévia</small><b>Meta 01</b></div><div class="m-meta"><span class="code">OJ-TJSP · 01/${pad(tot)}</span><span class="muted small">${tot} metas previstas para cobrir o edital</span></div></div>
      <div class="m-body"><p class="muted" style="margin:0;max-width:70ch">Escolha quanto tempo você tem por dia. Cada meta tem 18 tarefas: primeiro a revisão, o mapeamento ou as questões das aulas já estudadas (um passo por meta) e todas as 11 matérias entram em toda meta; as vagas que sobram vão para as matérias de maior peso no edital. As horas por dia definem o tamanho de cada bloco: de 1 a 18 páginas, terminando no fim de um assunto e sempre antes das listas de questões. A próxima meta só abre quando a atual for cumprida. Envie os PDFs das aulas na aba Materiais para as metas indicarem as páginas exatas.</p>
      <div class="segbar" aria-hidden="true">${pv.map(t=>`<i class="${t.ph} p"></i>`).join("")}</div>
      <div class="row"><div class="field" style="flex:0 1 260px"><label for="cfgHrs0">Horas de estudo por dia</label><select class="inp" id="cfgHrs0" data-c="hrs">${[...Array(10)].map((_,i)=>`<option value="${i+1}" ${c.cfg.hrs===i+1?"selected":""}>${i+1} h por dia, ${(i+1)*c.cfg.dias} h na meta</option>`).join("")}</select></div>
      <button class="btn pri" data-a="start">${ic("play")} Começar a Meta 01</button><button class="btn" data-a="tab" data-t="materiais">${ic("materiais")} Enviar PDFs antes</button></div></div></section>`;
-    h+=jwCard();h+=kpiBlock();
     h+=`<section class="card"><div class="card-h"><h2>Atividades previstas na Meta 01</h2><span class="r chip">${pv.length} atividades · ${fmtM(sum(pv.map(t=>t.min)))}</span></div>${rowsHTML(pv,phaseLocks(pv),{},true)}</section>`;
-    h+=hjOrgHTML()+arNovo();
     return h;
   }
   const ts=tasksOf(r.n),dn=ts.filter(t=>t.done).length,st=metaStatus(r),locks=phaseLocks(ts),rem=remainingMetas(),tot=c.metas.length+rem,mbt=minutesByTask();
+  h+=topo();
   try{h+=xtrHTML()+((core().planB||{})[today()]?planBHTML(r,ts):"")}catch(e){console.error(e)}
   const nowPh=null;
   const phases=PH.map(ph=>{const g=ts.filter(t=>t.ph===ph);if(!g.length)return"";const d=g.filter(t=>t.done).length;
@@ -6986,9 +6988,7 @@ function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   h+=`<div class="mst" role="group" aria-label="Atividades ou reforços"><button data-a="mtab" data-v="atv" aria-pressed="${mt==="atv"}">Atividades | ${ts.length}</button><button data-a="gtab" data-t="reforcos" title="Os reforços ficam em Revisar">Reforços | ${RF.length}${rfLate?' <span class="bang" title="Reforço perto do prazo">!</span>':""} ›</button>${mt==="atv"&&mv!=="cal"?`<span class="sp"></span><select class="inp mfilt" data-c="mfilt" aria-label="Filtrar atividades"><option value="todas" ${UI.filter==="todas"?"selected":""}>Todas · ${ts.length}</option><option value="pend" ${UI.filter==="pend"?"selected":""}>Pendentes · ${ts.length-ts.filter(t=>t.done).length}</option><option value="feitas" ${UI.filter==="feitas"?"selected":""}>Cumpridas · ${ts.filter(t=>t.done).length}</option></select>`:""}</div>`;
   if(mv==="cal")h+=calHTML(r,ts,locks);
   else h+=`<section class="card alcard">${rowsHTML(ts,locks,mbt,false)}</section>`;void dn;
-  h+=jwCard();h+=kpiBlock();
   try{h+=checkinHTML()}catch(e){console.error(e)}
-  h+=hjOrgHTML()+arNovo();
   return h;
 }
 const WDN=["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
@@ -10330,7 +10330,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261110080953&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261110083006&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
