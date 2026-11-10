@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611092238"></script>
+<script src="/claude-shim.js?v=202611100637"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -2780,7 +2780,7 @@ function obSetupCard(){const M=PLANS.me;if(!M||!M.at||M.setupOk||!PLANS.onb)retu
   const linked=ED.some(x=>courseList(x.id).some(c=>c.id!=="std"));
   cur.filter(k=>!["TEC Concursos","QConcursos"].includes(k)).concat(M.out?[M.out]:[]).forEach(k=>L.push({t:k+": vincule o curso",s:"Cole o link do curso e a plataforma liga as aulas às metas",ok:linked,b:`<button class="btn sm pri" data-a="csFull">Vincular</button>`}));
   if(IS_TJ){if(cur.includes("TEC Concursos"))L.push({t:"TEC Concursos",s:"O Guia do cargo já está ligado às tarefas de questões",ok:true,b:""})}
-  else{const pj=tecJob().length,dn=Object.keys(tecAutoMap()).length;L.push({t:"TEC Concursos: cadernos por aula",s:pj?pj+" aula"+(pj>1?"s":"")+" do seu concurso sem caderno: a plataforma cria um de 25 questões para cada uma":"Todas as aulas têm caderno de questões ("+dn+")",ok:!pj&&dn>0,b:pj?`<button class="btn sm pri" data-a="tcaOpen">Criar</button>`:""})}
+
   if(cur.includes("QConcursos"))L.push({t:"QConcursos",s:"Guarde o link dos seus cadernos em Estudar › Aulas e PDFs",ok:false,b:`<button class="btn sm" data-a="gtab" data-t="materiais">Abrir</button>`});
   L.push({t:"PDFs das aulas",s:"Envie ou arraste a pasta: as metas indicam as páginas exatas",ok:PDFS().length>0,b:`<button class="btn sm pri" data-a="gtab" data-t="materiais">Enviar</button>`});
   L.push({t:"Horas e dias de estudo",s:"Ajuste a sua semana para as metas caberem na rotina",ok:!!M.rotSeen,b:`<button class="btn sm" data-a="gtab" data-t="rotina">Ajustar</button>`});
@@ -3777,6 +3777,8 @@ function tcaModal(){const items=tecJob(),done=Object.keys(tecAutoMap()).length,b
    <div class="lkst"><b>2</b><div><b>Abra o TEC já logado na sua conta</b><p class="muted small" style="margin:4px 0 8px">O botão abaixo abre o TEC com a lista das suas aulas.</p><a class="btn pri sm" href="${esc(tecJobUrl(items))}" target="_blank" rel="noopener">${ic("ext")} Abrir o TEC e criar os cadernos</a></div></div>
    <div class="lkst"><b>3</b><div><b>No TEC, toque no favorito ➜ A Jornada</b><p class="muted small" style="margin:4px 0 0">Ele cria os cadernos (cerca de ${Math.max(1,Math.round(items.length*3/60))} min) e mostra <b>Voltar para A Jornada</b>: toque nele e cada caderno entra na sua aula.</p></div></div></div>`:""}
    <div class="row" style="justify-content:flex-end"><button class="btn" data-a="volClose">Fechar</button></div></div></div>`}
+function tcaMatHTML(){if(IS_TJ)return"";const pj=tecJob().length,dn=Object.keys(tecAutoMap()).length;
+  return`<section class="card tcam"><div class="card-b row" style="gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap"><span style="flex:1 1 280px"><b>${ic("target")} Questões do TEC por aula</b><br><span class="muted small">${pj?(dn?dn+" aula"+(dn>1?"s":"")+" com caderno · ":"")+pj+" sem caderno. A plataforma cria na sua conta do TEC um caderno de 25 questões por aula e grava na tarefa de questões.":"Todas as "+dn+" aulas têm caderno de 25 questões gravado na tarefa de questões."}</span></span>${pj?`<button class="btn pri sm" data-a="tcaOpen">${dn?"Criar os que faltam":"Criar os cadernos"}</button>`:`<span class="chip ok">${ic("check")} Pronto</span>`}</div></section>`}
 function tcaCard(){try{if(IS_TJ)return"";const M=PLANS.me;if(M&&M.at&&!M.setupOk&&PLANS.onb)return"";const pj=tecJob().length;if(!pj)return"";const dn=Object.keys(tecAutoMap()).length;
   return`<section class="card tlc"><div class="card-b row" style="gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap"><span style="flex:1 1 260px">${ic("target")} <b>${dn?pj+" aula"+(pj>1?"s novas":" nova")+" sem caderno no TEC":"Cadernos do TEC para as suas aulas"}</b><br><span class="muted small">${dn?"Entraram aulas novas no seu concurso. ":""}A plataforma cria na sua conta do TEC um caderno de 25 questões por aula, com os assuntos do edital, e grava cada um na tarefa de questões.</span></span><button class="btn pri sm" data-a="tcaOpen">Criar os cadernos</button></div></section>`}catch(e){return""}}
 /* logo depois de escolher o concurso (e quando entram aulas novas), a plataforma oferece criar os cadernos sozinha, uma vez */
@@ -5885,7 +5887,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261109223836";
+const JX_BUILD="20261110063725";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6384,7 +6386,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261109223836" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261110063725" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -6876,7 +6878,7 @@ function iaModal(){$("layer3").innerHTML=`<div class="modal" role="dialog" aria-
 
 function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
-  let h=greetHTML(name)+obPerfilCard()+obSetupCard()+tcaCard()+edThinHTML();
+  let h=greetHTML(name)+obPerfilCard()+obSetupCard()+edThinHTML();
   if(!r){
     const pv=previewMeta(),tot=remainingMetas();
     h+=`<section class="card mandado"><div class="m-head"><div class="m-num"><small>Prévia</small><b>Meta 01</b></div><div class="m-meta"><span class="code">OJ-TJSP · 01/${pad(tot)}</span><span class="muted small">${tot} metas previstas para cobrir o edital</span></div></div>
@@ -8866,9 +8868,92 @@ async function resumoPdf(sid,c,kind){
   const ps=doc.getPages();ps.forEach((p,i)=>p.drawText(pdfSafe("A JORNADA - "+s.c+" - "+(au?auLabel(sid,c):"")+" - pág. "+(i+1)+" de "+ps.length),{x:M,y:24,size:8,font:F,color:gray}));
   return new Blob([await doc.save()],{type:"application/pdf"});
 }
+/* ---------- Resumo da matéria inteira ---------- */
+const dmt=t=>{const d=new Date(t);return pad(d.getDate())+"/"+pad(d.getMonth()+1)};
+const resmKey=sid=>"resm-"+sid;
+const resmDoc=sid=>D[resmKey(sid)]||null;
+const resmGet=sid=>{const k=resmKey(sid);if(!D[k]||typeof D[k]!=="object")D[k]={sid,fin:null,own:[]};if(!Array.isArray(D[k].own))D[k].own=[];return D[k]};
+const RESM_BUSY=new Set();
+function resBest(sid,c){const R=resDoc(sid,c);if(R){for(const[k,l]of[["fin","3º resumo"],["r2","2º resumo"],["r1","1º resumo"]])if(R[k]&&R[k].txt)return{txt:String(R[k].txt),k,l};if(R.txt)return{txt:String(R.txt),k:"txt",l:"resumo"}}
+  let q="";try{q=qResumao(sid,c)||""}catch(e){}return q?{txt:q.split("\n").slice(1).join("\n"),k:"q",l:"pelas questões"}:null}
+const resmItems=sid=>AU(sid).map(a=>({a,b:resBest(sid,a.c)})).filter(x=>x.b);
+const resmOwnAll=sid=>{const R=resmDoc(sid);return R&&R.own?R.own.map(o=>(o.t?"## "+o.t+"\n":"")+o.txt).join("\n\n"):""};
+const resmSig=sid=>resmItems(sid).map(x=>x.a.c+x.b.k).join(",")+"|"+resmOwnAll(sid).length;
+const demote=t=>String(t).replace(/^(#{1,5})\s/gm,"#$1 ");
+function resmCaderno(sid){const s=SUB(sid),L=AU(sid),it=resmItems(sid),own=resmDoc(sid)&&resmDoc(sid).own||[];
+  const sum=it.map(x=>"- "+auLabel(sid,x.a.c)+" · "+x.a.d.slice(0,80)+" ("+x.b.l+")");if(own.length)sum.push("- Seus resumos da matéria ("+own.length+")");
+  const parts=it.map(x=>"# "+auLabel(sid,x.a.c)+" · "+x.a.d.slice(0,90)+"\n"+demote(x.b.txt));
+  if(own.length)parts.push("# Seus resumos da matéria\n"+own.map(o=>"## "+(o.t||"Resumo")+"\n"+o.txt).join("\n\n"));
+  return{n:it.length,tot:L.length,own:own.length,md:parts.length?"## Sumário\n"+sum.join("\n")+"\n\n"+parts.join("\n\n"):"",s}}
+/* trecho do resumo do aluno mais ligado à aula, para entrar nos prompts das aulas */
+function resmOwnTxt(sid,c,max){const all=resmOwnAll(sid);if(!all)return"";if(all.length<=max)return all;
+  const au=c?auOf(sid,c):null,q=[...new Set(norm(au?au.d:"").split(/[^a-z0-9]+/).filter(w=>w.length>3))];
+  const ps=all.split(/\n\s*\n/).map((t,i)=>{const n=norm(t);return{t,i,s:q.reduce((k,w)=>k+(n.includes(w)?1:0),0)}});
+  ps.sort((a,b)=>b.s-a.s||a.i-b.i);const out=[];let n=0;for(const p of ps){if(n+p.t.length>max)continue;out.push(p);n+=p.t.length+2;if(n>max*.95)break}
+  return out.sort((a,b)=>a.i-b.i).map(p=>p.t).join("\n\n")}
+async function resmGen(sid){if(!SAMPLE){toast("O resumão da matéria precisa da IA");return}const k=resmKey(sid);if(RESM_BUSY.has(k))return;
+  const s=SUB(sid),it=resmItems(sid),own=resmOwnAll(sid).slice(0,40000);
+  if(!it.length&&!own){toast("Ainda não há resumos das aulas nem resumo seu desta matéria.");return}
+  RESM_BUSY.add(k);render();
+  try{const per=Math.max(2500,Math.floor((140000-own.length)/Math.max(1,it.length)));
+    const body=it.map(x=>"## "+auLabel(sid,x.a.c)+" · "+x.a.d.slice(0,90)+" ("+x.b.l+")\n"+x.b.txt.slice(0,per)).join("\n\n");
+    const tops=(s.t||[]).map((t,i)=>(i+1)+". "+t[0]).join("\n");
+    const prompt=`Você monta o RESUMÃO DA MATÉRIA INTEIRA de ${s.n} para a véspera da prova de ${dsCargo()} (banca ${dsBanca()}).
+Abaixo estão os resumos de cada aula${own?" e o resumo que o próprio aluno escreveu da matéria":""}. Junte tudo num único resumo${tops?", organizado pelos tópicos do edital (na ordem do edital)":", organizado por assunto"}, sem repetir o que aparece em mais de uma aula.
+Em cada tópico: as regras, exceções, prazos, números e artigos de lei que mais caem, curtos e diretos. Itens que começam com "★ " foram marcados pelo aluno: mantenha a estrela.${own?` O que vier do resumo do aluno tem prioridade: inclua e comece o item com "✎ ".`:""}
+Se um tópico do edital não tiver nada nas fontes, escreva só "- (sem material ainda)" embaixo dele.
+No fim, "## Pegadinhas da matéria" (o que a banca costuma trocar) e "## Checklist da véspera" com itens "- ☐ ".
+Escreva em português do Brasil, em texto simples: "## " para tópicos, "### " para subtítulos, "- " para itens e **negrito** nas palavras-chave. Sem tabelas, sem HTML. Use só o que está nas fontes; não invente artigos, prazos ou números. Nunca diga que o material está cortado ou incompleto.
+${tops?"<topicos_do_edital>\n"+tops+"\n</topicos_do_edital>\n":""}${body?"<resumos_das_aulas>\n"+body+"\n</resumos_das_aulas>\n":""}${own?"<resumo_do_aluno>\n"+own+"\n</resumo_do_aluno>":""}`;
+    const r=await SAMPLE(prompt,{modelTier:IA_LEVE,onText:({text})=>{const o=$("rsmOut");if(o&&o.dataset.k===sid)o.innerHTML=mdLite(text)}});
+    if(r&&r.text){const R=resmGet(sid);R.fin={txt:resClean(r.text).trim(),at:Date.now(),sig:resmSig(sid),n:it.length};touch(k);toast("Resumão de "+s.c+" pronto")}}
+  catch(e){toast(e&&e.code==="not_granted"?"Você não permitiu usar a IA.":"Não consegui montar o resumão da matéria agora. Tente de novo.")}
+  finally{RESM_BUSY.delete(k);render()}}
+function resmAggHTML(sid,vw){const out=[];AU(sid).forEach(a=>{let X;try{X=qResData(sid,a.c)}catch(e){return}if(!X.groups.length&&!X.extra.length)return;
+    if(vw==="err"&&!qPtFlat(X).some(x=>x.pt.qs.some(q=>q.err)))return;out.push(`<div class="rsm-au"><h3>${esc(auLabel(sid,a.c))} · ${esc(a.d.slice(0,80))}</h3>${qResHTML(sid,a.c,vw)}</div>`)});
+  return out.length?out.join(""):`<p class="muted" style="margin:0">${vw==="err"?"Você ainda não errou questões nesta matéria (ou ainda não registrou). 👏":"Ainda não há questões nas aulas desta matéria. Elas aparecem aqui conforme você resolve as questões de cada aula."}</p>`}
+function vResumoMat(sid){const s=SUB(sid),k=resmKey(sid),R=resmDoc(sid)||{own:[]},busy=RESM_BUSY.has(k),C=resmCaderno(sid),vw=["res","cad","cai","err"].includes(UI.rsmV)?UI.rsmV:"res";
+  const old=R.fin&&R.fin.sig!==resmSig(sid),own=R.own||[];
+  const tabs=[["res","Resumão"],["cad","Caderno de resumos"],["cai","O que cai"],["err","O que errei"]];
+  let main="";
+  if(vw==="res")main=`<p class="muted small" style="margin:0">Junta o resumo mais completo de cada aula (o 3º, se já existir; senão o 2º ou o 1º)${own.length?" e o resumo que você enviou":""}, reorganizado pelos tópicos do edital, para a véspera. Não relê os PDFs, por isso sai barato.</p>
+    <div class="rsout" id="rsmOut" data-k="${sid}">${busy?(R.fin?mdLite(R.fin.txt):'<p class="muted"><span class="spin"></span> A IA está juntando os resumos das aulas…</p>'):R.fin?mdLite(R.fin.txt):`<p class="muted" style="margin:0">${C.n||own.length?`Há ${C.n} de ${C.tot} aulas com resumo${own.length?" e "+own.length+" resumo"+(own.length>1?"s":"")+" seu"+(own.length>1?"s":""):""}. Toque em “Montar o resumão da matéria”.`:"Ainda não há resumos das aulas desta matéria. Eles aparecem conforme você estuda cada aula — ou envie o seu resumo da matéria ao lado."}</p>`}</div>
+    <div class="row" style="gap:8px;flex-wrap:wrap;align-items:center">${SAMPLE?`<button class="btn sm ${R.fin&&!old?"ghost":"pri"}" data-a="rsmGen" ${busy||(!C.n&&!own.length)?"disabled":""}>${ic("bulb")} ${busy?"Montando…":R.fin?(old?"Atualizar o resumão":"Refazer o resumão"):"Montar o resumão da matéria"}</button>`:`<span class="muted small">O resumão precisa da IA. O caderno de resumos funciona sem ela.</span>`}${R.fin&&!busy?`<button class="btn sm" data-a="rsmPdf">${ic("dl")} Baixar o resumão em PDF</button><span class="muted small">Feito em ${dmt(R.fin.at)}${old?" · há resumos novos desde então":""}</span>`:""}</div>`;
+  else if(vw==="cad")main=`<p class="muted small" style="margin:0">Todos os resumos das aulas em sequência, com sumário, num PDF só. Sem IA. ${C.n} de ${C.tot} aulas têm resumo${C.own?" · + "+C.own+" resumo"+(C.own>1?"s":"")+" seu"+(C.own>1?"s":""):""}.</p>
+    <div class="rsout">${C.md?mdLite(C.md.length>60000?C.md.slice(0,60000)+"\n\n*(continua no PDF)*":C.md):'<p class="muted" style="margin:0">Ainda não há resumos para juntar.</p>'}</div>
+    <div class="row" style="gap:8px">${C.md?`<button class="btn sm pri" data-a="rsmCadPdf">${ic("dl")} Baixar o caderno de resumos em PDF</button>`:""}</div>`;
+  else main=`<p class="muted small" style="margin:0">${vw==="cai"?"O que já caiu nas questões, aula por aula, da matéria inteira.":"Só os pontos em que você errou questões, de todas as aulas da matéria."}</p><div class="rsout">${resmAggHTML(sid,vw)}</div>`;
+  const ol=own.map(o=>`<details class="fc"><summary>${esc(o.t||"Resumo")} <span class="muted small">· ${o.src==="pdf"?"PDF":"texto"} · ${Math.round(o.txt.length/1000)||1} mil caracteres</span></summary><div class="bk" style="max-height:260px;overflow:auto;white-space:pre-wrap">${esc(o.txt.slice(0,4000))}${o.txt.length>4000?"…":""}</div><div class="fm"><span>${dmt(o.at)}</span><button class="lnk" data-a="rsmOwnDel" data-id="${o.id}">Remover</button></div></details>`).join("");
+  return`<div class="grid2 rsg"><section class="card"><div class="card-h"><h2>${esc(s.n)} · matéria inteira</h2><span class="r muted small">${C.n}/${C.tot} aulas com resumo</span></div>
+    <div class="card-b" style="display:grid;gap:12px">
+      <div class="tabs2" role="group" aria-label="Resumo da matéria" style="flex-wrap:wrap">${tabs.map(([v,l])=>`<button data-a="rsmV" data-v="${v}" aria-pressed="${vw===v}">${l}</button>`).join("")}</div>
+      ${main}
+      <div class="row" style="gap:8px;flex-wrap:wrap">${SAMPLE?`<button class="btn sm" data-a="duvOpen" data-s="${sid}" data-c="">🎓 Tirar dúvida com o professor</button>`:""}</div>
+    </div></section>
+    <section class="card"><div class="card-h"><h2>Adicionar o seu resumo da matéria</h2></div><div class="card-b" style="display:grid;gap:10px">
+      <p class="muted small" style="margin:0">Tem um resumo seu ou de outro material da matéria toda? Cole aqui ou envie o PDF. Ele fica guardado, entra no resumão da matéria e também é usado nos resumos de cada aula.</p>
+      <div class="field"><label for="rsmT">Título (opcional)</label><input class="inp" id="rsmT" placeholder="Ex.: Meu resumo de ${esc(s.n)}"></div>
+      <div class="field"><label for="rsmX">Texto do resumo</label><textarea class="inp" id="rsmX" style="min-height:140px" placeholder="Cole aqui o seu resumo da matéria"></textarea></div>
+      <div class="row" style="gap:8px;flex-wrap:wrap;align-items:center"><button class="btn pri sm" data-a="rsmOwnAdd">${ic("plus")} Guardar o resumo</button><label class="btn sm" style="cursor:pointer">${ic("materiais")} Enviar PDF<input type="file" accept="application/pdf,.pdf" data-c="rsmPdf" hidden></label><span class="muted small" id="rsmSt"></span></div>
+      ${ol?`<div style="display:grid;gap:8px;margin-top:4px"><b class="small">Seus resumos desta matéria (${own.length})</b>${ol}</div>`:""}
+    </div></section></div>`}
+function resmOwnPush(sid,t,txt,src){txt=String(txt||"").replace(/\r/g,"").replace(/\n{3,}/g,"\n\n").trim();if(txt.length<40){toast("O resumo está muito curto.");return false}
+  const R=resmGet(sid);R.own.push({id:"o"+Date.now().toString(36),t:String(t||"").trim().slice(0,120)||("Resumo "+(R.own.length+1)),txt:txt.slice(0,150000),src,at:Date.now()});touch(resmKey(sid));return true}
+document.addEventListener("change",async e=>{const i=e.target;if(!i||!i.dataset||i.dataset.c!=="rsmPdf")return;const f=i.files&&i.files[0];i.value="";if(!f)return;
+  const sid=UI.rsSid||ED[0].id,st=$("rsmSt");if(st)st.textContent="Lendo o PDF…";
+  try{const r=await edPdfText(await f.arrayBuffer(),(a,b)=>{if(st&&b)st.textContent="Lendo o PDF… pág. "+a+" de "+b});
+    if(!r||String(r.txt||"").replace(/\s/g,"").length<200){if(st)st.textContent="Este PDF não tem texto legível. Cole o texto no campo acima.";return}
+    const tt=($("rsmT")&&$("rsmT").value)||f.name.replace(/\.pdf$/i,"");if(resmOwnPush(sid,tt,r.txt,"pdf")){toast("Resumo guardado ("+(r.n||"")+" págs.)");render()}}
+  catch(err){if(st)st.textContent="Não consegui ler este PDF. Cole o texto no campo acima."}});
 function vResumos(){
   const sid=UI.rsSid&&ED.some(s=>s.id===UI.rsSid)?UI.rsSid:(ED.find(s=>AU(s.id).length)||ED[0]).id,L=AU(sid);UI.rsSid=sid;
   if(!L.length)return`<div class="hello"><h1>Resumos</h1><p>Ainda não há aulas cadastradas para esta matéria. Envie os PDFs em Estudar → Aulas e PDFs.</p></div>`;
+  const MAT=UI.rsAula==="__mat",sopt0=ED.map(s=>`<option value="${s.id}" ${s.id===sid?"selected":""}>${esc(s.n)}</option>`).join(""),mopt=`<option value="__mat" ${MAT?"selected":""}>📚 Matéria inteira · todas as aulas</option>`;
+  if(MAT){UI.rsKey="";return`<div class="hello"><h1>Resumos</h1><p>Além dos três resumos de cada aula, você tem o <b>resumo da matéria inteira</b>: o resumão que junta todas as aulas pelo edital, o caderno com todos os resumos num PDF só e o espaço para guardar o seu próprio resumo da matéria.</p></div>
+  <section class="card"><div class="card-b row" style="align-items:flex-end">
+    <div class="field" style="flex:1 1 220px"><label for="rsS">Matéria</label><select class="inp" id="rsS" data-c="rsSid">${sopt0}</select></div>
+    <div class="field" style="flex:2 1 320px"><label for="rsA">Aula</label><select class="inp" id="rsA" data-c="rsAula">${mopt}${L.map(a=>`<option value="${a.c}">${esc(auLabel(sid,a.c))} · ${esc(a.d.slice(0,60))}</option>`).join("")}</select></div></div></section>
+  ${vResumoMat(sid)}`}
   const c=UI.rsAula&&L.some(a=>a.c===UI.rsAula)?UI.rsAula:(L.find(a=>pdfOfAula(sid,a.c))||L[Math.min(progOf(sid).i,L.length-1)]||L[0]).c;
   UI.rsAula=c;const key=resKey(sid,c);UI.rsKey=key;
   try{qResSync(sid,c)}catch(e){}
@@ -8882,7 +8967,7 @@ function vResumos(){
   return`<div class="hello"><h1>Resumos</h1><p>Cada aula tem três resumos, um em cada etapa: o <b>1º</b> na revisão (a teoria e o que você marcou), o <b>2º</b> no mapeamento (soma o que já caiu nas questões) e o <b>3º, o resumão</b>, depois das questões (o que é prioridade, as lacunas completadas e os reforços).</p></div>
   <section class="card"><div class="card-b row" style="align-items:flex-end">
     <div class="field" style="flex:1 1 220px"><label for="rsS">Matéria</label><select class="inp" id="rsS" data-c="rsSid">${sopt}</select></div>
-    <div class="field" style="flex:2 1 320px"><label for="rsA">Aula</label><select class="inp" id="rsA" data-c="rsAula">${aopt}</select></div></div></section>
+    <div class="field" style="flex:2 1 320px"><label for="rsA">Aula</label><select class="inp" id="rsA" data-c="rsAula">${mopt}${aopt}</select></div></div></section>
   ${qGerHTML(sid)}<div class="grid2 rsg"><section class="card"><div class="card-h"><h2>${esc(auLabel(sid,c))}${au?" · "+esc(au.d.slice(0,70)):""}</h2><span class="r muted small">${X.nq?X.nq+" questões":""}</span></div>
     <div class="card-b" style="display:grid;gap:12px">
       <div class="r3tabs" role="group" aria-label="Os três resumos da aula">${[1,2,3].map(n=>`<button data-a="rsView" data-v="r${n}" aria-pressed="${vw==="r"+n}"><i>${n}</i><span><b>${n===3?"3º resumo · Resumão":n+"º resumo"}</b><small>${n===1?"na revisão":n===2?"no mapeamento":"depois das questões"}${r3Of(R0,n)?" ✓":""}</small></span></button>`).join("")}</div>
@@ -9287,7 +9372,7 @@ function vMateriais(){
         return`<div class="pdfrow"><div class="pdfic" style="${p?"":"color:var(--mute)"}">${p?"PDF":"—"}</div><div style="min-width:0"><div class="nm">Aula ${esc(a.c)} · <span style="font-weight:500">${esc(a.d)}</span></div><div class="row" style="margin-top:6px;gap:6px">${a.tp.map(j=>`<span class="chip">${esc(tShort(ED[EDI[s.id]].t[j][0]))}</span>`).join("")||'<span class="chip">sem tópico do edital</span>'}${p?`<span class="chip ok">${ic("check")} PDF enviado</span>`:""}</div></div>
         <div class="row" style="justify-content:flex-end">${p&&allPartsOf(s.id,x).length<2?`<button class="btn sm" data-a="read" data-id="${p.id}" data-pa="1" data-pb="${p.pages||1}">${ic("book")} Abrir</button><button class="btn sm ghost" data-a="delPdf" data-id="${p.id}" aria-label="Remover PDF">${ic("trash")}</button>`:""}${p?upBtn(ic("plus")+" Adicionar parte","btn sm",s.id,x):upBtn(ic("plus")+" Enviar PDF","btn sm",s.id,x)}</div></div>${allPartsOf(s.id,x).length>1?`<div style="padding:0 14px 10px">${partsHTML(s.id,x,allPartsOf(s.id,x))}</div>`:""}`}).join("")).join("")}${ex}</details>`});
   return`${""}<div class="hello"><h1>Materiais</h1><p>As metas seguem o índice de aulas do Estratégia. Envie o PDF de cada aula: a teoria é dividida em partes de 15 a 18 páginas (sem capa, índice e apresentação), sempre parando antes de um novo tópico e antes da lista de questões. Só depois de acabar todas as páginas de teoria da aula entram a revisão, o mapeamento das questões e as questões.</p></div>
-  ${cursosHTML()}
+  ${cursosHTML()}${tcaMatHTML()}
   <section class="card"><div class="card-b"><div class="drop" id="drop">
     <div class="row" style="width:100%"><div class="field" style="flex:1 1 220px"><label for="pSub">Matéria</label><select class="inp" id="pSub" data-c="psub">${opts}</select></div>
     <div class="field" style="flex:1 1 260px"><label for="pAula">Aula</label><select class="inp" id="pAula">${aopts}</select></div>
@@ -9824,8 +9909,8 @@ document.addEventListener("click",e=>{const c=UI.rdMk;if(!c||c==="x"||!RD_TOUCH(
 const ESQ=()=>{const c=core();return c.esq||(c.esq=[])};
 const esqOfAula=(sid,c)=>{const au=c?auOf(sid,c):null,T=new Set(au&&au.tp||[]);return ESQ().filter(x=>x.sid===sid&&(!c||x.aula===c||(!x.aula&&(!x.tps||!x.tps.length||x.tps.some(n=>T.has(n))))))};
 const esqTxt=(sid,c,max)=>{max=max||15000;const au=c?auOf(sid,c):null,e=esqOfAula(sid,c).map(x=>"### "+(x.ti||"Esquema")+(x.aula?" (Aula "+x.aula+")":"")+"\n"+x.txt).join("\n\n"),k=kbTxt(sid,au&&au.tp&&au.tp.length?au.tp:null,Math.min(5000,Math.round(max*.4)));
-  const nt=c?resNotesTxt(sid,c):"",mt=kbMetTxt(sid);
-  return((mt?mt+"\n\n":"")+(nt?"### Ênfases que o aluno acrescentou (dê destaque)\n"+nt+"\n\n":"")+e.slice(0,k?max-k.length-80:max)+(k?"\n\n### Base de conhecimento da plataforma A Jornada (aprendida dos materiais do aluno)\n"+k:"")).trim()};
+  const nt=c?resNotesTxt(sid,c):"",mt=kbMetTxt(sid),ow=resmOwnTxt(sid,c,Math.min(4000,Math.round(max*.25))),owb=ow?ow.length+80:0;
+  return((mt?mt+"\n\n":"")+(nt?"### Ênfases que o aluno acrescentou (dê destaque)\n"+nt+"\n\n":"")+(ow?"### Resumo da matéria enviado pelo aluno (use o que for desta aula)\n"+ow+"\n\n":"")+e.slice(0,Math.max(0,(k?max-k.length-80:max)-owb))+(k?"\n\n### Base de conhecimento da plataforma A Jornada (aprendida dos materiais do aluno)\n"+k:"")).trim()};
 /* ---------- Base de conhecimento: a plataforma aprende com cada material (esquemas, resumos e PDFs) e liga ao tópico do edital ---------- */
 const KBK=sid=>"kb-"+sid;
 const KB=sid=>D[KBK(sid)]||(D[KBK(sid)]={sid,t:{},seen:{},n:0});
@@ -10178,7 +10263,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261109223836&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261110063725&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -11492,6 +11577,12 @@ const A={
   async rsAulaPdf(){const p=pdfOfAula(UI.rsSid||ED[0].id,UI.rsAula);if(!p)return;const buf=await pdfBytes(p);if(!buf){toast("Este PDF não está salvo neste aparelho nem na sua conta");return}await saveFile(p.name,new Blob([buf],{type:"application/pdf"}))},
   rsGen(){genResumo(UI.rsSid||ED[0].id,UI.rsAula,null)},
   rsView(el){UI.rsView=el.dataset.v;render()},
+  rsmV(el){UI.rsmV=el.dataset.v;render()},
+  rsmGen(){resmGen(UI.rsSid||ED[0].id)},
+  async rsmPdf(el){const sid=UI.rsSid||ED[0].id,R=resmDoc(sid),s=SUB(sid);if(!R||!R.fin)return;el.disabled=true;try{const b=await mdToPdf("Resumão da matéria - "+s.n,"Todas as aulas, organizado pelo edital",R.fin.txt.replace(/☐/g,"[ ]"),"A JORNADA - "+s.c+" - matéria inteira");await saveFile("Resumao da materia "+s.c+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}el.disabled=false},
+  async rsmCadPdf(el){const sid=UI.rsSid||ED[0].id,C=resmCaderno(sid);if(!C.md)return;el.disabled=true;try{const b=await mdToPdf("Caderno de resumos - "+C.s.n,C.n+" de "+C.tot+" aulas"+(C.own?" + seus resumos":""),C.md.replace(/☐/g,"[ ]"),"A JORNADA - "+C.s.c+" - caderno de resumos");await saveFile("Caderno de resumos "+C.s.c+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}el.disabled=false},
+  rsmOwnAdd(){const sid=UI.rsSid||ED[0].id,x=$("rsmX"),t=$("rsmT");if(!x||!x.value.trim()){toast("Cole o texto do seu resumo primeiro.");return}if(resmOwnPush(sid,t&&t.value,x.value,"txt")){toast("Resumo da matéria guardado");render()}},
+  rsmOwnDel(el){const sid=UI.rsSid||ED[0].id,R=resmDoc(sid);if(!R)return;R.own=(R.own||[]).filter(o=>o.id!==el.dataset.id);touch(resmKey(sid));toast("Resumo removido");render()},
   murCor(el){UI.murC=el.dataset.c;document.querySelectorAll(".mur-c").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.c===UI.murC)))},
   murAdd(){const t=(($("murT")||{}).value||"").trim();if(!t){toast("Escreva o lembrete");return}const sid=($("murS")||{}).value||"";UI.murS=sid;MUR().unshift({id:uid(),t:t.slice(0,400),sid,c:UI.murC||"am",d:today(),at:Date.now()});touch("core");render();toast("Lembrete colado no mural")},
   murDel(el){const L=MUR(),i=L.findIndex(x=>x.id===el.dataset.id);if(i>=0){L.splice(i,1);touch("core");render()}},
@@ -11990,7 +12081,7 @@ document.addEventListener("change",e=>{
   else if(k==="rfAll"){UI.rfAll=el.checked;render()}
   else if(k==="erS"){UI.erS=el.value;render()}
   else if(k==="erK"){UI.erK=el.value;render()}
-  else if(k==="rsSid"){UI.rsSid=el.value;UI.rsAula="";UI.rsEdit=null;render()}
+  else if(k==="rsSid"){UI.rsSid=el.value;UI.rsAula=UI.rsAula==="__mat"?"__mat":"";UI.rsEdit=null;render()}
   else if(k==="rsAula"){UI.rsAula=el.value;UI.rsEdit=null;render()}
   else if(k==="perfil"){UI.cOpen=true;pushUndo("Alterar assinaturas");const C=core();C.perfil=C.perfil||{plats:{}};C.perfil.plats[el.dataset.p]=el.value;touch("core");render()}
   else if(k==="perfilOutro"){const C=core();C.perfil=C.perfil||{plats:{}};C.perfil.outro=el.value.trim();touch("core");render()}
