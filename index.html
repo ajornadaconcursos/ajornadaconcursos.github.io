@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611100946"></script>
+<script src="/claude-shim.js?v=202611101003"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -5953,7 +5953,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261110094605";
+const JX_BUILD="20261110100339";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6452,7 +6452,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261110094605" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261110100339" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -7583,12 +7583,14 @@ const SKIN=()=>{try{return localStorage.getItem("jornada-skin")||"arena"}catch(e
 function applySkin(){const r=document.documentElement,k=SKIN();if(k==="arena")r.dataset.skin="arena";else delete r.dataset.skin;
   const bg=(core().skin||{}).bg;if(bg&&(bg.id||bg.url))r.style.setProperty("--skin-img",`url("${String(skinUrl(bg)).replace(/"/g,"")}")`);else r.style.removeProperty("--skin-img")}
 const catOf=()=>IS_TJ?null:(typeof CAT!=="undefined"?CAT.find(x=>x.id===PLAN.cat):null);
+/* retificação do edital TJ-SP 01/2026: remuneração passou a R$ 10.276,04 (valor de março/2026) */
+const salRetif=v=>String(v||"").replace(/R\$\s?9\.856,95\s*(\([^)]*\))?/g,"R$ 10.276,04 (valor de março/2026)");
 function orgInfo(){const p=curPlan(),c=core(),cr=[...(c.cron||[])].sort((a,b)=>(a.a||a.d)>(b.a||b.d)?1:-1),K=catOf();
   const g=k=>cr.find(x=>x.k===k);const i0=(g("ins0")||{}).d||(K&&K.ia)||"",i1=(g("ins1")||{}).d||(!IS_TJ&&PLAN.ins)||(K&&K.ib)||"";
   const short=(p.orgao||"").length<=6||/^(fiscal|geral|regular)$/i.test(p.orgao||"");
   const org=IS_TJ?"Tribunal de Justiça de São Paulo":(K&&K.n)||(p.orgao&&!/^(fiscal|geral|regular)$/i.test(p.orgao)&&p.orgao.length>3?p.orgao:p.name),
    sig=IS_TJ?"TJSP":p.orgao&&/^[A-ZÀ-Ú0-9 ]{2,8}$/.test(p.orgao.split(" ")[0])?p.orgao.split(" ")[0]:(p.name||"?").replace(/\(.*?\)/g,"").split(/[\s–-]+/).filter(w=>w.length>2&&!/^(de|da|do|dos|das|e)$/i.test(w)).map(w=>w[0].toUpperCase()).join("").slice(0,4);void short;
-  return{org,sig,cargo:p.cargo||"",banca:p.banca||"",vagas:IS_TJ?"132 imediatas":fmtVagas(((c.edital&&c.edital.info)||{}).vagas||(K&&K.vg)||""),sal:IS_TJ?"R$ 9.856,95":((c.edital&&c.edital.info)||{}).salario||(K&&K.sal)||"",i0,i1,cr,prova:prova()}}
+  return{org,sig,cargo:p.cargo||"",banca:p.banca||"",vagas:IS_TJ?"132 imediatas":fmtVagas(((c.edital&&c.edital.info)||{}).vagas||(K&&K.vg)||""),sal:salRetif(IS_TJ?"R$ 10.276,04":((c.edital&&c.edital.info)||{}).salario||(K&&K.sal)||""),i0,i1,cr,prova:prova()}}
 /* "Continuar": a próxima atividade pendente e liberada da meta atual (ou o primeiro reforço) */
 function fmNext(){const r=curMeta();if(r&&!r.done){const ts=tasksOf(r.n),lk=phaseLocks(ts),td=today();const L=ts.filter(t=>!t.done&&!lk[t.id]);return L.find(t=>t.day===td)||L[0]||null}return REFS().find(x=>!x.done)||null}
 let CREST_N=0;
@@ -10335,7 +10337,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261110094605&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261110100339&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -10515,7 +10517,7 @@ function vConcurso0(){
   const TBDc=provaTBD();const rows=cr.map(x=>{const n=dbet(td,x.d),tb=TBDc&&x.k==="prova";return`<div class="crow"><div class="k">${esc(x.l)}<small>${tb?"data a definir · ∞ dias":(x.a?"de "+dm(x.a)+" a "+dm(x.d)+" · ":"")+(n>0?"faltam "+dias(n):n===0?"é hoje":"já passou")}</small></div><span class="chip ${tb?"":n<0?"":n<=7?"warn":"lime"}">${tb?"—":dmy(x.d)}</span><input class="inp when" type="date" value="${tb?"":x.d}" data-c="cron" data-k="${x.k}" aria-label="${tb?"Informar a data da prova quando sair o edital":"Alterar data: "+esc(x.l)}" ${tb?'placeholder="a definir"':""}></div>`}).join("");
   const lv=ED.map((s,i)=>`<div class="lvl"><span><span class="code" style="margin-right:8px;border-color:${s.col}">${s.c}</span>${esc(s.n)}</span><select class="inp" style="width:auto" data-c="lvl" data-s="${s.id}" aria-label="Nível em ${esc(s.n)}">${Object.keys(LVS).map(l=>`<option ${lvl(i)===l?"selected":""}>${l}</option>`).join("")}</select></div>`).join("");
   const r=curMeta(),canRe=r&&!r.done&&!started(r.n);
-  return`<div class="hello"><h1>Concurso</h1><p>${IS_TJ?"Oficial de Justiça do TJSP · Edital 01/2026 · Fundação VUNESP · 132 vagas imediatas · R$ 9.856,95":esc([PLAN.name,PLAN.cargo,PLAN.orgao,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(" · "))}</p></div>
+  return`<div class="hello"><h1>Concurso</h1><p>${IS_TJ?"Oficial de Justiça do TJSP · Edital 01/2026 · Fundação VUNESP · 132 vagas imediatas · R$ 10.276,04":esc([PLAN.name,PLAN.cargo,PLAN.orgao,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(" · "))}</p></div>
   ${plansCard()}
   ${edCard()}
   <section class="card"><div class="hero-c"><div class="big">${provaTBD()?"∞":Math.max(0,dp)}<small>${provaTBD()?"prova sem data":"dias até a prova"}</small></div><div style="display:grid;gap:8px;min-width:0">${IS_TJ?`<b style="font:600 18px var(--f-display)">${dmy(pv)}, à tarde, 5 horas de prova</b><span class="muted">Prova objetiva com 70 questões e discursiva com 2 questões de conhecimentos específicos, no mesmo dia, nas sedes das 10 RAJs.</span>`:provaTBD()?`<b style="font:600 18px var(--f-display)">Prova ainda sem data</b><span class="muted">${ED.length} matérias e ${TOT_TOP} assuntos. Quando o edital sair, inclua o edital ou informe a data no cronograma abaixo: a contagem começa sozinha.</span>`:`<b style="font:600 18px var(--f-display)">Prova em ${dmy(pv)}</b><span class="muted">${ED.length} matérias e ${TOT_TOP} assuntos no seu edital. Ajuste a data no cronograma abaixo.</span>`}
@@ -11062,7 +11064,7 @@ const CAT=[
  {id:"rfb",o:"Receita Federal",n:"Receita Federal do Brasil",uf:"Federal",b:"",st:"previsto",vg:"não divulgado",sal:"",tags:"receita federal rfb auditor fiscal analista tributario fiscal",nota:"Novo edital solicitado; ainda sem autorização.",cg:[{n:"Auditor-Fiscal da Receita Federal"},{n:"Analista-Tributário da Receita Federal"}]},
  {id:"sefazgo26",o:"SEFAZ GO",n:"Secretaria da Economia de Goiás",uf:"GO",b:"",st:"encerrado",vg:"75 vagas",sal:"cerca de R$ 32 mil",tags:"sefaz go goias economia auditor fiscal fiscal",nota:"Inscrições encerradas em 2026.",cg:[{n:"Auditor Fiscal da Receita Estadual"}]},
  {id:"sefazce26",o:"SEFAZ CE",n:"Secretaria da Fazenda do Ceará",uf:"CE",b:"",st:"encerrado",vg:"100 vagas",sal:"mais de R$ 16 mil",tags:"sefaz ce ceara fazenda auditor fiscal fiscal",nota:"Edital publicado em abril de 2026.",cg:[{n:"Cargo do edital (ver edital)"}]},
- {id:"tjsp26",o:"TJ SP",n:"Tribunal de Justiça de São Paulo (Oficial de Justiça)",uf:"SP",b:"VUNESP",st:"aberto",ia:"2026-10-28",ib:"2026-12-10",pv:"2027-03-14",vg:"132 vagas",sal:"R$ 9.856,95",tags:"tj sp tjsp tribunal justica sao paulo oficial de justica",tj:1,cg:[{n:"Oficial de Justiça"}]}
+ {id:"tjsp26",o:"TJ SP",n:"Tribunal de Justiça de São Paulo (Oficial de Justiça)",uf:"SP",b:"VUNESP",st:"aberto",ia:"2026-10-28",ib:"2026-12-10",pv:"2027-03-14",vg:"132 vagas",sal:"R$ 10.276,04",tags:"tj sp tjsp tribunal justica sao paulo oficial de justica",tj:1,cg:[{n:"Oficial de Justiça"}]}
 ];
 
 /* ================= Pré-edital: trilhas só com as matérias-base de cada área =================
