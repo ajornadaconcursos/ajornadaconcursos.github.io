@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611111717"></script>
+<script src="/claude-shim.js?v=202611111923"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -187,6 +187,10 @@ svg.i{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-widt
 .rt-pal b{font:700 13px var(--f-display);color:var(--ink,#fff)}
 .rt-pal,.rt-b,.wk-ev{text-shadow:0 1px 2px rgba(0,0,0,.38)}.rt-pal small{color:var(--ink,#fff);opacity:.8;font-size:11px}
 .rt-pal:hover{border-color:var(--c)}.rt-pal.moving{opacity:.5}
+.rt-pal{position:relative;padding-right:30px}.rt-ed{position:absolute;top:5px;right:5px;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;background:rgba(0,0,0,.22);color:#fff;cursor:pointer;opacity:.75;transition:opacity .2s,background .2s}.rt-ed svg{width:12px;height:12px}.rt-pal:hover .rt-ed,.rt-ed:focus-visible{opacity:1}.rt-ed:hover{background:rgba(0,0,0,.4)}
+.rt-add{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:8px;min-width:118px;padding:8px 14px;border-radius:10px;border:1.5px dashed var(--line);background:transparent;color:var(--fg2);font:700 13px var(--f-display);cursor:pointer}.rt-add b{font-size:18px;line-height:1;color:var(--acc,#a06bff)}.rt-add:hover{border-color:var(--acc,#a06bff);color:var(--fg)}
+.rc-box{max-width:420px;width:100%;display:grid;gap:14px}.rc-prev{justify-self:start;display:grid;gap:1px;min-width:150px;padding:9px 14px;border-radius:10px;background:var(--c);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.38);transition:background .25s}.rc-prev b{font:700 14px var(--f-display)}.rc-prev small{opacity:.8;font-size:11px}
+.rc-cols{display:flex;flex-wrap:wrap;gap:8px}.rc-col{width:30px;height:30px;border-radius:9px;border:2px solid transparent;background:var(--c);cursor:pointer}.rc-col[aria-pressed="true"]{border-color:var(--fg,#fff);box-shadow:0 0 0 3px color-mix(in srgb,var(--c) 40%,transparent)}.inp.err{border-color:#ff5f8f}
 .rt-c{position:relative;border-left:1px solid var(--line);background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% var(--px)}
 .rt-c.today{background-color:color-mix(in srgb,var(--lime) 5%,transparent)}.rt-c.over{background-color:color-mix(in srgb,var(--lime) 12%,transparent)}
 .rt-b{position:absolute;left:3px;right:3px;display:flex;flex-direction:column;justify-content:flex-start;padding:3px 7px;border-radius:8px;background:var(--c);overflow:hidden;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;box-shadow:0 1px 3px rgba(0,0,0,.22);z-index:2;font-size:11px;line-height:1.25}
@@ -2343,10 +2347,10 @@ kbd{font:600 10.5px var(--f-body);border:1px solid var(--line2);border-bottom-wi
 .mr-n b{font:600 44px/1 Oswald,var(--f-cond);color:#fff}.mr-n b small{font-size:18px;color:var(--mute)}.mr-n span{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#c9b8ff;margin-top:2px}
 .mr-r{display:grid;gap:12px;min-width:0}
 .mr-cs{display:flex;flex-wrap:wrap;gap:6px}
-.mr-c{display:inline-flex;gap:5px;align-items:center;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:800;border:1px solid rgba(160,107,255,.3);color:var(--mute);transition:all .35s}
-.mr-c small{font-weight:600;opacity:.85}
-.mr-c[data-g="1"]{border-color:var(--c);color:var(--c)}
-.mr-c[data-f="1"]{background:color-mix(in srgb,var(--c) 22%,transparent)}
+.mr-c{display:inline-flex;gap:6px;align-items:center;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800;border:1px solid color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 9%,transparent);color:var(--c);transition:all .35s}.mr-c::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c);flex:none}
+.mr-c small{font-weight:600;opacity:.9;color:var(--fg2,#d9d4ff)}
+.mr-c[data-g="1"]{border-color:var(--c)}
+.mr-c[data-f="1"]{background:color-mix(in srgb,var(--c) 26%,transparent);box-shadow:0 0 10px color-mix(in srgb,var(--c) 30%,transparent)}
 .mr-now{display:flex;gap:10px;align-items:center;padding:11px 14px;border-radius:12px;background:rgba(11,8,32,.55);border:1px solid rgba(160,107,255,.2);color:inherit;text-align:left;font-size:14px;min-width:0;width:100%;cursor:pointer}
 .mr-now small{color:#c9b8ff;font-size:13px}.mr-now span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .mr-now:hover{border-color:rgba(160,107,255,.55)}
@@ -2403,26 +2407,32 @@ kbd{font:600 10.5px var(--f-body);border:1px solid var(--line2);border-bottom-wi
 :root[data-vis="jornada"] .jw-cume .jw-f .lnk{color:#ffb3cc;padding:0}
 @media (max-width:700px){:root[data-vis="jornada"] .jw-cume .jw-h{position:static;padding:12px 14px 6px}:root[data-vis="jornada"] .jw-cume .jw-f{position:static;flex-wrap:wrap;background:none}}
 /* meta: anel à esquerda ocupando a altura do card */
-:root[data-vis="jornada"] .mandado:has(.mr-b){display:grid;grid-template-columns:220px minmax(0,1fr);column-gap:24px;align-items:center}
+:root[data-vis="jornada"] .mandado:has(.mr-b){display:grid;grid-template-columns:290px minmax(0,1fr);column-gap:28px;align-items:center}:root[data-vis="jornada"] .mandado .mr-ring{justify-self:center}
 :root[data-vis="jornada"] .mandado .mr-b{display:contents}
+@media (max-width:900px){:root[data-vis="jornada"] .mandado .mr-r{padding:0 18px 18px}}
 :root[data-vis="jornada"] .mandado .mr-ring{grid-column:1;grid-row:1/3;justify-self:center}
 :root[data-vis="jornada"] .mandado .m-head{grid-column:2;grid-row:1;min-width:0}
 :root[data-vis="jornada"] .mandado .mr-r{grid-column:2;grid-row:2;min-width:0}
 @media (max-width:760px){:root[data-vis="jornada"] .mandado:has(.mr-b){grid-template-columns:1fr}:root[data-vis="jornada"] .mandado .m-head{grid-column:1;grid-row:1}:root[data-vis="jornada"] .mandado .mr-ring{grid-column:1;grid-row:2;margin:10px 0}:root[data-vis="jornada"] .mandado .mr-r{grid-column:1;grid-row:3}}
-.mv-sw{display:inline-flex;gap:2px;margin-top:6px;padding:2px;border-radius:8px;background:rgba(11,8,32,.5);align-self:flex-end}
-.mv-sw button{border:0;background:none;color:#a99bd6;font-size:11px;padding:3px 8px;border-radius:6px;cursor:pointer}
-.mv-sw button[aria-pressed="true"]{background:rgba(160,107,255,.3);color:#fff}
-.mr-b.mv-mochila .mr-ring,.mr-b.mv-eq .mr-ring{width:220px;height:auto}
-.mv-bag{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:220px}
-.mv-t{aspect-ratio:1;border-radius:10px;background:var(--c);opacity:.18;transform:scale(.86);display:grid;place-content:center;text-align:center;color:#0b0820;transition:all .35s cubic-bezier(.2,1.6,.4,1)}
-.mv-t b{font-size:15px;line-height:1}.mv-t small{font-size:8px;font-weight:800}
+.jw-wf{animation:jwWave 1.6s ease-in-out infinite}@keyframes jwWave{0%,100%{transform:skewY(0) scaleX(1)}50%{transform:skewY(-6deg) scaleX(.92)}}
+.jw-spk{animation:jwSpk 1.8s ease-in-out infinite both;transform-box:fill-box;transform-origin:center}@keyframes jwSpk{0%,100%{opacity:.15}50%{opacity:1}}
+.jw-glo>circle{animation:jwGlo 2.4s ease-in-out infinite}@keyframes jwGlo{0%,100%{opacity:.35}50%{opacity:.7}}
+@media (prefers-reduced-motion:reduce){.jw-wf,.jw-spk,.jw-glo>circle{animation:none}}
+.mv-sw{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:12px;padding:4px;border-radius:12px;background:rgba(11,8,32,.55);border:1px solid rgba(160,107,255,.22);justify-self:end;min-width:270px}
+.mv-sw button{border:0;background:none;color:#a99bd6;font-size:12px;font-weight:700;padding:7px 12px;border-radius:9px;cursor:pointer;text-align:center;white-space:nowrap;line-height:1.1;transition:background .2s,color .2s}.mv-sw button:hover{color:#fff}
+.mv-sw button[aria-pressed="true"]{background:linear-gradient(180deg,rgba(160,107,255,.45),rgba(123,60,255,.32));color:#fff;box-shadow:inset 0 0 0 1px rgba(201,184,255,.35)}
+@media (max-width:700px){.mv-sw{min-width:0;width:100%;justify-self:stretch}}
+.mr-b.mv-mochila .mr-ring,.mr-b.mv-eq .mr-ring{width:250px;height:auto;padding:6px 0}
+.mv-bag{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;width:250px;padding:12px;border-radius:16px;background:rgba(11,8,32,.35);border:1px solid rgba(160,107,255,.16);box-sizing:border-box}
+.mv-t{aspect-ratio:1;border-radius:10px;gap:2px;background:var(--c);opacity:.18;transform:scale(.86);display:grid;place-content:center;text-align:center;color:#0b0820;transition:all .35s cubic-bezier(.2,1.6,.4,1)}
+.mv-t b{font-size:14px;line-height:1}.mv-t small{font-size:7.5px;font-weight:800;letter-spacing:.02em;line-height:1}
 .mv-t[data-d="1"]{opacity:1;transform:none}.mv-t[data-n="1"]{opacity:.55;outline:2px solid #fff;outline-offset:2px}
-.mv-cap{margin-top:8px;text-align:center;color:#c9b8ff;font-size:12px}.mv-cap b{font:600 26px/1 Oswald,var(--f-cond);color:#fff}.mv-cap b small{font-size:14px;color:var(--mute)}
-.mv-eq{display:flex;gap:4px;align-items:flex-end;width:220px;min-height:170px}
-.mv-c{flex:1;display:grid;justify-items:center;gap:3px;min-width:0}.mv-c small{font-size:9px;color:#c9b8ff}
+.mv-cap{margin-top:18px;text-align:center;color:#c9b8ff;font-size:12px}.mv-cap b{font:600 26px/1 Oswald,var(--f-cond);color:#fff}.mv-cap b small{font-size:14px;color:var(--mute)}
+.mv-eq{display:flex;gap:5px;align-items:flex-end;width:250px;min-height:170px;padding:12px;border-radius:16px;background:rgba(11,8,32,.35);border:1px solid rgba(160,107,255,.16);box-sizing:border-box}
+.mv-c{flex:1;display:grid;justify-items:center;gap:3px;min-width:0}.mv-c small{font-size:9.5px;color:#c9b8ff;margin-bottom:2px}
 .mv-c i{width:100%;border-radius:5px;background:rgba(160,107,255,.16);position:relative;overflow:hidden;display:block}
 .mv-c em{position:absolute;left:0;right:0;bottom:0;background:var(--c);transition:height .35s}
-.mv-c b{font-size:8.5px;color:var(--c);font-weight:800}
+.mv-c b{font-size:9px;color:var(--c);font-weight:800;margin-top:5px;writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.05em;line-height:1;white-space:nowrap}
 :root[data-vis="jornada"] .card.next.jx-nx{display:grid;gap:8px;text-align:left;justify-items:stretch;align-content:start;position:relative;padding:18px 20px}
 .jx-nx>small{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c9b8ff}
 .jx-nx-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding-right:26px}.jx-nx-h>b{font:600 26px/1 Oswald,var(--f-cond);color:#fff}.jx-nx-h span{font-size:13px;color:#d9ccff}
@@ -2451,7 +2461,7 @@ button.jm-s{background:none;border:0;padding:0;cursor:pointer;font:inherit}.jx-m
 @keyframes jxGlow{0%,100%{transform:scale(.92)}50%{transform:scale(1.1)}}
 .jt-g{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;margin:0 0 18px}
 .jt-c0{padding:20px 22px!important;display:grid;gap:12px;align-content:start}
-.xq-m{animation:xqBg .22s ease both}.xq-m.out{animation:xqBg .18s ease reverse both}.xq{max-width:380px;text-align:center;display:grid;gap:10px;justify-items:center;animation:xqIn .32s cubic-bezier(.2,1.2,.4,1) both}.xq-m.out .xq{animation:xqIn .18s ease reverse both}.xq h3{margin:0}.xq p{margin:0}.xq-ic{width:76px;height:76px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(150deg,#2b0f63,#170b38);box-shadow:0 0 0 1px rgba(160,107,255,.45),0 10px 30px rgba(123,60,255,.45),0 0 40px rgba(255,95,143,.18);animation:xqPop .5s cubic-bezier(.2,1.5,.4,1) .05s both}.xq-ic svg{width:56px;height:56px}.xq-fl{transform-origin:31px 15px;animation:xqFlag 2.4s ease-in-out infinite}.xq-sc{width:250px!important;height:140px!important;border-radius:24px!important;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#2a1666,#120a30)!important}.xq-sc svg{width:250px!important;height:136px!important}.xq-j{animation:xqJump 1.1s cubic-bezier(.3,.7,.4,1) infinite;transform-origin:130px 57px}.xq-cf{animation:xqConf 1.1s ease-out infinite}.xq-fl2{transform-origin:0 -20px;animation:xqFlag 1.6s ease-in-out infinite}@keyframes xqJump{0%,100%{transform:translateY(0) scale(1,1)}12%{transform:translateY(0) scale(1.06,.9)}45%{transform:translateY(-16px) scale(.97,1.04)}80%{transform:translateY(0)}88%{transform:translateY(0) scale(1.05,.93)}}@keyframes xqConf{0%,35%{opacity:0;transform:translateY(6px)}55%{opacity:1}100%{opacity:0;transform:translateY(-10px)}}@media (prefers-reduced-motion:reduce){.xq-j,.xq-cf,.xq-fl2{animation:none}}.xq{border-radius:22px!important;background:linear-gradient(180deg,#22164f,#140d33)!important;border:1px solid rgba(160,107,255,.35)!important;box-shadow:0 30px 80px rgba(0,0,0,.6)!important;padding:26px 24px 22px!important}.xq h3{font:600 24px Oswald,var(--f-cond),sans-serif;letter-spacing:.02em}.xq .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:14px}.xq .btn svg{width:16px;height:16px}.xq-out{color:#ffb3cc!important;border-color:rgba(255,95,143,.35)!important}.xq-out:hover{background:rgba(255,95,143,.12)!important}@keyframes xqPop{from{opacity:0;transform:scale(.6) rotate(-8deg)}}@keyframes xqFlag{0%,100%{transform:skewY(0)}50%{transform:skewY(-6deg) scaleX(.92)}}.side .who #jx-fab svg{width:14px!important;height:14px!important}.xq-b{display:grid;gap:8px;width:100%;margin-top:6px}
+.xq-m{animation:xqBg .22s ease both}.xq-m.out{animation:xqBg .18s ease reverse both}.xq{max-width:380px;text-align:center;display:grid;gap:10px;justify-items:center;animation:xqIn .32s cubic-bezier(.2,1.2,.4,1) both}.xq-m.out .xq{animation:xqIn .18s ease reverse both}.xq h3{margin:0}.xq p{margin:0}.xq-ic{width:76px;height:76px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(150deg,#2b0f63,#170b38);box-shadow:0 0 0 1px rgba(160,107,255,.45),0 10px 30px rgba(123,60,255,.45),0 0 40px rgba(255,95,143,.18);animation:xqPop .5s cubic-bezier(.2,1.5,.4,1) .05s both}.xq-ic svg{width:56px;height:56px}.xq-fl{transform-origin:31px 15px;animation:xqFlag 2.4s ease-in-out infinite}.xq-sc{width:250px!important;height:140px!important;border-radius:24px!important;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#2a1666,#120a30)!important}.xq-sc svg{width:250px!important;height:136px!important}.xq-j{animation:xqDive 2.8s linear infinite;transform-origin:130px 57px}.xq-cf{display:none}.xq-pf{animation:xqPuff 2.8s ease-out infinite;transform-origin:130px 58px}.xq-fl2{transform-origin:0 -20px;animation:xqFlag 1.6s ease-in-out infinite}@keyframes xqDive{0%,6%{transform:none;opacity:1}12%{transform:scale(1.06,.88);opacity:1}20%{transform:translate(12px,-10px) rotate(4deg)}28%{transform:translate(22px,-13px) rotate(8deg)}36%{transform:translate(32px,-8px) rotate(12deg)}46%{transform:translate(42px,8px) rotate(16deg)}56%{transform:translate(52px,34px) rotate(20deg)}66%{transform:translate(62px,70px) rotate(24deg);opacity:1}70%{transform:translate(66px,90px) rotate(26deg);opacity:0}84%{transform:none;opacity:0}92%,100%{transform:none;opacity:1}}@keyframes xqPuff{0%,13%{opacity:0;transform:scale(.4)}18%{opacity:.8;transform:scale(1)}32%,100%{opacity:0;transform:scale(1.6)}}@keyframes xqConf{0%,35%{opacity:0;transform:translateY(6px)}55%{opacity:1}100%{opacity:0;transform:translateY(-10px)}}@media (prefers-reduced-motion:reduce){.xq-j,.xq-cf,.xq-fl2,.xq-pf{animation:none}}.xq{border-radius:22px!important;background:linear-gradient(180deg,#22164f,#140d33)!important;border:1px solid rgba(160,107,255,.35)!important;box-shadow:0 30px 80px rgba(0,0,0,.6)!important;padding:26px 24px 22px!important}.xq h3{font:600 24px Oswald,var(--f-cond),sans-serif;letter-spacing:.02em}.xq .btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:14px}.xq .btn svg{width:16px;height:16px}.xq-out{color:#ffb3cc!important;border-color:rgba(255,95,143,.35)!important}.xq-out:hover{background:rgba(255,95,143,.12)!important}@keyframes xqPop{from{opacity:0;transform:scale(.6) rotate(-8deg)}}@keyframes xqFlag{0%,100%{transform:skewY(0)}50%{transform:skewY(-6deg) scaleX(.92)}}.side .who #jx-fab svg{width:14px!important;height:14px!important}.xq-b{display:grid;gap:8px;width:100%;margin-top:6px}
 @keyframes xqIn{from{opacity:0;transform:translateY(18px) scale(.94)}}@keyframes xqBg{from{opacity:0}}
 a.jt-b,.jt-c a.chip{text-decoration:none}.tca-g{border:1px solid rgba(160,107,255,.35);border-radius:12px;padding:12px 14px;background:rgba(160,107,255,.08)}.jt-as{display:grid;gap:4px;margin-top:6px}.jt-as a{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:#d9ccff;text-decoration:none;padding:5px 8px;border-radius:8px;background:rgba(255,255,255,.04)}.jt-as a:hover{background:rgba(160,107,255,.2);color:#fff}.jt-as a span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.jt-as small{color:#a99bd6;white-space:nowrap}.jt-c a.chip{color:#c9b8ff;border-color:rgba(160,107,255,.45)}.jt-c a.chip:hover{color:#fff;background:rgba(160,107,255,.25)}
 .jt-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.jt-h small{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}.jt-h h2{margin:2px 0 0;font:600 30px/1.1 Oswald,var(--f-cond);color:#fff}
@@ -2733,6 +2743,7 @@ const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
 const natcmp=(a,b)=>a.localeCompare(b,"pt-BR",{numeric:true,sensitivity:"base"});
 const pct=(a,b)=>b?Math.round(a/b*1000)/10:0;
 const IC={
+  edit:'<path d="M4 20h4L19 9l-4-4L4 16z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M13.5 6.5l4 4" stroke="currentColor" stroke-width="2"/>',
   flag:'<path d="M5.5 21V3.5"/><path d="M5.5 4.5h11.5l-2.4 3.7 2.4 3.8H5.5"/>',
   foot:'<path d="M8.2 2.8c1.6 0 2.5 1.9 2.5 4.1s-.9 4-2.5 4-2.6-1.8-2.6-4 .9-4.1 2.6-4.1z"/><path d="M6.1 13.4h4.1l-.4 2.4a1.7 1.7 0 0 1-3.3 0z"/><path d="M15.8 7.6c1.6 0 2.6 1.9 2.6 4.1s-1 4-2.6 4-2.5-1.8-2.5-4 .9-4.1 2.5-4.1z"/><path d="M13.8 18.2h4.1l-.4 2.3a1.7 1.7 0 0 1-3.3 0z"/>',
   compass:'<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
@@ -6175,7 +6186,7 @@ function jwHero(p){p=Object.assign({lt:0,lk:0,rt:0,rk:0,la:6,le:-10,ra:-6,re:-10
   const hipY=p.sit?-13:-25+p.bob,hx=0;let s="";
   s+=`<ellipse cx="0" cy="1.5" rx="${p.sit?16:13}" ry="3.6" fill="rgba(0,0,0,.35)"/>`;
   s+=`<g transform="rotate(${p.lean} 0 ${hipY})">`;
-  s+=jwLeg(hx-1.5,hipY,p.rt,p.rk,1);s+=jwArm(-1,hipY-17,p.ra,p.re,1);
+  s+=jwLeg(hx-1.5,hipY,p.rt,p.rk,1);if(!p.win)s+=jwArm(-1,hipY-17,p.ra,p.re,1);
   // mochila cargueira com piqueta e corda
   s+=`<rect x="-17" y="${hipY-27}" width="13" height="23" rx="4" fill="#3f4a8a"/><rect x="-16" y="${hipY-14}" width="11" height="6" rx="2" fill="#323b72"/><path d="M-16.5 ${hipY-21} h12" stroke="#2a3263" stroke-width="1.4"/>`;
   s+=`<ellipse cx="-10.5" cy="${hipY-28.5}" rx="7" ry="3.6" fill="#ffb347" stroke="#e08d1c" stroke-width="1"/>`;
@@ -6199,6 +6210,9 @@ function jwHero(p){p=Object.assign({lt:0,lk:0,rt:0,rk:0,la:6,le:-10,ra:-6,re:-10
   s+=`<circle cx="1" cy="${hy-14.2}" r="3" fill="#ffe3f1"/>`;
   s+=`<rect x="2.5" y="${hy-9}" width="8" height="4.4" rx="2" fill="#1b2140" stroke="#9aa3c7" stroke-width=".8"/><rect x="3.6" y="${hy-8.2}" width="5.8" height="2.6" rx="1.2" fill="#5ad1ff" opacity=".85"/>`;
   s+=`<path d="M1 ${hy+9} q-6 -1 -8 -5" stroke="#5a2bd0" stroke-width="2" fill="none"/>`;
+  if(p.win)s+=jwArm(-1,hipY-17,p.ra,p.re,1);
+  if(p.win){const r=p.la*Math.PI/180,ux=1+Math.sin(r)*9.5,uy=hipY-17+Math.cos(r)*9.5,r2=(p.la-p.le)*Math.PI/180,px=(ux+Math.sin(r2)*9).toFixed(1),py=uy+Math.cos(r2)*9,top=(py-24).toFixed(1);
+    s+=`<path d="M${px} 3 V${top}" stroke="#e9e4ff" stroke-width="2.2" stroke-linecap="round"/><circle cx="${px}" cy="${top}" r="1.8" fill="#ffd166"/><g class="jw-wf" style="transform-origin:${px}px ${top}px"><path d="M${+px+1} ${+top+1} q9 -4 18 0 t18 0 v15 q-9 -4 -18 0 t-18 0z" fill="#ffd166"/><path d="M${+px+1} ${+top+1} q9 -4 18 0 t18 0 v5 q-9 -4 -18 0 t-18 0z" fill="#ff9f1c" opacity=".55"/><path d="M${+px+13} ${+top+4} l2.2 4.4 4.8 .7 -3.5 3.4 .8 4.8 -4.3 -2.3 -4.3 2.3 .8 -4.8 -3.5 -3.4 4.8 -.7z" transform="scale(.62)" transform-origin="${+px+15} ${+top+9}" fill="#7b3cff"/></g><path d="M${+px-4} 3 l4 -5 l4 5" stroke="#9aa3c7" stroke-width="1.2" fill="none"/>`}
   s+=jwLeg(hx+1.5,hipY,p.lt,p.lk,0);s+=jwArm(1,hipY-17,p.la,p.le,0);
   // bastão de caminhada na mão da frente
   if(p.pole){const r=p.la*Math.PI/180,ux=1+Math.sin(r)*9.5,uy=hipY-17+Math.cos(r)*9.5,r2=(p.la-p.le)*Math.PI/180,hx2=ux+Math.sin(r2)*9,hy2=uy+Math.cos(r2)*9;
@@ -6208,6 +6222,7 @@ function jwHeroDefs(){return`<linearGradient id="jwJk" x1="0" y1="0" x2="0" y2="
 /* ciclo de caminhada (ph em radianos) */
 function jwWalk(ph){const s=Math.sin(ph),c=Math.cos(ph);return{pole:1,lt:22*s,lk:s>0?6:20*Math.abs(s)+4,rt:-22*s,rk:s<0?6:20*Math.abs(s)+4,la:-26*s+4,le:-14,ra:26*s-4,re:-14,bob:Math.abs(c)*1.8,lean:4}}
 const jwIdle=b=>({pole:1,lt:3,lk:2,rt:-3,rk:2,la:8,le:-6,ra:-8,re:-6,bob:0,blink:b});
+const jwWin={win:1,pole:0,lt:9,lk:2,rt:-11,rk:4,la:162,le:4,ra:-118,re:14,lean:-3,bob:0};
 const jwSit={sit:1,pole:0,lt:78,lk:78,rt:70,rk:74,la:28,le:-30,ra:20,re:-36,face:"sad",lean:-4};
 
 
@@ -6237,7 +6252,7 @@ const jwPt=(P,i,f)=>{if(i<0){const [x,y]=P[0];return{x:x-48*(1-f),y:y+6*(1-f)}}c
 const jwSun=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${(r||1)*46}" fill="url(#jwSunG)"/><circle cx="${x}" cy="${y}" r="${(r||1)*17}" fill="#ffd45a"/>`;
 const jwMoon=(x,y)=>`<circle cx="${x}" cy="${y}" r="34" fill="url(#jwMoonG)" opacity=".5"/><circle cx="${x}" cy="${y}" r="13" fill="#fff4cf"/>`;
 const jwStars=(n,W)=>{let s="";for(let i=0;i<n;i++){const x=(i*137.5)%W,y=(i*53.3)%120+70,r=(i%3)*.5+.6;s+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="#fff" opacity="${.3+(i%4)*.15}"/>`}return s};
-const jwTent=(x,y)=>`<g transform="translate(${x-15} ${y-40})"><path d="M0 26 L15 0 L30 26 Z" fill="#ff7a1a"/><path d="M15 0 L9 26 h12z" fill="#c45a0e"/><path d="M15 0 v-6" stroke="#e9e4ff" stroke-width="1.5"/></g>`;
+const jwTent=(x,y,k)=>`<g transform="translate(${x} ${y}) scale(${k||1})"><ellipse cx="1" cy="1" rx="24" ry="3.6" fill="rgba(0,0,0,.38)"/><path d="M-19 0 L-27 2 M19 0 L27 2 M0 -25 L-25 1.5 M0 -25 L25 1.5" stroke="#d9d4ff" stroke-opacity=".45" stroke-width=".7"/><path d="M-19 0 L0 -25 L19 0Z" fill="#ff7a1a"/><path d="M0 -25 L19 0 H7Z" fill="#c9560c"/><path d="M0 -25 L-7 0 H7Z" fill="#4a1f08"/><path d="M0 -25 L-7 0 H-2.5 Q-1 -12 0 -25Z" fill="#ffa25a"/><path d="M-19 0 H19" stroke="#2a1404" stroke-width="1.2"/><path d="M0 -25 v-4" stroke="#e9e4ff" stroke-width="1.4" stroke-linecap="round"/><path d="M-27 2 l-1 -3 M27 2 l1 -3" stroke="#c9cfe6" stroke-width="1"/></g>`;
 function jwDefs(){return`<defs>${jwHeroDefs()}<linearGradient id="jwGr" x1="0" x2="1"><stop offset="0" stop-color="#2fbf6a"/><stop offset="1" stop-color="#7cf0a8"/></linearGradient><filter id="jwGl"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
  <linearGradient id="jwSkyN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140f3a"/><stop offset=".7" stop-color="#2a1550"/><stop offset="1" stop-color="#3b1a5a"/></linearGradient><linearGradient id="jwSkyM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b4bb5"/><stop offset=".55" stop-color="#c76ba8"/><stop offset="1" stop-color="#ffb37a"/></linearGradient><linearGradient id="jwSkyT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f7fd6"/><stop offset="1" stop-color="#9fd0ff"/></linearGradient>
  <linearGradient id="jwCm" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3aa8"/><stop offset=".55" stop-color="#2f1d72"/><stop offset="1" stop-color="#1a1042"/></linearGradient><linearGradient id="jwM1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b3580"/><stop offset="1" stop-color="#211d4f"/></linearGradient><linearGradient id="jwM2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c2766"/><stop offset="1" stop-color="#17143c"/></linearGradient>
@@ -6265,7 +6280,7 @@ function jwScene(theme,tod,sm,D){const W=sm?640:1100,sx=W/1100,H=300;
     g+=`<g transform="translate(${W-40} 214)"><circle r="18" fill="none" stroke="#8682b5" stroke-width="1.5"/><path d="M0 -18 L5 0 L0 18 L-5 0Z" fill="#ff5f8f"/><text y="-26" text-anchor="middle" font-size="11" font-weight="800" fill="#c9a8ff" font-family="Source Sans 3">N</text></g>`;
     g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#c9a8ff" stroke-width="${sm?4:3}" stroke-dasharray="9 8" stroke-linecap="round" opacity=".7"/>`}
   else if(theme==="cume"){P=[80,240,395,545,690,830,960].map((x,i)=>[Math.round(x*sx),[254,246,234,218,196,164,112][i]]);vb=`0 ${sm?40:46} ${W} ${sm?264:254}`;
-    g+=`<rect width="${W}" height="${H}" fill="url(#${sky})"/>`+(tod==="noite"?jwStars(46,W)+jwMoon(300*sx,110):tod==="tarde"?jwSun(300*sx,150):jwSun(320*sx,112));
+    g+=`<rect y="-90" width="${W}" height="${H+90}" fill="url(#${sky})"/>`+(tod==="noite"?jwStars(46,W)+jwMoon(300*sx,110):tod==="tarde"?jwSun(300*sx,150):jwSun(320*sx,112));
     g+=`<g transform="scale(${sx} 1)"><path d="M0 250 L140 180 L260 222 L400 150 L540 204 L660 142 L780 192 L1100 168 V300 H0Z" fill="url(#jwM2)" opacity=".85"/><path d="M0 300 V266 L80 266 L240 258 L395 246 L545 230 L690 208 L830 176 L960 98 L1010 140 L1060 176 L1100 194 V300Z" fill="url(#jwCm)"/>
      <path d="M960 98 L936 124 L948 121 L958 130 L968 120 L980 127 L992 120Z" fill="#f1ecff" opacity=".92"/><path d="M960 98 L1010 140 L1060 176" stroke="#fff" stroke-opacity=".16" stroke-width="2" fill="none"/></g>`;
     g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#120b30" stroke-width="${sm?18:14}" stroke-linecap="round" opacity=".55"/><path d="${jwCurve(P,0,6)}" fill="none" stroke="#c9b8ff" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round" opacity=".8"/>`}
@@ -6277,7 +6292,8 @@ function jwScene(theme,tod,sm,D){const W=sm?640:1100,sx=W/1100,H=300;
   /* trilha verde: trechos entre dias que seguiram (estudo ou folga), até hoje */
   const S=D.st,good=s=>s==="ok"||s==="fo";for(let i=0;i<6;i++){if(i+1>D.wd)break;if(good(S[i])&&(good(S[i+1])||(i+1===D.wd&&S[i+1]==="ok")))g+=`<path d="${jwCurve(P,i,i+1)}" class="jw-g" fill="none" stroke="url(#jwGr)" stroke-width="${theme==="mapa"?(sm?6:5):sm?13:11}" stroke-linecap="round" filter="url(#jwGl)"/>`}
   g+=`<g id="jwGo"></g>`;
-  S.forEach((s,i)=>{if(s==="fo")g+=jwTent(P[i][0]+(theme==="montanha"?2:28*(sm?1.2:1)),P[i][1]-(theme==="montanha"?2:4))});
+  /* folga: barraca montada no chão, ao lado do acampamento do dia; no cume só a bandeira */
+  S.forEach((s,i)=>{if(s!=="fo"||i===6)return;const k=theme==="mapa"?(sm?.9:.7):(sm?1.25:.95),off=(R+26*k)*(i===0?-1:1),j=off<0?Math.max(0,i-1):i,J=off<0?i:Math.min(6,i+1),[xa,ya]=P[j],[xb,yb]=P[J],x=P[i][0]+off,t=xb===xa?0:(x-xa)/(xb-xa),y=ya+(yb-ya)*Math.max(0,Math.min(1,t))+(theme==="mapa"?-6:R*.35);g+=jwTent(x,y,k)});
   /* dias */
   S.forEach((s,i)=>{const [x,y]=P[i];
     if(theme==="floresta"){const pw=sm?62:44,ph=sm?26:18;g+=`<g transform="translate(${x} ${y-(sm?34:24)})"><path d="M0 0 v${sm?30:22}" stroke="#6b4a2e" stroke-width="4"/><rect x="${-pw/2}" y="${-ph+2}" width="${pw}" height="${ph}" rx="3" fill="#8a6440" stroke="#5a3e24" stroke-width="1.5"/><text y="${sm?-3:-3}" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="800" font-size="${sm?16:11}" fill="#fff3dd">${JW_D[i]}</text></g>`+node(x,y,s)}
@@ -6285,7 +6301,7 @@ function jwScene(theme,tod,sm,D){const W=sm?640:1100,sx=W/1100,H=300;
     else if(theme==="cume"&&i===6)g+=`<circle cx="${x}" cy="${y}" r="${R+3}" fill="#2b1d10" stroke="#ffd166" stroke-width="3"/><circle cx="${x}" cy="${y}" r="${R+9}" fill="none" stroke="#ffd166" stroke-opacity=".35" stroke-width="2"/>`+(s==="ok"?node(x,y,s):"")+`<text x="${x}" y="${y+R+22}" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="800" font-size="${FS}" fill="#ffd166" style="paint-order:stroke" stroke="rgba(13,12,34,.75)" stroke-width="3">DOM · CUME</text>`
     else g+=node(x,y,s)+lbl(x,y,JW_D[i],i===D.wd)});
   /* destino do domingo */
-  const [dx,dy]=P[6];g+=theme==="mapa"?`<g transform="translate(${dx+14} ${dy-6})"><path d="M-8 -8 l16 16 M8 -8 l-16 16" stroke="#ff5f8f" stroke-width="4" stroke-linecap="round"/></g>`:`<g transform="translate(${dx+(theme==="floresta"?(sm?40:30):4)} ${dy-R})"><path d="M0 0 v-34" stroke="#e9e4ff" stroke-width="2.4"/><path d="M1 -34 h22 l-5 7 l5 7 h-22z" fill="#a06bff"/></g>`;
+  const [dx,dy]=P[6];if(D.win&&theme!=="mapa"){}else g+=theme==="mapa"?`<g transform="translate(${dx+14} ${dy-6})"><path d="M-8 -8 l16 16 M8 -8 l-16 16" stroke="#ff5f8f" stroke-width="4" stroke-linecap="round"/></g>`:`<g transform="translate(${dx+(theme==="floresta"?(sm?40:30):4)} ${dy-R})"><path d="M0 0 v-34" stroke="#e9e4ff" stroke-width="2.4"/><path d="M1 -34 h22 l-5 7 l5 7 h-22z" fill="#a06bff"/></g>`;
   return{svg:jwDefs()+g,P,vb,sc:theme==="cume"?(sm?1.05:.78):(sm?1.35:1.05)}}
 /* onde fica o alpinista e em que pose */
 function jwPos(D,P){if(D.broken){const j=D.stopIdx;const at=j>0?jwPt(P,j-1,.6):innerWidth<700?jwPt(P,0,.34):jwPt(P,-1,0);return{pt:at,pose:"sit",flag:at}}
@@ -6297,13 +6313,15 @@ function jwMsg(D){const h=new Date().getHours(),bom=h>=4&&h<12?"Bom dia! ":h>=12
   if(D.broken)return`A caminhada parou${D.stop?" "+jwNa(wdOf(D.stop)):""}. Estude <b>${JW_MIN} min</b> hoje para voltar à trilha`;
   if(D.fresh)return`${bom}Estude <b>${JW_MIN} min</b> hoje para dar o primeiro passo`;
   return`${bom}Faltam <b>${D.left} min</b> para chegar ${D.wd>=5?"no":"na"} ${JW_DN[D.wd]}`}
-function jwCard(){try{setTimeout(()=>{window.jwFadeOn=0},0);const D=jwData(),th=jwTheme(),tod=jwTod(),sm=innerWidth<700,Sc=jwScene(th,tod,sm,D),ps=jwPos(D,Sc.P);
-  const pose=ps.pose==="sit"?jwSit:ps.pose==="idle"?jwIdle(0):jwWalk(1.1);
+function jwCard(){try{setTimeout(()=>{window.jwFadeOn=0},0);const D=jwData(),th=jwTheme(),tod=jwTod(),sm=innerWidth<700;D.win=!!(D.okToday&&D.wd===6&&th!=="mapa");const Sc=jwScene(th,tod,sm,D),ps=jwPos(D,Sc.P);
+  if(D.win){const v=Sc.vb.split(" ").map(Number),up=sm?70:58;v[1]-=up;v[3]+=up;Sc.vb=v.join(" ");Sc.sc*=1.12;ps.pt={x:ps.pt.x,y:ps.pt.y-(sm?19:14)-2}}
+  const pose=D.win?jwWin:ps.pose==="sit"?jwSit:ps.pose==="idle"?jwIdle(0):jwWalk(1.1);
+  const glory=D.win?`<g class="jw-glo" transform="translate(${ps.pt.x} ${ps.pt.y-34*Sc.sc})"><circle r="${62*Sc.sc}" fill="url(#jwSunG)" opacity=".55"/>${[[-46,-30,1],[44,-40,.8],[-30,-62,.7],[58,-4,.9],[-60,6,.6],[22,-70,.75]].map(([x,y,k],i)=>`<path class="jw-spk" style="animation-delay:${i*.28}s" transform="translate(${x*Sc.sc} ${y*Sc.sc}) scale(${k*Sc.sc})" d="M0 -7 L1.8 -1.8 L7 0 L1.8 1.8 L0 7 L-1.8 1.8 L-7 0 L-1.8 -1.8Z" fill="#ffe7a0"/>`).join("")}</g>`:"";
   const flag=ps.flag?`<g transform="translate(${ps.flag.x+22*(sm?1.4:1)} ${ps.flag.y})"><path d="M0 0 v${sm?-70:-52}" stroke="#e9e4ff" stroke-width="2.6" stroke-linecap="round"/><path d="M1 ${sm?-70:-52} h${sm?28:22} l-6 8 l6 8 h-${sm?28:22}z" fill="#ff5f8f"/></g><ellipse cx="${ps.flag.x-1}" cy="${ps.flag.y-3}" rx="${sm?20:15}" ry="${sm?8:6}" fill="#3b3a7a"/>`:"";
   const dim=D.broken?`<path d="${jwCurve(Sc.P,Math.max(0,D.stopIdx),6)}" fill="none" stroke="#0d0c22" stroke-opacity=".35" stroke-width="18" stroke-linecap="round"/>`:"";
   const ico=D.broken?"🚩":"👣";
   return`<section class="card jw jw-${th}" aria-label="Sua jornada da semana"><div class="jw-h"><div class="jw-t"><h2>Sua jornada da semana</h2><p>${jwMsg(D)}</p></div><div class="jw-n"><b>${ico} ${D.streak} ${D.streak===1?"dia":"dias"}</b><small>seguidos</small><button class="ibtn sm jw-pk" data-a="jwPick" aria-label="Trocar a paisagem" title="Trocar a paisagem">🎨</button></div></div>
-   <svg class="jw-s${window.jwFadeOn?" jw-fade":""}" data-tod="${tod}" viewBox="${Sc.vb}" role="img" aria-label="${esc(D.st.map((s,i)=>JW_D[i]+": "+({ok:"estudou",no:"não estudou",fo:"folga",td:"hoje",fu:"ainda vai chegar"})[s]).join(", "))}">${Sc.svg}${dim}${flag}<g id="jwWk" transform="translate(${ps.pt.x} ${ps.pt.y+1}) scale(${Sc.sc})">${jwHero(pose)}</g></svg>
+   <svg class="jw-s${window.jwFadeOn?" jw-fade":""}" data-tod="${tod}" viewBox="${Sc.vb}" role="img" aria-label="${esc(D.st.map((s,i)=>JW_D[i]+": "+({ok:"estudou",no:"não estudou",fo:"folga",td:"hoje",fu:"ainda vai chegar"})[s]).join(", "))}">${Sc.svg}${dim}${flag}${glory}<g id="jwWk" class="${D.win?"jw-hw":""}" transform="translate(${ps.pt.x} ${ps.pt.y+1}) scale(${Sc.sc})">${jwHero(pose)}</g></svg>
    ${th==="cume"?`<div class="jw-f"><span><b>${D.streak} ${D.streak===1?"dia":"dias"}</b> seguidos · melhor: ${D.best}</span><span class="jw-r">Cada semana é uma montanha: domingo é o cume · <button class="lnk" data-a="jwMes">ver o mês inteiro</button></span></div>`:`<div class="jw-f"><span>Melhor sequência: <b>${D.best} ${D.best===1?"dia":"dias"}</b><span class="jw-r"> · o dia conta com ${JW_MIN} min de estudo</span></span><button class="lnk" data-a="jwMes">Ver o mês inteiro →</button></div>`}</section>`}catch(e){console.error(e);return""}}
 /* animação: quando o dia de hoje acaba de contar, o alpinista caminha até ele */
 function jwAnim(){try{const D=jwData();if(!D.okToday||D.wd<1)return;const k="jw-anim-"+LSK+"-"+today();if(localStorage.getItem(k))return;const g=document.getElementById("jwWk"),sv=g&&g.ownerSVGElement;if(!sv)return;localStorage.setItem(k,"1");
@@ -6312,7 +6330,7 @@ function jwAnim(){try{const D=jwData();if(!D.okToday||D.wd<1)return;const k="jw-
   const gp=sv.querySelectorAll(".jw-g"),last=gp[gp.length-1];if(last){last.setAttribute("stroke-dasharray",L+" "+L);last.setAttribute("stroke-dashoffset",L*.55)}
   const tg=sv.querySelector(`circle[cx="${P[D.wd][0]}"][cy="${P[D.wd][1]}"]`);
   const step=t=>{if(!g.isConnected)return;const w=Math.min(1,(t-t0)/dur),e=w<.5?2*w*w:1-Math.pow(-2*w+2,2)/2,f=.45+.55*e,q=p.getPointAtLength(L*f);
-    g.setAttribute("transform",`translate(${q.x} ${q.y+1}) scale(${Sc.sc})`);g.innerHTML=jwHero(w<1?jwWalk(t/90):jwIdle(0));if(last)last.setAttribute("stroke-dashoffset",L*(1-f));
+    const wn=w>=1&&D.wd===6&&jwTheme()!=="mapa";g.setAttribute("transform",wn?`translate(${q.x} ${q.y-(sm?19:14)-2}) scale(${Sc.sc*1.12})`:`translate(${q.x} ${q.y+1}) scale(${Sc.sc})`);g.innerHTML=jwHero(w<1?jwWalk(t/90):(wn?jwWin:jwIdle(0)));if(last)last.setAttribute("stroke-dashoffset",L*(1-f));
     if(w<1)requestAnimationFrame(step);else{const n=document.querySelector(".jw-n b");if(n)n.animate([{transform:"scale(1)"},{transform:"scale(1.28)"},{transform:"scale(1)"}],{duration:480,easing:"ease-out"});if(tg)tg.animate([{transform:"scale(1)"},{transform:"scale(1.35)"},{transform:"scale(1)"}],{duration:480,easing:"ease-out",transformOrigin:"center"})}};
   requestAnimationFrame(step)}catch(e){}}
 function jwPickModal(){const D=jwData(),cur=jwTheme(),tod=jwTod();
@@ -6385,7 +6403,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261111171739";
+const JX_BUILD="20261111192322";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6887,7 +6905,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111171739" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111192322" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -7361,7 +7379,7 @@ function exitAsk(){const L=$("layer3");if(!L)return;L.innerHTML=`<div class="mod
   <path d="M20 130 L78 88 L96 102 L132 56 L188 130Z" fill="url(#xqM1)"/>
   <path d="M132 56 L142 70 L136 68 L131 74 L125 68 L120 71Z" fill="#fff" opacity=".9"/>
   <g transform="translate(150 58)"><path d="M0 0 V-24" stroke="#ffd166" stroke-width="2" stroke-linecap="round"/><path class="xq-fl2" d="M0.5 -24 L15 -19.5 L0.5 -15Z" fill="#ffd166"/></g>
-  <g class="xq-j"><g transform="translate(130 57) scale(.86)">${jwHero({lt:48,lk:84,rt:28,rk:70,la:168,le:12,ra:150,re:18,lean:-2})}</g></g>
+  <g class="xq-pf"><ellipse cx="124" cy="59" rx="6" ry="2.6" fill="#e6dcff" opacity=".7"/><ellipse cx="137" cy="59" rx="5" ry="2.2" fill="#e6dcff" opacity=".6"/></g><g class="xq-j"><g transform="translate(130 57) scale(.86)">${jwHero({lt:48,lk:84,rt:28,rk:70,la:168,le:12,ra:150,re:18,lean:-2})}</g></g>
   <g class="xq-cf"><rect x="104" y="30" width="4" height="4" rx="1" fill="#ffd166"/><rect x="160" y="24" width="4" height="4" rx="1" fill="#ff8fb6"/><rect x="118" y="14" width="3.5" height="3.5" rx="1" fill="#8fe6b0"/><rect x="150" y="8" width="3.5" height="3.5" rx="1" fill="#b07cff"/></g></svg></div><h3>Sair da Jornada?</h3><p class="muted">O seu progresso está salvo. Você pode continuar a subida agora ou sair da sua conta.</p><div class="xq-b"><button class="btn pri" data-a="xqStay">${ic("play")} Continuar estudando</button><button class="btn xq-out" data-a="xqOut"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg> Sair da conta</button></div></div></div>`}
 window.addEventListener("popstate",()=>{backGuard();const L=$("layer3");
   if(L&&L.innerHTML.trim()){const x=L.querySelector(".xq-m");L.innerHTML="";if(x)return;return}
@@ -11048,7 +11066,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111171739&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111192322&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -11261,19 +11279,22 @@ const SCOL=["#4a6fd8","#3a9e94","#b5537e","#b5537e","#b5537e","#b5537e","#b5537e
 /* cores pensadas para a rotina: trabalho vermelho, refeição amarelo (energia), treino laranja, psicólogo rosa claro (cuidado),
    descanso roxo (relaxar), sono azul claro (calma), outros compromissos bege escuro */
 const RBASE=[["t","Trabalho","#d0625a"],["a","Almoço / Jantar / Refeição","#d4ac3c"],["g","Treino / Atividade Física","#e08a45"],["y","Psicólogo / Saúde Mental","#e39ab8"],["l","Descanso / Livre / Outros","#4f7f54"],["z","Sono","#3d5582"],["o","Outros compromissos","#b09474"],["d","Deslocamento","#8a93a0"],["i","Intervalo","#d4a28a"]];
-let RCAT=[],RCI={},SCODES=new Set(),SPLAN={};
+let RCAT=[],RCI={},SCODES=new Set(),SPLAN={},RCB={};
+/* caixinhas criadas pelo aluno (ROT().cx = [[código,nome,cor]]) e nomes/cores trocados (ROT().nm / ROT().cl) */
+const RCX_CODES="bcefhjkmnpqruvwxABCDEFGHIJKLMNOPQRSTUVWXYZ",RCX_COLS=["#7a6ff0","#2fa6c9","#c96bd6","#5fae6e","#e0b84a","#d97757","#6b8bd6","#a8835c","#4fb7a0","#d65f8a","#8a93a0","#b5537e"];
 const pCode=p=>p.id==="tjsp"?"s":(p.rc||"1");
 const pShort=p=>p.id==="tjsp"?prot("Oficial de Justiça"):(p.cargo||p.name);
 /* Estudo na rotina: Concurso 1 (Foco Principal) azul royal, Concurso 2 (Segundo Foco) verde-azulado, os demais "Outro concurso" rosa escuro.
    Os horários do concurso que fica no outro aplicativo (ex.: Auditor Fiscal) contam como o 2º concurso. */
 let EXC=new Set();
 function rotCats(){const L=allPlans();SPLAN={};
-  const known=new Set([...L.map(p=>pCode(p)),...RBASE.map(x=>x[0]),"."]);let exc=[];try{exc=[...new Set(ROT().d.join(""))].filter(c=>!known.has(c))}catch(e){}
+  let RX=[],UNM={},UCL={};try{const r=ROT();RX=(r.cx||[]).filter(x=>Array.isArray(x)&&x[0]);UNM=r.nm||{};UCL=r.cl||{}}catch(e){}
+  const known=new Set([...L.map(p=>pCode(p)),...RBASE.map(x=>x[0]),...RX.map(x=>x[0]),"."]);let exc=[];try{exc=[...new Set(ROT().d.join(""))].filter(c=>!known.has(c))}catch(e){}
   const multi=L.length+exc.length>1,NM=k=>k===0?"Concurso 1 (Foco Principal)":k===1?"Concurso 2 (Segundo Foco)":"Outro concurso",CL=k=>k===0?SCOL[0]:k===1?SCOL[1]:SCOL[2];
   const st=L.map((p,k)=>{const c=pCode(p);SPLAN[c]=p;return[c,multi?NM(k)+" · "+pShort(p):NM(k),CL(k)]});
   const other=c=>c==="s"?"Oficial de Justiça":(APP_LINK&&APP_LINK.name?String(APP_LINK.name).replace(/\s*\(.*\)\s*$/,""):"");
   const ex=exc.map((c,j)=>{const k=L.length+j,o=other(c);return[c,NM(k)+(o?" · "+o:""),CL(k)]});
-  RCAT=[...st,...ex,...RBASE];RCI=Object.fromEntries(RCAT.map(x=>[x[0],x]));SCODES=new Set(st.map(x=>x[0]));EXC=new Set(ex.map(x=>x[0]))}
+  RCAT=[...st,...ex,...RBASE,...RX.map(x=>[x[0],String(x[1]||"Caixinha"),x[2]||RCX_COLS[0]])];RCB=Object.fromEntries(RCAT.map(x=>[x[0],x]));RCAT=RCAT.map(([k,l,c])=>[k,UNM[k]||l,UCL[k]||c]);RCI=Object.fromEntries(RCAT.map(x=>[x[0],x]));SCODES=new Set(st.map(x=>x[0]));EXC=new Set(ex.map(x=>x[0]))}
 rotCats();
 const RWN=["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"],RWS=["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"];
 const wdOf=d=>(pd(d).getDay()+6)%7;
@@ -11483,8 +11504,8 @@ const rtSp=()=>(UI.rtPx||40)/SPH;
 const inkK=(k,col)=>"#fff";
 function inkOn(h){const n=parseInt(String(h).slice(1),16);if(isNaN(n))return"#fff";return(.299*(n>>16&255)+.587*(n>>8&255)+.114*(n&255))>165?"#1d1d1f":"#fff"}
 function rtView(){rotCats();const R=ROT(),PX=UI.rtPx||40,sp=PX/SPH,multi=allPlans().length>1,wt=wdOf(today());
-  const pal=[...[...SCODES,...EXC].map(k=>[k,RCI[k][1],RCI[k][2],6]),...RTORD.map(k=>[k,RCI[k][1],RCI[k][2],RTDEF[k]])]
-    .map(([k,l,col,len])=>`<div class="rt-pal" data-k="${k}" data-len="${len}" style="--c:${col};--ink:${inkK(k,col)}" role="button" tabindex="0" aria-label="Arrastar ${esc(l)} para o quadro"><b>${esc(l)}</b><small>${durL(len*SLM)}</small></div>`).join("");
+  const pal=[...[...SCODES,...EXC].map(k=>[k,RCI[k][1],RCI[k][2],6]),...RTORD.map(k=>[k,RCI[k][1],RCI[k][2],RTDEF[k]]),...(R.cx||[]).filter(x=>RCI[x[0]]).map(x=>[x[0],RCI[x[0]][1],RCI[x[0]][2],6])]
+    .map(([k,l,col,len])=>`<div class="rt-pal" data-k="${k}" data-len="${len}" style="--c:${col};--ink:${inkK(k,col)}" role="button" tabindex="0" aria-label="Arrastar ${esc(l)} para o quadro"><b>${esc(l)}</b><small>${durL(len*SLM)}</small><span class="rt-ed" data-a="rcEd" data-k="${k}" role="button" tabindex="0" aria-label="Renomear ${esc(l)}" title="Renomear ou trocar a cor">${ic("edit")}</span></div>`).join("")+`<button class="rt-add" data-a="rcEd" data-k="" title="Criar uma caixinha nova para a sua rotina"><b>+</b><span>Nova caixinha</span></button>`;
   const hours=[...Array(RS/SPH+1)].map((_,h)=>`<div class="wk-hl" style="top:${h*PX}px"><span>${pad((RH0+h)%24)}:00</span></div>`).join("");
   const cols=RWS.map((_,w)=>{const x=R.d[w],cnt={};let i=0,h="";
     while(i<RS){let j=i;while(j<RS&&x[j]===x[i])j++;const C=RCI[x[i]];
@@ -11498,7 +11519,7 @@ function rtView(){rotCats();const R=ROT(),PX=UI.rtPx||40,sp=PX/SPH,multi=allPlan
    <div class="wk-sc"><div class="wk-g" style="--px:${PX}px"><div class="wk-hd"><div></div>${head}</div><div class="wk-body"><div class="wk-hrs" style="height:${RS*sp}px">${hours}</div>${cols}</div></div></div></section>`}
 let RTD=null;
 function rtEnd(){const D=RTD;RTD=null;if(!D)return null;clearInterval(D.as);D.el.classList.remove("moving");document.body.classList.remove("rt-drag");if(D.pv)D.pv.remove();document.querySelectorAll(".rt-c.over").forEach(x=>x.classList.remove("over"));return D}
-document.addEventListener("pointerdown",e=>{if(e.button>0||!e.target.closest)return;if(e.target.closest(".rt-x,.rt-cp"))return;const p=e.target.closest(".rt-pal[data-k]"),b=e.target.closest(".rt-b");if(!p&&!b)return;
+document.addEventListener("pointerdown",e=>{if(e.button>0||!e.target.closest)return;if(e.target.closest(".rt-x,.rt-cp,.rt-ed,.rt-add"))return;const p=e.target.closest(".rt-pal[data-k]"),b=e.target.closest(".rt-b");if(!p&&!b)return;
   if(p)RTD={t:"new",k:p.dataset.k,len:+p.dataset.len,el:p,off:0};
   else{const w=+b.dataset.w,a=+b.dataset.s,z=+b.dataset.e,c=b.closest(".rt-c");
     RTD={t:e.target.closest(".rt-rs")?"size":"move",k:b.dataset.k,w,a,z,len:z-a,el:b,off:c?clamp(Math.floor((e.clientY-c.getBoundingClientRect().top)/rtSp())-a,0,z-a-1):0}}
@@ -11648,6 +11669,17 @@ function bkCard(){const B=bkState();
    <div class="rdays" role="group" aria-label="Dias dos blocos">${RWS.map((w,i)=>`<label><input type="checkbox" class="bkd" value="${i}" ${B.d.includes(i)?"checked":""}> ${w}</label>`).join("")}</div>
    <div class="row"><button class="btn sm" data-a="bkSetD" data-v="0,1,2,3,4">Dias úteis</button><button class="btn sm" data-a="bkSetD" data-v="5,6">Fim de semana</button><button class="btn sm" data-a="bkSetD" data-v="0,1,2,3,4,5,6">Todos</button><button class="btn pri" data-a="bkApply" style="margin-left:auto">Colocar no quadro</button></div>
    <span class="muted small">Role os números ou toque neles. Os intervalos entram no quadro em bege e não contam como estudo.</span></div></section>`}
+/* Criar, renomear ou trocar a cor de uma caixinha da rotina */
+function rcEdit(k){const R=ROT(),C=k?RCI[k]:null,isX=!k||(R.cx||[]).some(x=>x[0]===k),col=C?C[2]:RCX_COLS[(R.cx||[]).length%RCX_COLS.length],cols=[...new Set([col,...RCX_COLS])];
+  UI.rcE={k,col,del:0};const chg=k&&!isX&&((R.nm||{})[k]||(R.cl||{})[k]);
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="${k?"Editar caixinha":"Nova caixinha"}"><div class="box rc-box">
+   <h3 style="margin:0">${k?"Editar caixinha":"Nova caixinha"}</h3>
+   <div class="rc-prev" id="rcPv" style="--c:${col}"><b>${esc(C?C[1]:"Nova caixinha")}</b><small>arraste para o quadro</small></div>
+   <div class="field"><label for="rcN">Nome</label><input class="inp" id="rcN" maxlength="40" value="${esc(C?C[1]:"")}" placeholder="Ex.: Inglês, Faculdade, Igreja, Filhos" autocomplete="off"></div>
+   <div class="field"><label>Cor</label><div class="rc-cols">${cols.map(c=>`<button class="rc-col" data-a="rcCol" data-v="${c}" style="--c:${c}" aria-pressed="${c===col}" aria-label="Cor ${c}"></button>`).join("")}</div></div>
+   ${chg?`<button class="lnk" data-a="rcReset" style="justify-self:start">Voltar ao nome e à cor originais (${esc(RCB[k][1])})</button>`:""}
+   <div class="row" style="justify-content:space-between">${k&&isX?`<button class="btn danger" data-a="rcDel" id="rcDel">${ic("trash")} Apagar caixinha</button>`:"<span></span>"}<span class="row"><button class="btn" data-a="npClose">Cancelar</button><button class="btn pri" data-a="rcSave">Salvar</button></span></div></div></div>`;
+  const i=$("rcN");if(i){i.addEventListener("input",()=>{const b=document.querySelector("#rcPv b");if(b)b.textContent=i.value.trim()||"Nova caixinha"});i.addEventListener("keydown",e=>{if(e.key==="Enter")A.rcSave()});setTimeout(()=>{i.focus();i.select()},40)}}
 /* Ajustar um bloco do quadro */
 function blkOpen(w,i){const x=ROT().d[w],ch=x[i];let a=i,b=i+1;
   if(ch!=="."){while(a>0&&x[a-1]===ch)a--;while(b<RS&&x[b]===ch)b++}else{b=Math.min(RS,i+6)}
@@ -12927,6 +12959,16 @@ Object.assign(A,{
   navTg(){const r=document.documentElement,on=r.dataset.navc!=="1";if(on)r.dataset.navc="1";else delete r.dataset.navc;try{localStorage.setItem("jornada-navc",on?"1":"0")}catch(e){}const b=$("navTg");if(b){b.title=b.ariaLabel=on?"Abrir o menu":"Recolher o menu"}},
   npOpen(el){const pr=el&&el.dataset&&el.dataset.preset;UI.np={txt:"",subs:[],name:"",cargo:"",q:pr||""};npModal();setTimeout(()=>{const e=$("npQ");if(e){e.focus();e.setSelectionRange(e.value.length,e.value.length)}},30)},
   npAdd(){if(IS_TJ)return;UI.np={edit:true,txt:"",subs:[]};npModal()},
+  rcEd(el){rcEdit(el.dataset.k||"")},
+  rcCol(el){UI.rcE.col=el.dataset.v;document.querySelectorAll('[data-a="rcCol"]').forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===el.dataset.v)));const p=$("rcPv");if(p)p.style.setProperty("--c",el.dataset.v)},
+  rcSave(){const E=UI.rcE;if(!E)return;const i=$("rcN"),nm=(i?i.value:"").trim().slice(0,40);if(!nm){if(i){i.focus();i.classList.add("err")}toast("Dê um nome para a caixinha");return}
+    const R=ROT();R.cx=R.cx||[];R.nm=R.nm||{};R.cl=R.cl||{};
+    if(!E.k){const used=new Set([...RCAT.map(x=>x[0]),...R.d.join(""),...SCODES]);const code=[...RCX_CODES].find(c=>!used.has(c));if(!code){toast("Limite de caixinhas atingido");return}R.cx.push([code,nm,E.col])}
+    else{const x=R.cx.find(x=>x[0]===E.k);if(x){x[1]=nm;x[2]=E.col}else{const b=RCB[E.k]||[E.k,nm,E.col];if(nm!==b[1])R.nm[E.k]=nm;else delete R.nm[E.k];if(E.col!==b[2])R.cl[E.k]=E.col;else delete R.cl[E.k]}}
+    rotPersist();rotCats();UI.rcE=null;$("layer3").innerHTML="";render();toast(E.k?"Caixinha atualizada":"Caixinha criada: arraste para o quadro")},
+  rcReset(){const E=UI.rcE;if(!E)return;const R=ROT();if(R.nm)delete R.nm[E.k];if(R.cl)delete R.cl[E.k];rotPersist();rotCats();UI.rcE=null;$("layer3").innerHTML="";render();toast("Nome original de volta")},
+  rcDel(el){const E=UI.rcE;if(!E||!E.k)return;const R=ROT(),n=R.d.join("").split(E.k).length-1;if(n&&!E.del){E.del=1;el.innerHTML=`${ic("trash")} Confirmar: apagar e tirar ${durL(n*SLM)} do quadro`;return}
+    R.cx=(R.cx||[]).filter(x=>x[0]!==E.k);R.d=R.d.map(x=>x.split(E.k).join("."));rotPersist();rotCats();UI.rcE=null;$("layer3").innerHTML="";render();toast("Caixinha apagada")},
   npClose(){UI.np=null;$("layer3").innerHTML="";if(UI.obNew)setTimeout(obModal,0)},
   npParse(){npRead();const r=parseEdital(UI.np.txt);if(!r.length){toast("Não encontrei matérias nesse texto. Use uma matéria por linha: Matéria: assunto; assunto");return}
     const N=UI.np;if(N.cat&&N.subs.length){const base=N.subs;let hit=0;r.forEach(x=>{let best=null,bv=0;base.forEach(b=>{const v=cdice(nTok(b.n),nTok(x.n));if(v>bv){bv=v;best=b}});if(best&&bv>=.5){if(best.cat){best.t=[];best.cat=false}best.t=[...new Set([...best.t,...x.t])];best.q=best.q||x.q;hit++}else base.push(x)});N.subs=base;toast(hit+" matérias do edital receberam os assuntos colados")}
