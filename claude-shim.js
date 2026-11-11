@@ -237,12 +237,26 @@
   @media (max-width:900px){#jx-gate .jx-art{opacity:.35;right:-40vw;width:120vw}#jx-gate .jx-wrap{margin:0 auto}}
   @media (max-width:420px){#jx-gate .jx-wrap{padding:16px}#jx-gate .jx-top{gap:10px}#jx-gate .jx-name{font-size:18px}#jx-gate .jx-tile{width:38px;height:38px}#jx-gate .jx-logo{width:28px;height:28px}#jx-gate .jx-duo{grid-template-columns:1fr}#jx-gate h1{font-size:19px}}
   .jx-msg{min-height:20px;margin-top:12px;font-size:13.5px;color:#ffc46b}.jx-msg.ok{color:#7ddc8a}
-  #jx-fab{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:2147483500;width:34px;height:34px;border-radius:50%;border:1px solid rgba(127,140,160,.45);background:rgba(43,15,99,.85);color:#efe6ff;font:600 15px Figtree,sans-serif;cursor:pointer;opacity:.55;backdrop-filter:blur(6px)}
-  #jx-fab:hover,#jx-fab:focus-visible{opacity:1}
-  #jx-menu{position:fixed;left:10px;bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:2147483501;width:min(300px,calc(100vw - 20px));background:#160f33;color:#f1ecff;border:1px solid rgba(160,107,255,.35);border-radius:12px;padding:12px;box-shadow:0 14px 40px rgba(0,0,0,.45);font:14px/1.4 Figtree,sans-serif}
-  #jx-menu .who{color:#9fb0c2;font-size:12.5px;margin:0 4px 8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  #jx-menu button{display:block;width:100%;text-align:left;background:transparent;border:0;color:inherit;padding:10px;border-radius:8px;font:inherit;cursor:pointer}
-  #jx-menu button:hover{background:rgba(160,107,255,.16)}
+  #jx-fab{position:fixed;left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:2147483500;width:34px;height:34px;border-radius:50%;padding:0;display:grid;place-items:center;cursor:pointer;color:#efe6ff;border:0;background:radial-gradient(circle at 30% 25%,#3a2380,#1a1040 70%);box-shadow:0 0 0 1.5px rgba(160,107,255,.55),0 0 0 4px rgba(160,107,255,.10),0 6px 16px rgba(0,0,0,.45);transition:box-shadow .25s,transform .25s}
+  #jx-fab svg{width:17px;height:17px;transition:transform .5s cubic-bezier(.2,1.4,.4,1)}
+  #jx-fab:hover,#jx-fab:focus-visible,#jx-fab[aria-expanded="true"]{box-shadow:0 0 0 1.5px #ff8fb6,0 0 0 5px rgba(255,95,143,.18),0 8px 22px rgba(123,60,255,.5)}
+  #jx-fab:hover svg,#jx-fab[aria-expanded="true"] svg{transform:rotate(75deg)}
+  #jx-menu{position:fixed;left:10px;bottom:calc(52px + env(safe-area-inset-bottom,0px));z-index:2147483501;width:min(290px,calc(100vw - 20px));color:#f1ecff;border-radius:18px;padding:8px;font:14px/1.4 Figtree,sans-serif;background:linear-gradient(180deg,rgba(32,20,74,.97),rgba(18,12,44,.98));border:1px solid rgba(160,107,255,.35);box-shadow:0 22px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.03) inset;backdrop-filter:blur(12px);transform-origin:bottom left;animation:jxmIn .26s cubic-bezier(.2,1.2,.4,1) both}
+  #jx-menu.out{animation:jxmIn .16s ease reverse both}
+  @keyframes jxmIn{from{opacity:0;transform:translateY(10px) scale(.94)}}
+  #jx-menu .jxm-h{display:flex;align-items:center;gap:10px;padding:10px 10px 12px;margin-bottom:4px;border-bottom:1px solid rgba(160,107,255,.18)}
+  #jx-menu .jxm-logo{width:40px;height:40px;flex:none;border-radius:12px;display:grid;place-items:center;background:linear-gradient(150deg,#2b0f63,#170b38);box-shadow:0 0 0 1px rgba(160,107,255,.4),0 6px 16px rgba(123,60,255,.35)}
+  #jx-menu .jxm-logo svg{width:30px;height:30px}
+  #jx-menu .jxm-t{min-width:0}#jx-menu .jxm-t b{display:block;font:700 15px Oswald,Figtree,sans-serif;letter-spacing:.06em}
+  #jx-menu .jxm-t small{display:block;color:#b9acde;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #jx-menu .jxm-tr{margin:2px 10px 8px;font-size:12px;color:#cbbfe8}
+  #jx-menu button{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;border:0;color:inherit;padding:10px 10px;border-radius:12px;font:inherit;cursor:pointer;transition:background .15s,transform .15s}
+  #jx-menu button i{width:30px;height:30px;flex:none;border-radius:10px;display:grid;place-items:center;background:rgba(160,107,255,.14);color:#d9c8ff}
+  #jx-menu button i svg{width:16px;height:16px}
+  #jx-menu button:hover,#jx-menu button:focus-visible{background:rgba(160,107,255,.16);transform:translateX(2px)}
+  #jx-menu button.warn i{background:rgba(255,184,77,.14);color:#ffcf7a}
+  #jx-menu button.out{margin-top:4px;border-top:1px solid rgba(160,107,255,.18);border-radius:0 0 12px 12px;padding-top:12px;color:#ffb3cc}
+  #jx-menu button.out i{background:rgba(255,95,143,.16);color:#ff8fb6}
   #jx-imp{position:fixed;inset:0;z-index:2147483602;display:grid;place-items:center;padding:16px;background:rgba(8,5,20,.78);color:#f1ecff;font:15px/1.45 Figtree,sans-serif}
   #jx-imp .jx-card{width:min(520px,100%);background:#160f33;border:1px solid rgba(160,107,255,.35);border-radius:16px;padding:24px}
   #jx-imp h2{margin:0 0 8px;font:700 19px Oswald,Figtree,sans-serif}#jx-imp p,#jx-imp li{color:#b8c6d4}#jx-imp ol{padding-left:20px}
@@ -322,17 +336,18 @@
 
   function fab() {
     addCSS(); if ($("#jx-fab")) return;
-    const b = el('<button id="jx-fab" type="button" aria-label="Conta e dados" title="Conta e dados">⚙</button>'); document.body.appendChild(b);
+    const b = el('<button id="jx-fab" type="button" aria-label="Conta e dados" title="Conta e dados" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>'); document.body.appendChild(b); window.JX_MTN = '<svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="jxMt" x1="8" y1="10" x2="40" y2="42" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#b07cff"/><stop offset=".55" stop-color="#d04fc8"/><stop offset="1" stop-color="#ff5f8f"/></linearGradient><linearGradient id="jxMt2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7b3cff"/><stop offset="1" stop-color="#4b23a8"/></linearGradient></defs><path d="M3 40 L17 22 L23 29 L31 15 L45 40 Z" fill="url(#jxMt)"/><path d="M3 40 L17 22 L24 31 L18 40Z" fill="url(#jxMt2)" opacity=".55"/><path d="M31 15 L35.5 22.5 L32.6 21.4 L30.4 24 L27.6 21.2Z" fill="#fff" opacity=".9"/><path d="M17 22 L20 26 L17.6 25.4 L15.6 27Z" fill="#fff" opacity=".7"/><path d="M31 15 V5" stroke="#ffd166" stroke-width="1.8" stroke-linecap="round"/><path d="M31.2 5.2 L38.5 7.3 L31.2 9.6Z" fill="#ffd166"/><path d="M6 40 H42" stroke="#ffd2ec" stroke-width="1" opacity=".35"/></svg>';
     b.onclick = () => {
-      const o = $("#jx-menu"); if (o) { o.remove(); return; }
-      const m = el(`<div id="jx-menu" role="menu"><div class="who">Conectado como ${EMAIL.replace(/[<>&]/g, "")}</div>${TRIAL.txt ? `<div class="who" style="color:${TRIAL.left <= 2 ? "#ffd27a" : "#cbbfe8"}">${TRIAL.txt}</div>` : ""}
-        <button role="menuitem" data-k="imp">Importar meus dados…</button>
-        <button role="menuitem" data-k="exp">Baixar cópia dos meus dados</button>
-        <button role="menuitem" data-k="reset">Apagar meus dados e recomeçar…</button>
-        <button role="menuitem" data-k="out">Sair</button></div>`);
-      document.body.appendChild(m);
-      m.onclick = e => { const k = e.target.dataset && e.target.dataset.k; if (!k) return; m.remove(); if (k === "imp") importDlg(); else if (k === "exp") exportAll(); else if (k === "reset") resetDlg(); else if (k === "out") { if (typeof window.exitAsk === "function") window.exitAsk(); else jxOut(); } };
-      setTimeout(() => document.addEventListener("click", function h(ev) { if (!m.contains(ev.target) && ev.target !== b) { m.remove(); document.removeEventListener("click", h); } }), 0);
+      const o = $("#jx-menu"); if (o) { o.classList.add("out"); b.setAttribute("aria-expanded", "false"); setTimeout(() => o.remove(), 150); return; }
+      const m = el(`<div id="jx-menu" role="menu"><div class="jxm-h"><span class="jxm-logo">${window.JX_MTN}</span><span class="jxm-t"><b>SUA CONTA</b><small>${EMAIL.replace(/[<>&]/g, "")}</small></span></div>${TRIAL.txt ? `<div class="jxm-tr" style="color:${TRIAL.left <= 2 ? "#ffd27a" : "#cbbfe8"}">${TRIAL.txt}</div>` : ""}
+        <button role="menuitem" data-k="imp"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3M7 8l5-5 5 5"/><path d="M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg></i>Importar meus dados…</button>
+        <button role="menuitem" data-k="exp"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg></i>Baixar cópia dos meus dados</button>
+        <button role="menuitem" data-k="reset" class="warn"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></i>Apagar meus dados e recomeçar…</button>
+        <button role="menuitem" data-k="out" class="out"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg></i>Sair</button></div>`);
+      document.body.appendChild(m); b.setAttribute("aria-expanded", "true");
+      try { const r = b.getBoundingClientRect(), mw = m.offsetWidth, mh = m.offsetHeight; let l = Math.max(10, Math.min(r.left, innerWidth - mw - 10)), t = r.top - mh - 10; if (t < 10) t = Math.min(innerHeight - mh - 10, r.bottom + 10); m.style.left = l + "px"; m.style.top = t + "px"; m.style.bottom = "auto"; } catch (e) { }
+      m.onclick = e => { const bt = e.target.closest && e.target.closest("[data-k]"), k = bt && bt.dataset.k; if (!k) return; m.remove(); b.setAttribute("aria-expanded", "false"); if (k === "imp") importDlg(); else if (k === "exp") exportAll(); else if (k === "reset") resetDlg(); else if (k === "out") { if (typeof window.exitAsk === "function") window.exitAsk(); else jxOut(); } };
+      setTimeout(() => document.addEventListener("click", function h(ev) { if (!m.contains(ev.target) && !b.contains(ev.target)) { m.remove(); b.setAttribute("aria-expanded", "false"); document.removeEventListener("click", h); } }), 0);
     };
   }
 
