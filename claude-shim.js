@@ -331,7 +331,7 @@
         <button role="menuitem" data-k="reset">Apagar meus dados e recomeçar…</button>
         <button role="menuitem" data-k="out">Sair</button></div>`);
       document.body.appendChild(m);
-      m.onclick = e => { const k = e.target.dataset && e.target.dataset.k; if (!k) return; m.remove(); if (k === "imp") importDlg(); else if (k === "exp") exportAll(); else if (k === "reset") resetDlg(); else if (k === "out") jxOut(); };
+      m.onclick = e => { const k = e.target.dataset && e.target.dataset.k; if (!k) return; m.remove(); if (k === "imp") importDlg(); else if (k === "exp") exportAll(); else if (k === "reset") resetDlg(); else if (k === "out") { if (typeof window.exitAsk === "function") window.exitAsk(); else jxOut(); } };
       setTimeout(() => document.addEventListener("click", function h(ev) { if (!m.contains(ev.target) && ev.target !== b) { m.remove(); document.removeEventListener("click", h); } }), 0);
     };
   }
@@ -579,7 +579,11 @@
   function hideSplash() { if (splashDone) return; splashDone = true; const sp = document.getElementById("jx-splash"); if (!sp) return; sp.classList.add("out"); setTimeout(() => { if (sp.classList.contains("out")) sp.style.display = "none"; }, 320); }
   /* a abertura (logo + linha carregando) volta sempre que algo for demorar: trocar de concurso, apagar dados, sair */
   window.jxSplash = function (show, msg) { const sp = document.getElementById("jx-splash"); if (!sp) return; const m = sp.querySelector("small"); if (m && msg) m.textContent = msg; if (show) { sp.style.transition = "none"; sp.style.display = ""; sp.classList.remove("out"); void sp.offsetWidth; sp.style.transition = ""; splashDone = false; } else hideSplash(); };
-  function jxOut() { window.jxSplash(true, "Saindo da sua conta…"); try { sessionStorage.setItem("jx-out", "1"); } catch (e) { } Promise.resolve(sb.auth.signOut()).catch(() => { }).then(() => location.reload()); }
+  function jxOut() { window.jxSplash(true, "Saindo da sua conta…");
+    const go = () => { try { Object.keys(localStorage).filter(k => /^sb-.*-auth-token$/.test(k)).forEach(k => localStorage.removeItem(k)); sessionStorage.setItem("jx-msg", "Você saiu da sua conta. Entre com o e-mail que quiser."); } catch (e) { } location.replace(location.pathname + "?entrar"); };
+    let done = false; const fin = () => { if (!done) { done = true; go(); } }; setTimeout(fin, 2500);
+    Promise.resolve(sb.auth.signOut({ scope: "local" })).catch(() => { }).then(fin); }
+  window.jxOut = function () { jxOut(); };
   /* a tela só aparece quando o painel termina de desenhar (evento jornada-shown); jornada-ready fica de reserva */
   window.addEventListener("jornada-shown", () => { if (UID) hideSplash(); });
   window.addEventListener("jornada-ready", () => { if (UID) setTimeout(hideSplash, 2500); });

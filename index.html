@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611111618"></script>
+<script src="/claude-shim.js?v=202611111638"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -1517,6 +1517,14 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 .jlogo{width:100%;height:100%;display:block}
 .mark.jmark{background:none;box-shadow:0 6px 18px -6px rgba(157,107,255,.75);padding:0;overflow:hidden}
 .side>.brand{flex-direction:column;justify-content:center;text-align:center;gap:10px;padding:4px 4px 2px;margin-bottom:8px}.side>.brand .mark{width:68px;height:68px;border-radius:18px;box-shadow:0 10px 26px -8px rgba(157,107,255,.8)}.side>.brand>div:last-child{display:grid;gap:4px;justify-items:center}.side>.brand b{font-size:21px;line-height:1;letter-spacing:.02em}.side>.brand small{font-size:11.5px;line-height:1.3;white-space:nowrap;letter-spacing:.01em}
+:root[data-vis="jornada"] .side .brand>div:not(.mark){display:block!important;text-align:left!important;min-width:0;flex:1 1 auto;justify-items:start}
+:root[data-vis="jornada"] .side .brand>div:not(.mark) b,:root[data-vis="jornada"] .side .brand>div:not(.mark) small{text-align:left!important;justify-self:start;margin:0}
+:root[data-vis="jornada"] .side .brand>div:not(.mark) small{overflow:hidden;text-overflow:ellipsis;max-width:100%}
+/* engrenagem da conta dentro do bloco do aluno (não cobre o chip) */
+.side .who{position:relative}.side .who #jx-fab{position:absolute!important;left:auto!important;right:4px!important;top:6px!important;bottom:auto!important;width:28px!important;height:28px!important;font-size:13px!important;opacity:.8}
+:root[data-navc="1"] .side .who #jx-fab{position:static!important;margin:6px auto 0;display:block;grid-column:1/-1}
+/* celular e tablet: troca de tela sem esmaecer (nada some e volta) */
+@media (max-width:1100px),(pointer:coarse){#view,#view>*,#view.tabin>*,#view:not(.noanim)>*,#view.vw-r,#view.vw-l,#view.vw-sub,.app{animation:none!important;transition:none!important}}
 :root[data-navc="1"] .side>.brand .mark{width:40px;height:40px;border-radius:11px}
 .fmbrand{grid-template-columns:auto 1fr;column-gap:10px;align-items:center}.fmbrand .jlogo{grid-row:1/3;width:34px;height:34px}
 .navtg{position:fixed;left:247px;bottom:96px;z-index:40;width:24px;height:44px;display:grid;place-items:center;padding:0 2px 0 0;border-radius:0 22px 22px 0;border:1px solid var(--side-line);border-left:0;background:var(--side);color:var(--lime-txt,var(--lime));box-shadow:6px 4px 14px -8px rgba(0,0,0,.6);cursor:pointer;transition:left .32s var(--ease-out,ease),background-color .2s,width .2s}
@@ -2275,7 +2283,7 @@ kbd{font:600 10.5px var(--f-body);border:1px solid var(--line2);border-bottom-wi
 .asn-wh{display:grid;gap:8px;border:1px dashed var(--line2);border-radius:12px;padding:12px}.asn-wh small{display:block;color:var(--fg2)}.asn-wh code{display:block;font-size:12.5px;word-break:break-all;background:var(--sunk);border-radius:8px;padding:6px 8px;margin-top:3px}
 .asn-adm{margin-top:8px;display:inline-flex;align-items:center;justify-content:center;gap:5px;border:1px solid var(--ok);background:var(--ok-soft);color:var(--ok);font:700 12px/1 var(--f-body);letter-spacing:.04em;border-radius:999px;padding:5px 11px;cursor:pointer;white-space:nowrap;max-width:100%;box-sizing:border-box}
 :root[data-navc="1"] #asnChipW{display:flex;justify-content:center;width:100%}:root[data-navc="1"] .asn-adm{padding:4px 7px;font-size:10.5px;gap:3px;margin-top:4px}:root[data-navc="1"] .asn-adm svg.i{width:11px;height:11px}:root[data-navc="1"] .asn-chip{display:none}
-:root[data-navc="1"] .nav .nav-lx .lx-ic{display:grid;place-items:center}.asn-adm svg.i{width:13px;height:13px}.asn-adm .adm-s{display:none}:root[data-navc="1"] .asn-adm .adm-l,:root[data-navc="1"] .asn-adm svg.i{display:none}:root[data-navc="1"] .asn-adm .adm-s{display:inline}:root[data-navc="1"] .asn-adm{display:flex;width:100%;margin-inline:auto;justify-content:center;text-align:center}
+:root[data-navc="1"] .nav .nav-lx .lx-ic{display:grid;place-items:center}.asn-adm svg.i{width:13px;height:13px}.asn-adm .adm-s{display:none}.side .who #asnChipW{display:flex;justify-content:center;width:100%;grid-column:1/-1}.side .who .asn-adm{text-transform:uppercase;letter-spacing:.12em;color:#3fd47a;border-color:#3fd47a;margin-inline:auto}.side .who .asn-adm svg.i{display:none}:root[data-navc="1"] .asn-adm .adm-l,:root[data-navc="1"] .asn-adm svg.i{display:none}:root[data-navc="1"] .asn-adm .adm-s{display:inline}:root[data-navc="1"] .asn-adm{display:flex;width:100%;margin-inline:auto;justify-content:center;text-align:center}
 .asn-chip{margin-top:8px;border:1px solid var(--warn);background:var(--warn-soft);color:var(--warn);font:600 11.5px var(--f-body);border-radius:99px;padding:4px 10px;cursor:pointer}
 @media (max-width:760px){.asn-pl,.asn-ft,.asn-f{grid-template-columns:1fr}.asn-ia{justify-items:start;margin-left:0}}
 
@@ -2438,6 +2446,8 @@ button.jm-s{background:none;border:0;padding:0;cursor:pointer;font:inherit}.jx-m
 @keyframes jxGlow{0%,100%{transform:scale(.92)}50%{transform:scale(1.1)}}
 .jt-g{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;margin:0 0 18px}
 .jt-c0{padding:20px 22px!important;display:grid;gap:12px;align-content:start}
+.xq-m{animation:xqBg .22s ease both}.xq-m.out{animation:xqBg .18s ease reverse both}.xq{max-width:380px;text-align:center;display:grid;gap:10px;justify-items:center;animation:xqIn .32s cubic-bezier(.2,1.2,.4,1) both}.xq-m.out .xq{animation:xqIn .18s ease reverse both}.xq h3{margin:0}.xq p{margin:0}.xq-ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#7b3cff,#ff5f8f);color:#fff}.xq-ic svg{width:24px;height:24px}.xq-b{display:grid;gap:8px;width:100%;margin-top:6px}
+@keyframes xqIn{from{opacity:0;transform:translateY(18px) scale(.94)}}@keyframes xqBg{from{opacity:0}}
 a.jt-b,.jt-c a.chip{text-decoration:none}.tca-g{border:1px solid rgba(160,107,255,.35);border-radius:12px;padding:12px 14px;background:rgba(160,107,255,.08)}.jt-as{display:grid;gap:4px;margin-top:6px}.jt-as a{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:#d9ccff;text-decoration:none;padding:5px 8px;border-radius:8px;background:rgba(255,255,255,.04)}.jt-as a:hover{background:rgba(160,107,255,.2);color:#fff}.jt-as a span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.jt-as small{color:#a99bd6;white-space:nowrap}.jt-c a.chip{color:#c9b8ff;border-color:rgba(160,107,255,.45)}.jt-c a.chip:hover{color:#fff;background:rgba(160,107,255,.25)}
 .jt-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}.jt-h small{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}.jt-h h2{margin:2px 0 0;font:600 30px/1.1 Oswald,var(--f-cond);color:#fff}
 .jt-l{position:relative;display:grid}.jt-l::before{content:"";position:absolute;left:16px;top:22px;bottom:22px;width:2px;background:repeating-linear-gradient(180deg,rgba(201,184,255,.4) 0 3px,transparent 3px 9px)}
@@ -4323,6 +4333,10 @@ function edStats(){const E=core().ed;let cov=0,st=0;ED.forEach((s,i)=>s.t.forEac
 const prova=()=>(core().cron.find(c=>c.k==="prova")||{d:"2027-03-14"}).d;
 /* Sem data oficial de prova (pré-edital ou concurso sem edital): o painel usa uma data estimada só para o ritmo das metas,
    mas mostra "∞ / a definir". Muda sozinho quando a data é informada no cronograma, quando o edital é incluído ou quando o catálogo traz a data. */
+/* nome curto do concurso: cargo sem complementos; nos planos pré-edital vira "Cargo - Pré-Edital" */
+function planTitulo(){if(IS_TJ)return"Oficial de Justiça";const p=PLAN||{},raw=[p.name,p.cargo,p.orgao].filter(Boolean).join(" "),pre=/pr[ée][\s-]*edital/i.test(raw);
+  let c=String(p.cargo||p.name||"").replace(/pr[ée][\s-]*edital\s*[–—-]?\s*/ig,"").replace(/\s*[–—-]\s*mat[ée]rias?[\s-]*base.*$/i,"").replace(/\s*\([^)]*\)/g,"").replace(/\s*[–—-]\s*$/,"").replace(/\s{2,}/g," ").trim();
+  return pre?c+" - Pré\u2011Edital":c}
 const provaTBD=()=>{try{if(IS_TJ||!PLAN||PLAN.prova)return false;const c=core(),d=prova();if(!c.provaAuto){c.provaAuto=d;try{touch("core")}catch(e){}}return d===c.provaAuto}catch(e){return false}};
 const planTBD=p=>p&&p.id!=="tjsp"&&!p.prova&&(p.id===ACTIVE?provaTBD():true);
 const dueRevs=()=>REV().filter(r=>!r.done&&addDays(r.d0,OFF[r.step])<=today());
@@ -6114,7 +6128,7 @@ function render(){
   syncMeta();
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
-  if(UI.lastTab!==TAB){UI.lastTab=TAB;const v=$("view");if(v&&!matchMedia("(prefers-reduced-motion: reduce)").matches){v.classList.remove("tabin");void v.offsetWidth;v.classList.add("tabin");clearTimeout(UI.tabT);UI.tabT=setTimeout(()=>v.classList.remove("tabin"),700)}}
+  if(UI.lastTab!==TAB){if(UI.lastTab&&!UI.navBack){(window.NAVH=window.NAVH||[]).push(UI.lastTab);if(NAVH.length>30)NAVH.shift()}UI.navBack=0;UI.lastTab=TAB;const v=$("view");if(v&&!matchMedia("(prefers-reduced-motion: reduce)").matches){v.classList.remove("tabin");void v.offsetWidth;v.classList.add("tabin");clearTimeout(UI.tabT);UI.tabT=setTimeout(()=>v.classList.remove("tabin"),700)}}
   const V={scribax:vScribax,meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:()=>vMateriais()+(VIS()?"":obSetupCard()),revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,mural:vMural,motivacao:vMotivacao,comparativo:vComparativo,esquemas:vEsquemas,rotina:()=>{const h=vRotina(),k=afCardHTML()+actCardHTML();if(!k)return h;const i=h.indexOf("</div>",h.indexOf('class="hello"'));return i>0?h.slice(0,i+6)+k+h.slice(i+6):k+h},erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,pontos:vPontos,assinatura:vAssinatura,provas:vProvas}[TAB];
   {const vw=$("view"),ix=t=>TABS.findIndex(x=>x[0]===t),a=ix(render.lt),b=ix(TAB),sk=[UI.jtab,UI.dtab,UI.ctab,UI.mtab,UI.rsView,UI.rotMode,UI.dmode,UI.mview,UI.dsView,UI.pvOpen].map(x=>x==null?"":String(x)).join("|"),subCh=render.lt===TAB&&render.lsk!=null&&render.lsk!==sk;
    const left=render.lt!==TAB?(UI.navDir==="l"||(!UI.navDir&&a>-1&&b>-1&&b<a)):(subCh&&UI.navDir==="l");
@@ -6366,7 +6380,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261111161803";
+const JX_BUILD="20261111163807";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6868,7 +6882,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111161803" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111163807" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -7333,6 +7347,18 @@ function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_
     <p class="muted small" style="margin:10px 0 0">Pague com o mesmo e-mail da sua conta (<b>${esc(A.email||"")}</b>): a liberação é automática em poucos minutos. Você tem 7 dias para desistir e receber o valor de volta (art. 49 do CDC).</p>
     <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><button class="btn" data-a="asnCheck">${ic("reset")} Já paguei: verificar</button><a class="btn" href="termos.html#termos" target="_blank" rel="noopener">Termos de Uso ↗</a><a class="btn" href="termos.html#privacidade" target="_blank" rel="noopener">Política de Privacidade ↗</a></div></div></section>${cfg}`}
 const SUPA_FN=n=>{try{return String((window.JORNADA_CONFIG||{}).SUPABASE_URL||"").replace(/\/$/,"")+"/functions/v1/"+n}catch(e){return"/functions/v1/"+n}};
+/* ---------- Botão Voltar do celular/tablet: nunca sai da conta direto ----------
+   1º fecha a janela aberta; 2º volta para a tela anterior da plataforma; 3º pergunta se quer sair (caixa animada) */
+function backGuard(){try{if(history.state&&history.state.jx)return;history.pushState({jx:1},"",location.href)}catch(e){}}
+function exitAsk(){const L=$("layer3");if(!L)return;L.innerHTML=`<div class="modal xq-m" role="dialog" aria-modal="true" aria-label="Sair da Jornada?"><div class="box xq"><div class="xq-ic">${ic("flag")}</div><h3>Sair da Jornada?</h3><p class="muted">O seu progresso está salvo. Você pode continuar estudando ou sair da sua conta.</p><div class="xq-b"><button class="btn pri" data-a="xqStay">Continuar estudando</button><button class="btn" data-a="xqOut">Sair da conta</button></div></div></div>`}
+window.addEventListener("popstate",()=>{backGuard();const L=$("layer3");
+  if(L&&L.innerHTML.trim()){const x=L.querySelector(".xq-m");L.innerHTML="";if(x)return;return}
+  if(UI.openT){UI.openT=null;try{renderDrawer()}catch(e){}render();return}
+  const H=window.NAVH||[];if(H.length){UI.navBack=1;TAB=H.pop();render();try{scrollTo({top:0})}catch(e){}return}
+  exitAsk()});
+setTimeout(backGuard,800);document.addEventListener("click",backGuard,{once:true,capture:true});
+function fabDock(){try{const f=document.getElementById("jx-fab"),w=document.querySelector(".side .who");if(!f)return;const vis=w&&w.offsetParent!==null&&w.getBoundingClientRect().width>0;if(vis&&f.parentElement!==w)w.appendChild(f);else if(!vis&&f.parentElement!==document.body)document.body.appendChild(f)}catch(e){}}
+setInterval(fabDock,1500);
 function asnChip(){const A=window.JX_ACESSO;if(A&&A.st==="dono")return`<button class="asn-adm" data-a="tab" data-t="assinatura" title="Acesso livre e vitalício, com a configuração da venda">${ic("lock")} <span class="adm-l">Administrador</span><span class="adm-s">ADM</span></button>`;if(!A||A.st!=="teste"||A.left>3)return"";return`<button class="asn-chip" data-a="tab" data-t="assinatura">${A.left<=1?"Teste termina hoje":"Teste: "+A.left+" dias"} · Assinar</button>`}
 
 /* ---------- Hoje enxuto: o concurso (card, contagem e roteiro) fica num card que abre e fecha ---------- */
@@ -8975,6 +9001,23 @@ function jxMotCards(){try{const M=MOT(),fr=M.items.filter(x=>x.k==="frase"),td=t
 function jxBand(o){return`<section class="jx-band" aria-label="${esc(o.t)}"><div class="jb-t"><small>${esc(o.k)}</small><b>${esc(o.t)}</b>${o.s?`<span>${o.s}</span>`:""}${o.kp&&o.kp.length?`<div class="jb-k">${o.kp.map(([v,l,c])=>`<span><b${c?` style="color:${c}"`:""}>${v}</b>${esc(l)}</span>`).join("")}</div>`:""}${o.cta||""}</div><div class="jb-a">${o.art||""}</div></section>`}
 function jbPeaks(L,emptyTxt){const W=600,H=180,base=150;if(!L.length||!L.some(x=>x.v>0))return`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><path d="M0 ${base} C 150 ${base-14}, 300 ${base+6}, 600 ${base-10}" fill="none" stroke="#8fe6b0" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/><text x="${W/2}" y="${base-30}" text-anchor="middle" class="jb-tx">${esc(emptyTxt||"Caminho plano por aqui")}</text></svg>`;
   const mx=Math.max(1,...L.map(x=>x.v)),n=L.length,bw=W/n;return`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMax meet" aria-hidden="true">${L.map((x,i)=>{const cx=bw*(i+.5),hw=Math.min(40,bw*.62),top=base-(x.v/mx)*110;return`<path d="M${(cx-hw).toFixed(0)} ${base} L${cx.toFixed(0)} ${top.toFixed(0)} L${(cx+hw).toFixed(0)} ${base}Z" fill="${x.col}" fill-opacity=".24" stroke="${x.col}" stroke-width="2"/><text x="${cx.toFixed(0)}" y="${(top-7).toFixed(0)}" text-anchor="middle" class="jb-v">${x.v}</text><text x="${cx.toFixed(0)}" y="${base+16}" text-anchor="middle" class="jb-c" fill="${x.col}">${esc(x.lab)}</text>`}).join("")}</svg>`}
+function jbWatch(){return`<svg viewBox="0 0 600 180" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><defs><linearGradient id="jwM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b3fb0"/><stop offset="1" stop-color="#2c1b62"/></linearGradient><linearGradient id="jwS" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffd166" stop-opacity="0"/><stop offset="1" stop-color="#ffd166" stop-opacity=".35"/></linearGradient></defs>
+  <circle cx="470" cy="40" r="2" fill="#fff" opacity=".7"/><circle cx="380" cy="22" r="1.4" fill="#fff" opacity=".6"/><circle cx="540" cy="70" r="1.3" fill="#fff" opacity=".5"/><circle cx="300" cy="50" r="1.2" fill="#fff" opacity=".5"/>
+  <path d="M300 180 L420 92 L455 112 L505 38 L560 104 L600 82 L600 180Z" fill="url(#jwM)" opacity=".85"/><path d="M505 38 L520 58 L511 56 L503 64 L494 54Z" fill="#efe8ff" opacity=".85"/>
+  <g transform="translate(505 38)"><path d="M0 0 v-22 l14 4 -14 4" fill="#ffd166" stroke="#ffd166" stroke-width="1.4"/></g>
+  <path d="M0 180 L0 132 Q80 112 170 128 Q250 142 330 166 L350 180Z" fill="#1d1248"/>
+  <path d="M232 66 L500 42" stroke="url(#jwS)" stroke-width="1.4" stroke-dasharray="3 6"/>
+  <g transform="translate(176 76) scale(1.75)">
+   <path d="M-34 44 Q-22 26 6 28 Q30 30 40 44Z" fill="#2a1a5e" stroke="#4a3590" stroke-width="1.5"/>
+   <path d="M-6 6 Q-18 8 -18 22 L-16 30 L4 30 L6 12Z" fill="#7b3cff"/>
+   <path d="M2 4 Q14 6 16 18 L12 30 L-2 30 Z" fill="#ff5f8f"/>
+   <path d="M12 26 L30 26 L34 40" fill="none" stroke="#3b2a7a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+   <path d="M30 40 L38 40" stroke="#170f38" stroke-width="5" stroke-linecap="round"/>
+   <path d="M10 14 Q22 16 26 24" fill="none" stroke="#ff5f8f" stroke-width="5" stroke-linecap="round"/>
+   <circle cx="8" cy="-4" r="8" fill="#ffe1c9"/><path d="M0 -6 a8 8 0 0 1 16 0 z" fill="#7b3cff"/><path d="M14 -7 h6" stroke="#7b3cff" stroke-width="2.4" stroke-linecap="round"/>
+   <circle cx="12.5" cy="-4" r="1.1" fill="#2b0f63"/>
+  </g>
+  <text x="505" y="128" text-anchor="middle" class="jb-l" fill="#ffd166">prova · data a definir</text></svg>`}
 function jbTrail(N){const W=600,H=180;if(!N.length)return"";const n=N.length,P=N.map((_,i)=>[40+(W-80)*(n>1?i/(n-1):.5),150-(n>1?i/(n-1):.5)*110+(i%2?8:-4)]);
   const d="M "+P.map(p=>p[0].toFixed(0)+" "+p[1].toFixed(0)).join(" L ");const lastOk=N.map(x=>x.st).lastIndexOf("ok"),dn=lastOk>0?"M "+P.slice(0,lastOk+1).map(p=>p[0].toFixed(0)+" "+p[1].toFixed(0)).join(" L "):"";
   return`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><path d="M0 180 L0 ${P[0][1]+20} ${P.map(p=>"L"+p[0].toFixed(0)+" "+(p[1]+16).toFixed(0)).join(" ")} L600 ${(P[n-1][1]+30).toFixed(0)} L600 180Z" fill="#2c1b62" opacity=".75"/><path d="${d}" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>${dn?`<path d="${dn}" fill="none" stroke="#8fe6b0" stroke-width="4" stroke-linecap="round"/>`:""}
@@ -9012,7 +9055,7 @@ function jxBandTab(){try{const td=today();
     return jxBand({k:"Sua semana em horas",t:tot?Math.round(tot/60*10)/10+" h de estudo por semana":"Monte a sua semana",s:"Cada barra é um dia: a altura é o tempo de estudo que cabe nele.",art:jbBars(m,["SEG","TER","QUA","QUI","SEX","SÁB","DOM"])})}
   if(TAB==="edital"){const P=progData();return jxBand({k:"Edital verticalizado",t:Math.round(P.tot)+"% do edital estudado",s:"Marque os tópicos que já estudou. Cada tópico estudado acende uma estrela no céu do edital.",cta:`<button class="btn sm" data-a="gtab" data-t="incidencia">Ver o céu do edital</button>`,art:jbRing(P.tot,"do edital")})}
   if(TAB==="concurso"){const I=orgInfo(),cr=(I.cr||[]).slice(0,7),nx=cr.findIndex(x=>x.d>=td),N=cr.map((x,i)=>({st:x.k==="prova"?"pk":x.d<td?"ok":i===nx?"on":"fu",lab:x.k==="prova"?"prova "+dm(x.d):dm(x.d)}));if(!N.length||N[N.length-1].st!=="pk")N.push({st:"pk",lab:"prova"});
-    return jxBand({k:"Roteiro do concurso",t:cargoTitulo(I.cargo||"")||"Seu concurso",s:esc([I.sig,I.banca,I.vagas].filter(Boolean).join(" · "))+(nx>=0&&cr[nx]?`<br>Próxima etapa: <b>${esc(cr[nx].l)}</b> · ${dm(cr[nx].d)}`:""),art:jbTrail(N)})}
+    return jxBand({k:"Roteiro do concurso",t:(IS_TJ?cargoTitulo(I.cargo||""):planTitulo())||"Seu concurso",s:esc([I.sig,I.banca,I.vagas].filter(Boolean).join(" · "))+(nx>=0&&cr[nx]?`<br>Próxima etapa: <b>${esc(cr[nx].l)}</b> · ${provaTBD()&&cr[nx].k==="prova"?"data a definir":dm(cr[nx].d)}`:""),art:provaTBD()?jbWatch():jbTrail(N)})}
   if(TAB==="provas"){const n=PVS().length;return jxBand({k:"Provas anteriores",t:n?dias0(n,"prova guardada","provas guardadas"):"Guarde as provas que você faz",s:"Cada prova corrigida vira revisão: os erros vão para Erradas e para a Trilha.",art:jbBook()})}
   if(TAB==="mural"){const n=MUR().length;return jxBand({k:"Mural de lembretes",t:n?dias0(n,"lembrete no mural","lembretes no mural"):"Cole o primeiro lembrete",s:"Regras, prazos e recados que você quer ver sempre: fixe no topo o que mais importa.",art:jbNotes()})}
   if(TAB==="comparativo")return jxBand({k:"Comparativo",t:"Você e a sua referência",s:"Compare a sua evolução com o que o plano pede e, se quiser, com os alunos do mesmo concurso.",art:jbTwo()});
@@ -11001,7 +11044,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111161803&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111163807&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -11181,7 +11224,7 @@ function vConcurso0(){
   const TBDc=provaTBD();const rows=cr.map(x=>{const n=x.k==="prova"&&x.d===prova()?provaDias(x.d):dbet(td,x.d),tb=TBDc&&x.k==="prova";return`<div class="crow"><div class="k">${esc(x.l)}<small>${tb?"data a definir · ∞ dias":(x.a?"de "+dm(x.a)+" a "+dm(x.d)+" · ":"")+(n>0?"faltam "+dias(n):n===0?"é hoje":"já passou")}</small></div><span class="chip ${tb?"":n<0?"":n<=7?"warn":"lime"}">${tb?"—":dmy(x.d)}</span><input class="inp when" type="date" value="${tb?"":x.d}" data-c="cron" data-k="${x.k}" aria-label="${tb?"Informar a data da prova quando sair o edital":"Alterar data: "+esc(x.l)}" ${tb?'placeholder="a definir"':""}></div>`}).join("");
   const lv=ED.map((s,i)=>`<div class="lvl"><span><span class="code" style="margin-right:8px;border-color:${s.col}">${s.c}</span>${esc(s.n)}</span><select class="inp" style="width:auto" data-c="lvl" data-s="${s.id}" aria-label="Nível em ${esc(s.n)}">${Object.keys(LVS).map(l=>`<option ${lvl(i)===l?"selected":""}>${l}</option>`).join("")}</select></div>`).join("");
   const r=curMeta(),canRe=r&&!r.done&&!started(r.n);
-  return`<div class="hello"><h1>Concurso</h1><p>${IS_TJ?"Oficial de Justiça do TJSP · Edital 01/2026 · Fundação VUNESP · 132 vagas imediatas · R$ 10.276,04":esc([PLAN.name,PLAN.cargo,PLAN.orgao,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(" · "))}</p></div>
+  return`<div class="hello"><h1>Concurso</h1><p>${IS_TJ?"Oficial de Justiça do TJSP · Edital 01/2026 · Fundação VUNESP · 132 vagas imediatas · R$ 10.276,04":esc([planTitulo(),/pr[ée][\s-]*edital/i.test(PLAN.orgao||"")?"":PLAN.orgao,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(" · "))}</p></div>
   ${plansCard()}
   ${edCard()}
   <section class="card"><div class="hero-c"><div class="big">${provaTBD()?"∞":Math.max(0,dp)}<small>${provaTBD()?"prova sem data":"dias até a prova"}</small></div><div style="display:grid;gap:8px;min-width:0">${IS_TJ?`<b style="font:600 18px var(--f-display)">${dmy(pv)}, à tarde, 5 horas de prova</b><span class="muted">Prova objetiva com 70 questões e discursiva com 2 questões de conhecimentos específicos, no mesmo dia, nas sedes das 10 RAJs.</span>`:provaTBD()?`<b style="font:600 18px var(--f-display)">Prova ainda sem data</b><span class="muted">${ED.length} matérias e ${TOT_TOP} assuntos. Quando o edital sair, inclua o edital ou informe a data no cronograma abaixo: a contagem começa sozinha.</span>`:`<b style="font:600 18px var(--f-display)">Prova em ${dmy(pv)}</b><span class="muted">${ED.length} matérias e ${TOT_TOP} assuntos no seu edital. Ajuste a data no cronograma abaixo.</span>`}
@@ -12487,6 +12530,8 @@ const A={
     x.done=today();x.min=m;if(x.tipo==="q"&&q){x.q=q;x.ok=ok}touch("extra");logMinutes(m,"x:"+x.id,false,x.sid);$("layer3").innerHTML="";render();toast("Estudo extra salvo: "+fmtM(m)+(q?" · "+ok+" de "+q+" questões":""))},
   xtrDrop(){const L=XTR(),i=L.findIndex(x=>!x.done);if(i>=0){L.splice(i,1);touch("extra")}render()},
   xtrQz(el){UI.rsSid=el.dataset.s;UI.rsAula=el.dataset.c;TAB="resumos";render();scrollTo(0,0)},
+  xqStay(){const m=document.querySelector(".xq-m");if(m){m.classList.add("out");setTimeout(()=>{$("layer3").innerHTML=""},180)}else $("layer3").innerHTML=""},
+  xqOut(){$("layer3").innerHTML="";if(window.jxOut)window.jxOut();else location.replace(location.pathname+"?entrar")},
   tbOpen(el){const s0=el&&el.dataset&&el.dataset.s;UI.tb={sid:(s0&&SUB(s0)?s0:(UI.tb&&UI.tb.sid))||ED[0].id,rows:[],aula:(el&&el.dataset&&el.dataset.c)||""};tecBatModal()},
   tbRead(){const B=UI.tb;const t=(($("tbTx")||{}).value||"");B.aula=($("tbA")||{}).value||"";B.as=(($("tbAs")||{}).value||"").trim();
     const ns=[...new Set((t.match(/\d{5,}/g)||[]))].slice(0,200);if(!ns.length){toast("Cole os números ou os links das questões do TEC");return}B.rows=ns.map(n=>({n,k:"err",why:""}));tecBatModal()},
