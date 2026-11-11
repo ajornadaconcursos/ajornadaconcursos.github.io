@@ -89,7 +89,7 @@
         /* assunto com poucas questões no TEC: usa a matéria inteira para fechar a bateria */
         if(n<10&&!geral&&mi.length){F=mi.map(function(x){return["MATERIA",x]});geral=1;nb=banca?await count(F.concat([["BANCA",banca.id]])):0;useB=nb>=20;n=useB?nb:await count(F)}
         if(n<1){FAIL.push(it.k);continue}
-        var q=Math.min(N,n),FF=useB?F.concat([["BANCA",banca.id]]):F;
+        var q=Math.min(Math.min(+it.n||N,100),n),FF=useB?F.concat([["BANCA",banca.id]]):F;
         var nome=("A Jornada · "+it.m+" · "+it.t).replace(/\s+/g," ").slice(0,140);
         var cid=await create(FF,nome,q);
         if(cid){var r={k:it.k,id:cid,n:q,b:useB?banca.sigla:"",as:names.slice(0,4).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
