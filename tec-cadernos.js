@@ -12,7 +12,7 @@
   D.body.appendChild(box);
   function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   var BTN="display:inline-block;margin-top:12px;padding:10px 16px;border-radius:10px;background:linear-gradient(90deg,#7b3cff,#ff5f8f);color:#fff;font-weight:700;text-decoration:none;border:0;cursor:pointer;font-size:15px";
-  function show(h){box.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px"><b style="font-size:17px">➜ A Jornada · '+(J&&J.mode==="inc"?"incidência no TEC":"cadernos do TEC")+'</b><button id="jxcX" style="background:none;border:0;color:#c2b6df;font-size:20px;cursor:pointer" aria-label="Fechar">×</button></div>'+h+'<p id="jxWait" style="margin:6px 0 0;font-size:13px;color:#ffcf6b"></p>';var x=D.getElementById("jxcX");if(x)x.onclick=function(){STOP=1;box.remove()}}
+  function show(h){box.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px"><b style="font-size:17px">➜ A Jornada · '+(J&&J.mode==="inc"?"incidência no TEC":J&&J.mode==="guia"?"guia do seu concurso":"cadernos do TEC")+'</b><button id="jxcX" style="background:none;border:0;color:#c2b6df;font-size:20px;cursor:pointer" aria-label="Fechar">×</button></div>'+h+'<p id="jxWait" style="margin:6px 0 0;font-size:13px;color:#ffcf6b"></p>';var x=D.getElementById("jxcX");if(x)x.onclick=function(){STOP=1;box.remove()}}
   if(!J||!J.items||!J.items.length){show('<p style="margin:0">Não chegou a lista de aulas. Volte à plataforma e toque em <b>Abrir o TEC e criar os cadernos</b>; depois toque de novo no favorito ➜ A Jornada aqui.</p>');return}
   try{sessionStorage.setItem("jxcad",raw)}catch(e){}
   var STOP=0,O=J.o||"",N=Math.max(20,Math.min(30,J.n||25)),DONE={},RES=[],FAIL=[];
@@ -38,7 +38,7 @@
     show('<p style="margin:0"><b>'+RES.length+' cadernos</b> prontos na sua conta do TEC'+(FAIL.length?' ('+FAIL.length+' aula'+(FAIL.length>1?'s':'')+' sem questões suficientes no TEC)':'')+'. Volte à plataforma para gravar cada caderno na tarefa de questões da aula.</p><a href="'+esc(url)+'" target="_blank" rel="noopener" style="'+BTN+'">Voltar para A Jornada</a>');
     try{sessionStorage.removeItem("jxcad");sessionStorage.removeItem("jxcad-res")}catch(e){}}
   (async function(){
-    if(J.mode==="inc")show('<p style="margin:0">Lendo matérias e bancas do TEC…</p>');else prog(0,J.items.length,"Lendo matérias e bancas do TEC…");
+    if(J.mode==="inc"||J.mode==="guia")show('<p style="margin:0">Lendo matérias e bancas do TEC…</p>');else prog(0,J.items.length,"Lendo matérias e bancas do TEC…");
     var M=[],B=[];try{M=(await getJSON("/api/materias?formato=OBJETIVA&nome=&universo=")).materias||[]}catch(e){}try{B=(await getJSON("/api/bancas?formato=OBJETIVA&nome=&universo=")).bancas||[]}catch(e){}
     if(!M.length){show('<p style="margin:0">Não consegui ler o TEC. Confira se você está logado no TEC Concursos e toque de novo no favorito ➜ A Jornada.</p>');return}
     var bn=norm(J.banca||"").replace(/[^a-z0-9 ]/g," ").trim(),banca=null;
@@ -74,6 +74,44 @@
     var MC={};function mats(m){var k=norm(m);if(MC[k])return MC[k];var parts=String(m).split(/\s+e\s+(?=[A-ZÁ-Ú])|\s*[\/;]\s*/),out=[];
       parts.forEach(function(p){var T=toks(p.replace(/^direito\s+/i,"Direito "));var best=null,bv=0;M.forEach(function(x){var v=dice(T,toks(x.nome));if(norm(x.nome).indexOf(norm(p))===0)v=Math.max(v,.9);if(v>bv){bv=v;best=x}});if(best&&bv>=.5&&out.indexOf(best.id)<0)out.push(best.id)});
       MC[k]=out;return out}
+    /* ---------- GUIA DO CONCURSO: acha o guia do TEC do concurso escolhido, lê as matérias e o índice de assuntos
+       (só nomes e quantidades) e cria na conta do aluno um caderno por matéria e um por assunto que mais cai ---------- */
+    function frame(url,test,ms){return new Promise(function(res){var f=D.createElement("iframe");f.style.cssText="position:fixed;width:1100px;height:900px;left:-4000px;top:0;opacity:0;pointer-events:none";f.src=url;D.body.appendChild(f);var t0=Date.now();
+      (function poll(){var d=null;try{d=f.contentDocument}catch(e){}var r=null;try{r=d&&d.body&&test(d)}catch(e){}if(r){setTimeout(function(){f.remove()},50);res(r)}else if(Date.now()-t0>(ms||25000)){f.remove();res(null)}else setTimeout(poll,600)})()})}
+    function indice(html){var d=new DOMParser().parseFromString(html,"text/html"),root=d.querySelector(".caderno-guia-arvore-indice>ul"),out=[];if(!root)return out;
+      (function walk(ul,dep,par){var last=null;[].forEach.call(ul.children,function(ch){if(ch.tagName==="LI"){var sp=ch.querySelector("span"),cq=ch.querySelector(".capitulo-questoes");var n={n:(sp?sp.textContent:"").replace(/\s+/g," ").trim(),q:+(((cq?cq.textContent:"").match(/\d+/)||[0])[0]),d:dep,p:par};if(n.n){out.push(n);last=n}}else if(ch.tagName==="UL")walk(ch,dep+1,last)})})(root,0,null);return out}
+    async function guiaRun(){var NA=Math.max(3,Math.min(12,J.na||8)),G=null,tag=String(J.org||J.busca||"").trim();
+      function gs(h){show('<p style="margin:0">'+h+'</p><p style="margin:8px 0 0;font-size:13px;color:#c2b6df">Deixe esta aba aberta.</p>')}
+      var tries=[J.busca,J.cargo].filter(Boolean),L=[];
+      for(var t=0;t<tries.length&&!L.length;t++){gs('Procurando no TEC o guia de <b>'+esc(tries[t])+'</b>…');
+        L=await frame("/guias/agrupamento/edital?busca="+encodeURIComponent(tries[t]),function(d){var A=[].map.call(d.querySelectorAll("a[href]"),function(a){return{u:a.href,t:a.textContent.replace(/\s+/g," ").trim()}}).filter(function(x){return/\/guias\/[^\/]+\/[^\/]+\/[^\/]+\/-\/?$/.test(x.u)&&x.t});return A.length?A:(/Foram encontrados 0|Nenhum guia/i.test(d.body.innerText)?[]:null)})||[]}
+      var TC=toks((J.cargo||"")+" "+(J.area||"")),bv=0;L.forEach(function(x){var y=+((x.t.match(/\/(20\d\d)/)||[0,0])[1]),v=dice(TC,toks(x.t.replace(/\([^)]*\)/g," ")))+(y?(y-2000)/1000:0);if(v>bv){bv=v;G=x}});
+      if(!G||bv<.42){var u0=O+"/#jxestr="+encodeURIComponent(JSON.stringify({v:1,src:"tecguia",none:1,found:L.length}));
+        show('<p style="margin:0">O TEC ainda não tem um guia para <b>'+esc(J.cargo||J.busca)+'</b>. Sem problema: volte à plataforma e ela cria os seus cadernos pelas matérias e assuntos do edital.</p><a href="'+esc(u0)+'" target="_blank" rel="noopener" style="'+BTN+'">Voltar para A Jornada</a>');return}
+      gs('Abrindo o guia <b>'+esc(G.t)+'</b>…');
+      var MT=await frame(G.u,function(d){var A=[].filter.call(d.querySelectorAll("a[href]"),function(a){return/\/-\/[^\/]+\/id\/?$/.test(a.href)&&a.textContent.trim()});if(!A.length)return null;return A.map(function(a){var b=a.closest("li,.row,div");for(var k=0;k<4&&b&&!/Quest/.test(b.textContent);k++)b=b.parentElement;var q=+(((b&&b.textContent)||"").match(/(\d[\d.]*)\s*Quest/)||[0,"0"])[1].replace(/\./g,"");return{u:a.href,n:a.textContent.replace(/\s+/g," ").replace(/\s*-\s*[A-Z0-9\-]+\s*-\s*20\d\d.*$/,"").replace(/\s+\d+$/,"").trim(),q:q}})},30000)||[];
+      var seen={};MT=MT.filter(function(x){if(seen[x.u]||/in[eé]ditas/i.test(x.n))return false;seen[x.u]=1;return true});
+      if(!MT.length){show('<p style="margin:0">Não consegui ler as matérias do guia. Toque de novo no favorito ➜ A Jornada.</p>');return}
+      var OUT=[],tot=0,dn=0;
+      for(var i=0;i<MT.length;i++){if(STOP)break;var m=MT[i];gs('Lendo os assuntos de <b>'+esc(m.n)+'</b> ('+(i+1)+' de '+MT.length+')…');
+        try{var h=await (await tf(m.u,{credentials:"include"})).text();m.idx=indice(h)}catch(e){m.idx=[]}
+        var tops=m.idx.filter(function(x){return x.d===0}),lv=m.idx.filter(function(x){return x.d===1});if(!lv.length)lv=tops;
+        m.mi=[];tops.forEach(function(x){mats(x.n).forEach(function(id){if(m.mi.indexOf(id)<0)m.mi.push(id)})});if(!m.mi.length)m.mi=mats(m.n);
+        m.sel=lv.filter(function(x){return x.q>=8}).sort(function(a,b){return b.q-a.q}).slice(0,NA);tot+=1+m.sel.length;await sleep(300)}
+      function cp(cur){var pc=Math.round(dn/Math.max(1,tot)*100);show('<p style="margin:0 0 8px">Guia <b>'+esc(G.t)+'</b>. Criando na sua conta do TEC um caderno por matéria e um por assunto que mais cai'+(banca?', da <b>'+esc(banca.sigla||banca.nome)+'</b> quando houver questões suficientes':'')+'.</p><div style="height:8px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden"><i style="display:block;height:100%;width:'+pc+'%;background:linear-gradient(90deg,#7b3cff,#ff5f8f)"></i></div><p style="margin:8px 0 0;font-size:13px;color:#c2b6df">'+dn+' de '+tot+' cadernos · '+esc(cur||"")+'</p><p id="jxWait" style="margin:6px 0 0;font-size:13px;color:#ffcf6b"></p><button id="jxStop" style="'+BTN+';background:#2a2150">Parar e voltar com o que já foi feito</button>');var s=D.getElementById("jxStop");if(s)s.onclick=function(){STOP=1}}
+      async function mk(F,min,max,name){var nb=banca?await count(F.concat([["BANCA",banca.id]])):0,useB=nb>=min,n=useB?nb:await count(F),q=Math.min(max,n);if(q<5)return null;if(J.dry)return{cad:0,qq:q,b:useB?(banca.sigla||""):""};var id=await create(useB?F.concat([["BANCA",banca.id]]):F,name.replace(/\s+/g," ").slice(0,140),q);return id?{cad:id,qq:q,b:useB?(banca.sigla||""):""}:null}
+      for(var i=0;i<MT.length;i++){if(STOP)break;var m=MT[i],R={n:m.n,q:m.q,as:[]};
+        cp(m.n);if(m.mi.length){try{var c=await mk(m.mi.map(function(x){return["MATERIA",x]}),40,60,"A Jornada · "+tag+" · "+m.n);if(c){R.cad=c.cad;R.cq=c.qq;R.b=c.b}}catch(e){}}dn++;
+        for(var k=0;k<m.sel.length;k++){if(STOP)break;var a=m.sel[k];cp(m.n+" › "+a.n);
+          try{var cs=await search(a.n),T=toks(a.n),best=null,bs=0;cs.forEach(function(r){var v=norm(r.nome)===norm(a.n)?1:dice(T,toks(r.nome));if(m.mi.length&&r.materia&&m.mi.indexOf(r.materia.id)>=0)v+=.2;if(v>bs){bs=v;best=r}});
+            if(best&&bs>=.8){var c2=await mk([["ASSUNTO",best.id]],15,30,"A Jornada · "+tag+" · "+m.n+" · "+a.n);R.as.push({n:a.n,q:a.q,cad:c2?c2.cad:0,qq:c2?c2.qq:0,b:c2?c2.b:""})}else R.as.push({n:a.n,q:a.q,cad:0})}catch(e){R.as.push({n:a.n,q:a.q,cad:0})}
+          dn++;await sleep(250)}
+        OUT.push(R);try{sessionStorage.setItem("jxguia-res",JSON.stringify(OUT))}catch(e){}}
+      var nc=0;OUT.forEach(function(r){if(r.cad)nc++;r.as.forEach(function(a){if(a.cad)nc++})});
+      var url=O+"/#jxestr="+encodeURIComponent(JSON.stringify({v:1,src:"tecguia",g:{t:G.t,u:G.u},b:banca?(banca.sigla||banca.nome):"",mats:OUT}));
+      show('<p style="margin:0">Guia <b>'+esc(G.t)+'</b>: <b>'+OUT.length+' matérias</b> lidas e <b>'+nc+' cadernos</b> criados na sua conta do TEC'+(STOP?' (você parou antes do fim)':'')+'. Volte à plataforma para ligar cada caderno à matéria e aos assuntos do seu edital.</p><a href="'+esc(url)+'" target="_blank" rel="noopener" style="'+BTN+'">Voltar para A Jornada</a>');
+      try{sessionStorage.removeItem("jxcad");sessionStorage.removeItem("jxguia-res")}catch(e){}}
+    if(J.mode==="guia"){await guiaRun();return}
     if(J.mode==="inc"){await incRun();return}
     for(var i=0;i<J.items.length;i++){if(STOP)break;var it=J.items[i];if(!it||!it.k||DONE[it.k])continue;
       prog(i,J.items.length,it.m+" · "+it.t);
