@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611111934"></script>
+<script src="/claude-shim.js?v=202611111948"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -863,6 +863,7 @@ table.tb{width:100%;border-collapse:collapse;font-size:14px}
 .wk b{font-size:12px;white-space:nowrap}
 
 /* Tela da atividade */
+@media (max-width:760px){.av-mx{display:none!important}}.av-scrim.max{padding:0!important}.av.max{width:100vw!important;max-width:none!important;height:100vh!important;height:100dvh!important;border-radius:0!important;border:0!important;animation:none!important}.av.max .av-main{max-width:none}
 .av-scrim{position:fixed;inset:0;z-index:60;background:rgba(5,10,16,.6);display:grid;place-items:center;padding:16px;animation:fade .18s ease}
 .av{width:min(1140px,100%);height:min(92vh,1000px);height:min(92dvh,1000px);background:var(--panel);border:1px solid var(--line);border-radius:var(--r-l);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.7);animation:pop .22s cubic-bezier(.2,.8,.2,1)}
 @keyframes pop{from{transform:translateY(14px);opacity:.4}}
@@ -5663,7 +5664,7 @@ function howAttach(){const v=$("view"),t=HOW[TAB];if(!v||!t||v.querySelector(".h
   const h=v.querySelector(".hello");if(h){h.appendChild(p);return}const g=v.querySelector(".gnav");const w=document.createElement("div");w.className="hello how-only";w.appendChild(p);if(g)g.after(w);else v.prepend(w)}
 function vReforcos(){return`<div class="hello"><h1>Reforços</h1><p>Questões extras do TEC nos assuntos em que o acerto ficou abaixo de 75%. Cada reforço tem prazo de 30 dias e não trava a meta.</p></div>${refsHTML()}`}
 let UI0ctab=null;let TAB=(location.hash||"").replace("#","");if(TAB==="prova"){TAB="incidencia"}if(!TABS.some(t=>t[0]===TAB)||TAB!=="assinatura")TAB="meta";
-const UI={filter:"todas",calM:null,openT:null,qform:null,pmap:null,pq:null,confirm:null,psub:"lp"};if(UI0ctab)UI.ctab=UI0ctab;
+const UI={filter:"todas",calM:null,openT:null,qform:null,pmap:null,pq:null,confirm:null,psub:"lp"};if(UI0ctab)UI.ctab=UI0ctab;try{UI.avMax=localStorage.getItem("jx-avmax")==="1"}catch(e){}
 try{if(localStorage.getItem("jornada-navc")==="1")document.documentElement.dataset.navc="1"}catch(e){}
 try{const j=sessionStorage.getItem("jornada-jtab");if(j){UI.jtab=j;sessionStorage.removeItem("jornada-jtab")}const m2=sessionStorage.getItem("jornada-rmode");if(m2){UI.rotMode=m2;sessionStorage.removeItem("jornada-rmode")}const d2=sessionStorage.getItem("jornada-pxday");if(d2){UI.pxDay=d2;sessionStorage.removeItem("jornada-pxday")}}catch(e){}
 function renderNav(){
@@ -6155,7 +6156,7 @@ function render(){
 }
 /* ---------- Tudo começa fechado: uma seção só abre quando o aluno toca nela (vale para todas as abas) ---------- */
 function dKey(d){const sm=d.querySelector(":scope>summary");return TAB+"|"+(d.id||d.dataset.sid||d.dataset.k||d.dataset.s||"")+"|"+(sm?sm.textContent.replace(/[\d.,%]+/g,"").replace(/\s+/g," ").trim().slice(0,48):"")}
-function dCloseAll(root){if(!root)return;const O=UI.dOpen||(UI.dOpen={});root.querySelectorAll("details[open]").forEach(d=>{if(d.closest(".modal,#layer3,#drawer"))return;if(d.hasAttribute("data-uopen"))return;if(!O[dKey(d)])d.open=false})}
+function dCloseAll(root){if(!root)return;const O=UI.dOpen||(UI.dOpen={});root.querySelectorAll("details[open]").forEach(d=>{if(d.closest(".modal,#layer3,#drawer,#layer,.av"))return;if(d.hasAttribute("data-uopen"))return;if(!O[dKey(d)])d.open=false})}
 document.addEventListener("click",e=>{const sm=e.target.closest&&e.target.closest("summary");if(!sm)return;const d=sm.parentElement;if(!d||d.tagName!=="DETAILS"||!d.closest("#view"))return;const k=dKey(d);(UI.dOpen||(UI.dOpen={}))[k]=!d.open;if(!d.open)setTimeout(()=>{const x=[...document.querySelectorAll("#view details[open]")].find(y=>dKey(y)===k);if(x)barAnim(x)},60)},true);
 /* barras crescem da esquerda quando a aba abre ou quando a seção é aberta */
 function barAnim(root){if(!root||matchMedia("(prefers-reduced-motion: reduce)").matches)return;root.querySelectorAll('[style*="width:"]').forEach(el=>{const w=el.style.width;if(!/%$/.test(w)||parseFloat(w)<=0)return;{const cd=el.closest("details:not([open])");if(cd){const sm=el.closest("summary");if(!sm||sm.parentElement!==cd)return}}const h=el.offsetHeight,p=el.parentElement;if(!h||h>26||!p||el.offsetWidth>p.offsetWidth+1)return;if(/^(BUTTON|A|INPUT|SVG)$/i.test(el.tagName)||el.children.length>2)return;
@@ -6406,7 +6407,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261111193459";
+const JX_BUILD="20261111194811";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6908,7 +6909,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111193459" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111194811" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -8625,7 +8626,7 @@ function fixHTML(t){
       ${q.v===null?`<p class="muted small">${esc(q.e)}</p>`:a==null?`<div class="fxb"><button class="btn" data-a="fxAns" data-v="1">Certo</button><button class="btn" data-a="fxAns" data-v="0">Errado</button></div>`:`<div class="fxr ${a?"ok":"bad"}"><b>${a?"Acertou!":"Não foi desta vez."}</b> O item está <b>${q.v?"CERTO":"ERRADO"}</b>. ${esc(q.e)}</div>`}</div>
     <div class="row" style="justify-content:space-between"><button class="btn sm ghost" data-a="fxNav" data-d="-1" ${i?"":"disabled"}>← Anterior</button><button class="btn sm ${a!=null||q.v===null?"pri":"ghost"}" data-a="fxNav" data-d="1">${a!=null||q.v===null?"Próximo →":"Pular →"}</button></div></div>`;
 }
-function renderDrawer(){try{const r=renderDrawer0();brandDom($("layer"));try{const L=$("layer");mergeSecs(L,["avPq","avG"],"Questões destas páginas","list",["Do PDF","Criadas para você"],"msQ");mergeSecs(L,["avF","avK"],"Fixação e cards","brain",["Fixação ativa","Cards de revisão"],"msF")}catch(x){}try{const f=findTask(UI.openT);if(f&&SAMPLE&&!f.t.ref){const t=f.t;if(!t.gx&&!GX_TRY.has(t.id)){GX_TRY.add(t.id);setTimeout(()=>genGuia(t),60)}if(!t.bizu&&(t.ph==="T"||t.ph==="Q")&&!AUX_BUSY.has("b"+t.id)&&!GX_TRY.has("b"+t.id)){GX_TRY.add("b"+t.id);setTimeout(()=>genBizu(t),400)}}}catch(x){}return r}catch(e){
+function renderDrawer(){try{const r=renderDrawer0();brandDom($("layer"));try{$("layer").querySelectorAll(".av-main>details.sec[data-k]").forEach(d=>{d.open=true})}catch(x){}try{const L=$("layer");mergeSecs(L,["avPq","avG"],"Questões destas páginas","list",["Do PDF","Criadas para você"],"msQ");mergeSecs(L,["avF","avK"],"Fixação e cards","brain",["Fixação ativa","Cards de revisão"],"msF")}catch(x){}try{const f=findTask(UI.openT);if(f&&SAMPLE&&!f.t.ref){const t=f.t;if(!t.gx&&!GX_TRY.has(t.id)){GX_TRY.add(t.id);setTimeout(()=>genGuia(t),60)}if(!t.bizu&&(t.ph==="T"||t.ph==="Q")&&!AUX_BUSY.has("b"+t.id)&&!GX_TRY.has("b"+t.id)){GX_TRY.add("b"+t.id);setTimeout(()=>genBizu(t),400)}}}catch(x){}return r}catch(e){
   const f=findTask(UI.openT);if(!f){UI.openT=null;$("layer").innerHTML="";return}const t=f.t,I=readInfo(t);
   $("layer").innerHTML=`<div class="av-scrim" data-a="closeT"><section class="av" role="dialog" aria-modal="true" data-stop="1"><header class="av-h"><div class="crumb"><span class="ph ${t.ph}">${PHN[t.ph]}</span><b>${esc(SUB(t.sid).n)}</b></div><button class="ibtn" data-a="closeT" data-x="1" aria-label="Fechar">${ic("close")}</button></header>
     <div class="av-main" style="padding:18px"><h3 style="margin:0 0 8px">${esc(I.lab)}${I.d?" · "+esc(I.d):""}</h3>${I.pg?`<p class="rdline"><b>${esc(I.pg)}</b></p>`:""}<p class="muted small">Não consegui montar a tela completa desta atividade (${esc(String(e&&e.message||e))}). Os dados dela estão salvos.</p></div>
@@ -8735,10 +8736,10 @@ function renderDrawer0(){
       :`<button class="btn skip" data-a="skip" data-id="${t.id}">${ic("close")} Ignorar</button><button class="btn fin" data-a="finAsk" data-id="${t.id}">${ic("check")} Finalizar</button>`}
   const tv0=(UI.tmin&&UI.tmin[t.id])||(UI.finAsk===t.id?Math.max(0,Math.round(((tsec.tot||0)-(tsec.logged||0))/60)):0);
   const status=t.done?(t.skip?`<span class="chip">Ignorada em ${dm(t.done)}</span>`:`<span class="chip ok">Cumprida em ${dm(t.done)}</span>`):lk?`<span class="chip">Bloqueada</span>`:`<span class="chip">Pendente</span>`;
-  $("layer").innerHTML=`<div class="av-scrim" data-a="closeT"><section class="av" role="dialog" aria-modal="true" aria-label="Tarefa ${t.k}: ${esc(taskTitle(t))}" data-stop="1">
+  $("layer").innerHTML=`<div class="av-scrim${UI.avMax?" max":""}" data-a="closeT"><section class="av${UI.avMax?" max":""}" role="dialog" aria-modal="true" aria-label="Tarefa ${t.k}: ${esc(taskTitle(t))}" data-stop="1">
     <header class="av-h"><div class="crumb"><span class="ph ${t.ph}">${PHN[t.ph]}</span><b>${esc(s.n)}</b><span class="sep"></span><span class="tt" title="${esc(taskTitle(t))}">${esc(readInfo(t).lab||taskTitle(t))}${readInfo(t).d?" · "+esc(readInfo(t).d):""}</span></div>
       <div class="tools"><div class="atimer ${run?"run":""}" title="Tempo de estudo desta atividade">${ic("clock")}<b id="avClock">${hms(tsec.tot)}</b>${canTime?`<button class="ibtn" data-a="avPlay" data-id="${t.id}" aria-label="${run?"Pausar":"Iniciar"} o cronômetro desta atividade">${ic(run?"pause":"play")}</button><button class="ibtn" data-a="avReset" data-id="${t.id}" aria-label="Descartar a sessão atual" ${TM.tid===t.id&&elapsed()>0?"":"disabled"}>${ic("reset")}</button>`:""}</div>
-      <button class="ibtn" data-a="openT" data-id="${prev?prev.id:""}" ${prev?"":"disabled"} aria-label="Atividade anterior">${ic("left")}</button><button class="ibtn" data-a="openT" data-id="${next?next.id:""}" ${next?"":"disabled"} aria-label="Próxima atividade">${ic("right")}</button>${SAMPLE?`<button class="btn sm duv-b" data-a="duvOpen" data-s="${t.sid}" data-c="${esc(t.aula&&!String(t.aula).startsWith("x:")?t.aula:"")}" title="Tirar dúvida com o professor">🎓<span> Dúvida</span></button>`:""}<button class="ibtn" data-a="closeT" data-x="1" aria-label="Fechar">${ic("close")}</button></div></header>
+      <button class="ibtn" data-a="openT" data-id="${prev?prev.id:""}" ${prev?"":"disabled"} aria-label="Atividade anterior">${ic("left")}</button><button class="ibtn" data-a="openT" data-id="${next?next.id:""}" ${next?"":"disabled"} aria-label="Próxima atividade">${ic("right")}</button>${SAMPLE?`<button class="btn sm duv-b" data-a="duvOpen" data-s="${t.sid}" data-c="${esc(t.aula&&!String(t.aula).startsWith("x:")?t.aula:"")}" title="Tirar dúvida com o professor">🎓<span> Dúvida</span></button>`:""}<button class="ibtn av-mx" data-a="avMax" aria-pressed="${!!UI.avMax}" aria-label="${UI.avMax?"Voltar ao tamanho normal":"Expandir a janela"}" title="${UI.avMax?"Voltar ao tamanho normal":"Expandir a janela"}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true">${UI.avMax?'<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>':'<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>'}</svg></button><button class="ibtn" data-a="closeT" data-x="1" aria-label="Fechar">${ic("close")}</button></div></header>
     ${SIMPLE?"":(()=>{const I=readInfo(t);return I.pg?`<div class="rdbar">${ic("book")}<b>${t.ph==="T"&&t.pa?"Ler: ":""}${esc(I.pg)}</b><span class="muted small">${t.ph==="T"&&t.pa?rdStop(t):""}${t.min?" · previsto "+fmtM(t.min):""}</span></div>`:""})()}
     ${SIMPLE?tSteps(t,p,pa,pb,G,mat,tform):`<div class="av-body"><nav class="av-rail" aria-label="Seções da atividade">${avKeys(t).map(k=>AV_SEC[k]).map(([k,i2,l])=>`<button data-a="avTab" data-k="${k}" title="${l}" aria-label="${l}" aria-pressed="${(avKeys(t).includes(UI.avTab)?UI.avTab:"C")===k}">${ic(i2)}<span>${l}</span></button>`).join("")}</nav>
     <div class="av-main" data-tab="${avKeys(t).includes(UI.avTab)?UI.avTab:"C"}">
@@ -10980,7 +10981,7 @@ function metodoFor(sid){const n=norm((SUB(sid)||{}).n||"");if(/portugues|lingua 
 /* ================= Tire sua dúvida (consultor técnico) ================= */
 const DV_BUSY=new Set();
 function dvHTML(t){if(t.ref&&!t.sid)return"";const L=t.dv||[],busy=DV_BUSY.has(t.id);
-  return`<details class="sec" data-k="C" id="avDv"${L.length?" open":""}><summary>${ic("chat")} Tire sua dúvida <span class="n">${L.length||""}</span></summary><div class="sb" style="display:grid;gap:10px">
+  return`<details class="sec" data-k="C" id="avDv" open><summary>${ic("chat")} Tire sua dúvida <span class="n">${L.length||""}</span></summary><div class="sb" style="display:grid;gap:10px">
    <p class="muted small" style="margin:0">Pergunte sobre o trecho desta atividade. A resposta segue a literalidade da lei e o material da aula; jurisprudência só é citada se estiver no seu material ou na base de conhecimento, senão vem marcada para você conferir.</p>
    ${L.map((x,i)=>`<div class="dvq"><b>${esc(x.q)}</b><div class="rsout">${mdLite(x.a)}</div><button class="lnk small" data-a="dvDel" data-id="${t.id}" data-i="${i}">apagar</button></div>`).join("")}
    ${SAMPLE?`<textarea class="inp" id="dvIn" rows="2" placeholder="Ex.: Qual a diferença entre suspensão e exclusão do crédito tributário?"></textarea><div class="row"><button class="btn sm pri" data-a="dvAsk" data-id="${t.id}" ${busy?"disabled":""}>${busy?'<span class="spin"></span> Respondendo…':ic("bulb")+" Perguntar"}</button></div>`:`<p class="muted small">A dúvida precisa da IA ligada.</p>`}</div></details>`}
@@ -11069,7 +11070,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111193459&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111194811&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -12348,6 +12349,7 @@ const A={
   finNo(el){UI.finAsk=null;UI.qform=null;UI.tform=null;if(UI.tmin)delete UI.tmin[el.dataset.id];renderDrawer()},
   closeT(el,e){if(e.target.closest("[data-stop]")&&!el.dataset.x)return;UI.openT=null;UI.qform=null;$("layer").innerHTML="";render()},
   tStep(el){UI.tStep=UI.tStep||{};UI.tStep[UI.openT]=clamp(+el.dataset.s,1,3);renderDrawer();const m=document.querySelector(".av-main");if(m)m.scrollTop=0},
+  avMax(){UI.avMax=!UI.avMax;try{localStorage.setItem("jx-avmax",UI.avMax?"1":"")}catch(e){}renderDrawer()},
   avTab(el){UI.avTab=el.dataset.k;const f=findTask(UI.openT);renderDrawer();const m=document.querySelector(".av-main");if(m)m.scrollTop=0;
     if(f&&SAMPLE){if(UI.avTab==="B"&&!(f.t.bizu&&f.t.bizu.txt))genBizu(f.t);if(UI.avTab==="F"&&!(f.t.fix&&f.t.fix.L&&f.t.fix.L.length))genFix(f.t)}},
   bzGen(el){const f=findTask(el.dataset.id);if(f)genBizu(f.t)},
