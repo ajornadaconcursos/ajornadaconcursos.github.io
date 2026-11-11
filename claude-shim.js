@@ -193,7 +193,7 @@
 
   /* ---------- tela de entrada e menu da conta ---------- */
   const CSS = `
-  #jx-gate{animation:jxGIn .45s ease both}#jx-gate .jx-wrap>*{animation:jxRise .7s cubic-bezier(.16,1,.3,1) both}#jx-gate .jx-wrap>*:nth-child(2){animation-delay:.08s}#jx-gate .jx-wrap>*:nth-child(3){animation-delay:.16s}#jx-gate .jx-wrap>*:nth-child(n+4){animation-delay:.24s}#jx-gate .jx-art{animation:jxGIn 1.2s ease .1s both}
+  #jx-gate{opacity:1}#jx-gate .jx-wrap>*{animation:jxRise .7s cubic-bezier(.16,1,.3,1) both}#jx-gate .jx-wrap>*:nth-child(2){animation-delay:.08s}#jx-gate .jx-wrap>*:nth-child(3){animation-delay:.16s}#jx-gate .jx-wrap>*:nth-child(n+4){animation-delay:.24s}#jx-gate .jx-art{animation:jxGIn 1.2s ease .1s both}
   @keyframes jxGIn{from{opacity:0}}@keyframes jxRise{from{opacity:0;transform:translateY(26px) scale(.975)}}@media (prefers-reduced-motion:reduce){#jx-gate,#jx-gate *{animation:none!important}}
   #jx-gate{position:fixed;inset:0;z-index:2147483600;overflow:auto;color:#f1ecff;font:15px/1.45 Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     background:radial-gradient(900px 620px at 78% 38%,rgba(160,107,255,.34),transparent 62%),radial-gradient(700px 480px at 96% 96%,rgba(255,95,143,.20),transparent 60%),radial-gradient(600px 400px at 0% 100%,rgba(123,60,255,.18),transparent 60%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%)}
@@ -552,7 +552,7 @@
         /* quem não está conectado vê primeiro a página inicial (planos e preços); "Entrar" e "Criar conta" voltam com ?entrar / ?cadastro */
         const q = location.search; let seen = ""; try { seen = localStorage.getItem("jx-owner") || ""; } catch (e) { }
         if (!m && !/[?&](entrar|cadastro)\b/.test(q) && ev !== "PASSWORD_RECOVERY" && !/type=recovery|access_token|error_description/.test(location.hash)) { location.replace("planos.html"); return; }
-        hideSplash(); gate(/[?&]cadastro\b/.test(q) && !m ? "up" : "in", m); const mm = $("#jx-gate .jx-msg"); if (m && mm) mm.className = "jx-msg ok"; } return; }
+        gate(/[?&]cadastro\b/.test(q) && !m ? "up" : "in", m); requestAnimationFrame(() => requestAnimationFrame(hideSplash)); const mm = $("#jx-gate .jx-msg"); if (m && mm) mm.className = "jx-msg ok"; } return; }
       TOKEN = s.access_token; swPost();
       if (started) return; started = true;
       UID = s.user.id; EMAIL = s.user.email || "";
@@ -565,7 +565,7 @@
         }
         localStorage.setItem("jx-owner", UID);
       } catch (e) { }
-      const g = $("#jx-gate"); if (g) { try { window.jxSplash(true, "Entrando na sua Jornada…"); } catch (e) { } g.style.transition = "opacity .3s ease"; g.style.opacity = "0"; g.style.pointerEvents = "none"; setTimeout(() => g.remove(), 320); }
+      const g = $("#jx-gate"); if (g) { try { window.jxSplash(true, "Entrando na sua Jornada…"); } catch (e) { } g.style.pointerEvents = "none"; requestAnimationFrame(() => g.remove()); }
       const ok = await trialCheck(s.user);
       if (!ok) return;
       await swStart(); fab(); readyRes();
@@ -578,8 +578,8 @@
   let splashDone = false;
   function hideSplash() { if (splashDone) return; splashDone = true; const sp = document.getElementById("jx-splash"); if (!sp) return; sp.classList.add("out"); setTimeout(() => { if (sp.classList.contains("out")) sp.style.display = "none"; }, 320); }
   /* a abertura (logo + linha carregando) volta sempre que algo for demorar: trocar de concurso, apagar dados, sair */
-  window.jxSplash = function (show, msg) { const sp = document.getElementById("jx-splash"); if (!sp) return; const m = sp.querySelector("small"); if (m && msg) m.textContent = msg; if (show) { sp.style.display = ""; sp.classList.add("out"); void sp.offsetWidth; sp.classList.remove("out"); splashDone = false; } else hideSplash(); };
-  function jxOut() { const h = document.documentElement; h.setAttribute("data-out", "1"); setTimeout(() => { window.jxSplash(true, "Saindo da sua conta…"); Promise.resolve(sb.auth.signOut()).catch(() => { }).then(() => setTimeout(() => location.reload(), 450)); }, 300); }
+  window.jxSplash = function (show, msg) { const sp = document.getElementById("jx-splash"); if (!sp) return; const m = sp.querySelector("small"); if (m && msg) m.textContent = msg; if (show) { sp.style.transition = "none"; sp.style.display = ""; sp.classList.remove("out"); void sp.offsetWidth; sp.style.transition = ""; splashDone = false; } else hideSplash(); };
+  function jxOut() { window.jxSplash(true, "Saindo da sua conta…"); try { sessionStorage.setItem("jx-out", "1"); } catch (e) { } Promise.resolve(sb.auth.signOut()).catch(() => { }).then(() => location.reload()); }
   /* a tela só aparece quando o painel termina de desenhar (evento jornada-shown); jornada-ready fica de reserva */
   window.addEventListener("jornada-shown", () => { if (UID) hideSplash(); });
   window.addEventListener("jornada-ready", () => { if (UID) setTimeout(hideSplash, 2500); });
