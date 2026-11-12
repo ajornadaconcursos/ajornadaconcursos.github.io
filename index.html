@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611111957"></script>
+<script src="/claude-shim.js?v=202611112029"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -2100,6 +2100,47 @@ html body .alist .arow .tpc{font-size:14.5px;padding:3px 10px;border-radius:999p
 .mot-mu{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:12px 0}.mot-m{border:1px solid var(--line);border-radius:14px;padding:10px;display:grid;gap:8px}.mot-m iframe{width:100%;border:0;border-radius:10px}
 @keyframes motIn{from{opacity:0;transform:translateY(14px) scale(.98)}}
 .pf-open svg{width:18px;height:18px}
+/* cápsula do relógio */
+.tcap{--tg:#a06bff;display:flex;align-items:center;gap:12px;padding:6px 8px 6px 6px;border-radius:18px;background:rgba(11,8,32,.5);border:1px solid rgba(160,107,255,.3);transition:border-color .4s,box-shadow .4s;flex:none}
+.tcap[data-m="pomo"]{--tg:#ff5f8f}.tcap.run{--tg:#3fd47a;border-color:rgba(124,240,168,.55);animation:tBreath 2.6s ease-in-out infinite}.tcap.run[data-m="pomo"]{--tg:#ff5f8f;border-color:rgba(255,95,143,.6);animation-name:tBreathP}
+@keyframes tBreath{0%,100%{box-shadow:0 0 0 3px rgba(63,212,122,.08),0 0 14px rgba(63,212,122,.16)}50%{box-shadow:0 0 0 5px rgba(63,212,122,.16),0 0 30px rgba(63,212,122,.34)}}
+@keyframes tBreathP{0%,100%{box-shadow:0 0 0 3px rgba(255,95,143,.08),0 0 14px rgba(255,95,143,.16)}50%{box-shadow:0 0 0 5px rgba(255,95,143,.16),0 0 30px rgba(255,95,143,.34)}}
+.tseg{position:relative;display:grid!important;grid-template-columns:1fr 1fr;padding:4px!important;border-radius:12px!important;background:rgba(255,255,255,.05)!important;border:0!important;min-width:204px}
+.tseg .seg-pill{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);border-radius:9px;background:linear-gradient(135deg,#7b3cff,#d6388f);box-shadow:0 4px 14px rgba(123,60,255,.45);transition:transform .38s cubic-bezier(.3,1.3,.5,1)}
+.tcap[data-m="pomo"] .tseg .seg-pill{transform:translateX(100%)}
+.tseg button{position:relative;z-index:1;background:none!important;box-shadow:none!important;border:0!important;color:#b9acde!important;font-weight:800!important;font-size:13px!important;padding:7px 10px!important;transition:color .3s}
+.tseg button[aria-pressed="true"]{color:#fff!important}
+.tcap .clock{display:flex;align-items:baseline;font:600 34px/1 Oswald,var(--f-cond,"Arial Narrow"),sans-serif!important;letter-spacing:.02em;font-variant-numeric:tabular-nums;min-width:0;overflow:hidden;padding:2px 0}
+.tcap .clock u{color:#fff;text-decoration:none;display:inline-block;min-width:.56em;text-align:center}.tcap .clock u.c{min-width:.3em;opacity:.55}.tcap .clock u.s{color:#7cf0a8}.tcap[data-m="pomo"] .clock u.s{color:#ff8fb0}
+.tcap.run .clock u.c{animation:tBlink 2s ease-in-out infinite}@keyframes tBlink{50%{opacity:.18}}
+.tcap .clock u.roll{animation:tRoll .34s cubic-bezier(.2,.9,.3,1.25)}@keyframes tRoll{from{transform:translateY(60%);opacity:0}to{transform:none;opacity:1}}
+.tgo-w{position:relative;width:50px;height:50px;display:grid;place-items:center;flex:none}.tring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}.tring circle{fill:none;stroke-width:3.5}.tring .bg{stroke:rgba(160,107,255,.2)}.tring .fg{stroke:var(--tg);stroke-linecap:round;transition:stroke-dasharray .35s ease,stroke .4s;filter:drop-shadow(0 0 4px var(--tg))}
+.tgo-w #tGo{width:38px!important;height:38px!important;border-radius:50%!important}.tcap.run #tGo{background:linear-gradient(135deg,#2fbf6a,#7cf0a8)!important;color:#0d2b18!important}.tcap.run[data-m="pomo"] #tGo{background:linear-gradient(135deg,#d6388f,#ff8fb0)!important;color:#fff!important}
+.tph{display:grid;gap:1px;line-height:1.1}.tph small{font-size:10px;font-weight:800;letter-spacing:.16em;color:#ff8fb0}.tph b{font-size:12.5px;white-space:nowrap}.tdots{display:flex;gap:4px;margin-top:3px}.tdots em{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15)}.tdots em.f{background:#ff5f8f;box-shadow:0 0 6px #ff5f8f}
+@media (max-width:1250px){.tseg{min-width:170px}.tcap .clock{font-size:28px!important}.tph{display:none!important}}
+@media (max-width:700px){.tcap{gap:8px;padding:6px;flex-wrap:wrap;width:100%;justify-content:space-between}.tseg{min-width:0;width:100%}.tcap .clock{flex:1;justify-content:center}.tseg button{font-size:12px!important;padding:6px 6px!important}.tcap .clock{font-size:24px!important}.tgo-w{width:44px;height:44px}.tgo-w #tGo{width:34px!important;height:34px!important}}
+@media (prefers-reduced-motion:reduce){.tcap.run,.tcap .clock u.roll,.tcap.run .clock u.c{animation:none!important}}
+/* sem o brasão do topo */
+.fmcr{display:none!important}
+/* visual: só Jornada e Arena */
+.skinbtn.sk2{display:inline-flex!important;gap:2px;padding:3px!important;border-radius:11px!important;width:auto!important;background:rgba(255,255,255,.05)!important}.skinbtn.sk2 span{padding:5px 10px;border-radius:8px;font-size:12px;font-weight:800;color:#a99bd6;transition:background .3s,color .3s}.skinbtn.sk2 span.on{background:rgba(160,107,255,.38);color:#fff}
+.pf-bg{position:absolute;inset:0;width:100%;height:100%}
+.pfx{position:relative;z-index:1;display:grid;justify-items:center;gap:16px;width:min(560px,92vw)}
+.pf-gear{position:fixed!important;top:16px;right:66px}.pf-x,.pf-gear{background:rgba(11,8,32,.6)!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:50%!important;width:42px;height:42px}
+.pf-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.pf-chips span{padding:7px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.2);font-weight:800;font-size:13px;color:#d9ccff;background:rgba(11,8,32,.45);transition:all .4s}.pf-chips span.on{background:linear-gradient(135deg,#7b3cff,#d6388f);border-color:transparent;color:#fff}.pf.curta .pf-chips span.on,.pf.longa .pf-chips span.on{background:linear-gradient(135deg,#2fbf6a,#7cf0a8);color:#0d2b18}
+.pfx .pf-ring{width:min(78vw,420px);aspect-ratio:1;position:relative}.pfx .pf-ring svg{transform:none;width:100%;height:100%;overflow:visible}.pfx .pf-ring .fg{transition:stroke-dasharray .25s linear;stroke:url(#pfRg)!important;stroke-width:14!important}
+.pf-in{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;text-align:center}.pfx .pf-t{position:static;font:600 clamp(56px,15vw,112px)/1 Oswald,var(--f-display),sans-serif;letter-spacing:.01em;text-shadow:0 0 30px rgba(160,107,255,.6)}.pf.curta .pf-t,.pf.longa .pf-t{text-shadow:0 0 30px rgba(124,240,168,.6)}
+.pf-in small{font-size:12.5px;font-weight:800;letter-spacing:.2em;color:#c9a8ff;margin-top:8px}.pf.curta .pf-in small,.pf.longa .pf-in small{color:#a6f5c6}
+.pf-act{padding:8px 16px;border-radius:12px;background:rgba(11,8,32,.55);border:1px solid rgba(160,107,255,.3);font-size:14px;text-align:center;max-width:100%}.pf-act b{color:#ff8fb6}
+.pf-c{display:flex;gap:14px;align-items:center}.pf-rb{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.25);background:rgba(11,8,32,.55);color:#fff;cursor:pointer;transition:transform .2s}.pf-rb:hover{transform:scale(1.06)}.pf-rb svg{width:22px;height:22px}
+.pf-rb.main{width:84px;height:84px;border:0;background:linear-gradient(135deg,#7b3cff,#d6388f);box-shadow:0 0 0 8px rgba(160,107,255,.18),0 10px 30px rgba(123,60,255,.55);animation:pfPulse 2.4s ease-in-out infinite}.pf-rb.main svg{width:32px;height:32px}.pf.curta .pf-rb.main,.pf.longa .pf-rb.main{background:linear-gradient(135deg,#2fbf6a,#7cf0a8);color:#0d2b18}
+@keyframes pfPulse{50%{box-shadow:0 0 0 14px rgba(160,107,255,.08),0 10px 30px rgba(123,60,255,.55)}}
+.pf-camps{display:flex;gap:18px}.pf-camps span{display:grid;justify-items:center;gap:4px;font-size:11px;font-weight:800;color:#a99bd6;letter-spacing:.08em}.pf-camps svg{width:34px;height:26px}.pf-camps path{fill:rgba(255,255,255,.12)}.pf-camps path.d{fill:rgba(0,0,0,.25)}.pf-camps .on path{fill:#ff7a1a}.pf-camps .on path.d{fill:#4a1f08}.pf-camps .on svg{filter:drop-shadow(0 0 6px rgba(255,170,60,.6));animation:pfCamp .6s cubic-bezier(.3,1.6,.5,1)}@keyframes pfCamp{from{transform:scale(.4)}}
+.pfx .pf-cfg{padding:14px;border-radius:16px;background:rgba(11,8,32,.75);border:1px solid rgba(160,107,255,.3)}
+.pf-st{animation:pfTw 3.2s ease-in-out infinite}@keyframes pfTw{50%{opacity:.08}}
+.pf-sh{animation:pfShoot 9s ease-in infinite}@keyframes pfShoot{0%,88%{opacity:0;transform:none}92%{opacity:.9}100%{opacity:0;transform:translate(-260px,100px)}}
+.pf-fl{animation:pfFl .5s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:bottom}@keyframes pfFl{to{transform:scaleY(1.18) scaleX(.9)}}.pf-fg{animation:pfFg 1.2s ease-in-out infinite alternate}@keyframes pfFg{to{opacity:.85}}
+@media (prefers-reduced-motion:reduce){.pf-st,.pf-sh,.pf-fl,.pf-fg,.pf-rb.main{animation:none!important}}
 .pf-wrap{position:fixed;inset:0;z-index:9000;background:radial-gradient(circle at 50% 30%,#1a2a66,#070d24 70%);display:grid;place-items:center;color:#eef1f9}
 .pf{display:grid;gap:18px;justify-items:center;padding:24px;max-width:640px;width:100%}.pf-x{position:fixed;top:16px;right:16px}
 .pf-ph{font:600 22px var(--f-display);letter-spacing:.02em}.pf-ph small{opacity:.7;font-size:15px}
@@ -2667,7 +2708,24 @@ div.jx-rkc{cursor:default}
 .sky .sk-w{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;padding:0 16px 16px}
 .sk-v{position:relative;aspect-ratio:880/520;border-radius:16px;overflow:hidden;background:radial-gradient(1px 1px at 12% 20%,#fff8,transparent 70%),radial-gradient(1px 1px at 34% 68%,#fff6,transparent 70%),radial-gradient(1.4px 1.4px at 58% 14%,#fff8,transparent 70%),radial-gradient(1px 1px at 76% 46%,#fff6,transparent 70%),radial-gradient(1.2px 1.2px at 90% 84%,#fff7,transparent 70%),radial-gradient(1px 1px at 22% 88%,#fff6,transparent 70%),radial-gradient(1px 1px at 46% 40%,#fff5,transparent 70%),radial-gradient(1.3px 1.3px at 66% 76%,#fff7,transparent 70%),radial-gradient(120% 90% at 50% 50%,#1d1450 0%,#0b0820 72%);border:1px solid rgba(160,107,255,.25)}
 .sk-g{position:absolute;top:12px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,184,255,.62)}
-.sk-c{position:absolute;inset:0;opacity:.48;transition:opacity .7s;pointer-events:none}.sk-c.on{opacity:1}
+.sk-c{position:absolute;inset:0;opacity:.62;transition:opacity .7s;pointer-events:none}
+.sk-halo{position:absolute;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,color-mix(in srgb,var(--c) 16%,transparent),transparent 70%);transition:transform .6s,opacity .6s;opacity:.7}
+.sk-c.on .sk-halo{transform:translate(-50%,-50%) scale(1.35);opacity:1}
+.sk-n small{display:block;font-size:.72em;font-weight:800;color:#a99bd6;letter-spacing:.06em}
+.sk-lb{display:none!important}.sky .sk-n{text-align:center!important;display:grid;justify-items:center}
+.sk-vw{min-width:0}@media (max-width:760px){.sky .sk-vw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:16px}.sky .sk-v{min-width:720px}}.sk-c.on .sk-lb{animation:skLb .5s ease both}@keyframes skLb{from{opacity:0;margin-left:-6px}}
+.sk-ln{animation:skDraw 1s cubic-bezier(.3,.8,.3,1) both}@keyframes skDraw{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.sk-st[data-b="s"],.sk-st[data-b="d"]{animation:jxTw 4.2s ease-in-out infinite}
+.sk-orb{position:absolute;left:50%;top:calc(50% - 3.08%);transform:translate(-50%,-50%);border-radius:50%;border:1px dashed rgba(201,168,255,.14);pointer-events:none}
+.sk-guia{position:absolute;left:50%;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:2px;pointer-events:none;z-index:2;text-align:center}
+.sk-guia i{width:46px;height:46px;background:#fff8dd;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);filter:drop-shadow(0 0 10px #ffd166);animation:skGuia 3s ease-in-out infinite}
+.sk-guia::before{content:"";position:absolute;left:50%;top:23px;width:150px;height:150px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,209,102,.38),rgba(255,209,102,0) 70%);animation:skGlow 3s ease-in-out infinite;z-index:-1}
+.sk-guia b{font:700 12px Oswald,var(--f-cond),sans-serif;letter-spacing:.2em;color:#ffd166;margin-top:4px}.sk-guia small{font-size:10.5px;font-weight:700;color:#ffe7a0}
+@keyframes skGuia{50%{transform:scale(1.12) rotate(8deg)}}@keyframes skGlow{50%{opacity:.6;transform:translate(-50%,-50%) scale(1.15)}}
+.sk-shoot{position:absolute;top:12%;left:78%;width:120px;height:2px;border-radius:2px;background:linear-gradient(90deg,#fff,rgba(255,255,255,0));opacity:0;transform:rotate(-22deg);animation:skShoot 11s ease-in 3s infinite;pointer-events:none}
+@keyframes skShoot{0%,90%{opacity:0;translate:0 0}93%{opacity:.9}100%{opacity:0;translate:-220px 90px}}
+@media (prefers-reduced-motion:reduce){.sk-ln,.sk-guia i,.sk-guia::before,.sk-shoot,.sk-st{animation:none!important}}
+@media (max-width:700px){.sk-guia i{width:30px;height:30px}.sk-guia::before{width:90px;height:90px;top:15px}.sk-guia b{font-size:9px}.sk-guia small{font-size:8.5px}.sk-n small{display:none}}.sk-c.on{opacity:1}
 .sk-ln{position:absolute;height:1px;background:var(--c);opacity:.3;transform-origin:0 50%}.sk-c.on .sk-ln{opacity:.8}
 .sk-st{position:absolute;border-radius:50%;background:#fff;transform:translate(-50%,-50%);box-shadow:0 0 6px var(--c)}
 .sk-st[data-b="d"]{opacity:.38;box-shadow:none}.sk-st[data-b="s"]{box-shadow:0 0 10px var(--c),0 0 3px #fff}.sk-st[data-b="x"]{box-shadow:0 0 16px var(--c),0 0 5px #fff;animation:jxTw 3s ease-in-out infinite}
@@ -2704,10 +2762,11 @@ div.jx-rkc{cursor:default}
       <nav class="mtabs" id="mtabs" aria-label="Seções"></nav>
       <div class="fmrow2"><nav class="ptabs" id="ptabs" aria-label="Seus concursos"></nav>
       <div class="top-in">
-        <div class="seg" role="group" aria-label="Modo do relógio"><button id="mCrono" data-a="mode" data-m="crono" aria-pressed="true">Cronômetro</button><button id="mPomo" data-a="mode" data-m="pomo" aria-pressed="false">Pomodoro</button></div>
+        <div class="tcap" id="tCap" data-m="crono"><div class="seg tseg" role="group" aria-label="Modo do relógio"><i class="seg-pill" aria-hidden="true"></i><button id="mCrono" data-a="mode" data-m="crono" aria-pressed="true">Cronômetro</button><button id="mPomo" data-a="mode" data-m="pomo" aria-pressed="false">Pomodoro</button></div>
+        <div class="tph" id="tPh" hidden></div>
         <div class="clock" id="clock" aria-live="off">00:00:00</div>
-        <button class="ibtn go" id="tGo" data-a="tgo" aria-label="Iniciar"></button>
-        <button class="ibtn" id="tStop" data-a="tstop" aria-label="Encerrar e registrar"></button><button class="ibtn pf-open" data-a="pfOpen" title="Pomodoro em tela cheia" aria-label="Pomodoro em tela cheia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+        <span class="tgo-w"><svg class="tring" viewBox="0 0 58 58" aria-hidden="true"><circle cx="29" cy="29" r="26" class="bg"/><circle cx="29" cy="29" r="26" class="fg" id="tRing" stroke-dasharray="0 164"/></svg><button class="ibtn go" id="tGo" data-a="tgo" aria-label="Iniciar"></button></span>
+        <button class="ibtn" id="tStop" data-a="tstop" aria-label="Encerrar e registrar"></button><button class="ibtn pf-open" data-a="pfOpen" title="Pomodoro em tela cheia" aria-label="Pomodoro em tela cheia"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button></div>
         <select class="inp tsel" id="tAct" aria-label="Atividade do cronômetro"></select>
         <button class="ibtn undoTop" data-a="undo" id="undoTop" aria-label="Nada para desfazer" title="Nada para desfazer" disabled><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
         <button class="ibtn theme" data-a="theme" aria-label="Alternar tema claro e escuro" id="themeBtn"></button>
@@ -4375,8 +4434,12 @@ const elapsed=()=>TM.acc+(TM.run?Date.now()-TM.t0:0);
 function drawClock(){
   const pomo=TM.mode==="pomo",lim=core().cfg.pomo*60000,e=elapsed();
   const ms=pomo?Math.max(0,lim-e):e,s=Math.floor(ms/1000);
-  $("clock").textContent=pad(Math.floor(s/3600))+":"+pad(Math.floor(s/60)%60)+":"+pad(s%60);
-  $("clock").classList.toggle("run",TM.run);
+  {const txt=pomo&&s<3600?pad(Math.floor(s/60))+":"+pad(s%60):pad(Math.floor(s/3600))+":"+pad(Math.floor(s/60)%60)+":"+pad(s%60),ck=$("clock"),U=ck.querySelectorAll("u");
+   if(U.length!==txt.length){ck.innerHTML=[...txt].map((c,i)=>`<u class="${c===":"?"c":i>=txt.length-2?"s":""}">${c}</u>`).join("")}
+   else [...txt].forEach((c,i)=>{const u=U[i];if(u.textContent!==c){u.textContent=c;if(!RMO()){u.classList.remove("roll");void u.offsetWidth;u.classList.add("roll")}}});
+   ck.classList.toggle("run",TM.run);const cap=$("tCap");if(cap){cap.dataset.m=pomo?"pomo":"crono";cap.classList.toggle("run",TM.run)}
+   const rg=$("tRing");if(rg){const f=pomo?Math.min(1,e/lim):(s%60)/60;rg.setAttribute("stroke-dasharray",(163.4*f).toFixed(1)+" 164")}
+   const ph=$("tPh");if(ph)try{ph.hidden=!pomo;if(pomo){const C=pfCfg(),k=PF.n%C.k;const h=`<small>${PF.ph==="foco"?"FOCO":PF.ph==="longa"?"PAUSA LONGA":"PAUSA"}</small><b>ciclo ${k+1} de ${C.k}</b><span class="tdots">${[...Array(C.k)].map((_,i)=>`<em class="${i<k?"f":""}"></em>`).join("")}</span>`;if(ph.dataset.h!==h){ph.innerHTML=h;ph.dataset.h=h}}}catch(x){}}
   $("tGo").innerHTML=ic(TM.run?"pause":"play");$("tGo").setAttribute("aria-label",TM.run?"Pausar":"Iniciar");
   $("tStop").innerHTML=ic("stop");$("tStop").disabled=e<1000;
   $("mCrono").setAttribute("aria-pressed",String(!pomo));$("mPomo").setAttribute("aria-pressed",String(pomo));
@@ -5691,7 +5754,7 @@ function renderNav(){
   try{const fc=$("fmCrest");if(fc){const sk=core().skin||{},I=orgInfo();const k=(sk.logo&&(sk.logo.id||sk.logo.url))?"img:"+skinUrl(sk.logo):"svg:"+I.sig;if(fc.dataset.k!==k){fc.dataset.k=k;fc.innerHTML=k.startsWith("img:")?`<img src="${esc(skinUrl(sk.logo))}" alt="">`:crestSVG(I.sig||"?")}}
     const fd=$("fmDate");if(fd){const d=new Date();fd.innerHTML=`<b>${d.toLocaleDateString("pt-BR",{day:"numeric",month:"short"}).replace(".","")}</b><small>${d.toLocaleDateString("pt-BR",{weekday:"short"}).replace(".","")} · ${pad(d.getHours())}:${pad(d.getMinutes())}</small>`}
     const nx=fmNext(),fg=$("fmGo");if(fg){fg.title=nx?"Abrir: "+taskTitle(nx):"Nada pendente na meta atual";fg.disabled=!nx}}catch(e){}
-  const sb=$("skinBtn");if(sb){const nx={jornada:"Arena",arena:"Clássica",classic:"Jornada"}[SKIN()];sb.textContent=nx;sb.title="Trocar para o visual "+nx}
+  const sb=$("skinBtn");if(sb){const k=SKIN(),nx=k==="jornada"?"Arena":"Jornada";sb.classList.add("sk2");sb.innerHTML=`<span class="${k==="jornada"?"on":""}">Jornada</span><span class="${k==="arena"?"on":""}">Arena</span>`;sb.title="Trocar para o visual "+nx}
 }
 function renderTimerSel(){
   const r=curMeta(),ts=r?tasksOf(r.n):[],lk=phaseLocks(ts);
@@ -6415,7 +6478,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261111195726";
+const JX_BUILD="20261111202949";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6917,7 +6980,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111195726" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111202949" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -8107,7 +8170,7 @@ document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset||!U
    Logo e foto do órgão: o aluno envia (ficam na conta, por concurso). Sem envio, o painel desenha um brasão genérico com a sigla. */
 const skinUrl=o=>o?(o.id&&!/^data:|^blob:/.test(o.url||"")?"/_blob/"+o.id:o.url):"";
 /* visuais: "jornada" (padrão, céu e trilha), "arena" (estilo painel esportivo) e "classic". Quem tinha "arena" salvo antes do visual Jornada passa para ele uma vez. */
-const SKIN=()=>{let v="jornada";try{v=localStorage.getItem("jornada-skin")||"jornada";if(v==="arena"&&!localStorage.getItem("jx-vis1"))v="jornada"}catch(e){}return v==="arena"||v==="classic"?v:"jornada"};
+const SKIN=()=>{let v="jornada";try{v=localStorage.getItem("jornada-skin")||"jornada";if(v==="arena"&&!localStorage.getItem("jx-vis1"))v="jornada"}catch(e){}return v==="arena"?v:"jornada"};
 const ARENA=()=>SKIN()!=="classic",VIS=()=>SKIN()==="jornada";
 function applySkin(){const r=document.documentElement,k=SKIN();if(k!=="classic")r.dataset.skin="arena";else delete r.dataset.skin;if(k==="jornada")r.dataset.vis="jornada";else delete r.dataset.vis;
   const bg=(core().skin||{}).bg;if(bg&&(bg.id||bg.url))r.style.setProperty("--skin-img",`url("${String(skinUrl(bg)).replace(/"/g,"")}")`);else r.style.removeProperty("--skin-img")}
@@ -8975,7 +9038,7 @@ function jxSkyMat(SID,part){try{if(!ED.length)return"";const P=progData(),mx=Mat
   const nd=A.filter(dn).length,rows=A.map((a,i)=>{const d=dn(a),o=!d&&now(a),p=pdfOfAula(cur,a.c),iv=inc(a);
     return`<div class="jt-r"><span class="jt-d" data-s="${d?"ok":o?"on":"fu"}">${d?"✓":""}</span><b style="color:${s.col}">${esc(auLabel(cur,a.c))}</b><span class="jt-t">${esc(a.d||"")}</span><span class="jt-i"><i><em style="width:${has?Math.min(100,iv).toFixed(1):0}%"></em></i><small>${has?(iv>0?pv1(iv)+"% da matéria":"não caiu nas provas"):"incidência ainda não medida"}</small></span><span class="jt-c">${p?`<button class="chip" data-a="lxOpen" data-pid="${p.id}" data-pa="1">PDF</button>`:`<span class="chip off">PDF</span>`}<button class="chip" data-a="gtab" data-t="resumos">Resumo</button><button class="chip" data-a="gtab" data-t="mapas">Mapa</button>${(()=>{const u=tecAulaUrl(cur,a.c);return u?`<a class="chip" href="${esc(u)}" target="_blank" rel="noopener" title="Questões desta aula no TEC" data-tas="${esc(tShort(a.d||""))}">TEC</a>`:""})()}</span></div>`}).join("");
   const top=has?S.t.map((t,j)=>({t:t[0],p:Pi[j]})).sort((a,b)=>b.p-a.p).slice(0,5):[],tm=Math.max(1e-6,...top.map(o=>o.p));
-  if(part!=="trail")return`<section class="jx-msky" style="--h:${skyLay(n,12).h}px;--hm:${skyLay(n,5).h}px" aria-label="O céu do edital"><span class="jm-t">O céu do edital: cada estrela é uma matéria, do tamanho do quanto cai · toque para abrir a trilha dela abaixo</span>${st}</section>`;
+  if(part!=="trail")return`<section class="jx-msky" style="--h:${skyLay(n,12).h}px;--hm:${skyLay(n,5).h}px" aria-label="Carta Celeste do Edital"><span class="jm-t">Carta Celeste do Edital: cada estrela é uma matéria, do tamanho do quanto cai · toque para abrir a trilha dela abaixo</span>${st}</section>`;
   return`<div class="jt-g"><section class="jt-c0"><div class="jt-h"><div><small style="color:${s.col}">${esc(s.n)} · ${q} questões · ${pv1(q/T*100)}% da prova</small><h2>A trilha da matéria</h2></div><span class="muted small">${nd} de ${A.length} aulas · ${A.length?Math.round(nd/A.length*100):0}%</span></div><div class="jt-l">${rows}</div></section>
    <div class="jt-side"><section class="jt-mi"><small>Da matéria inteira</small><button class="jt-b" data-a="gtab" data-t="resumos" style="--b:rgba(255,95,143,.14)">📚 Resumo da matéria inteira</button><button class="jt-b" data-a="gtab" data-t="mapas" style="--b:rgba(255,209,102,.12)">🗺️ Mapa mental</button><button class="jt-b" data-a="gtab" data-t="leiseca" style="--b:rgba(47,211,189,.12)">⚖️ Lei seca</button><button class="jt-b" data-a="gtab" data-t="incidencia" style="--b:rgba(95,180,255,.12)">🎯 Incidência no TEC</button>${(()=>{const m=tecMatCad(cur);return m?`<a class="jt-b" href="${esc(m.url)}" target="_blank" rel="noopener" style="--b:rgba(160,107,255,.16)">📝 Caderno da matéria no TEC</a><button class="jt-b" data-a="tbOpen" data-s="${cur}" style="--b:rgba(255,95,95,.12)">✍️ Lançar erros do TEC</button>${(()=>{const L=tecAsList(cur).sort((a,b)=>b.q-a.q).slice(0,8);return L.length?`<small style="margin-top:6px">Cadernos por assunto (guia do TEC)</small><div class="jt-as">${L.map(a=>`<a href="${esc(TB+"/questoes/cadernos/"+a.cad)}" target="_blank" rel="noopener" title="${esc(a.n)}"><span>${esc(a.n)}</span><small>${a.qq||a.q} q.</small></a>`).join("")}</div>`:""})()}`:`<button class="jt-b" data-a="tcaOpen" style="--b:rgba(160,107,255,.16)">📝 Criar caderno no TEC</button>`})()}</section></div></div>`}catch(e){console.error(e);return""}}
 
@@ -9022,7 +9085,7 @@ function jxTrilha(side){try{const P=arPool(),td=today(),st=c=>c.st==="new"?0:c.s
 /* ---------- Caminho: rotina da semana, incidência e concurso ---------- */
 function jxCamCards(){try{const W=["S","T","Q","Q","S","S","D"],m=[0,1,2,3,4,5,6].map(i=>{try{return rotHas()?rotStudyAll(i):0}catch(e){return 0}}),mx=Math.max(1,...m),T=qTot()||1,L=ED.map(s=>({s,q:qOf(s)})).sort((a,b)=>b.q-a.q).slice(0,6),qm=Math.max(1,...L.map(x=>x.q));let I={};try{I=orgInfo()}catch(e){}
   return`<div class="jx-c3"><section class="card"><div class="card-b jc3"><small>Rotina da semana</small>${rotHas()?`<div class="jc-bars">${m.map((v,i)=>`<span><i style="height:${Math.round(v/mx*80)}px"></i><small>${W[i]}</small></span>`).join("")}</div><span class="muted small">${m.map(v=>v?Math.round(v/60*10)/10+" h":"folga").join(" · ")}</span>`:`<span class="muted small">Monte a rotina em Meu plano › Rotina para ver as horas de cada dia.</span>`}<button class="lnk" data-a="gtab" data-t="rotina">Ajustar rotina</button></div></section>
-   <section class="card"><div class="card-b jc3"><small>Incidência por matéria</small>${L.map(x=>`<div class="jc-ir"><b style="color:${x.s.col}">${esc(x.s.c||"")}</b><i><em style="width:${(x.q/qm*100).toFixed(0)}%;background:${x.s.col}"></em></i><span>${x.q}</span></div>`).join("")}<button class="lnk" data-a="gtab" data-t="incidencia">abrir o céu do edital</button></div></section>
+   <section class="card"><div class="card-b jc3"><small>Incidência por matéria</small>${L.map(x=>`<div class="jc-ir"><b style="color:${x.s.col}">${esc(x.s.c||"")}</b><i><em style="width:${(x.q/qm*100).toFixed(0)}%;background:${x.s.col}"></em></i><span>${x.q}</span></div>`).join("")}<button class="lnk" data-a="gtab" data-t="incidencia">abrir a Carta Celeste</button></div></section>
    <section class="card"><div class="card-b jc3"><small>Concurso</small><b class="jc-t">${esc(cargoTitulo(I.cargo||"")||"Concurso")}${I.sig?" · "+esc(I.sig):""}</b><span>${esc([I.banca,I.vagas].filter(Boolean).join(" · "))}</span><span>${esc(I.sal||"")}</span><button class="lnk" data-a="gtab" data-t="concurso">ver concurso</button></div></section></div>`}catch(e){return""}}
 
 /* ---------- Desempenho: números do topo, pontos fracos e comparativo ---------- */
@@ -9087,7 +9150,7 @@ function jxBandTab(){try{const td=today();
     return jxBand({k:"Acampamentos percorridos",t:dias0(c.metas.filter(m=>m.done).length,"meta cumprida","metas cumpridas"),s:"Tudo o que você já fez fica guardado aqui, meta por meta.",art:jbTrail(N)})}
   if(TAB==="rotina"){const m=[0,1,2,3,4,5,6].map(i=>{try{return rotHas()?rotStudyAll(i):0}catch(e){return 0}}),tot=m.reduce((a,b)=>a+b,0);
     return jxBand({k:"Sua semana em horas",t:tot?Math.round(tot/60*10)/10+" h de estudo por semana":"Monte a sua semana",s:"Cada barra é um dia: a altura é o tempo de estudo que cabe nele.",art:jbBars(m,["SEG","TER","QUA","QUI","SEX","SÁB","DOM"])})}
-  if(TAB==="edital"){const P=progData();return jxBand({k:"Edital verticalizado",t:Math.round(P.tot)+"% do edital estudado",s:"Marque os tópicos que já estudou. Cada tópico estudado acende uma estrela no céu do edital.",cta:`<button class="btn sm" data-a="gtab" data-t="incidencia">Ver o céu do edital</button>`,art:jbRing(P.tot,"do edital")})}
+  if(TAB==="edital"){const P=progData();return jxBand({k:"Edital verticalizado",t:Math.round(P.tot)+"% do edital estudado",s:"Marque os tópicos que já estudou. Cada tópico estudado acende uma estrela na Carta Celeste.",cta:`<button class="btn sm" data-a="gtab" data-t="incidencia">Ver a Carta Celeste</button>`,art:jbRing(P.tot,"do edital")})}
   if(TAB==="concurso"){const I=orgInfo(),cr=(I.cr||[]).slice(0,7),nx=cr.findIndex(x=>x.d>=td),N=cr.map((x,i)=>({st:x.k==="prova"?"pk":x.d<td?"ok":i===nx?"on":"fu",lab:x.k==="prova"?"prova "+dm(x.d):dm(x.d)}));if(!N.length||N[N.length-1].st!=="pk")N.push({st:"pk",lab:"prova"});
     return jxBand({k:"Roteiro do concurso",t:(IS_TJ?cargoTitulo(I.cargo||""):planTitulo())||"Seu concurso",s:esc([I.sig,I.banca,I.vagas].filter(Boolean).join(" · "))+(nx>=0&&cr[nx]?`<br>Próxima etapa: <b>${esc(cr[nx].l)}</b> · ${provaTBD()&&cr[nx].k==="prova"?"data a definir":dm(cr[nx].d)}`:""),art:provaTBD()?jbWatch():jbTrail(N)})}
   if(TAB==="provas"){const n=PVS().length;return jxBand({k:"Provas anteriores",t:n?dias0(n,"prova guardada","provas guardadas"):"Guarde as provas que você faz",s:"Cada prova corrigida vira revisão: os erros vão para Erradas e para a Trilha.",art:jbBook()})}
@@ -9102,28 +9165,32 @@ function edSky(){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L=ED.m
   const G=[];L.forEach(x=>{const k=gk(x);let g=G.find(y=>y.k===k);if(!g)G.push(g={k,L:[]});g.L.push(x)});
   const W=880,H=520,gw=W/G.length,mx=Math.max(1,...L.map(x=>x.q)),pc=v=>(v*100).toFixed(2)+"%";let sky="";
   const AL=[].concat(...G.map(g=>g.L)),N=AL.length;let bc=4,br=3,bs=1e9;for(let c=2;c<=8;c++){const r=Math.ceil(N/c),sc=(c*r-N)*3+Math.abs(c/r-1.9);if(sc<bs){bs=sc;bc=c;br=r}}
-  const cw=W/bc,top=74,bot=H-142;AL.forEach((x,k)=>{const r=Math.floor(k/bc),inR=r===br-1?N-r*bc:bc,c=k%bc,off=(bc-inR)*cw/2;x.cx=off+cw*(c+.5)+(r%2?cw*.07:-cw*.07)*(c%2?-1:1);x.cy=top+(bot-top)*(br>1?r/(br-1):.5)+(c%2?14:-10)});
+  /* Carta celeste: as constelações ficam em anéis iguais em volta da Estrela-Guia; as que mais caem no anel de dentro */
+  const CX=W/2,CY=H/2-16,BYQ=AL.slice().sort((a,b)=>b.q-a.q),nIn=N<=8?N:Math.min(9,Math.max(5,Math.round(N*.36))),RIN=BYQ.slice(0,nIn),ROUT=BYQ.slice(nIn);
+  const ring=(arr,rx,ry,off)=>arr.forEach((x,k)=>{const a=(k+off)/arr.length*2*Math.PI-Math.PI/2;x.cx=CX+Math.cos(a)*rx;x.cy=CY+Math.sin(a)*ry;x.rin=arr===RIN});
+  if(ROUT.length){ring(RIN,190,122,0);ring(ROUT,372,188,.5)}else ring(RIN,290,160,0);
   const f0=L.slice().sort((a,b)=>b.q-a.q)[0].s.id;let pan="",chips="",foco="";
   L.forEach((x,ci)=>{const s=x.s,P=incShow(s.id),has=incHas(s.id),nt=s.t.length;
-    const pick=(has?s.t.map((_,j)=>j).sort((a,b)=>P[b]-P[a]):s.t.map((_,j)=>j)).slice(0,8),pm=Math.max(1e-6,...pick.map(j=>P[j]||0)),rad=26+Math.min(30,x.q/mx*30);
+    const pick=(has?s.t.map((_,j)=>j).sort((a,b)=>P[b]-P[a]):s.t.map((_,j)=>j)).slice(0,x.rin?8:6),pm=Math.max(1e-6,...pick.map(j=>P[j]||0)),rad=(N>12?13:20)+Math.min(N>12?8:14,x.q/mx*(N>12?8:14));
     const ord=pick.slice().sort((a,b)=>a-b),pos={};
-    pick.forEach((j,k)=>{const a=k===0?0:(k-1)*(2*Math.PI/Math.max(1,pick.length-1))+ci*.9,d=k===0?0:rad*(.62+.38*(((k*37+ci*11)%10)/10));pos[j]=[Math.max(16,Math.min(W-16,x.cx+Math.cos(a)*d*1.45)),Math.max(34,Math.min(H-44,x.cy+Math.sin(a)*d))]});
+    pick.forEach((j,k)=>{const a=k===0?0:(k-1)*(2*Math.PI/Math.max(1,pick.length-1))+ci*.9,d=k===0?0:rad*(.62+.38*(((k*37+ci*11)%10)/10));pos[j]=[Math.max(16,Math.min(W-16,x.cx+Math.cos(a)*d*1.15)),Math.max(30,Math.min(H-40,x.cy+Math.sin(a)*d*.9))]});
     const br=j=>{const e=E[x.i+":"+j];return e&&e.stud?(e.xp?"x":"s"):"d"};
     let ln="",st="",lb="";
-    for(let k=1;k<ord.length;k++){const [x1,y1]=pos[ord[k-1]],[x2,y2]=pos[ord[k]],len=Math.hypot(x2-x1,y2-y1),ang=Math.atan2(y2-y1,x2-x1)*180/Math.PI;ln+=`<i class="sk-ln" style="left:${pc(x1/W)};top:${pc(y1/H)};width:${pc(len/W)};transform:rotate(${ang.toFixed(1)}deg)"></i>`}
+    for(let k=1;k<ord.length;k++){const [x1,y1]=pos[ord[k-1]],[x2,y2]=pos[ord[k]],len=Math.hypot(x2-x1,y2-y1),ang=Math.atan2(y2-y1,x2-x1)*180/Math.PI;ln+=`<i class="sk-ln" style="left:${pc(x1/W)};top:${pc(y1/H)};width:${pc(len/W)};transform:rotate(${ang.toFixed(1)}deg);animation-delay:${(.15+ci*.06+k*.05).toFixed(2)}s"></i>`}
     pick.forEach((j,k)=>{const [px,py]=pos[j],z=has?4+(P[j]/pm)*9:5.5;st+=`<i class="sk-st" data-b="${br(j)}" style="left:${pc(px/W)};top:${pc(py/H)};width:${z.toFixed(1)}px;height:${z.toFixed(1)}px;animation-delay:${((ci*3+k)%7)*.4}s" title="${esc(s.t[j][0])}" data-skt="${esc(s.t[j][0])}" data-sks="${s.id}" role="button" tabindex="0" aria-label="${esc(s.t[j][0])}"></i>`;
-      if(k<4){const rt=x.cx<W*.5,lx=Math.max(8,Math.min(W-8,x.cx+(rt?1:-1)*(rad*1.45+12))),ly=Math.max(30,Math.min(H-60,x.cy-26+k*17));lb+=`<span class="sk-lb${rt?"":" l"}${k===0?" k0":""}" style="left:${pc(lx/W)};top:${pc(ly/H)}">${esc(s.t[j][0].length>26?s.t[j][0].slice(0,24)+"…":s.t[j][0])}</span>`}});
-    sky+=`<div class="sk-c${s.id===f0?" on":""}" data-s="${s.id}" style="--c:${s.col}">${ln}${st}${lb}<button class="sk-n" data-skf="${s.id}" style="left:${pc(x.cx/W)};top:${pc(Math.min(H-58,x.cy+rad+6)/H)}">${esc(s.c||s.n)}</button></div>`;
+      if(k<4){const rt=x.cx<W*.5,lx=Math.max(8,Math.min(W-8,x.cx+(rt?1:-1)*(rad*1.15+14))),ly=Math.max(30,Math.min(H-60,x.cy-26+k*17));lb+=`<span class="sk-lb${rt?"":" l"}${k===0?" k0":""}" style="left:${pc(lx/W)};top:${pc(ly/H)};animation-delay:${k*.08}s">${esc(s.t[j][0].length>26?s.t[j][0].slice(0,24)+"…":s.t[j][0])}</span>`}});
+    sky+=`<div class="sk-c${s.id===f0?" on":""}" data-s="${s.id}" style="--c:${s.col}"><i class="sk-halo" style="left:${pc(x.cx/W)};top:${pc(x.cy/H)};width:${pc((rad*2.6+18)/W)}"></i>${ln}${st}${lb}<button class="sk-n" data-skf="${s.id}" style="left:${pc(x.cx/W)};top:${pc(Math.min(H-34,x.cy+rad*.9+8)/H)}">${esc(s.c||s.n)}<small>${nt?Math.round(s.t.filter((_,j)=>E[x.i+":"+j]&&E[x.i+":"+j].stud).length/nt*100):0}%</small></button></div>`;
     const sd=s.t.filter((_,j)=>E[x.i+":"+j]&&E[x.i+":"+j].stud).length,top=has?s.t.map((t,j)=>({t:t[0],p:P[j]})).sort((a,b)=>b.p-a.p).slice(0,7):[],tm=Math.max(1e-6,...top.map(o=>o.p));
     foco+=`<div class="sk-f" data-s="${s.id}" ${s.id===f0?"":"hidden"}><small>Em foco</small><span><b style="color:${s.col}">${esc(s.n)}</b> · ${x.q} questões · ${pv1(x.q/T*100)}% da prova · você domina ${nt?Math.round(sd/nt*100):0}% das estrelas desta constelação</span><button class="btn pri sm" data-a="jxMat" data-s="${s.id}">Estudar esta matéria</button></div>`;
     pan+=`<div class="sk-p" data-s="${s.id}" ${s.id===f0?"":"hidden"}><small>Assuntos que mais caem · ${esc(s.n)}</small>
       ${has?`${top.map(o=>`<div class="sk-br"><span>${esc(o.t)}</span><b>${pv1(o.p)}%</b><i><em style="width:${(o.p/tm*100).toFixed(1)}%;background:${s.col}"></em></i></div>`).join("")}`:`<p class="muted small" style="margin:0">Esta matéria ainda não tem a incidência por assunto. Abra a matéria abaixo e use os dados do TEC, cole de um site ou estime com IA.</p>`}</div>`;
     chips+=`<button class="sk-bar" data-skf="${s.id}" data-q="${x.q}" style="--c:${s.col}" aria-pressed="${s.id===f0}"><b>${esc(s.c||s.n)}</b><i><em style="width:${(x.q/mx*100).toFixed(1)}%"></em></i><span>${x.q}</span><small>${pv1(x.q/T*100)}%</small></button>`});
   chips=chips.split("</button>").filter(Boolean).map(x=>x+"</button>").sort((a,b)=>+(b.match(/data-q="(\d+(?:\.\d+)?)"/)||[0,0])[1]-+(a.match(/data-q="(\d+(?:\.\d+)?)"/)||[0,0])[1]).join("");
-  return`<section class="sky" data-auto="1" aria-label="O céu do edital"><div class="sk-hd"><h2>O céu do edital</h2><span class="muted small">${esc((()=>{try{const I=orgInfo();return[cargoTitulo(I.cargo||""),I.sig].filter(Boolean).join(" · ")}catch(e){return""}})())} · ${T} questões${(core().qwe&&Object.values(core().qwe).some(v=>v&&v.t))?" · estimativa do TEC":""}</span></div>
-   <div class="sk-w"><div class="sk-v">${sky}<div class="sk-lg"><span>✦ constelação = matéria</span><span>● estrela = assunto do edital</span><span>tamanho = quanto cai</span><span>brilho = o quanto você domina</span><span>linhas = ordem do edital</span></div></div>
+  return`<section class="sky" data-auto="1" aria-label="Carta Celeste do Edital"><div class="sk-hd"><h2>Carta Celeste do Edital</h2><span class="muted small">${esc((()=>{try{const I=orgInfo();return[cargoTitulo(I.cargo||""),I.sig].filter(Boolean).join(" · ")}catch(e){return""}})())} · ${T} questões${(core().qwe&&Object.values(core().qwe).some(v=>v&&v.t))?" · estimativa do TEC":""}</span></div>
+   <div class="sk-w"><div class="sk-vw"><div class="sk-v"><i class="sk-orb" style="width:${pc(380/W)};height:${pc(244/H)}"></i>${N>8?`<i class="sk-orb" style="width:${pc(744/W)};height:${pc(376/H)}"></i>`:""}<i class="sk-shoot"></i>${(()=>{let dd="";try{if(provaTBD())dd="sem data de prova";else{const n=Math.max(0,Math.ceil((pd(prova())-new Date())/864e5));dd=dias0(n,"dia","dias")+" para a prova"}}catch(e){}return`<div class="sk-guia" style="top:${pc((H/2-16)/H)}"><i></i><b>ESTRELA-GUIA</b><small>aprovação${dd?" · "+dd:""}</small></div>`})()}${sky}<div class="sk-lg"><span>✦ constelação = matéria</span><span>● estrela = assunto do edital</span><span>tamanho = quanto cai</span><span>brilho = o quanto você domina</span><span>anel de dentro = matérias que mais caem</span></div></div></div>
    <div class="sk-side"><div class="card sk-inc"><div class="sk-ih"><small>Incidência por matéria</small><button class="lnk" data-a="pvQEd">Ajustar questões</button></div>${chips}</div><div class="card sk-pn">${pan}</div></div></div>
    <div class="card sk-fo">${foco}</div></section>`}catch(e){console.error(e);return""}}
+setInterval(()=>{try{document.querySelectorAll(".sky .sk-vw").forEach(w=>{if(w.dataset.cx||w.scrollWidth<=w.clientWidth+4)return;w.dataset.cx="1";w.scrollLeft=(w.scrollWidth-w.clientWidth)/2})}catch(e){}},700);
 function skFocus(r,sid){r.querySelectorAll(".sk-c").forEach(g=>g.classList.toggle("on",g.dataset.s===sid));r.querySelectorAll(".sk-p,.sk-f").forEach(p=>{p.hidden=p.dataset.s!==sid});r.querySelectorAll(".sk-bar").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.skf===sid)))}
 setInterval(()=>{try{const r=document.querySelector('.sky[data-auto="1"]');if(!r||document.hidden||matchMedia("(prefers-reduced-motion: reduce)").matches)return;const L=[...r.querySelectorAll(".sk-c")],i=L.findIndex(g=>g.classList.contains("on"));if(L.length)skFocus(r,L[(i+1)%L.length].dataset.s)}catch(e){}},4500);
 document.addEventListener("click",e=>{const b=e.target&&e.target.closest&&e.target.closest("[data-skf]");if(!b)return;const r=b.closest(".sky");if(!r)return;r.dataset.auto="0";skFocus(r,b.dataset.skf)});
@@ -11066,16 +11133,27 @@ function pfLeft(){const C=pfCfg();if(PF.ph==="foco"){const lim=C.f*60000;return{
   const tot=(PF.ph==="longa"?C.l:C.s)*60000,left=PF.pRun?Math.max(0,PF.pEnd-Date.now()):(PF.pLeft||tot);return{left,tot,run:PF.pRun}}
 function pfBeep(){try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=880;o.connect(g);g.connect(a.destination);g.gain.setValueAtTime(.18,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+1.2);o.start();o.stop(a.currentTime+1.2)}catch(e){}}
 function pfDone(){PF.n++;const C=pfCfg();PF.ph=PF.n%C.k===0?"longa":"curta";PF.pLeft=(PF.ph==="longa"?C.l:C.s)*60000;PF.pEnd=Date.now()+PF.pLeft;PF.pRun=true;pfBeep();pfDraw(true)}
+function pfScene(ph){const W=1600,H=1000,warm=ph!=="foco";let g=`<defs>${jwHeroDefs()}<linearGradient id="pfSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0828"/><stop offset=".6" stop-color="#21165a"/><stop offset="1" stop-color="${warm?"#4a2440":"#2f1d72"}"/></linearGradient><radialGradient id="pfFire"><stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#ff7a1a" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${H}" fill="url(#pfSky)"/>`;
+  for(let i=0;i<150;i++)g+=`<circle class="pf-st" style="animation-delay:${(i%9)*.45}s" cx="${(i*97.7)%W}" cy="${(i*53.3)%600}" r="${i%6?1:2}" fill="#fff" opacity="${.25+(i%4)*.18}"/>`;
+  g+=`<path class="pf-sh" d="M1300 90 l-180 70" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity="0"/>`;
+  g+=`<path d="M0 ${H} V780 L260 640 L460 720 L700 560 L880 660 L1060 590 L1300 690 L1600 610 V${H}Z" fill="#1c1450"/><path d="M700 560 L672 590 L690 586 L704 600 L720 584 L736 594Z" fill="#e9e4ff" opacity=".8"/><path d="M0 ${H} V880 Q800 820 1600 890 V${H}Z" fill="#2a1d6a"/>`;
+  if(warm)g+=`<circle class="pf-fg" cx="250" cy="880" r="110" fill="url(#pfFire)" opacity=".6"/><path d="M228 902 l44 -9 M232 893 l38 9" stroke="#6b4a2e" stroke-width="6" stroke-linecap="round"/><path class="pf-fl" d="M250 896 q-15 -18 0 -40 q4 18 12 13 q4 17 -12 27z" fill="#ff9f1c"/><g transform="translate(170 902) scale(2.2)">${jwHero(jwSit)}</g>`;
+  return`<svg class="pf-bg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${g}</svg>`}
+function pfHeroAt(fr){const r=180,a=fr*2*Math.PI,x=210+Math.sin(a)*(r+22),y=210-Math.cos(a)*(r+22)+10;return`translate(${x.toFixed(1)} ${y.toFixed(1)}) scale(.62)`}
 function pfDraw(full){const w=$("pfWrap");if(!w||w.hidden)return;const C=pfCfg(),X=pfLeft();
   if(PF.ph!=="foco"&&PF.pRun&&X.left<=0){PF.ph="foco";PF.pRun=false;pfBeep();if(!TM.run){TM.mode="pomo";TM.acc=0;saveTM();A.tgo&&A.tgo()}full=true}
-  const s=Math.ceil(X.left/1000),mm=pad(Math.floor(s/60)),ss=pad(s%60),fr=X.tot?1-X.left/X.tot:0,R=140,Cc=2*Math.PI*R,lb={foco:"Foco",curta:"Pausa curta",longa:"Pausa longa"}[PF.ph];
-  if(full||!w.querySelector(".pf-t")){w.innerHTML=`<div class="pf ${PF.ph}"><button class="ibtn pf-x" data-a="pfClose" aria-label="Sair da tela cheia">${ic("close")}</button>
-    <div class="pf-ph">${lb} <small>· ciclo ${PF.n%C.k+1} de ${C.k}</small></div>
-    <div class="pf-ring"><svg viewBox="0 0 320 320" aria-hidden="true"><circle cx="160" cy="160" r="${R}" class="bg"/><circle cx="160" cy="160" r="${R}" class="fg" stroke-dasharray="${Cc}" stroke-dashoffset="${Cc*(1-fr)}"/></svg><div class="pf-t">${mm}:${ss}</div></div>
-    <div class="row pf-c"><button class="btn pri" data-a="pfGo">${ic(X.run?"pause":"play")} ${X.run?"Pausar":"Começar"}</button><button class="btn" data-a="pfSkip">Pular etapa</button><button class="btn ghost" data-a="pfReset">Recomeçar ciclo</button></div>
-    <div class="pf-cfg">${[["f","Foco"],["s","Pausa curta"],["l","Pausa longa"],["k","Ciclos até a longa"]].map(([k,l])=>`<label>${l}<input class="inp" type="number" min="1" max="${k==="k"?8:120}" value="${C[k]}" data-c="pfCfg" data-k="${k}"></label>`).join("")}</div>
-    <p class="muted small" style="margin:0">O tempo de foco entra no seu desempenho; as pausas não contam.</p></div>`}
-  else{w.querySelector(".pf-t").textContent=mm+":"+ss;const fg=w.querySelector(".fg");if(fg)fg.setAttribute("stroke-dashoffset",Cc*(1-fr));const b=w.querySelector('[data-a="pfGo"]');if(b)b.innerHTML=ic(X.run?"pause":"play")+" "+(X.run?"Pausar":"Começar")}}
+  const s=Math.ceil(X.left/1000),mm=pad(Math.floor(s/60)),ss=pad(s%60),fr=X.tot?1-X.left/X.tot:0,R=180,Cc=2*Math.PI*R,foco=PF.ph==="foco",k=PF.n%C.k;
+  if(full||!w.querySelector(".pf-t")){let act="";try{const f=TM.tid&&findTask(TM.tid);if(f)act=`Estudando <b>${esc(SUB(f.t.sid).c||SUB(f.t.sid).n)}</b> · ${esc(taskTitle(f.t))}`}catch(e){}
+    const col=foco?["#7b3cff","#ff5f8f"]:["#2fbf6a","#7cf0a8"];let ticks="";for(let i=0;i<60;i++){const a=i/60*2*Math.PI;ticks+=`<path d="M${(210+Math.sin(a)*160).toFixed(1)} ${(210-Math.cos(a)*160).toFixed(1)} L${(210+Math.sin(a)*(i%5?154:147)).toFixed(1)} ${(210-Math.cos(a)*(i%5?154:147)).toFixed(1)}" stroke="rgba(255,255,255,${i%5?.14:.34})" stroke-width="2"/>`}
+    w.innerHTML=`${pfScene(PF.ph)}<div class="pf pfx ${PF.ph}"><button class="ibtn pf-x" data-a="pfClose" aria-label="Sair da tela cheia">${ic("close")}</button><button class="ibtn pf-gear" data-a="pfGear" aria-label="Ajustar os tempos">${ic("gear")}</button>
+    <div class="pf-chips">${[["foco","Foco"],["curta","Pausa curta"],["longa","Pausa longa"]].map(([q,l])=>`<span class="${PF.ph===q?"on":""}">${l}</span>`).join("")}</div>
+    <div class="pf-ring"><svg viewBox="0 0 420 420" aria-hidden="true"><defs><linearGradient id="pfRg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${col[0]}"/><stop offset="1" stop-color="${col[1]}"/></linearGradient>${jwHeroDefs()}</defs><circle cx="210" cy="210" r="${R}" fill="rgba(11,8,32,.45)" stroke="rgba(255,255,255,.09)" stroke-width="14"/>${ticks}<circle class="fg" cx="210" cy="210" r="${R}" fill="none" stroke="url(#pfRg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${(Cc*fr).toFixed(1)} ${Cc.toFixed(1)}" transform="rotate(-90 210 210)" style="filter:drop-shadow(0 0 10px ${col[1]})"/>${foco?`<g transform="translate(210 ${210-R-9})"><path d="M0 0 v-24" stroke="#e9e4ff" stroke-width="2"/><path d="M1 -24 h15 l-4 5 4 5 h-15z" fill="#ffd166"/></g><g id="pfHero" transform="${pfHeroAt(fr)}">${jwHero(jwWalk(1.1))}</g>`:""}</svg>
+     <div class="pf-in"><div class="pf-t">${mm}:${ss}</div><small>${foco?`FOCO · CICLO ${k+1} DE ${C.k}`:"PAUSA · RESPIRE"}</small></div></div>
+    <div class="pf-act">${foco?(act||"Estudo livre, sem atividade"):"Levante, alongue e beba água."}</div>
+    <div class="pf-c"><button class="pf-rb" data-a="pfReset" aria-label="Recomeçar ciclo" title="Recomeçar ciclo">${ic("reset")}</button><button class="pf-rb main" data-a="pfGo" aria-label="${X.run?"Pausar":"Começar"}">${ic(X.run?"pause":"play")}</button><button class="pf-rb" data-a="pfSkip" aria-label="Pular etapa" title="Pular etapa">${ic("right")}</button></div>
+    <div class="pf-camps">${[...Array(C.k)].map((_,i)=>`<span class="${i<k?"on":""}"><svg viewBox="-17 -24 34 26" aria-hidden="true"><path d="M-15 0 L0 -21 L15 0Z"/><path class="d" d="M0 -21 L-5 0 H5Z"/></svg>${i+1}º</span>`).join("")}</div>
+    <div class="pf-cfg" ${UI.pfGear?"":"hidden"}>${[["f","Foco"],["s","Pausa curta"],["l","Pausa longa"],["k","Ciclos até a longa"]].map(([q,l])=>`<label>${l}<input class="inp" type="number" min="1" max="${q==="k"?8:120}" value="${C[q]}" data-c="pfCfg" data-k="${q}"></label>`).join("")}<p class="muted small" style="margin:0;grid-column:1/-1">O tempo de foco entra no seu desempenho; as pausas não contam.</p></div></div>`}
+  else{w.querySelector(".pf-t").textContent=mm+":"+ss;const fg=w.querySelector(".pf-ring .fg");if(fg)fg.setAttribute("stroke-dasharray",(Cc*fr).toFixed(1)+" "+Cc.toFixed(1));const h=$("pfHero");if(h)h.setAttribute("transform",pfHeroAt(fr));const b=w.querySelector('[data-a="pfGo"]');if(b){const want=X.run?"pause":"play";if(b.dataset.st!==want){b.dataset.st=want;b.innerHTML=ic(want);b.setAttribute("aria-label",X.run?"Pausar":"Começar")}}}}
 
 /* ================= Anki: a IA classifica os baralhos por matéria ================= */
 async function akAI(K){if(!SAMPLE||!K||!K.decks||!K.decks.length)return;K.aiBusy=1;akModal();
@@ -11102,7 +11180,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111195726&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111202949&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -12471,6 +12549,7 @@ const A={
   pfOpen(){pfOpen()},pfClose(){pfClose()},
   pfGo(){if(PF.ph==="foco"){if(!TM.run&&TM.mode!=="pomo"){TM.mode="pomo";TM.acc=0;saveTM()}A.tgo()}else{if(PF.pRun){PF.pLeft=Math.max(0,PF.pEnd-Date.now());PF.pRun=false}else{PF.pEnd=Date.now()+(PF.pLeft||0);PF.pRun=true}}pfDraw(true)},
   pfSkip(){if(PF.ph==="foco"){if(TM.run||elapsed()>0)stopTimer(false,true);pfDone()}else{PF.ph="foco";PF.pRun=false;pfDraw(true)}},
+  pfGear(){UI.pfGear=!UI.pfGear;const c=document.querySelector("#pfWrap .pf-cfg");if(c)c.hidden=!UI.pfGear},
   pfReset(){if(TM.run||elapsed()>0)stopTimer(false,true);PF.ph="foco";PF.n=0;PF.pRun=false;pfDraw(true)},
   lxPSave(){const P=UI.lxP||{};const dn=!!($("lxPDone")&&$("lxPDone").checked);$("layer3").innerHTML="";lxFinish(Object.assign({},P,{done:dn}))},
   lxPDrop(){try{localStorage.removeItem("jx-sx-pend")}catch(e){}$("layer3").innerHTML="";UI.lxP=null},
@@ -13232,7 +13311,7 @@ Object.assign(A,{
   motCarta(){const v=(($("motCarta")||{}).value||"").trim();if(!v){toast("Escreva a carta antes de lacrar");return}const M=MOT();M.carta={tx:v.slice(0,3000),at:today()};touch("core");render();toast("Carta lacrada: ela abre no dia da prova")},
   jxMv(b){PLANS.ui=Object.assign({},PLANS.ui||{},{metaVis:b.dataset.v});savePlans();render()},
   jxScroll(b){try{const el=document.querySelector(b.dataset.q);if(el)el.scrollIntoView({behavior:"smooth",block:"start"})}catch(e){}},
-  skin(){const o=["jornada","arena","classic"],k=o[(o.indexOf(SKIN())+1)%3];try{localStorage.setItem("jornada-skin",k);localStorage.setItem("jx-vis1","1")}catch(e){}PLANS.ui=Object.assign({},PLANS.ui,{skin:k,vis1:1});savePlans();applySkin();render();toast(k==="jornada"?"Visual Jornada ativado":k==="arena"?"Visual Arena ativado":"Visual clássico ativado")},
+  skin(){const k=SKIN()==="jornada"?"arena":"jornada";try{localStorage.setItem("jornada-skin",k);localStorage.setItem("jx-vis1","1")}catch(e){}PLANS.ui=Object.assign({},PLANS.ui,{skin:k,vis1:1});savePlans();applySkin();render();toast(k==="jornada"?"Visual Jornada ativado":k==="arena"?"Visual Arena ativado":"Visual clássico ativado")},
   skinClr(){const c=core(),S=c.skin||{};["logo","bg"].forEach(k=>{if(S[k]&&S[k].id&&ASSETS)ASSETS.delete(S[k].id).catch(()=>{})});delete c.skin;touch("core");applySkin();render()}
 });
 
