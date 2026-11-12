@@ -28,6 +28,114 @@
 .side .navb,.side .addbtn{animation:sxSide .5s cubic-bezier(.16,1,.3,1) both}.side .navb:nth-child(2){animation-delay:.05s}.side .navb:nth-child(3){animation-delay:.1s}.side .navb:nth-child(4){animation-delay:.15s}
 @keyframes sxSide{from{opacity:0;transform:translateX(-14px)}}
 @media (prefers-reduced-motion:reduce){.view>*,.side .navb,.side .addbtn,.modal .mbox,body::before,.sxhero::after{animation:none!important}}
+/* ===== refino 2: desenho e fluidez (cores originais azul-noite e dourado) ===== */
+:root{--sx-gold:#f2b441;--sx-gold2:#ffe2a0;--sx-blue:#2f74f0;--sx-ease:cubic-bezier(.16,1,.3,1);--sx-spring:cubic-bezier(.3,1.4,.5,1)}
+.tbrand{background:linear-gradient(90deg,#9fbcff 0%,#ffe2a0 45%,#f2b441 55%,#9fbcff 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sxShine 7s linear infinite}
+@keyframes sxShine{to{background-position:-220% 0}}
+/* herói */
+.sxhero{min-height:250px;padding-right:min(360px,34%)!important;background:radial-gradient(420px 260px at 88% 40%,rgba(242,180,65,.20),transparent 70%),linear-gradient(120deg,rgba(47,116,240,.32),rgba(17,27,58,.2) 60%),var(--surface)!important}
+.sxhero::before{content:"";position:absolute;inset:0;background:radial-gradient(1px 1px at 8% 20%,#fff8,transparent 60%),radial-gradient(1.2px 1.2px at 46% 12%,#ffe2a0cc,transparent 60%),radial-gradient(1px 1px at 58% 78%,#fff6,transparent 60%),radial-gradient(1px 1px at 30% 88%,#fff5,transparent 60%);pointer-events:none;animation:sxTw 5s ease-in-out infinite alternate}
+.sxhero>*:not(.sxart){position:relative;z-index:1}
+.sxart{position:absolute;right:28px;top:50%;width:min(300px,30%);aspect-ratio:1;transform:translateY(-50%);pointer-events:none;z-index:0}
+.sxring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(242,180,65,.28);animation:sxRing 4.5s var(--sx-ease) infinite}
+.sxring.r2{inset:14%;border-color:rgba(159,188,255,.25);animation-delay:1.5s}
+@keyframes sxRing{0%{transform:scale(.86);opacity:0}30%{opacity:1}100%{transform:scale(1.08);opacity:0}}
+.sxmed{position:absolute;inset:31%;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#ffe2a0,#f2b441 55%,#c98a1b);box-shadow:0 0 0 6px rgba(242,180,65,.14),0 0 50px rgba(242,180,65,.45),inset 0 -6px 14px rgba(120,70,0,.35);animation:sxBob 4s ease-in-out infinite}
+.sxmed svg{width:48%;height:48%;fill:none;stroke:#16285e;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+@keyframes sxBob{50%{transform:translateY(-6px)}}
+.sxeq{position:absolute;left:0;right:0;bottom:4%;height:24%;display:flex;align-items:flex-end;justify-content:center;gap:2.2%}
+.sxeq i{flex:1;max-width:9px;height:var(--h);border-radius:4px;background:linear-gradient(180deg,#ffe2a0,#f2b441 50%,#2f74f0);opacity:.85;transform-origin:bottom;animation:sxEq 1.3s ease-in-out var(--d) infinite alternate}
+@keyframes sxEq{0%{transform:scaleY(.25)}100%{transform:scaleY(1)}}
+.sxstat{position:relative;overflow:hidden;min-width:110px!important;padding:12px 16px!important;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(7,13,32,.35))!important;border-color:rgba(159,188,255,.18)!important;animation:sxIn .6s var(--sx-ease) calc(.15s + var(--i,0)*.08s) both}
+.sxstat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#ffe2a0,#f2b441)}
+.sxstat b{font:600 26px/1.05 Oswald,var(--f-brand)!important;background:linear-gradient(180deg,#fff,#ffe2a0);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sxbtn{position:relative;overflow:hidden}
+.sxbtn::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-18deg);transition:left .7s var(--sx-ease)}
+.sxbtn:hover::after{left:130%}
+.sxbtn:active,.lbtn:active,.ctile:active,.addtop:active,.navb:active{transform:scale(.96)!important;transition-duration:.08s!important}
+/* trilha */
+.sxh-m{height:186px!important;box-shadow:0 24px 50px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.06)}
+.sxh-m::after{content:"";position:absolute;right:-40px;top:-80px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(242,180,65,.32),transparent 65%);animation:sxGlow 6s ease-in-out infinite alternate;pointer-events:none}
+.sxh-m .bk{fill:#16285e;opacity:.75}
+.sxh-m .mt{fill:#0f1a3c!important}
+.sxh-m .dn{stroke:var(--sx-gold)!important;stroke-width:4!important;filter:drop-shadow(0 0 6px rgba(242,180,65,.7));stroke-dasharray:1200;stroke-dashoffset:1200;animation:sxDraw 1.8s var(--sx-ease) .3s forwards}
+@keyframes sxDraw{to{stroke-dashoffset:0}}
+.sxh-me{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#ffe2a0 40%,#f2b441);box-shadow:0 0 0 4px rgba(242,180,65,.25),0 0 18px rgba(242,180,65,.8);z-index:2}
+.sxh-me::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(242,180,65,.6);animation:sxPing 2.2s var(--sx-ease) infinite}
+@keyframes sxPing{0%{transform:scale(.5);opacity:1}100%{transform:scale(1.8);opacity:0}}
+.sxh-t{z-index:2}
+.sxh-k{gap:12px!important}
+.sxh-k span{position:relative;overflow:hidden;display:grid!important;grid-template-columns:40px 1fr;grid-template-rows:auto auto auto;column-gap:12px;align-items:center;padding:14px 16px!important;border-radius:16px!important;background:linear-gradient(160deg,rgba(47,116,240,.14),rgba(17,27,58,.6))!important;border:1px solid rgba(159,188,255,.16)!important;transition:transform .3s var(--sx-spring),border-color .3s,box-shadow .3s;animation:sxIn .6s var(--sx-ease) both}
+.sxh-k span.k2{animation-delay:.08s}.sxh-k span.k3{animation-delay:.16s}
+.sxh-k span:hover{transform:translateY(-3px);border-color:rgba(242,180,65,.45)!important;box-shadow:0 14px 30px -18px rgba(242,180,65,.6)}
+.sxh-k .kic{grid-row:1/3;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(242,180,65,.14);border:1px solid rgba(242,180,65,.3)}
+.sxh-k .kic svg{width:20px;height:20px;fill:none;stroke:#ffd27a;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sxh-k b{font:600 26px/1 Oswald,var(--f-brand)!important;color:#ffd27a!important}
+.sxh-k .kb{grid-column:1/3;display:block;height:4px;margin-top:10px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
+.sxh-k .kb u{display:block;height:100%;min-width:4px;border-radius:4px;background:linear-gradient(90deg,#2f74f0,#f2b441);text-decoration:none;animation:sxBar 1.4s var(--sx-ease) .4s both}
+@keyframes sxBar{from{width:0!important}}
+/* seções */
+.sec h2{font-size:15px!important;letter-spacing:.2em!important;text-transform:uppercase;color:#cfdaf7}
+.sec h2::before{content:"";width:22px;height:3px;border-radius:3px;background:linear-gradient(90deg,#ffe2a0,#f2b441);flex:none}
+.sec h2::after{background:linear-gradient(90deg,rgba(242,180,65,.45),rgba(159,188,255,.12) 40%,transparent)!important}
+.listen{gap:12px!important}
+.lbtn{height:58px!important;padding:0 20px 0 10px!important;justify-content:flex-start!important;text-align:left;white-space:nowrap;border-radius:18px!important;background:linear-gradient(160deg,rgba(47,116,240,.16),rgba(17,27,58,.7))!important;border:1px solid rgba(159,188,255,.18)!important;transition:transform .3s var(--sx-spring),border-color .3s,box-shadow .3s!important}
+.lbtn svg{width:38px!important;height:38px!important;padding:9px;border-radius:12px;background:rgba(242,180,65,.14);color:#ffd27a;border:1px solid rgba(242,180,65,.3);box-sizing:border-box;transition:transform .35s var(--sx-spring),background .3s}
+.lbtn:hover{transform:translateY(-3px);border-color:rgba(242,180,65,.55)!important;box-shadow:0 16px 30px -18px rgba(242,180,65,.6)}
+.lbtn:hover svg{transform:rotate(-8deg) scale(1.08);background:linear-gradient(135deg,#ffe2a0,#f2b441);color:#16285e}
+.create{gap:12px!important}
+.ctile{position:relative;overflow:hidden;padding:16px!important;background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(17,27,58,.55))!important;border:1px solid rgba(159,188,255,.14)!important}
+.ctile::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(242,180,65,.12) 50%,transparent 70%);transform:translateX(-100%);transition:transform .9s var(--sx-ease);pointer-events:none}
+.ctile:hover::after{transform:translateX(100%)}
+.ctile .ic{transition:transform .4s var(--sx-spring),box-shadow .3s}
+.ctile:hover .ic{transform:scale(1.08) rotate(-4deg);box-shadow:0 10px 24px -10px currentColor}
+/* menu lateral */
+.side .navb[aria-current="true"],.side .navb.on{box-shadow:inset 3px 0 0 #f2b441}
+.side .navb svg{transition:transform .3s var(--sx-spring)}.side .navb:hover svg{transform:scale(1.12)}
+/* janelas */
+.modal{background:rgba(4,8,22,.62)!important;backdrop-filter:blur(8px) saturate(1.1);-webkit-backdrop-filter:blur(8px) saturate(1.1);animation:sxFade .25s ease both}
+@keyframes sxFade{from{opacity:0}}
+.mbox{border-radius:22px!important;border:1px solid rgba(242,180,65,.28)!important;background:linear-gradient(180deg,#16244d,#111b3a)!important;box-shadow:0 40px 80px -30px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.06)!important;position:relative}
+.mbox::before{content:"";position:absolute;left:22px;right:22px;top:0;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,#f2b441,transparent)}
+.bt .bdrop{border-color:rgba(242,180,65,.35)!important;background:rgba(242,180,65,.04);transition:background .3s,border-color .3s}
+.bt .bdrop:hover{background:rgba(242,180,65,.09);border-color:rgba(242,180,65,.6)!important}
+/* leitor */
+#pages canvas,#pages .page,#pages .pg{box-shadow:0 30px 70px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04)!important;border-radius:6px}
+.rprog{height:3px!important;background:rgba(255,255,255,.05)!important}
+#progbar{background:linear-gradient(90deg,#2f74f0,#f2b441)!important;box-shadow:0 0 10px rgba(242,180,65,.7)}
+.rail{background:rgba(17,27,58,.78)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-color:rgba(159,188,255,.18)!important;box-shadow:0 20px 40px -20px rgba(0,0,0,.8)!important;animation:sxRail .6s var(--sx-ease) .2s both}
+@keyframes sxRail{from{opacity:0;transform:translate(-14px,-50%)}}
+.rail button{transition:transform .3s var(--sx-spring),background .25s,color .25s!important;border-radius:12px!important}
+.rail button:hover{transform:scale(1.1);background:rgba(242,180,65,.16)!important;color:#ffd27a!important}
+.pill{background:rgba(17,27,58,.95)!important;backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border:1px solid rgba(159,188,255,.2)!important;box-shadow:0 24px 50px -20px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.07)!important;animation:sxDock .6s var(--sx-ease) .15s both}
+.rinfo{background:rgba(17,27,58,.72)!important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(159,188,255,.16)!important}
+@keyframes sxDock{from{opacity:0;transform:translate(-50%,16px)}}
+#playBtn{background:radial-gradient(circle at 35% 30%,#ffe2a0,#f2b441 60%,#d4951f)!important;box-shadow:0 8px 22px -6px rgba(242,180,65,.75)!important;transition:transform .3s var(--sx-spring),box-shadow .3s!important;position:relative}
+#playBtn:hover{transform:scale(1.07)}
+#playBtn.on::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(242,180,65,.6);animation:sxPing 1.8s var(--sx-ease) infinite;pointer-events:none}
+.pb:not(.big):hover,.speed:hover,.cbtn:hover,.markbtn:hover{background:rgba(242,180,65,.14)!important}
+:focus-visible{outline:2px solid #f2b441!important;outline-offset:2px}
+
+/* refino 2: tema claro */
+html:root[data-theme="light"] .tbrand{background:linear-gradient(90deg,#2f74f0 0%,#c9800f 45%,#e09a1f 55%,#2f74f0 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text}
+html:root[data-theme="light"] .sxhero{background:radial-gradient(420px 260px at 88% 40%,rgba(242,180,65,.28),transparent 70%),linear-gradient(120deg,#e3ecff,#fff7e6)!important;border-color:rgba(201,128,15,.35)!important;box-shadow:0 24px 50px -30px rgba(30,60,140,.35)!important}
+html:root[data-theme="light"] .sxhero::before{display:none}
+html:root[data-theme="light"] .sxstat{background:#fff!important;border-color:rgba(47,116,240,.18)!important}
+html:root[data-theme="light"] .sxstat b{background:none;-webkit-text-fill-color:#16285e;color:#16285e}
+html:root[data-theme="light"] .sxh-k span,html:root[data-theme="light"] .lbtn,html:root[data-theme="light"] .ctile{background:#fff!important;border-color:rgba(47,116,240,.16)!important;color:#16285e!important;box-shadow:0 10px 24px -18px rgba(30,60,140,.35)}
+html:root[data-theme="light"] .sxh-k b{color:#b5730c!important}
+html:root[data-theme="light"] .sxh-k .kic,html:root[data-theme="light"] .lbtn svg{background:#fff4dc;border-color:rgba(201,128,15,.35);color:#b5730c}
+html:root[data-theme="light"] .sxh-k .kic svg{stroke:#b5730c}
+html:root[data-theme="light"] .sxh-k .kb{background:rgba(22,40,94,.08)}
+html:root[data-theme="light"] .sec h2{color:#16285e}
+html:root[data-theme="light"] .ctile::after{background:linear-gradient(110deg,transparent 30%,rgba(242,180,65,.18) 50%,transparent 70%)}
+html:root[data-theme="light"] .modal{background:rgba(22,40,94,.28)!important}
+html:root[data-theme="light"] .mbox{background:#fff!important;border-color:rgba(201,128,15,.3)!important;box-shadow:0 40px 80px -30px rgba(30,60,140,.45)!important}
+html:root[data-theme="light"] .rail,html:root[data-theme="light"] .pill,html:root[data-theme="light"] .rinfo{background:rgba(255,255,255,.95)!important;border-color:rgba(47,116,240,.18)!important;box-shadow:0 20px 40px -20px rgba(30,60,140,.35)!important}
+html:root[data-theme="light"] .rail button:hover{color:#b5730c!important}
+@media (max-width:760px){.sxhero{padding-right:22px!important;min-height:0}.sxart{right:14px;top:16px;transform:none;width:68px}.sxart .sxeq,.sxring.r2{display:none}.sxmed{inset:14%}.sxhero h1{padding-right:76px}.sxhero p{margin-top:16px!important}.sxh-k{grid-template-columns:1fr!important}.lbtn{width:100%}}
+@media (prefers-reduced-motion:reduce){.tbrand,.sxring,.sxmed,.sxeq i,.sxh-me::after,.sxh-m .dn,#playBtn.on::after,.sxh-k .kb u,.sxstat,.sxh-k span,.rail,.pill,.rinfo,.modal{animation:none!important}.sxh-m .dn{stroke-dashoffset:0}}
+
 </style>
 </head><body>
 <title>Scribax · Leia, ouça e fixe</title>
@@ -3487,6 +3595,7 @@ function moveModal(keys) {
 }
 function closeModal() { $('#modal').hidden = true; $('#mbox').innerHTML = ''; }
 $('#modal').addEventListener('pointerdown', e => { if (e.target.id === 'modal') closeModal(); });
+addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#modal').hidden) { e.preventDefault(); closeModal(); } });
 
 function pasteModal() {
   openModal(`<form><h2>Colar texto</h2><p>O texto vira um documento na sua biblioteca, com leitura em voz alta, marca-texto e estudo.</p>
@@ -3633,13 +3742,13 @@ function sxHero() {
   const docs = LIB.docs || [], st = docs.map(docStats), n = docs.length;
   const avg = n ? Math.round(st.reduce((a, x) => a + x.pct, 0) / n) : 0, mk = st.reduce((a, x) => a + x.hs.length, 0), done = st.filter(x => x.pct >= 100).length;
   let tk = null; try { tk = typeof JXP !== 'undefined' && JXP && JXP.task ? JXP.task() : null; } catch (e) {}
-  const P = [[0, 150], [120, 134], [260, 122], [420, 100], [560, 92], [700, 66], [860, 42], [940, 18]], X = avg / 100 * 940;
+  const P = [[28, 150], [140, 134], [270, 122], [420, 100], [560, 92], [700, 66], [860, 42], [940, 18]], X = 28 + avg / 100 * 912;
   let i = 0; while (i < P.length - 2 && P[i + 1][0] < X) i++;
   const [x1, y1] = P[i], [x2, y2] = P[i + 1], Y = y1 + (y2 - y1) * ((X - x1) / ((x2 - x1) || 1));
   const done1 = P.filter(p => p[0] < X).map(p => p.join(' ')).concat([X.toFixed(0) + ' ' + Y.toFixed(0)]).join(' L ');
-  return `<section class="sxh" aria-label="A subida da leitura"><div class="sxh-m"><svg viewBox="0 0 1000 170" preserveAspectRatio="none" aria-hidden="true"><path d="M0 170 L0 158 ${P.map(p => 'L' + p[0] + ' ' + (p[1] + 8)).join(' ')} L1000 70 L1000 170Z" class="mt"/><path d="M940 18 L924 36 L934 34 L940 40 L948 34 L958 38Z" class="sn"/><path d="M ${P.map(p => p.join(' ')).join(' L ')}" class="tr"/>${avg ? `<path d="M ${done1}" class="dn"/>` : ''}<circle cx="${X.toFixed(0)}" cy="${Y.toFixed(0)}" r="7" class="me"/><path d="M948 18 v-16 l16 5 -16 5" class="fl"/></svg>
+  return `<section class="sxh" aria-label="A subida da leitura"><div class="sxh-m"><svg viewBox="0 0 1000 170" preserveAspectRatio="none" aria-hidden="true"><path d="M0 170 L0 120 L90 96 L190 112 L300 70 L400 98 L520 58 L640 90 L760 52 L880 84 L1000 60 L1000 170Z" class="bk"/><path d="M0 170 L0 158 ${P.map(p => 'L' + p[0] + ' ' + (p[1] + 8)).join(' ')} L1000 70 L1000 170Z" class="mt"/><path d="M940 18 L924 36 L934 34 L940 40 L948 34 L958 38Z" class="sn"/><path d="M ${P.map(p => p.join(' ')).join(' L ')}" class="tr"/>${avg ? `<path d="M ${done1}" class="dn"/>` : ''}<path d="M948 18 v-16 l16 5 -16 5" class="fl"/></svg><i class="sxh-me" style="left:${(X / 10).toFixed(2)}%;top:${(Y / 1.7).toFixed(2)}%" aria-hidden="true"></i>
     <div class="sxh-t"><small>Scribax · leia, ouça e fixe</small><b>A subida da leitura</b><span>${tk && tk.pa ? 'Trecho de hoje: págs. ' + tk.pa + '–' + tk.pb + '. O anel no leitor mostra quanto já foi.' : 'O topo é a sua biblioteca toda lida. Cada PDF lido ou ouvido sobe a trilha.'}</span></div></div>
-    <div class="sxh-k"><span><b>${avg}%</b>lido em média</span><span><b>${done}</b>concluídos</span><span><b>${mk}</b>marcações</span></div></section>`;
+    <div class="sxh-k"><span class="k1"><i class="kic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg></i><b>${avg}%</b>lido em média<em class="kb"><u style="width:${avg}%"></u></em></span><span class="k2"><i class="kic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></i><b>${done}</b>concluídos</span><span class="k3"><i class="kic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></i><b>${mk}</b>marcações</span></div></section>`;
 }
 function greeting() { const h = new Date().getHours(); return h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite'; }
 
@@ -4045,7 +4154,7 @@ renderHome = function () {
   const docs = LIB.docs || [], nm = SX.name();
   const last = [...docs].sort((a, b) => (b.opened || 0) - (a.opened || 0))[0];
   const hero = document.createElement('div'); hero.className = 'sxhero';
-  hero.innerHTML = `<h1>${greeting()}${nm ? ', <em>' + esc(nm) + '</em>' : ''}!</h1>
+  hero.innerHTML = `<div class="sxart" aria-hidden="true"><div class="sxring r1"></div><div class="sxring r2"></div><div class="sxmed"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg></div><div class="sxeq">${Array.from({length:21},(_,i)=>`<i style="--d:${(i*0.11%1.3).toFixed(2)}s;--h:${[30,52,76,44,90,62,38,70,96,58,82,48,100,66,40,78,54,88,46,64,34][i]}%"></i>`).join('')}</div></div><h1>${greeting()}${nm ? ', <em>' + esc(nm) + '</em>' : ''}!</h1>
     <p>${docs.length ? 'Bem-vindo de volta ao <b>Scribax</b>. Continue de onde parou: leia, ouça e marque os seus PDFs. Tudo o que você marcar aparece também na plataforma A Jornada.' : 'Bem-vindo ao <b>Scribax</b>, o seu leitor que lê os PDFs em voz alta, com o texto acompanhando palavra por palavra. Envie um PDF ou abra uma aula da Jornada para começar.'}</p>
     <div class="sxstats"><span class="sxstat" style="--i:0"><b>${docs.length}</b><small>PDFs</small></span><span class="sxstat" style="--i:1"><b>${(LIB.folders || []).length}</b><small>Pastas</small></span>${last && last.opened ? `<span class="sxstat" style="--i:2"><b>${esc(fmtDate(last.opened))}</b><small>Última leitura</small></span>` : ''}</div>
     <div class="sxacts">${last && last.opened ? `<button class="sxbtn" data-open="${last.key}">${SX_I.play} Continuar “${esc(last.name.length > 34 ? last.name.slice(0, 33) + '…' : last.name)}”</button>` : ''}<button class="sxbtn ${last && last.opened ? 'ghost' : ''}" data-sxgo="lib">${SX_I.book} Biblioteca</button><button class="sxbtn ghost" data-sxtut>${SX_I.help} Como usar</button></div>`;
