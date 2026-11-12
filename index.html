@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611111948"></script>
+<script src="/claude-shim.js?v=202611111957"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -2111,6 +2111,14 @@ html body .alist .arow .tpc{font-size:14.5px;padding:3px 10px;border-radius:999p
 .actm .vh{display:flex;align-items:center;justify-content:space-between;gap:12px}.actm .vh h3{margin:0}.actl{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px;max-height:46vh;overflow:auto}.actr{display:flex;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:10px;cursor:pointer}.actr small{margin-left:auto}
 .box.cs>*,.lkh,.lkst>div{min-width:0}.lkst .btn{max-width:100%;white-space:normal;text-align:left}.lkh-t svg{flex:none;margin-top:3px}
 .lkh{display:grid;gap:12px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--sunk,rgba(0,0,0,.12))}.lkh-t{margin:0;display:flex;gap:8px;align-items:flex-start}.lks{display:grid;gap:10px}.lkst{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;padding:12px;border-radius:12px;background:var(--panel);border:1px solid var(--line)}.lkst>i{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;background:var(--lime,#8f5cff);color:#fff}.lkst.ok>i{background:var(--ok,#4fd99a)}.lkst>div{display:grid;gap:6px;justify-items:start}.lkst span{color:var(--fg2,inherit);font-size:14px}.lkbm{font-size:16px;padding:10px 20px;cursor:grab;box-shadow:0 0 0 3px rgba(242,180,65,.35)}
+.ra{display:grid;gap:12px}
+.ra-msg{display:grid;gap:2px;padding:12px 16px;border-radius:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--acc,#7b3cff) 22%,transparent),color-mix(in srgb,#d6388f 14%,transparent));border:1px solid color-mix(in srgb,var(--acc,#a06bff) 35%,transparent)}
+.ra-b{padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--sunk,rgba(0,0,0,.12))}
+.ra-b h4{display:flex;align-items:center;gap:10px;margin:0 0 6px;font-size:15px}.ra-b h4 i{font-style:normal;display:inline-grid;place-items:center;width:24px;height:24px;border-radius:8px;background:linear-gradient(135deg,#7b3cff,#d6388f);color:#fff;font-size:13px;font-weight:800;flex:none}
+.ra-b p{margin:4px 0}.ra-b ul{margin:4px 0;padding-left:20px}.ra-b li{margin:2px 0}
+.ra-pl{color:var(--fg2)}.ra-dc li::marker{content:"💡 "}.ra-h{font-weight:700}
+.ra-ac{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.ra-ch{display:inline-block;padding:1px 8px;border-radius:999px;font-size:11px;font-weight:800;background:color-mix(in srgb,#ff5f8f 18%,transparent);color:#ff8fb0;margin-left:4px}
 .gx{display:grid;gap:6px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:var(--sunk,rgba(0,0,0,.12));margin-bottom:12px}.gx-h{display:grid;gap:2px;padding-bottom:8px;border-bottom:1px solid var(--line)}.gx-h b{font-size:16px}.gx h4{margin:10px 0 2px;font-size:14.5px}.gx p{margin:2px 0}.gx ul{margin:2px 0 0;padding-left:20px}.gx-k{margin:6px 0 4px;font-size:11px;font-weight:800;letter-spacing:.02em;text-transform:uppercase;color:var(--mute)}.gx-as li{margin:3px 0}
 .bizu h3:first-child{text-align:center;font-size:18px;margin-top:0}.esql{display:grid;gap:8px;margin-top:10px}.esqi{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--panel)}.esqi summary{display:flex;gap:10px;align-items:center;cursor:pointer;flex-wrap:wrap}.esqi summary small{flex:1 1 auto}.esqi .rsout{margin-top:8px}
 .esqimgs{display:grid;gap:10px;max-height:72vh;overflow:auto}.esqimgs img{width:100%;border-radius:10px;border:1px solid var(--line)}
@@ -6407,7 +6415,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261111194811";
+const JX_BUILD="20261111195726";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6909,7 +6917,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111194811" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111195726" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -8746,9 +8754,9 @@ function renderDrawer0(){
       <details class="sec" data-k="A" id="avA" open><summary>${ic("list")} Assuntos abordados <span class="n">${t.gx&&t.gx.assuntos&&t.gx.assuntos.length?t.gx.assuntos.length:G.topics.length||1}</span></summary><div class="sb">${t.gx&&t.gx.assuntos&&t.gx.assuntos.length?`<ul class="gx-as">${t.gx.assuntos.map(x=>`<li>${esc(x)}</li>`).join("")}</ul><p class="muted small" style="margin:8px 0 0"><b>Tópicos do edital ligados:</b> ${(G.topics.length?G.topics:[s.n]).map(x=>esc(x)).join(" · ")}</p>`:`${GX_BUSY.has(t.id)?`<p class="muted small"><span class="spin"></span> Extraindo os assuntos do seu material…</p>`:""}<ul style="margin:0">${(G.topics.length?G.topics:[s.n]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`}</div></details>
       <details class="sec" data-k="M" id="avM" open><summary>${ic("book")} Material</summary><div class="sb">${platBox(t)}${mat}${(()=>{const E=t.ref?[]:esqOfAula(t.sid,t.aula);return E.length?`<div class="dica"><b>${ic("list")} Seus esquemas desta aula (${E.length})</b><span>${E.map(x=>x.src!=="txt"?`<button class="lnk" data-a="esqView" data-id="${x.id}">${esc(x.ti||"Esquema")}</button>`:esc(x.ti||"Esquema")).join(" · ")}. Eles são fonte desta teoria: entram no 1º resumo, no bizu e nesta orientação, junto com a base de conhecimento. <button class="lnk" data-a="tab" data-t="esquemas">Ver esquemas</button></span></div>`:""})()}</div></details>
       <details class="sec" data-k="C" id="avC" open><summary>${ic("target")} Comando</summary><div class="sb">
-        ${t.gx&&!t.gx.outra?"":`${G.intro.map((x,j)=>`<p>${j===0?"<b>"+x+"</b>":x}</p>`).join("")}
-        ${G.dica?`<div class="dica"><b>${ic("bulb")} Dica de estudo</b><span>${G.dica}</span></div>`:""}`}
-        ${guiaHTML(t)}${steps}${t.ph==="T"&&!t.ref?`<div class="dica"><b>${ic("bulb")} Marque enquanto lê</b><span>Use o marca-texto no PDF ou no Scribax (🎧 Ouvir no Scribax, em Material) no que achar importante. Na revisão desta aula, as suas marcações podem entrar no seu 1º resumo.</span></div>`:""}${r3Box(t)}</div></details>
+        ${t.gx&&!t.gx.outra&&!t.ref?rotA(t,G,p,pa,pb,lk)+r3Box(t):`${G.intro.map((x,j)=>`<p>${j===0?"<b>"+x+"</b>":x}</p>`).join("")}
+        ${G.dica?`<div class="dica"><b>${ic("bulb")} Dica de estudo</b><span>${G.dica}</span></div>`:""}
+        ${guiaHTML(t)}${steps}${t.ph==="T"&&!t.ref?`<div class="dica"><b>${ic("bulb")} Marque enquanto lê</b><span>Use o marca-texto no PDF ou no Scribax (🎧 Ouvir no Scribax, em Material) no que achar importante. Na revisão desta aula, as suas marcações podem entrar no seu 1º resumo.</span></div>`:""}${r3Box(t)}`}</div></details>
       ${t.ph==="Q"?`<details class="sec" data-k="Q" id="avTq" open><summary>${ic("target")} ${t.ref?"Questões do reforço":"Questões"}</summary><div class="sb">${tecBlock(t)}</div></details>`:""}
       ${avKeys(t).includes("B")?`<details class="sec" data-k="B" id="avB" open><summary>${ic("bulb")} Bizu</summary><div class="sb">${(()=>{const ai=t.bizu&&t.bizu.txt,loc=ai?"":bizuLocal(t),busy=AUX_BUSY.has("b"+t.id);
         return`<div class="rsout bizu" id="bzOut">${ai?mdLite(t.bizu.txt):loc?mdLite(loc):`<p class="muted">${busy?'<span class="spin"></span> Escrevendo o bizu…':"Abra o PDF desta aula em Materiais para o bizu ser montado com as questões destas páginas."}</p>`}</div>
@@ -10850,6 +10858,8 @@ async function esqFromFiles(files){const sid=($("esqS")||{}).value||ED[0].id,aul
   for(const [x,bl] of NEW){await esqKeep(x,bl);if(x.aula==="auto")await esqLink(x);touch("core");render()}if(NEW.length)setTimeout(()=>kbTick(true),500)}
 /* ---------- Orientação da atividade no padrão das mentorias: assuntos abordados, mensagem, teoria, pontos-chave e fixação ---------- */
 const GX_BUSY=new Set(),GX_TRY=new Set();
+setInterval(()=>{try{if(!SAMPLE||GX_BUSY.size||document.visibilityState!=="visible"||typeof READY==="undefined"||!READY)return;const c=core();if(!c||c.cur==null)return;
+  const L=[...tasksOf(c.cur),...tasksOf(c.cur+1)].filter(t=>t&&!t.gx&&!t.ref&&!t.done&&!GX_TRY.has(t.id));const t=L[0];if(!t)return;GX_TRY.add(t.id);genGuia(t)}catch(e){}},9000);
 const GX_LAB={T:"Orientações de teoria",R:"Orientações da revisão",M:"Orientações do mapeamento",Q:"Orientações das questões"};
 async function genGuia(t,force){if(!SAMPLE||t.ref||GX_BUSY.has(t.id)||(t.gx&&!force))return;const p=t.pdf?pdf(t.pdf):(t.aula?pdfOfAula(t.sid,t.aula):null);
   GX_BUSY.add(t.id);if(UI.openT===t.id)renderDrawer();
@@ -10880,8 +10890,30 @@ ${String(base).slice(0,26000)}
       t.gx={assuntos:a(r.assuntos).slice(0,12),msg:fixSpaced(String(r.mensagem||"").trim()),dicas:a(r.dicas).slice(0,4),ori:fixSpaced(String(r.orientacao||"").trim()),abo:fixSpaced(String(r.abordagem||"").trim()),at0:a(r.atencao).slice(0,5),fix:fixSpaced(String(r.fixacao||"").trim()),at:Date.now()}}
     touch("m-"+(findTask(t.id)||{n:0}).n)}
   catch(e){}finally{GX_BUSY.delete(t.id);if(UI.openT===t.id)renderDrawer()}}
+/* Roteiro único (opção A): a orientação da IA é o comando; a plataforma completa com páginas, regras e botões */
+function rotA(t,G,p,pa,pb,lk){const X=t.gx,E=esc,st=G.steps||[],num=h=>/^\s*(<[^>]+>\s*)*\d\)/.test(h),n0=h=>String(h).replace(/^\s*\d\)\s*/,""),isN=(h,k)=>new RegExp("^\\s*"+k+"\\)").test(h);
+  const s1=st.filter(x=>isN(x.h,1)),s2=st.filter(x=>isN(x.h,2)),rest=st.filter(x=>!isN(x.h,1)&&!isN(x.h,2));
+  const items=a=>a.map(x=>(x.items||[]).map(z=>`<li>${z}</li>`).join("")+(x.html||"")).join("");
+  const btn=(a,extra,lab)=>`<button class="btn sm" data-a="${a}" ${extra}>${lab}</button>`;
+  const mat=p?btn("read",`data-id="${p.id}" data-pa="${pa}" data-pb="${pb}"`,`${ic("book")} Abrir págs. ${pa} a ${pb}`)+(t.ph==="T"?btn("lxOpen",`data-pid="${p.id}" data-pa="${pa}" data-tid="${t.id}"`,"🎧 Ouvir no Scribax"):""):btn("avTab",`data-k="M"`,`${ic("book")} Ver o material`);
+  const low=x=>norm(String(x)).replace(/[^a-z0-9 ]/g,"");const aiT=(X.at0||[]).map(low);
+  const plat=[];s2.forEach(x=>(x.items||[]).forEach(z=>{const tx=String(z).replace(/<[^>]+>/g,"");if(tx&&!aiT.some(a=>a&&(a.includes(low(tx).slice(0,18))||low(tx).includes(a.slice(0,18)))))plat.push(tx)}));
+  const hasF=avKeys(t).includes("F"),finB=lk||t.done?"":`<button class="btn sm fin" data-a="finAsk" data-id="${t.id}">${ic("check")} Finalizar${t.open?" e informar a página":""}</button>`;
+  return`<div class="ra">
+   <div class="ra-msg"><b>${E(String(G.intro[0]||"Olá, futuro aprovado!").replace(/<[^>]+>/g,""))}</b>${X.msg?`<span>${E(X.msg)}</span>`:""}</div>
+   <div class="ra-b"><h4><i>1</i>${E(GX_LAB[t.ph]||"Orientação")}</h4>
+    ${X.ori?`<p><b>Instrução principal:</b> ${E(X.ori)}</p>`:""}
+    ${s1.length?`<ul class="ra-pl">${items(s1)}</ul>`:""}
+    ${X.abo?`<p><b>Abordagem:</b> ${E(X.abo)}${t.ph==="T"?" Marque no PDF ou no Scribax o que achar importante: vira o seu 1º resumo.":""}</p>`:""}
+    ${X.dicas&&X.dicas.length?`<ul class="ra-dc">${X.dicas.map(d=>`<li>${E(d)}</li>`).join("")}</ul>`:""}
+    <div class="ra-ac">${mat}</div></div>
+   ${(X.at0&&X.at0.length)||plat.length?`<div class="ra-b"><h4><i>2</i>Tópicos de maior atenção</h4><ul>${(X.at0||[]).map(a=>`<li>${E(a)}</li>`).join("")}${plat.map(a=>`<li>${E(a)} <span class="ra-ch">incidência</span></li>`).join("")}</ul></div>`:""}
+   ${X.fix||hasF?`<div class="ra-b"><h4><i>3</i>Fixação ativa</h4>${X.fix?`<p>${E(X.fix)}</p>`:""}${hasF?`<div class="ra-ac">${btn("avTab",`data-k="F"`,`${ic("brain")} Fazer a fixação`)}</div>`:""}</div>`:""}
+   <div class="ra-b"><h4><i>${X.fix||hasF?4:3}</i>Ao terminar</h4>${rest.length?rest.map(x=>`<p class="ra-h">${n0(x.h)}</p>${x.items&&x.items.length?`<ul>${x.items.map(z=>`<li>${z}</li>`).join("")}</ul>`:""}${x.html||""}`).join(""):`<p>Finalize a atividade para a trilha seguir.</p>`}${finB?`<div class="ra-ac">${finB}</div>`:""}</div>
+   <div class="row" style="justify-content:flex-end"><button class="lnk small" data-a="gxGen" data-id="${t.id}" data-f="1">Refazer orientação</button></div></div>`}
 function guiaHTML(t){if(t.ref)return"";const G=t.gx,s=SUB(t.sid),au=t.aula?auOf(t.sid,t.aula):null,busy=GX_BUSY.has(t.id);
   const head=`<div class="gx-h"><b>${esc(s.n)}</b><span><b>Assunto:</b> ${au?esc(auLabel(t.sid,t.aula))+" – "+esc(au.d):esc(taskTitle(t))}</span></div>`;
+  if(!G)return"";
   if(!G||G.outra)return`<div class="gx">${head}${busy?`<p class="muted small"><span class="spin"></span> Montando a orientação desta atividade com o seu material…</p>`:G&&G.outra?`<div class="pwarn small">O PDF ligado a esta atividade parece ser de outra matéria. Confira em Estudar › Aulas e PDFs.</div>`:SAMPLE?`<button class="btn sm" data-a="gxGen" data-id="${t.id}">${ic("bulb")} Montar a orientação desta atividade</button>`:""}</div>`;
   const L=x=>x&&x.length?`<ul>${x.map(v=>`<li>${esc(v)}</li>`).join("")}</ul>`:"";
   return`<div class="gx">${head}
@@ -11070,7 +11102,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111194811&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111195726&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
