@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611121115"></script>
+<script src="/claude-shim.js?v=202611121145"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -2252,6 +2252,7 @@ html body .alist .arow .tpc{font-size:14.5px;padding:3px 10px;border-radius:999p
 .modal .box::-webkit-scrollbar{width:8px}.modal .box::-webkit-scrollbar-thumb{background:rgba(150,150,190,.45);border-radius:8px}.modal .box::-webkit-scrollbar-track{background:transparent}
 @media (max-width:620px){.modal .box{max-height:calc(100dvh - 20px)}}.box.cs h3{margin:0;font-size:24px;line-height:1.15}.box.cs>p{margin:0}
 .cs-k{font-size:11.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--lime-txt);font-weight:700}
+.imp-all{display:grid;gap:8px;padding:12px 14px;border-radius:14px;background:rgba(63,212,122,.08);border:1px solid rgba(63,212,122,.35);font-size:14px}.imp-all .btn{justify-self:start}
 .cs-pac{display:grid;gap:8px;padding:12px 14px;border-radius:14px;background:rgba(160,107,255,.08);border:1px solid rgba(160,107,255,.25)}.cs-pacl{display:flex;flex-wrap:wrap;gap:6px}.cs-pacl span{font-size:12.5px;padding:4px 9px;border-radius:999px;border:1px solid var(--line2);color:var(--mute)}.cs-pacl span.ok{color:inherit;border-color:rgba(63,212,122,.5);background:rgba(63,212,122,.1)}.cs-pacl small{color:var(--mute)}.cs-pac .lnk{justify-self:start}
 .cs-op{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px}
 .cs-c{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:6px;align-content:start;padding:16px;border-radius:16px;border:1px solid var(--line2);background:var(--panel2,var(--panel));transition:border-color .15s,transform .15s}
@@ -6744,7 +6745,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261112111543";
+const JX_BUILD="20261112114534";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7246,7 +7247,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112111543" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112114534" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -10606,7 +10607,8 @@ function impModal(){
       ${I.role!=="principal"?`<div style="display:grid;gap:6px;flex:1 1 280px"><label class="small" style="display:flex;gap:8px;align-items:center"><input type="checkbox" data-c="impRes" ${I.useRes!==false?"checked":""}> Usar no resumo da aula (resumo único com as duas fontes)</label><label class="small" style="display:flex;gap:8px;align-items:center"><input type="checkbox" data-c="impMap" ${I.useMap?"checked":""}> Mostrar as questões comentadas no mapeamento</label><label class="small" style="display:flex;gap:8px;align-items:center"><input type="checkbox" data-c="impX2" ${I.metas?"checked":""}> Pôr as aulas equivalentes nas metas (“Outro olhar”)</label></div>`:""}</div>
     <div class="tabs2" role="group"><button data-a="impM" data-v="colar" aria-pressed="${I.m==="colar"}">Colar a lista</button><button data-a="impM" data-v="fotos" aria-pressed="${I.m==="fotos"}">Fotos da lista</button><button data-a="impM" data-v="manual" aria-pressed="${I.m==="manual"}">Manual</button></div>
     ${I.m==="colar"?`<p class="muted small" style="margin:0">Na página do curso, selecione a lista de aulas (Ctrl+A) e copie (Ctrl+C). Cole aqui embaixo e toque em Extrair.</p><textarea class="inp" id="impTx" style="min-height:120px" placeholder="Aula 00 – Estruturas lógicas&#10;Aula 01 – Equivalências lógicas&#10;...">${esc(I.txt||"")}</textarea>
-      <div class="row"><button class="btn pri" data-a="impParse">${ic("list")} Extrair aulas</button>${SAMPLE?`<button class="btn" data-a="impAI">${ic("bulb")} Extrair com IA</button>`:""}</div>`:""}
+      <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn" data-a="impClip">${ic("plus")} Colar</button><button class="btn pri" data-a="impParse">${ic("list")} Extrair aulas</button>${SAMPLE?`<button class="btn" data-a="impAI">${ic("bulb")} Extrair com IA</button>`:""}</div>
+      ${SAMPLE?`<div class="imp-all"><span>${ic("bulb")} <b>Colou o curso inteiro, com todas as matérias?</b> Não precisa vincular uma por uma.</span><button class="btn pri" data-a="impAll">${ic("check")} Vincular todas as matérias do que colei</button></div>`:""}`:""}
     ${I.m==="fotos"?`<p class="muted small" style="margin:0">Faça capturas de tela ou fotos da lista de aulas na página do curso. A IA lê as fotos e monta a lista.</p>${SAMPLE?`<span class="upw btn pri wide" role="button">${ic("plus")} Escolher fotos<input type="file" accept="image/*" multiple class="impf" aria-label="Escolher fotos"></span>`:`<p class="small" style="margin:0;color:var(--warn)">A leitura de fotos precisa da IA, que não está disponível nesta visualização. Use “Colar a lista” ou “Manual”.</p>`}`:""}
     ${I.m==="manual"?`<p class="muted small" style="margin:0">Adicione as aulas uma a uma, na ordem do curso.</p><div class="row"><button class="btn" data-a="impAdd">${ic("plus")} Adicionar aula</button></div>`:""}
     ${I.busy?`<p class="muted"><span class="spin"></span> ${esc(I.busy)}</p>`:""}
@@ -11583,7 +11585,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112111543&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112114534&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -13221,6 +13223,8 @@ const A={
   crsDel(el){const sid=el.dataset.s,id=el.dataset.id,c=courseList(sid).find(k=>k.id===id);if(!c)return;askConfirm("Remover "+cName(c)+"?",(c.role==="principal"?"As metas desta matéria voltam a seguir "+(CURSO[sid]?"o índice do Estratégia":"os tópicos do edital")+". ":"")+"Os PDFs enviados continuam guardados. Dá para desfazer.","Remover",()=>{applyCourse(sid,courseList(sid).filter(k=>k.id!==id).filter(k=>!(k.id==="std"&&c.role==="principal")),"Remover "+cName(c)+" de "+SUB(sid).c)},"danger")},
   impM(el){UI.imp.m=el.dataset.v;const t=$("impTx");if(t)UI.imp.txt=t.value;impModal()},
   impParse(){const t=$("impTx").value;UI.imp.txt=t;const L=parseAulas(UI.imp.sid,t);if(!L.length){toast("Não encontrei linhas como “Aula 00 …”. Tente “Extrair com IA” ou o modo Manual.");return}UI.imp.aulas=L;impModal()},
+  async impClip(){try{const t=await navigator.clipboard.readText();if(!t||!t.trim()){toast("A área de transferência está vazia. Copie a página do curso primeiro.");return}const x=$("impTx");x.value=((x.value||"").trim()?x.value+"\n\n":"")+t;UI.imp.txt=x.value;toast("Página colada")}catch(e){toast("O navegador não deixou colar sozinho: segure o dedo na caixa e toque em Colar.");const x=$("impTx");if(x)x.focus()}},
+  async impAll(){const x=$("impTx"),t=((x&&x.value)||"").trim();if(t.replace(/\s/g,"").length<200){toast("Cole primeiro a página do curso na caixa");return}UI.imp=null;UI.cs={step:"trazer",tb:"colar",txt:t,from:"mat"};csModal();await csRun({txt:t,conf:1})},
   async impAI(){const t=$("impTx").value;if(!t.trim()){toast("Cole a lista de aulas primeiro");return}UI.imp.txt=t;UI.imp.busy="A IA está lendo a lista…";impModal();try{UI.imp.aulas=await aiAulas(UI.imp.sid,t,null)}catch(e){toast("Não consegui extrair com IA agora; tente o botão Extrair aulas")}UI.imp.busy="";impModal()},
   impAdd(){const L=UI.imp.aulas=UI.imp.aulas||[];L.push({c:pad(L.length),d:"",tp:[],f:"",q:""});impModal();setTimeout(()=>{const x=document.querySelectorAll('[data-c="impD"]');if(x.length)x[x.length-1].focus()},30)},
   impDel(el){UI.imp.aulas.splice(+el.dataset.i,1);impModal()},
