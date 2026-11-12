@@ -120,17 +120,17 @@
       try{var mi=mats(it.m),ids=[],names=[];
         var tops=(it.a||[]).slice(0,5);
         for(var j=0;j<tops.length;j++){var tp=tops[j],T=toks(tp),best=null,bv=0,cs=cands(tp);
-          for(var c=0;c<cs.length;c++){var L=await search(cs[c]);L.forEach(function(r){if(mi.length&&!(r.materia&&mi.indexOf(r.materia.id)>=0))return;var v=dice(T,toks(r.nome));if(norm(r.nome).indexOf(norm(cs[c]))>=0)v+=.15;if(v>bv){bv=v;best=r}});if(bv>=.6)break}
-          if(best&&bv>=.4&&ids.indexOf(best.id)<0){ids.push(best.id);names.push(best.nome)}}
+          /* só aceita assunto da MESMA matéria; nome igual vale 1; parecido precisa de 60% ou mais */
+          for(var c=0;c<cs.length;c++){var L=await search(cs[c]);L.forEach(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return;var v=norm(r.nome)===norm(tp)||norm(r.nome)===norm(cs[c])?1:dice(T,toks(r.nome));if(v<1&&norm(r.nome).indexOf(norm(cs[c]))>=0)v+=.15;if(!mi.length&&v<.9)return;if(v>bv){bv=v;best=r}});if(bv>=.95)break}
+          if(best&&bv>=.6&&ids.indexOf(best.id)<0){ids.push(best.id);names.push(best.nome)}}
+        /* nunca troca o assunto pela matéria inteira: sem assunto encontrado, a aula fica de fora e a plataforma avisa */
         var F=ids.map(function(x){return["ASSUNTO",x]}),geral=0;
-        if(!F.length&&mi.length){F=mi.map(function(x){return["MATERIA",x]});geral=1}
         if(!F.length){FAIL.push(it.k);continue}
-        var nb=banca?await count(F.concat([["BANCA",banca.id]])):0,useB=nb>=20,n=useB?nb:await count(F);
-        /* assunto com poucas questões no TEC: usa a matéria inteira para fechar a bateria */
-        if(n<10&&!geral&&mi.length){F=mi.map(function(x){return["MATERIA",x]});geral=1;nb=banca?await count(F.concat([["BANCA",banca.id]])):0;useB=nb>=20;n=useB?nb:await count(F)}
+        var nb=banca?await count(F.concat([["BANCA",banca.id]])):0,useB=nb>=15,n=useB?nb:await count(F);
+        /* poucas questões da banca nesse assunto: completa com o MESMO assunto em outras bancas (nunca com outra matéria) */
         if(n<1){FAIL.push(it.k);continue}
         var q=Math.min(Math.min(+it.n||N,100),n),FF=useB?F.concat([["BANCA",banca.id]]):F;
-        var nome=("A Jornada · "+it.m+" · "+it.t).replace(/\s+/g," ").slice(0,140);
+        var nome=("A Jornada · "+it.m+" › "+names.slice(0,3).join(" / ")).replace(/\s+/g," ").slice(0,140);
         var cid=await create(FF,nome,q);
         if(cid){var r={k:it.k,id:cid,n:q,b:useB?banca.sigla:"",as:names.slice(0,4).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
       }catch(e){FAIL.push(it.k)}

@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611120550"></script>
+<script src="/claude-shim.js?v=202611120610"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -2858,6 +2858,16 @@ html .treg-ch select.tsel,html :root[data-skin] header.top .top-in .treg .tsel{p
 }
 @media (max-width:700px){:root[data-skin] header.top .top-in .treg{order:5;flex:1 1 100%}.treg-ch span{display:none}.treg-ch{padding:0 10px}}
 @media (prefers-reduced-motion:reduce){.treg-ic::after{animation:none!important}}
+
+.btn.tecas{white-space:normal;text-align:left;line-height:1.25;height:auto;min-height:34px;padding-block:7px}.btn.tecas b{font-weight:800}
+
+/* incidência: a coluna da Carta Celeste recebe o Em foco, o aviso do pré-edital e o TEC (aproveita o espaço vazio) */
+.sk-l{display:flex;flex-direction:column;gap:14px;min-width:0}
+.sk-l>.card{margin:0}
+.sk-l .sk-fo{padding:14px 18px}
+.sk-l>section.card{border-radius:18px}
+.inc-pre{padding:14px 18px;border-color:rgba(255,209,102,.4)!important;background:linear-gradient(135deg,rgba(255,209,102,.10),rgba(123,60,255,.06))!important}
+.inc-pre b{color:#ffe08a}.inc-pre p{margin:6px 0 0;font-size:14px;line-height:1.5}.inc-pre p.small{font-size:12.5px}
 </style>
 
 <div class="app">
@@ -3056,10 +3066,12 @@ const ED=[
 /* ================= Vários concursos (planos em paralelo) ================= */
 const PLK="jornada-plans",ED_TJ=ED.slice();
 /* nome do concurso com maiúscula inicial também no complemento entre parênteses: "Auditor Fiscal (Regular)" */
-const fixName=n=>String(n||"").trim().replace(/^\p{Ll}/u,c=>c.toUpperCase()).replace(/\(\s*(\p{Ll})/gu,(m,c)=>"("+c.toUpperCase());
+const preEdN=x=>typeof x==="string"?x.replace(/\s*[–—-]\s*matérias-base/gi," – Pré-Edital").replace(/matérias-base/gi,"Pré-Edital"):x;
+const fixName=n=>preEdN(String(n||"")).trim().replace(/^\p{Ll}/u,c=>c.toUpperCase()).replace(/\(\s*(\p{Ll})/gu,(m,c)=>"("+c.toUpperCase());
 const fixPlanNames=()=>{(PLANS.list||[]).forEach(p=>{if(p&&p.name)p.name=fixName(p.name)})};
 let PLANS={upd:0,list:[]};try{const x=JSON.parse(localStorage.getItem(PLK)||"null");if(x&&Array.isArray(x.list))PLANS=x}catch(e){}fixPlanNames();
 let ACTIVE="tjsp";try{ACTIVE=localStorage.getItem("jornada-active")||"tjsp"}catch(e){}
+try{PLANS.list.forEach(p=>["name","cargo","n","title"].forEach(k=>{if(typeof p[k]==="string"&&/matérias-base/i.test(p[k]))p[k]=preEdN(p[k])}))}catch(e){}
 let PLAN=PLANS.list.find(p=>p.id===ACTIVE&&p.ed&&p.ed.length);if(!PLAN)ACTIVE="tjsp";
 if(ACTIVE==="tjsp"&&PLANS.tjOff){const f=PLANS.list.find(p=>p.ed&&p.ed.length);if(f){ACTIVE=f.id;PLAN=f;try{localStorage.setItem("jornada-active",f.id)}catch(e){}}else PLANS.tjOff=0}
 const IS_TJ=ACTIVE==="tjsp";
@@ -4339,16 +4351,17 @@ function tecMatCad(sid){if(!sid)return null;const T=core().cfg.tecs||{};if(T[sid
 /* caderno da aula: o da aula (criado na conta do aluno) > o da matéria */
 function tecAulaUrl(sid,c){return tecAulaDirect(sid,c)||((m=>m?m.url:"")(tecMatCad(sid)))}
 /* caderno só do assunto da aula: o criado na conta do aluno para a aula > o assunto do guia que bate com a aula (TEC + edital) */
-function tecAulaDirect(sid,c){if(!sid||!c)return"";const x=(core().tecAuto||{})[sid+"|"+c];if(x&&x.id)return TB+"/questoes/cadernos/"+x.id;
+function tecAulaDirect(sid,c){if(!sid||!c)return"";const x=(core().tecAuto||{})[sid+"|"+c];if(x&&x.id&&!x.g)return TB+"/questoes/cadernos/"+x.id;
   const a=auOf(sid,c),S=SUB(sid),ga=(typeof TECGA!=="undefined"&&IS_TJ?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[]),txt=a?[...ga,a.d,...(a.tp||[]).map(j=>S.t&&S.t[j]&&S.t[j][0])].filter(Boolean):ga;
   for(const t of txt){const k=tecAsCad(sid,t);if(k)return TB+"/questoes/cadernos/"+k.cad}return""}
 /* pedido para o favorito criar no TEC o caderno só do assunto desta aula (nomes do Índice do guia do cargo primeiro, depois os do edital) */
 function tecAulaItem(sid,c){const S=SUB(sid),a=auOf(sid,c);if(!a||String(c).startsWith("x:"))return null;const ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[];
   const tp=(a.tp||[]).map(j=>S.t&&S.t[j]&&S.t[j][0]).filter(Boolean).map(x=>tShort(x));const al=[...new Set([...ga,tShort(a.d||""),...tp].filter(x=>x&&x.length>=3))].slice(0,6);
   return al.length?{k:sid+"|"+c,m:TECN[sid]||S.n,t:String(a.d||c).slice(0,90),a:al}:null}
-function tecAulaBtn(sid,c,cls){const u=tecAulaDirect(sid,c);if(u)return`<a class="btn sm ${cls||"pri"}" href="${esc(u)}" target="_blank" rel="noopener" title="Questões só do assunto desta aula">${ic("target")} TEC: assunto desta aula</a>`;
-  const it=tecAulaItem(sid,c);if(!it)return"";return`<a class="btn sm ${cls||""}" href="${esc(tecJobUrl([it]))}" target="_blank" rel="noopener" data-tecjob="1" title="Abre o TEC e cria na sua conta um caderno só com: ${esc(it.a.join("; "))}">${ic("target")} TEC: assunto desta aula</a>`}
-document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-tecjob]");if(!a)return;toast("No TEC, toque no favorito ➜ A Jornada: ele acha o assunto desta aula, cria o caderno na sua conta e volta. Da próxima vez o botão abre direto nas questões do assunto.")},true);
+function tecAsLbl(sid,c){const a=auOf(sid,c),S=SUB(sid),ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[];const x=(core().tecAuto||{})[sid+"|"+c];const L=x&&x.as&&!x.g?String(x.as).split(/;\s*/):ga.length?ga:a?[tShort(a.d||"")]:[];return{m:TECN[sid]||S.n,a:L.filter(Boolean).slice(0,3)}}
+function tecAulaBtn(sid,c,cls){const u=tecAulaDirect(sid,c),L=tecAsLbl(sid,c),lb=`${ic("target")} Questões: <b>${esc(L.m)}</b>${L.a.length?" › "+esc(L.a.join(" / ")):""}`;if(u)return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(u)}" target="_blank" rel="noopener" title="Caderno na sua conta do TEC só com a matéria ${esc(L.m)} e o assunto ${esc(L.a.join("; "))}">${lb}</a>`;
+  const it=tecAulaItem(sid,c);if(!it)return"";return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(tecJobUrl([it]))}" target="_blank" rel="noopener" data-tecjob="1" title="Abre o TEC e cria na sua conta um caderno só com a matéria ${esc(it.m)} e o assunto: ${esc(it.a.join("; "))}">${lb}</a>`}
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-tecjob]");if(!a)return;toast("No TEC, toque no favorito ➜ A Jornada: ele filtra a matéria e o assunto exato desta aula, cria o caderno na sua conta e volta. Da próxima vez o botão abre direto nas questões desse assunto.")},true);
 function tecKind(sid){const m=tecMatCad(sid);return m?(m.k==="auto"?"seu":m.k):TECL.sub[sid]?"guia":"busca"}
 function tecMatRow(s){const m=tecMatCad(s.id),b=tecBanca(),L={seu:"Seu caderno",auto:"Caderno A Jornada na sua conta",guia:"Caderno do Guia do cargo"};
   return`<span class="muted small">${m?`<b>${L[m.k]}</b> · questões ${b?esc(b)+" ":""}de ${esc(s.n)}${m.k==="guia"&&IS_TJ?" para Oficial de Justiça TJ SP":""}. Para o assunto exato, use <b>TEC: assunto desta aula</b> em cada aula abaixo. Errou? Lance os números das questões: vão para Erradas e viram reforço.`:`Ainda não há caderno de ${esc(s.n)} no TEC: a plataforma cria um na sua conta, com as questões ${b?"da "+esc(b):"da banca"}.`}</span><span class="row" style="gap:6px">${m?`<a class="btn sm pri" href="${esc(m.url)}" target="_blank" rel="noopener">${ic("ext")} Questões no TEC</a><button class="btn sm" data-a="tbOpen" data-s="${s.id}">${ic("plus")} Lançar erros</button>`:`<button class="btn sm pri" data-a="tcaOpen">${ic("target")} Criar caderno no TEC</button><a class="btn sm" href="${esc(tecUrl(s.id))}" target="_blank" rel="noopener">${ic("ext")} Buscar no TEC</a>`}</span>`}
@@ -4369,14 +4382,14 @@ const TECCAT=[
 const tecCadLink=c=>c.url||TB+"/s/"+c.s;
 /* cadernos criados automaticamente na conta do aluno: core().tecAuto["sid|aula"]={id,n,b,as,g,at} */
 const tecAutoMap=()=>core().tecAuto||{};
-function tecAutoFor(t){const M=tecAutoMap();for(const c of aSet(t)){const x=M[t.sid+"|"+c];if(x&&x.id){const a=auOf(t.sid,c);return{id:x.id,n:x.n||25,b:x.b||"Todas",t:"A Jornada · "+(TECN[t.sid]||(SUB(t.sid)||{}).n||"")+" · "+((a&&a.d)||c),l:(a&&a.d)||"",as:x.as||"",url:TB+"/questoes/cadernos/"+x.id,own:1,g:x.g}}}return null}
+function tecAutoFor(t){const M=tecAutoMap();for(const c of aSet(t)){const x=M[t.sid+"|"+c];if(x&&x.id&&!x.g){const a=auOf(t.sid,c);return{id:x.id,n:x.n||25,b:x.b||"Todas",t:"A Jornada · "+(TECN[t.sid]||(SUB(t.sid)||{}).n||"")+" · "+((a&&a.d)||c),l:(a&&a.d)||"",as:x.as||"",url:TB+"/questoes/cadernos/"+x.id,own:1,g:x.g}}}return null}
 /* uma aula por item: matéria, título e assuntos do edital ligados à aula */
 function tecJob(){const M=tecAutoMap(),items=[];ED.forEach(S=>{if(!(M[S.id+"|*"]&&M[S.id+"|*"].id)&&!(core().cfg.tecs||{})[S.id])items.push({k:S.id+"|*",m:TECN[S.id]||S.n,t:"Matéria inteira",a:[],n:60})});ED.forEach(S=>{AU(S.id).forEach(a=>{if(!a||String(a.c).startsWith("x:"))return;const k=S.id+"|"+a.c;if(M[k]&&M[k].id)return;
     const tp=(a.tp||[]).map(j=>S.t[j]&&S.t[j][0]).filter(Boolean).map(x=>tShort(x)),ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[S.id+"|"+a.c]||[]).map(z=>z[0]):[];const al=[...new Set([...ga,tShort(a.d||""),...tp].filter(x=>x&&x.length>=3))].slice(0,6);if(!al.length)return;
     items.push({k,m:TECN[S.id]||S.n,t:String(a.d||a.c).slice(0,90),a:al})})});return items.slice(0,180)}
 const tecBanca=()=>{const p=curPlan()||{};return p.banca||(IS_TJ?"VUNESP":"")};
 function tecGuiaUrl(){const p=curPlan()||{},org=String(p.orgao||"").trim(),cargo=String(p.cargo||p.name||"").replace(/Pré-edital\s*[–-]\s*/i,"").split(/\s+[–-]\s+/)[0].trim();
-  const area=(String(p.cargo||p.name||"").split(/\s+[–-]\s+/)[1]||p.area||"").trim(),busca=(org.length<=14?org.replace(/[-\/]/g," "):org)||cargo;
+  const area=((x=>/pr[ée][\s-]*edital|mat[ée]rias?-base/i.test(x)?"":x)(String(p.cargo||p.name||"").split(/\s+[–-]\s+/)[1]||"")||p.area||"").trim(),busca=(org.length<=14?org.replace(/[-\/]/g," "):org)||cargo;
   return TB+"/questoes/filtrar#jxcad="+encodeURIComponent(JSON.stringify({v:1,mode:"guia",o:location.origin,banca:tecBanca(),busca,org:org.slice(0,20),cargo,area,na:8,items:ED.map(s=>({k:s.id,m:s.n}))}))}
 function tecGuiaSave(P){const c=core();
   if(P.none){toast("O TEC ainda não tem guia para o seu concurso: a plataforma cria os cadernos pelas matérias e aulas do edital");setTimeout(tcaModal,600);return}
@@ -4480,7 +4493,7 @@ function tecCadCard(c,t){const tm=tecCadMin(c),done=t&&t.done;
    <span class="muted small">${c.own?`O caderno está na sua conta do TEC${c.as?" · assuntos: "+esc(String(c.as).slice(0,160)):""}${c.g?" · questões da matéria (o TEC tem poucas do assunto)":""}.`:`No TEC, toque em “clique aqui” no aviso amarelo para salvar o caderno na sua conta e contar as resoluções.`} Terminou e quer treinar mais? Crie outro caderno no TEC com ${c.as?"esses assuntos":"o assunto "+esc(c.as||"da aula")}.</span></div>`}
 /* TEC por assunto */
 const tShort=x=>{let y=String(x).split(/[:(;]/)[0].trim();if(y.length>70)y=y.slice(0,70).replace(/\s+\S*$/,"");return y||String(x).slice(0,70)};
-function tecTopicUrl(sid,topic){const k=tecAsCad(sid,topic);if(k)return TB+"/questoes/cadernos/"+k.cad;const m=tecMatCad(sid);if(m)return m.url;return tecSearch(tecTerm(topic))}
+function tecTopicUrl(sid,topic){const k=tecAsCad(sid,topic);if(k)return TB+"/questoes/cadernos/"+k.cad;const S=SUB(sid);return tecJobUrl([{k:sid+"|t:"+norm(tShort(topic)).slice(0,40),m:TECN[sid]||S.n,t:tShort(topic),a:[tShort(topic)]}])}
 function taskEdTopics(t){
   const S=ED[EDI[t.sid]];if(!S)return[];
   if(t.gen)return S.t.map(x=>x[0]);
@@ -4500,7 +4513,7 @@ function tecGuiaHTML(t,o){o=o||{};const G=tecGA(t);if(!G.length)return"";const n
   return`<div class="tecga"><div class="tecb-h">${ic("target")} <b>${o.title||"No Guia do TEC (Oficial de Justiça TJ SP)"}</b><span class="muted small">${tot} questões da VUNESP nesses assuntos</span></div>
    <ol class="tecga-l">${G.map((x,i)=>`<li><b>${esc(x.n)}</b> <span class="muted small">· ${x.q} ${x.q>1?"questões":"questão"}${G.length>1&&!o.short?" · faça ~"+dist[i]:""}</span></li>`).join("")}</ol>
    ${o.short?"":`<p class="muted small" style="margin:0">Abra o caderno, toque em <b>Índice</b> e vá até o assunto. Resolva ${nq} questões no total${tot<20?" (este assunto tem poucas: complete com as do assunto vizinho no Índice)":""}, das mais recentes para as mais antigas.</p>`}
-   <div class="row">${cads.map(x=>`<a class="btn sm pri" href="${esc(x.cad)}" target="_blank" rel="noopener" data-tas="${esc(G.filter(y=>y.cad===x.cad).map(y=>y.n).join(" / "))}">${ic("ext")} Caderno do Guia: ${esc(x.mat)}</a>`).join("")}</div></div>`}
+   <div class="row">${cads.map(x=>`<a class="btn sm ghost" href="${esc(x.cad)}" target="_blank" rel="noopener" data-tas="${esc(G.filter(y=>y.cad===x.cad).map(y=>y.n).join(" / "))}">${ic("ext")} ${esc(x.mat)} inteira no Guia (use o Índice)</a>`).join("")}</div></div>`}
 function tecCadMini(t){const ck=t.sid+"|"+aSet(t).join(","),cad=(core().tecCad||{})[ck];const g=tecGuiaHTML(t,{short:1,title:"Questões desta aula no Guia do TEC"});if(!cad&&!g)return"";
   return`<div class="tecb">${g}${cad?`<div class="row"><a class="btn sm" href="${esc(cad)}" target="_blank" rel="noopener">${ic("ext")} O seu caderno do TEC desta aula</a></div>`:""}</div>`}
 function tecNextHTML(t){const G=tecGA(t);if(!G.length)return"";return`<div class="dica tec-next"><b>${ic("target")} No fim do ciclo</b><span>Depois da Teoria, Revisão e Mapeamento, a tarefa de Questões traz ${t.nq||25} questões VUNESP de ${G.slice(0,3).map(x=>esc(x.n)).join(", ")}${G.length>3?"…":""}, no caderno do Guia do TEC.</span></div>`}
@@ -4514,7 +4527,7 @@ function tecBlock(t){
   const tps=taskEdTopics(t),mat=TECN[t.sid]||SUB(t.sid).n;
   return`<div class="tecb"><div class="tecb-h">${ic("target")} <b>Questões no TEC Concursos</b><span class="muted small">Filtro: banca VUNESP · cargo Oficial de Justiça TJ SP · ${esc(mat)}${tps.length?" › "+tps.map(x=>esc(tShort(x))).join(" / "):""}</span></div>
     ${tecGuiaHTML(t)}
-    <div class="row">${t.aula?tecAulaBtn(t.sid,t.aula,"pri"):""}${t.aula?`<button class="btn sm" data-a="goRes" data-s="${t.sid}" data-c="${t.aula}">${ic("resumos")} Resumo desta aula</button>`:""}<a class="btn sm" href="${esc(tecUrl(t.sid))}" target="_blank" rel="noopener" ${IS_TJ||tecKind(t.sid)==="seu"?"":`data-tecf="${esc(tecFtxt(t.sid,tps))}"`}>${ic("ext")} ${IS_TJ||tecKind(t.sid)==="seu"?"":"Filtro do TEC · "}Matéria: ${esc(mat)}</a>${tps.map(x=>`<a class="btn sm" href="${esc(tecTopicUrl(t.sid,x))}" target="_blank" rel="noopener" ${IS_TJ?"":`data-tecf="${esc(tecFtxt(t.sid,[x]))}"`}>${ic("ext")} Assunto: ${esc(tShort(x))}</a>`).join("")}</div>
+    <div class="row">${t.aula?tecAulaBtn(t.sid,t.aula,"pri"):""}${t.aula?`<button class="btn sm" data-a="goRes" data-s="${t.sid}" data-c="${t.aula}">${ic("resumos")} Resumo desta aula</button>`:""}<a class="btn sm ghost" href="${esc(tecUrl(t.sid))}" target="_blank" rel="noopener" ${IS_TJ||tecKind(t.sid)==="seu"?"":`data-tecf="${esc(tecFtxt(t.sid,tps))}"`}>${ic("ext")} ${IS_TJ||tecKind(t.sid)==="seu"?"":"Filtro do TEC · "}${esc(mat)} inteira</a></div>
     ${t.ph==="Q"&&t.aula?tecFiltroHTML(t):""}
     ${t.ph==="Q"&&t.aula?(()=>{const ck=t.sid+"|"+aSet(t).join(","),cad=(core().tecCad||{})[ck];return`<div class="row" style="align-items:flex-end;gap:8px">${cad?`<a class="btn sm pri" href="${esc(cad)}" target="_blank" rel="noopener">${ic("ext")} Abrir o caderno do TEC desta aula</a>`:""}<div class="field" style="flex:1 1 240px"><label for="tcad${t.id}" class="small">${cad?"Trocar o link do caderno":"Criou um caderno no TEC com "+(t.nq||25)+" questões destes assuntos? Guarde o link aqui"}</label><input class="inp" id="tcad${t.id}" inputmode="url" placeholder="https://www.tecconcursos.com.br/cadernos/..." value=""></div><button class="btn sm" data-a="tecCadSave" data-id="${t.id}">Guardar</button></div>`})():""}</div>`;
 }
@@ -6445,7 +6458,7 @@ function jwData(){const di=dayInfo(),td=today(),wd=wdOf(td),mon=addDays(td,-wd),
   if(stop){let x=stop,y=addDays(x,-1);for(let i=0;i<60&&!ok(y);i++){if(!fol(y))x=y;y=addDays(y,-1)}stop=x}
   let best=0,run=0;for(let i=400;i>=0;i--){const x=addDays(td,-i);if(ok(x)){run++;best=Math.max(best,run)}else if(!fol(x)&&x<td)run=0}
   const had=[...Array(21)].some((_,i)=>ok(addDays(td,-i-1)));const broken=!streak&&(had||st.some(x=>x==="no"));
-  const mToday=(di[td]||{}).m||0;return{days,st,wd,streak,best:Math.max(best,streak),broken,stop,stopIdx:stop&&stop>=mon?days.indexOf(stop):-1,left:Math.max(0,JW_MIN-Math.round(mToday)),okToday:ok(td),fresh:!streak&&!had}}
+  const mToday=(di[td]||{}).m||0;return{days,st,wd,streak,best:Math.max(best,streak),broken,stop,stopIdx:stop&&stop>=mon?days.indexOf(stop):-1,left:Math.max(0,JW_MIN-Math.round(mToday)),mToday,okToday:ok(td),fresh:!streak&&!had}}
 function jwCurve(P,a,b){let d="";for(let i=a;i<b;i++){const [x1,y1]=P[i],[x2,y2]=P[i+1],cx=(x1+x2)/2;d+=(i===a?`M${x1},${y1}`:"")+` C${cx},${y1} ${cx},${y2} ${x2},${y2}`}return d}
 const jwPt=(P,i,f)=>{if(i<0){const [x,y]=P[0];return{x:x-48*(1-f),y:y+6*(1-f)}}const p=document.createElementNS("http://www.w3.org/2000/svg","path");p.setAttribute("d",jwCurve(P,i,i+1));const L=p.getTotalLength();return p.getPointAtLength(L*Math.max(0,Math.min(1,f)))};
 const jwSun=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${(r||1)*46}" fill="url(#jwSunG)"/><circle cx="${x}" cy="${y}" r="${(r||1)*17}" fill="#ffd45a"/>`;
@@ -6506,9 +6519,14 @@ function jwScene(theme,tod,sm,D){const W=sm?640:1100,sx=W/1100,H=300;
   const [dx,dy]=P[6];if(D.win&&theme!=="mapa"){}else g+=theme==="mapa"?`<g transform="translate(${dx+14} ${dy-6})"><path d="M-8 -8 l16 16 M8 -8 l-16 16" stroke="#ff5f8f" stroke-width="4" stroke-linecap="round"/></g>`:`<g transform="translate(${dx+(theme==="floresta"?(sm?40:30):4)} ${dy-R})"><path d="M0 0 v-34" stroke="#e9e4ff" stroke-width="2.4"/><path d="M1 -34 h22 l-5 7 l5 7 h-22z" fill="#a06bff"/></g>`;
   return{svg:jwDefs()+g,P,vb,sc:theme==="cume"?(sm?1.05:.78):(sm?1.35:1.05)}}
 /* onde fica o alpinista e em que pose */
-function jwPos(D,P){if(D.broken){const j=D.stopIdx;const at=j>0?jwPt(P,j-1,.6):innerWidth<700?jwPt(P,0,.34):jwPt(P,-1,0);return{pt:at,pose:"sit",flag:at}}
-  if(D.okToday)return{pt:jwPt(P,D.wd-1,1),pose:"idle",from:jwPt(P,D.wd-1,.45),seg:D.wd-1};
-  return{pt:D.wd>0?jwPt(P,D.wd-1,.45):jwPt(P,-1,.6),pose:"walk"}}
+/* regra: sem estudo hoje ele fica sentado no dia de hoje; começou a estudar, caminha de hoje em direção a amanhã
+   (avança conforme os minutos do dia); completou o dia, chega perto do dia seguinte. No domingo o caminho é até o topo. */
+const JW_DONE_F=.82,jwWalkF=D=>Math.min(.74,.1+.64*Math.min(1,(D.mToday||0)/JW_MIN));
+const jwToday=P=>D=>D.wd>0?jwPt(P,D.wd-1,1):jwPt(P,0,0);
+function jwPos(D,P){const fl=D.broken&&D.stopIdx>0?{flag:jwPt(P,D.stopIdx-1,.6)}:{};
+  if(D.okToday)return D.wd<6?{pt:jwPt(P,D.wd,JW_DONE_F),pose:"idle"}:{pt:jwPt(P,5,1),pose:"idle"};
+  if((D.mToday||0)>0)return Object.assign(D.wd<6?{pt:jwPt(P,D.wd,jwWalkF(D)),pose:"walk"}:{pt:jwPt(P,5,.35+.55*Math.min(1,D.mToday/JW_MIN)),pose:"walk"},fl);
+  return Object.assign({pt:jwToday(P)(D),pose:"sit"},fl)}
 const JW_DN=["segunda","terça","quarta","quinta","sexta","sábado","domingo"],jwNa=n=>(n>=5?"no ":"na ")+JW_DN[n];
 function jwMsg(D){const h=new Date().getHours(),bom=h>=4&&h<12?"Bom dia! ":h>=12&&h<18?"Boa tarde! ":"Boa noite! ";
   if(D.okToday)return`Hoje contou! <b class="g">✓</b> Mais um dia na trilha`;
@@ -6526,14 +6544,14 @@ function jwCard(){try{setTimeout(()=>{window.jwFadeOn=0},0);const D=jwData(),th=
    <svg class="jw-s${window.jwFadeOn?" jw-fade":""}" data-tod="${tod}" viewBox="${Sc.vb}" role="img" aria-label="${esc(D.st.map((s,i)=>JW_D[i]+": "+({ok:"estudou",no:"não estudou",fo:"folga",td:"hoje",fu:"ainda vai chegar"})[s]).join(", "))}">${Sc.svg}${dim}${flag}${glory}<g id="jwWk" class="${D.win?"jw-hw":""}" transform="translate(${ps.pt.x} ${ps.pt.y+1}) scale(${Sc.sc})">${jwHero(pose)}</g></svg>
    ${th==="cume"?`<div class="jw-f"><span><b>${D.streak} ${D.streak===1?"dia":"dias"}</b> seguidos · melhor: ${D.best}</span><span class="jw-r">Cada semana é uma montanha: domingo é o topo · <button class="lnk" data-a="jwMes">ver o mês inteiro</button></span></div>`:`<div class="jw-f"><span>Melhor sequência: <b>${D.best} ${D.best===1?"dia":"dias"}</b><span class="jw-r"> · o dia conta com ${JW_MIN} min de estudo</span></span><button class="lnk" data-a="jwMes">Ver o mês inteiro →</button></div>`}</section>`}catch(e){console.error(e);return""}}
 /* animação: quando o dia de hoje acaba de contar, o alpinista caminha até ele */
-function jwAnim(){try{const D=jwData();if(!D.okToday||D.wd<1)return;const k="jw-anim-"+LSK+"-"+today();if(localStorage.getItem(k))return;const g=document.getElementById("jwWk"),sv=g&&g.ownerSVGElement;if(!sv)return;localStorage.setItem(k,"1");
+function jwAnim(){try{const D=jwData();if(!D.okToday)return;const k="jw-anim-"+LSK+"-"+today();if(localStorage.getItem(k))return;const g=document.getElementById("jwWk"),sv=g&&g.ownerSVGElement;if(!sv)return;localStorage.setItem(k,"1");
   if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const sm=innerWidth<700,Sc=jwScene(jwTheme(),jwTod(),sm,D),P=Sc.P,i=D.wd-1,t0=performance.now(),dur=1800;
-  const p=document.createElementNS("http://www.w3.org/2000/svg","path");p.setAttribute("d",jwCurve(P,i,i+1));const L=p.getTotalLength();
-  const gp=sv.querySelectorAll(".jw-g"),last=gp[gp.length-1];if(last){last.setAttribute("stroke-dasharray",L+" "+L);last.setAttribute("stroke-dashoffset",L*.55)}
+  const fwd=D.wd<6,seg=fwd?D.wd:i,f0=fwd?jwWalkF({mToday:JW_MIN*.95}):.45,f1=fwd?JW_DONE_F:1;const p=document.createElementNS("http://www.w3.org/2000/svg","path");p.setAttribute("d",jwCurve(P,seg,seg+1));const L=p.getTotalLength();
+  const gp=sv.querySelectorAll(".jw-g"),last=fwd?null:gp[gp.length-1];if(last){last.setAttribute("stroke-dasharray",L+" "+L);last.setAttribute("stroke-dashoffset",L*.55)}
   const tg=sv.querySelector(`circle[cx="${P[D.wd][0]}"][cy="${P[D.wd][1]}"]`);
-  const step=t=>{if(!g.isConnected)return;const w=Math.min(1,(t-t0)/dur),e=w<.5?2*w*w:1-Math.pow(-2*w+2,2)/2,f=.45+.55*e,q=p.getPointAtLength(L*f);
+  const step=t=>{if(!g.isConnected)return;const w=Math.min(1,(t-t0)/dur),e=w<.5?2*w*w:1-Math.pow(-2*w+2,2)/2,f=f0+(f1-f0)*e,q=p.getPointAtLength(L*f);
     const wn=w>=1&&D.wd===6&&jwTheme()!=="mapa";g.setAttribute("transform",wn?`translate(${q.x} ${q.y-(sm?19:14)-2}) scale(${Sc.sc*1.12})`:`translate(${q.x} ${q.y+1}) scale(${Sc.sc})`);g.innerHTML=jwHero(w<1?jwWalk(t/90):(wn?jwWin:jwIdle(0)));if(last)last.setAttribute("stroke-dashoffset",L*(1-f));
-    if(w<1)requestAnimationFrame(step);else{const n=document.querySelector(".jw-n b");if(n)n.animate([{transform:"scale(1)"},{transform:"scale(1.28)"},{transform:"scale(1)"}],{duration:480,easing:"ease-out"});if(tg)tg.animate([{transform:"scale(1)"},{transform:"scale(1.35)"},{transform:"scale(1)"}],{duration:480,easing:"ease-out",transformOrigin:"center"})}};
+    if(w<1)requestAnimationFrame(step);else{const n=document.querySelector(".jw-n b");if(n)n.animate([{transform:"scale(1)"},{transform:"scale(1.28)"},{transform:"scale(1)"}],{duration:480,easing:"ease-out"});if(tg){tg.style.transformBox="fill-box";tg.style.transformOrigin="center";tg.animate([{transform:"scale(1)"},{transform:"scale(1.35)"},{transform:"scale(1)"}],{duration:480,easing:"ease-out"})}}};
   requestAnimationFrame(step)}catch(e){}}
 function jwPickModal(){const D=jwData(),cur=jwTheme(),tod=jwTod();
   $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Paisagem da jornada"><div class="box cs" style="max-width:720px"><p class="cs-k">Sua jornada da semana</p><h3>Escolha a paisagem</h3><p class="muted">O alpinista e as regras são os mesmos nas três. O céu muda sozinho com a hora do dia.</p>
@@ -6605,7 +6623,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261112055028";
+const JX_BUILD="20261112061038";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7107,7 +7125,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112055028" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112061038" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -8322,8 +8340,8 @@ function crestSVG0(sig){const t=sig.split(/\s+/).filter(Boolean),a=(t.length>1?t
    <path d="M30 96c8 6 14 8 22 9 8-1 14-3 22-9" stroke="#ffe08a" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`}
 /* cargo sem observações repetidas, ex.: "(único cargo do edital)" */
 /* cargo: embaixo, sem parênteses repetidos; no título, só o nome ("Oficial de Justiça") */
-const cargoLimpo=c=>{let t=String(c||"").normalize("NFC");const seen=new Set();t=t.replace(/\s*\(([^)]*)\)/g,(m,x)=>{const k=norm(x).trim();if(seen.has(k))return"";seen.add(k);return m});return t.replace(/\s{2,}/g," ").trim()};
-const cargoTitulo=c=>String(c||"").normalize("NFC").replace(/\s*\([^)]*\)/g,"").replace(/\s*[–—-]\s*$/,"").replace(/\s{2,}/g," ").trim();
+const cargoLimpo=c=>{let t=preEdN(String(c||"")).normalize("NFC");const seen=new Set();t=t.replace(/\s*\(([^)]*)\)/g,(m,x)=>{const k=norm(x).trim();if(seen.has(k))return"";seen.add(k);return m});return t.replace(/\s{2,}/g," ").trim()};
+const cargoTitulo=c=>preEdN(String(c||"")).normalize("NFC").replace(/\s*\([^)]*\)/g,"").replace(/\s*[–—-]\s*$/,"").replace(/\s{2,}/g," ").trim();
 /* remuneração curta no quadro (o texto completo fica no balão) */
 const salCurto=v=>{const t=String(v||"").trim(),m=t.match(/R\$\s?[\d.]+(?:,\d{2})?/);if(!m)return{v:t.length>28?t.slice(0,26)+"…":t,x:""};return{v:m[0].replace(/R\$\s?/,"R$ "),x:/aux[ií]lio|benef[ií]cio|vantage/i.test(t.slice(m.index+m[0].length))?"+ auxílios":""}};
 function orgHero(){const I=orgInfo(),c=core(),sk=c.skin||{},td=today(),dp=dbet(td,I.prova);
@@ -9286,7 +9304,7 @@ function jxBandTab(){try{const td=today();
   if(TAB==="assinatura"){const A=window.JX_ACESSO||{},t=A.st==="dono"?"Conta de administrador":A.st==="teste"?(A.left>0?"Teste: "+dias(A.left)+" restantes":"Teste terminando"):A.st==="ativo"||A.st==="pago"?"Assinatura ativa":"Sua assinatura";return jxBand({k:"Seu acesso",t,s:"A chave para seguir a trilha até o topo: planos, pagamento e termos de uso.",art:jbKey()})}
   if(TAB==="tutorial")return jxBand({k:"Tutorial",t:"Aprenda a usar a Jornada",s:"Cada capítulo mostra uma tela em animação curta, com o passo a passo e dicas.",art:jbTrail([{st:"ok",lab:"Começo"},{st:"on",lab:"Plano"},{st:"fu",lab:"Estudar"},{st:"fu",lab:"Revisar"},{st:"pk",lab:"Aprovação"}])});
   return""}catch(e){console.error(e);return""}}
-function edSky(){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L=ED.map((s,i)=>({s,i,q:qOf(s)}));if(L.length<2)return"";
+function edSky(extra){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L=ED.map((s,i)=>({s,i,q:qOf(s)}));if(L.length<2)return"";
   const dirRe=/^(direito|processo|legisla|no[çc][õo]es de direito|estatuto|regimento|lei )/i;
   let gk=x=>x.s.bl||"";if(!L.some(x=>x.s.bl)){const d=L.filter(x=>dirRe.test(x.s.n)).length;if(d&&d<L.length)gk=x=>dirRe.test(x.s.n)?"Conhecimentos de Direito":"Conhecimentos gerais"}
   const G=[];L.forEach(x=>{const k=gk(x);let g=G.find(y=>y.k===k);if(!g)G.push(g={k,L:[]});g.L.push(x)});
@@ -9314,9 +9332,8 @@ function edSky(){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L=ED.m
     chips+=`<button class="sk-bar" data-skf="${s.id}" data-q="${x.q}" style="--c:${s.col}" aria-pressed="${s.id===f0}"><b>${esc(s.c||s.n)}</b><i><em style="width:${(x.q/mx*100).toFixed(1)}%"></em></i><span>${x.q}</span><small>${pv1(x.q/T*100)}%</small></button>`});
   chips=chips.split("</button>").filter(Boolean).map(x=>x+"</button>").sort((a,b)=>+(b.match(/data-q="(\d+(?:\.\d+)?)"/)||[0,0])[1]-+(a.match(/data-q="(\d+(?:\.\d+)?)"/)||[0,0])[1]).join("");
   return`<section class="sky" data-auto="1" aria-label="Carta Celeste do Edital"><div class="sk-hd"><h2 title="Cada constelação é uma matéria e cada estrela um assunto do edital. Tamanho = quanto cai; brilho = o quanto você domina; anel de dentro = matérias que mais caem.">Carta Celeste do Edital</h2><span class="muted small">${esc((()=>{try{const I=orgInfo();return[cargoTitulo(I.cargo||""),I.sig].filter(Boolean).join(" · ")}catch(e){return""}})())} · ${T} questões${(core().qwe&&Object.values(core().qwe).some(v=>v&&v.t))?" · estimativa do TEC":""}</span></div>
-   <div class="sk-w"><div class="sk-vw"><div class="sk-v"><i class="sk-neb n1"></i><i class="sk-neb n2"></i><i class="sk-neb n3"></i><i class="sk-field f1"></i><i class="sk-field f2"></i><i class="sk-orb" style="width:${pc(380/W)};height:${pc(244/H)}"></i>${N>8?`<i class="sk-orb" style="width:${pc(744/W)};height:${pc(376/H)}"></i>`:""}<i class="sk-ow" style="width:${pc(380/W)};--k:${(244/380*W/H).toFixed(3)}"><i class="sk-com" style="animation-duration:38s"></i></i>${N>8?`<i class="sk-ow" style="width:${pc(744/W)};--k:${(376/744*W/H).toFixed(3)}"><i class="sk-com b" style="animation-duration:64s;animation-direction:reverse"></i></i>`:""}<i class="sk-shoot"></i>${(()=>{let dd="";try{if(provaTBD())dd="sem data de prova";else{const n=Math.max(0,Math.ceil((pd(prova())-new Date())/864e5));dd=dias0(n,"dia","dias")+" para a prova"}}catch(e){}return`<div class="sk-guia" style="top:${pc((H/2-16)/H)}"><i></i><b>ESTRELA-GUIA</b><small>aprovação${dd?" · "+dd:""}</small></div>`})()}${sky}</div></div>
-   <div class="sk-side"><div class="card sk-inc"><div class="sk-ih"><small>Incidência por matéria</small><button class="lnk" data-a="pvQEd">Ajustar questões</button></div>${chips}</div><div class="card sk-pn">${pan}</div></div></div>
-   <div class="card sk-fo">${foco}</div></section>`}catch(e){console.error(e);return""}}
+   <div class="sk-w"><div class="sk-l"><div class="sk-vw"><div class="sk-v"><i class="sk-neb n1"></i><i class="sk-neb n2"></i><i class="sk-neb n3"></i><i class="sk-field f1"></i><i class="sk-field f2"></i><i class="sk-orb" style="width:${pc(380/W)};height:${pc(244/H)}"></i>${N>8?`<i class="sk-orb" style="width:${pc(744/W)};height:${pc(376/H)}"></i>`:""}<i class="sk-ow" style="width:${pc(380/W)};--k:${(244/380*W/H).toFixed(3)}"><i class="sk-com" style="animation-duration:38s"></i></i>${N>8?`<i class="sk-ow" style="width:${pc(744/W)};--k:${(376/744*W/H).toFixed(3)}"><i class="sk-com b" style="animation-duration:64s;animation-direction:reverse"></i></i>`:""}<i class="sk-shoot"></i>${(()=>{let dd="";try{if(provaTBD())dd="sem data de prova";else{const n=Math.max(0,Math.ceil((pd(prova())-new Date())/864e5));dd=dias0(n,"dia","dias")+" para a prova"}}catch(e){}return`<div class="sk-guia" style="top:${pc((H/2-16)/H)}"><i></i><b>ESTRELA-GUIA</b><small>aprovação${dd?" · "+dd:""}</small></div>`})()}${sky}</div></div><div class="card sk-fo">${foco}</div>${extra||""}</div>
+   <div class="sk-side"><div class="card sk-inc"><div class="sk-ih"><small>Incidência por matéria</small><button class="lnk" data-a="pvQEd">Ajustar questões</button></div>${chips}</div><div class="card sk-pn">${pan}</div></div></div></section>`}catch(e){console.error(e);return""}}
 setInterval(()=>{try{document.querySelectorAll(".sky .sk-vw").forEach(w=>{if(w.dataset.cx||w.scrollWidth<=w.clientWidth+4)return;w.dataset.cx="1";w.scrollLeft=(w.scrollWidth-w.clientWidth)/2})}catch(e){}},700);
 function skFocus(r,sid){r.querySelectorAll(".sk-c").forEach(g=>g.classList.toggle("on",g.dataset.s===sid));r.querySelectorAll(".sk-p,.sk-f").forEach(p=>{p.hidden=p.dataset.s!==sid});r.querySelectorAll(".sk-bar").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.skf===sid)))}
 setInterval(()=>{try{const r=document.querySelector('.sky[data-auto="1"]');if(!r||document.hidden||matchMedia("(prefers-reduced-motion: reduce)").matches)return;const L=[...r.querySelectorAll(".sk-c")],i=L.findIndex(g=>g.classList.contains("on"));if(L.length)skFocus(r,L[(i+1)%L.length].dataset.s)}catch(e){}},4500);
@@ -9327,7 +9344,10 @@ function skTouch(st){const r=st.closest(".sky"),v=st.closest(".sk-v");if(!r||!v)
   clearTimeout(skTouch.t);skTouch.t=setTimeout(()=>{st.classList.remove("lit");tip.classList.remove("on")},2600)}
 document.addEventListener("click",e=>{const st=e.target&&e.target.closest&&e.target.closest(".sk-st[data-sks]");if(st)skTouch(st)});
 document.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const st=e.target&&e.target.closest&&e.target.closest(".sk-st[data-sks]");if(st){e.preventDefault();skTouch(st)}});
-function vIncidencia(){let h0=vIncidencia0();const sk=edSky();
+const isPreEd=()=>{try{if(IS_TJ||!PLAN)return false;return /pr[ée][\s-]*edital|mat[ée]rias?[\s-]*base/i.test([PLAN.name,PLAN.cargo,PLAN.orgao].filter(Boolean).join(" "))||provaTBD()}catch(e){return false}};
+function incAviso(){if(!isPreEd())return"";const c=core(),nI=ED.filter(s=>((c.inc||{})[s.id]||{}).src==="tec").length;
+  return`<div class="card inc-pre"><b>${ic("bulb")} Estimativa de pré-edital</b><p>Sem edital publicado, as porcentagens são uma <b>estimativa</b>: vêm das provas anteriores do cargo e das matérias-base que você precisa construir agora, e por isso <b>ainda não são exatas</b>. Quando o edital sair, envie o PDF: a plataforma troca pelas matérias, assuntos e pesos oficiais e atualiza a incidência.</p><p class="muted small">${nI?`${nI} de ${ED.length} matérias já usam a contagem real de questões do TEC Concursos.`:`Para chegar o mais perto do que cai, toque em <b>Ler a incidência no TEC</b>: a plataforma conta as questões reais de cada assunto.`}</p></div>`}
+function vIncidencia(){let h0=vIncidencia0();const tc=tecIncCard();if(tc&&h0.includes(tc))h0=h0.replace(tc,"");const sk=edSky(incAviso()+(tc||""));if(!sk&&tc)h0+=tc;
   if(sk){h0=h0.replace(/<div class="cmp-k">[\s\S]*?matérias com incidência dos assuntos<\/span><\/div><\/div>/,'<div class="cmp-k-x"></div>');
     const ai=h0.indexOf('<section class="card"><div class="card-b row" style="align-items:center;gap:12px"><span style="flex:1 1 300px"><b>Assuntos que mais caem</b>');
     if(ai>=0)h0=h0.slice(0,ai)+`<details class="card inc-adv"><summary class="card-h" style="cursor:pointer;list-style:none"><h2>Ajustar os assuntos de cada matéria</h2><span class="muted small">colar dados de um site, estimar com IA ou mudar as porcentagens</span></summary><div class="card-b" style="display:grid;gap:12px">`+h0.slice(ai)+`</div></details>`}if(sk&&!UI.pvQ){const a=h0.indexOf('<section class="card"><div class="card-h"><h2>Peso de cada matéria</h2>');if(a>=0){const b=h0.indexOf("</section>",a);if(b>a)h0=h0.slice(0,a)+h0.slice(b+10)}}return(sk&&h0.includes('<div class="cmp-k-x"></div>')?h0.replace('<div class="cmp-k-x"></div>',sk):sk&&h0.includes('<div class="cmp-k">')?h0.replace('<div class="cmp-k">',sk+'<div class="cmp-k">'):sk+h0)+(TIER()==="basico"&&!UI.premSee?.prio?premLock("prio","Cruza a incidência de cada assunto com o seu acerto e mostra o que estudar primeiro em cada matéria."):prioHTML())}
@@ -11310,7 +11330,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112055028&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112061038&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -12109,19 +12129,19 @@ function afMissing(){const p=curPlan()||{};if(!(p.cat==="pre-fiscal"||/auditor f
   const have=ED.map(s=>norm(s.n));return AF22.filter(([k])=>{const n=norm(PB[k][0]),re=AF_ALIAS[k];return!have.some(h=>h===n||(re&&re.test(h)))}).map(([k,w])=>({n:PB[k][0],q:w,t:PB[k][2].slice()}))}
 const PRE=[
  {id:"pre-fiscal",o:"Pré-edital",n:"Área Fiscal – Auditor Fiscal (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital preedital regular base auditor fiscal sefaz receita iss icms tributos area fiscal",
-  cg:[{n:"Auditor Fiscal – matérias-base",s:"Auditor Fiscal (Regular)",ds:af22()}]},
+  cg:[{n:"Auditor Fiscal – Pré-Edital",s:"Auditor Fiscal (Regular)",ds:af22()}]},
  {id:"pre-trib-aj",o:"Pré-edital",n:"Tribunais – Analista Judiciário, Área Judiciária (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base tribunais tribunal analista judiciario area judiciaria tj trf trt tre",
-  cg:[{n:"Analista Judiciário – matérias-base",s:"Analista Judiciário (Regular)",ds:pbd("lp","rlm","dc","da","dciv","dpc","dp","dpp")}]},
+  cg:[{n:"Analista Judiciário – Pré-Edital",s:"Analista Judiciário (Regular)",ds:pbd("lp","rlm","dc","da","dciv","dpc","dp","dpp")}]},
  {id:"pre-trib-tj",o:"Pré-edital",n:"Tribunais – Técnico Judiciário (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base tribunais tribunal tecnico judiciario escrevente tj trf trt tre",
-  cg:[{n:"Técnico Judiciário – matérias-base",s:"Técnico Judiciário (Regular)",ds:pbd("lp","rlm","inf","dc","da","dpc","dpp")}]},
+  cg:[{n:"Técnico Judiciário – Pré-Edital",s:"Técnico Judiciário (Regular)",ds:pbd("lp","rlm","inf","dc","da","dpc","dpp")}]},
  {id:"pre-pol",o:"Pré-edital",n:"Área Policial – Agente, Escrivão e Investigador (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base policial policia civil federal pf prf pc agente escrivao investigador",
-  cg:[{n:"Área Policial – matérias-base",s:"Área Policial (Regular)",ds:pbd("lp","rlm","inf","dc","da","dp","dpp","leg","dh","cnt0")}]},
+  cg:[{n:"Área Policial – Pré-Edital",s:"Área Policial (Regular)",ds:pbd("lp","rlm","inf","dc","da","dp","dpp","leg","dh","cnt0")}]},
  {id:"pre-ctrl",o:"Pré-edital",n:"Área de Controle – TCU, TCEs e CGU (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base controle tcu tce tcm cgu auditor de controle externo",
-  cg:[{n:"Área de Controle – matérias-base",s:"Área de Controle (Regular)",ds:pbd("lp","rlm","est","dc","da","afo","cpub","ctrl","audg","adm")}]},
+  cg:[{n:"Área de Controle – Pré-Edital",s:"Área de Controle (Regular)",ds:pbd("lp","rlm","est","dc","da","afo","cpub","ctrl","audg","adm")}]},
  {id:"pre-banc",o:"Pré-edital",n:"Área Bancária – Banco do Brasil, Caixa e BNB (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base bancaria banco do brasil caixa bnb escriturario tecnico bancario",
-  cg:[{n:"Área Bancária – matérias-base",s:"Área Bancária (Regular)",ds:pbd("lp","mat","mf","cban","vend","inf","ing")}]},
+  cg:[{n:"Área Bancária – Pré-Edital",s:"Área Bancária (Regular)",ds:pbd("lp","mat","mf","cban","vend","inf","ing")}]},
  {id:"pre-adm",o:"Pré-edital",n:"Área Administrativa – Agências, INSS e órgãos federais (Curso Regular)",uf:"Nacional",b:"",st:"pre",full:true,tags:"pre edital pre-edital regular base administrativa administrativo tecnico analista agencias inss ministerios",
-  cg:[{n:"Área Administrativa – matérias-base",s:"Área Administrativa (Regular)",ds:pbd("lp","rlm","inf","dc","da","adm","afo","etc")}]}
+  cg:[{n:"Área Administrativa – Pré-Edital",s:"Área Administrativa (Regular)",ds:pbd("lp","rlm","inf","dc","da","adm","afo","etc")}]}
 ];
 CAT.push(...PRE);
 /* ===== Diretório de concursos: todos os órgãos que costumam abrir concurso, mesmo sem edital aberto =====
