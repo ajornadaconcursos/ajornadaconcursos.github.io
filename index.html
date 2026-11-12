@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611112054"></script>
+<script src="/claude-shim.js?v=202611120505"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -1609,6 +1609,27 @@ html[data-out] .app{animation:jAppOut .3s ease forwards}@keyframes jAppOut{to{op
 
 /* ---------- Tutorial ---------- */
 .tu-wrap{display:grid;grid-template-columns:250px minmax(0,1fr);gap:16px;align-items:start}
+/* tutorial: capítulos numa faixa em cima, explicação em largura total */
+html .tu-wrap{grid-template-columns:minmax(0,1fr)!important;gap:14px}
+html .tu-menu{position:sticky;top:0;z-index:4;flex-direction:row!important;flex-wrap:nowrap;overflow-x:auto;gap:8px!important;padding:10px 12px;border-radius:18px;background:rgba(14,10,40,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(160,107,255,.22);scrollbar-width:thin;scroll-snap-type:x proximity;mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 18px),transparent)}
+html .tu-menu::-webkit-scrollbar{height:6px}html .tu-menu::-webkit-scrollbar-thumb{background:rgba(160,107,255,.35);border-radius:6px}
+html .tu-menu button{flex:none;white-space:nowrap;scroll-snap-align:center;padding:8px 14px 8px 8px!important;border-radius:999px!important;border:1px solid rgba(160,107,255,.22)!important;background:rgba(255,255,255,.03)!important;font-size:13.5px;transition:background .3s,border-color .3s,transform .25s cubic-bezier(.3,1.5,.5,1)}
+html .tu-menu button:hover{transform:translateY(-1px);border-color:rgba(201,168,255,.5)!important}
+html .tu-menu button small{display:inline-grid!important;place-items:center;min-width:24px!important;height:24px;margin:0!important;border-radius:50%;background:rgba(160,107,255,.18);color:#d9ccff!important;font-weight:800;font-size:11.5px}
+html .tu-menu button .i,html .tu-menu button svg{display:none}
+html .tu-menu button[aria-current="true"]{background:linear-gradient(135deg,#7b3cff,#d6388f)!important;border-color:transparent!important;color:#fff!important;box-shadow:0 8px 20px -8px rgba(123,60,255,.7)}
+html .tu-menu button[aria-current="true"] small{background:rgba(255,255,255,.25);color:#fff!important}
+html .tu-main{padding:22px 24px!important;border-radius:22px!important;background:linear-gradient(180deg,#1c1446,#130c33)!important;border:1px solid rgba(160,107,255,.28)!important;animation:tuMain .5s cubic-bezier(.16,1,.3,1) both}
+@keyframes tuMain{from{opacity:0;transform:translateY(14px)}}
+html .tu-head h2{font:600 26px/1.1 Oswald,var(--f-cond),sans-serif!important;letter-spacing:.01em}
+html .tu-stage{border-radius:20px!important;border-color:rgba(160,107,255,.25)!important;background:radial-gradient(120% 90% at 50% 0%,rgba(123,60,255,.18),transparent 60%),#0e0a2a!important}
+html .tu-say{border-radius:14px!important;background:rgba(22,15,56,.92)!important;border-color:rgba(201,168,255,.35)!important}
+html .tu-dots i.on{background:linear-gradient(135deg,#a06bff,#ff5f8f)!important}
+html .tu-steps-l{counter-reset:tus;padding-left:0!important;list-style:none;display:grid!important;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px!important}
+html .tu-steps-l li{counter-increment:tus;display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;padding:10px 12px!important;border-radius:14px!important;border:1px solid rgba(160,107,255,.16);background:rgba(255,255,255,.025);transition:background .3s,border-color .3s}
+html .tu-steps-l li::before{content:counter(tus);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:rgba(160,107,255,.2);font-weight:800;font-size:12px;color:#d9ccff}
+html .tu-steps-l li.on{background:rgba(123,60,255,.18)!important;border-color:rgba(201,168,255,.45)}html .tu-steps-l li.on::before{background:linear-gradient(135deg,#7b3cff,#d6388f);color:#fff}
+@media (max-width:700px){html .tu-main{padding:16px!important}html .tu-steps-l{grid-template-columns:1fr}}
 .tu-menu{display:flex;flex-direction:column;gap:4px;position:sticky;top:8px}
 .tu-menu button{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid transparent;background:transparent;color:var(--fg2);padding:9px 10px;border-radius:12px;font:inherit;cursor:pointer}
 .tu-menu button .i,.tu-menu button svg{width:18px;height:18px;flex:none}
@@ -2142,7 +2163,7 @@ html body .alist .arow .tpc{font-size:14.5px;padding:3px 10px;border-radius:999p
 /* sem o brasão do topo */
 .fmcr{display:none!important}
 /* visual: só Jornada e Arena */
-.skinbtn.sk2{display:inline-flex!important;gap:2px;padding:3px!important;border-radius:11px!important;width:auto!important;background:rgba(255,255,255,.05)!important}.skinbtn.sk2 span{padding:5px 10px;border-radius:8px;font-size:12px;font-weight:800;color:#a99bd6;transition:background .3s,color .3s}.skinbtn.sk2 span.on{background:rgba(160,107,255,.38);color:#fff}
+#skinBtn,.skinbtn{display:none!important}.skinbtn.sk2{display:none!important;gap:2px;padding:3px!important;border-radius:11px!important;width:auto!important;background:rgba(255,255,255,.05)!important}.skinbtn.sk2 span{padding:5px 10px;border-radius:8px;font-size:12px;font-weight:800;color:#a99bd6;transition:background .3s,color .3s}.skinbtn.sk2 span.on{background:rgba(160,107,255,.38);color:#fff}
 .pf-bg{position:absolute;inset:0;width:100%;height:100%}
 .pfx{position:relative;z-index:1;display:grid;justify-items:center;gap:16px;width:min(560px,92vw)}
 .pf-gear{position:fixed!important;top:16px;right:66px}.pf-x,.pf-gear{background:rgba(11,8,32,.6)!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:50%!important;width:42px;height:42px}
@@ -2727,7 +2748,35 @@ div.jx-rkc{cursor:default}
 .sky .sk-w{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;padding:0 16px 16px}
 .sk-v{position:relative;aspect-ratio:880/520;border-radius:16px;overflow:hidden;background:radial-gradient(1px 1px at 12% 20%,#fff8,transparent 70%),radial-gradient(1px 1px at 34% 68%,#fff6,transparent 70%),radial-gradient(1.4px 1.4px at 58% 14%,#fff8,transparent 70%),radial-gradient(1px 1px at 76% 46%,#fff6,transparent 70%),radial-gradient(1.2px 1.2px at 90% 84%,#fff7,transparent 70%),radial-gradient(1px 1px at 22% 88%,#fff6,transparent 70%),radial-gradient(1px 1px at 46% 40%,#fff5,transparent 70%),radial-gradient(1.3px 1.3px at 66% 76%,#fff7,transparent 70%),radial-gradient(120% 90% at 50% 50%,#1d1450 0%,#0b0820 72%);border:1px solid rgba(160,107,255,.25)}
 .sk-g{position:absolute;top:12px;font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,184,255,.62)}
-.sk-c{position:absolute;inset:0;opacity:.62;transition:opacity .7s;pointer-events:none}
+.sk-c{position:absolute;inset:0;opacity:.82;transition:opacity .7s,filter .7s;pointer-events:none}
+.sk-v{background:radial-gradient(120% 90% at 50% 50%,#1d1450 0%,#0e0a2a 60%,#08061a 100%)!important}
+.sk-neb{position:absolute;border-radius:50%;filter:blur(40px);pointer-events:none;opacity:.55;animation:skNeb 26s ease-in-out infinite alternate}
+.sk-neb.n1{left:-8%;top:-14%;width:46%;height:60%;background:radial-gradient(circle,rgba(123,60,255,.55),transparent 70%)}
+.sk-neb.n2{right:-10%;bottom:-18%;width:50%;height:64%;background:radial-gradient(circle,rgba(214,56,143,.42),transparent 70%);animation-duration:32s}
+.sk-neb.n3{left:30%;top:20%;width:40%;height:56%;background:radial-gradient(circle,rgba(47,140,240,.22),transparent 70%);animation-duration:40s}
+@keyframes skNeb{to{transform:translate(4%,-5%) scale(1.12)}}
+.sk-field{position:absolute;inset:0;pointer-events:none;background-repeat:repeat;background-size:220px 160px}
+.sk-field.f1{background-image:radial-gradient(1px 1px at 20px 30px,#fff,transparent 60%),radial-gradient(1px 1px at 120px 90px,#fffc,transparent 60%),radial-gradient(1.4px 1.4px at 180px 20px,#fff,transparent 60%),radial-gradient(1px 1px at 70px 140px,#fffa,transparent 60%);opacity:.5;animation:skTw1 4.5s ease-in-out infinite alternate}
+.sk-field.f2{background-size:300px 240px;background-image:radial-gradient(1px 1px at 60px 60px,#c9a8ff,transparent 60%),radial-gradient(1.2px 1.2px at 240px 180px,#ffd2ec,transparent 60%),radial-gradient(1px 1px at 150px 210px,#fff,transparent 60%);opacity:.6;animation:skTw1 6s ease-in-out 1.5s infinite alternate-reverse}
+@keyframes skTw1{to{opacity:.15}}
+.sk-ow{position:absolute;left:50%;top:calc(50% - 3.08%);aspect-ratio:1;transform:translate(-50%,-50%) scaleY(var(--k));pointer-events:none}
+.sk-com{position:absolute;inset:0;border-radius:50%;animation:skOrb 40s linear infinite}
+.sk-com::before{content:"";position:absolute;left:50%;top:-3px;width:7px;height:7px;margin-left:-3px;border-radius:50%;background:#fff;box-shadow:0 0 10px #ffd166,0 0 22px #ffd166}
+.sk-com.b::before{background:#ffd2ec;box-shadow:0 0 10px #ff5f8f,0 0 22px #ff5f8f}
+@keyframes skOrb{to{transform:rotate(360deg)}}
+.sk-st{animation:skPop .7s cubic-bezier(.3,1.6,.5,1) var(--d,0s) backwards,jxTw 4.2s ease-in-out calc(var(--d,0s) + .8s) infinite!important;background:radial-gradient(circle,#fff 30%,color-mix(in srgb,var(--c) 70%,#fff))!important}
+@keyframes skPop{from{transform:translate(-50%,-50%) scale(0);opacity:0}}
+.sk-st[data-b="d"]{box-shadow:0 0 6px color-mix(in srgb,var(--c) 70%,transparent)!important;opacity:.55}
+.sk-c.on .sk-st{box-shadow:0 0 10px var(--c),0 0 22px color-mix(in srgb,var(--c) 60%,transparent)!important;opacity:1!important}
+.sk-ln{height:1.4px!important;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 85%,#fff),var(--c))!important;opacity:.45!important;box-shadow:0 0 6px var(--c)}
+.sk-c.on .sk-ln{opacity:.95!important}
+.sk-c.on{filter:drop-shadow(0 0 12px color-mix(in srgb,var(--c) 45%,transparent))}
+.sky .sk-n{background:rgba(11,8,32,.62);border:1px solid color-mix(in srgb,var(--c) 40%,transparent)!important;border-radius:10px;padding:3px 9px!important;letter-spacing:.06em;box-shadow:0 4px 14px rgba(0,0,0,.35);transition:transform .35s cubic-bezier(.3,1.5,.5,1),background .35s,border-color .35s}
+.sky .sk-n:hover,.sk-c.on .sk-n{transform:translateX(-50%) scale(1.1);background:color-mix(in srgb,var(--c) 22%,rgba(11,8,32,.8));border-color:var(--c)!important}
+.sk-guia::after{content:"";position:absolute;left:50%;top:23px;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;border:2px solid rgba(255,209,102,.6);animation:skRing 3s ease-out infinite;z-index:-1}
+@keyframes skRing{from{transform:scale(.6);opacity:.9}to{transform:scale(2.6);opacity:0}}
+.sk-guia i{position:relative}
+@media (prefers-reduced-motion:reduce){.sk-neb,.sk-field,.sk-com,.sk-guia::after,.sk-st{animation:none!important}}
 .sk-halo{position:absolute;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle,color-mix(in srgb,var(--c) 16%,transparent),transparent 70%);transition:transform .6s,opacity .6s;opacity:.7}
 .sk-c.on .sk-halo{transform:translate(-50%,-50%) scale(1.35);opacity:1}
 .sk-n small{display:block;font-size:.72em;font-weight:800;color:#a99bd6;letter-spacing:.06em}
@@ -2762,6 +2811,8 @@ div.jx-rkc{cursor:default}
 @media (max-width:620px){.sk-lb{font-size:9.5px}.sk-n{font-size:10px}.sk-c.on .sk-n{font-size:12px}.sk-lg{display:none}}
 @media (prefers-reduced-motion:reduce){:root[data-vis="jornada"] .nav>button[aria-current="page"]::before,:root[data-vis="jornada"] .mandado .stamp{animation:none}}
 
+
+.tring,.tring *,#tPh{pointer-events:none!important}
 </style>
 
 <div class="app">
@@ -6233,7 +6284,7 @@ function tuShow(s,anim){const ch=TUT.find(x=>x.id===(UI.tut||TUT[0].id))||TUT[0]
     tg.classList.add("focus");if(anim&&!tuRM())setTimeout(()=>{cur.classList.add("clk");tg.classList.add("pulse")},450)}}
 function tuTick(){clearTimeout(TUTP.t);if(!$("tuScene")||!TUTP.play)return;const ch=TUT.find(x=>x.id===(UI.tut||TUT[0].id))||TUT[0];
   TUTP.t=setTimeout(()=>{if(!$("tuScene"))return;const n=TUTP.s+1>=ch.st.length?0:TUTP.s+1;if(n===0){TUTP.t=setTimeout(()=>{tuShow(0,1);tuTick()},1600);return}tuShow(n,1);tuTick()},TUT_MIN_STEP+(ch.st[TUTP.s].c.length>110?1200:0))}
-function tuStart(){TUTP.play=tuRM()?0:TUTP.play;const same=TUTP.ch===(UI.tut||TUT[0].id);TUTP.ch=UI.tut||TUT[0].id;requestAnimationFrame(()=>{tuShow(same?TUTP.s:0,!same);tuTick();const b=$("tuPlay");if(b)b.textContent=TUTP.play?"Pausar":"Assistir"})}
+function tuStart(){try{requestAnimationFrame(()=>{const m=document.querySelector(".tu-menu"),c=m&&m.querySelector('[aria-current="true"]');if(m&&c)m.scrollLeft=c.offsetLeft-m.clientWidth/2+c.offsetWidth/2})}catch(e){}TUTP.play=tuRM()?0:TUTP.play;const same=TUTP.ch===(UI.tut||TUT[0].id);TUTP.ch=UI.tut||TUT[0].id;requestAnimationFrame(()=>{tuShow(same?TUTP.s:0,!same);tuTick();const b=$("tuPlay");if(b)b.textContent=TUTP.play?"Pausar":"Assistir"})}
 
 function render(){
   try{const rm=localStorage.getItem("jornada-rm-msg");if(rm&&READY){localStorage.removeItem("jornada-rm-msg");setTimeout(()=>okPop("Concurso removido",rm+" saiu da plataforma. Os outros concursos foram readequados."),300)}}catch(e){}
@@ -6247,7 +6298,7 @@ function render(){
   applySkin();if(READY){try{gjVidMig()}catch(e){console.error(e)}try{gjLinkAll()}catch(e){console.error(e)}try{alignTasks()}catch(e){console.error(e)}try{restdMeta()}catch(e){console.error(e)}try{nqMig()}catch(e){console.error(e)}if(!SCAN_BUSY)setTimeout(()=>rescanPdfs(),2500)}
   renderNav();renderTimerSel();drawClock();
   if(UI.lastTab!==TAB){if(UI.lastTab&&!UI.navBack){(window.NAVH=window.NAVH||[]).push(UI.lastTab);if(NAVH.length>30)NAVH.shift()}UI.navBack=0;UI.lastTab=TAB;const v=$("view");if(v&&!matchMedia("(prefers-reduced-motion: reduce)").matches){v.classList.remove("tabin");void v.offsetWidth;v.classList.add("tabin");clearTimeout(UI.tabT);UI.tabT=setTimeout(()=>v.classList.remove("tabin"),700)}}
-  const V={scribax:vScribax,meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:()=>vMateriais()+(VIS()?"":obSetupCard()),revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,mural:vMural,motivacao:vMotivacao,comparativo:vComparativo,esquemas:vEsquemas,rotina:()=>{const h=vRotina(),k=afCardHTML()+actCardHTML();if(!k)return h;const i=h.indexOf("</div>",h.indexOf('class="hello"'));return i>0?h.slice(0,i+6)+k+h.slice(i+6):k+h},erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,pontos:vPontos,assinatura:vAssinatura,provas:vProvas}[TAB];
+  const V={scribax:vScribax,meta:vMeta,jornada:vJornada,edital:vEdital,incidencia:vIncidencia,materiais:()=>vMateriais()+(VIS()?"":obSetupCard()),revisoes:vRevisoes,resumos:vResumos,desempenho:vDesempenho,mural:vMural,motivacao:vMotivacao,comparativo:vComparativo,esquemas:vEsquemas,rotina:()=>{const h=vRotina(),k=afCardHTML()+actCardHTML();if(!k)return h;const i=h.indexOf("</div>",h.indexOf('class="hello"'));return i>0?h.slice(0,i+6)+k+h.slice(i+6):k+h},erradas:vErradas,compat:vCompat,concurso:vConcurso,discursiva:vDiscursiva,mapas:vMapas,reforcos:vReforcos,simulados:vSimulados,tutorial:vTutorial,leiseca:vLeiseca,arquivo:vArquivo,arena:vArena,pontos:vPontos,assinatura:vAssinatura,provas:vProvas}[TAB]||(TAB="meta",vMeta);
   {const vw=$("view"),ix=t=>TABS.findIndex(x=>x[0]===t),a=ix(render.lt),b=ix(TAB),sk=[UI.jtab,UI.dtab,UI.ctab,UI.mtab,UI.rsView,UI.rotMode,UI.dmode,UI.mview,UI.dsView,UI.pvOpen].map(x=>x==null?"":String(x)).join("|"),subCh=render.lt===TAB&&render.lsk!=null&&render.lsk!==sk;
    const left=render.lt!==TAB?(UI.navDir==="l"||(!UI.navDir&&a>-1&&b>-1&&b<a)):(subCh&&UI.navDir==="l");
    vw.classList.toggle("noanim",render.lt===TAB&&!subCh);vw.classList.toggle("vw-sub",subCh);vw.classList.toggle("vw-l",(render.lt!==TAB||subCh)&&left);vw.classList.toggle("vw-r",(render.lt!==TAB||subCh)&&!left);render.lsk=sk;UI.navDir=""}render.lt=TAB;$("view").innerHTML=gnavHTML()+jxIns(V());{const vw=$("view");if(!vw.classList.contains("noanim")&&(vw.classList.contains("vw-r")||vw.classList.contains("vw-l"))&&!document.documentElement.hasAttribute("data-boot")&&!document.documentElement.hasAttribute("data-in"))vwSlide(vw.classList.contains("vw-l")?"l":"r")}try{howAttach()}catch(e){}try{cntUp($("view"))}catch(e){}brandDom($("view"));try{chartScroll($("view"))}catch(e){}if(TAB==="rotina"){initWheels($("view"));if(PLANS.me&&PLANS.me.at&&!PLANS.me.rotSeen){PLANS.me.rotSeen=1;savePlans()}}if(TAB==="tutorial")try{tuStart()}catch(e){console.error(e)}else clearTimeout(TUTP.t);
@@ -6508,7 +6559,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261111205439";
+const JX_BUILD="20261112050524";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7010,7 +7061,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111205439" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112050524" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -8200,7 +8251,7 @@ document.addEventListener("change",e=>{const el=e.target;if(!el||!el.dataset||!U
    Logo e foto do órgão: o aluno envia (ficam na conta, por concurso). Sem envio, o painel desenha um brasão genérico com a sigla. */
 const skinUrl=o=>o?(o.id&&!/^data:|^blob:/.test(o.url||"")?"/_blob/"+o.id:o.url):"";
 /* visuais: "jornada" (padrão, céu e trilha), "arena" (estilo painel esportivo) e "classic". Quem tinha "arena" salvo antes do visual Jornada passa para ele uma vez. */
-const SKIN=()=>{let v="jornada";try{v=localStorage.getItem("jornada-skin")||"jornada";if(v==="arena"&&!localStorage.getItem("jx-vis1"))v="jornada"}catch(e){}return v==="arena"?v:"jornada"};
+const SKIN=()=>{let v="jornada";try{v=localStorage.getItem("jornada-skin")||"jornada";if(v==="arena"&&!localStorage.getItem("jx-vis1"))v="jornada"}catch(e){}return"jornada"};
 const ARENA=()=>SKIN()!=="classic",VIS=()=>SKIN()==="jornada";
 function applySkin(){const r=document.documentElement,k=SKIN();if(k!=="classic")r.dataset.skin="arena";else delete r.dataset.skin;if(k==="jornada")r.dataset.vis="jornada";else delete r.dataset.vis;
   const bg=(core().skin||{}).bg;if(bg&&(bg.id||bg.url))r.style.setProperty("--skin-img",`url("${String(skinUrl(bg)).replace(/"/g,"")}")`);else r.style.removeProperty("--skin-img")}
@@ -9198,7 +9249,7 @@ function edSky(){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L=ED.m
   /* Carta celeste: as constelações ficam em anéis iguais em volta da Estrela-Guia; as que mais caem no anel de dentro */
   const CX=W/2,CY=H/2-16,BYQ=AL.slice().sort((a,b)=>b.q-a.q),nIn=N<=8?N:Math.min(9,Math.max(5,Math.round(N*.36))),RIN=BYQ.slice(0,nIn),ROUT=BYQ.slice(nIn);
   const ring=(arr,rx,ry,off)=>arr.forEach((x,k)=>{const a=(k+off)/arr.length*2*Math.PI-Math.PI/2;x.cx=CX+Math.cos(a)*rx;x.cy=CY+Math.sin(a)*ry;x.rin=arr===RIN});
-  if(ROUT.length){ring(RIN,190,122,0);ring(ROUT,372,188,.5)}else ring(RIN,290,160,0);
+  if(ROUT.length){ring(RIN,196,124,.5);const ai=RIN.map((_,k)=>((k+.5)/RIN.length)%1);let bo=0,bd=-1;[0,.125,.25,.375,.5,.625,.75,.875].forEach(o=>{let md=1;ROUT.forEach((_,k)=>{const a=((k+o)/ROUT.length)%1;ai.forEach(b=>{const d=Math.min(Math.abs(a-b),1-Math.abs(a-b));if(d<md)md=d})});if(md>bd){bd=md;bo=o}});ring(ROUT,372,188,bo)}else ring(RIN,290,160,.5);
   const f0=L.slice().sort((a,b)=>b.q-a.q)[0].s.id;let pan="",chips="",foco="";
   L.forEach((x,ci)=>{const s=x.s,P=incShow(s.id),has=incHas(s.id),nt=s.t.length;
     const pick=(has?s.t.map((_,j)=>j).sort((a,b)=>P[b]-P[a]):s.t.map((_,j)=>j)).slice(0,x.rin?8:6),pm=Math.max(1e-6,...pick.map(j=>P[j]||0)),rad=(N>12?13:20)+Math.min(N>12?8:14,x.q/mx*(N>12?8:14));
@@ -9207,7 +9258,7 @@ function edSky(){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L=ED.m
     const br=j=>{const e=E[x.i+":"+j];return e&&e.stud?(e.xp?"x":"s"):"d"};
     let ln="",st="",lb="";
     for(let k=1;k<ord.length;k++){const [x1,y1]=pos[ord[k-1]],[x2,y2]=pos[ord[k]],len=Math.hypot(x2-x1,y2-y1),ang=Math.atan2(y2-y1,x2-x1)*180/Math.PI;ln+=`<i class="sk-ln" style="left:${pc(x1/W)};top:${pc(y1/H)};width:${pc(len/W)};transform:rotate(${ang.toFixed(1)}deg);animation-delay:${(.15+ci*.06+k*.05).toFixed(2)}s"></i>`}
-    pick.forEach((j,k)=>{const [px,py]=pos[j],z=has?4+(P[j]/pm)*9:5.5;st+=`<i class="sk-st" data-b="${br(j)}" style="left:${pc(px/W)};top:${pc(py/H)};width:${z.toFixed(1)}px;height:${z.toFixed(1)}px;animation-delay:${((ci*3+k)%7)*.4}s" title="${esc(s.t[j][0])}" data-skt="${esc(s.t[j][0])}" data-sks="${s.id}" role="button" tabindex="0" aria-label="${esc(s.t[j][0])}"></i>`;
+    pick.forEach((j,k)=>{const [px,py]=pos[j],z=has?4+(P[j]/pm)*9:5.5;st+=`<i class="sk-st" data-b="${br(j)}" style="left:${pc(px/W)};top:${pc(py/H)};width:${z.toFixed(1)}px;height:${z.toFixed(1)}px;--d:${(.2+ci*.07+k*.06).toFixed(2)}s;animation-delay:${((ci*3+k)%7)*.4}s" title="${esc(s.t[j][0])}" data-skt="${esc(s.t[j][0])}" data-sks="${s.id}" role="button" tabindex="0" aria-label="${esc(s.t[j][0])}"></i>`;
       if(k<4){const rt=x.cx<W*.5,lx=Math.max(8,Math.min(W-8,x.cx+(rt?1:-1)*(rad*1.15+14))),ly=Math.max(30,Math.min(H-60,x.cy-26+k*17));lb+=`<span class="sk-lb${rt?"":" l"}${k===0?" k0":""}" style="left:${pc(lx/W)};top:${pc(ly/H)};animation-delay:${k*.08}s">${esc(s.t[j][0].length>26?s.t[j][0].slice(0,24)+"…":s.t[j][0])}</span>`}});
     sky+=`<div class="sk-c${s.id===f0?" on":""}" data-s="${s.id}" style="--c:${s.col}"><i class="sk-halo" style="left:${pc(x.cx/W)};top:${pc(x.cy/H)};width:${pc((rad*2.6+18)/W)}"></i>${ln}${st}${lb}<button class="sk-n" data-skf="${s.id}" style="left:${pc(x.cx/W)};top:${pc(Math.min(H-34,x.cy+rad*.9+8)/H)}">${esc(s.c||s.n)}<small>${nt?Math.round(s.t.filter((_,j)=>E[x.i+":"+j]&&E[x.i+":"+j].stud).length/nt*100):0}%</small></button></div>`;
     const sd=s.t.filter((_,j)=>E[x.i+":"+j]&&E[x.i+":"+j].stud).length,top=has?s.t.map((t,j)=>({t:t[0],p:P[j]})).sort((a,b)=>b.p-a.p).slice(0,7):[],tm=Math.max(1e-6,...top.map(o=>o.p));
@@ -9216,8 +9267,8 @@ function edSky(){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L=ED.m
       ${has?`${top.map(o=>`<div class="sk-br"><span>${esc(o.t)}</span><b>${pv1(o.p)}%</b><i><em style="width:${(o.p/tm*100).toFixed(1)}%;background:${s.col}"></em></i></div>`).join("")}`:`<p class="muted small" style="margin:0">Esta matéria ainda não tem a incidência por assunto. Abra a matéria abaixo e use os dados do TEC, cole de um site ou estime com IA.</p>`}</div>`;
     chips+=`<button class="sk-bar" data-skf="${s.id}" data-q="${x.q}" style="--c:${s.col}" aria-pressed="${s.id===f0}"><b>${esc(s.c||s.n)}</b><i><em style="width:${(x.q/mx*100).toFixed(1)}%"></em></i><span>${x.q}</span><small>${pv1(x.q/T*100)}%</small></button>`});
   chips=chips.split("</button>").filter(Boolean).map(x=>x+"</button>").sort((a,b)=>+(b.match(/data-q="(\d+(?:\.\d+)?)"/)||[0,0])[1]-+(a.match(/data-q="(\d+(?:\.\d+)?)"/)||[0,0])[1]).join("");
-  return`<section class="sky" data-auto="1" aria-label="Carta Celeste do Edital"><div class="sk-hd"><h2>Carta Celeste do Edital</h2><span class="muted small">${esc((()=>{try{const I=orgInfo();return[cargoTitulo(I.cargo||""),I.sig].filter(Boolean).join(" · ")}catch(e){return""}})())} · ${T} questões${(core().qwe&&Object.values(core().qwe).some(v=>v&&v.t))?" · estimativa do TEC":""}</span></div>
-   <div class="sk-w"><div class="sk-vw"><div class="sk-v"><i class="sk-orb" style="width:${pc(380/W)};height:${pc(244/H)}"></i>${N>8?`<i class="sk-orb" style="width:${pc(744/W)};height:${pc(376/H)}"></i>`:""}<i class="sk-shoot"></i>${(()=>{let dd="";try{if(provaTBD())dd="sem data de prova";else{const n=Math.max(0,Math.ceil((pd(prova())-new Date())/864e5));dd=dias0(n,"dia","dias")+" para a prova"}}catch(e){}return`<div class="sk-guia" style="top:${pc((H/2-16)/H)}"><i></i><b>ESTRELA-GUIA</b><small>aprovação${dd?" · "+dd:""}</small></div>`})()}${sky}<div class="sk-lg"><span>✦ constelação = matéria</span><span>● estrela = assunto do edital</span><span>tamanho = quanto cai</span><span>brilho = o quanto você domina</span><span>anel de dentro = matérias que mais caem</span></div></div></div>
+  return`<section class="sky" data-auto="1" aria-label="Carta Celeste do Edital"><div class="sk-hd"><h2 title="Cada constelação é uma matéria e cada estrela um assunto do edital. Tamanho = quanto cai; brilho = o quanto você domina; anel de dentro = matérias que mais caem.">Carta Celeste do Edital</h2><span class="muted small">${esc((()=>{try{const I=orgInfo();return[cargoTitulo(I.cargo||""),I.sig].filter(Boolean).join(" · ")}catch(e){return""}})())} · ${T} questões${(core().qwe&&Object.values(core().qwe).some(v=>v&&v.t))?" · estimativa do TEC":""}</span></div>
+   <div class="sk-w"><div class="sk-vw"><div class="sk-v"><i class="sk-neb n1"></i><i class="sk-neb n2"></i><i class="sk-neb n3"></i><i class="sk-field f1"></i><i class="sk-field f2"></i><i class="sk-orb" style="width:${pc(380/W)};height:${pc(244/H)}"></i>${N>8?`<i class="sk-orb" style="width:${pc(744/W)};height:${pc(376/H)}"></i>`:""}<i class="sk-ow" style="width:${pc(380/W)};--k:${(244/380*W/H).toFixed(3)}"><i class="sk-com" style="animation-duration:38s"></i></i>${N>8?`<i class="sk-ow" style="width:${pc(744/W)};--k:${(376/744*W/H).toFixed(3)}"><i class="sk-com b" style="animation-duration:64s;animation-direction:reverse"></i></i>`:""}<i class="sk-shoot"></i>${(()=>{let dd="";try{if(provaTBD())dd="sem data de prova";else{const n=Math.max(0,Math.ceil((pd(prova())-new Date())/864e5));dd=dias0(n,"dia","dias")+" para a prova"}}catch(e){}return`<div class="sk-guia" style="top:${pc((H/2-16)/H)}"><i></i><b>ESTRELA-GUIA</b><small>aprovação${dd?" · "+dd:""}</small></div>`})()}${sky}</div></div>
    <div class="sk-side"><div class="card sk-inc"><div class="sk-ih"><small>Incidência por matéria</small><button class="lnk" data-a="pvQEd">Ajustar questões</button></div>${chips}</div><div class="card sk-pn">${pan}</div></div></div>
    <div class="card sk-fo">${foco}</div></section>`}catch(e){console.error(e);return""}}
 setInterval(()=>{try{document.querySelectorAll(".sky .sk-vw").forEach(w=>{if(w.dataset.cx||w.scrollWidth<=w.clientWidth+4)return;w.dataset.cx="1";w.scrollLeft=(w.scrollWidth-w.clientWidth)/2})}catch(e){}},700);
@@ -9230,7 +9281,10 @@ function skTouch(st){const r=st.closest(".sky"),v=st.closest(".sk-v");if(!r||!v)
   clearTimeout(skTouch.t);skTouch.t=setTimeout(()=>{st.classList.remove("lit");tip.classList.remove("on")},2600)}
 document.addEventListener("click",e=>{const st=e.target&&e.target.closest&&e.target.closest(".sk-st[data-sks]");if(st)skTouch(st)});
 document.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const st=e.target&&e.target.closest&&e.target.closest(".sk-st[data-sks]");if(st){e.preventDefault();skTouch(st)}});
-function vIncidencia(){let h0=vIncidencia0();const sk=edSky();if(sk&&!UI.pvQ){const a=h0.indexOf('<section class="card"><div class="card-h"><h2>Peso de cada matéria</h2>');if(a>=0){const b=h0.indexOf("</section>",a);if(b>a)h0=h0.slice(0,a)+h0.slice(b+10)}}return(sk&&h0.includes('<div class="cmp-k">')?h0.replace('<div class="cmp-k">',sk+'<div class="cmp-k">'):sk+h0)+(TIER()==="basico"&&!UI.premSee?.prio?premLock("prio","Cruza a incidência de cada assunto com o seu acerto e mostra o que estudar primeiro em cada matéria."):prioHTML())}
+function vIncidencia(){let h0=vIncidencia0();const sk=edSky();
+  if(sk){h0=h0.replace(/<div class="cmp-k">[\s\S]*?matérias com incidência dos assuntos<\/span><\/div><\/div>/,'<div class="cmp-k-x"></div>');
+    const ai=h0.indexOf('<section class="card"><div class="card-b row" style="align-items:center;gap:12px"><span style="flex:1 1 300px"><b>Assuntos que mais caem</b>');
+    if(ai>=0)h0=h0.slice(0,ai)+`<details class="card inc-adv"><summary class="card-h" style="cursor:pointer;list-style:none"><h2>Ajustar os assuntos de cada matéria</h2><span class="muted small">colar dados de um site, estimar com IA ou mudar as porcentagens</span></summary><div class="card-b" style="display:grid;gap:12px">`+h0.slice(ai)+`</div></details>`}if(sk&&!UI.pvQ){const a=h0.indexOf('<section class="card"><div class="card-h"><h2>Peso de cada matéria</h2>');if(a>=0){const b=h0.indexOf("</section>",a);if(b>a)h0=h0.slice(0,a)+h0.slice(b+10)}}return(sk&&h0.includes('<div class="cmp-k-x"></div>')?h0.replace('<div class="cmp-k-x"></div>',sk):sk&&h0.includes('<div class="cmp-k">')?h0.replace('<div class="cmp-k">',sk+'<div class="cmp-k">'):sk+h0)+(TIER()==="basico"&&!UI.premSee?.prio?premLock("prio","Cruza a incidência de cada assunto com o seu acerto e mostra o que estudar primeiro em cada matéria."):prioHTML())}
 function vIncidencia0(){const h=vProva().replace(/^<p class="muted" style="margin:0;max-width:75ch">[\s\S]*?<\/p>/,"");
   return`<div class="hello"><h1>Incidência</h1><p>Quanto cada matéria vale na prova${IS_TJ?" de Oficial de Justiça do TJSP":PLAN&&PLAN.name?" de "+esc(PLAN.name):""} e quais assuntos mais caem em cada matéria. A IA se baseia nessas informações para montar os seus resumos, os simulados e a prioridade das questões; o planejamento das metas também.</p></div>${h}`}
 /* ---------- Aba Estrutura da prova ---------- */
@@ -11210,7 +11264,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111205439&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112050524&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
