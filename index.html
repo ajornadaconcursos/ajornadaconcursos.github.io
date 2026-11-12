@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611120957"></script>
+<script src="/claude-shim.js?v=202611121045"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -5665,7 +5665,7 @@ Formato (texto simples, sem HTML):
 - Palavras-chave em **negrito**. Comece com "ATENÇÃO:" o que mais cai ou o que o aluno errou. Cite o artigo quando o material citar.
 - Comparações com 3 ou mais diferenças viram TABELA Markdown (| Ponto | X | Y |, com a linha |---|---|---|), células curtas. Reproduza os quadros dos esquemas e do PDF.
 - Sequências e procedimentos numa linha "↳ Etapa → Etapa → Etapa".
-- Toda lista que a banca cobra ganha um mnemônico numa linha "🧠 **SIGLA** – Item 1, Item 2…" com as iniciais dos itens reais (use o do professor ou do aluno se houver; nunca invente item).
+- Toda lista que a banca cobra ganha um mnemônico numa linha "🧠 **SIGLA** – Item 1, Item 2…" com as iniciais dos itens reais: uma palavra pronunciável de até 7 letras ou uma frase curta em que cada palavra começa com a inicial de um item (use o do professor ou do aluno se houver; nunca invente item).
 - Feche com "## Para não confundir": de 3 a 6 pares que a banca troca. E depois "## Para memorizar": os mnemônicos reunidos.${extra2||""}`;
   let md="",tries=0;
   for(;tries<2;tries++){const r=await SAMPLE(mk(tries?"\n- ATENÇÃO: a versão anterior trouxe números ou artigos que não estão no material. Use só o que está no material.":""),imgs.length?{images:imgs,modelTier:IA_LEVE}:{modelTier:IA_LEVE});
@@ -6718,7 +6718,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261112095729";
+const JX_BUILD="20261112104504";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7220,7 +7220,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112095729" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112104504" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -8900,7 +8900,7 @@ Atue como especialista em mentorias de alto desempenho para concursos. O BIZU é
 2. "## Dispositivos": os dispositivos constitucionais/legais aplicáveis (ex.: Art. 37, CF/88), transcrevendo só o trecho indispensável ou resumindo de forma cirúrgica. Se o material não citar lei, pule esta seção.
 3. "## Conceitos-chave": itens "- " curtos com **negrito** nos conceitos; comparações diretas no formato "**X** x **Y**: diferença em poucas palavras" (ex.: **Subsídio** x **Vencimento** x **Salário**).
 4. "## Alertas de prova": itens começando por "ATENÇÃO!", "Grave:" ou "Jurisprudência:" (este só se o material trouxer súmula ou julgado).
-5. "## Para memorizar": se as páginas tiverem lista, comparação ou prazos, 1 ou 2 mnemônicos numa linha que começa com "🧠 " ("🧠 **SIGLA** – Item 1, Item 2…", com as iniciais dos itens reais) e/ou uma tabela Markdown pequena (| X | Y |, com a linha |---|---|). Nunca invente item para fechar a sigla. Se não houver o que memorizar, pule.
+5. "## Para memorizar": se as páginas tiverem lista, comparação ou prazos, 1 ou 2 mnemônicos numa linha que começa com "🧠 " ("🧠 **SIGLA** – Item 1, Item 2…", com as iniciais dos itens reais: palavra pronunciável de até 7 letras ou frase curta com as iniciais) e/ou uma tabela Markdown pequena (| X | Y |, com a linha |---|---|). Nunca invente item para fechar a sigla. Se não houver o que memorizar, pule.
 Linguagem direta, para memorização rápida, sem enrolação teórica.
 ${(()=>{const e=esqTxt(t.sid,t.aula,6000);return e?"Os esquemas do aluno desta aula também são base:\n<esquemas_do_aluno>\n"+e+"\n</esquemas_do_aluno>\n":""})()}${mat?"Use SOMENTE o conteúdo do material abaixo (páginas desta atividade). Não invente artigos nem números.\n<material>\n"+mat+"\n</material>":"Use SOMENTE o resumo da aula abaixo. Não invente artigos nem números.\n<resumo>\n"+String(rd&&rd.txt||"").slice(0,8000)+"\n</resumo>"}`;
       const r=await SAMPLE(prompt,{modelTier:IA_LEVE,onText:({text})=>{const o=$("bzOut");if(o&&UI.openT===t.id)o.innerHTML=mdLite(text)}});txt=(r&&r.text||"").trim()}
@@ -9689,9 +9689,9 @@ function mdMnem(t){const m=t.match(/^<b>(.+?)<\/b>\s*[–—-]\s*(.+)$/);if(!m)r
 const MEMO=(fim)=>`
 DIRECIONAMENTO (o mais importante): o resumo é para a prova de ${dsCargo()}, banca ${dsBanca()}. Escreva pensando no que ESTA banca cobra para ESTE cargo:
 - dê mais espaço, detalhe e destaque aos assuntos de maior incidência e ao que já caiu nas questões; o que quase não cai fica curto;
-- mostre COMO a banca cobra: a ${dsBanca()} costuma cobrar literalidade, troca de palavras, exceções, prazos ou casos práticos? Diga isso no ponto, numa linha "Como cai: …";
+- mostre COMO a banca cobra numa linha "Como cai: …", SÓ quando houver base nas questões, nas provas ou na incidência dadas (cite o caso ou o ano da questão). Sem base, não escreva "Como cai";
 - toda regra com exceção ganha uma linha "Exceção: …"; toda troca que a banca faz ganha uma linha "Pegadinha: …"; um macete de prova ganha "Dica: …";
-- quando a banca cobra a letra da lei, transcreva só o trecho decisivo numa linha que começa com "> " (ex.: "> Art. 241, II – cumprir as ordens superiores, representando quando forem manifestamente ilegais").
+- quando a banca cobra a letra da lei, transcreva SÓ o trecho decisivo (no máximo 2 linhas, um inciso por vez) numa linha que começa com "> " (ex.: "> Art. 241, II – cumprir as ordens superiores, representando quando forem manifestamente ilegais"). Nunca copie o artigo inteiro: listas longas viram tabela.
 ORGANIZAÇÃO: um "## " por assunto, na ordem da aula; dentro dele, "### " para cada parte (conceito, regra, exceções, consequência). Itens curtos e completos, sem enrolação, mas com TODO o detalhe que a banca cobra (palavras exatas, números, exceções).
 FERRAMENTAS DE MEMORIZAÇÃO (obrigatórias, sempre tiradas do conteúdo das fontes: PDF, esquemas, mapas mentais e marcações do aluno):
 - TABELAS: sempre que houver comparação, classificação, espécies, prazos, competências, requisitos ou um quadro do professor, monte uma tabela em Markdown, com cabeçalho e a linha de separação, ex.:
@@ -9700,7 +9700,9 @@ FERRAMENTAS DE MEMORIZAÇÃO (obrigatórias, sempre tiradas do conteúdo das fon
 | **Prescrição** | perda da pretensão | interrompe/suspende |
 Até 5 colunas, células curtas (até 12 palavras). Reproduza os quadros e tabelas que estiverem no PDF e nos esquemas do aluno, com os mesmos dados.
 - ESQUEMAS: para sequências, fases, procedimentos e causa → consequência, escreva uma linha que começa com "↳ " e liga as etapas com " → " (ex.: "↳ Citação → Resposta em 15 dias → Revelia se não responder").
-- MNEMÔNICOS: para cada lista que a banca cobra (requisitos, princípios, espécies, hipóteses, elementos), crie uma linha que começa com "🧠 " no formato "🧠 **SIGLA** – Item 1, Item 2, Item 3" (ou uma frase-chave fácil de lembrar), usando as iniciais dos itens REAIS da lista. Se existir mnemônico consagrado (ex.: LIMPE), use-o. Se o professor ou o esquema do aluno trouxer um mnemônico, use o dele. Nunca invente item para fechar a sigla.
+- MNEMÔNICOS: para cada lista que a banca cobra (requisitos, princípios, espécies, hipóteses, elementos), crie uma linha que começa com "🧠 " no formato "🧠 **SIGLA** – Item 1, Item 2, Item 3", usando as iniciais dos itens REAIS da lista, na ordem que ficar mais fácil.
+  O mnemônico precisa ser FÁCIL DE LEMBRAR: uma palavra pronunciável de até 7 letras (ex.: **LIMPE**) ou uma frase curta e engraçada em que cada palavra começa com a inicial de um item (ex.: **Rato Sujo Mexe, Dono Demite e Cassa** – Repreensão, Suspensão, Multa, Demissão, Demissão a bem do serviço público, Cassação). Nunca uma sigla impronunciável ou com mais de 7 letras.
+  Lista com mais de 7 itens: faça o mnemônico só dos itens que mais caem, ou divida em 2 grupos com um mnemônico para cada. Se existir mnemônico consagrado, use-o; se o professor ou o esquema do aluno trouxer um, use o dele. Nunca invente item para fechar a sigla.
 Coloque cada tabela, esquema e mnemônico dentro do assunto a que pertence.${fim?`
 Feche com "## Para memorizar": os mnemônicos do resumo reunidos e, se houver muitos números, uma tabela-resumo de prazos e números.`:""}`;
 function tecText(q){if(q.bulk)return`Material colado pelo aluno${q.link?" ("+q.link+")":""}:\n${String(q.com||"").slice(0,12000)}`;return`Questão TEC ${q.n||""}${q.as?" – assunto: "+q.as:""}\nEnunciado: ${q.q||"(não informado)"}\nGabarito: ${q.gab||"(não informado)"}\nComentários: ${q.com||"(sem comentários)"}`}
@@ -11546,7 +11548,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112095729&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112104504&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
