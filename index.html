@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611121058"></script>
+<script src="/claude-shim.js?v=202611121107"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -2531,13 +2531,38 @@ kbd{font:600 10.5px var(--f-body);border:1px solid var(--line2);border-bottom-wi
 :root[data-vis="jornada"] .jw-cume .jw-f .lnk{color:#ffb3cc;padding:0}
 @media (max-width:700px){:root[data-vis="jornada"] .jw-cume .jw-h{position:static;padding:12px 14px 6px}:root[data-vis="jornada"] .jw-cume .jw-f{position:static;flex-wrap:wrap;background:none}}
 /* meta: anel à esquerda ocupando a altura do card */
-:root[data-vis="jornada"] .mandado:has(.mr-b){display:grid;grid-template-columns:290px minmax(0,1fr);column-gap:28px;align-items:center}:root[data-vis="jornada"] .mandado .mr-ring{justify-self:center}
+:root[data-vis="jornada"] .mandado .mdw:has(.mr-b){display:grid;grid-template-columns:290px minmax(0,1fr);column-gap:28px;align-items:center}:root[data-vis="jornada"] .mandado .mr-ring{justify-self:center}
 :root[data-vis="jornada"] .mandado .mr-b{display:contents}
 @media (max-width:900px){:root[data-vis="jornada"] .mandado .mr-r{padding:0 18px 18px}}
 :root[data-vis="jornada"] .mandado .mr-ring{grid-column:1;grid-row:1/3;justify-self:center}
 :root[data-vis="jornada"] .mandado .m-head{grid-column:2;grid-row:1;min-width:0}
 :root[data-vis="jornada"] .mandado .mr-r{grid-column:2;grid-row:2;min-width:0}
-@media (max-width:760px){:root[data-vis="jornada"] .mandado:has(.mr-b){grid-template-columns:1fr}:root[data-vis="jornada"] .mandado .m-head{grid-column:1;grid-row:1}:root[data-vis="jornada"] .mandado .mr-ring{grid-column:1;grid-row:2;margin:10px 0}:root[data-vis="jornada"] .mandado .mr-r{grid-column:1;grid-row:3}}
+@media (max-width:760px){:root[data-vis="jornada"] .mandado .mdw:has(.mr-b){grid-template-columns:1fr}:root[data-vis="jornada"] .mandado .m-head{grid-column:1;grid-row:1}:root[data-vis="jornada"] .mandado .mr-ring{grid-column:1;grid-row:2;margin:10px 0}:root[data-vis="jornada"] .mandado .mr-r{grid-column:1;grid-row:3}}
+:root[data-vis="jornada"] .mandado{container-type:inline-size;container-name:meta}
+.mandado .m-meta{min-width:0}.mandado .m-meta .code{white-space:nowrap}
+.mv-sw button{min-width:0;overflow:hidden;text-overflow:ellipsis}
+/* cartão da meta estreito (tablet, notebook pequeno): faixa de título no topo, anel e conteúdo lado a lado */
+@container meta (min-width:561px){
+ :root[data-vis="jornada"] .mandado .mdw:has(.mr-b){grid-template-columns:clamp(190px,32%,270px) minmax(0,1fr);column-gap:20px;align-items:start;padding-bottom:16px}
+ :root[data-vis="jornada"] .mandado .m-head{grid-column:1/-1;grid-row:1;display:flex;flex-wrap:nowrap;align-items:flex-end;justify-content:space-between;gap:14px;padding:18px 20px 14px;border-bottom:1px solid rgba(160,107,255,.16);margin-bottom:14px}
+ :root[data-vis="jornada"] .mandado .m-num{flex:0 0 auto}
+ :root[data-vis="jornada"] .mandado .m-meta{display:grid;justify-items:end;gap:6px;flex:0 1 auto;text-align:right;margin:0}
+ :root[data-vis="jornada"] .mandado .mv-sw{min-width:0;width:auto;margin-top:2px;justify-self:end}
+ :root[data-vis="jornada"] .mandado .mr-ring{grid-column:1;grid-row:2;align-self:center;justify-self:center;margin:0 0 0 16px;width:calc(100% - 16px);max-width:200px;height:auto}
+ :root[data-vis="jornada"] .mandado .mr-b.mv-mochila .mr-ring,:root[data-vis="jornada"] .mandado .mr-b.mv-eq .mr-ring{max-width:250px}
+ :root[data-vis="jornada"] .mandado .mv-bag,:root[data-vis="jornada"] .mandado .mv-eq{width:100%;max-width:250px}
+ :root[data-vis="jornada"] .mandado .mr-ring svg{width:100%;height:auto;max-width:200px}
+ :root[data-vis="jornada"] .mandado .mr-r{grid-column:2;grid-row:2;padding:0 20px 0 0}
+}
+@container meta (max-width:560px){
+ :root[data-vis="jornada"] .mandado .mdw:has(.mr-b){grid-template-columns:1fr}
+ :root[data-vis="jornada"] .mandado .m-head{grid-column:1/-1;grid-row:1;display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px;padding:18px 18px 12px;border-bottom:1px solid rgba(160,107,255,.16);margin-bottom:12px}
+ :root[data-vis="jornada"] .mandado .m-meta{justify-items:start;text-align:left;width:100%}
+ :root[data-vis="jornada"] .mandado .m-meta>*{justify-self:start;margin-left:0}
+ :root[data-vis="jornada"] .mandado .mv-sw{width:100%;justify-self:stretch}
+ :root[data-vis="jornada"] .mandado .mr-ring{grid-column:1;grid-row:2;margin:4px auto 12px}
+ :root[data-vis="jornada"] .mandado .mr-r{grid-column:1;grid-row:3;padding:0 18px}
+}
 .jw-wf{animation:jwWave 1.6s ease-in-out infinite}@keyframes jwWave{0%,100%{transform:skewY(0) scaleX(1)}50%{transform:skewY(-6deg) scaleX(.92)}}
 .jw-spk{animation:jwSpk 1.8s ease-in-out infinite both;transform-box:fill-box;transform-origin:center}@keyframes jwSpk{0%,100%{opacity:.15}50%{opacity:1}}
 .jw-glo>circle{animation:jwGlo 2.4s ease-in-out infinite}@keyframes jwGlo{0%,100%{opacity:.35}50%{opacity:.7}}
@@ -6718,7 +6743,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261112105803";
+const JX_BUILD="20261112110729";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7220,7 +7245,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112105803" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112110729" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -7762,7 +7787,7 @@ function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
     const e=dbet(r.done,mLast(r));
     notice=rem?(e>0?`<div class="notice ok"><div class="tx"><b>Você cumpriu a Meta ${pad(r.n)} ${dias(e)} antes do prazo.</b>Quer abrir a Meta ${pad(r.n+1)} agora? Se preferir manter o ritmo, ela abre sozinha em ${dm(r.end)}.</div><button class="btn pri" data-a="anticipate">Abrir a Meta ${pad(r.n+1)}</button>${r.keep?"":`<button class="btn" data-a="keep">Manter para ${dm(r.end)}</button>`}</div>`:""):`<div class="notice ok"><div class="tx"><b>Edital concluído.</b>Você cumpriu todas as metas previstas. Agora é revisar e resolver questões até a prova.</div></div>`;
   }else if(!r.done&&st.c==="bad"){notice=`<div class="notice bad"><div class="tx"><b>${st.t}.</b>A próxima meta só abre quando esta for cumprida.${nowPh?" Continue pela fase "+PHN[nowPh]+".":""}</div><button class="btn" data-a="adiar">Adiar 1 dia</button></div>`}
-  h+=`<div class="grid2"><section class="card mandado" aria-label="Meta atual">
+  h+=`<div class="grid2"><section class="card mandado" aria-label="Meta atual"><div class="mdw">
     <div class="m-head"><div class="m-num"><small>${VIS()?"Acampamento atual":"Meta atual"}</small><b>Meta ${pad(r.n)}</b></div>
     <div class="m-meta"><span class="code">${c.gj?"Guruja · Meta "+pad(r.n):"OJ-TJSP · "+pad(r.n)+"/"+pad(tot)}</span><span class="muted small">${c.gj?"Igual ao planejamento do Guruja"+(c.gj.last?" · sincronizado em "+dm(c.gj.last):""):"Oficial de Justiça · VUNESP"}</span>${VIS()?metaVisSw():""}</div></div>
     ${r.done?`<div class="stamp" aria-hidden="true">${VIS()?"Meta "+pad(r.n)+" cumprida":"Cumprida"}<small>${dm(r.done)}</small></div>`:""}
@@ -7771,7 +7796,7 @@ function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
       <div class="m-stats"><span>${ic("check")}<b>${dn}</b> de ${ts.length} atividades</span><span><b>${nsub}</b> disciplinas</span><span><b>${fmtM(sum(ts.map(t=>t.min)))}</b> previstos</span><span>Iniciada <b>${dm(r.start)}</b></span><span>Prazo <b>${dm(mLast(r))}</b>${r.adi?" · adiada "+r.adi+"x":""}</span><span class="chip ${st.c}"><span class="d"></span>${st.t}</span></div>
       ${VIS()?metaNow(ts,locks,r):`<div class="phases">${phases}</div>`}
       ${notice}
-    ${VIS()?"</div>":""}</div>${VIS()?metaParty(r):""}</section>
+    ${VIS()?"</div>":""}</div>${VIS()?metaParty(r):""}</div></section>
     ${VIS()?`<div class="hj-side">${nextCardJx(r,rem)}${revMini()}</div>`:nextCard(r,rem)}</div>`;
   const mv=UI.mview||"lista";
   h+=`<div class="mvt" role="group" aria-label="Visualização da meta"><button data-a="mview" data-v="lista" aria-pressed="${mv==="lista"}">${ic("list")} Lista</button><button data-a="mview" data-v="cal" aria-pressed="${mv==="cal"}">${ic("concurso")} Calendário</button>
@@ -11548,7 +11573,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112105803&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112110729&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
