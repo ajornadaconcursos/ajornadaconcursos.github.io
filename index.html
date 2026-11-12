@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611121145"></script>
+<script src="/claude-shim.js?v=202611121212"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -2252,6 +2252,7 @@ html body .alist .arow .tpc{font-size:14.5px;padding:3px 10px;border-radius:999p
 .modal .box::-webkit-scrollbar{width:8px}.modal .box::-webkit-scrollbar-thumb{background:rgba(150,150,190,.45);border-radius:8px}.modal .box::-webkit-scrollbar-track{background:transparent}
 @media (max-width:620px){.modal .box{max-height:calc(100dvh - 20px)}}.box.cs h3{margin:0;font-size:24px;line-height:1.15}.box.cs>p{margin:0}
 .cs-k{font-size:11.5px;letter-spacing:.02em;text-transform:uppercase;color:var(--lime-txt);font-weight:700}
+.cs-all{display:grid;gap:8px;padding:12px 14px;border-radius:12px;background:rgba(63,212,122,.08);border:1px solid rgba(63,212,122,.35);font-size:14px}.cs-all .cs-how{margin:0}
 .imp-all{display:grid;gap:8px;padding:12px 14px;border-radius:14px;background:rgba(63,212,122,.08);border:1px solid rgba(63,212,122,.35);font-size:14px}.imp-all .btn{justify-self:start}
 .cs-pac{display:grid;gap:8px;padding:12px 14px;border-radius:14px;background:rgba(160,107,255,.08);border:1px solid rgba(160,107,255,.25)}.cs-pacl{display:flex;flex-wrap:wrap;gap:6px}.cs-pacl span{font-size:12.5px;padding:4px 9px;border-radius:999px;border:1px solid var(--line2);color:var(--mute)}.cs-pacl span.ok{color:inherit;border-color:rgba(63,212,122,.5);background:rgba(63,212,122,.1)}.cs-pacl small{color:var(--mute)}.cs-pac .lnk{justify-self:start}
 .cs-op{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:12px}
@@ -6745,7 +6746,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261112114534";
+const JX_BUILD="20261112121245";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7247,7 +7248,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112114534" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112121245" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -10466,8 +10467,19 @@ function csTrazerHTML(X){const T=X.tb==="est"?"link":(X.tb||"link"),busy=X.busy,
    ${X.err?`<p class="pwarn small" style="margin:0">${esc(X.err)}</p>`:""}
    <p class="cs-tip">${ic("book")} <span><b>Opcional:</b> se quiser estudar as aulas aqui dentro, baixe o PDF de cada aula na plataforma e envie em <b>Estudar › Aulas e PDFs</b>. A Jornada divide a teoria em partes, faz o resumo e liga as questões àquela aula.</span></p>
    <div class="row" style="justify-content:space-between"><button class="btn ghost" data-a="csBack">Voltar</button><button class="btn ghost" data-a="csSkip">Vincular matéria por matéria</button></div>`}
-function csPacHTML(X){const P=X.pac||[];if(!P.length)return"";const ok=P.filter(p=>p.n).length;
-  return`<div class="cs-pac"><b>${ic("list")} Seu pacote: ${ok} de ${P.length} cursos com aulas</b><div class="cs-pacl">${P.map(p=>`<span class="${p.n?"ok":""}">${p.n?ic("check"):"○"} ${esc(p.curso.slice(0,60))}${p.n?` <small>${p.n} aulas</small>`:""}</span>`).join("")}</div>${ok<P.length?`<span class="muted small">Abra o próximo curso sem ✓, copie a página das aulas e cole aqui.</span>`:`<span class="muted small">Todos os cursos com aulas. Toque em Conferir e vincular.</span>`}<button class="lnk small" data-a="csAccClr">Recomeçar do zero</button></div>`}
+function csPacHTML(X){const P=X.pac||[];if(!P.length)return"";const ed=P.filter(p=>p.sid),fora=P.filter(p=>!p.sid),ok=ed.filter(p=>p.n).length,mob=matchMedia("(pointer:coarse)").matches;
+  const chip=p=>`<span class="${p.n?"ok":""}">${p.n?ic("check"):"○"} ${esc(p.curso.slice(0,60))}${p.n?` <small>${p.n} aulas</small>`:p.sid?` <small>${esc(SUB(p.sid).c)}</small>`:""}</span>`;
+  return`<div class="cs-pac"><b>${ic("list")} Seu pacote: ${ok} de ${ed.length||P.length} matérias do edital com aulas</b>
+   ${ok<(ed.length||P.length)?`<div class="cs-all"><b>${ic("bulb")} Trazer todas as aulas de uma vez (recomendado)</b>
+    <span>Em vez de abrir curso por curso, o botão <b>➜ A Jornada</b> lê, dentro da sua conta já logada, todos os seus cursos e as aulas de cada um, com o link de cada aula.</span>
+    ${mob?`<ol class="cs-how"><li>Toque em <b>Copiar o botão</b>.</li><li>No Chrome, toque na estrela ☆ para salvar qualquer página nos favoritos, depois em <b>Editar</b>: mude o nome para <b>A Jornada</b> e, no endereço, apague tudo e cole.</li><li>Abra <b>Meus cursos</b> no site do Estratégia (no navegador, não no aplicativo), já logado(a).</li><li>Toque na barra de endereço, digite <b>A Jornada</b> e toque no favorito que aparece (o da estrela). Depois, em <b>Ler as aulas</b> e <b>Enviar para A Jornada</b>.</li></ol>
+     <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn pri" data-a="estCopy">${ic("plus")} Copiar o botão</button><a class="btn" href="https://www.estrategiaconcursos.com.br/app/dashboard/cursos" target="_blank" rel="noopener">${ic("ext")} Abrir Meus cursos</a></div>`
+    :`<ol class="cs-how"><li>Arraste este botão para a barra de favoritos: <a class="btn sm pri estbm" href="${esc(estBm())}" data-a="estBmTip" draggable="true" onclick="event.preventDefault()">➜ A Jornada</a> <span class="muted small">(Ctrl+Shift+B mostra a barra)</span></li><li>Abra <b>Meus cursos</b> no Estratégia, já logado(a), e clique no favorito. Depois, em <b>Ler as aulas</b> e <b>Enviar para A Jornada</b>.</li></ol>
+     <a class="btn" href="https://www.estrategiaconcursos.com.br/app/dashboard/cursos" target="_blank" rel="noopener">${ic("ext")} Abrir Meus cursos</a>`}</div>
+   <span class="muted small">Ou, curso por curso: abra um curso sem ✓, copie a página das aulas e cole aqui.</span>`:`<span class="muted small">Todas as matérias com aulas. Toque em Conferir e vincular.</span>`}
+   <div class="cs-pacl">${(ed.length?ed:P).map(chip).join("")}</div>
+   ${ed.length&&fora.length?`<details class="small"><summary>${fora.length} cursos do pacote fora do seu edital (não precisa trazer)</summary><div class="cs-pacl" style="margin-top:6px">${fora.map(chip).join("")}</div></details>`:""}
+   <button class="lnk small" data-a="csAccClr">Recomeçar do zero</button></div>`}
 function csConfHTML(X){const R=X.res||[],used=new Set(Object.values(X.map||{}).filter(v=>v!=null&&v!==""));
   const opts=(sid)=>`<option value="">Sem curso: segue o edital</option>`+R.map((r,i)=>`<option value="${i}" ${String((X.map||{})[sid])===String(i)?"selected":""}>${esc(r.curso.slice(0,70))} · ${r.aulas.length} aulas</option>`).join("");
   const fora=R.map((r,i)=>used.has(String(i))?null:r).filter(Boolean),n=ED.filter(s=>(X.map||{})[s.id]!=null&&(X.map||{})[s.id]!=="").length;
@@ -11585,7 +11597,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112114534&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112121245&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
