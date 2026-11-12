@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611112029"></script>
+<script src="/claude-shim.js?v=202611112054"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -1533,6 +1533,25 @@ header.top{display:flex;flex-direction:column}.fmrow2{display:contents}header.to
 /* engrenagem da conta dentro do bloco do aluno (não cobre o chip) */
 .side .who{position:relative}.side .who #jx-fab{position:absolute!important;left:auto!important;right:4px!important;top:6px!important;bottom:auto!important;width:28px!important;height:28px!important;font-size:13px!important;opacity:.8}
 :root[data-navc="1"] .side .who #jx-fab{position:static!important;margin:6px auto 0;display:block;grid-column:1/-1}
+/* tablet e celular: cabeçalho em 3 faixas (marca e Continuar · relógio · abas numa linha que desliza) */
+@media (max-width:1100px){
+ :root[data-skin] header.top .fmr{order:-1;display:flex!important;flex-wrap:nowrap;align-items:center;gap:10px;padding:10px 16px 4px}
+ :root[data-skin] header.top .fmr .fmbrand{flex:1 1 auto;min-width:0}:root[data-skin] header.top .fmr .fmbrand b,:root[data-skin] header.top .fmr .fmbrand small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ :root[data-skin] header.top .fmr .fmgo{flex:0 0 auto;min-width:210px}
+ :root[data-skin] header.top .top-in{display:flex!important;flex-wrap:nowrap;align-items:center;gap:8px;padding:6px 16px!important;height:auto!important}
+ :root[data-skin] header.top .top-in .tcap{flex:none}:root[data-skin] header.top .top-in{order:1}:root[data-skin] header.top .fmr{order:0!important}:root[data-skin] header.top .top-in .tsel{flex:1 1 120px;min-width:110px;width:auto!important;height:42px}
+ :root[data-skin] header.top .tseg{min-width:150px}:root[data-skin] header.top .tcap .clock{font-size:26px!important}:root[data-skin] header.top .fmr .skinbtn{flex:none}:root[data-skin] header.top .skinbtn.sk2 span{padding:5px 8px;font-size:11px}:root[data-skin] header.top .top-in{min-width:0}
+ :root[data-skin] header.top .mtabs{order:2;display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:8px;padding:6px 16px 10px!important;scroll-snap-type:x proximity;mask-image:linear-gradient(90deg,#000 92%,transparent)}
+ :root[data-skin] header.top .mtabs::-webkit-scrollbar{display:none}:root[data-skin] header.top .mtabs button{flex:none;scroll-snap-align:start}
+}
+@media (max-width:700px){
+ :root[data-skin] header.top .fmr{flex-wrap:wrap;row-gap:8px}:root[data-skin] header.top .fmr .fmbrand{flex:1 1 calc(100% - 165px)!important;order:0}:root[data-skin] header.top .fmr .skinbtn{order:1}:root[data-skin] header.top .fmr .fmdate{order:2}:root[data-skin] header.top .fmr .fmgo{order:3;flex:1 1 auto!important}:root[data-skin] header.top .fmr .fmdate{flex:none}:root[data-skin] header.top .fmr .fmgo{flex:1 1 auto;min-width:0}
+ :root[data-skin] header.top .top-in{flex-wrap:wrap}:root[data-skin] header.top .top-in .tsel{flex:1 1 60%}
+}
+/* troca de aba no tablet e no celular: desliza de leve, sem piscar */
+@media (max-width:1100px),(pointer:coarse){html #view.jx-sl>*{animation:jxSl .42s cubic-bezier(.16,1,.3,1) both!important}html #view.jx-sl>*:nth-child(2){animation-delay:.04s!important}html #view.jx-sl>*:nth-child(3){animation-delay:.08s!important}html #view.jx-sl>*:nth-child(n+4){animation-delay:.12s!important}}
+@keyframes jxSl{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){html #view.jx-sl>*{animation:none!important}}
 /* celular e tablet: troca de tela sem esmaecer (nada some e volta) */
 @media (max-width:1100px),(pointer:coarse){#view,#view>*,#view.tabin>*,#view:not(.noanim)>*,#view.vw-r,#view.vw-l,#view.vw-sub,.app{animation:none!important;transition:none!important}}
 :root[data-navc="1"] .side>.brand .mark{width:40px;height:40px;border-radius:11px}
@@ -2110,7 +2129,7 @@ html body .alist .arow .tpc{font-size:14.5px;padding:3px 10px;border-radius:999p
 .tcap[data-m="pomo"] .tseg .seg-pill{transform:translateX(100%)}
 .tseg button{position:relative;z-index:1;background:none!important;box-shadow:none!important;border:0!important;color:#b9acde!important;font-weight:800!important;font-size:13px!important;padding:7px 10px!important;transition:color .3s}
 .tseg button[aria-pressed="true"]{color:#fff!important}
-.tcap .clock{display:flex;align-items:baseline;font:600 34px/1 Oswald,var(--f-cond,"Arial Narrow"),sans-serif!important;letter-spacing:.02em;font-variant-numeric:tabular-nums;min-width:0;overflow:hidden;padding:2px 0}
+.tcap .clock{min-width:0!important;display:flex;flex:none!important;align-items:baseline;font:600 34px/1 Oswald,var(--f-cond,"Arial Narrow"),sans-serif!important;letter-spacing:.02em;font-variant-numeric:tabular-nums;padding:2px 0;overflow:visible}
 .tcap .clock u{color:#fff;text-decoration:none;display:inline-block;min-width:.56em;text-align:center}.tcap .clock u.c{min-width:.3em;opacity:.55}.tcap .clock u.s{color:#7cf0a8}.tcap[data-m="pomo"] .clock u.s{color:#ff8fb0}
 .tcap.run .clock u.c{animation:tBlink 2s ease-in-out infinite}@keyframes tBlink{50%{opacity:.18}}
 .tcap .clock u.roll{animation:tRoll .34s cubic-bezier(.2,.9,.3,1.25)}@keyframes tRoll{from{transform:translateY(60%);opacity:0}to{transform:none;opacity:1}}
@@ -3179,6 +3198,8 @@ function obFresh(){try{const c=core();return !PLANS.onb&&obEmpty()&&!(c.cfg&&c.c
 /* ainda sem concurso escolhido (conta nova, ou começou a escolher e não terminou): nada de concurso de base */
 function obPending(){if(DB&&!PULLED)return false;return obFresh()||(!!PLANS.onb&&!PLANS.tjOk&&obEmpty())}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-a][data-v],[data-a][data-t]");if(!b||!b.parentElement)return;const sib=[...b.parentElement.children].filter(x=>x.matches("[data-a]"));const on=sib.findIndex(x=>x.getAttribute("aria-pressed")==="true"||x.classList.contains("on")||x.classList.contains("act")||x.getAttribute("aria-current")),i=sib.indexOf(b);UI.navDir=on>-1&&i>-1&&i!==on?(i<on?"l":"r"):""},true);
+function skinDock(){try{const b=$("skinBtn"),f=document.querySelector("header.top .fmr"),t=document.querySelector("header.top .top-in");if(!b||!f||!t)return;const m=matchMedia("(max-width:1100px)").matches;if(m&&b.parentElement!==f)f.insertBefore(b,f.querySelector(".fmdate"));else if(!m&&b.parentElement!==t)t.appendChild(b)}catch(e){}}
+addEventListener("resize",()=>{clearTimeout(skinDock.t);skinDock.t=setTimeout(skinDock,150)});setTimeout(skinDock,0);document.addEventListener("DOMContentLoaded",skinDock);
 const RMO=()=>matchMedia("(prefers-reduced-motion: reduce)").matches,EZ="cubic-bezier(.16,1,.3,1)";
 function jxAn(el,fr,o){try{return el.animate(fr,Object.assign({easing:EZ,fill:"backwards"},o))}catch(e){return null}}
 /* troca de tela: a nova desliza na direção do toque; começa só depois de a tela estar desenhada (sem travar) */
@@ -3188,7 +3209,7 @@ function vwSlide(dir){const vw=$("view");if(RMO())return;const kids=[...vw.child
 function bootDone(){const h=document.documentElement;if(!h.hasAttribute("data-boot")||bootDone.on)return;bootDone.on=1;
   requestAnimationFrame(()=>{h.setAttribute("data-in","1");h.removeAttribute("data-boot");try{localStorage.removeItem("jornada-boot-hide")}catch(e){}try{window.dispatchEvent(new Event("jornada-shown"))}catch(e){}
     requestAnimationFrame(()=>requestAnimationFrame(()=>{if(!RMO()){const sd=document.querySelector(".side"),tp=document.querySelector(".top");if(sd)jxAn(sd,[{opacity:0,transform:"translateX(-44px)"},{opacity:1,transform:"none"}],{duration:620,delay:60});if(tp)jxAn(tp,[{opacity:0,transform:"translateY(-20px)"},{opacity:1,transform:"none"}],{duration:560,delay:120});
-      [...$("view").children].forEach((k,i)=>jxAn(k,[{opacity:0,transform:"translateY(26px) scale(.975)"},{opacity:1,transform:"none"}],{duration:680,delay:200+Math.min(i,6)*80}))}h.removeAttribute("data-in")}))})}
+      [...$("view").children].forEach((k,i)=>jxAn(k,[{opacity:0,transform:"translateY(22px)"},{opacity:1,transform:"none"}],{duration:620,delay:180+Math.min(i,7)*70,easing:"cubic-bezier(.16,1,.3,1)"}))}h.removeAttribute("data-in")}))})}
 /* algo vai demorar (trocar ou apagar concurso): a tela sai suave e a abertura com o logo e a linha de carregamento volta */
 function jxBusy(msg,go){const h=document.documentElement;try{if(window.jxSplash)window.jxSplash(true,msg);else h.setAttribute("data-boot","1")}catch(e){}if(go)setTimeout(go,60)}
 function obCheck(){if(obPending()&&!UI.np&&!$("layer3").innerHTML.trim())obModal()}
@@ -4221,12 +4242,21 @@ function tecMatCad(sid){if(!sid)return null;const T=core().cfg.tecs||{};if(T[sid
   const x=(core().tecAuto||{})[sid+"|*"];if(x&&x.id)return{url:TB+"/questoes/cadernos/"+x.id,k:"auto",n:x.n,b:x.b};
   const g=tecGuiaCad(sid);if(g)return{url:g,k:"guia"};return null}
 /* caderno da aula: o da aula (criado na conta do aluno) > o da matéria */
-function tecAulaUrl(sid,c){const x=(core().tecAuto||{})[sid+"|"+c];if(x&&x.id)return TB+"/questoes/cadernos/"+x.id;
-  {const a=auOf(sid,c),S=SUB(sid),txt=a?[a.d,...(a.tp||[]).map(j=>S.t&&S.t[j]&&S.t[j][0])].filter(Boolean):[];for(const t of txt){const k=tecAsCad(sid,t);if(k)return TB+"/questoes/cadernos/"+k.cad}}
-  const m=tecMatCad(sid);return m?m.url:""}
+function tecAulaUrl(sid,c){return tecAulaDirect(sid,c)||((m=>m?m.url:"")(tecMatCad(sid)))}
+/* caderno só do assunto da aula: o criado na conta do aluno para a aula > o assunto do guia que bate com a aula (TEC + edital) */
+function tecAulaDirect(sid,c){if(!sid||!c)return"";const x=(core().tecAuto||{})[sid+"|"+c];if(x&&x.id)return TB+"/questoes/cadernos/"+x.id;
+  const a=auOf(sid,c),S=SUB(sid),ga=(typeof TECGA!=="undefined"&&IS_TJ?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[]),txt=a?[...ga,a.d,...(a.tp||[]).map(j=>S.t&&S.t[j]&&S.t[j][0])].filter(Boolean):ga;
+  for(const t of txt){const k=tecAsCad(sid,t);if(k)return TB+"/questoes/cadernos/"+k.cad}return""}
+/* pedido para o favorito criar no TEC o caderno só do assunto desta aula (nomes do Índice do guia do cargo primeiro, depois os do edital) */
+function tecAulaItem(sid,c){const S=SUB(sid),a=auOf(sid,c);if(!a||String(c).startsWith("x:"))return null;const ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[];
+  const tp=(a.tp||[]).map(j=>S.t&&S.t[j]&&S.t[j][0]).filter(Boolean).map(x=>tShort(x));const al=[...new Set([...ga,tShort(a.d||""),...tp].filter(x=>x&&x.length>=3))].slice(0,6);
+  return al.length?{k:sid+"|"+c,m:TECN[sid]||S.n,t:String(a.d||c).slice(0,90),a:al}:null}
+function tecAulaBtn(sid,c,cls){const u=tecAulaDirect(sid,c);if(u)return`<a class="btn sm ${cls||"pri"}" href="${esc(u)}" target="_blank" rel="noopener" title="Questões só do assunto desta aula">${ic("target")} TEC: assunto desta aula</a>`;
+  const it=tecAulaItem(sid,c);if(!it)return"";return`<a class="btn sm ${cls||""}" href="${esc(tecJobUrl([it]))}" target="_blank" rel="noopener" data-tecjob="1" title="Abre o TEC e cria na sua conta um caderno só com: ${esc(it.a.join("; "))}">${ic("target")} TEC: assunto desta aula</a>`}
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-tecjob]");if(!a)return;toast("No TEC, toque no favorito ➜ A Jornada: ele acha o assunto desta aula, cria o caderno na sua conta e volta. Da próxima vez o botão abre direto nas questões do assunto.")},true);
 function tecKind(sid){const m=tecMatCad(sid);return m?(m.k==="auto"?"seu":m.k):TECL.sub[sid]?"guia":"busca"}
 function tecMatRow(s){const m=tecMatCad(s.id),b=tecBanca(),L={seu:"Seu caderno",auto:"Caderno A Jornada na sua conta",guia:"Caderno do Guia do cargo"};
-  return`<span class="muted small">${m?`<b>${L[m.k]}</b> · questões ${b?esc(b)+" ":""}de ${esc(s.n)}${m.k==="guia"&&IS_TJ?" para Oficial de Justiça TJ SP":""}. Errou? Lance os números das questões: vão para Erradas e viram reforço.`:`Ainda não há caderno de ${esc(s.n)} no TEC: a plataforma cria um na sua conta, com as questões ${b?"da "+esc(b):"da banca"}.`}</span><span class="row" style="gap:6px">${m?`<a class="btn sm pri" href="${esc(m.url)}" target="_blank" rel="noopener">${ic("ext")} Questões no TEC</a><button class="btn sm" data-a="tbOpen" data-s="${s.id}">${ic("plus")} Lançar erros</button>`:`<button class="btn sm pri" data-a="tcaOpen">${ic("target")} Criar caderno no TEC</button><a class="btn sm" href="${esc(tecUrl(s.id))}" target="_blank" rel="noopener">${ic("ext")} Buscar no TEC</a>`}</span>`}
+  return`<span class="muted small">${m?`<b>${L[m.k]}</b> · questões ${b?esc(b)+" ":""}de ${esc(s.n)}${m.k==="guia"&&IS_TJ?" para Oficial de Justiça TJ SP":""}. Para o assunto exato, use <b>TEC: assunto desta aula</b> em cada aula abaixo. Errou? Lance os números das questões: vão para Erradas e viram reforço.`:`Ainda não há caderno de ${esc(s.n)} no TEC: a plataforma cria um na sua conta, com as questões ${b?"da "+esc(b):"da banca"}.`}</span><span class="row" style="gap:6px">${m?`<a class="btn sm pri" href="${esc(m.url)}" target="_blank" rel="noopener">${ic("ext")} Questões no TEC</a><button class="btn sm" data-a="tbOpen" data-s="${s.id}">${ic("plus")} Lançar erros</button>`:`<button class="btn sm pri" data-a="tcaOpen">${ic("target")} Criar caderno no TEC</button><a class="btn sm" href="${esc(tecUrl(s.id))}" target="_blank" rel="noopener">${ic("ext")} Buscar no TEC</a>`}</span>`}
 function tecUrl(sid){
   const c=core().cfg;
   if(!sid)return c.tec||TECL.guia;
@@ -4247,7 +4277,7 @@ const tecAutoMap=()=>core().tecAuto||{};
 function tecAutoFor(t){const M=tecAutoMap();for(const c of aSet(t)){const x=M[t.sid+"|"+c];if(x&&x.id){const a=auOf(t.sid,c);return{id:x.id,n:x.n||25,b:x.b||"Todas",t:"A Jornada · "+(TECN[t.sid]||(SUB(t.sid)||{}).n||"")+" · "+((a&&a.d)||c),l:(a&&a.d)||"",as:x.as||"",url:TB+"/questoes/cadernos/"+x.id,own:1,g:x.g}}}return null}
 /* uma aula por item: matéria, título e assuntos do edital ligados à aula */
 function tecJob(){const M=tecAutoMap(),items=[];ED.forEach(S=>{if(!(M[S.id+"|*"]&&M[S.id+"|*"].id)&&!(core().cfg.tecs||{})[S.id])items.push({k:S.id+"|*",m:TECN[S.id]||S.n,t:"Matéria inteira",a:[],n:60})});ED.forEach(S=>{AU(S.id).forEach(a=>{if(!a||String(a.c).startsWith("x:"))return;const k=S.id+"|"+a.c;if(M[k]&&M[k].id)return;
-    const tp=(a.tp||[]).map(j=>S.t[j]&&S.t[j][0]).filter(Boolean).map(x=>tShort(x));const al=[...new Set([tShort(a.d||""),...tp].filter(x=>x&&x.length>=3))].slice(0,5);if(!al.length)return;
+    const tp=(a.tp||[]).map(j=>S.t[j]&&S.t[j][0]).filter(Boolean).map(x=>tShort(x)),ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[S.id+"|"+a.c]||[]).map(z=>z[0]):[];const al=[...new Set([...ga,tShort(a.d||""),...tp].filter(x=>x&&x.length>=3))].slice(0,6);if(!al.length)return;
     items.push({k,m:TECN[S.id]||S.n,t:String(a.d||a.c).slice(0,90),a:al})})});return items.slice(0,180)}
 const tecBanca=()=>{const p=curPlan()||{};return p.banca||(IS_TJ?"VUNESP":"")};
 function tecGuiaUrl(){const p=curPlan()||{},org=String(p.orgao||"").trim(),cargo=String(p.cargo||p.name||"").replace(/Pré-edital\s*[–-]\s*/i,"").split(/\s+[–-]\s+/)[0].trim();
@@ -4389,7 +4419,7 @@ function tecBlock(t){
   const tps=taskEdTopics(t),mat=TECN[t.sid]||SUB(t.sid).n;
   return`<div class="tecb"><div class="tecb-h">${ic("target")} <b>Questões no TEC Concursos</b><span class="muted small">Filtro: banca VUNESP · cargo Oficial de Justiça TJ SP · ${esc(mat)}${tps.length?" › "+tps.map(x=>esc(tShort(x))).join(" / "):""}</span></div>
     ${tecGuiaHTML(t)}
-    <div class="row">${t.aula?`<button class="btn sm" data-a="goRes" data-s="${t.sid}" data-c="${t.aula}">${ic("resumos")} Resumo desta aula</button>`:""}<a class="btn sm ${tecGA(t).length?"":"pri"}" href="${esc(tecUrl(t.sid))}" target="_blank" rel="noopener" ${IS_TJ||tecKind(t.sid)==="seu"?"":`data-tecf="${esc(tecFtxt(t.sid,tps))}"`}>${ic("ext")} ${IS_TJ||tecKind(t.sid)==="seu"?"":"Filtro do TEC · "}Matéria: ${esc(mat)}</a>${tps.map(x=>`<a class="btn sm" href="${esc(tecTopicUrl(t.sid,x))}" target="_blank" rel="noopener" ${IS_TJ?"":`data-tecf="${esc(tecFtxt(t.sid,[x]))}"`}>${ic("ext")} Assunto: ${esc(tShort(x))}</a>`).join("")}</div>
+    <div class="row">${t.aula?tecAulaBtn(t.sid,t.aula,"pri"):""}${t.aula?`<button class="btn sm" data-a="goRes" data-s="${t.sid}" data-c="${t.aula}">${ic("resumos")} Resumo desta aula</button>`:""}<a class="btn sm" href="${esc(tecUrl(t.sid))}" target="_blank" rel="noopener" ${IS_TJ||tecKind(t.sid)==="seu"?"":`data-tecf="${esc(tecFtxt(t.sid,tps))}"`}>${ic("ext")} ${IS_TJ||tecKind(t.sid)==="seu"?"":"Filtro do TEC · "}Matéria: ${esc(mat)}</a>${tps.map(x=>`<a class="btn sm" href="${esc(tecTopicUrl(t.sid,x))}" target="_blank" rel="noopener" ${IS_TJ?"":`data-tecf="${esc(tecFtxt(t.sid,[x]))}"`}>${ic("ext")} Assunto: ${esc(tShort(x))}</a>`).join("")}</div>
     ${t.ph==="Q"&&t.aula?tecFiltroHTML(t):""}
     ${t.ph==="Q"&&t.aula?(()=>{const ck=t.sid+"|"+aSet(t).join(","),cad=(core().tecCad||{})[ck];return`<div class="row" style="align-items:flex-end;gap:8px">${cad?`<a class="btn sm pri" href="${esc(cad)}" target="_blank" rel="noopener">${ic("ext")} Abrir o caderno do TEC desta aula</a>`:""}<div class="field" style="flex:1 1 240px"><label for="tcad${t.id}" class="small">${cad?"Trocar o link do caderno":"Criou um caderno no TEC com "+(t.nq||25)+" questões destes assuntos? Guarde o link aqui"}</label><input class="inp" id="tcad${t.id}" inputmode="url" placeholder="https://www.tecconcursos.com.br/cadernos/..." value=""></div><button class="btn sm" data-a="tecCadSave" data-id="${t.id}">Guardar</button></div>`})():""}</div>`;
 }
@@ -6210,7 +6240,7 @@ function render(){
   if(READY&&core().edPending){const c=core(),n=c.edPending.n||0,src=c.edPending.src||"importação";delete c.edPending;touch("core");setTimeout(()=>{try{recalcAfterEdital()}catch(e){}render();toast(n+" assuntos marcados como estudados a partir do "+src+". As metas foram recalculadas")},50)}
   if(READY&&obPending()){document.documentElement.dataset.ob="1";$("view").innerHTML="";if(!UI.np&&!$("layer3").innerHTML.trim())obModal();bootDone();return}
   if(document.documentElement.dataset.ob){delete document.documentElement.dataset.ob}
-  if(READY)bootDone();
+  if(READY&&(!DB||PULLED||bootDone.wait))bootDone();else if(READY&&!bootDone.tw){bootDone.tw=setTimeout(()=>{bootDone.wait=1;render()},2200)}
   if(READY&&!(DB&&!PULLED))try{obApplyCursos()}catch(e){}
   if(READY&&!(DB&&!PULLED)&&!core().metas.length&&createMeta())toast("Meta 01 liberada. Toque numa atividade para ver os comandos.");
   syncMeta();
@@ -6478,7 +6508,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261111202949";
+const JX_BUILD="20261111205439";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -6980,7 +7010,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111202949" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261111205439" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -10233,7 +10263,7 @@ function vMateriais(){
       return`<div class="pdfrow"><div class="pdfic" style="${p?"":"color:var(--mute)"}">${a.f==="v"?"VÍD":a.f==="t"?"EDT":p?"PDF":"—"}</div><div style="min-width:0"><div class="nm">${esc(auLabel(s.id,a.c))} · <span style="font-weight:500">${esc(a.d)}</span></div>
         <div class="row" style="margin-top:6px;gap:6px">${altc&&(altc.includes("Opcional")||altc.includes("Coberta"))?"":st}${p&&!multi?cloudChip(p):""}${multi?`<span class="chip lime">Aula em ${PS.length} partes</span>`:""}${fl}${altc}${p&&!multi&&p.warn&&p.warn.length?`<span class="chip warn" title="${esc(p.warn.map(w=>w.msg).join(" "))}">Conferir: ${esc(p.warn[0].msg.slice(0,60))}…</span><button class="btn sm" data-a="pfix" data-id="${p.id}" data-k="keep">Está certo</button>`:""}${p&&!multi&&p.raw?`<span class="chip warn">PDF guardado · páginas não lidas</span><button class="btn sm" data-a="reread" data-id="${p.id}">${ic("reset")} Ler de novo</button>`:""}${p&&!multi&&!p.raw?`<span class="chip ok">${ic("check")} Conteúdo absorvido</span><span class="chip">${p.pages} págs. · teoria da p. ${p.ts||1} à ${te}${p.qc?" · questões da p. "+p.qc:""}</span>${p.asset?`<span class="chip ok">${ic("cloud")} Na sua conta</span>`:""}`:""}</div>
         ${p&&te?`<div class="prog"><i style="width:${Math.min(100,lido/te*100)}%"></i></div>`:""}${a.f==="t"||(!p&&(dn||j<pr.i))?"":planHTML(s.id,a.c)}${multi?partsHTML(s.id,a.c,PS):""}</div>
-        <div class="row" style="justify-content:flex-end">${p&&!multi?`<button class="btn sm" data-a="read" data-id="${p.id}" data-pa="1" data-pb="${p.pages}">${ic("book")} Abrir</button><button class="btn sm" data-a="pmap" data-id="${p.id}" aria-expanded="${UI.pmap===p.id}">${ic("list")} Questões</button><button class="btn sm ghost" data-a="delPdf" data-id="${p.id}" aria-label="Remover o PDF da ${esc(auLabel(s.id,a.c))}">${ic("trash")}</button>`:""}${p?upBtn(ic("plus")+" Adicionar parte","btn sm",s.id,a.c):a.f==="v"?"":upBtn(ic("plus")+" Enviar PDF","btn sm",s.id,a.c)}</div></div>
+        <div class="row" style="justify-content:flex-end">${a.f==="t"?"":tecAulaBtn(s.id,a.c,"ghost")}${p&&!multi?`<button class="btn sm" data-a="read" data-id="${p.id}" data-pa="1" data-pb="${p.pages}">${ic("book")} Abrir</button><button class="btn sm" data-a="pmap" data-id="${p.id}" aria-expanded="${UI.pmap===p.id}">${ic("list")} Questões</button><button class="btn sm ghost" data-a="delPdf" data-id="${p.id}" aria-label="Remover o PDF da ${esc(auLabel(s.id,a.c))}">${ic("trash")}</button>`:""}${p?upBtn(ic("plus")+" Adicionar parte","btn sm",s.id,a.c):a.f==="v"?"":upBtn(ic("plus")+" Enviar PDF","btn sm",s.id,a.c)}</div></div>
         ${dupsOf(s.id,a.c).map(q=>`<div class="pdup"><span class="chip warn">Outro PDF nesta aula</span><b class="small" style="overflow-wrap:anywhere">${esc(q.name)}</b><span class="muted small">Ele não está sendo usado. É uma parte desta aula?</span><span class="row" style="gap:6px"><button class="btn sm pri" data-a="partUse" data-id="${q.id}">${ic("plus")} Usar como parte ${PS.length+1}</button><button class="btn sm" data-a="read" data-id="${q.id}" data-pa="1" data-pb="${q.pages||1}">${ic("book")} Abrir</button><button class="btn sm ghost" data-a="delPdf" data-id="${q.id}" aria-label="Remover ${esc(q.name)}">${ic("trash")}</button></span></div>`).join("")}
         ${PS.filter(q=>UI.pmap===q.id).map(pmapHTML).join("")}`}).join("");
     const QZ=QUIZ[s.id]||[];
@@ -11180,7 +11210,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111202949&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261111205439&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -12451,7 +12481,7 @@ document.addEventListener("focusin",e=>{const el=e.target.closest&&e.target.clos
 window.addEventListener("scroll",()=>{TIP.hidden=true},true);
 /* ================= Eventos ================= */
 const A={
-  tab(el){const k=el.dataset.t;TAB=GROUPS[k]&&UI.gLast&&UI.gLast[k]&&(GP[TAB]!==k)?UI.gLast[k]:k;UI.openT=null;$("layer").innerHTML="";$("layer2").innerHTML="";try{history.replaceState(null,"","#"+TAB)}catch(e){}render();window.scrollTo(0,0)},
+  tab(el){const k=el.dataset.t;TAB=GROUPS[k]&&UI.gLast&&UI.gLast[k]&&(GP[TAB]!==k)?UI.gLast[k]:k;UI.openT=null;$("layer").innerHTML="";$("layer2").innerHTML="";try{history.replaceState(null,"","#"+TAB)}catch(e){}render();window.scrollTo(0,0);try{if(matchMedia("(max-width:1100px),(pointer:coarse)").matches){const v=$("view");v.classList.remove("jx-sl");void v.offsetWidth;v.classList.add("jx-sl");clearTimeout(A.slT);A.slT=setTimeout(()=>v.classList.remove("jx-sl"),700)}}catch(e){}},
   start(){if(createMeta()){toast("Meta 01 criada. Comece pela Teoria.");render()}else toast("Não há tópicos pendentes para montar uma meta")},
   filter(el){UI.filter=el.dataset.f;render()},
   openT(el){if(!el.dataset.id)return;UI.openT=el.dataset.id;UI.qform=null;UI.finAsk=null;renderDrawer()},
