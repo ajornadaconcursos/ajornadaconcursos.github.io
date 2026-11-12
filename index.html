@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611121051"></script>
+<script src="/claude-shim.js?v=202611121058"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -6718,7 +6718,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261112105110";
+const JX_BUILD="20261112105803";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7220,7 +7220,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112105110" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112105803" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -8997,7 +8997,7 @@ function tSteps(t,p,pa,pb,G,mat,tform){const st=((UI.tStep||{})[t.id])||1,M=ment
   else if(st===2){const ai=t.bizu&&t.bizu.txt,loc=ai?"":bizuLocal(t,1),busy=AUX_BUSY.has("b"+t.id);
     body=`<section class="tsb"><p class="muted small" style="margin:0">O que as questões do PDF cobram destas páginas${ai?", explicado pela IA":""}. Revise antes de ir para as questões.</p>
       <div class="rsout bizu" id="bzOut">${ai?mdLite(t.bizu.txt):loc?mdLite(loc):`<p class="muted">${busy?'<span class="spin"></span> Escrevendo…':X.wait?'<span class="spin"></span> Lendo as questões do PDF…':"Ainda não há pontos para estas páginas."}</p>`}</div>
-      <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn sm" data-a="tkPdf" data-id="${t.id}">${ic("dl")} Baixar em PDF</button><button class="btn sm ghost" data-a="tkPages" data-id="${t.id}">${ic("dl")} Baixar só as págs. ${pa}–${pb}</button>${SAMPLE&&!busy?`<button class="btn sm ghost" data-a="bzGen" data-id="${t.id}">${ic(ai?"reset":"bulb")} ${ai?"Refazer com a IA":"Melhorar com a IA"}</button>`:""}${busy&&(ai||loc)?'<span class="muted small"><span class="spin"></span> A IA está escrevendo…</span>':""}</div></section>
+      <div class="row" style="gap:8px;flex-wrap:wrap">${ai?`<button class="btn sm pri" data-a="bzPdf" data-id="${t.id}">${ic("dl")} Bizu em PDF</button>`:""}<button class="btn sm" data-a="tkPdf" data-id="${t.id}">${ic("dl")} Baixar em PDF</button><button class="btn sm ghost" data-a="tkPages" data-id="${t.id}">${ic("dl")} Baixar só as págs. ${pa}–${pb}</button>${SAMPLE&&!busy?`<button class="btn sm ghost" data-a="bzGen" data-id="${t.id}">${ic(ai?"reset":"bulb")} ${ai?"Refazer com a IA":"Melhorar com a IA"}</button>`:""}${busy&&(ai||loc)?'<span class="muted small"><span class="spin"></span> A IA está escrevendo…</span>':""}</div></section>
       <section class="tsb"><h4>Fixe com cards</h4><p class="muted small" style="margin:0">${cs?`Esta atividade tem ${cs} card${cs>1?"s":""}. Eles voltam nas revisões de 1, 7, 14, 30 e 60 dias.`:"Transforme os pontos acima e as suas marcações em cards: eles voltam nas revisões de 1, 7, 14, 30 e 60 dias."}</p>
         <div class="row"><button class="btn sm" data-a="tkCards" data-id="${t.id}">${ic("brain")} ${cs?"Criar mais cards":"Criar cards destas páginas"}</button></div>
         ${SAMPLE?`<details class="tsx"><summary>Treino rápido de Certo ou Errado</summary>${fixHTML(t)}</details>`:""}</section>
@@ -9064,7 +9064,7 @@ function renderDrawer0(){
       ${t.ph==="Q"?`<details class="sec" data-k="Q" id="avTq" open><summary>${ic("target")} ${t.ref?"Questões do reforço":"Questões"}</summary><div class="sb">${tecBlock(t)}</div></details>`:""}
       ${avKeys(t).includes("B")?`<details class="sec" data-k="B" id="avB" open><summary>${ic("bulb")} Bizu</summary><div class="sb">${(()=>{const ai=t.bizu&&t.bizu.txt,loc=ai?"":bizuLocal(t),busy=AUX_BUSY.has("b"+t.id);
         return`<div class="rsout bizu" id="bzOut">${ai?mdLite(t.bizu.txt):loc?mdLite(loc):`<p class="muted">${busy?'<span class="spin"></span> Escrevendo o bizu…':"Abra o PDF desta aula em Materiais para o bizu ser montado com as questões destas páginas."}</p>`}</div>
-        <div class="row">${busy?(ai||loc?'<span class="muted small"><span class="spin"></span> A IA está escrevendo uma versão mais completa…</span>':""):SAMPLE?`<button class="btn sm ${ai?"ghost":""}" data-a="bzGen" data-id="${t.id}">${ic(ai?"reset":"bulb")} ${ai?"Refazer bizu":"Melhorar com a IA"}</button>`:""}${!ai&&loc&&!busy?'<span class="muted small">Montado sem IA: o que as questões do PDF cobram destas páginas, a incidência e as suas marcações.</span>':""}</div>`})()}</div></details>
+        <div class="row">${ai&&!busy?`<button class="btn sm" data-a="bzPdf" data-id="${t.id}">${ic("dl")} Bizu em PDF</button>`:""}${busy?(ai||loc?'<span class="muted small"><span class="spin"></span> A IA está escrevendo uma versão mais completa…</span>':""):SAMPLE?`<button class="btn sm ${ai?"ghost":""}" data-a="bzGen" data-id="${t.id}">${ic(ai?"reset":"bulb")} ${ai?"Refazer bizu":"Melhorar com a IA"}</button>`:""}${!ai&&loc&&!busy?'<span class="muted small">Montado sem IA: o que as questões do PDF cobram destas páginas, a incidência e as suas marcações.</span>':""}</div>`})()}</div></details>
 `:""}
       ${avKeys(t).includes("F")?`<details class="sec" data-k="F" id="avF" open><summary>${ic("brain")} Fixação Ativa</summary><div class="sb">${fixHTML(t)}</div></details>`:""}
       ${dvHTML(t)}${tform}${qform}
@@ -11548,7 +11548,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112105110&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112105803&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -13318,6 +13318,7 @@ const A={
   rdMk(el){const c=el.dataset.c;UI.rdMk=UI.rdMk===c?null:c;document.querySelectorAll(".rd-sw").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.c===UI.rdMk)));const b=$("rdBody");if(b)b.classList.toggle("mk",!!UI.rdMk);
     RD.mk0=null;if(UI.rdMk&&UI.rdMk!=="x")toast(matchMedia("(pointer:coarse)").matches?"Toque no começo do trecho e depois no fim para marcar como “"+HLC[UI.rdMk][0]+"”":"Selecione o texto da página para marcar como “"+HLC[UI.rdMk][0]+"”")},
   hlSet(el){const C=core(),cf=hlCfg();if(el.dataset.k==="on")cf.on=!cf.on;else cf.mode=el.dataset.v;C.hlc=cf;touch("core");render()},
+  async bzPdf(el){const f=findTask(el.dataset.id);if(!f||!f.t.bizu||!f.t.bizu.txt)return;const t=f.t;el.disabled=true;try{const b=await mdToPdf("Bizu - "+SUB(t.sid).n,taskTitle(t),t.bizu.txt.replace(/^#\s+.+\n?/,""),"A JORNADA - "+SUB(t.sid).c);await saveFile("Bizu "+SUB(t.sid).c+" "+taskTitle(t).replace(/[^\wÀ-ÿ ]/g,"").slice(0,60)+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}el.disabled=false},
   async tkPdf(el){const f=findTask(el.dataset.id);if(!f)return;const t=f.t,md=taskSumMd(t);if(!md)return;try{const b=await mdToPdf("Resumo da tarefa - "+SUB(t.sid).n,(t.aula?auLabel(t.sid,t.aula):"")+" - págs. "+t.pa+" a "+t.pb,md,"A JORNADA - "+SUB(t.sid).c);await saveFile("Resumo "+SUB(t.sid).c+" p"+t.pa+"-"+t.pb+".pdf",b)}catch(e){toast("Não consegui montar o PDF agora")}},
   async tkPages(el){const f=findTask(el.dataset.id);if(!f)return;const t=f.t,p=pdf(t.pdf);if(!p)return;toast("Separando as páginas "+t.pa+" a "+t.pb+"…");try{const b=await pdfRange(p,t.pa,t.pb);await saveFile((t.aula?auLabel(t.sid,t.aula).replace(/[^\w ]/g,""):"Aula")+" - pags "+t.pa+"-"+t.pb+".pdf",b)}catch(e){toast(e&&e.code==="miss"?"Este PDF não está salvo neste aparelho nem na sua conta":"Não consegui separar as páginas agora")}},
   tkCards(el){const f=findTask(el.dataset.id);if(!f)return;const t=f.t,p=pdf(t.pdf);if(!stOk(p))return;const a=t.pa,b=t.pb,have=new Set(CARDS().filter(c=>c.tid===t.id).map(c=>c.b));let n=0;
