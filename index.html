@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611121543"></script>
+<script src="/claude-shim.js?v=202611121604"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -2975,6 +2975,63 @@ html .treg-ch select.tsel,html :root[data-skin] header.top .top-in .treg .tsel{p
 
 .tec-mob{margin:10px 0;padding:12px 14px;border-radius:14px;border:1px solid rgba(255,209,102,.45);background:linear-gradient(135deg,rgba(255,209,102,.10),rgba(123,60,255,.06))}
 .tec-mob b{color:#ffe08a}.tec-mob p{margin:6px 0;font-size:14px;line-height:1.45}.tec-mob ol{margin:6px 0;padding-left:20px;font-size:14px;line-height:1.5}.tec-mob ol b{color:inherit}
+
+
+/*EM-START*/
+.em .sk-hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px}
+.em-sw{margin-left:auto;display:inline-flex;padding:3px;border-radius:999px;background:rgba(160,107,255,.12);border:1px solid rgba(160,107,255,.25)}
+.em-sw button{border:0;background:none;color:inherit;font-weight:700;font-size:12.5px;padding:7px 14px;border-radius:999px;cursor:pointer;opacity:.75}
+.em-sw button[aria-pressed="true"]{background:var(--lime);color:var(--lime-ink,#fff);opacity:1}
+.em-vw{min-width:0;border-radius:18px}
+.em-v{position:relative;aspect-ratio:1000/620;border-radius:18px;overflow:hidden;border:1px solid rgba(160,107,255,.25);
+  --sky1:#0d0a2c;--sky2:#2a1a5e;--sun:#f4ecc8;--cloud:rgba(255,255,255,.06);--far:#1f1650;--mt:#2c1f63;--forest:#173a3a;--tree:#0f2c2c;--meadow:#2a4a3e;--rock:#463a6e;--rock2:#5a4d86;--snow:#d9d4f2;--shade:rgba(0,0,0,.22);--trail:rgba(255,236,190,.55);--done:#ffd166;--tagbg:rgba(14,10,40,.86);--tagtx:#fff;--zone:rgba(14,10,40,.7);--zonetx:#e9e3ff}
+.em-svg,.em-tr{position:absolute;inset:0;width:100%;height:100%}
+.em-s1{stop-color:var(--sky1)}.em-s2{stop-color:var(--sky2)}
+.em-sun{fill:var(--sun)}.em-cloud ellipse{fill:var(--cloud)}.em-far{fill:var(--far)}.em-mt{fill:var(--rock)}
+.em-meadow{fill:var(--meadow)}.em-forest{fill:var(--forest)}.em-tree{fill:var(--tree)}.em-rock{fill:var(--rock2)}.em-snow{fill:var(--snow)}.em-shade{fill:var(--shade)}
+.em-trail{fill:none;stroke:var(--trail);stroke-width:5;stroke-dasharray:1 11;stroke-linecap:round}
+.em-done{fill:none;stroke:var(--done);stroke-width:6;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(255,209,102,.5))}
+.em-z{position:absolute;left:10px;transform:translateY(-50%);display:grid;padding:5px 10px;border-radius:10px;background:var(--zone);color:var(--zonetx);font-size:11px;line-height:1.2;pointer-events:none;backdrop-filter:blur(3px)}
+.em-z b{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}.em-z small{opacity:.75;font-size:10.5px}
+.em-dot{position:absolute;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:#fff;border:2.5px solid var(--c);cursor:pointer;z-index:2;transition:transform .2s}
+.em-dot[data-b="s"]{background:var(--c);border-color:#fff}.em-dot[data-b="x"]{background:var(--c);border-color:var(--c);opacity:.55}
+.em-dot:hover,.em-dot.lit{transform:scale(1.7);z-index:6}
+.em-camp{position:absolute;width:var(--z);height:var(--z);margin:calc(var(--z)/-2) 0 0 calc(var(--z)/-2);border-radius:50%;border:0;padding:3px;cursor:pointer;z-index:3;
+  background:conic-gradient(var(--c) calc(var(--p)*1%),rgba(255,255,255,.9) 0);box-shadow:0 4px 12px rgba(20,10,60,.35);transition:transform .2s}
+.em-camp b{display:grid;place-items:center;width:100%;height:100%;border-radius:50%;background:#fff;color:#1d1240;font-weight:900;font-size:calc(var(--z)*.27);line-height:1;letter-spacing:0}
+.em-camp.ok b{background:var(--c);color:#fff}
+.em-camp:hover,.em-c.on .em-camp{transform:scale(1.18);z-index:5}
+.em-c.on .em-camp{box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 35%,transparent),0 6px 16px rgba(20,10,60,.4)}
+.em-tag{position:absolute;transform:translate(-50%,24px);white-space:nowrap;width:max-content;padding:4px 9px;border-radius:9px;background:var(--tagbg);color:var(--tagtx);font-size:11px;line-height:1.2;display:none;z-index:7;pointer-events:none;text-align:center;border-top:3px solid var(--c)}
+.em-tag.up{transform:translate(-50%,calc(-100% - 26px))}
+.em-tag small{display:block;opacity:.7;font-size:10px}
+.em-c.on .em-tag{display:block;animation:emIn .35s ease both}
+@keyframes emIn{from{opacity:0}}
+.em-base,.em-top,.em-me{position:absolute;transform:translate(-50%,-50%);pointer-events:none;z-index:4;text-align:center}.em-me{z-index:2;transform:translate(-50%,-9px)}.em-me b{opacity:.92}.em-top{transform:translate(-50%,calc(-100% - 6px))!important}
+.em-base b{display:block;padding:3px 8px;border-radius:8px;background:var(--tagbg);color:var(--tagtx);font-size:10.5px;transform:translateY(-22px)}
+.em-top{transform:translate(-50%,-100%);display:grid;justify-items:center}
+.em-top i{font-style:normal;font-size:24px;line-height:1}.em-top b{padding:3px 9px;border-radius:8px;background:var(--done);color:#2b1a00;font-size:11px;font-weight:900}
+.em-top small{font-size:10px;color:var(--tagtx);background:var(--tagbg);padding:2px 7px;border-radius:7px;margin-top:2px}
+.em-me i{display:block;width:18px;height:18px;margin:0 auto;border-radius:50%;background:var(--done);border:3px solid #fff;box-shadow:0 0 0 0 rgba(255,209,102,.7);animation:emPulse 2s infinite}
+.em-me b{display:block;margin-top:4px;padding:3px 8px;border-radius:8px;background:#1d1240;color:#fff;font-size:10.5px;white-space:nowrap}
+@keyframes emPulse{70%{box-shadow:0 0 0 12px rgba(255,209,102,0)}100%{box-shadow:0 0 0 0 rgba(255,209,102,0)}}
+.em-tip{position:absolute;z-index:9;max-width:240px;padding:6px 10px;border-radius:9px;background:#1d1240;color:#fff;font-size:12px;line-height:1.3;opacity:0;pointer-events:none;transition:opacity .2s}
+.em-tip.on{opacity:1}
+.em-leg{display:flex;flex-wrap:wrap;gap:6px 16px;margin:8px 2px 0;font-size:12px;color:var(--mute)}
+.em-leg span{display:inline-flex;align-items:center;gap:6px}
+.em-lg{width:10px;height:10px;border-radius:50%;border:2.5px solid #8a5cff;background:#fff}.em-lg.s{background:#8a5cff;border-color:#fff;box-shadow:0 0 0 1px #8a5cff}.em-lg.x{background:#8a5cff;opacity:.55}
+.em-v.em-p{display:none;aspect-ratio:600/960}
+.em-tag.sl{transform:translate(-14px,24px)}.em-tag.sl.up{transform:translate(-14px,calc(-100% - 26px))}
+.em-tag.sr{transform:translate(calc(-100% + 14px),24px)}.em-tag.sr.up{transform:translate(calc(-100% + 14px),calc(-100% - 26px))}
+@media (max-width:760px){.em-v.em-l{display:none}.em-v.em-p{display:block}.em-z{left:6px;padding:3px 7px}.em-z b{font-size:9.5px}.em-z small{display:none}.em-camp{--z:34px!important}.em-me b{font-size:10px}}
+/* dia: modo claro */
+:root[data-lav="1"] .em-v{--sky1:#cfe6ff;--sky2:#fbefff;--sun:#ffd76a;--cloud:#fff;--far:#c9bff0;--mt:#a99ccc;--forest:#5fae7a;--tree:#2f7d52;--meadow:#a5d68a;--rock:#9a8fb8;--rock2:#7d7299;--snow:#ffffff;--shade:rgba(60,30,120,.10);--trail:#8a5a2b;--done:#ff8a3d;--tagbg:rgba(255,255,255,.95);--tagtx:#1d1240;--zone:rgba(255,255,255,.82);--zonetx:#3a2a6e;border-color:#ddd0ff;box-shadow:0 10px 30px rgba(120,80,200,.12)}
+:root[data-lav="1"] .em-done{filter:drop-shadow(0 1px 2px rgba(255,138,61,.4))}
+:root[data-lav="1"] .em-tag,:root[data-lav="1"] .em-base b{box-shadow:0 4px 14px rgba(80,40,160,.18)}
+:root[data-lav="1"] .em-top b{color:#fff}
+:root[data-lav="1"] .em-me i{box-shadow:0 0 0 0 rgba(255,138,61,.7)}
+:root[data-lav="1"] .em-sw{background:#efe8ff;border-color:#ddd0ff}
+/*EM-END*/
 
 /*LAV-START*/
 /* ================= Modo claro "Lavanda" (visual Jornada) =================
@@ -6844,7 +6901,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261112154359";
+const JX_BUILD="20261112160418";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7346,7 +7403,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112154359" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112160418" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -9456,7 +9513,7 @@ function jxTrilha(side){try{const P=arPool(),td=today(),st=c=>c.st==="new"?0:c.s
 /* ---------- Caminho: rotina da semana, incidência e concurso ---------- */
 function jxCamCards(){try{const W=["S","T","Q","Q","S","S","D"],m=[0,1,2,3,4,5,6].map(i=>{try{return rotHas()?rotStudyAll(i):0}catch(e){return 0}}),mx=Math.max(1,...m),T=qTot()||1,L=ED.map(s=>({s,q:qOf(s)})).sort((a,b)=>b.q-a.q).slice(0,6),qm=Math.max(1,...L.map(x=>x.q));let I={};try{I=orgInfo()}catch(e){}
   return`<div class="jx-c3"><section class="card"><div class="card-b jc3"><small>Rotina da semana</small>${rotHas()?`<div class="jc-bars">${m.map((v,i)=>`<span><i style="height:${Math.round(v/mx*80)}px"></i><small>${W[i]}</small></span>`).join("")}</div><span class="muted small">${m.map(v=>v?Math.round(v/60*10)/10+" h":"folga").join(" · ")}</span>`:`<span class="muted small">Monte a rotina em Meu plano › Rotina para ver as horas de cada dia.</span>`}<button class="lnk" data-a="gtab" data-t="rotina">Ajustar rotina</button></div></section>
-   <section class="card"><div class="card-b jc3"><small>Incidência por matéria</small>${L.map(x=>`<div class="jc-ir"><b style="color:${x.s.col}">${esc(x.s.c||"")}</b><i><em style="width:${(x.q/qm*100).toFixed(0)}%;background:${x.s.col}"></em></i><span>${x.q}</span></div>`).join("")}<button class="lnk" data-a="gtab" data-t="incidencia">abrir as Constelações do Edital</button></div></section>
+   <section class="card"><div class="card-b jc3"><small>Incidência por matéria</small>${L.map(x=>`<div class="jc-ir"><b style="color:${x.s.col}">${esc(x.s.c||"")}</b><i><em style="width:${(x.q/qm*100).toFixed(0)}%;background:${x.s.col}"></em></i><span>${x.q}</span></div>`).join("")}<button class="lnk" data-a="gtab" data-t="incidencia">${EDV()==="mapa"?"abrir o Mapa do Edital":"abrir as Constelações do Edital"}</button></div></section>
    <section class="card"><div class="card-b jc3"><small>Concurso</small><b class="jc-t">${esc(cargoTitulo(I.cargo||"")||"Concurso")}${I.sig?" · "+esc(I.sig):""}</b><span>${esc([I.banca,I.vagas].filter(Boolean).join(" · "))}</span><span>${esc(I.sal||"")}</span><button class="lnk" data-a="gtab" data-t="concurso">ver concurso</button></div></section></div>`}catch(e){return""}}
 
 /* ---------- Desempenho: números do topo, pontos fracos e comparativo ---------- */
@@ -9576,7 +9633,7 @@ function jxBandTab(){try{const td=today();
     return jxBand({k:"Acampamentos percorridos",t:dias0(c.metas.filter(m=>m.done).length,"meta cumprida","metas cumpridas"),s:"Tudo o que você já fez fica guardado aqui, meta por meta.",art:jbTrail(N)})}
   if(TAB==="rotina"){const m=[0,1,2,3,4,5,6].map(i=>{try{return rotHas()?rotStudyAll(i):0}catch(e){return 0}}),tot=m.reduce((a,b)=>a+b,0);
     return jxBand({k:"Sua semana em horas",t:tot?Math.round(tot/60*10)/10+" h de estudo por semana":"Monte a sua semana",s:"Cada barra é um dia: a altura é o tempo de estudo que cabe nele.",art:jbBars(m,["SEG","TER","QUA","QUI","SEX","SÁB","DOM"])})}
-  if(TAB==="edital"){const P=progData();return jxBand({k:"Edital verticalizado",t:Math.round(P.tot)+"% do edital estudado",s:"Marque os tópicos que já estudou. Cada tópico estudado acende uma estrela nas Constelações do Edital.",cta:`<button class="btn sm" data-a="gtab" data-t="incidencia">Ver as Constelações</button>`,art:jbRing(P.tot,"do edital")})}
+  if(TAB==="edital"){const P=progData();return jxBand({k:"Edital verticalizado",t:Math.round(P.tot)+"% do edital estudado",s:"Marque os tópicos que já estudou. "+(EDV()==="mapa"?"Cada tópico estudado é um passo a mais na trilha do Mapa do Edital.":"Cada tópico estudado acende uma estrela nas Constelações do Edital.")+"",cta:`<button class="btn sm" data-a="gtab" data-t="incidencia">${EDV()==="mapa"?"Ver o Mapa do Edital":"Ver as Constelações"}</button>`,art:jbRing(P.tot,"do edital")})}
   if(TAB==="concurso"){const I=orgInfo(),cr=(I.cr||[]).slice(0,7),nx=cr.findIndex(x=>x.d>=td),N=cr.map((x,i)=>({st:x.k==="prova"?"pk":x.d<td?"ok":i===nx?"on":"fu",lab:x.k==="prova"?"prova "+dm(x.d):dm(x.d)}));if(!N.length||N[N.length-1].st!=="pk")N.push({st:"pk",lab:"prova"});
     return jxBand({k:"Roteiro do concurso",t:(IS_TJ?cargoTitulo(I.cargo||""):planTitulo())||"Seu concurso",s:esc([I.sig,I.banca,I.vagas].filter(Boolean).join(" · "))+(nx>=0&&cr[nx]?`<br>Próxima etapa: <b>${esc(cr[nx].l)}</b> · ${provaTBD()&&cr[nx].k==="prova"?"data a definir":dm(cr[nx].d)}`:""),art:provaTBD()?jbWatch():jbTrail(N)})}
   if(TAB==="provas"){const n=PVS().length;return jxBand({k:"Provas anteriores",t:n?dias0(n,"prova guardada","provas guardadas"):"Guarde as provas que você faz",s:"Cada prova corrigida vira revisão: os erros vão para Erradas e para a Trilha.",art:jbBook()})}
@@ -9600,7 +9657,69 @@ function skOrbits(W,H){const CX=W/2,CY=H/2-16,N=72;
     g+=`<path d="M${ring.map(q=>q[0].toFixed(1)+" "+q[1].toFixed(1)).join(" L")}Z" class="sk-orl"/>`;
     g+=`<g class="sk-pl"><circle r="${p.r*2.4}" fill="${p.c[1]}" opacity=".18"/><circle r="${p.r}" fill="url(#skPg${k})"/>${p.ring?`<ellipse rx="${p.r*1.9}" ry="${p.r*.55}" fill="none" stroke="#e6dcff" stroke-opacity=".7" stroke-width="1.2" transform="rotate(-18)"/>`:""}<animateMotion dur="${p.T}s" begin="-${(p.T*p.ph).toFixed(1)}s" repeatCount="indefinite" calcMode="linear" keyPoints="${L.map(v=>(v/tot).toFixed(4)).join(";")}" keyTimes="${L.map((v,i)=>(i/N).toFixed(4)).join(";")}" path="${d}"/></g>`});
   return`<svg class="sk-orb-s" viewBox="0 0 ${W} ${H}" aria-hidden="true"><defs>${defs}</defs>${g}</svg>`}
-function edSky(extra){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L=ED.map((s,i)=>({s,i,q:qOf(s)}));if(L.length<2)return"";
+
+/* ---------- Mapa do Edital: a trilha até o cume (aprovação) ---------- */
+/* modo claro: Mapa do Edital (montanha de dia); modo escuro: Constelações do Edital */
+const EDV=()=>{try{return LAV()&&VIS()?"mapa":"ceu"}catch(e){return"ceu"}};
+const EMK={l:{W:1000,H:620,pts:[[60,598],[250,566],[460,548],[650,528],[830,500],[905,462],[780,430],[560,412],[360,394],[300,362],[450,334],[610,306],[720,268],[660,232],[575,200],[610,160],[675,124],[700,84]],zy:[215,400,500],zl:[8,27,50,72,89]},
+  p:{W:600,H:960,pts:[[60,930],[300,905],[530,880],[540,840],[320,815],[90,790],[80,745],[300,720],[510,690],[520,645],[320,615],[130,585],[130,540],[320,510],[470,475],[470,430],[330,400],[210,370],[220,325],[340,295],[430,258],[400,215],[330,180],[300,140],[330,92]],zy:[250,600,790],zl:[5,19,42,72,90]}};
+function emPath(kk){const W=EMK[kk].pts;
+  const P=[];for(let i=0;i<W.length-1;i++){const p0=W[Math.max(0,i-1)],p1=W[i],p2=W[i+1],p3=W[Math.min(W.length-1,i+2)];
+    for(let k=0;k<24;k++){const t=k/24,t2=t*t,t3=t2*t;P.push([0,1].map(d=>.5*((2*p1[d])+(-p0[d]+p2[d])*t+(2*p0[d]-5*p1[d]+4*p2[d]-p3[d])*t2+(-p0[d]+3*p1[d]-3*p2[d]+p3[d])*t3)))}}
+  P.push(W[W.length-1]);const C=[0];for(let i=1;i<P.length;i++)C.push(C[i-1]+Math.hypot(P[i][0]-P[i-1][0],P[i][1]-P[i-1][1]));
+  const at=t=>{const L=C[C.length-1]*Math.max(0,Math.min(1,t));let i=1;while(i<C.length-1&&C[i]<L)i++;const f=(L-C[i-1])/((C[i]-C[i-1])||1);return[P[i-1][0]+(P[i][0]-P[i-1][0])*f,P[i-1][1]+(P[i][1]-P[i-1][1])*f]};
+  const d=t=>{const L=C[C.length-1]*t;let s="M"+P[0].map(v=>v.toFixed(1)).join(" ");for(let i=1;i<P.length&&C[i]<=L;i++)s+="L"+P[i].map(v=>v.toFixed(1)).join(" ");const e=at(t);return s+"L"+e.map(v=>v.toFixed(1)).join(" ")};
+  return{at,d}}
+function emZone(y,kk){const z=EMK[kk].zy;return y<z[0]?"Neve":y<z[1]?"Paredão rochoso":y<z[2]?"Campos":"Floresta"}
+function emArt(kk){const p=kk==="p",VW=p?600:1000,VH=p?960:620;
+  const M=p?"M-20 960 L-20 520 L60 470 L150 330 L230 230 L290 120 L330 62 L380 120 L450 220 L520 340 L620 480 L620 960 Z":"M-20 620 L-20 470 L120 424 L262 330 L380 300 L470 232 L560 170 L640 92 L700 56 L762 102 L832 182 L904 262 L1020 330 L1020 620 Z";
+  const far=p?"M-20 640 L80 440 L160 380 L250 470 L360 400 L470 300 L560 260 L620 300 L620 960 L-20 960 Z":"M-20 520 L90 360 L190 300 L300 380 L420 330 L520 410 L620 380 L760 300 L860 250 L960 320 L1020 300 L1020 620 L-20 620 Z";
+  const meadow=p?"M-20 600 C100 590 200 612 320 598 S520 590 620 604 L620 792 L-20 792 Z":"M-20 400 C100 392 180 410 300 398 S520 386 640 402 S880 394 1020 404 L1020 500 L-20 500 Z";
+  const forest=p?"M-20 790 C120 780 240 800 380 786 S540 780 620 790 L620 960 L-20 960 Z":"M-20 498 C120 490 260 508 400 496 S700 488 820 502 S960 496 1020 500 L1020 620 L-20 620 Z";
+  const snow=p?"M230 230 L290 120 L330 62 L380 120 L450 220 L420 242 L390 226 L360 252 L330 232 L300 254 L268 234 Z":"M560 170 L640 92 L700 56 L762 102 L832 182 L800 204 L760 188 L722 218 L684 194 L640 214 L604 192 Z";
+  const shade=p?"M330 62 L380 120 L620 480 L620 960 L520 960 L420 560 L360 252 Z":"M700 56 L762 102 L1020 330 L1020 620 L860 620 L760 300 L722 218 Z";
+  let tr="",rk="";const ty=p?[800,150]:[512,96];for(let i=0;i<(p?40:46);i++){const x=(i*97+31)%(VW+40)-10,y=ty[0]+((i*53)%ty[1]),s=(p?11:9)+((i*29)%9);tr+=`<path d="M${x} ${y-s*1.9} L${x+s*.7} ${y} L${x-s*.7} ${y} Z" class="em-tree"/>`}
+  (p?[[110,560,22],[420,560,18],[250,450,16],[520,420,14],[150,420,12],[380,330,14],[260,300,10],[480,520,12]]:[[420,372,26],[540,350,18],[800,360,22],[330,340,14],[680,300,20],[880,330,16],[470,290,12],[760,250,14],[600,262,10]]).forEach(([x,y,s])=>{rk+=`<path d="M${x-s} ${y} L${x-s*.4} ${y-s*.8} L${x+s*.3} ${y-s*.6} L${x+s} ${y} Z" class="em-rock"/>`});
+  const cl=p?`<ellipse cx="480" cy="110" rx="56" ry="14"/><ellipse cx="505" cy="98" rx="30" ry="13"/><ellipse cx="120" cy="230" rx="44" ry="11"/>`:`<ellipse cx="300" cy="120" rx="58" ry="14"/><ellipse cx="330" cy="108" rx="34" ry="14"/><ellipse cx="880" cy="70" rx="50" ry="12"/><ellipse cx="905" cy="60" rx="28" ry="12"/>`;
+  return`<svg class="em-svg" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="emSky${kk}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="em-s1"/><stop offset="1" class="em-s2"/></linearGradient><clipPath id="emClip${kk}"><path d="${M}"/></clipPath></defs>
+   <rect width="${VW}" height="${VH}" fill="url(#emSky${kk})"/><circle cx="${p?110:150}" cy="${p?110:96}" r="${p?34:38}" class="em-sun"/><g class="em-cloud">${cl}</g><path d="${far}" class="em-far"/>
+   <path d="${M}" class="em-mt"/><g clip-path="url(#emClip${kk})"><path d="${meadow}" class="em-meadow"/><path d="${forest}" class="em-forest"/><path d="${snow}" class="em-snow"/>${rk}${tr}<path d="${shade}" class="em-shade"/></g></svg>`}
+function edMap(extra){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L=ED.map((s,i)=>({s,i,q:qOf(s)}));if(L.length<2)return"";
+  const pc=v=>(v*100).toFixed(2)+"%",mx=Math.max(1,...L.map(x=>x.q)),N=L.length;
+  const ord=L.slice().sort((a,b)=>a.q-b.q||b.i-a.i),sd=x=>x.s.t.filter((_,j)=>E[x.i+":"+j]&&E[x.i+":"+j].stud).length,pct=x=>x.s.t.length?Math.round(sd(x)/x.s.t.length*100):0;
+  const tS=.05,tE=.93,step=(tE-tS)/Math.max(1,N-1);let tot=0,nt=0;L.forEach(x=>{tot+=sd(x);nt+=x.s.t.length});const gp=nt?tot/nt:0;
+  /* quem sobe anda pela trilha conforme o edital estudado */
+  const tMe=Math.min(.985,tS*.4+gp*(1-tS*.4)),f0=ord[N-1].s.id;
+  const dd=(()=>{try{if(provaTBD())return"sem data de prova";const n=Math.max(0,Math.ceil((pd(prova())-new Date())/864e5));return dias0(n,"dia","dias")+" para a prova"}catch(e){return""}})();
+  const scene=kk=>{const K=EMK[kk],W=K.W,H=K.H,R=emPath(kk),me=R.at(tMe),[sx,sy]=R.at(1);let cmp="";
+    ord.forEach((x,k)=>{const s=x.s,t=tS+k*step,[cx,cy]=R.at(t),P=incShow(s.id),has=incHas(s.id),p=pct(x),sz=(N>12?28:34)+Math.round(x.q/mx*(N>12?10:14));
+      const pick=(has?s.t.map((_,j)=>j).sort((a,b)=>P[b]-P[a]):s.t.map((_,j)=>j)).slice(0,6).sort((a,b)=>a-b),t0=k?t-step:t-.045;let ds="";
+      pick.forEach((j,m)=>{const tt=t0+(t-t0)*(m+1)/(pick.length+1),[px,py]=R.at(tt),e=E[x.i+":"+j],b=e&&e.stud?(e.xp?"x":"s"):"d";ds+=`<i class="em-dot" data-b="${b}" style="left:${pc(px/W)};top:${pc(py/H)}" data-emt="${esc(s.t[j][0])}" data-sks="${s.id}" role="button" tabindex="0" aria-label="${esc(s.t[j][0])}"></i>`});
+      const up=cy/H>.8||k%2===0,sl=cx/W<.2?" sl":cx/W>.8?" sr":"";
+      cmp+=`<div class="sk-c em-c${s.id===f0?" on":""}" data-s="${s.id}" style="--c:${s.col}">${ds}<button class="em-camp${p>=100?" ok":""}" data-skf="${s.id}" style="left:${pc(cx/W)};top:${pc(cy/H)};--z:${sz}px;--p:${p}" title="${esc(s.n)} · ${x.q} questões · ${p}% estudado" aria-label="${esc(s.n)}"><b>${esc(s.c||s.n.slice(0,4))}</b></button><span class="em-tag${up?" up":""}${sl}" style="left:${pc(cx/W)};top:${pc(cy/H)}"><b>${esc(s.c||"")}</b> ${p}%<small>${esc(emZone(cy,kk))} · ${x.q} questões</small></span></div>`});
+    const zones=[["Cume","aprovação"],["Neve","os últimos detalhes"],["Paredão rochoso","o que mais exige"],["Campos","meio da montanha"],["Floresta","a base"]].map(([n,d],i)=>`<span class="em-z" style="top:${K.zl[i]}%"><b>${n}</b><small>${d}</small></span>`).join("");
+    return`<div class="em-v em-${kk}">${emArt(kk)}<svg class="em-tr" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="${R.d(1)}" class="em-trail"/><path d="${R.d(tMe)}" class="em-done"/></svg>
+     ${zones}<div class="em-top" style="left:${pc(sx/W)};top:${pc(sy/H)}"><b>🏁 Aprovação</b>${dd?`<small>${dd}</small>`:""}</div>${cmp}
+     <div class="em-me" style="left:${pc(me[0]/W)};top:${pc(me[1]/H)}"><i></i><b>Você · ${Math.round(gp*100)}% do edital</b></div></div>`};
+  /* painéis laterais: os mesmos das Constelações */
+  let pan="",chips="",foco="";
+  L.forEach(x=>{const s=x.s,P=incShow(s.id),has=incHas(s.id),nt=s.t.length,sdn=sd(x),top=has?s.t.map((t,j)=>({t:t[0],p:P[j]})).sort((a,b)=>b.p-a.p).slice(0,7):[],tm=Math.max(1e-6,...top.map(o=>o.p)),k=ord.indexOf(x);
+    foco+=`<div class="sk-f" data-s="${s.id}" ${s.id===f0?"":"hidden"}><small>Acampamento ${k+1} de ${N}</small><span><b style="color:${s.col}">${esc(s.n)}</b> · ${x.q} questões · ${pv1(x.q/T*100)}% da prova · você já percorreu ${nt?Math.round(sdn/nt*100):0}% deste trecho (${sdn} de ${nt} pontos)</span><button class="btn pri sm" data-a="jxMat" data-s="${s.id}">Estudar esta matéria</button></div>`;
+    pan+=`<div class="sk-p" data-s="${s.id}" ${s.id===f0?"":"hidden"}><small>Pontos deste trecho que mais caem · ${esc(s.n)}</small>
+      ${has?top.map(o=>`<div class="sk-br"><span>${esc(o.t)}</span><b>${pv1(o.p)}%</b><i><em style="width:${(o.p/tm*100).toFixed(1)}%;background:${s.col}"></em></i></div>`).join(""):`<p class="muted small" style="margin:0">Esta matéria ainda não tem a incidência por assunto. Abra a matéria abaixo e use os dados do TEC, cole de um site ou estime com IA.</p>`}</div>`});
+  chips=ord.slice().reverse().map(x=>`<button class="sk-bar" data-skf="${x.s.id}" data-q="${x.q}" style="--c:${x.s.col}" aria-pressed="${x.s.id===f0}"><b>${esc(x.s.c||x.s.n)}</b><i><em style="width:${(x.q/mx*100).toFixed(1)}%"></em></i><span>${x.q}</span><small>${pv1(x.q/T*100)}%</small></button>`).join("");
+  const sub=esc((()=>{try{const I=orgInfo();return[cargoTitulo(I.cargo||""),I.sig].filter(Boolean).join(" · ")}catch(e){return""}})());
+  return`<section class="sky em" data-auto="1" aria-label="Mapa do Edital"><div class="sk-hd"><h2>Mapa do Edital</h2><span class="muted small">${sub} · ${T} questões</span></div>
+   <div class="sk-w"><div class="sk-l"><div class="em-vw">${scene("l")}${scene("p")}</div>
+     <p class="em-leg"><span><i class="em-lg d"></i>ponto a estudar</span><span><i class="em-lg s"></i>estudado</span><span><i class="em-lg x"></i>riscado pelo material</span><span>quanto mais alto o acampamento, mais a matéria cai na prova</span></p>
+     <div class="card sk-fo">${foco}</div>${extra||""}</div>
+   <div class="sk-side"><div class="card sk-inc"><div class="sk-ih"><small>Incidência por matéria · do cume para a base</small><button class="lnk" data-a="pvQEd">Ajustar questões</button></div>${chips}</div><div class="card sk-pn">${pan}</div></div></div></section>`}catch(e){console.error(e);return""}}
+function emTouch(d){const r=d.closest(".sky"),v=d.closest(".em-v");if(!r||!v)return;r.dataset.auto="0";skFocus(r,d.dataset.sks);v.querySelectorAll(".em-dot.lit").forEach(x=>x.classList.remove("lit"));d.classList.add("lit");
+  let tip=v.querySelector(".em-tip");if(!tip){tip=document.createElement("span");tip.className="em-tip";v.appendChild(tip)}tip.textContent=d.dataset.emt;tip.style.left=d.style.left;tip.style.top=d.style.top;const lx=parseFloat(d.style.left)||50;tip.style.transform=`translate(${lx<22?"-12px":lx>78?"calc(-100% + 12px)":"-50%"},calc(-100% - 14px))`;tip.classList.remove("on");void tip.offsetWidth;tip.classList.add("on");
+  clearTimeout(emTouch.t);emTouch.t=setTimeout(()=>{d.classList.remove("lit");tip.classList.remove("on")},2600)}
+document.addEventListener("click",e=>{const d=e.target&&e.target.closest&&e.target.closest(".em-dot[data-sks]");if(d)emTouch(d)});
+document.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const d=e.target&&e.target.closest&&e.target.closest(".em-dot[data-sks]");if(d){e.preventDefault();emTouch(d)}});
+function edSky(extra){if(!VIS())return"";if(EDV()==="mapa")return edMap(extra);try{const T=qTot()||1,E=core().ed||{},L=ED.map((s,i)=>({s,i,q:qOf(s)}));if(L.length<2)return"";
   const dirRe=/^(direito|processo|legisla|no[çc][õo]es de direito|estatuto|regimento|lei )/i;
   let gk=x=>x.s.bl||"";if(!L.some(x=>x.s.bl)){const d=L.filter(x=>dirRe.test(x.s.n)).length;if(d&&d<L.length)gk=x=>dirRe.test(x.s.n)?"Conhecimentos de Direito":"Conhecimentos gerais"}
   const G=[];L.forEach(x=>{const k=gk(x);let g=G.find(y=>y.k===k);if(!g)G.push(g={k,L:[]});g.L.push(x)});
@@ -11706,7 +11825,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112154359&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112160418&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
