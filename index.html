@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611131204"></script>
+<script src="/claude-shim.js?v=202611131338"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -7666,7 +7666,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261113120452";
+const JX_BUILD="20261113133825";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -8171,7 +8171,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113120452" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113133825" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -12682,7 +12682,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113120452&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113133825&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -13349,13 +13349,16 @@ function parseEdital(txt){
     const qq=l.match(/^(\d{1,3})\s*quest(?:[õo]es|ão|ao)\b/i);if(qq&&l.length<170){if(cur&&!cur.q)cur.q=+qq[1];continue}
     const nh=HASB&&l.match(/^\d{1,2}\s*[.)]\s*([A-ZÁ-ÚÇÃÕÂÊÔ][A-ZÁ-ÚÇÃÕÂÊÔ ,]{3,70}?)\s*:?$/);if(nh){cur=mk(nh[1]);if(BL)cur.blk=BL;subs.push(cur);continue}
     const m=l.match(/^([^:;]{3,80}?)\s*(\(([^)]*)\))?\s*:\s*(.+)$/);
-    if(m&&!/^\d+(\.\d+)+/.test(m[1])&&m[1].trim().split(/\s+/).length<=9&&m[4].length>3&&(!HASB||upName(m[1])||!cur)){cur=mk(m[1],m[3]);if(BL&&BL!==cur)cur.blk=BL;subs.push(cur);cur.t.push(...splitTopics(m[4]));continue}
+    if(m&&!/^\d+(\.\d+)*\s*[.)–-]?\s/.test(m[1])&&m[1].trim().split(/\s+/).length<=9&&m[4].length>3&&(!HASB||upName(m[1])||!cur)){cur=mk(m[1],m[3]);if(BL&&BL!==cur)cur.blk=BL;subs.push(cur);cur.t.push(...splitTopics(m[4]));continue}
     if(isHead(l)){cur=mk(l.replace(/:$/,""));subs.push(cur);BL=null;continue}
     if(!cur){pre.push(...splitTopics(l));continue}
     cur.t.push(...splitTopics(l))}
   if(!subs.length&&pre.length){subs.push({n:"Conhecimentos gerais",q:null,t:pre})}
   subs.forEach(x=>{if(x.blk){x.bloco=x.blk.n;x.qb=x.blk.q;delete x.blk}});
-  const out=[];subs.forEach(x=>{if(!x.t.length)return;const o=out.find(y=>norm(y.n)===norm(x.n));if(o){o.t.push(...x.t);o.q=o.q||x.q}else out.push(x)});
+  const JUNK=/\b(cargos?|vencimento|remunera|sal[áa]rio|inscri[çc]|taxa|isen[çc]|vagas?|posse|nomea|notas?|especialidade|cronograma|requisito|atribui[çc]|jornada|carga\s+hor|benef[íi]cio|estabelecid|abaixo|acima|seguinte|endere[çc]o|telefone|site|e-?mail|data|prazo|recurso|resultado|homologa|classifica|aprova[çc]|elimina|pontua|peso|valor|local|hor[áa]rio|documento|candidat|edital|comiss[ãa]o|banca\s+examinadora|ane?xo|item|subitem|cap[íi]tulo|t[íi]tulos?|prova\s+objetiva|prova\s+discursiva|reda[çc][ãa]o\s+oficial)\b/i;
+  const BADT=t=>/R\$\s*\d|\d{2}\/\d{2}\/\d{2,4}|https?:|www\.|@/i.test(t);
+  subs.forEach(x=>{if(x.t.length&&x.t.filter(BADT).length>x.t.length*.3)x.t=[]});
+  const out=[];subs.forEach(x=>{if(!x.t.length)return;if(JUNK.test(x.n)&&!/l[íi]ngua|portugu|direito|legisla[çc][ãa]o\s+(tribut|espec|munic|estad|apl)/i.test(x.n))return;const o=out.find(y=>norm(y.n)===norm(x.n));if(o){o.t.push(...x.t);o.q=o.q||x.q}else out.push(x)});
   out.forEach(x=>{x.t=[...new Set(x.t)]});edQSplit(out);return out}
 const PCOLS=["#e0457b","#f07b3c","#3f9cea","#a98cf8","#2fb8a5","#e9b325","#58b724","#8f9bb0","#f2695c","#29a3d6","#c48a4a","#7c6fd6","#d4569e","#3aa86b"];
 function makeSubs(raw,start,used){used=used||new Set();return raw.map((x,i)=>({id:"s"+(start+i+1),c:subCode(x.n,used),n:x.n,...(x.bloco?{bl:String(x.bloco).slice(0,90)}:{}),w:x.q&&x.q>0?Math.min(40,x.q):Math.max(3,Math.min(12,Math.round(x.t.length*.7))),b:1,col:PCOLS[(start+i)%PCOLS.length],t:x.t.map(t=>[t,kwOf(t)])}))}
@@ -13703,8 +13706,8 @@ async function npeRun(cargo,pre){const N=UI.np;if(!N||!N.ed||!N.ed.txt)return;co
     const names=(((I||{}).prova||{}).materias||[]).map(m=>m&&m.n).filter(Boolean).slice(0,40);
     if(S.prog){E.st="ai2";E.p=0;E.n=0;npeShow();try{subs=await edSubsAI(S.prog,E.cargo,names,(d,n)=>{E.p=d;E.n=n;npeShow()})}catch(e){subs=[]}}
     if(!subs.length)subs=parseEdital(S.prog||E.txt);E.fail=subs.fail||0;
-    edQFill(subs,S.prog);edQReconcile(subs,(I||{}).prova);if(subs.some(x=>!(x.q>0))){try{await edQAI(E.txt,E.cargo,subs)}catch(e){}}}
-  else{subs=parseEdital(S.prog||E.txt);edQFill(subs,S.prog)}
+    edQFill(subs,S.prog);edQFill(subs,S.body);edQTab(subs,S.body);edQReconcile(subs,(I||{}).prova);if(subs.some(x=>!(x.q>0))){try{await edQAI(E.txt,E.cargo,subs)}catch(e){}}}
+  else{subs=parseEdital(S.prog||E.txt);edQFill(subs,S.prog);edQFill(subs,S.body);edQTab(subs,S.body)}
   if(!I&&!subs.length){E.st="err";E.msg=E.aiErr==="rate_limited"?"A IA está ocupada agora. Espere um minuto e tente de novo.":"Não consegui tirar os dados deste edital. Tente de novo, cole o texto ou escolha o concurso na base.";npeShow();return}
   E.info=I;const P=(I&&I.prova)||{},C=((I&&I.cron)||[]).filter(c=>c&&edOk(c.d)),cpv=C.find(c=>c.k==="prova"),ci1=C.find(c=>c.k==="ins1");
   if(I){const nm=[I.orgao,E.cargo].filter(Boolean).join(" – ");if(nm)N.name=nm.slice(0,80);if(E.cargo)N.cargo=E.cargo.slice(0,80);if(I.orgao)N.orgao=String(I.orgao).slice(0,30);if(I.banca)N.banca=String(I.banca).slice(0,40);
@@ -13752,9 +13755,13 @@ async function edPdfText(buf,onp){if(!(await ensurePdfjs()))throw new Error("lei
     L.push(cur);P.push(L.map(l=>fixSpaced(l.replace(/\s+/g," ").trim())).filter(Boolean).join("\n"))}
   return{txt:P.join("\n"),n,pages:P}}
 /* onde começa o conteúdo programático: a primeira menção seguida de uma lista densa de assuntos */
-function edSplit(T){const re=/conte[úu]dos?\s+program[áa]tico|conhecimentos\s+(gerais|b[áa]sicos|espec[íi]ficos)\b|objetos?\s+de\s+avalia[çc][ãa]o/gi,C=[];let m;
+/* sem título claro: acha onde começa a lista densa de assuntos (muitos ';' e itens numerados) */
+function edDense(T){const W=5000,st=2500;let best=-1,bv=0;for(let i=0;i+W/2<T.length;i+=st){const w=T.slice(i,i+W);const s=(w.match(/;/g)||[]).length+(w.match(/\n\s*\d+(\.\d+)*\s*[.)–-]?\s+\S/g)||[]).length-(w.match(/R\$\s*\d|\d{2}\/\d{2}\/\d{4}/g)||[]).length*2;if(s>bv){bv=s;best=i}}
+  if(bv<25)return -1;let i=best;while(i-st>=0){const w=T.slice(i-st,i-st+W);const s=(w.match(/;/g)||[]).length+(w.match(/\n\s*\d+(\.\d+)*\s*[.)–-]?\s+\S/g)||[]).length;if(s<bv*.35)break;i-=st}
+  const nl=T.lastIndexOf("\n",i);return nl>0?nl:i}
+function edSplit(T){const re=/conte[úu]dos?\s+program[áa]tico|conte[úu]dos?\s+(?:das\s+provas|m[íi]nimos?|exigidos)|programas?\s+(?:das?\s+)?(?:provas?|mat[ée]rias)|rela[çc][ãa]o\s+de\s+conte[úu]dos|mat[ée]rias?\s+e\s+conte[úu]dos|conhecimentos\s+(gerais|b[áa]sicos|espec[íi]ficos|complementares|comuns)\b|objetos?\s+de\s+avalia[çc][ãa]o|bibliografia\s+sugerida/gi,C=[];let m;
   while((m=re.exec(T))){const w=T.slice(m.index,m.index+6000);C.push({i:m.index,s:(w.match(/;/g)||[]).length+(w.match(/\n\s*\d+(\.\d+)*\s*[.)–-]?\s+\S/g)||[]).length})}
-  const bv=Math.max(0,...C.map(c=>c.s));if(bv<15)return{body:T,prog:"",at:-1};const b=C.find(c=>c.s>=bv*.5);return{body:T.slice(0,b.i),prog:edProgEnd(T.slice(b.i,b.i+220000)),at:b.i}}
+  const bv=Math.max(0,...C.map(c=>c.s));if(bv<15){const d=edDense(T);return d<0?{body:T,prog:"",at:-1}:{body:T.slice(0,d),prog:edProgEnd(T.slice(d,d+220000)),at:d,dense:1}}const b=C.find(c=>c.s>=bv*.5);return{body:T.slice(0,b.i),prog:edProgEnd(T.slice(b.i,b.i+220000)),at:b.i}}
 /* fim do conteúdo programático: o primeiro título de outra parte do edital (disposições gerais, quadro de vagas, anexo que não é conteúdo, outro edital) */
 function edProgEnd(p){const re=/\n[ \t]*(?:(?:DAS\s+)?DISPOSI[ÇC][ÕO]ES\s+(?:GERAIS|FINAIS|TRANSIT[ÓO]RIAS)|QUADRO\s+DE\s+VAGAS|DISTRIBUI[ÇC][ÃA]O\s+DAS\s+VAGAS|ANEXO\s+[IVXL]+\b(?![\s\S]{0,140}CONTE[ÚU]DO)|CRONOGRAMA[^\n]{0,40}\n|EDITAL\s+(?:DE\s+ABERTURA\s+)?N[.ºo°O\s]*\d+\s*\/\s*\d{4}|(?:Subse[çc][ãa]o|SUBSE[ÇC][ÃA]O|Se[çc][ãa]o|SE[ÇC][ÃA]O)\s+[IVXL]+\s*[-–])/g;re.lastIndex=700;const m=re.exec(p);return m&&m.index>=700?p.slice(0,m.index):p}
 /* tira cabeçalhos e rodapés repetidos em cada página (ex.: "Publicação Oficial do Tribunal de Justiça... Disponibilização: ...") */
@@ -13773,6 +13780,8 @@ function edDocs(T){const re=/(^|\n)[ \t]*EDITAL\s+(?:DE\s+ABERTURA\s+(?:DE\s+INS
 /* linhas do conteúdo programático que dizem quantas questões cada matéria (ou bloco) tem */
 function edQLines(prog){const L=String(prog||"").split("\n"),out=[];L.forEach((l,k)=>{if(l.length<170&&/\b\d{1,3}\s*quest(?:[õo]es|ão|ao)\b/i.test(l))out.push(L.slice(Math.max(0,k-2),k+1).filter(x=>x.length<170).join(" / "))});return out.join("\n").slice(0,6000)}
 /* questões por matéria escritas no próprio conteúdo programático (ex.: "BLOCO I: Língua Portuguesa" / "15 questões:") */
+/* quadro da prova em colunas: "Língua Portuguesa 10 1,0 10,0" (sem a palavra questões) */
+function edQTab(subs,txt){if(!subs||!subs.length||!txt)return;String(txt).split("\n").forEach(l=>{if(l.length>140)return;const m=l.match(/^\s*(?:\d{1,2}\s*[.)–-]\s*)?([A-Za-zÀ-ú][A-Za-zÀ-ú ,()/–-]{2,80}?)\s+(\d{1,3})(?:\s+[\d.,]+){0,4}\s*$/);if(!m)return;const q=+m[2];if(!(q>0&&q<=120))return;const s2=edMatch(m[1],subs);if(s2&&!s2.q)s2.q=q})}
 function edQFill(subs,prog){if(!subs||!subs.length||!prog)return;const L=String(prog).split("\n");
   const head=x=>String(x||"").replace(/^\s*(?:bloco|m[óo]dulo|parte|grupo|prova)\s+[IVXL\d]+\s*[:–.-]\s*/i,"").replace(/\(?\s*\d{1,3}\s*quest[^)]*\)?/i,"").replace(/[:–\-\s]+$/,"").trim();
   L.forEach((l,k)=>{if(l.length>170)return;const m=l.match(/\b(\d{1,3})\s*quest(?:[õo]es|ão|ao)\b/i);if(!m)return;const q=+m[1];if(!(q>0&&q<200))return;
@@ -13873,7 +13882,7 @@ async function edStart(buf,name,size){const X=UI.edx={st:"read",p:0,n:0,file:{na
     if(r.txt.replace(/\s/g,"").length<800){X.st="err";X.msg="Este PDF não tem texto que dê para ler (parece ser uma imagem escaneada). Copie o texto do edital no site da banca e use “Colar o texto”.";edModal();return}
     X.txt=edClean(r);const D=edDocs(X.txt);if(D){X.full=X.txt;X.docs=D.map(d=>({s:d.s,e:d.e,label:d.label}));X.st="doc";edModal();return}await edRun()}catch(e){X.st="err";X.msg="Não consegui abrir este PDF. Tente de novo ou cole o texto do edital.";edModal()}}
 async function edRun(cargo){const X=UI.edx;if(!X||!X.txt)return;const S=edSplit(X.txt);X.prog=S.prog;
-  if(!SAMPLE){X.subs=parseEdital(S.prog||X.txt);edQFill(X.subs,S.prog);X.info=null;X.noAI=1;X.st="review";edDefaults();edModal();return}
+  if(!SAMPLE){X.subs=parseEdital(S.prog||X.txt);edQFill(X.subs,S.prog);edQFill(X.subs,S.body);edQTab(X.subs,S.body);X.info=null;X.noAI=1;X.st="review";edDefaults();edModal();return}
   X.st="ai1";edModal();
   try{X.info=await edInfoAI(edInfoTxt(X.txt,S),cargo||X.cargo||edCargoNow())}catch(e){X.info=null;X.aiErr=e&&e.code}
   if(!cargo&&!X.cgAsked&&(((X.info||{}).cargos)||[]).filter(c=>c&&c.n).length>1){X.cgAsked=1;X.st="cargo";edModal();return}
@@ -13882,7 +13891,7 @@ async function edRun(cargo){const X=UI.edx;if(!X||!X.txt)return;const S=edSplit(
   {const pd0=(I.prova||{}).data,last=(I.cron||[]).filter(c=>c&&edOk(c.d)).map(c=>c.d).sort().pop();if(!X.prev&&((edOk(pd0)&&pd0<today())||(!edOk(pd0)&&last&&last<today()))){X.prev=1;X.autoPrev=1}}
   const names=((I.prova||{}).materias||[]).map(m=>m&&m.n).filter(Boolean).slice(0,40);
   if(S.prog){X.st="ai2";X.p=0;X.n=0;edModal();try{X.subs=await edSubsAI(S.prog,X.cargo,names,(d,n)=>{X.p=d;X.n=n;edModal()})}catch(e){X.subs=[]}
-    if(!X.subs.length)X.subs=parseEdital(S.prog);X.fail=X.subs.fail||0;edQFill(X.subs,S.prog)}else X.subs=[];
+    if(!X.subs.length)X.subs=parseEdital(S.prog);X.fail=X.subs.fail||0;edQFill(X.subs,S.prog);edQFill(X.subs,S.body);edQTab(X.subs,S.body)}else X.subs=[];
   /* número de questões da estrutura da prova vai junto com a matéria */
   edQReconcile(X.subs,I.prova);if(X.subs.some(x=>!(x.q>0))){X.st="ai3";edModal();await edQAI(X.txt,X.cargo,X.subs)}
   if(!X.info&&!X.subs.length){X.st="err";X.msg=X.aiErr==="rate_limited"?"A IA está ocupada agora. Espere um minuto e tente de novo.":"Não consegui tirar os dados deste edital. Tente de novo ou cole só o conteúdo programático em “Adicionar matérias”.";edModal();return}
@@ -14704,14 +14713,16 @@ Object.assign(A,{
   rcDel(el){const E=UI.rcE;if(!E||!E.k)return;const R=ROT(),n=R.d.join("").split(E.k).length-1;if(n&&!E.del){E.del=1;el.innerHTML=`${ic("trash")} Confirmar: apagar e tirar ${durL(n*SLM)} do quadro`;return}
     R.cx=(R.cx||[]).filter(x=>x[0]!==E.k);R.d=R.d.map(x=>x.split(E.k).join("."));rotPersist();rotCats();UI.rcE=null;$("layer3").innerHTML="";render();toast("Caixinha apagada")},
   npClose(){UI.np=null;$("layer3").innerHTML="";if(UI.obNew)setTimeout(obModal,0)},
-  npParse(){npRead();const r=parseEdital(UI.np.txt);if(!r.length){toast("Não encontrei matérias nesse texto. Use uma matéria por linha: Matéria: assunto; assunto");return}
+  npParse(){npRead();const N0=UI.np,T0=String(N0.txt||"");if(T0.length>4000&&!(N0.cat&&N0.subs.length)){if(SAMPLE){A.npIA();return}const S0=edSplit(T0);const r0=parseEdital(S0.prog||T0);if(r0.length){edQFill(r0,S0.prog);edQFill(r0,S0.body);edQTab(r0,S0.body);N0.subs=r0;npModal();return}}const r=parseEdital(UI.np.txt);if(!r.length){toast("Não encontrei matérias nesse texto. Use uma matéria por linha: Matéria: assunto; assunto");return}
     const N=UI.np;if(N.cat&&N.subs.length){const base=N.subs;let hit=0;r.forEach(x=>{let best=null,bv=0;base.forEach(b=>{const v=cdice(nTok(b.n),nTok(x.n));if(v>bv){bv=v;best=b}});if(best&&bv>=.5){if(best.cat){best.t=[];best.cat=false}best.t=[...new Set([...best.t,...x.t])];best.q=best.q||x.q;hit++}else base.push(x)});N.subs=base;toast(hit+" matérias do edital receberam os assuntos colados")}
     else N.subs=r;npModal()},
   catPick(el){const c=CAT.find(x=>x.id===el.dataset.id);if(!c)return;if(c.tj&&(PLANS.onb||UI.obNew)){catApply(c,c.cg[0]);UI.np.subs=ED_TJ.map(x=>({n:x.n,q:x.w||null,t:(x.t||[]).map(y=>Array.isArray(y)?y[0]:y)}));npModal();return}if(c.tj){if(PLANS.tjOff){PLANS.tjOff=0;savePlans().then(()=>switchPlan("tjsp"));return}toast("O Oficial de Justiça do TJSP já é o seu concurso principal no painel");return}if(c.cg.length>1){UI.np.pick=c.id;catResults();return}catApply(c,c.cg[0])},
   catCargo(el){const c=CAT.find(x=>x.id===UI.np.pick);if(c)catApply(c,c.cg[+el.dataset.i])},
   catBack(){UI.np.pick=null;catResults()},
   catClear(){const N=UI.np;if(!N)return;["cat","cargoI","name","cargo","orgao","banca","prova","ins","edUrl","catNote","catFull","pick"].forEach(k=>delete N[k]);N.subs=[];N.q="";N.sOpen=true;npModal();setTimeout(()=>{const e=$("npQ");if(e)e.focus()},30);toast("Concurso retirado. Escolha outro.")},
-  async npIA(){npRead();const N=UI.np,txt=(N.txt||"").trim();if(txt.length<20){toast("Cole o conteúdo programático primeiro");return}N.busy=true;npModal();
+  async npIA(){npRead();const N=UI.np,txt=(N.txt||"").trim();if(txt.length<20){toast("Cole o conteúdo programático primeiro");return}
+    if(txt.length>4000&&SAMPLE&&!(N.cat&&N.subs.length)){N.ed={st:"read",p:0,n:0,t0:Date.now(),file:"texto colado",txt:edClean({txt,pages:[txt]})};npeShow();try{await npeRun()}catch(e){N.ed.st="err";N.ed.msg="Não consegui organizar esse texto agora. Tente de novo.";npeShow()}return}
+    N.busy=true;npModal();
     try{const arr=await SAMPLE.json(`Organize o conteúdo programático de um edital de concurso público. Responda só com um array JSON: [{"n":"Nome da matéria","q":número de questões dela na prova ou null,"t":["assunto 1","assunto 2"]}].
 Regras: uma entrada por matéria, na ordem do edital; cada assunto é um item do edital, curto e sem numeração, mantendo leis e artigos citados; não invente matérias nem assuntos; junte matérias repetidas.
 
