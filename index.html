@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611122029"></script>
+<script src="/claude-shim.js?v=202611122052"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -3037,6 +3037,95 @@ html .treg-ch select.tsel,html :root[data-skin] header.top .top-in .treg .tsel{p
 :root[data-lav="1"] .em-sw{background:#efe8ff;border-color:#ddd0ff}
 /*EM-END*/
 
+/*POS-START*/
+/* ================= Modo Pós-Edital "Vulcão": ambiente hostil de fogo (heavy metal / punk) ================= */
+:root[data-pos="1"]:not(#z):not(#y){color-scheme:dark;
+ --bg:#0b0403;--panel:rgba(24,8,6,.95);--raise:#2a0d08;--sunk:#130605;--line:#4a1810;--line2:#6e2414;
+ --fg:#fff1e8;--fg2:#f4c6ad;--mute:#c48a72;
+ --lime:#ff5a1f;--lime-txt:#ff8a3d;--lime-ink:#ffffff;--lime-soft:rgba(255,90,31,.16);--hot:#ff7a1a;--k1:#ff5a1f;--k2:#ff5a1f;--k3:#ff5a1f;--k4:#ff5a1f;--ok:#ffb020;--ok-soft:rgba(255,176,32,.14);
+ --side:#110504;--side-fg:#fff1e8;--side-mute:#c48a72;--side-act:rgba(255,77,26,.2);--side-line:#3a120b;
+ --shadow:0 1px 0 rgba(255,140,60,.06) inset,0 18px 40px -22px rgba(0,0,0,.95);--ring:0 0 0 3px rgba(255,77,26,.55)}
+:root[data-pos="1"] body{background:radial-gradient(1200px 520px at 50% 115%,rgba(255,60,10,.30),transparent 62%),radial-gradient(900px 420px at 100% -10%,rgba(180,20,10,.28),transparent 60%),radial-gradient(700px 380px at 0% 0%,rgba(255,120,20,.10),transparent 60%),linear-gradient(180deg,#160605,#0b0403 60%,#070202)!important;background-attachment:fixed!important;color:var(--fg)}
+:root[data-pos="1"] .side{background:linear-gradient(180deg,#170706,#0c0403)!important;border-right:1px solid #3a120b!important}
+:root[data-pos="1"] .card,:root[data-pos="1"] .modal .box,:root[data-pos="1"] header.top{border-color:rgba(255,77,26,.22)!important}
+:root[data-pos="1"] .card{background:linear-gradient(180deg,rgba(32,10,7,.96),rgba(20,7,5,.96))!important}
+:root[data-pos="1"] .btn.pri,:root[data-pos="1"] .btn.pri:hover{background:linear-gradient(90deg,#d4140a,#ff4d1a 55%,#ffa51f)!important;border-color:transparent!important;color:#fff!important;box-shadow:0 8px 22px -10px rgba(255,77,26,.8)!important}
+:root[data-pos="1"] .nav>button[aria-current="page"],:root[data-pos="1"] .nav>button.on,:root[data-pos="1"] .nav>button[aria-pressed="true"]{background:linear-gradient(90deg,#a3120a,#ff4d1a)!important;color:#fff!important;box-shadow:0 10px 26px -12px rgba(255,77,26,.9)!important}
+:root[data-pos="1"] #view h1,:root[data-pos="1"] .hello h1{font-family:Oswald,var(--f-cond),sans-serif!important;text-transform:uppercase;letter-spacing:.04em;color:#fff!important;text-shadow:0 0 22px rgba(255,70,20,.45),0 2px 0 #3a0a05}
+:root[data-pos="1"] .card-h h2,:root[data-pos="1"] .sk-hd h2{text-transform:uppercase;letter-spacing:.06em;color:#ffb38a!important}
+:root[data-pos="1"] .side .who strong,:root[data-pos="1"] .side .brand b{background:linear-gradient(90deg,#ffd166,#ff4d1a)!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important}
+:root[data-pos="1"] #toast{background:#2a0a06!important;border:1px solid #ff4d1a!important;color:#fff!important}
+/* brasas subindo pela tela */
+#posFx{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+#posFx i{position:absolute;bottom:-12px;width:var(--s);height:var(--s);border-radius:50%;background:#ffb020;box-shadow:0 0 8px 2px rgba(255,90,20,.8);opacity:0;animation:posEmb var(--t) linear var(--d) infinite}
+@keyframes posEmb{0%{transform:translate(0,0);opacity:0}10%{opacity:.9}70%{opacity:.6}100%{transform:translate(40px,-105vh);opacity:0}}
+@media (prefers-reduced-motion:reduce){#posFx{display:none}}
+:root[data-pos="1"] .app{position:relative;z-index:1}
+/* faixa do topo da tela Hoje */
+.pos-ban{position:relative;overflow:hidden;display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;padding:14px 18px;margin:0 0 14px;border-radius:16px;border:1px solid rgba(255,77,26,.45);background:linear-gradient(100deg,#2a0806,#1a0504 55%,#2a0a04);box-shadow:0 0 0 1px rgba(0,0,0,.4) inset,0 16px 40px -24px rgba(255,60,10,.9)}
+.pos-ban::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:linear-gradient(90deg,#d4140a,#ff4d1a,#ffb020,#ff4d1a,#d4140a);background-size:200% 100%;animation:posBar 3s linear infinite}
+@keyframes posBar{to{background-position:200% 0}}
+.pos-ban b.pb-t{font:700 26px/1 Oswald,var(--f-cond),sans-serif;letter-spacing:.08em;text-transform:uppercase;background:linear-gradient(180deg,#ffe08a,#ff6a1a 60%,#c2120a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 10px rgba(255,80,20,.5))}
+.pos-ban span{color:#f4c6ad;font-size:15px}.pos-ban span b{color:#fff}
+.pos-ban .pb-d{margin-left:auto;font:700 30px/1 Oswald,var(--f-cond),sans-serif;color:#fff;text-shadow:0 0 16px rgba(255,80,20,.7)}.pos-ban .pb-d small{font:600 12px/1 var(--f-cond,sans-serif);letter-spacing:.1em;color:#ffb38a;margin-left:4px}
+/* cena da semana: vulcão */
+.jw-emb{animation:jwEmb var(--t,2.4s) linear var(--d,0s) infinite;opacity:0}
+@keyframes jwEmb{0%{transform:translate(0,0);opacity:0}8%{opacity:1}100%{transform:translate(var(--dx,0),-120px);opacity:0}}
+.jw-lava{stroke-dasharray:16 10;animation:jwLava 1.4s linear infinite}
+@keyframes jwLava{to{stroke-dashoffset:-52}}
+.jw-crater{animation:jwGlow 1.6s ease-in-out infinite alternate}
+@keyframes jwGlow{from{opacity:.65}to{opacity:1}}
+.jw-smk{animation:jwSmk 7s ease-in-out infinite alternate}
+@keyframes jwSmk{to{transform:translate(18px,-8px)}}
+.jw.jw-vulcao{border-color:rgba(255,77,26,.45)!important}
+/* chave do modo */
+.pos-tg{color:#ffb38a!important}
+:root[data-pos="1"] .pos-tg{background:linear-gradient(90deg,#a3120a,#ff4d1a)!important;color:#fff!important}
+.pos-card{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;padding:14px 16px;border-radius:16px;border:1px solid rgba(255,77,26,.4);background:linear-gradient(100deg,rgba(60,12,6,.55),rgba(30,8,5,.55))}
+.pos-card b{font:700 18px/1.1 Oswald,var(--f-cond),sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#ff8a3d}
+.pos-card span{flex:1 1 260px;color:var(--fg2)}
+:root[data-lav="1"] .pos-card{background:#fff3ee;border-color:#ffc2a8}:root[data-lav="1"] .pos-card span{color:#5a3a2e}
+/* Mapa do Edital como vulcão */
+:root[data-pos="1"] .em-v{--sky1:#2a0503;--sky2:#6a1606;--sun:#ff3d1a;--cloud:rgba(60,20,15,.55);--far:#2a0b07;--mt:#1c0806;--forest:#1e0805;--tree:#0f0403;--meadow:#2c0d07;--rock:#24100b;--rock2:#3e1810;--snow:#ff5a1f;--shade:rgba(0,0,0,.38);--trail:rgba(255,150,70,.6);--done:#ffb020;--tagbg:rgba(20,6,4,.92);--tagtx:#fff1e8;--zone:rgba(20,6,4,.8);--zonetx:#ffb38a;border-color:rgba(255,77,26,.45)}
+:root[data-pos="1"] .em-snow{filter:drop-shadow(0 0 10px rgba(255,90,20,.9));animation:jwGlow 1.6s ease-in-out infinite alternate}
+:root[data-pos="1"] .em-me b{background:#ff4d1a}
+:root[data-pos="1"] header.top{background:linear-gradient(180deg,#1c0705,#120504)!important;border-bottom:1px solid rgba(255,77,26,.25)!important}
+:root[data-pos="1"] #fmGo,:root[data-pos="1"] .fmgo{background:linear-gradient(90deg,#d4140a,#ff4d1a 55%,#ffa51f)!important;box-shadow:0 8px 24px -10px rgba(255,77,26,.85)!important}
+:root[data-pos="1"] .tseg button[aria-pressed="true"],:root[data-pos="1"] .seg button.on,:root[data-pos="1"] .seg button[aria-pressed="true"]{background:linear-gradient(90deg,#b3170d,#ff4d1a)!important;color:#fff!important}
+:root[data-pos="1"] .nav>button::before,:root[data-pos="1"] .nav .dot{border-color:#ff8a3d!important}
+/* tudo no mesmo tom de fogo, incandescente */
+:root[data-pos="1"] .card,:root[data-pos="1"] .kpi{box-shadow:0 0 0 1px rgba(255,90,30,.16),0 0 34px -14px rgba(255,80,20,.55),0 20px 40px -26px rgba(0,0,0,.9)!important}
+:root[data-pos="1"] .kpi{background:radial-gradient(140% 120% at 100% 0%,rgba(255,90,30,.28),transparent 55%),linear-gradient(180deg,#2a0b07,#170605)!important;border:1px solid rgba(255,100,40,.5)!important}
+:root[data-pos="1"] .kpi *{border-color:rgba(255,120,50,.35)!important}
+:root[data-pos="1"] .kpi>*:first-child{background:rgba(255,90,30,.16)!important;color:#ffd2b8!important}
+:root[data-pos="1"] .kpi b,:root[data-pos="1"] .kpi strong,:root[data-pos="1"] .kpi .v,:root[data-pos="1"] .kpi big{color:#fff!important;text-shadow:0 0 14px rgba(255,90,30,.75),0 0 2px rgba(255,200,120,.6)}
+:root[data-pos="1"] .kpi::before,:root[data-pos="1"] .kpi::after{background:radial-gradient(circle,rgba(255,110,40,.35),transparent 70%)!important;border-color:transparent!important}
+:root[data-pos="1"] .hj-t,:root[data-pos="1"] .btn:not(.pri){border-color:rgba(255,110,40,.5)!important;color:#ffe2d2!important}
+:root[data-pos="1"] .btn:not(.pri):hover{background:rgba(255,90,30,.14)!important}
+:root[data-pos="1"] .mv-sw,:root[data-pos="1"] .tseg,:root[data-pos="1"] .seg{background:rgba(20,6,4,.75)!important;border-color:rgba(255,90,30,.3)!important}
+:root[data-pos="1"] .mv-sw button[aria-pressed="true"],:root[data-pos="1"] .mv-sw button.on,:root[data-pos="1"] .seg-pill{background:linear-gradient(180deg,#ff5a1f,#c2140a)!important;color:#fff!important;border-color:transparent!important;box-shadow:0 0 18px -4px rgba(255,90,30,.8)!important}
+:root[data-pos="1"] .treg{background:linear-gradient(180deg,#2a0b07,#170605)!important;border-color:rgba(255,100,40,.45)!important}
+:root[data-pos="1"] .treg-ic{background:rgba(255,90,30,.16)!important;color:#ff8a3d!important;border-color:rgba(255,110,40,.45)!important}
+:root[data-pos="1"] #tRegK,:root[data-pos="1"] .ah-chip.ok,:root[data-pos="1"] .jx-nx-s{color:#ffb020!important}
+:root[data-pos="1"] header.top>*,:root[data-pos="1"] .tcap{border-color:rgba(255,100,40,.4)!important;background-color:rgba(24,7,5,.85)!important}
+:root[data-pos="1"] .jw-t p b,:root[data-pos="1"] .jw-h b{color:#ffb020!important}
+:root[data-pos="1"] a,:root[data-pos="1"] .lnk{color:#ff8a3d}
+:root[data-pos="1"] .side .mini-count,:root[data-pos="1"] .side .alt,:root[data-pos="1"] .side [class*="alti"]{border-color:rgba(255,100,40,.4)!important;background:linear-gradient(180deg,#220906,#140605)!important}
+:root[data-pos="1"] .nav>button[aria-current="page"]{box-shadow:0 0 26px -6px rgba(255,90,30,.95)!important}
+:root[data-pos="1"] .pos-ban{animation:posPulse 2.6s ease-in-out infinite alternate}
+@keyframes posPulse{from{box-shadow:0 0 0 1px rgba(255,90,30,.25),0 0 22px -10px rgba(255,80,20,.6)}to{box-shadow:0 0 0 1px rgba(255,140,60,.55),0 0 46px -8px rgba(255,90,20,.95)}}
+:root[data-pos="1"] .mr-now,:root[data-pos="1"] .ah-row.next{border-color:rgba(255,110,40,.5)!important;background:rgba(255,90,30,.08)!important}
+:root[data-pos="1"] .stars,:root[data-pos="1"] .rl-l{color:#ffb020!important}
+:root[data-pos="1"] .mandado svg [stroke*="160,107,255"],:root[data-pos="1"] .mr-ring svg circle:first-child,:root[data-pos="1"] .tring .bg{stroke:rgba(255,100,40,.22)!important}
+:root[data-pos="1"] .mandado svg path[stroke*="160,107,255"],:root[data-pos="1"] .mr-ring path{stroke:rgba(255,110,40,.3)}
+:root[data-pos="1"] .mr-ring circle[fill*="#"],:root[data-pos="1"] .mr-ring svg circle:nth-child(2){fill:#1a0605}
+.jw-lvc{animation:jwLvc 1.1s linear infinite}@keyframes jwLvc{to{stroke-dashoffset:-96}}
+.jw-lvk{animation:jwLvk 6s linear infinite}@keyframes jwLvk{to{stroke-dashoffset:-88}}
+.jw-bub{animation:jwBub 1.8s ease-in infinite;transform-box:fill-box;transform-origin:center}@keyframes jwBub{0%{transform:scale(.2);opacity:0}30%{opacity:1}100%{transform:scale(1.4);opacity:0}}
+.jw-smk2{animation:jwSmk2 9s ease-in-out infinite alternate}@keyframes jwSmk2{to{transform:translate(-22px,-14px)}}
+.jw-tw{animation:jwTw 3s ease-in-out infinite alternate}@keyframes jwTw{from{opacity:.2}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.jw-tw{animation:none}}
+/*POS-END*/
 /*LAV-START*/
 /* ================= Modo claro "Lavanda" (visual Jornada) =================
    Fundo lavanda bem claro, cartões brancos com sombra arroxeada, a mesma assinatura roxo→rosa nos botões. */
@@ -6733,7 +6822,7 @@ const jwSit={sit:1,pole:0,lt:78,lk:78,rt:70,rk:74,la:28,le:-30,ra:20,re:-36,face
    O alpinista caminha pelos dias; se a caminhada para, ele senta ao lado da bandeirinha. Três paisagens à escolha
    (Montanha, Floresta, Mapa) e o céu muda com a hora: sol de manhã e à tarde, lua e estrelas à noite. */
 const JW_MIN=60,JW_D=["SEG","TER","QUA","QUI","SEX","SÁB","DOM"],JW_T={cume:"Montanha",floresta:"Floresta",mapa:"Mapa da expedição"};
-const jwTheme=()=>{const t=(PLANS.ui||{}).jwTheme;return JW_T[t]?t:"cume"};
+const jwTheme=()=>{if(POS())return"vulcao";const t=(PLANS.ui||{}).jwTheme;return JW_T[t]?t:"cume"};
 /* céu da cena: dia 04h–14h59, tarde 15h–17h59, noite 18h–03h59 */
 const jwTod=()=>{const h=new Date().getHours();return h>=4&&h<15?"dia":h>=15&&h<18?"tarde":"noite"};
 let jwTodLast=jwTod();
@@ -6753,7 +6842,11 @@ function jwCurve(P,a,b){let d="";for(let i=a;i<b;i++){const [x1,y1]=P[i],[x2,y2]
 const jwPt=(P,i,f)=>{if(i<0){const [x,y]=P[0];return{x:x-48*(1-f),y:y+6*(1-f)}}const p=document.createElementNS("http://www.w3.org/2000/svg","path");p.setAttribute("d",jwCurve(P,i,i+1));const L=p.getTotalLength();return p.getPointAtLength(L*Math.max(0,Math.min(1,f)))};
 const jwSun=(x,y,r)=>`<circle cx="${x}" cy="${y}" r="${(r||1)*46}" fill="url(#jwSunG)"/><circle cx="${x}" cy="${y}" r="${(r||1)*17}" fill="#ffd45a"/>`;
 const jwMoon=(x,y)=>`<circle cx="${x}" cy="${y}" r="34" fill="url(#jwMoonG)" opacity=".5"/><circle cx="${x}" cy="${y}" r="13" fill="#fff4cf"/>`;
-const jwStars=(n,W)=>{let s="";for(let i=0;i<n;i++){const x=(i*137.5)%W,y=(i*53.3)%120+70,r=(i%3)*.5+.6;s+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="#fff" opacity="${.3+(i%4)*.15}"/>`}return s};
+const jwStars=(n,W)=>{const rnd=k=>{const x=Math.sin(k*12.9898+78.233)*43758.5453;return x-Math.floor(x)};let s="";n=Math.round(n*1.6);
+  for(let i=0;i<n;i++){const x=rnd(i+1)*W,y=-20+rnd(i+101)*230,b=rnd(i+201),r=b>.94?1.9:b>.8?1.35:b>.5?.95:.6,tw=b>.45;
+    s+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${b>.88?"#fff4d6":b<.2?"#cfd8ff":"#ffffff"}" opacity="${(.3+b*.65).toFixed(2)}"${tw?` class="jw-tw" style="animation-delay:${(rnd(i+301)*5).toFixed(2)}s;animation-duration:${(2.2+rnd(i+401)*3.4).toFixed(1)}s"`:""}/>`;
+    if(b>.95)s+=`<g class="jw-tw" style="animation-delay:${(rnd(i+501)*4).toFixed(2)}s" opacity=".85"><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="#fff" opacity=".12"/><path d="M${(x-6).toFixed(1)} ${y.toFixed(1)} H${(x+6).toFixed(1)} M${x.toFixed(1)} ${(y-6).toFixed(1)} V${(y+6).toFixed(1)}" stroke="#fff" stroke-width=".7" stroke-linecap="round"/></g>`}
+  return s};
 const jwTent=(x,y,k)=>`<g transform="translate(${x} ${y}) scale(${k||1})"><ellipse cx="1" cy="1" rx="24" ry="3.6" fill="rgba(0,0,0,.38)"/><path d="M-19 0 L-27 2 M19 0 L27 2 M0 -25 L-25 1.5 M0 -25 L25 1.5" stroke="#d9d4ff" stroke-opacity=".45" stroke-width=".7"/><path d="M-19 0 L0 -25 L19 0Z" fill="#ff7a1a"/><path d="M0 -25 L19 0 H7Z" fill="#c9560c"/><path d="M0 -25 L-7 0 H7Z" fill="#4a1f08"/><path d="M0 -25 L-7 0 H-2.5 Q-1 -12 0 -25Z" fill="#ffa25a"/><path d="M-19 0 H19" stroke="#2a1404" stroke-width="1.2"/><path d="M0 -25 v-4" stroke="#e9e4ff" stroke-width="1.4" stroke-linecap="round"/><path d="M-27 2 l-1 -3 M27 2 l1 -3" stroke="#c9cfe6" stroke-width="1"/></g>`;
 function jwDefs(){return`<defs>${jwHeroDefs()}<linearGradient id="jwGr" x1="0" x2="1"><stop offset="0" stop-color="#2fbf6a"/><stop offset="1" stop-color="#7cf0a8"/></linearGradient><filter id="jwGl"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
  <linearGradient id="jwSkyN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#140f3a"/><stop offset=".7" stop-color="#2a1550"/><stop offset="1" stop-color="#3b1a5a"/></linearGradient><linearGradient id="jwSkyM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b4bb5"/><stop offset=".55" stop-color="#c76ba8"/><stop offset="1" stop-color="#ffb37a"/></linearGradient><linearGradient id="jwSkyT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f7fd6"/><stop offset="1" stop-color="#9fd0ff"/></linearGradient>
@@ -6761,6 +6854,13 @@ function jwDefs(){return`<defs>${jwHeroDefs()}<linearGradient id="jwGr" x1="0" x
  <linearGradient id="jwFN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f1a33"/><stop offset="1" stop-color="#1c2a3f"/></linearGradient><linearGradient id="jwFM" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6a5cc0"/><stop offset="1" stop-color="#ffc08a"/></linearGradient>
  <radialGradient id="jwSunG"><stop offset="0" stop-color="#fff3b0"/><stop offset=".5" stop-color="#ffc24a" stop-opacity=".6"/><stop offset="1" stop-color="#ff9a3c" stop-opacity="0"/></radialGradient><radialGradient id="jwMoonG"><stop offset="0" stop-color="#fff6d8"/><stop offset="1" stop-color="#ffe7a0" stop-opacity="0"/></radialGradient></defs>`}
 /* cena: devolve {svg, P, vb} para o tema, a hora e o tamanho (sm = celular) */
+/* lava realista em camadas: brilho difuso, corpo com borda irregular, veios claros correndo e crostas escuras à deriva */
+function lavaDefs(p){return`<defs><filter id="${p}Ro" x="-30%" y="-10%" width="160%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".055" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="9"/></filter><filter id="${p}Bl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter><filter id="${p}Sm" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="9"/></filter><linearGradient id="${p}Lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe680"/><stop offset=".25" stop-color="#ffb020"/><stop offset=".6" stop-color="#ff5a12"/><stop offset="1" stop-color="#b3160a"/></linearGradient><radialGradient id="${p}Lk"><stop offset="0" stop-color="#fff7c2"/><stop offset=".3" stop-color="#ffc233"/><stop offset=".65" stop-color="#ff5a12"/><stop offset="1" stop-color="#7a1205"/></radialGradient></defs>`}
+function lavaFlow(p,d,w,k){k=k||1;return`<path d="${d}" fill="none" stroke="#ff3d00" stroke-width="${w*2.6}" stroke-linecap="round" opacity=".38" filter="url(#${p}Bl)"/>`+
+  `<path d="${d}" fill="none" stroke="#5a0f06" stroke-width="${w*1.25}" stroke-linecap="round" filter="url(#${p}Ro)"/>`+
+  `<path d="${d}" fill="none" stroke="url(#${p}Lg)" stroke-width="${w}" stroke-linecap="round" filter="url(#${p}Ro)"/>`+
+  `<path d="${d}" fill="none" stroke="#fff3a0" stroke-width="${Math.max(1.2,w*.28)}" stroke-linecap="round" stroke-dasharray="${26*k} ${22*k}" class="jw-lvc" opacity=".9"/>`+
+  `<path d="${d}" fill="none" stroke="#2a0805" stroke-width="${w*.6}" stroke-linecap="round" stroke-dasharray="${5*k} ${39*k}" class="jw-lvk" opacity=".75"/>`}
 function jwScene(theme,tod,sm,D){const W=sm?640:1100,sx=W/1100,H=300;
   const R=sm?19:14,FS=sm?21:13,sky=tod==="dia"?"jwSkyT":tod==="tarde"?"jwSkyM":"jwSkyN";let g="",P,vb;
   const lbl=(x,y,t,on,dy)=>`<text x="${x}" y="${y+(dy||(R+19))}" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-weight="700" font-size="${FS}" fill="${on?"#fff":"#d9d4ff"}" style="paint-order:stroke" stroke="rgba(13,12,34,.75)" stroke-width="3">${t}</text>`;
@@ -6781,6 +6881,20 @@ function jwScene(theme,tod,sm,D){const W=sm?640:1100,sx=W/1100,H=300;
     g+=(tod==="noite"?jwMoon(W-120*sx-30,132):jwSun(W-120*sx-30,132,.65));
     g+=`<g transform="translate(${W-40} 214)"><circle r="18" fill="none" stroke="#8682b5" stroke-width="1.5"/><path d="M0 -18 L5 0 L0 18 L-5 0Z" fill="#ff5f8f"/><text y="-26" text-anchor="middle" font-size="11" font-weight="800" fill="#c9a8ff" font-family="Source Sans 3">N</text></g>`;
     g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#c9a8ff" stroke-width="${sm?4:3}" stroke-dasharray="9 8" stroke-linecap="round" opacity=".7"/>`}
+  else if(theme==="vulcao"){P=[80,240,395,545,690,830,960].map((x,i)=>[Math.round(x*sx),[256,248,236,220,198,166,120][i]]);vb=`0 ${sm?40:46} ${W} ${sm?264:254}`;
+    const cx=960*sx;
+    g+=lavaDefs("jwV")+`<defs><linearGradient id="jwSkyV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a0302"/><stop offset=".55" stop-color="#4a0c05"/><stop offset="1" stop-color="#8a1f08"/></linearGradient><linearGradient id="jwVo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a120b"/><stop offset=".5" stop-color="#1e0907"/><stop offset="1" stop-color="#0e0403"/></linearGradient><radialGradient id="jwLavaG"><stop offset="0" stop-color="#fff0a0"/><stop offset=".35" stop-color="#ffb020"/><stop offset=".7" stop-color="#ff4d1a" stop-opacity=".8"/><stop offset="1" stop-color="#ff2e1a" stop-opacity="0"/></radialGradient></defs>`;
+    g+=`<rect y="-90" width="${W}" height="${H+90}" fill="url(#jwSkyV)"/><circle cx="${300*sx}" cy="112" r="40" fill="#ff3d1a" opacity=".35"/><circle cx="${300*sx}" cy="112" r="15" fill="#ff7a3d" opacity=".8"/>`;
+    g+=`<g class="jw-smk" opacity=".7" filter="url(#jwVSm)"><ellipse cx="${cx-30}" cy="44" rx="${70*sx+30}" ry="26" fill="#3a1a14"/><ellipse cx="${cx+40}" cy="20" rx="${60*sx+24}" ry="22" fill="#4a241a"/><ellipse cx="${cx}" cy="-6" rx="${80*sx+30}" ry="24" fill="#2e1510"/></g><g class="jw-smk2" opacity=".5" filter="url(#jwVSm)"><ellipse cx="${cx+10}" cy="70" rx="${40*sx+18}" ry="16" fill="#ff6a2a" opacity=".35"/><ellipse cx="${cx-50}" cy="10" rx="${50*sx+20}" ry="18" fill="#2a120e"/></g>`;
+    g+=`<g transform="scale(${sx} 1)"><path d="M0 250 L120 200 L230 232 L360 176 L480 222 L600 172 L720 212 L1100 190 V300 H0Z" fill="#240a06" opacity=".95"/>
+     <path d="M0 300 V268 L240 262 L395 250 L545 234 L690 212 L830 180 L928 122 L992 122 L1052 176 L1100 196 V300Z" fill="url(#jwVo)"/>
+     <g>${lavaFlow("jwV","M988 126 C1002 152 994 178 1014 214 C1028 242 1040 268 1052 304",9)}${lavaFlow("jwV","M936 126 C926 152 904 170 907 204 C910 234 884 260 870 304",7)}${lavaFlow("jwV","M906 206 C890 222 872 236 866 262 C862 280 852 292 846 304",4,.7)}</g>
+     <path d="M928 122 L940 114 L960 110 L982 114 L992 122" fill="none" stroke="#3a120b" stroke-width="5" stroke-linecap="round"/></g>
+     <ellipse cx="${cx}" cy="116" rx="${84*sx+16}" ry="34" fill="#ff5a12" opacity=".35" filter="url(#jwVBl)" class="jw-crater"/>
+     <ellipse cx="${cx}" cy="120" rx="${30*sx+8}" ry="7" fill="url(#jwVLk)"/>
+     ${[0,1,2,3].map(i=>`<circle cx="${cx-14+i*9}" cy="${119+(i%2)}" r="${1.6+(i%2)}" fill="#fff3a0" class="jw-bub" style="animation-delay:${(i*.45).toFixed(2)}s"/>`).join("")}`;
+    for(let i=0;i<16;i++){const dx=((i*37)%90)-45,r=1.6+(i%3);g+=`<circle cx="${cx+((i*13)%30)-15}" cy="118" r="${r}" fill="${i%3?"#ffb020":"#ff4d1a"}" class="jw-emb" style="--d:${((i*.31)%2.4).toFixed(2)}s;--t:${(1.8+(i%4)*.5).toFixed(1)}s;--dx:${dx}px"/>`}
+    g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#0a0302" stroke-width="${sm?18:14}" stroke-linecap="round" opacity=".7"/><path d="${jwCurve(P,0,6)}" fill="none" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round" opacity=".85"/>`}
   else if(theme==="cume"){P=[80,240,395,545,690,830,960].map((x,i)=>[Math.round(x*sx),[254,246,234,218,196,164,112][i]]);vb=`0 ${sm?40:46} ${W} ${sm?264:254}`;
     g+=`<rect y="-90" width="${W}" height="${H+90}" fill="url(#${sky})"/>`+(tod==="noite"?jwStars(46,W)+jwMoon(300*sx,110):tod==="tarde"?jwSun(300*sx,150):jwSun(320*sx,112));
     g+=`<g transform="scale(${sx} 1)"><path d="M0 250 L140 180 L260 222 L400 150 L540 204 L660 142 L780 192 L1100 168 V300 H0Z" fill="url(#jwM2)" opacity=".85"/><path d="M0 300 V266 L80 266 L240 258 L395 246 L545 230 L690 208 L830 176 L960 98 L1010 140 L1060 176 L1100 194 V300Z" fill="url(#jwCm)"/>
@@ -6807,7 +6921,7 @@ function jwScene(theme,tod,sm,D){const W=sm?640:1100,sx=W/1100,H=300;
     else g+=node(x,y,s)+lbl(x,y,JW_D[i],i===D.wd)});
   /* destino do domingo */
   const [dx,dy]=P[6];if(D.win&&theme!=="mapa"){}else g+=theme==="mapa"?`<g transform="translate(${dx+14} ${dy-6})"><path d="M-8 -8 l16 16 M8 -8 l-16 16" stroke="#ff5f8f" stroke-width="4" stroke-linecap="round"/></g>`:`<g transform="translate(${dx+(theme==="floresta"?(sm?40:30):4)} ${dy-R})"><path d="M0 0 v-34" stroke="#e9e4ff" stroke-width="2.4"/><path d="M1 -34 h22 l-5 7 l5 7 h-22z" fill="#a06bff"/></g>`;
-  return{svg:jwDefs()+g,P,vb,sc:theme==="cume"?(sm?1.05:.78):(sm?1.35:1.05)}}
+  return{svg:jwDefs()+g,P,vb,sc:theme==="cume"||theme==="vulcao"?(sm?1.05:.78):(sm?1.35:1.05)}}
 /* onde fica o alpinista e em que pose */
 /* regra: sem estudo hoje ele fica sentado no dia de hoje; começou a estudar, caminha de hoje em direção a amanhã
    (avança conforme os minutos do dia); completou o dia, chega perto do dia seguinte. No domingo o caminho é até o topo. */
@@ -6913,7 +7027,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261112202937";
+const JX_BUILD="20261112205210";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7415,7 +7529,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112202937" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112205210" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -7932,7 +8046,7 @@ function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
   const c=core(),r=curMeta(),name=esc(c.cfg.name||"");
   let h=greetHTML(name)+obPerfilCard()+edThinHTML();
   /* topo do Hoje: cabeçalho do concurso, desempenho e o trilheiro da semana; depois a meta e as tarefas */
-  const topo=()=>hjOrgHTML()+kpiBlock()+jwCard();
+  const topo=()=>posBanner()+hjOrgHTML()+kpiBlock()+jwCard();
   if(!r){
     h+=topo();
     const pv=previewMeta(),tot=remainingMetas();
@@ -8040,7 +8154,7 @@ const dias0=(n,a,b)=>n+" "+(n===1?a:b);
 function navFoot(){try{const sf=document.querySelector(".side-foot");if(!sf)return;let el=$("navFoot");
   if(!VIS()){if(el)el.remove();const b=$("brSub");if(b&&b.dataset.o){b.textContent=b.dataset.o;delete b.dataset.o}const l=document.querySelector(".mini-count .mc-l");if(l&&l.dataset.o){l.textContent=l.dataset.o;delete l.dataset.o}return}
   if(!el){el=document.createElement("nav");el.id="navFoot";el.className="nav-foot";el.setAttribute("aria-label","Conta");sf.insertBefore(el,sf.querySelector(".sync"))}
-  el.innerHTML=[["assinatura","Assinatura","lock"],["tutorial","Tutorial","tutorial"]].map(([k,l,i])=>`<button data-a="tab" data-t="${k}" ${TAB===k?'aria-current="page"':""}>${ic(i)}<span>${l}</span></button>`).join("")+`<button data-a="lavTg" class="lav-tg" aria-pressed="${LAV()}">${ic(LAV()?"moon":"sun")}<span>${LAV()?"Modo escuro":"Modo claro"}</span></button>`;
+  el.innerHTML=[["assinatura","Assinatura","lock"],["tutorial","Tutorial","tutorial"]].map(([k,l,i])=>`<button data-a="tab" data-t="${k}" ${TAB===k?'aria-current="page"':""}>${ic(i)}<span>${l}</span></button>`).join("")+`<button data-a="posTg" class="pos-tg" aria-pressed="${POS()}">${ic("flame")}<span>${POS()?"Pós-edital ligado":"Modo Pós-Edital"}</span></button>`+`<button data-a="lavTg" class="lav-tg" aria-pressed="${LAV()}">${ic(LAV()?"moon":"sun")}<span>${LAV()?"Modo escuro":"Modo claro"}</span></button>`;
   {let f=$("lavFab");if(!f){f=document.createElement("button");f.id="lavFab";f.dataset.a="lavTg";document.body.appendChild(f)}f.innerHTML=ic(LAV()?"moon":"sun");f.setAttribute("aria-label",LAV()?"Ligar o modo escuro":"Ligar o modo claro")}
   const b=$("brSub");if(b){if(!b.dataset.o)b.dataset.o=b.textContent;let I={};try{I=orgInfo()}catch(e){}b.textContent=(IS_TJ?[cargoTitulo(I.cargo||""),I.sig].filter(Boolean).join(" · "):planTitulo())||b.dataset.o}
   const l=document.querySelector(".mini-count .mc-l");if(l){if(!l.dataset.o)l.dataset.o=l.textContent;l.textContent="Altímetro até a prova"}
@@ -8617,8 +8731,17 @@ const SKIN=()=>{let v="jornada";try{v=localStorage.getItem("jornada-skin")||"jor
 const ARENA=()=>SKIN()!=="classic",VIS=()=>SKIN()==="jornada";
 /* modo claro "Lavanda" do visual Jornada (escolha de cada aluno, guardada na conta) */
 const LAV=()=>{try{return localStorage.getItem("jx-lav")==="1"}catch(e){return false}};
-function applyLav(){const r=document.documentElement;if(LAV()&&r.dataset.vis==="jornada"){r.dataset.lav="1";r.style.colorScheme="light"}else{delete r.dataset.lav;r.style.colorScheme=""}const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",r.dataset.lav?"#f6f2ff":"#0b0820")}
-function applySkin(){const r=document.documentElement,k=SKIN();if(k!=="classic")r.dataset.skin="arena";else delete r.dataset.skin;if(k==="jornada")r.dataset.vis="jornada";else delete r.dataset.vis;try{applyLav()}catch(e){}
+/* Modo Pós-Edital "Vulcão": o aluno escolhe; vale para o concurso (plano) atual */
+function POS(){try{return IS_TJ?!!PLANS.tjPos:!!(PLAN&&PLAN.pos)}catch(e){return false}}
+function posDias(){try{if(provaTBD())return null;return Math.max(0,Math.ceil((pd(prova())-new Date())/864e5))}catch(e){return null}}
+function applyPos(){const r=document.documentElement;if(POS()&&r.dataset.vis==="jornada"){r.dataset.pos="1";delete r.dataset.lav;r.style.colorScheme="dark";let fx=document.getElementById("posFx");
+    if(!fx){fx=document.createElement("div");fx.id="posFx";fx.setAttribute("aria-hidden","true");fx.innerHTML=Array.from({length:22},(_,i)=>`<i style="left:${(i*47+11)%100}%;--d:${((i*.77)%7).toFixed(2)}s;--t:${(5+(i%6)*.9).toFixed(1)}s;--s:${2+(i%3)}px"></i>`).join("");document.body.appendChild(fx)}
+    const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content","#160605")}
+  else{if(r.dataset.pos){delete r.dataset.pos;try{applyLav()}catch(e){}}const fx=document.getElementById("posFx");if(fx)fx.remove()}}
+function posBanner(){if(!POS())return"";const d=posDias();return`<section class="pos-ban" aria-label="Modo Pós-Edital"><b class="pb-t">Pós-edital</b><span>${d==null?"Ambiente hostil: o edital saiu e cada dia conta.":`Ambiente hostil: faltam <b>${d} dia${d===1?"":"s"}</b> para a prova. Cada dia conta.`}</span>${d==null?"":`<span class="pb-d">${d}<small>DIAS</small></span>`}</section>`}
+function posCard(){if(!VIS())return"";const on=POS();return`<div class="pos-card"><b>🔥 Modo Pós-Edital</b><span>${on?"Ligado: ambiente de fogo, o alpinista sobe o vulcão até a prova.":"O edital saiu e faltam poucos meses? Ligue o ambiente de fogo: o alpinista passa a subir um vulcão até a prova."}</span><button class="btn ${on?"":"pri"} sm" data-a="posTg">${on?"Desligar":"Ligar o Modo Pós-Edital"}</button></div>`}
+function applyLav(){const r=document.documentElement;if(LAV()&&!POS()&&r.dataset.vis==="jornada"){r.dataset.lav="1";r.style.colorScheme="light"}else{delete r.dataset.lav;r.style.colorScheme=""}const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute("content",r.dataset.lav?"#f6f2ff":"#0b0820")}
+function applySkin(){const r=document.documentElement,k=SKIN();if(k!=="classic")r.dataset.skin="arena";else delete r.dataset.skin;if(k==="jornada")r.dataset.vis="jornada";else delete r.dataset.vis;try{applyLav()}catch(e){}try{applyPos()}catch(e){}
   const bg=(core().skin||{}).bg;if(bg&&(bg.id||bg.url))r.style.setProperty("--skin-img",`url("${String(skinUrl(bg)).replace(/"/g,"")}")`);else r.style.removeProperty("--skin-img")}
 const catOf=()=>IS_TJ?null:(typeof CAT!=="undefined"?CAT.find(x=>x.id===PLAN.cat):null);
 /* retificação do edital TJ-SP 01/2026: remuneração passou a R$ 10.276,04 (valor de março/2026) */
@@ -9679,7 +9802,7 @@ function skOrbits(W,H){const CX=W/2,CY=H/2-16,N=72;
 
 /* ---------- Mapa do Edital: a trilha até o cume (aprovação) ---------- */
 /* modo claro: Mapa do Edital (montanha de dia); modo escuro: Constelações do Edital */
-const EDV=()=>{try{return LAV()&&VIS()?"mapa":"ceu"}catch(e){return"ceu"}};
+const EDV=()=>{try{return(LAV()||POS())&&VIS()?"mapa":"ceu"}catch(e){return"ceu"}};
 const EMK={l:{W:1000,H:620,pts:[[60,598],[250,566],[460,548],[650,528],[830,500],[905,462],[780,430],[560,412],[360,394],[300,362],[450,334],[610,306],[720,268],[660,232],[575,200],[610,160],[675,124],[700,84]],zy:[215,400,500],zl:[8,27,50,72,89]},
   p:{W:600,H:960,pts:[[60,930],[300,905],[530,880],[540,840],[320,815],[90,790],[80,745],[300,720],[510,690],[520,645],[320,615],[130,585],[130,540],[320,510],[470,475],[470,430],[330,400],[210,370],[220,325],[340,295],[430,258],[400,215],[330,180],[300,140],[330,92]],zy:[250,600,790],zl:[5,19,42,72,90]}};
 function emPath(kk){const W=EMK[kk].pts;
@@ -9689,7 +9812,7 @@ function emPath(kk){const W=EMK[kk].pts;
   const at=t=>{const L=C[C.length-1]*Math.max(0,Math.min(1,t));let i=1;while(i<C.length-1&&C[i]<L)i++;const f=(L-C[i-1])/((C[i]-C[i-1])||1);return[P[i-1][0]+(P[i][0]-P[i-1][0])*f,P[i-1][1]+(P[i][1]-P[i-1][1])*f]};
   const d=t=>{const L=C[C.length-1]*t;let s="M"+P[0].map(v=>v.toFixed(1)).join(" ");for(let i=1;i<P.length&&C[i]<=L;i++)s+="L"+P[i].map(v=>v.toFixed(1)).join(" ");const e=at(t);return s+"L"+e.map(v=>v.toFixed(1)).join(" ")};
   return{at,d}}
-function emZone(y,kk){const z=EMK[kk].zy;return y<z[0]?"Neve":y<z[1]?"Paredão rochoso":y<z[2]?"Campos":"Floresta"}
+function emZone(y,kk){const z=EMK[kk].zy,p=POS();return y<z[0]?(p?"Lava":"Neve"):y<z[1]?(p?"Rocha vulcânica":"Paredão rochoso"):y<z[2]?(p?"Cinzas":"Campos"):(p?"Pé do vulcão":"Floresta")}
 function emArt(kk){const p=kk==="p",VW=p?600:1000,VH=p?960:620;
   const M=p?"M-20 960 L-20 520 L60 470 L150 330 L230 230 L290 120 L330 62 L380 120 L450 220 L520 340 L620 480 L620 960 Z":"M-20 620 L-20 470 L120 424 L262 330 L380 300 L470 232 L560 170 L640 92 L700 56 L762 102 L832 182 L904 262 L1020 330 L1020 620 Z";
   const far=p?"M-20 640 L80 440 L160 380 L250 470 L360 400 L470 300 L560 260 L620 300 L620 960 L-20 960 Z":"M-20 520 L90 360 L190 300 L300 380 L420 330 L520 410 L620 380 L760 300 L860 250 L960 320 L1020 300 L1020 620 L-20 620 Z";
@@ -9700,9 +9823,9 @@ function emArt(kk){const p=kk==="p",VW=p?600:1000,VH=p?960:620;
   let tr="",rk="";const ty=p?[800,150]:[512,96];for(let i=0;i<(p?40:46);i++){const x=(i*97+31)%(VW+40)-10,y=ty[0]+((i*53)%ty[1]),s=(p?11:9)+((i*29)%9);tr+=`<path d="M${x} ${y-s*1.9} L${x+s*.7} ${y} L${x-s*.7} ${y} Z" class="em-tree"/>`}
   (p?[[110,560,22],[420,560,18],[250,450,16],[520,420,14],[150,420,12],[380,330,14],[260,300,10],[480,520,12]]:[[420,372,26],[540,350,18],[800,360,22],[330,340,14],[680,300,20],[880,330,16],[470,290,12],[760,250,14],[600,262,10]]).forEach(([x,y,s])=>{rk+=`<path d="M${x-s} ${y} L${x-s*.4} ${y-s*.8} L${x+s*.3} ${y-s*.6} L${x+s} ${y} Z" class="em-rock"/>`});
   const cl=p?`<ellipse cx="480" cy="110" rx="56" ry="14"/><ellipse cx="505" cy="98" rx="30" ry="13"/><ellipse cx="120" cy="230" rx="44" ry="11"/>`:`<ellipse cx="300" cy="120" rx="58" ry="14"/><ellipse cx="330" cy="108" rx="34" ry="14"/><ellipse cx="880" cy="70" rx="50" ry="12"/><ellipse cx="905" cy="60" rx="28" ry="12"/>`;
-  return`<svg class="em-svg" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><linearGradient id="emSky${kk}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="em-s1"/><stop offset="1" class="em-s2"/></linearGradient><clipPath id="emClip${kk}"><path d="${M}"/></clipPath></defs>
+  return`<svg class="em-svg" viewBox="0 0 ${VW} ${VH}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${POS()?lavaDefs("emV"):""}<defs><linearGradient id="emSky${kk}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="em-s1"/><stop offset="1" class="em-s2"/></linearGradient><clipPath id="emClip${kk}"><path d="${M}"/></clipPath></defs>
    <rect width="${VW}" height="${VH}" fill="url(#emSky${kk})"/><circle cx="${p?110:150}" cy="${p?110:96}" r="${p?34:38}" class="em-sun"/><g class="em-cloud">${cl}</g><path d="${far}" class="em-far"/>
-   <path d="${M}" class="em-mt"/><g clip-path="url(#emClip${kk})"><path d="${meadow}" class="em-meadow"/><path d="${forest}" class="em-forest"/><path d="${snow}" class="em-snow"/>${rk}${tr}<path d="${shade}" class="em-shade"/></g></svg>`}
+   <path d="${M}" class="em-mt"/><g clip-path="url(#emClip${kk})"><path d="${meadow}" class="em-meadow"/><path d="${forest}" class="em-forest"/><path d="${snow}" class="em-snow"/>${rk}${tr}<path d="${shade}" class="em-shade"/>${POS()?(p?lavaFlow("emV","M338 74 C352 120 344 170 372 220 C392 258 386 300 410 350",10)+lavaFlow("emV","M318 76 C300 120 286 160 292 206 C298 246 270 280 262 330",7)+lavaFlow("emV","M372 222 C400 250 430 262 440 300",4,.7):lavaFlow("emV","M712 62 C730 96 724 130 752 168 C774 198 772 232 798 270",10)+lavaFlow("emV","M690 64 C672 96 660 126 664 162 C668 194 640 220 632 260",7)+lavaFlow("emV","M752 168 C780 188 806 196 820 226",4,.7)):""}</g>${POS()?`<ellipse cx="${p?330:700}" cy="${p?70:62}" rx="60" ry="22" fill="#ff5a12" opacity=".45" filter="url(#emVBl)" class="jw-crater"/>`:""}</svg>`}
 function edMap(extra){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L=ED.map((s,i)=>({s,i,q:qOf(s)}));if(L.length<2)return"";
   const pc=v=>(v*100).toFixed(2)+"%",mx=Math.max(1,...L.map(x=>x.q)),N=L.length;
   const ord=L.slice().sort((a,b)=>a.q-b.q||b.i-a.i),sd=x=>x.s.t.filter((_,j)=>E[x.i+":"+j]&&E[x.i+":"+j].stud).length,pct=x=>x.s.t.length?Math.round(sd(x)/x.s.t.length*100):0;
@@ -9716,7 +9839,7 @@ function edMap(extra){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L
       pick.forEach((j,m)=>{const tt=t0+(t-t0)*(m+1)/(pick.length+1),[px,py]=R.at(tt),e=E[x.i+":"+j],b=e&&e.stud?(e.xp?"x":"s"):"d";ds+=`<i class="em-dot" data-b="${b}" style="left:${pc(px/W)};top:${pc(py/H)}" data-emt="${esc(s.t[j][0])}" data-sks="${s.id}" role="button" tabindex="0" aria-label="${esc(s.t[j][0])}"></i>`});
       const up=cy/H>.8||k%2===0,sl=cx/W<.2?" sl":cx/W>.8?" sr":"";
       cmp+=`<div class="sk-c em-c${s.id===f0?" on":""}" data-s="${s.id}" style="--c:${s.col}">${ds}<button class="em-camp${p>=100?" ok":""}" data-skf="${s.id}" style="left:${pc(cx/W)};top:${pc(cy/H)};--z:${sz}px;--p:${p}" title="${esc(s.n)} · ${x.q} questões · ${p}% estudado" aria-label="${esc(s.n)}"><b>${esc(s.c||s.n.slice(0,4))}</b></button><span class="em-tag${up?" up":""}${sl}" style="left:${pc(cx/W)};top:${pc(cy/H)}"><b>${esc(s.c||"")}</b> ${p}%<small>${esc(emZone(cy,kk))} · ${x.q} questões</small></span></div>`});
-    const zones=[["Cume","aprovação"],["Neve","os últimos detalhes"],["Paredão rochoso","o que mais exige"],["Campos","meio da montanha"],["Floresta","a base"]].map(([n,d],i)=>`<span class="em-z" style="top:${K.zl[i]}%"><b>${n}</b><small>${d}</small></span>`).join("");
+    const zones=(POS()?[["Cratera","aprovação"],["Lava","os últimos detalhes"],["Rocha vulcânica","o que mais exige"],["Cinzas","meio do vulcão"],["Pé do vulcão","a base"]]:[["Cume","aprovação"],["Neve","os últimos detalhes"],["Paredão rochoso","o que mais exige"],["Campos","meio da montanha"],["Floresta","a base"]]).map(([n,d],i)=>`<span class="em-z" style="top:${K.zl[i]}%"><b>${n}</b><small>${d}</small></span>`).join("");
     return`<div class="em-v em-${kk}">${emArt(kk)}<svg class="em-tr" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="${R.d(1)}" class="em-trail"/><path d="${R.d(tMe)}" class="em-done"/></svg>
      ${zones}<div class="em-top" style="left:${pc(sx/W)};top:${pc(sy/H)}"><b>🏁 Aprovação</b>${dd?`<small>${dd}</small>`:""}</div>${cmp}
      <div class="em-me" style="left:${pc(me[0]/W)};top:${pc(me[1]/H)}"><i></i><b>Você · ${Math.round(gp*100)}% do edital</b></div></div>`};
@@ -11853,7 +11976,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112202937&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112205210&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -12023,7 +12146,7 @@ function tecCard(){
 /* a aba Concurso tem duas visões: o geral (cronograma, plano, níveis) e a Estrutura da prova */
 function vConcurso(){const t="geral",tb="";
   if(t==="prova")return`<div class="hello"><h1>Concurso</h1><p>${IS_TJ?"Oficial de Justiça do TJSP · Edital 01/2026 · Fundação VUNESP":esc([PLAN.name,PLAN.cargo,PLAN.orgao,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(" · "))}</p></div>${tb}${vProva()}`;
-  const h=vConcurso0(),i=h.indexOf("</div>");return i<0?tb+h:h.slice(0,i+6)+tb+h.slice(i+6)}
+  const h=vConcurso0(),i=h.indexOf("</div>"),pc=posCard();return i<0?tb+pc+h:h.slice(0,i+6)+tb+pc+h.slice(i+6)}
 function vConcurso0(){
   const c=core(),td=today(),pv=prova(),dp=dbet(td,pv),cr=[...c.cron].sort((a,b)=>(a.a||a.d)>(b.a||b.d)?1:-1);
   const base=[td,...c.metas.map(m=>m.start)].sort()[0],span=Math.max(1,dbet(base,addDays(pv,6)));
@@ -13698,6 +13821,7 @@ const A={
   mode(el){if(TM.run){toast("Pause o relógio para trocar o modo");return}TM.mode=el.dataset.m;TM.acc=0;saveTM();drawClock()},
   tgo(){if(TM.run){TM.acc=elapsed();TM.run=false}else{TM.tid=$("tAct").value;TM.run=true;TM.t0=Date.now()}saveTM();startTick();drawClock();$("tAct").disabled=TM.run;tRegSync();if(UI.openT)renderDrawer()},
   tstop(){stopTimer(false)},
+  posTg(){const on=!POS();if(IS_TJ)PLANS.tjPos=on?1:0;else if(PLAN)PLAN.pos=on?1:0;savePlans();applyPos();try{applyLav()}catch(e){}navFoot();render();const d=posDias();toast(on?"🔥 Modo Pós-Edital ligado"+(d!=null?": faltam "+d+" dias. Agora é guerra.":"."):"Modo Pós-Edital desligado")},
   lavTg(){const on=!LAV();try{localStorage.setItem("jx-lav",on?"1":"0")}catch(e){}PLANS.ui=Object.assign({},PLANS.ui,{lav:on?1:0});savePlans();applyLav();navFoot();render();toast(on?"Modo claro Lavanda ligado":"Modo escuro ligado")},
   theme(){if(VIS()){A.lavTg();return}const r=document.documentElement,cur=r.dataset.theme||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");r.dataset.theme=cur==="dark"?"light":"dark";try{localStorage.setItem("jornada-tjsp-theme",r.dataset.theme)}catch(e){}PLANS.ui=Object.assign({},PLANS.ui,{theme:r.dataset.theme});savePlans();renderNav()},
   anticipate(){if(createMeta()){toast("Meta antecipada. Bons estudos!");render()}},
