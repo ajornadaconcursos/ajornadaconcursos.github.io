@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611131009"></script>
+<script src="/claude-shim.js?v=202611131014"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -3150,6 +3150,25 @@ html .treg-ch select.tsel,html :root[data-skin] header.top .top-in .treg .tsel{p
 .an-ls{display:grid;gap:10px}.an-l{padding:12px;border-radius:12px;border:1px solid var(--line)}.an-l ul{margin:6px 0 0;padding-left:18px;display:grid;gap:4px;font-size:14px}.an-l.in b{color:#c4a8ff}.an-l.out b{color:#ff8fb0}.an-l.do b{color:#ffd166}
 :root[data-lav="1"] .an-k,:root[data-lav="1"] .an-l.in b{color:#6d28d9}:root[data-lav="1"] .an-l.out b{color:#be185d}:root[data-lav="1"] .an-l.do b{color:#a16207}:root[data-lav="1"] .an-ring::after{background:#fff}
 /*AN-END*/
+/*OBW-START*/
+.ob-trip{display:none}
+@media (min-width:1000px){
+ .ob-modal{padding:24px}
+ .box.ob-box.has-art{width:min(1240px,calc(100vw - 48px));height:calc(100dvh - 48px);max-height:none;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto;column-gap:32px;row-gap:12px;padding:26px 28px 18px;overflow:hidden}
+ .ob-box.has-art>.ob-bar,.ob-box.has-art>.ob-k,.ob-box.has-art>.ob-body,.ob-box.has-art>.ob-foot{grid-column:2}
+ .ob-box.has-art>.ob-body{overflow:auto;padding-right:6px;align-content:start}
+ .ob-box.has-art>.ob-foot{position:static}
+ .ob-side{grid-column:1;grid-row:1/-1;display:grid;gap:16px;align-content:start;overflow:auto}
+ .ob-side .ob-art{margin:0}
+ .ob-trip{display:grid;gap:8px;margin:0;padding:0;list-style:none}
+ .ob-trip li{display:flex;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid var(--line);opacity:.6}
+ .ob-trip li i{font-style:normal;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(160,107,255,.18);font-weight:900;font-size:13px;flex:0 0 auto}
+ .ob-trip li span{display:grid}.ob-trip li small{opacity:.75}
+ .ob-trip li.on{opacity:1;border-color:#a06bff;background:rgba(160,107,255,.10)}.ob-trip li.on i{background:linear-gradient(135deg,#7b3cff,#ff5f8f);color:#fff}
+ .ob-trip li.ok{opacity:.85}.ob-trip li.ok i{background:#ffd166;color:#2b1a00}
+ .ob-box.has-art .pe-cards.c5{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+/*OBW-END*/
 /*POS-START*/
 /* ================= Modo Pós-Edital "Vulcão": ambiente hostil de fogo (heavy metal / punk) ================= */
 :root[data-pos="1"]:not(#z):not(#y){color-scheme:dark;
@@ -4227,7 +4246,7 @@ function obWizard(step,mode){UI.obStep=step;UI.obMode=mode||UI.obMode||"novo";co
   const back=step>1?`<button class="btn ghost" data-a="obNext" data-v="${step-1}">Voltar</button>`:"";
   const skip=step===2||step===3?`<button class="btn ghost" data-a="obNext" data-v="${step+1}" data-skip="1">Pular</button>`:!nov&&step===1?`<button class="btn ghost" data-a="obLater">Agora não</button>`:"";
   const next=step<4&&(nov||step<3)?`<button class="btn pri" data-a="obNext" data-v="${step+1}">Continuar</button>`:!nov&&step===3?`<button class="btn pri" data-a="obNext" data-v="9">Concluir</button>`:"";
-  $("layer3").innerHTML=`<div class="modal ob-modal" role="dialog" aria-modal="true" aria-label="Entrevista inicial"><div class="box ob-box">${bar}${nov?obArt(step):""}<div class="ob-body">${body}</div><div class="ob-foot">${back}<span class="sp"></span>${skip}${next}</div></div></div>`;
+  $("layer3").innerHTML=`<div class="modal ob-modal" role="dialog" aria-modal="true" aria-label="Entrevista inicial"><div class="box ob-box${nov?" has-art":""}">${bar}${nov?`<div class="ob-side">${obArt(step)}<ol class="ob-trip">${[["Em casa","a roupa: quem é você"],["Na porta","as botas: sua trajetória e o seu tempo"],["Na loja","o inventário: seus cursos"],["No mapa","a rota: área, fase e concurso"],["A subida","o plano começa"]].map(([a,b],i)=>`<li class="${i+1<step?"ok":i+1===step?"on":""}"><i>${i+1<step?"✓":i+1}</i><span><b>${a}</b><small>${b}</small></span></li>`).join("")}</ol></div>`:""}<div class="ob-body">${body}</div><div class="ob-foot">${back}<span class="sp"></span>${skip}${next}</div></div></div>`;
   setTimeout(()=>{const e=step===1?$(M.full?"obN":"obFull"):null;if(e&&!e.value)e.focus()},40)}
 function obGrab(){const M=ME(),v=id=>{const e=$(id);return e?e.value.trim().replace(/\s+/g," "):null};
   if(UI.obStep===1){const f=v("obFull"),n=v("obN"),t=v("obTel"),w=$("obWa");if(f!=null)M.full=f.slice(0,80);if(n!=null)M.nick=(n||f.split(" ")[0]||"").slice(0,40);if(t!=null)M.tel=obPhone(t);if(w)M.waOk=!!w.checked&&!!M.tel;if(window.JX_ACESSO&&window.JX_ACESSO.email)M.email=window.JX_ACESSO.email}
@@ -7620,7 +7639,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261113100953";
+const JX_BUILD="20261113101437";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -8122,7 +8141,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113100953" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113101437" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -12607,7 +12626,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113100953&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113101437&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
