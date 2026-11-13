@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611122124"></script>
+<script src="/claude-shim.js?v=202611130712"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -3037,6 +3037,7 @@ html .treg-ch select.tsel,html :root[data-skin] header.top .top-in .treg .tsel{p
 :root[data-lav="1"] .em-sw{background:#efe8ff;border-color:#ddd0ff}
 /*EM-END*/
 
+.allpdf{width:100%;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:14px;border:1px dashed var(--line,rgba(160,107,255,.35));background:rgba(160,107,255,.06)}.allpdf>div:first-child{display:grid;gap:3px;flex:1 1 280px;min-width:0}.allpdf span{font-size:13px;opacity:.8}.allpdf .upw span{opacity:1}
 /*POS-START*/
 /* ================= Modo Pós-Edital "Vulcão": ambiente hostil de fogo (heavy metal / punk) ================= */
 :root[data-pos="1"]:not(#z):not(#y){color-scheme:dark;
@@ -4715,20 +4716,32 @@ function tecAulaDirect(sid,c){if(!sid||!c)return"";const x=(core().tecAuto||{})[
 /* pedido para o favorito criar no TEC o caderno só do assunto desta aula (nomes do Índice do guia do cargo primeiro, depois os do edital) */
 function tecAulaItem(sid,c){const S=SUB(sid),a=auOf(sid,c);if(!a||String(c).startsWith("x:"))return null;const ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[];
   const tp=(a.tp||[]).map(j=>S.t&&S.t[j]&&S.t[j][0]).filter(Boolean).map(x=>tShort(x));const al=[...new Set([...ga,tShort(a.d||""),...tp].filter(x=>x&&x.length>=3))].slice(0,6);
-  return al.length?{k:sid+"|"+c,m:TECN[sid]||S.n,t:String(a.d||c).slice(0,90),a:al}:null}
+  const kw=[...new Set((a.tp||[]).flatMap(j=>S.t&&S.t[j]&&Array.isArray(S.t[j][1])?S.t[j][1]:[]).concat((a.tp||[]).map(j=>S.t&&S.t[j]&&S.t[j][0]).filter(Boolean)))].join(" ").slice(0,260);
+  return al.length?{k:sid+"|"+c,m:TECN[sid]||S.n,t:String(a.d||c).slice(0,90),a:al,kw:kw?[kw]:[]}:null}
 function tecAsLbl(sid,c){const a=auOf(sid,c),S=SUB(sid),ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[];const x=(core().tecAuto||{})[sid+"|"+c];const L=x&&x.as&&!x.g?String(x.as).split(/;\s*/):ga.length?ga:a?[tShort(a.d||"")]:[];return{m:TECN[sid]||S.n,a:L.filter(Boolean).slice(0,3)}}
-function tecAulaBtn(sid,c,cls){const u=tecAulaDirect(sid,c),L=tecAsLbl(sid,c),lb=`${ic("target")} Questões: <b>${esc(L.m)}</b>${L.a.length?" › "+esc(L.a.join(" / ")):""}`;if(u)return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(u)}" target="_blank" rel="noopener" title="Caderno na sua conta do TEC só com a matéria ${esc(L.m)} e o assunto ${esc(L.a.join("; "))}">${lb}</a>`;
+function tecAulaBtn(sid,c,cls){const u=tecAulaDirect(sid,c),L=tecAsLbl(sid,c),lb=`${ic("target")} Questões: <b>${esc(L.m)}</b>${L.a.length?" › "+esc(L.a.join(" / ")):""}`;if(u)return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(u)}" target="_blank" rel="noopener" title="Caderno na sua conta do TEC só com a matéria ${esc(L.m)} e o assunto ${esc(L.a.join("; "))}">${lb}</a><button class="btn sm ghost" data-a="tecFix" data-s="${sid}" data-c="${esc(c)}" title="O caderno trouxe questões de outro assunto? Diga o assunto certo e o TEC cria outro">Assunto errado?</button>`;
   const it=tecAulaItem(sid,c);if(!it)return"";return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(tecJobUrl([it]))}" target="_blank" rel="noopener" data-tecjob="1" title="Abre o TEC e cria na sua conta um caderno só com a matéria ${esc(it.m)} e o assunto: ${esc(it.a.join("; "))}">${lb}</a>`}
 document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-tecjob]");if(!a)return;if(isTouchDev()){e.preventDefault();tecMobModal(a.href);return}toast("No TEC, toque no favorito ➜ A Jornada: ele filtra a matéria e o assunto exato desta aula, cria o caderno na sua conta e volta. Da próxima vez o botão abre direto nas questões desse assunto.")},true);
 function tecKind(sid){const m=tecMatCad(sid);return m?(m.k==="auto"?"seu":m.k):TECL.sub[sid]?"guia":"busca"}
 function tecMatRow(s){const m=tecMatCad(s.id),b=tecBanca(),L={seu:"Seu caderno",auto:"Caderno A Jornada na sua conta",guia:"Caderno do Guia do cargo"};
   return`<span class="muted small">${m?`<b>${L[m.k]}</b> · questões ${b?esc(b)+" ":""}de ${esc(s.n)}${m.k==="guia"&&IS_TJ?" para Oficial de Justiça TJ SP":""}. Para o assunto exato, use <b>TEC: assunto desta aula</b> em cada aula abaixo. Errou? Lance os números das questões: vão para Erradas e viram reforço.`:`Ainda não há caderno de ${esc(s.n)} no TEC: a plataforma cria um na sua conta, com as questões ${b?"da "+esc(b):"da banca"}.`}</span><span class="row" style="gap:6px">${m?`<a class="btn sm pri" href="${esc(m.url)}" target="_blank" rel="noopener">${ic("ext")} Questões no TEC</a><button class="btn sm" data-a="tbOpen" data-s="${s.id}">${ic("plus")} Lançar erros</button>`:`<button class="btn sm pri" data-a="tcaOpen">${ic("target")} Criar caderno no TEC</button><a class="btn sm" href="${esc(tecUrl(s.id))}" target="_blank" rel="noopener">${ic("ext")} Buscar no TEC</a>`}</span>`}
+/* Matérias do TEC (página pública /materias): o "Buscar no TEC" abre direto a página de questões da matéria */
+const TECMAT="Língua Portuguesa (Português)|Medicina|Matemática|Direito Administrativo (Doutrina e Leis Federais)|Pedagogia|Administração Geral e Pública|Informática|Biologia e Biomedicina|AFO, Direito Financeiro e Contabilidade Pública|Direito Constitucional (CF/1988 e Doutrina)|Enfermagem|Engenharia Elétrica e Eletrônica|Engenharia Civil e Auditoria de Obras|Direito Sanitário e Saúde|Odontologia|Segurança e Saúde no Trabalho (SST)|Química e Engenharia Química|Comunicação Social|Psicologia|Legislação e Ética Profissional|Contabilidade Geral|Atualidades e Conhecimentos Gerais|Engenharia Mecânica|Direito Educacional|Língua Inglesa (Inglês)|Geografia|Nutrição, Gastronomia e Engenharia de Alimentos|História|Farmácia|TI - Redes de Computadores|Educação Física|Estatística|Engenharia Ambiental, Florestal e Sanitária|Serviço Social|Física|Artes e Música|Engenharia Agronômica e Agrícola|Biblioteconomia|Economia e Finanças Públicas|Arquivologia|TI - Desenvolvimento de Sistemas|Veterinária e Zootecnia|Legislação de Trânsito e Transportes|Direito Ambiental|Direito Tributário|Direito Civil|Fisioterapia|Direito Processual Civil|Segurança Privada e Transportes|Raciocínio Lógico|Direito Previdenciário|Serviços Gerais|Direito da Criança e do Adolescente|TI - Banco de Dados|Direito Penal|TI - Segurança da Informação|Direito Administrativo Municipal|Direitos Humanos|Auditoria Governamental e Controle|TI - Engenharia de Software|Legislação Tributária dos Municípios|Fonoaudiologia|Legislação Tributária dos Estados e do Distrito Federal|Arquitetura|Legislação Penal e Processual Penal Especial|Design e Artes Gráficas|TI - Sistemas Operacionais|Libras e Inclusão|Direito Constitucional Municipal|Direito do Trabalho|Redação Oficial|Direito Processual Penal|Direito Urbanístico|Administração de Recursos Materiais|Segurança Pública e Legislação Policial|Filosofia e Teologia|Matemática Financeira|TI - Organização e Arquitetura dos Computadores|Engenharia Cartográfica e de Agrimensura|Auditoria Privada|Radiologia|Terapia Ocupacional|Legislação Específica das Agências Reguladoras|Geologia e Engenharia de Minas|Língua Espanhola (Espanhol)|Ética no Serviço Público|TI - Gestão e Governança de TI|Direito Administrativo Estadual e do DF|Direito Empresarial (Comercial)|Ciências Sociais|Legislação Militar|Legislação das Casas Legislativas|Legislação Civil e Processual Civil Especial|Legislação Específica dos Tribunais Estaduais|Legislação Tributária Federal|Gestão de Projetos (PMBOK)|Legislação Específica dos Tribunais Federais|Direito Processual do Trabalho|Finanças e Conhecimentos Bancários|TI - Ciência de Dados e Inteligência Artificial|Criminalística e Medicina Legal|Contabilidade de Custos|Literatura Brasileira e Estrangeira|Secretariado e Taquigrafia|Legislação Específica dos Ministérios Públicos|Direito do Consumidor|Direito Constitucional Estadual e Distrital|Direito Digital|Direito Notarial e Registral|Segurança e Proteção Contra Incêndios|Língua Francesa (Francês)|Direito Eleitoral|Engenharia de Produção|Engenharia Naval|Direito Cultural, Desportivo e da Comunicação|Legislação Específica das Defensorias Públicas|Museologia|Turismo|Meteorologia e Astronomia|Línguas Estrangeiras Diversas|Contabilidade de Instituições Financeiras e Atuariais|Relações Internacionais e Comércio Internacional|Legislação Geral Federal|Legislação Geral Municipal|Direito Internacional Público e Privado|Ciências Políticas|Direito Marítimo, Portuário e Aeronáutico|Direito Agrário|Legislação Geral Estadual e do DF|Legislação Específica das Procuradorias (Advocacias Públicas)|Oceanografia|Direito Penal Militar|Engenharia Aeronáutica|Direito Econômico|Legislação Aduaneira|Antropologia|Arqueologia|Defesa Civil|Ciências Atuariais (Atuária)|Desenho Técnico e Modelagem da Construção|Direito Processual Penal Militar|Criminologia|Bancos - Atendimento, Vendas, História, etc.|Teoria Geral, Filosofia e Sociologia Jurídica|Organização de Eventos".split("|");
+const tecSlug=n=>norm(n).replace(/\//g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const TECMAT_ALIAS=[[/reforma tributaria|sobre o consumo|\bibs\b|\bcbs\b/,"Direito Tributário"],[/legisla.*especial|leis penais especiais|legislacao penal/,"Legislação Penal e Processual Penal Especial"],[/^atualidades|conhecimentos gerais|realidade/,"Atualidades e Conhecimentos Gerais"],[/raciocinio|logica/,"Raciocínio Lógico"],[/portugues|lingua portuguesa/,"Língua Portuguesa (Português)"],[/ingles|lingua inglesa/,"Língua Inglesa (Inglês)"],[/espanhol/,"Língua Espanhola (Espanhol)"],[/^contabilidade publica|^afo|orcament|direito financeiro/,"AFO, Direito Financeiro e Contabilidade Pública"],[/^contabilidade( geral| e avancada|$)|contabilidade geral/,"Contabilidade Geral"],[/^auditoria( governamental|$)|controle externo/,"Auditoria Governamental e Controle"],[/economia/,"Economia e Finanças Públicas"],[/empresarial|comercial/,"Direito Empresarial (Comercial)"],[/^administracao (publica|geral)|^administracao$/,"Administração Geral e Pública"],[/tributaria (estadual|dos estados)|icms/,"Legislação Tributária dos Estados e do Distrito Federal"],[/tributaria municipal|tributaria dos municipios|iss\b/,"Legislação Tributária dos Municípios"],[/tecnologia da informacao|^ti\b/,"TI - Desenvolvimento de Sistemas"],[/^etica/,"Ética no Serviço Público"],[/eca\b|crianca e do adolescente/,"Direito da Criança e do Adolescente"]];
+function tecMatName(sid){const S=SUB(sid)||{},raw=norm(String(TECN[sid]||S.n||"").replace(/\(.*$/,"")).trim();if(!raw)return"";
+  for(const[r,n]of TECMAT_ALIAS)if(r.test(raw))return n;
+  const ex=TECMAT.find(n=>norm(n.replace(/\s*\(.*$/,""))===raw);if(ex)return ex;
+  const W=raw.replace(/[^a-z0-9]+/g," ").split(" ").filter(w=>w.length>2&&!["e","de","da","do","das","dos","nocoes"].includes(w));let best="",bs=0;
+  TECMAT.forEach(n=>{const T=" "+norm(n).replace(/[^a-z0-9]+/g," ")+" ";let sc=0;W.forEach(w=>{if(T.includes(" "+w+" "))sc+=w==="direito"||w==="legislacao"?1:3});if(raw.startsWith(norm(n).split(" (")[0]))sc+=2;if(sc>bs){bs=sc;best=n}});
+  return bs>=3?best:""}
+const tecMatPage=sid=>{const n=tecMatName(sid);return n?TB+"/materias/"+tecSlug(n):""};
 function tecUrl(sid){
   const c=core().cfg;
   if(!sid)return c.tec||TECL.guia;
   const m=tecMatCad(sid);if(m)return m.url;
   if(TECL.sub[sid])return TECL.sub[sid];
-  return tecSearch(tecMatTerm(sid),false);
+  return tecMatPage(sid)||tecSearch(tecMatTerm(sid),false);
 }
 /* ================= Cadernos prontos do TEC por aula (compartilhados, como o Guruja) =================
    Cada caderno foi gerado no TEC com 20 a 30 questões dos assuntos da aula e compartilhado: o aluno abre o link,
@@ -5054,11 +5067,25 @@ async function extractPdf(buf,sid,onp){
   return{pages:n,secs:secs.slice(0,300),qc,qs:qs.slice(0,400),hits,ts,qo:qo.slice(0,400),st,chk:{sscore,tcount,aulaNo}};
 }
 function detectAula(sid,name){{const q=name.match(/(?:extra|quiz)[^\d]*(\d)\s*[.,]\s*(\d)/i)||name.match(/aula\s*(\d)\s*[.,]\s*(\d)\b/i);if(q&&(QUIZ[sid]||[]).includes(q[1]+"."+q[2]))return q[1]+"."+q[2]}if(/aula\s*[úu]nica/i.test(name)&&AU(sid).some(a=>a.c==="U"))return"U";const m=name.match(/aula[\s_\-–.]*(\d{1,2})(?:\s*\.\s*(\d)(?!\d))?/i);if(!m)return"";const c=m[2]?(+m[1])+"."+m[2]:pad(+m[1]);return AU(sid).some(a=>a.c===c)||(QUIZ[sid]||[]).includes(c)?c:""}
-async function addPdfs(files,sid,aulaSel,assetId){
+/* Enviar tudo de uma vez: descobre a matéria de cada PDF pelo nome, pela pasta e, se precisar, pelas primeiras páginas */
+const SID_STOP=new Set(["direito","nocoes","nocao","legislacao","lingua","de","da","do","das","dos","e","em","para","geral","basico","curso","completo","aula","pdf","concursos","area","fiscal","estrategia","conhecimentos","especificos","gerais","tjsp","atualizada"]);
+function sidScore(txt){const T=" "+norm(txt).replace(/[^a-z0-9]+/g," ")+" ";const R=ED.map(s=>{let sc=0;const nm=norm(s.n).replace(/[^a-z0-9]+/g," ").trim();if(T.includes(" "+nm+" "))sc+=12;
+    nm.split(" ").filter(w=>w.length>3&&!SID_STOP.has(w)).forEach(w=>{if(T.includes(" "+w))sc+=4});if(s.c&&new RegExp("(^|[^a-z])"+norm(s.c)+"([^a-z]|$)").test(T))sc+=3;
+    (s.t||[]).forEach(tp=>(tp[1]||[]).forEach(k=>{if(k.length>5&&T.includes(" "+k))sc+=1}));return{id:s.id,sc}}).sort((a,b)=>b.sc-a.sc);
+  return R[0]&&R[0].sc>=4&&R[0].sc>(R[1]?R[1].sc:0)?R[0].id:""}
+async function pdfHead(f){try{if(!(await ensurePdfjs()))return"";const doc=await pdfjsLib.getDocument({data:await f.arrayBuffer(),isEvalSupported:false}).promise;let t="";for(let p=1;p<=Math.min(3,doc.numPages);p++){const tc=await(await doc.getPage(p)).getTextContent();t+=" "+tc.items.map(x=>x.str).join(" ")}return t.slice(0,6000)}catch(e){return""}}
+async function addPdfsAll(files){const fs=files.filter(f=>/\.pdf$/i.test(f.name)||f.type==="application/pdf");if(!fs.length){toast("Nenhum PDF nessa seleção");return}
+  upModal(`<div class="upm-ic busy" aria-hidden="true"></div><h3>Separando ${fs.length} PDF${fs.length>1?"s":""} por matéria</h3><p class="muted" id="upmTx" style="margin:0">Lendo os nomes…</p>`);
+  const fb="",miss=[];let k=0;
+  for(const f of fs){k++;setUp(`Identificando a matéria: ${k} de ${fs.length}`);let id=sidScore((f.webkitRelativePath||"")+" "+f.name);if(!id)id=sidScore(await pdfHead(f));if(!id)id=fb;if(id)f._sid=id;else miss.push(f)}
+  const ok=fs.filter(f=>f._sid);ok.sort((a,b)=>ED.findIndex(s=>s.id===a._sid)-ED.findIndex(s=>s.id===b._sid)||a.name.localeCompare(b.name,"pt",{numeric:true}));
+  addPdfs.miss=miss;if(ok.length)await addPdfs(ok,ok[0]._sid,"");else{addPdfs.miss=null;LASTRES={RES:miss.map(f=>({bad:1,name:f.name,msg:"Não consegui descobrir a matéria deste PDF. Escolha a matéria na lista e envie de novo."})),NEWP:[]};renderUpResult()}}
+async function addPdfs(files,SID0,aulaSel,assetId){let sid=SID0;
   const fresh=!!core().cur&&!started(core().cur);
   let added=0;const RES=[],NEWP=[];
   upModal(`<div class="upm-ic busy" aria-hidden="true"></div><h3>Carregando PDF</h3><p class="muted" id="upmTx" style="margin:0">Recebendo o arquivo…</p>`);
-  for(const f of files){
+  if(addPdfs.miss){addPdfs.miss.forEach(f=>RES.push({bad:1,name:f.name,msg:"Não consegui descobrir a matéria deste PDF. Escolha a matéria na lista e envie de novo."}));addPdfs.miss=null}
+  for(const f of files){sid=f._sid||SID0;
     if(!/\.pdf$/i.test(f.name)&&f.type!=="application/pdf"){RES.push({bad:1,name:f.name,msg:"Não é um arquivo PDF."});continue}
     setUp(`Lendo ${f.name}…`);
     let buf,info,raw=false;
@@ -5139,7 +5166,7 @@ let LASTRES=null;
 function upModal(h){$("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Envio de PDF"><div class="box upm">${h}</div></div>`}
 /* Campo de arquivo real cobrindo o botão: o toque cai direto nele (funciona no celular) */
 const upBtn=(lab,cls,sid,aula)=>`<span class="upw ${cls}" role="button">${lab}<input type="file" accept="application/pdf,.pdf" multiple data-sid="${sid}" data-aula="${aula}" ${aula?"":'data-main="1"'} class="upf" aria-label="Escolher arquivo PDF"></span>`;
-function upDirect(i){const fs=i.files?[...i.files]:[];if(!fs.length)return;setUp("Recebi "+fs.length+" arquivo"+(fs.length>1?"s":"")+". Lendo…");toast("PDF recebido, lendo o arquivo…");const sid=i.dataset.sid||($("pSub")?$("pSub").value:ED[0].id),aula=i.dataset.main?($("pAula")?$("pAula").value:""):i.dataset.aula;i.value="";if(fs.length)addPdfs(fs,sid,aula)}
+function upDirect(i){const fs=i.files?[...i.files]:[];if(!fs.length)return;if(i.dataset.all||($("pSub")&&$("pSub").value==="*"&&i.dataset.main)){i.value="";setUp("Recebi "+fs.length+" arquivo"+(fs.length>1?"s":"")+". Separando por matéria…");addPdfsAll(fs);return}setUp("Recebi "+fs.length+" arquivo"+(fs.length>1?"s":"")+". Lendo…");toast("PDF recebido, lendo o arquivo…");const sid=i.dataset.sid||($("pSub")?$("pSub").value:ED[0].id),aula=i.dataset.main?($("pAula")?$("pAula").value:""):i.dataset.aula;i.value="";if(fs.length)addPdfs(fs,sid,aula)}
 
 async function importInbox(){
   if(!DB)return;
@@ -7027,7 +7054,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261112212445";
+const JX_BUILD="20261113071219";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7529,7 +7556,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112212445" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113071219" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -10187,14 +10214,22 @@ async function tecPdfText(file){const buf=await file.arrayBuffer();const r=await
 document.addEventListener("change",async e=>{const i=e.target;if(!i||!i.dataset||i.dataset.c!=="tecShot")return;const F=[...(i.files||[])].slice(0,6);i.value="";if(!F.length)return;const st=$("qShotSt"),out=$("qShotOut");
   if(!SAMPLE){if(st)st.textContent="A IA não está disponível agora. Preencha os números à mão.";return}if(st)st.textContent="Lendo o print…";
   try{const r=await SAMPLE.json(`As imagens são prints da tela de resultado de um caderno de questões do TEC Concursos de um aluno. Leia só o que está na imagem, sem inventar.
-Responda só com JSON: {"total":número de questões resolvidas,"acertos":número,"erros":número,"brancos":número ou 0,"minutos":tempo total em minutos (converta hh:mm:ss) ou null,"assuntos_errados":["assunto das questões erradas, se aparecer"],"tipos_de_erro":["tipo de erro, só se a tela mostrar"],"questoes_erradas":["número da questão errada, se aparecer"]}`,{images:F});
+Responda só com JSON: {"total":número de questões resolvidas,"acertos":número,"erros":número,"brancos":número ou 0,"minutos":tempo total em minutos (converta hh:mm:ss) ou null,"assuntos_errados":["assunto das questões erradas, se aparecer"],"tipos_de_erro":["tipo de erro, só se a tela mostrar"],"questoes_erradas":["número da questão errada, se aparecer"],"questoes":[{"n":"número ou código da questão (ex.: #2345678 ou 2345678; se só houver a posição 1, 2, 3…, use a posição)","res":"erro, acerto ou branco (pelo X vermelho, check verde, cor, 'Você errou' etc.)","as":"assunto da questão, se aparecer"}]}
+Liste em "questoes" TODAS as questões que aparecem no print com o resultado de cada uma. Se o print não mostrar a lista, deixe [].`,{images:F});
     const n=x=>Math.max(0,Math.round(+x||0)),tot=n(r&&r.total),ac=Math.min(n(r&&r.acertos),tot||1e9),mi=r&&r.minutos!=null?n(r.minutos):0;
     if(!tot){if(st)st.textContent="Não achei o resultado nesse print. Mande a tela final do caderno, com o total e os acertos.";return}
     const qf=$("qF"),qa=$("qA"),qe=$("qE");if(qf)qf.value=tot;if(qa)qa.value=ac;const as=(r.assuntos_errados||[]).map(x=>String(x).trim()).filter(Boolean).slice(0,12);if(qe&&as.length)qe.value=[...new Set([...(qe.value||"").split("\n").map(x=>x.trim()).filter(Boolean),...as])].join("\n");
     if(mi){const h=$("avHh"),m=$("avMm");if(h&&m){h.value=Math.floor(mi/60);m.value=mi%60}else{UI.tmin=UI.tmin||{};UI.tmin[i.dataset.id]=mi}}
     const pc=Math.round(ac/tot*100),tp=(r.tipos_de_erro||[]).filter(Boolean).slice(0,6),qn=(r.questoes_erradas||[]).filter(Boolean).slice(0,30);
-    if(st)st.textContent="Print lido. Confira os números acima e salve.";
-    if(out)out.innerHTML=`<div class="tbar"><span><b>${tot}</b><small>questões</small></span><span><b>${ac}</b><small>acertos</small></span><span><b>${n(r.erros)||tot-ac}</b><small>erros</small></span><span><b>${pc}%</b><small>aproveitamento</small></span>${mi?`<span><b>${mi} min</b><small>tempo</small></span>`:""}</div>${as.length?`<p class="small" style="margin:6px 0 0"><b>Onde errou:</b> ${esc(as.join(" · "))}</p>`:""}${tp.length?`<p class="small" style="margin:4px 0 0"><b>Tipo de erro:</b> ${esc(tp.join(" · "))}</p>`:""}${qn.length?`<p class="muted small" style="margin:4px 0 0">Questões erradas: ${esc(qn.join(", "))}. Para mandar cada uma para Erradas com o motivo, use <b>Lançar bateria do TEC</b> em Erradas.</p>`:""}`}
+    /* erros identificados no print vão direto para Erradas (revisões e cards), ligados à matéria e à aula desta tarefa */
+    let lan=0;try{const T=(findTask(i.dataset.id)||{}).t||{},sid=T.sid||ED[0].id,aula=T.aula||"",seen=new Set(REV().filter(x=>x.tq&&x.sid===sid).map(x=>String(x.link||"")));
+      const Q=(Array.isArray(r.questoes)?r.questoes:[]).filter(q=>q&&/erro|branco/i.test(String(q.res||"")));
+      const L=Q.length?Q.map(q=>({n:String(q.n||"").replace(/^#/,"").trim(),as:String(q.as||"").trim(),b:/branco/i.test(q.res)})):qn.map(x=>({n:String(x).replace(/^#/,"").trim(),as:as.length===1?as[0]:"",b:0}));
+      L.forEach(q=>{if(!q.n&&!q.as)return;const big=/\d{4,}/.test(q.n),lk=big?tecQUrl(q.n):"";if(lk&&seen.has(lk))return;if(lk)seen.add(lk);
+        addTecQ({sid,n:big?q.n:"",k:"err",as:q.as||(as.length===1?as[0]:"")||((auOf(sid,aula)||{}).d||"").slice(0,60),note:(q.b?"Deixou em branco. ":"")+(big?"":"Questão "+q.n+" do caderno ("+(T.cad||"TEC")+"). ")+"Lida do print do resultado.",tid:T.id||"",aula});lan++});
+      if(lan){makeErrRef(sid);touch("rev")}}catch(x2){}
+    if(st)st.textContent=lan?"Print lido: "+lan+" erro"+(lan>1?"s":"")+" já foram para Erradas, revisões e cards. Confira os números e salve.":"Print lido. Confira os números acima e salve."+(tot-ac>0?" O print não mostra quais questões você errou: para mandar cada uma para Erradas, mande também o print da lista de questões ou use Lançar bateria do TEC.":"");
+    if(out)out.innerHTML=`<div class="tbar"><span><b>${tot}</b><small>questões</small></span><span><b>${ac}</b><small>acertos</small></span><span><b>${n(r.erros)||tot-ac}</b><small>erros</small></span><span><b>${pc}%</b><small>aproveitamento</small></span>${mi?`<span><b>${mi} min</b><small>tempo</small></span>`:""}</div>${as.length?`<p class="small" style="margin:6px 0 0"><b>Onde errou:</b> ${esc(as.join(" · "))}</p>`:""}${tp.length?`<p class="small" style="margin:4px 0 0"><b>Tipo de erro:</b> ${esc(tp.join(" · "))}</p>`:""}${lan?`<p class="small" style="margin:4px 0 0">${ic("check")} <b>${lan} erro${lan>1?"s":""} em Erradas</b> · abra a aba Erradas para marcar o motivo de cada um.</p>`:qn.length?`<p class="muted small" style="margin:4px 0 0">Questões erradas: ${esc(qn.join(", "))}.</p>`:""}`}
   catch(x){if(st)st.textContent="Não consegui ler o print agora. Tente de novo ou preencha à mão."}});
 document.addEventListener("change",async e=>{const i=e.target;if(!i||!i.dataset||(i.dataset.c!=="tecPdfQ"&&i.dataset.c!=="tecPdfR"))return;const f=i.files&&i.files[0];i.value="";if(!f)return;
   const st=$(i.dataset.c==="tecPdfQ"?"qTecSt":"rbPdfSt");if(st)st.textContent="Lendo o PDF…";
@@ -11015,8 +11050,8 @@ function partsHTML(sid,c,PS){return`<div class="pparts">${PS.map((q,k)=>`<div cl
   <div class="row" style="gap:4px;justify-content:flex-end">${k?`<button class="ibtn xs" data-a="partMv" data-id="${q.id}" data-d="-1" aria-label="Subir a parte ${k+1}">↑</button>`:""}${k<PS.length-1?`<button class="ibtn xs" data-a="partMv" data-id="${q.id}" data-d="1" aria-label="Descer a parte ${k+1}">↓</button>`:""}${q.raw?"":`<button class="btn sm" data-a="read" data-id="${q.id}" data-pa="1" data-pb="${q.pages}">${ic("book")} Abrir</button><button class="btn sm" data-a="pmap" data-id="${q.id}" aria-expanded="${UI.pmap===q.id}">${ic("list")} Questões</button>`}<button class="btn sm ghost" data-a="delPdf" data-id="${q.id}" aria-label="Remover a parte ${k+1}">${ic("trash")}</button></div></div>`).join("")}</div>`}
 function vMateriais(){
   const C=core(),ad=C.adone||{};
-  const opts=ED.map(s=>`<option value="${s.id}" ${UI.psub===s.id?"selected":""}>${esc(s.n)}</option>`).join("");
-  const sel=UI.psub||"lp",aopts=`<option value="">Detectar pelo nome do arquivo</option>`+AU(sel).map(a=>`<option value="${a.c}">${esc(auLabel(sel,a.c))} · ${esc(a.d.slice(0,60))}</option>`).join("")+(QUIZ[sel]||[]).map(q=>`<option value="${q}">Aula ${q} · Quiz Estratégico (extra)</option>`).join("");
+  const ALL=UI.psub==="*",opts=`<option value="*" ${ALL?"selected":""}>Todas as matérias · descobrir sozinho</option>`+ED.map(s=>`<option value="${s.id}" ${UI.psub===s.id?"selected":""}>${esc(s.n)}</option>`).join("");
+  const sel=ALL?ED[0].id:(UI.psub||ED[0].id),aopts=`<option value="">Detectar pelo nome do arquivo</option>`+(ALL?[]:AU(sel)).map(a=>`<option value="${a.c}">${esc(auLabel(sel,a.c))} · ${esc(a.d.slice(0,60))}</option>`).join("")+(ALL?[]:(QUIZ[sel]||[])).map(q=>`<option value="${q}">Aula ${q} · Quiz Estratégico (extra)</option>`).join("");
   const done=allTasks().filter(t=>t.ph==="T"&&t.done&&!t.skip);
   let list="";
   ED.forEach((s,i)=>{
@@ -11053,8 +11088,9 @@ function vMateriais(){
   ${cursosHTML()}${tcaMatHTML()}
   <section class="card"><div class="card-b"><div class="drop" id="drop">
     <div class="row" style="width:100%"><div class="field" style="flex:1 1 220px"><label for="pSub">Matéria</label><select class="inp" id="pSub" data-c="psub">${opts}</select></div>
-    <div class="field" style="flex:1 1 260px"><label for="pAula">Aula</label><select class="inp" id="pAula">${aopts}</select></div>
+    <div class="field" style="flex:1 1 260px"><label for="pAula">Aula</label><select class="inp" id="pAula" ${ALL?"disabled":""}>${aopts}</select></div>
     <div class="field" style="flex:1 1 240px"><label>Arquivos PDF</label>${upBtn(ic("plus")+" Escolher PDFs","btn pri wide","","")}</div></div>
+    <div class="allpdf"><div><b>${ic("materiais")} Enviar todos os PDFs de uma vez</b><span>Todas as aulas de todas as matérias: a plataforma descobre a matéria e a aula de cada arquivo pelo nome, pela pasta e pelas primeiras páginas.</span></div><div class="row" style="gap:8px"><span class="upw btn pri" role="button">${ic("plus")} Escolher todos os PDFs<input type="file" accept="application/pdf,.pdf" multiple class="upf" data-all="1" aria-label="Escolher todos os PDFs"></span><span class="upw btn" role="button">${ic("list")} Escolher a pasta inteira<input type="file" webkitdirectory multiple class="upf" data-all="1" aria-label="Escolher a pasta com os PDFs"></span></div></div>
     <div class="brw"><span class="brw-tx"><b>No celular o botão não abre?</b> O app do Claude bloqueia o seletor de arquivos. Abra o painel no navegador, envie lá e os PDFs aparecem aqui sozinhos.</span><a class="btn sm" href="${APP_URL}" target="_blank" rel="noopener">${ic("plus")} Enviar pelo navegador</a></div>
     <details style="width:100%"><summary class="muted small" style="cursor:pointer">Seletor alternativo</summary><div class="row" style="margin-top:8px;align-items:flex-end"><div class="field" style="flex:1 1 260px"><label for="pFile">Arquivos PDF</label><input class="inp" id="pFile" type="file" accept="application/pdf,.pdf" multiple data-c="pfile"></div></div></details></div>
     <p class="muted small" style="margin:0" id="upst">${esc(upMsg)||"Arraste os PDFs para cá ou use o botão Enviar PDF em cada aula abaixo. Nomes como “Aula 03.pdf” são reconhecidos sozinhos."}</p></div></div></section>
@@ -11977,7 +12013,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112212445&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113071219&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -12929,8 +12965,10 @@ function catResults(){const N=UI.np||{},q=N.q||"",box=$("npRes");if(!box)return;
   const R=catSearch(q),E=extQ(q);
   box.innerHTML=(R.length?R.slice(0,12).map(({c,st})=>`<button class="catr" data-a="catPick" data-id="${c.id}"><div class="cat-h"><b>${esc(c.o)}</b><span class="chip ${st.k==="aberto"?"ok":st.k==="prev"||st.k==="breve"?"warn":""}">${esc(st.l)}</span>${compatChip(catCompatBest(c))}</div><span class="small">${esc(c.n)}</span><span class="muted small">${[c.b?"Banca "+c.b:"Banca: ver edital",c.vg,c.sal,c.pv?"prova "+dmy(c.pv):"",c.cg.length>1?c.cg.length+" cargos":esc(c.cg[0].n)].filter(Boolean).map(esc).join(" · ")}</span></button>`).join(""):`<span class="muted small">Não encontrei “${esc(q)}” na base do painel.</span>`)
    +`<div class="row catx"><span class="muted small">Procurar fora:</span><a class="btn sm" href="${E.est}" target="_blank" rel="noopener">${ic("ext")} Estratégia</a><a class="btn sm" href="${E.tec}" target="_blank" rel="noopener">${ic("ext")} TEC</a><a class="btn sm ghost" href="${E.gg}" target="_blank" rel="noopener">${ic("ext")} Google</a></div>`}
+/* nome do órgão no título: prefeituras e câmaras aparecem como "Prefeitura de X" (vale para qualquer município da base) */
+function catOrg(c){const n=String(c.n||"").replace(/\s*\(.*\)\s*$/,"").trim();if(/^(prefeitura|c[aâ]mara municipal|munic[ií]pio)/i.test(n))return n.replace(/^munic[ií]pio\s+d[eoa]\s+/i,"Prefeitura de ").replace(/^prefeitura\s+municipal\s+d[eoa]\s+/i,"Prefeitura de ");return c.o}
 function catApply(c,g){const N=UI.np;npRead();
-  Object.assign(N,{cat:c.id,cargoI:c.cg.indexOf(g),name:(c.o+" – "+(g.s||g.n.replace(/Auditor Federal de Finanças e Controle/,"AFFC").replace(/Técnico de Controle Externo/,"Técnico de Controle Externo")).replace(/\s*\(ver edital\)/,"")).slice(0,80),cargo:g.n.replace(/\s*\(ver edital\)/,"").slice(0,80),orgao:c.o,banca:c.b||"",prova:c.pv||"",ins:c.ib||"",edUrl:c.ed||"",catNote:c.full?"":(c.nota||""),catFull:!!c.full,pick:null,sOpen:false});
+  Object.assign(N,{cat:c.id,cargoI:c.cg.indexOf(g),name:(catOrg(c)+" – "+(g.s||g.n.replace(/Auditor Federal de Finanças e Controle/,"AFFC").replace(/Técnico de Controle Externo/,"Técnico de Controle Externo")).replace(/\s*\(ver edital\)/,"")).slice(0,80),cargo:g.n.replace(/\s*\(ver edital\)/,"").slice(0,80),orgao:c.o,banca:c.b||"",prova:c.pv||"",ins:c.ib||"",edUrl:c.ed||"",catNote:c.full?"":(c.nota||""),catFull:!!c.full,pick:null,sOpen:false});
   N.subs=(g.ds||[]).map(([n,q,t])=>({n,q:q||null,t:(t&&t.length?t:[n]).slice(),cat:!(t&&t.length)}));
   npModal();toast(c.st==="pre"?(g.s||c.n)+" selecionado: "+N.subs.length+" matérias-base. Pode tirar no ✕ se escolheu errado.":c.o+" selecionado: órgão, banca e datas preenchidos"+(N.subs.length?" e "+N.subs.length+" matérias do edital":""))}
 function npRead(){const N=UI.np;if(!N)return;const g=id=>{const e=$(id);return e?e.value.trim():undefined};
@@ -12954,7 +12992,7 @@ function npEdBox(){const N=UI.np;if(!N||N.edit)return"";const E=N.ed||{};
       <button class="btn sm ghost" data-a="npeAgain" style="justify-self:start">Usar outro edital</button></div>`}
   if(E.st==="done"){const I=E.info||{},cg=I.cargos||[];
     const idt=N.name?`<div class="npe-id"><small>${E.match?"Concurso identificado na base":"Concurso identificado no edital"}</small><strong>${esc(N.name)}</strong><span class="small">${[N.banca,N.prova&&"prova "+dmy(N.prova),I.edital&&"Edital "+I.edital].filter(Boolean).map(esc).join(" · ")}</span></div>`:"";
-    return`<div class="npe ok"><b>${ic("check")} Edital lido${E.file?": "+esc(E.file):""}</b>${idt}<span class="small">Preenchi abaixo ${[N.name&&"o nome",N.banca&&"a banca",N.prova&&"a data da prova",(N.subs||[]).length&&(N.subs.length+" matérias com "+N.subs.reduce((a,x)=>a+x.t.length,0)+" assuntos"),(N.subs||[]).some(x=>x.q)&&(N.subs.reduce((a,x)=>a+(x.q||0),0)+" questões")].filter(Boolean).join(", ")||"o que encontrei"}.${E.tjFull?" As matérias e os assuntos são os do edital 01/2026, já conferidos no app.":""}${(N.subs||[]).some(x=>x.qe)?" Onde o edital só dá o total do bloco, reparti as questões entre as matérias dele: ajuste se quiser.":""}${E.fail?" "+E.fail+" parte"+(E.fail>1?"s":"")+" do conteúdo programático não passou pela IA e foi lida do texto: confira os assuntos.":""} ${(I.cron||[]).length?"O cronograma, as questões por matéria, vagas e salário entram no plano assim que você criar o concurso.":""} Confira e ajuste o que precisar.</span>
+    return`<div class="npe ok"><b>${ic("check")} Edital lido${E.file?": "+esc(E.file):""}</b>${idt}${E.prev?`<span class="edprev small"><b>Edital anterior:</b> a prova dele já passou, então ele vira a referência do estudo (matérias, assuntos e questões). A prova fica “a definir” até o edital novo sair; quando sair, inclua-o e o plano se ajusta sem perder nada.</span>`:""}<span class="small">Preenchi abaixo ${[N.name&&"o nome",N.banca&&"a banca",N.prova&&"a data da prova",(N.subs||[]).length&&(N.subs.length+" matérias com "+N.subs.reduce((a,x)=>a+x.t.length,0)+" assuntos"),(N.subs||[]).some(x=>x.q)&&(N.subs.reduce((a,x)=>a+(x.q||0),0)+" questões")].filter(Boolean).join(", ")||"o que encontrei"}.${E.tjFull?" As matérias e os assuntos são os do edital 01/2026, já conferidos no app.":""}${(N.subs||[]).some(x=>x.qe)?" Onde o edital só dá o total do bloco, reparti as questões entre as matérias dele: ajuste se quiser.":""}${E.fail?" "+E.fail+" parte"+(E.fail>1?"s":"")+" do conteúdo programático não passou pela IA e foi lida do texto: confira os assuntos.":""} ${(I.cron||[]).length?"O cronograma, as questões por matéria, vagas e salário entram no plano assim que você criar o concurso.":""} Confira e ajuste o que precisar.</span>
      ${(()=>{const z=cg.find(x=>x&&norm(x.n)===norm(E.cargo||""))||(cg.length===1?cg[0]:null)||{};const it=[E.cargo&&["Cargo",E.cargo],fmtVagas(z.vagas)&&["Vagas",fmtVagas(z.vagas)],z.salario&&["Remuneração",z.salario],z.req&&["Requisitos",z.req],I.taxa&&["Taxa de inscrição",I.taxa]].filter(Boolean);return it.length?`<div class="npe-kv">${it.map(([k,v])=>`<div><small>${k}</small><b>${esc(String(v).slice(0,160))}</b></div>`).join("")}</div>`:""})()}
      <button class="btn sm ghost" data-a="npeAgain" style="justify-self:start">Usar outro edital</button></div>`}
   return`<div class="npe">${E.st==="err"?`<p class="pwarn small" style="margin:0">${esc(E.msg||"Não consegui ler este edital.")}</p>`:""}
@@ -12996,15 +13034,15 @@ async function npeRun(cargo,pre){const N=UI.np;if(!N||!N.ed||!N.ed.txt)return;co
     const names=(((I||{}).prova||{}).materias||[]).map(m=>m&&m.n).filter(Boolean).slice(0,40);
     if(S.prog){E.st="ai2";E.p=0;E.n=0;npeShow();try{subs=await edSubsAI(S.prog,E.cargo,names,(d,n)=>{E.p=d;E.n=n;npeShow()})}catch(e){subs=[]}}
     if(!subs.length)subs=parseEdital(S.prog||E.txt);E.fail=subs.fail||0;
-    (((I||{}).prova||{}).materias||[]).forEach(m=>{if(!m||!m.n||!(+m.q>0))return;const s=edMatch(m.n,subs);if(s&&!s.q)s.q=+m.q});edQFill(subs,S.prog)}
+    edQFill(subs,S.prog);edQReconcile(subs,(I||{}).prova);if(subs.some(x=>!(x.q>0))){try{await edQAI(E.txt,E.cargo,subs)}catch(e){}}}
   else{subs=parseEdital(S.prog||E.txt);edQFill(subs,S.prog)}
   if(!I&&!subs.length){E.st="err";E.msg=E.aiErr==="rate_limited"?"A IA está ocupada agora. Espere um minuto e tente de novo.":"Não consegui tirar os dados deste edital. Tente de novo, cole o texto ou escolha o concurso na base.";npeShow();return}
   E.info=I;const P=(I&&I.prova)||{},C=((I&&I.cron)||[]).filter(c=>c&&edOk(c.d)),cpv=C.find(c=>c.k==="prova"),ci1=C.find(c=>c.k==="ins1");
   if(I){const nm=[I.orgao,E.cargo].filter(Boolean).join(" – ");if(nm)N.name=nm.slice(0,80);if(E.cargo)N.cargo=E.cargo.slice(0,80);if(I.orgao)N.orgao=String(I.orgao).slice(0,30);if(I.banca)N.banca=String(I.banca).slice(0,40);
-    const pv=edOk(P.data)?P.data:cpv?cpv.d:"";if(pv)N.prova=pv;if(ci1)N.ins=ci1.d;
-    if(I.concurso)N.name=String(I.concurso).slice(0,80)}
+    const pv=edOk(P.data)?P.data:cpv?cpv.d:"";if(pv&&pv>=today()){N.prova=pv;if(ci1)N.ins=ci1.d}else if(pv){E.prev=1;N.prova="";N.ins=""}
+    {const nm=edPlanName(I,E.cargo);if(nm)N.name=nm}}
   const M=npeIdent(I,E.cargo);E.match=null;
-  if(M){const c=M.c,g=M.g;E.match={o:c.o,n:c.n,cg:g.n,b:c.b||"",tj:!!c.tj};N.name=(c.o+" – "+(g.s||g.n).replace(/\s*\(ver edital\)/,"")).slice(0,80);
+  if(M){const c=M.c,g=M.g;E.match={o:c.o,n:c.n,cg:g.n,b:c.b||"",tj:!!c.tj};N.name=(/prefeitura|munic|^iss\b/i.test(c.o+" "+c.n)&&I?edPlanName(I,E.cargo||g.n):(catOrg(c)+" – "+(g.s||g.n).replace(/\s*\(ver edital\)/,""))).slice(0,80);
     if(!N.banca&&c.b)N.banca=c.b;if(!N.prova&&c.pv)N.prova=c.pv;if(!N.ins&&c.ib)N.ins=c.ib;if(c.ed)N.edUrl=c.ed;N.orgao=N.orgao||c.o;
     if(!c.tj){N.cat=c.id;N.cargoI=c.cg.indexOf(g);N.catFull=true;N.catNote=""}
     if(!subs.length&&(g.ds||[]).length)subs=g.ds.map(([n,q,t])=>({n,q:q||null,t:(t&&t.length?t:[n]).slice()}));
@@ -13078,12 +13116,48 @@ function edQSplit(subs){const B={};subs.forEach(x=>{if(x.bloco&&x.qb>0){const k=
     const w=free.map(x=>Math.max(1,(x.t||[]).length)),sm=w.reduce((a,v)=>a+v,0),raw=w.map(v=>rest*v/sm),fl=raw.map(v=>Math.max(1,Math.floor(v)));let r=rest-fl.reduce((a,v)=>a+v,0);
     raw.map((v,i)=>[v-Math.floor(v),i]).sort((a,z)=>z[0]-a[0]).forEach(([,i])=>{if(r>0){fl[i]++;r--}});while(r<0){const i=fl.indexOf(Math.max(...fl));fl[i]--;r++}
     free.forEach((x,i)=>{x.q=fl[i];x.qe=1})})}
+const QBLK=/conhecimentos?\s+(espec[ií]ficos?|gerais|b[aá]sicos?|complementares)|^bloco|^m[oó]dulo|^parte|^grupo|^eixo|^prova\s+(objetiva|de)|legisla[cç][aã]o\s+(e|espec)|^conte[uú]do\s+espec/i;
+function edQReconcile(subs,P){if(!subs||!subs.length)return;const M=((P&&P.materias)||[]).filter(m=>m&&m.n&&+m.q>0);if(!M.length)return;
+  const mine=new Map();M.forEach(m=>{const x=edMatch(m.n,subs);if(x){mine.set(m,x);if(!(x.q>0))x.q=Math.round(+m.q)}});
+  M.filter(m=>!mine.has(m)).forEach(m=>{const bn=norm(m.bloco||m.n);
+    /* matérias que o conteúdo programático pôs dentro deste bloco */
+    const same=x=>{const a=norm(x.bloco).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim(),c=bn.replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();return a===c||(a.length>=8&&c.length>=8&&(a.includes(c)||c.includes(a)))};
+    let mem=subs.filter(x=>!(x.q>0)&&!(x.qb>0)&&x.bloco&&same(x));
+    /* bloco genérico sem matérias marcadas: fica com as matérias que nenhuma outra linha da estrutura cobre */
+    if(!mem.length&&QBLK.test(m.n)){const cov=new Set([...mine.values()]);mem=subs.filter(x=>!(x.q>0)&&!cov.has(x))}
+    if(!mem.length)return;mem.forEach(x=>{x.bloco=x.bloco||String(m.n).slice(0,80);x.qb=Math.round(+m.q)});
+    /* matérias do mesmo bloco que já têm número próprio entram na conta do bloco */
+    subs.forEach(x=>{if(x.q>0&&!(x.qb>0)&&x.bloco&&mem.some(y=>norm(y.bloco)===norm(x.bloco)))x.qb=Math.round(+m.q)});if(mem.length===1){mem[0].q=Math.round(+m.q);mem[0].qe=0}});
+  edQSplit(subs)}
+/* último recurso para o número de questões: a IA lê só os quadros da prova (as linhas com números perto de "questões", "itens", "quadro") */
+function edQWin(T){const re=/quadro|n[uú]mero\s+de\s+(quest|itens)|quest[oõ]es|itens|prova\s+objetiva|disciplina|composi[cç][aã]o\s+da\s+prova/gi,W=[];let m;while((m=re.exec(T))&&W.length<40){const a=Math.max(0,m.index-400),b=Math.min(T.length,m.index+2600);if(!W.length||a>W[W.length-1][1])W.push([a,b]);else W[W.length-1][1]=b;re.lastIndex=b}
+  return W.map(([a,b])=>T.slice(a,b)).join("\n[...]\n").slice(0,30000)}
+async function edQAI(T,cargo,subs){if(!SAMPLE||!subs||!subs.length)return 0;const miss=subs.filter(x=>!(x.q>0));if(!miss.length)return 0;
+  let o=null;try{o=await SAMPLE.json(`Abaixo estão os trechos de um edital de concurso público que falam da composição da prova. Cargo: "${cargo||"o cargo do edital"}".
+Para CADA matéria da lista, diga quantas questões da prova objetiva DESTE cargo ela tem. Use só o que está escrito (tabelas viram linhas com o nome da disciplina seguido dos números: o número de questões é normalmente a primeira coluna numérica depois do nome; não confunda com peso, pontos ou total). Se o número for de um bloco que reúne várias matérias (ex.: "Conhecimentos Específicos: 30"), responda o nome do bloco e o total dele. Não invente: sem número no texto, use null.
+Matérias: ${subs.map(x=>x.n).join("; ")}
+Responda só com JSON: [{"n":"nome da matéria como na lista","q":número ou null,"bloco":"nome do bloco ou null","qb":total do bloco ou null}]
+Trechos:
+"""${edQWin(T)}"""`,{modelTier:"default"})}catch(e){return 0}
+  let n=0;(Array.isArray(o)?o:[]).forEach(r=>{if(!r||!r.n)return;const x=edMatch(r.n,subs);if(!x||x.q>0)return;if(+r.q>0&&+r.q<200){x.q=Math.round(+r.q);n++}else if(+r.qb>0&&+r.qb<300){x.bloco=x.bloco||String(r.bloco||"Bloco").slice(0,80);x.qb=Math.round(+r.qb);n++}});
+  if(n)edQSplit(subs);return n}
+/* nome do concurso no painel: prefeitura (ou edital com vários cargos) leva o cargo ao lado, ex.: "Prefeitura de Curitiba – Auditor Fiscal de Tributos Municipais" */
+function edPlanName(I,cargo){if(!I)return"";const on=String(I.orgaoNome||"").trim(),cg=String(cargo||I.alvo||"").replace(/\s*\((?:ver edital|.*vagas.*)\)/i,"").trim();
+  const mun=/prefeitura|munic[ií]pio|c[aâ]mara municipal|secretaria municipal|^iss\b/i.test(on+" "+(I.orgao||""));
+  let org=mun?on.replace(/^munic[ií]pio\s+d[eoa]\s+/i,"Prefeitura de ").replace(/^prefeitura\s+municipal\s+d[eoa]\s+/i,"Prefeitura de "):String(I.orgao||on||"").trim();
+  if(mun&&!/^prefeitura|^c[aâ]mara/i.test(org)&&on)org="Prefeitura de "+on.replace(/^.*?\bd[eoa]\s+/i,"");
+  const many=(I.cargos||[]).filter(c=>c&&c.n).length>1;
+  if((mun||many)&&org&&cg)return(org+" – "+cg).slice(0,80);
+  return String(I.concurso||[I.orgao,cg].filter(Boolean).join(" – ")).slice(0,80)}
 function edInfoTxt(T,S){if(T.length<=140000)return T;const ql=S&&S.prog?edQLines(S.prog):"",qx=ql?"\n[...]\n[Questões por matéria escritas no conteúdo programático]\n"+ql:"";let out=S.body.slice(0,120000-qx.length)+qx;
   if(S.at>=0){const re=/cronograma|data\s+prov[áa]vel|calend[áa]rio|quadro\s+de\s+vagas|distribui[çc][ãa]o\s+das\s+vagas|remunera[çc][ãa]o|vencimento\s+b[áa]sico/gi;let m,k=0;const tail=T.slice(S.at);while((m=re.exec(tail))&&k<8){out+="\n[...]\n"+tail.slice(Math.max(0,m.index-300),m.index+4000);k++;re.lastIndex=m.index+4000}}
   return out.slice(0,150000)}
 function edChunks(t,max){const out=[];let i=0;while(i<t.length&&out.length<14){let j=Math.min(t.length,i+max);if(j<t.length){const k=t.lastIndexOf("\n",j);if(k>i+max*.6)j=k}out.push(t.slice(i,j));i=j}return out}
 const edCargoNow=()=>IS_TJ?"Oficial de Justiça":(PLAN.cargo||PLAN.name||"");
-function edMatch(n,L){let best=null,bv=0;const nn=norm(n).trim();L.forEach(s=>{const sn=norm(s.n).trim();const v=sn===nn?1:Math.max(cdice(nTok(s.n),nTok(n)),nn.length>=6&&sn.length>=6&&(sn.startsWith(nn+" ")||nn.startsWith(sn+" "))?.8:0);if(v>bv){bv=v;best=s}});return bv>=.5?best:null}
+/* nomes equivalentes que o edital escreve de jeitos diferentes (estrutura da prova x conteúdo programático) */
+const ECAN=[[/^(lingua )?portugues(a)?\b|lingua portuguesa|portugues e redacao|^redacao e portugues/,"lingua portuguesa"],[/^(nocoes de )?informatica|tecnologia da informacao basica/,"informatica"],[/raciocinio logico|logica|matematica e raciocinio/,"raciocinio logico"],[/^(nocoes de )?direito constitucional/,"direito constitucional"],[/^(nocoes de )?direito administrativo/,"direito administrativo"],[/^atualidades|conhecimentos gerais e atualidades|realidade/,"atualidades"],[/^(lingua )?ingles(a)?|lingua inglesa/,"lingua inglesa"]];
+const ecan=n=>{const x=norm(n).replace(/\(.*?\)/g," ").replace(/[^a-z0-9 ]+/g," ").replace(/\s+/g," ").trim();for(const[r,c]of ECAN)if(r.test(x))return c;return x};
+function edMatch(n,L){let best=null,bv=0;const nn=norm(n).trim(),cn=ecan(n);L.forEach(s=>{const sn=norm(s.n).trim();if(ecan(s.n)===cn&&cn.length>=5){if(bv<1){bv=1;best=s}return}const v=sn===nn?1:Math.max(cdice(nTok(s.n),nTok(n)),nn.length>=6&&sn.length>=6&&(sn.startsWith(nn+" ")||nn.startsWith(sn+" "))?.8:0);if(v>bv){bv=v;best=s}});return bv>=.5?best:null}
 
 async function edInfoAI(txt,cargo){
   const o=await SAMPLE.json(`Você vai ler o edital de um concurso público brasileiro e tirar os dados para um aplicativo de estudos. Hoje é ${today()}.
@@ -13133,12 +13207,15 @@ async function edRun(cargo){const X=UI.edx;if(!X||!X.txt)return;const S=edSplit(
   if(!SAMPLE){X.subs=parseEdital(S.prog||X.txt);edQFill(X.subs,S.prog);X.info=null;X.noAI=1;X.st="review";edDefaults();edModal();return}
   X.st="ai1";edModal();
   try{X.info=await edInfoAI(edInfoTxt(X.txt,S),cargo||X.cargo||edCargoNow())}catch(e){X.info=null;X.aiErr=e&&e.code}
+  if(!cargo&&!X.cgAsked&&(((X.info||{}).cargos)||[]).filter(c=>c&&c.n).length>1){X.cgAsked=1;X.st="cargo";edModal();return}
   const I=X.info||{};X.cargo=cargo||I.alvo||((I.cargos||[])[0]||{}).n||edCargoNow();
+  /* edital de um concurso que já passou: vira o "último edital" de referência (matérias, assuntos e questões valem; as datas não) */
+  {const pd0=(I.prova||{}).data,last=(I.cron||[]).filter(c=>c&&edOk(c.d)).map(c=>c.d).sort().pop();if(!X.prev&&((edOk(pd0)&&pd0<today())||(!edOk(pd0)&&last&&last<today()))){X.prev=1;X.autoPrev=1}}
   const names=((I.prova||{}).materias||[]).map(m=>m&&m.n).filter(Boolean).slice(0,40);
   if(S.prog){X.st="ai2";X.p=0;X.n=0;edModal();try{X.subs=await edSubsAI(S.prog,X.cargo,names,(d,n)=>{X.p=d;X.n=n;edModal()})}catch(e){X.subs=[]}
     if(!X.subs.length)X.subs=parseEdital(S.prog);X.fail=X.subs.fail||0;edQFill(X.subs,S.prog)}else X.subs=[];
   /* número de questões da estrutura da prova vai junto com a matéria */
-  ((I.prova||{}).materias||[]).forEach(m=>{if(!m||!m.n||!(+m.q>0))return;const s=edMatch(m.n,X.subs);if(s&&!s.q)s.q=+m.q});
+  edQReconcile(X.subs,I.prova);if(X.subs.some(x=>!(x.q>0))){X.st="ai3";edModal();await edQAI(X.txt,X.cargo,X.subs)}
   if(!X.info&&!X.subs.length){X.st="err";X.msg=X.aiErr==="rate_limited"?"A IA está ocupada agora. Espere um minuto e tente de novo.":"Não consegui tirar os dados deste edital. Tente de novo ou cole só o conteúdo programático em “Adicionar matérias”.";edModal();return}
   X.st="review";edDefaults();edModal()}
 function edDefaults(){const X=UI.edx,I=X.info||{};X.sel={dados:!!(I.orgao||I.banca||(I.cargos||[]).length),cron:!X.prev&&!!(I.cron||[]).some(c=>c&&edOk(c.d)),prova:!!((I.prova&&((I.prova.materias||[]).length||I.prova.disc||edOk(I.prova.data)))||(X.subs||[]).some(x=>x.q>0)),subs:!IS_TJ&&!!(X.subs||[]).length}}
@@ -13153,8 +13230,9 @@ function edModal(){const X=UI.edx;if(!X)return;
     <details ${X.paste?"open":""}><summary class="muted small" style="cursor:pointer">O edital não está em PDF? Cole o texto</summary><div style="display:grid;gap:8px;margin-top:8px"><textarea class="inp" id="edTxt" rows="8" placeholder="Cole aqui o texto completo do edital (ou ao menos o cronograma, a estrutura da prova e o conteúdo programático)."></textarea><button class="btn" data-a="edtPaste" style="justify-self:start">Ler este texto</button></div></details>
     ${SAMPLE?"":`<p class="pwarn small" style="margin:0">A IA não está disponível nesta visualização: só as matérias e os assuntos serão lidos.</p>`}
     <div class="row" style="justify-content:flex-end">${close}</div>`);return}
-  if(X.st==="read"||X.st==="ai1"||X.st==="ai2"){const t=X.st==="read"?`Lendo o PDF${X.n?": página "+X.p+" de "+X.n:"…"}`:X.st==="ai1"?"Tirando órgão, cargos, cronograma e estrutura da prova…":`Lendo o conteúdo programático${X.n?": parte "+X.p+" de "+X.n:"…"}`;
-    const pc=X.st==="read"?(X.n?X.p/X.n*30:2):X.st==="ai1"?40:40+(X.n?X.p/X.n*58:0);
+  if(X.st==="cargo"){const I=X.info||{},cg=(I.cargos||[]).filter(c=>c&&c.n);$("layer3").innerHTML=box(`<h3 style="margin:0">Qual é o seu cargo?</h3><p class="muted" style="margin:0">Este edital${I.orgaoNome||I.orgao?" de <b>"+esc(I.orgaoNome||I.orgao)+"</b>":""} tem ${cg.length} cargos. Escolha o seu para eu ler as matérias, o número de questões e a prova certos.</p><div class="npe-cgs">${cg.map((c,i)=>`<button class="btn" data-a="edtCgPick" data-i="${i}"><b>${esc(c.n)}</b>${[fmtVagas(c.vagas),c.salario].filter(Boolean).length?`<small class="muted">${esc([fmtVagas(c.vagas)&&(/^\d+$/.test(fmtVagas(c.vagas))?fmtVagas(c.vagas)+(+fmtVagas(c.vagas)===1?" vaga":" vagas"):fmtVagas(c.vagas)),c.salario].filter(Boolean).join(" · ").slice(0,120))}</small>`:""}</button>`).join("")}</div><div class="row" style="justify-content:flex-end">${close}</div>`);return}
+  if(X.st==="read"||X.st==="ai1"||X.st==="ai2"||X.st==="ai3"){const t=X.st==="read"?`Lendo o PDF${X.n?": página "+X.p+" de "+X.n:"…"}`:X.st==="ai1"?"Tirando órgão, cargos, cronograma e estrutura da prova…":X.st==="ai3"?"Conferindo o número de questões de cada matéria nos quadros da prova…":`Lendo o conteúdo programático${X.n?": parte "+X.p+" de "+X.n:"…"}`;
+    const pc=X.st==="read"?(X.n?X.p/X.n*30:2):X.st==="ai1"?40:X.st==="ai3"?96:40+(X.n?X.p/X.n*56:0);
     $("layer3").innerHTML=box(`<h3 style="margin:0">Lendo o edital</h3><span class="muted small">${esc(X.file?X.file.name:"Texto colado")}</span><div class="pbar" style="height:8px;border-radius:6px;background:var(--line);overflow:hidden"><i style="display:block;height:100%;width:${Math.round(pc)}%;background:var(--accent,#3f9cea);transition:width .4s"></i></div><b>${t}</b><span class="muted small">Um edital grande leva de 1 a 3 minutos. Deixe esta janela aberta.</span>`);return}
   if(X.st==="doc"){$("layer3").innerHTML=box(`<h3 style="margin:0">Este PDF tem ${X.docs.length} editais</h3><p class="muted" style="margin:0">Escolha o do seu cargo.</p><div class="npe-cgs">${X.docs.map((d,i)=>`<button class="btn" data-a="edtDocPick" data-i="${i}"><b>${esc(d.label)}</b></button>`).join("")}</div><div class="row" style="justify-content:flex-end">${close}</div>`);return}
   if(X.st==="err"){$("layer3").innerHTML=box(`<h3 style="margin:0">Edital do concurso</h3><p class="pwarn" style="margin:0">${esc(X.msg||"Algo deu errado.")}</p><div class="row" style="justify-content:flex-end"><button class="btn" data-a="edtAgain">Tentar outro arquivo</button>${close}</div>`);return}
@@ -13165,6 +13243,7 @@ function edModal(){const X=UI.edx;if(!X)return;
   const cur=cg.find(c=>norm(c.n)===norm(X.cargo))||cg[0]||{};
   const hit=IS_TJ?S.filter(x=>edMatch(x.n,ED)).length:0,nT=S.reduce((a,x)=>a+x.t.length,0);
   $("layer3").innerHTML=box(`<h3 style="margin:0">O que o app leu no edital</h3><span class="muted small">${esc(X.file?X.file.name+(X.file.pages?" · "+X.file.pages+" páginas":""):"Texto colado")}${X.noAI?" · sem IA: só matérias e assuntos":""}</span>
+   ${X.autoPrev?`<p class="edprev small" style="margin:0"><b>Este é um edital anterior</b> (a prova dele já passou). Ele vira a referência do seu estudo: matérias, assuntos e número de questões valem; as datas não entram e a prova fica “a definir” até o edital novo sair.</p>`:""}
    ${cg.length>1?`<div class="row" style="gap:8px;align-items:flex-end"><div class="field" style="flex:1 1 260px"><label for="edCg">Cargo (o edital tem ${cg.length})</label><select class="inp" id="edCg">${cg.map(c=>`<option ${norm(c.n)===norm(X.cargo)?"selected":""}>${esc(c.n)}</option>`).join("")}</select></div><button class="btn sm" data-a="edtCargo">Ler de novo para este cargo</button></div>`:""}
    ${X.info?`<section class="card"><div class="card-b" style="display:grid;gap:6px">${ck("dados","Dados do concurso")}
      ${kv("Órgão",[I.orgao,I.orgaoNome].filter(Boolean).join(" · "))}${kv("Banca",I.banca)}${kv("Edital",I.edital)}${kv("Cargo",X.cargo)}${kv("Vagas",fmtVagas(cur.vagas))}${kv("Remuneração",cur.salario)}${kv("Requisitos",cur.req)}${kv("Taxa",I.taxa)}</div></section>
@@ -13183,7 +13262,7 @@ function edModal(){const X=UI.edx;if(!X)return;
 async function edtApplyM(){edRead();const X=UI.edx;if(!X)return;const I=X.info||{},P=I.prova||{},c=core(),sel=X.sel;let reload=false;const msg=[];if(X.prev)sel.cron=false;const wasPrev=!!(c.edital&&c.edital.prev)&&!X.prev;
   const cg=(I.cargos||[]).find(z=>z&&norm(z.n)===norm(X.cargo||""))||(I.cargos||[]).filter(Boolean).map(z=>[z,cdice(nTok(z.n),nTok(X.cargo||I.alvo||""))]).sort((a,b)=>b[1]-a[1]).map(x=>x[0])[0]||{};
   c.edital={at:today(),prev:!!X.prev,file:X.file||null,cargo:X.cargo||"",info:{orgao:I.orgao||"",orgaoNome:I.orgaoNome||"",banca:I.banca||"",edital:I.edital||"",vagas:cg.vagas||"",salario:cg.salario||"",req:cg.req||"",taxa:I.taxa||"",obs:I.obs||"",cargos:(I.cargos||[]).map(z=>z.n).slice(0,30)},prova:I.prova||null,ap:{...sel},nSubs:(X.subs||[]).length};
-  if(sel.dados&&!IS_TJ){if(I.orgao)PLAN.orgao=String(I.orgao).slice(0,30);if(I.banca)PLAN.banca=String(I.banca).slice(0,40);if(X.cargo)PLAN.cargo=String(X.cargo).slice(0,80);msg.push("dados")}
+  if(sel.dados&&!IS_TJ){if(I.orgao)PLAN.orgao=String(I.orgao).slice(0,30);if(I.banca)PLAN.banca=String(I.banca).slice(0,40);if(X.cargo)PLAN.cargo=String(X.cargo).slice(0,80);{const nm=edPlanName(I,X.cargo);if(nm&&((I.cargos||[]).length>1||/prefeitura|munic/i.test((I.orgaoNome||"")+" "+(I.orgao||""))))PLAN.name=nm}msg.push("dados")}
   if(sel.cron){const C=(I.cron||[]).filter(x=>x&&edOk(x.d)).sort((a,b)=>a.d>b.d?1:-1),used=new Set(),L=[];
     C.forEach(x=>{let k=EDK[x.k]?x.k:"o";if(used.has(k)||k==="o"){let n=1;while(used.has(k+n))n++;k=(k==="o"?"o":k)+n}used.add(k);L.push({k,l:String(x.l||EDK[x.k]||"Evento").slice(0,90),...(x.a&&edOk(x.a)&&x.a<x.d?{a:x.a}:{}),d:x.d})});
     if(!L.some(x=>x.k==="prova")){const pv=edOk(P.data)?P.data:prova();L.push({k:"prova",l:"Prova",d:pv});L.sort((a,b)=>a.d>b.d?1:-1)}
@@ -13894,7 +13973,7 @@ document.addEventListener("change",e=>{
   else if(k==="cron"){const x=c.cron.find(z=>z.k===el.dataset.k);if(x&&el.value){x.d=el.value;touch("core");render()}}
   else if(k==="psub"){UI.psub=el.value;UI.psubSet=1;render()}
   else if(k==="dA"||k==="dB"||k==="dS"){const F=dFilter();if(k==="dA")F.a=+el.value;if(k==="dB")F.b=+el.value;if(k==="dS")F.sid=el.value;if(F.b<F.a){if(k==="dA")F.b=F.a;else F.a=F.b}render()}
-  else if(k==="pfile"){if(el.files&&el.files.length)addPdfs([...el.files],el.dataset.sid||$("pSub").value,el.dataset.aula||($("pAula")?$("pAula").value:""));el.value=""}
+  else if(k==="pfile"){if(el.files&&el.files.length&&$("pSub").value==="*"){addPdfsAll([...el.files]);el.value=""}else if(el.files&&el.files.length)addPdfs([...el.files],el.dataset.sid||$("pSub").value,el.dataset.aula||($("pAula")?$("pAula").value:""));el.value=""}
   else if(k==="paula"){const p=pdf(el.dataset.id);if(p){p.aula=el.value;p.part=el.value?nextPart(p.sid,el.value,p):undefined;touch("pdf-"+p.id);simCache.key="";const r=curMeta();if(r&&!started(r.n)&&replanCurrent())toast("Meta atual refeita com o PDF na aula certa");render()}}
 });
 document.addEventListener("keydown",e=>{
@@ -13911,7 +13990,7 @@ document.addEventListener("dragover",e=>{const cd=e.target.closest&&e.target.clo
 document.addEventListener("drop",e=>{const cd=e.target.closest&&e.target.closest(".cd[data-day]");if(!cd)return;const id=e.dataTransfer.getData("text/plain");const f=id&&findTask(id);if(!f||cd.dataset.day<today()&&cd.dataset.day!==f.t.day)return;if(f.t.done&&cd.dataset.day!==f.t.day)return;e.preventDefault();const tgt=e.target.closest(".cc[data-tid]");placeInDay(f.n,f.t,cd.dataset.day,tgt&&tgt.dataset.tid!==id?tgt.dataset.tid:null);render()});
 document.addEventListener("dragover",e=>{const d=e.target.closest&&e.target.closest("#drop");if(d){e.preventDefault();d.classList.add("over")}});
 document.addEventListener("dragleave",e=>{const d=$("drop");if(d&&!d.contains(e.relatedTarget))d.classList.remove("over")});
-document.addEventListener("drop",e=>{const d=e.target.closest&&e.target.closest("#drop");if(!d)return;e.preventDefault();d.classList.remove("over");const fs=[...(e.dataTransfer.files||[])];if(fs.length)addPdfs(fs,$("pSub").value,$("pAula")?$("pAula").value:"")});
+document.addEventListener("drop",e=>{const d=e.target.closest&&e.target.closest("#drop");if(!d)return;e.preventDefault();d.classList.remove("over");const fs=[...(e.dataTransfer.files||[])];if(fs.length){if($("pSub").value==="*")addPdfsAll(fs);else addPdfs(fs,$("pSub").value,$("pAula")?$("pAula").value:"")}});
 window.addEventListener("resize",()=>{if(RD.doc){clearTimeout(drawPage.t);drawPage.t=setTimeout(drawPage,200)}});
 
 /* ================= Início ================= */
@@ -13992,7 +14071,17 @@ Object.assign(A,{
   edtClose(){if(UI.edx&&/^(read|ai1|ai2)$/.test(UI.edx.st)){UI.edx.cancel=1}UI.edx=null;$("layer3").innerHTML=""},
   edtAgain(){edtOpenM()},
   edtPaste(){const t=($("edTxt")||{value:""}).value.trim();if(t.length<300){toast("Cole o texto do edital primeiro");return}UI.edx={st:"ai1",txt:t,file:null};edRun()},
-  edtCargo(){const s=$("edCg");if(!s||!UI.edx)return;edRead();edRun(s.value)},
+  edtCargo(){const s=$("edCg");if(!s||!UI.edx)return;edRead();UI.edx.cgAsked=1;edRun(s.value)},
+  tecFix(el){const sid=el.dataset.s,c=el.dataset.c,a=auOf(sid,c),L=tecAsLbl(sid,c);UI.tfx={sid,c};
+    $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Trocar o assunto do caderno"><div class="box npm" style="max-width:560px"><h3 style="margin:0">Trocar o assunto do caderno</h3>
+     <p class="muted small" style="margin:0">${esc(SUB(sid).n)} · ${esc(auLabel(sid,c))}${a&&a.d?" – "+esc(a.d.slice(0,90)):""}. Hoje o caderno usa: <b>${esc(L.a.join(" / ")||"—")}</b>.</p>
+     <div class="field"><label for="tfxA">Assunto certo, com o nome que o TEC usa (abra a matéria no TEC e copie o nome do assunto)</label><input class="inp" id="tfxA" placeholder="Ex.: Constituição: Conceito, Estrutura, Supremacia e Classificação"></div>
+     <div class="row" style="justify-content:space-between;gap:8px;flex-wrap:wrap"><a class="btn sm" href="${esc(tecMatPage(sid)||tecUrl(sid))}" target="_blank" rel="noopener">${ic("ext")} Ver os assuntos da matéria no TEC</a><span class="row" style="gap:8px"><button class="btn" data-a="volClose">Cancelar</button><button class="btn pri" data-a="tecFixGo">Criar o caderno certo</button></span></div></div></div>`;setTimeout(()=>{const i=$("tfxA");if(i)i.focus()},40)},
+  tecFixGo(){const F=UI.tfx,v=(($("tfxA")||{}).value||"").trim();if(!F||v.length<3){toast("Escreva o nome do assunto");return}const S=SUB(F.sid),a=auOf(F.sid,F.c);
+    const x=(core().tecAuto||{})[F.sid+"|"+F.c];if(x)x.g=1;touch("core");
+    const it={k:F.sid+"|"+F.c,m:TECN[F.sid]||S.n,t:String((a&&a.d)||F.c).slice(0,90),a:[v],kw:[v]};$("layer3").innerHTML="";window.open(tecJobUrl([it]),"_blank","noopener");
+    toast("No TEC, toque no favorito ➜ A Jornada: ele cria o caderno só com “"+v+"” e grava nesta aula.")},
+  edtCgPick(el){const X=UI.edx;if(!X||!X.info)return;const c=((X.info.cargos||[]).filter(c=>c&&c.n))[+el.dataset.i];if(!c)return;X.cgAsked=1;X.st="ai1";edModal();edRun(c.n)},
   edtApply(){edtApplyM()},
   edtPrev(){edtOpenM(true)},
   rotCat(el){UI.rotCat=el.dataset.k;render()},

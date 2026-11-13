@@ -113,16 +113,40 @@
       var url=O+"/#jxestr="+encodeURIComponent(JSON.stringify({v:1,src:"tecguia",g:{t:G.t,u:G.u},b:banca?(banca.sigla||banca.nome):"",mats:OUT}));
       show('<p style="margin:0">Guia <b>'+esc(G.t)+'</b>: <b>'+OUT.length+' matérias</b> lidas e <b>'+nc+' cadernos</b> criados na sua conta do TEC'+(STOP?' (você parou antes do fim)':'')+'. Volte à plataforma para ligar cada caderno à matéria e aos assuntos do seu edital.</p><a href="'+esc(url)+'" target="_blank" rel="noopener" style="'+BTN+'">Voltar para A Jornada</a>');
       try{sessionStorage.removeItem("jxcad");sessionStorage.removeItem("jxguia-res")}catch(e){}}
+  /* ===== assunto do TEC para cada tópico da aula =====
+     1) "família": assuntos do TEC da mesma matéria cujo nome traz o termo central do tópico (ex.: "Nacionalidade" → Espécies de Nacionalidade, Perda da Nacionalidade, Extradição… (da Nacionalidade));
+        termo central = palavra longa e específica (≥ 8 letras) ou par de palavras vizinhas (ex.: "direitos fundamentais", "controle … constitucionalidade");
+     2) sem família: o assunto mais parecido, com régua de 70% (semelhança com o tópico + palavras do nome presentes no contexto da aula) */
+  var GEN={};"constitucional constitucionais constituicao fundamentais fundamental direitos principios organizacao administracao administrativo publica publico normas norma geral gerais conceito conceitos teoria disposicoes estado estados federal poder poderes questoes mescladas aspectos introducao nocoes legislacao processo procedimento juridica juridico sistema sistemas regime".split(" ").forEach(function(w){GEN[w]=1});
+  function words(s){return norm(s).replace(/\([^)]*\)/g," ").replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(function(w){return w.length>2&&!SW[w]})}
+  function hasAll(nome,ws){var n=" "+norm(nome).replace(/[^a-z0-9 ]/g," ")+" ";return ws.every(function(w){return n.indexOf(" "+w.slice(0,Math.min(w.length,6)))>=0})}
+  async function famPick(tp,it,mi,search){var out=[],seen={},cov={};
+    var segs=String(tp).replace(/\([^)]*\)/g," ").split(/[.,;:–—]|\s-\s|\s+e\s+(?=[A-ZÁ-Ú])/).map(words).filter(function(x){return x.length});
+    async function fam(ws){var q=ws.length===1?ws[0]:ws[ws.length-1],L=await search(q);
+      return L.filter(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return false;var n=norm(r.nome);return ws.length===1?(" "+n.replace(/[^a-z0-9 ]/g," ")+" ").indexOf(" "+ws[0])>=0:hasAll(r.nome,ws)})}
+    function add(F,ws){if(!F.length||F.length>10)return false;F.forEach(function(r){if(!seen[r.id]){seen[r.id]=1;out.push(r)}});ws.forEach(function(w){cov[w]=1});return true}
+    /* pares de palavras vizinhas dentro do mesmo trecho (não atravessa vírgula ou ponto) */
+    for(var s=0;s<segs.length;s++){var W=segs[s];for(var i=0;i+1<W.length;i++){if(GEN[W[i]]&&GEN[W[i+1]])continue;add(await fam([W[i],W[i+1]]),[W[i],W[i+1]])}}
+    /* palavra longa e específica, ou o trecho de uma palavra só (ex.: "União", "Nacionalidade"), se ainda não coberta por um par */
+    for(var s2=0;s2<segs.length;s2++){var W2=segs[s2];for(var j=0;j<W2.length;j++){var w=W2[j];if(cov[w]||GEN[w])continue;if(w.length>=8||(W2.length===1&&w.length>=5))add(await fam([w]),[w])}}
+    if(out.length)return out.slice(0,10);
+    var CTX=toks([it.t||""].concat(it.a||[],it.kw||[]).join(" "));function cover(nome){var N=toks(nome),k=Object.keys(N);if(!k.length)return 0;var i=0;k.forEach(function(x){if(CTX[x])i++});return i/k.length}
+    var T=toks(tp),best=null,bv=0,cs=cands(tp);
+    for(var c=0;c<cs.length;c++){var L2=await search(cs[c]);L2.forEach(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return;var nk=Object.keys(toks(r.nome)).length,ex=norm(r.nome)===norm(tp)||norm(r.nome)===norm(cs[c]);
+        var v=ex?1:Math.min(dice(T,toks(r.nome))*.55+cover(r.nome)*.45+(norm(r.nome).indexOf(norm(cs[c]))>=0?.1:0),.99);if(!ex&&nk<=1)v=Math.min(v,.5);if(!mi.length&&v<.9)return;if(v>bv){bv=v;best=r}});if(bv>=.95)break}
+    return best&&bv>=.7?[best]:[]}
     if(J.mode==="guia"){await guiaRun();return}
     if(J.mode==="inc"){await incRun();return}
     for(var i=0;i<J.items.length;i++){if(STOP)break;var it=J.items[i];if(!it||!it.k||DONE[it.k])continue;
       prog(i,J.items.length,it.m+" · "+it.t);
-      try{var mi=mats(it.m),ids=[],names=[];
+      try{var mi=mats(it.m),ids=[],names=[],pick=[];
         var tops=(it.a||[]).slice(0,5);
-        for(var j=0;j<tops.length;j++){var tp=tops[j],T=toks(tp),best=null,bv=0,cs=cands(tp);
-          /* só aceita assunto da MESMA matéria; nome igual vale 1; parecido precisa de 60% ou mais */
-          for(var c=0;c<cs.length;c++){var L=await search(cs[c]);L.forEach(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return;var v=norm(r.nome)===norm(tp)||norm(r.nome)===norm(cs[c])?1:dice(T,toks(r.nome));if(v<1&&norm(r.nome).indexOf(norm(cs[c]))>=0)v+=.15;if(!mi.length&&v<.9)return;if(v>bv){bv=v;best=r}});if(bv>=.95)break}
-          if(best&&bv>=.6&&ids.indexOf(best.id)<0){ids.push(best.id);names.push(best.nome)}}
+        for(var j=0;j<tops.length;j++){var got=await famPick(tops[j],it,mi,search);got.forEach(function(r){if(ids.indexOf(r.id)<0&&ids.length<10){ids.push(r.id);names.push(r.nome);pick.push(r)}})}
+        /* dois ou mais assuntos irmãos (mesmo assunto-pai no TEC): usa o pai, que cobre a aula inteira sem puxar outro ramo */
+        var PID=function(r){return r.idPai||r.paiId||r.idAssuntoPai||(r.pai&&r.pai.id)||(r.assuntoPai&&r.assuntoPai.id)||0},grp={};
+        pick.forEach(function(r){var p=PID(r);if(p)(grp[p]=grp[p]||[]).push(r)});
+        Object.keys(grp).forEach(function(p){var g=grp[p];if(g.length<2)return;var par=g[0].pai||g[0].assuntoPai||null,pn=par&&par.nome?par.nome:"";if(!pn)return;
+          ids=ids.filter(function(x){return!g.some(function(r){return r.id===x})});names=names.filter(function(x){return!g.some(function(r){return r.nome===x})});ids.unshift(+p);names.unshift(pn)});
         /* nunca troca o assunto pela matéria inteira: sem assunto encontrado, a aula fica de fora e a plataforma avisa */
         var F=ids.map(function(x){return["ASSUNTO",x]}),geral=0,whole=/\|\*$/.test(it.k);
         /* o caderno da "matéria inteira" é o único que usa a matéria toda */
