@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611130712"></script>
+<script src="/claude-shim.js?v=202611130724"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -3038,6 +3038,32 @@ html .treg-ch select.tsel,html :root[data-skin] header.top .top-in .treg .tsel{p
 /*EM-END*/
 
 .allpdf{width:100%;display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:14px;border:1px dashed var(--line,rgba(160,107,255,.35));background:rgba(160,107,255,.06)}.allpdf>div:first-child{display:grid;gap:3px;flex:1 1 280px;min-width:0}.allpdf span{font-size:13px;opacity:.8}.allpdf .upw span{opacity:1}
+.tec-ob{display:block;font-weight:500;font-size:11px;opacity:.85}
+/* floresta queimando (pós-edital) */
+.jw-fl{animation:jwFl .9s ease-in-out infinite alternate}@keyframes jwFl{from{transform:scaleY(.86) skewX(-3deg)}to{transform:scaleY(1.1) skewX(3deg)}}
+.jw-glow{animation:jwGl 1.4s ease-in-out infinite alternate}@keyframes jwGl{from{opacity:.35}to{opacity:.7}}
+.jw-ash{animation:jwAsh 2.6s ease-in-out infinite}@keyframes jwAsh{0%,100%{opacity:.25}50%{opacity:1}}
+.jw-wisp{animation:jwWisp 7s ease-in-out infinite}@keyframes jwWisp{0%{transform:translate(0,0);opacity:0}30%{opacity:.4}100%{transform:translate(18px,-26px);opacity:0}}
+/* sóis do Estudar no pós-edital */
+:root[data-pos="1"] .jm-s i{position:relative;opacity:1!important;background:radial-gradient(circle at 42% 40%,#fff6c8 0,#ffd166 30%,#ff8a1a 62%,#e0360f 100%)!important;box-shadow:0 0 10px 2px rgba(255,138,26,.85),0 0 26px 6px rgba(255,77,26,.45)!important;animation:posSun 2.2s ease-in-out infinite alternate}
+:root[data-pos="1"] .jm-s i::before{content:"";position:absolute;inset:-45%;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 6%,rgba(255,170,40,.75) 8% 10%,transparent 12% 19%,rgba(255,120,30,.7) 21% 23%,transparent 25% 31%,rgba(255,200,80,.7) 33% 35%,transparent 37% 44%,rgba(255,120,30,.7) 46% 48%,transparent 50% 56%,rgba(255,170,40,.75) 58% 60%,transparent 62% 69%,rgba(255,200,80,.7) 71% 73%,transparent 75% 81%,rgba(255,120,30,.7) 83% 85%,transparent 87% 94%,rgba(255,170,40,.7) 96% 98%,transparent 100%);-webkit-mask:radial-gradient(circle,transparent 46%,#000 50%,transparent 72%);mask:radial-gradient(circle,transparent 46%,#000 50%,transparent 72%);animation:posRay 9s linear infinite}
+:root[data-pos="1"] .jm-s i[data-l="0"]{filter:saturate(.75) brightness(.85)}
+:root[data-pos="1"] .jm-s.on i{box-shadow:0 0 14px 4px rgba(255,209,102,.95),0 0 38px 10px rgba(255,77,26,.55)!important}
+@keyframes posSun{from{transform:scale(.94)}to{transform:scale(1.08)}}@keyframes posRay{to{transform:rotate(360deg)}}
+/* pomodoro em tela cheia no pós-edital: vulcão e tremor */
+.pf-wrap.pos{background:radial-gradient(circle at 50% 30%,#4a0c05,#140303 72%)}
+.pf-wrap.pos .pf-quake{animation:pfQuake 9s infinite}
+@keyframes pfQuake{0%,86%,100%{transform:translate(0,0)}87%{transform:translate(-3px,1px) rotate(-.15deg)}88%{transform:translate(3px,-2px) rotate(.15deg)}89%{transform:translate(-4px,2px)}90%{transform:translate(4px,-1px) rotate(-.1deg)}91%{transform:translate(-2px,1px)}92%{transform:translate(2px,0)}93%{transform:translate(-1px,0)}}
+.pf-wrap.pos .pf-ring svg circle:first-of-type{fill:rgba(30,6,3,.55)}
+.pf-lv{animation:pfLv 2.8s linear infinite}@keyframes pfLv{to{stroke-dashoffset:-60}}
+.pf-ash{animation:pfAsh var(--t,9s) linear var(--d,0s) infinite}@keyframes pfAsh{from{transform:translate(0,-40px)}to{transform:translate(var(--dx,30px),1050px)}}
+.pf-emb{animation:pfEmb var(--t,3s) ease-out var(--d,0s) infinite;opacity:0}@keyframes pfEmb{0%{transform:translate(0,0);opacity:0}10%{opacity:1}100%{transform:translate(var(--dx,20px),-420px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.pf-wrap.pos .pf-quake,.jw-fl,.jw-glow,.jw-ash,.jw-wisp,.pf-lv,.pf-ash,.pf-emb,:root[data-pos="1"] .jm-s i,:root[data-pos="1"] .jm-s i::before{animation:none!important}}
+.pf-wrap.pos .pf-chips span.on{background:linear-gradient(135deg,#e0360f,#ff9f1c)!important;color:#fff!important}
+.pf-wrap.pos .pf-rb.main{background:linear-gradient(135deg,#e0360f,#ff9f1c)!important;color:#fff!important;box-shadow:0 0 0 8px rgba(255,106,26,.2),0 10px 30px rgba(224,54,15,.6)}
+.pf-wrap.pos .pf-in small{color:#ffcf9a}.pf-wrap.pos .pf-camps span.on svg path{fill:#ff8a1a}
+:root[data-pos="1"] .jx-msky{border-color:rgba(255,106,26,.35)!important;background:radial-gradient(1.2px 1.2px at 12% 30%,#ffb34788,transparent 70%),radial-gradient(1.4px 1.4px at 34% 76%,#ff6a1a88,transparent 70%),radial-gradient(1.2px 1.2px at 58% 24%,#ffcf6b88,transparent 70%),radial-gradient(1.4px 1.4px at 80% 68%,#ff6a1a88,transparent 70%),radial-gradient(120% 120% at 50% 0%,#4a0c05 0%,#160403 80%)!important}
+@media (max-width:560px){.pf-chips{margin-top:52px}}
 /*POS-START*/
 /* ================= Modo Pós-Edital "Vulcão": ambiente hostil de fogo (heavy metal / punk) ================= */
 :root[data-pos="1"]:not(#z):not(#y){color-scheme:dark;
@@ -4719,7 +4745,7 @@ function tecAulaItem(sid,c){const S=SUB(sid),a=auOf(sid,c);if(!a||String(c).star
   const kw=[...new Set((a.tp||[]).flatMap(j=>S.t&&S.t[j]&&Array.isArray(S.t[j][1])?S.t[j][1]:[]).concat((a.tp||[]).map(j=>S.t&&S.t[j]&&S.t[j][0]).filter(Boolean)))].join(" ").slice(0,260);
   return al.length?{k:sid+"|"+c,m:TECN[sid]||S.n,t:String(a.d||c).slice(0,90),a:al,kw:kw?[kw]:[]}:null}
 function tecAsLbl(sid,c){const a=auOf(sid,c),S=SUB(sid),ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[];const x=(core().tecAuto||{})[sid+"|"+c];const L=x&&x.as&&!x.g?String(x.as).split(/;\s*/):ga.length?ga:a?[tShort(a.d||"")]:[];return{m:TECN[sid]||S.n,a:L.filter(Boolean).slice(0,3)}}
-function tecAulaBtn(sid,c,cls){const u=tecAulaDirect(sid,c),L=tecAsLbl(sid,c),lb=`${ic("target")} Questões: <b>${esc(L.m)}</b>${L.a.length?" › "+esc(L.a.join(" / ")):""}`;if(u)return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(u)}" target="_blank" rel="noopener" title="Caderno na sua conta do TEC só com a matéria ${esc(L.m)} e o assunto ${esc(L.a.join("; "))}">${lb}</a><button class="btn sm ghost" data-a="tecFix" data-s="${sid}" data-c="${esc(c)}" title="O caderno trouxe questões de outro assunto? Diga o assunto certo e o TEC cria outro">Assunto errado?</button>`;
+function tecAulaBtn(sid,c,cls){const u=tecAulaDirect(sid,c),L=tecAsLbl(sid,c),X=(core().tecAuto||{})[sid+"|"+c]||{},bk=X.b||"",lb=`${ic("target")} Questões${bk?" "+esc(bk):""}: <b>${esc(L.m)}</b>${L.a.length?" › "+esc(L.a.join(" / ")):""}${X.ob?` <small class="tec-ob">poucas da ${esc(tecBanca()||"sua banca")} neste assunto: completado com outras bancas</small>`:""}`;if(u)return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(u)}" target="_blank" rel="noopener" title="Caderno na sua conta do TEC só com a matéria ${esc(L.m)} e o assunto ${esc(L.a.join("; "))}">${lb}</a><button class="btn sm ghost" data-a="tecFix" data-s="${sid}" data-c="${esc(c)}" title="O caderno trouxe questões de outro assunto? Diga o assunto certo e o TEC cria outro">Assunto errado?</button>`;
   const it=tecAulaItem(sid,c);if(!it)return"";return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(tecJobUrl([it]))}" target="_blank" rel="noopener" data-tecjob="1" title="Abre o TEC e cria na sua conta um caderno só com a matéria ${esc(it.m)} e o assunto: ${esc(it.a.join("; "))}">${lb}</a>`}
 document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-tecjob]");if(!a)return;if(isTouchDev()){e.preventDefault();tecMobModal(a.href);return}toast("No TEC, toque no favorito ➜ A Jornada: ele filtra a matéria e o assunto exato desta aula, cria o caderno na sua conta e volta. Da próxima vez o botão abre direto nas questões desse assunto.")},true);
 function tecKind(sid){const m=tecMatCad(sid);return m?(m.k==="auto"?"seu":m.k):TECL.sub[sid]?"guia":"busca"}
@@ -4758,7 +4784,11 @@ function tecAutoFor(t){const M=tecAutoMap();for(const c of aSet(t)){const x=M[t.
 function tecJob(){const M=tecAutoMap(),items=[];ED.forEach(S=>{if(!(M[S.id+"|*"]&&M[S.id+"|*"].id)&&!(core().cfg.tecs||{})[S.id])items.push({k:S.id+"|*",m:TECN[S.id]||S.n,t:"Matéria inteira",a:[],n:60})});ED.forEach(S=>{AU(S.id).forEach(a=>{if(!a||String(a.c).startsWith("x:"))return;const k=S.id+"|"+a.c;if(M[k]&&M[k].id)return;
     const tp=(a.tp||[]).map(j=>S.t[j]&&S.t[j][0]).filter(Boolean).map(x=>tShort(x)),ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[S.id+"|"+a.c]||[]).map(z=>z[0]):[];const al=[...new Set([...ga,tShort(a.d||""),...tp].filter(x=>x&&x.length>=3))].slice(0,6);if(!al.length)return;
     items.push({k,m:TECN[S.id]||S.n,t:String(a.d||a.c).slice(0,90),a:al})})});return items.slice(0,180)}
-const tecBanca=()=>{const p=curPlan()||{};return p.banca||(IS_TJ?"VUNESP":"")};
+const tecBanca=()=>{const p=curPlan()||{};if(p.banca)return p.banca;
+  /* sem banca no concurso: a do edital anterior (lido no app) ou a do concurso na base; só sem nenhuma o app pergunta */
+  try{const E=core().edital;if(E&&E.info&&E.info.banca)return String(E.info.banca).slice(0,40)}catch(e){}
+  try{const c=p.cat&&CAT.find(x=>x.id===p.cat);if(c&&c.b)return c.b}catch(e){}
+  return IS_TJ?"VUNESP":""};
 function tecGuiaUrl(){const p=curPlan()||{},org=String(p.orgao||"").trim(),cargo=String(p.cargo||p.name||"").replace(/Pré-edital\s*[–-]\s*/i,"").split(/\s+[–-]\s+/)[0].trim();
   const area=((x=>/pr[ée][\s-]*edital|mat[ée]rias?-base/i.test(x)?"":x)(String(p.cargo||p.name||"").split(/\s+[–-]\s+/)[1]||"")||p.area||"").trim(),busca=(org.length<=14?org.replace(/[-\/]/g," "):org)||cargo;
   return TB+"/questoes/filtrar#jxcad="+encodeURIComponent(JSON.stringify({v:1,mode:"guia",o:location.origin,banca:tecBanca(),busca,org:org.slice(0,20),cargo,area,na:8,items:ED.map(s=>({k:s.id,m:s.n}))}))}
@@ -4771,6 +4801,13 @@ function tecGuiaSave(P){const c=core();
   c.tecGuia={t:String((P.g||{}).t||"").slice(0,140),u:String((P.g||{}).u||""),b:String(P.b||"").slice(0,20),at:today(),m:M,un};touch("core");render();
   const nm=Object.keys(M).length,nc=Object.values(M).flat().reduce((a,g)=>a+(g.cad?1:0)+g.as.filter(x=>x.cad).length,0);
   toast("Guia do TEC ligado: "+nm+" matéria"+(nm===1?"":"s")+" do edital com "+nc+" caderno"+(nc===1?"":"s")+" na sua conta"+(un.length?" · "+un.length+" sem par no edital":""))}
+/* cadernos nunca genéricos: sem banca no concurso, pergunta antes de abrir o TEC */
+const TEC_BANCAS=["FGV","FCC","Cebraspe","VUNESP","Cesgranrio","FAFIPA","IBFC","Quadrix","AOCP","IDECAN","Instituto Consulplan","Fundatec","IADES","FUNDEP","Objetiva"];
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest('a[href*="#jxcad="]');if(!a||tecBanca())return;e.preventDefault();e.stopPropagation();tecBkAsk(a.href)},true);
+function tecBkAsk(href){UI.tbk={href};
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Banca do concurso"><div class="box npm" style="max-width:560px"><h3 style="margin:0">Qual é a banca do seu concurso?</h3><p class="muted small" style="margin:0">Os cadernos do TEC usam só questões da banca do seu concurso. Se o edital ainda não saiu, escolha a banca do último concurso ou a mais provável.</p>
+   <div class="row" style="gap:6px;flex-wrap:wrap">${TEC_BANCAS.map(b=>`<button class="btn sm" data-a="tecBkPick" data-v="${esc(b)}">${esc(b)}</button>`).join("")}</div>
+   <div class="row" style="gap:8px;align-items:flex-end"><div class="field" style="flex:1 1 200px"><label for="tbkO">Outra banca</label><input class="inp" id="tbkO" placeholder="Ex.: FUNCAB"></div><button class="btn pri" data-a="tecBkPick">Usar esta</button></div></div></div>`}
 function tecJobUrl(items){return TB+"/questoes/filtrar#jxcad="+encodeURIComponent(JSON.stringify({v:1,o:location.origin,banca:tecBanca(),n:25,items}))}
 const isTouchDev=()=>{try{return matchMedia("(pointer:coarse)").matches||innerWidth<820}catch(e){return innerWidth<820}};
 function tecMobNote(){if(!isTouchDev())return"";return`<div class="tec-mob"><b>📱 Está no celular ou tablet?</b><p>O favorito <b>➜ A Jornada</b> funciona melhor no <b>computador</b>. No celular, arrastar o botão para os favoritos é mais trabalhoso, então o ideal é fazer essa primeira criação no PC. Depois disso, os botões abrem os cadernos em qualquer aparelho.</p><ol><li>Abra a plataforma no computador, entrando com a mesma conta.</li><li>Em <b>Meu plano › Incidência</b> ou nesta janela, toque em <b>Criar os cadernos</b> e siga os 3 passos (leva poucos minutos e é só uma vez).</li><li>Pronto: os cadernos ficam gravados na sua conta e, no celular, os botões <b>Questões: Matéria › Assunto</b> já abrem direto as questões certas.</li></ol><p class="muted small">Até lá, no celular você pode usar o caderno da matéria inteira, que abre normalmente.</p></div>`}
@@ -4790,7 +4827,7 @@ function tcaCard(){try{const M=PLANS.me;if(M&&M.at&&!M.setupOk&&PLANS.onb)return
 /* logo depois de escolher o concurso (e quando entram aulas novas), a plataforma oferece criar os cadernos sozinha, uma vez */
 function tcaAuto(){try{if(!READY||obPending())return;const L3=$("layer3");if(L3&&L3.innerHTML.trim()){setTimeout(tcaAuto,4000);return}
   const c=core(),pj=tecJob().length;if(!pj)return;if(c.tcaAsk&&pj<=(c.tcaPend||0))return;c.tcaAsk=Date.now();c.tcaPend=pj;touch("core");tcaModal()}catch(e){}}
-function tecAutoSave(P){const c=core();c.tecAuto=c.tecAuto||{};let n=0;(P.cads||[]).forEach(x=>{if(!x||!x.k||!(+x.id>0))return;c.tecAuto[x.k]={id:+x.id,n:+x.n||25,b:String(x.b||"").slice(0,30),as:String(x.as||"").slice(0,300),g:x.g?1:0,at:today()};n++});
+function tecAutoSave(P){const c=core();c.tecAuto=c.tecAuto||{};let n=0;(P.cads||[]).forEach(x=>{if(!x||!x.k||!(+x.id>0))return;c.tecAuto[x.k]={id:+x.id,n:+x.n||25,b:String(x.b||"").slice(0,30),as:String(x.as||"").slice(0,300),g:x.g?1:0,ob:x.ob?1:0,at:today()};n++});
   c.tcaPend=tecJob().length;touch("core");render();const f=(P.fail||[]).length;toast(n?n+" caderno"+(n>1?"s":"")+" do TEC gravado"+(n>1?"s":"")+" nas tarefas de questões"+(f?" · "+f+" aula"+(f>1?"s":"")+" sem questões no TEC":""):"Nenhum caderno chegou do TEC")}
 /* ---------- Questões por matéria quando o edital dá o número do BLOCO, e incidência pelo TEC ----------
    Ex.: "BLOCO II: Conhecimentos em Direito – 40 questões" vale para Penal, Processo Penal, Civil… juntos.
@@ -6836,6 +6873,22 @@ function jwHero(p){p=Object.assign({lt:0,lk:0,rt:0,rk:0,la:6,le:-10,ra:-6,re:-10
   if(p.pole){const r=p.la*Math.PI/180,ux=1+Math.sin(r)*9.5,uy=hipY-17+Math.cos(r)*9.5,r2=(p.la-p.le)*Math.PI/180,hx2=ux+Math.sin(r2)*9,hy2=uy+Math.cos(r2)*9;
     s+=`<path d="M${(hx2-1).toFixed(1)} ${(hy2-4).toFixed(1)} L${(hx2+5).toFixed(1)} ${(-0.5-p.bob*0).toFixed(1)}" stroke="#c9cfe6" stroke-width="1.8" stroke-linecap="round"/>`}
   s+=`</g>`;return s}
+/* pós-edital: a floresta do pé do vulcão — uma parte já queimada (troncos carbonizados, brasas e cinza) e a outra pegando fogo */
+function jwForestFire(sx){let s=`<defs><radialGradient id="jwFF"><stop offset="0" stop-color="#ffdf7a"/><stop offset=".45" stop-color="#ff7a1a" stop-opacity=".75"/><stop offset="1" stop-color="#ff2e1a" stop-opacity="0"/></radialGradient></defs><g transform="scale(${sx} 1)">`;
+  const yAt=x=>x<240?268-(x/240)*6:x<395?262-((x-240)/155)*12:x<545?250-((x-395)/150)*16:234-((x-545)/145)*22;
+  /* parte queimada: troncos pretos, galhos quebrados, chão de cinza com brasas */
+  s+=`<path d="M0 300 V276 Q120 266 250 268 T420 258 V300Z" fill="#1a0d0a"/>`;
+  [18,46,70,98,126,150,176,204,232,262,292,318,346,374,400].forEach((x,i)=>{const y=yAt(x)+8,h=16+(i*7)%12,l=i%2?-1:1;
+    s+=`<path d="M${x} ${y} l${l*.6} -${h}" stroke="#0c0605" stroke-width="${2.4+(i%3)*.5}" stroke-linecap="round"/><path d="M${x+l*.3} ${y-h*.55} l${l*5} -${4+i%3}" stroke="#0c0605" stroke-width="1.4" stroke-linecap="round"/>${i%3?`<path d="M${x+l*.4} ${y-h*.8} l${-l*4} -3" stroke="#0c0605" stroke-width="1.2" stroke-linecap="round"/>`:""}<path d="M${x-1} ${y-h*.4} v-2" stroke="#ff5a1a" stroke-width="1" opacity=".75" class="jw-ash" style="animation-delay:${(i*.37%2.6).toFixed(2)}s"/>`});
+  for(let i=0;i<22;i++){const x=(i*19.3)%410+6,y=yAt(x)+10+(i%3);s+=`<circle cx="${x}" cy="${y}" r="${.9+(i%3)*.4}" fill="${i%2?"#ff6a1a":"#ffb347"}" class="jw-ash" style="animation-delay:${(i*.29%2.4).toFixed(2)}s"/>`}
+  for(let i=0;i<5;i++)s+=`<ellipse cx="${40+i*80}" cy="${236-(i%2)*8}" rx="26" ry="9" fill="#3a2a26" opacity=".35" class="jw-wisp" style="animation-delay:${i*1.3}s"/>`;
+  /* parte em chamas: árvores ainda verdes escuras com fogo subindo */
+  [430,452,474,498,522,548,572,598,624,650].forEach((x,i)=>{const y=yAt(x)+8,h=20+(i*5)%10;
+    s+=`<ellipse cx="${x}" cy="${y-h*.55}" rx="${h*.75}" ry="${h*.7}" fill="url(#jwFF)" opacity=".55" class="jw-glow" style="animation-delay:${(i*.21).toFixed(2)}s"/>`;
+    s+=`<path d="M${x} ${y} v-${h*.35}" stroke="#2a140c" stroke-width="2.2"/><path d="M${x} ${y-h} l${h*.32} ${h*.62} h-${h*.64}z" fill="${i%3?"#1d2a14":"#22301a"}"/><path d="M${x} ${y-h*.72} l${h*.26} ${h*.48} h-${h*.52}z" fill="#1a2412"/>`;
+    s+=`<g class="jw-fl" style="animation-delay:${(i*.17).toFixed(2)}s;transform-origin:${x}px ${y-h*.4}px"><path d="M${x-h*.22} ${y-h*.35} q-2 -${h*.45} ${h*.12} -${h*.75} q1 ${h*.22} ${h*.1} ${h*.2} q4 -${h*.32} ${h*.06} -${h*.62} q${h*.3} ${h*.42} ${h*.12} ${h*1.17}z" fill="#ff7a1a"/><path d="M${x-h*.08} ${y-h*.38} q-1 -${h*.3} ${h*.08} -${h*.5} q${h*.16} ${h*.26} ${h*.04} ${h*.5}z" fill="#ffd166"/></g>`});
+  for(let i=0;i<12;i++){const x=430+(i*19)%230;s+=`<circle cx="${x}" cy="${yAt(x)-10}" r="${1+(i%2)}" fill="#ffcf6b" class="jw-emb" style="--d:${(i*.27%2).toFixed(2)}s;--t:${(1.6+(i%3)*.4).toFixed(1)}s;--dx:${((i*23)%30)-15}px"/>`}
+  return s+`</g>`}
 function jwHeroDefs(){return`<linearGradient id="jwJk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5f8f"/><stop offset="1" stop-color="#d6388f"/></linearGradient><linearGradient id="jwBn" x1="0" x2="1"><stop offset="0" stop-color="#9b5cff"/><stop offset="1" stop-color="#7b3cff"/></linearGradient>`}
 /* ciclo de caminhada (ph em radianos) */
 function jwWalk(ph){const s=Math.sin(ph),c=Math.cos(ph);return{pole:1,lt:22*s,lk:s>0?6:20*Math.abs(s)+4,rt:-22*s,rk:s<0?6:20*Math.abs(s)+4,la:-26*s+4,le:-14,ra:26*s-4,re:-14,bob:Math.abs(c)*1.8,lean:4}}
@@ -6921,6 +6974,7 @@ function jwScene(theme,tod,sm,D){const W=sm?640:1100,sx=W/1100,H=300;
      <ellipse cx="${cx}" cy="120" rx="${30*sx+8}" ry="7" fill="url(#jwVLk)"/>
      ${[0,1,2,3].map(i=>`<circle cx="${cx-14+i*9}" cy="${119+(i%2)}" r="${1.6+(i%2)}" fill="#fff3a0" class="jw-bub" style="animation-delay:${(i*.45).toFixed(2)}s"/>`).join("")}`;
     for(let i=0;i<16;i++){const dx=((i*37)%90)-45,r=1.6+(i%3);g+=`<circle cx="${cx+((i*13)%30)-15}" cy="118" r="${r}" fill="${i%3?"#ffb020":"#ff4d1a"}" class="jw-emb" style="--d:${((i*.31)%2.4).toFixed(2)}s;--t:${(1.8+(i%4)*.5).toFixed(1)}s;--dx:${dx}px"/>`}
+    g+=jwForestFire(sx);
     g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#0a0302" stroke-width="${sm?18:14}" stroke-linecap="round" opacity=".7"/><path d="${jwCurve(P,0,6)}" fill="none" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round" opacity=".85"/>`}
   else if(theme==="cume"){P=[80,240,395,545,690,830,960].map((x,i)=>[Math.round(x*sx),[254,246,234,218,196,164,112][i]]);vb=`0 ${sm?40:46} ${W} ${sm?264:254}`;
     g+=`<rect y="-90" width="${W}" height="${H+90}" fill="url(#${sky})"/>`+(tod==="noite"?jwStars(46,W)+jwMoon(300*sx,110):tod==="tarde"?jwSun(300*sx,150):jwSun(320*sx,112));
@@ -7054,7 +7108,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261113071219";
+const JX_BUILD="20261113072455";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7556,7 +7610,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113071219" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113072455" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -8599,7 +8653,7 @@ function asModal(){const S=UI.as;if(!S){$("layer3").innerHTML="";return}const c=
     ${S.mode==="base"?`<div class="asbase">
       <div class="row" style="gap:8px;align-items:end"><label class="small" style="display:grid;gap:4px;flex:1 1 220px">Uma meta deste concurso<select class="inp" id="asBM">${core().metas.slice().reverse().map(m=>`<option value="${m.n}">Meta ${pad(m.n)}${m.n===core().cur?" (atual)":""} · ${tasksOf(m.n).length} atividades</option>`).join("")}</select></label><button class="btn sm" data-a="asBaseMeta">Usar esta meta</button></div>
       ${allPlans().filter(p=>p.id!==ACTIVE).length?`<div class="row" style="gap:8px;align-items:end"><label class="small" style="display:grid;gap:4px;flex:1 1 220px">A meta atual de outro concurso<select class="inp" id="asBO">${allPlans().filter(p=>p.id!==ACTIVE).map(p=>`<option value="${p.id}">${esc(pName(p))}</option>`).join("")}</select></label><button class="btn sm" data-a="asBaseOther">Usar este concurso</button></div>`:""}
-      <label class="small" style="display:grid;gap:4px">Sincronizar com outra plataforma: cole o planejamento (da outra plataforma, de um professor, de uma planilha…), uma atividade por linha<textarea class="inp" id="asBT" rows="4" placeholder="Ex.: Direito Constitucional – Aula 03 – teoria&#10;Português – revisão da Aula 02&#10;Contabilidade – 20 questões">${esc(S.baseTxt||"")}</textarea></label>
+      <label class="small" style="display:grid;gap:4px">Sincronizar com outra plataforma: cole o planejamento (da outra plataforma, de um professor, de uma planilha…), uma atividade por linha. As que estiverem marcadas como feitas (✓, [x], “concluída”) entram aqui como aulas já estudadas; as outras viram a sua meta<textarea class="inp" id="asBT" rows="4" placeholder="Ex.: Direito Constitucional – Aula 03 – teoria&#10;Português – revisão da Aula 02&#10;Contabilidade – 20 questões">${esc(S.baseTxt||"")}</textarea></label>
       <div class="row"><button class="btn sm" data-a="asBaseText">${ic("list")} Montar com este texto</button></div>
       <p class="muted small" style="margin:0">O painel usa a mesma sequência de matérias e tipos de atividade, mas cada matéria continua de onde você parou, com as páginas certas.</p></div>`:""}
     ${S.confirm?`<div class="asconf" role="alertdialog" aria-label="Confirmar planejamento"><b>${ic("check")} Planejamento gerado: ${S.rows.length} atividades · ${fmtM(tot)}${nCh?" · "+nCh+" fora da ordem":""}.</b><span>Confira a lista abaixo. Está a contento? Posso ${S.tg==="cur"?"aplicar na meta atual":"salvar como a próxima meta"}?</span>
@@ -8645,7 +8699,9 @@ function asChronoSort(rows){const pos={},by={};rows.forEach((t,i)=>{if(t.done)re
 function asFromStructure(list,src){const S=UI.as;if(!S)return;const done=S.rows.filter(t=>t.done);S.rows=done.slice();let n=0;
   list.forEach(x=>{if(!x||!x.sid||!ED.some(e=>e.id===x.sid))return;const ph="TRMQ".includes(x.ph)&&x.ph?x.ph:"T";const prg=asProgBefore(S.rows.length),ctx=asCtx0();S.rows.forEach(t=>{try{asReplay(ctx,t)}catch(e){}});
     let aula=x.aula&&auOf(x.sid,x.aula)?x.aula:"";
-    if(!aula){if(ph==="T")aula=asNextAula(x.sid,prg);else{const p=(ctx.pend||[]).find(q=>q.sid===x.sid&&(q.st||"R")===ph)||(ctx.pend||[]).find(q=>q.sid===x.sid);aula=p?p.c:asNextAula(x.sid,prg)}}
+    if(!aula){if(ph==="T")aula=asNextAula(x.sid,prg);else{const p=(ctx.pend||[]).find(q=>q.sid===x.sid&&(q.st||"R")===ph)||(ctx.pend||[]).find(q=>q.sid===x.sid);
+      /* revisão e questões sem pendência: da última aula já estudada (nunca de uma aula que ainda não teve teoria) */
+      const pr=(prg&&prg[x.sid])||progOf(x.sid),L=AU(x.sid);aula=p?p.c:(pr&&pr.i>0&&L[pr.i-1]?L[pr.i-1].c:asNextAula(x.sid,prg))}}
     const t=asMake(ph,x.sid,aula,null,prg);if(x.min>0&&ph!=="T")t.min=x.min;if(x.nq>0&&ph==="Q"){t.nq=x.nq;t.min=Math.max(5,x.nq*MINQ)}S.rows.push(t);n++});
   S.mode="base";S.confirm=false;S.msg=n?"Planejamento montado com base "+src+": "+n+" atividades, cada matéria continuando de onde você parou. Confira e toque em "+(S.tg==="cur"?"Aplicar":"Salvar")+".":"Não encontrei atividades para usar.";asModal()}
 function asBaseFromMeta(n){const ts=tasksOf(n);if(!ts.length){toast("Essa meta não tem atividades");return}asFromStructure(ts.map(t=>({ph:t.ph,sid:t.sid,min:t.min,nq:t.nq})),"na Meta "+pad(n))}
@@ -8660,17 +8716,29 @@ async function asBaseFromOther(pid){const S=UI.as;if(!S||!pid)return;const O=pla
 async function asBaseFromText(txt){const S=UI.as;if(!S)return;txt=String(txt).trim();if(!txt){toast("Cole o planejamento no quadro");return}S.baseTxt=txt;
   const subj=ED.map(x=>({sid:x.id,codigo:x.c,nome:x.n}));let list=[];
   if(SAMPLE){S.busy="Lendo o planejamento…";asModal();
-    try{const o=await SAMPLE.json(`Converta o planejamento de estudos abaixo numa lista de atividades, na mesma ordem. Para cada atividade, diga o tipo (T teoria/leitura/aula, R revisão, M mapeamento de questões comentadas, Q questões/exercícios), a matéria (use só os sid da lista; se nenhuma servir, pule a atividade), o número da aula quando houver (só os dígitos, com dois algarismos, ex.: "03"), o tempo em minutos e a quantidade de questões, quando houver.
+    try{const o=await SAMPLE.json(`Converta o planejamento de estudos abaixo numa lista de atividades, na mesma ordem. Diga também se cada atividade JÁ FOI FEITA na outra plataforma ("feita": true quando o texto marcar como concluída: ✓, ✔, [x], "concluída", "feito", "finalizada", 100%, riscada, ou quando estiver numa lista de "já estudado"; senão false). Para cada atividade, diga o tipo (T teoria/leitura/aula, R revisão, M mapeamento de questões comentadas, Q questões/exercícios), a matéria (use só os sid da lista; se nenhuma servir, pule a atividade), o número da aula quando houver (só os dígitos, com dois algarismos, ex.: "03"), o tempo em minutos e a quantidade de questões, quando houver.
 Matérias: ${JSON.stringify(subj)}
 Planejamento:
 ${txt.slice(0,12000)}
-Responda só com JSON: {"atividades":[{"tipo":"T","sid":"","aula":"","min":0,"questoes":0}]}`,{modelTier:"default"});
-      list=(o&&o.atividades||[]).map(x=>({ph:x.tipo,sid:x.sid,aula:x.aula?String(x.aula).padStart(2,"0"):"",min:+x.min||0,nq:+x.questoes||0}))}catch(e){}
+Responda só com JSON: {"atividades":[{"tipo":"T","sid":"","aula":"","min":0,"questoes":0,"feita":false}]}`,{modelTier:"default"});
+      list=(o&&o.atividades||[]).map(x=>({ph:x.tipo,sid:x.sid,aula:x.aula?String(x.aula).padStart(2,"0"):"",min:+x.min||0,nq:+x.questoes||0,feita:!!x.feita}))}catch(e){}
     S.busy=""}
   if(!list.length){/* sem IA: uma linha por atividade, reconhecendo a matéria pelo nome ou código e o tipo pelas palavras */
     txt.split(/\n+/).forEach(l=>{const n=norm(l);if(n.length<4)return;let best=null,bv=0;ED.forEach(x=>{const v=Math.max(n.includes(norm(x.n))?1:0,new RegExp("\\b"+norm(x.c)+"\\b").test(n)?.9:0,cdice(ctoks(l),ctoks(x.n)));if(v>bv){bv=v;best=x}});
-      if(!best||bv<.34)return;const ph=/revis/.test(n)?"R":/mapea/.test(n)?"M":/quest|exerc|simulad/.test(n)?"Q":"T";const am=l.match(/aula\s*(\d{1,2})/i);list.push({ph,sid:best.id,aula:am?String(+am[1]).padStart(2,"0"):""})})}
-  asFromStructure(list,"no planejamento colado")}
+      if(!best||bv<.34)return;const ph=/revis/.test(n)?"R":/mapea/.test(n)?"M":/quest|exerc|simulad/.test(n)?"Q":"T";const am=l.match(/aula\s*(\d{1,2})/i);list.push({ph,sid:best.id,aula:am?String(+am[1]).padStart(2,"0"):"",feita:/[✓✔☑]|\[x\]|conclu[ií]d|\bfeit[oa]\b|finalizad|\b100\s*%/i.test(l)})})}
+  const nd=asMarkStudied(list.filter(x=>x.feita));asFromStructure(list.filter(x=>!x.feita),"no planejamento colado");
+  if(nd.n&&UI.as){UI.as.msg="Trouxe da outra plataforma: "+nd.n+" aula"+(nd.n>1?"s":"")+" já estudada"+(nd.n>1?"s":"")+" em "+nd.m+" matéria"+(nd.m>1?"s":"")+" (marcadas como teoria concluída). "+(UI.as.msg||"");asModal()}}
+/* aulas que o aluno já fez na outra plataforma: teoria concluída aqui e a matéria segue da aula seguinte (no progresso atual e no ponto de partida da meta) */
+function asMarkStudied(L){const c=core(),ad=c.adone=c.adone||{},by={};let n=0;
+  (L||[]).forEach(x=>{if(!x||!x.sid||!ED.some(e=>e.id===x.sid)||(x.ph&&x.ph!=="T"))return;const a=x.aula&&auOf(x.sid,x.aula)?x.aula:"";if(!a)return;if(!ad[x.sid+":"+a]){ad[x.sid+":"+a]=today();n++}(by[x.sid]=by[x.sid]||[]).push(a)});
+  const r=curMeta(),md=r?metaDoc(r.n):null;
+  Object.entries(by).forEach(([sid,as])=>{const L2=AU(sid),idx=Math.max(...as.map(a=>L2.findIndex(z=>z.c===a)));if(idx<0)return;
+    /* todas as aulas antes da mais adiantada também contam como estudadas */
+    L2.slice(0,idx+1).forEach(z=>{if(!ad[sid+":"+z.c]){ad[sid+":"+z.c]=today();n++}});
+    const nx={i:Math.min(idx+1,L2.length),pg:1};c.prog=c.prog||{};if(!c.prog[sid]||c.prog[sid].i<nx.i)c.prog[sid]=nx;
+    if(md&&md.snap){md.snap.prog=md.snap.prog||{};if(!md.snap.prog[sid]||md.snap.prog[sid].i<nx.i)md.snap.prog[sid]=Object.assign({},nx)}});
+  if(n){touch("core");if(r)touch("m-"+r.n);simCache.key=""}
+  return{n,m:Object.keys(by).length}}
 function asSetField(i,f,v){const S=UI.as,t=S.rows[i];if(!t||t.done)return;
   if(f==="ph"||f==="sid"||f==="aula"){const prg=asProgBefore(i),ph=f==="ph"?v:t.ph,sid=f==="sid"?v:t.sid,aula=f==="aula"?v:(f==="sid"?asNextAula(v,prg):t.aula);const keep=Object.assign({},t);if(f!=="aula"){delete keep.gcode;delete keep.gt;delete keep.gid}S.rows[i]=asMake(ph,sid,aula,keep,prg)}
   else if(f==="pa"||f==="pb"||f==="nq"||f==="min"){const n=Math.max(0,parseInt(v,10)||0);t[f]=n;if(f==="pa")delete t.ya;if(f==="pb")delete t.yb;if((f==="pa"||f==="pb")&&t.ph==="T"&&t.pa&&t.pb>=t.pa)t.min=r5((t.pb-t.pa+1)*MINPG);if(f==="nq"&&t.ph==="Q")t.min=Math.max(5,n*MINQ)}
@@ -9636,7 +9704,7 @@ function jxSkyMat(SID,part){try{if(!ED.length)return"";const P=progData(),mx=Mat
   const nd=A.filter(dn).length,rows=A.map((a,i)=>{const d=dn(a),o=!d&&now(a),p=pdfOfAula(cur,a.c),iv=inc(a);
     return`<div class="jt-r"><span class="jt-d" data-s="${d?"ok":o?"on":"fu"}">${d?"✓":""}</span><b style="color:${s.col}">${esc(auLabel(cur,a.c))}</b><span class="jt-t">${esc(a.d||"")}</span><span class="jt-i"><i><em style="width:${has?Math.min(100,iv).toFixed(1):0}%"></em></i><small>${has?(iv>0?pv1(iv)+"% da matéria":"não caiu nas provas"):"incidência ainda não medida"}</small></span><span class="jt-c">${p?`<button class="chip" data-a="lxOpen" data-pid="${p.id}" data-pa="1">PDF</button>`:`<span class="chip off">PDF</span>`}<button class="chip" data-a="gtab" data-t="resumos">Resumo</button><button class="chip" data-a="gtab" data-t="mapas">Mapa</button>${(()=>{const u=tecAulaUrl(cur,a.c);return u?`<a class="chip" href="${esc(u)}" target="_blank" rel="noopener" title="Questões desta aula no TEC" data-tas="${esc(tShort(a.d||""))}">TEC</a>`:""})()}</span></div>`}).join("");
   const top=has?S.t.map((t,j)=>({t:t[0],p:Pi[j]})).sort((a,b)=>b.p-a.p).slice(0,5):[],tm=Math.max(1e-6,...top.map(o=>o.p));
-  if(part!=="trail")return`<section class="jx-msky" style="--h:${skyLay(n,12).h}px;--hm:${skyLay(n,5).h}px" aria-label="Constelações do Edital"><span class="jm-t">Constelações do Edital: cada estrela é uma matéria, do tamanho do quanto cai · toque para abrir a trilha dela abaixo</span>${st}</section>`;
+  if(part!=="trail")return`<section class="jx-msky" style="--h:${skyLay(n,12).h}px;--hm:${skyLay(n,5).h}px" aria-label="Constelações do Edital"><span class="jm-t">${POS()?"Sóis do Edital em chamas: cada sol é uma matéria, do tamanho do quanto cai · toque para abrir a trilha dela abaixo":"Constelações do Edital: cada estrela é uma matéria, do tamanho do quanto cai · toque para abrir a trilha dela abaixo"}</span>${st}</section>`;
   return`<div class="jt-g"><section class="jt-c0"><div class="jt-h"><div><small style="color:${s.col}">${esc(s.n)} · ${q} questões · ${pv1(q/T*100)}% da prova</small><h2>A trilha da matéria</h2></div><span class="muted small">${nd} de ${A.length} aulas · ${A.length?Math.round(nd/A.length*100):0}%</span></div><div class="jt-l">${rows}</div></section>
    <div class="jt-side"><section class="jt-mi"><small>Da matéria inteira</small><button class="jt-b" data-a="gtab" data-t="resumos" style="--b:rgba(255,95,143,.14)">📚 Resumo da matéria inteira</button><button class="jt-b" data-a="gtab" data-t="mapas" style="--b:rgba(255,209,102,.12)">🗺️ Mapa mental</button><button class="jt-b" data-a="gtab" data-t="leiseca" style="--b:rgba(47,211,189,.12)">⚖️ Lei seca</button><button class="jt-b" data-a="gtab" data-t="incidencia" style="--b:rgba(95,180,255,.12)">🎯 Incidência no TEC</button>${(()=>{const m=tecMatCad(cur);return m?`<a class="jt-b" href="${esc(m.url)}" target="_blank" rel="noopener" style="--b:rgba(160,107,255,.16)">📝 Caderno da matéria no TEC</a><button class="jt-b" data-a="tbOpen" data-s="${cur}" style="--b:rgba(255,95,95,.12)">✍️ Lançar erros do TEC</button>${(()=>{const L=tecAsList(cur).sort((a,b)=>b.q-a.q).slice(0,8);return L.length?`<small style="margin-top:6px">Cadernos por assunto (guia do TEC)</small><div class="jt-as">${L.map(a=>`<a href="${esc(TB+"/questoes/cadernos/"+a.cad)}" target="_blank" rel="noopener" title="${esc(a.n)}"><span>${esc(a.n)}</span><small>${a.qq||a.q} q.</small></a>`).join("")}</div>`:""})()}`:`<button class="jt-b" data-a="tcaOpen" style="--b:rgba(160,107,255,.16)">📝 Criar caderno no TEC</button>`})()}</section></div></div>`}catch(e){console.error(e);return""}}
 
@@ -11966,7 +12034,21 @@ function pfLeft(){const C=pfCfg();if(PF.ph==="foco"){const lim=C.f*60000;return{
   const tot=(PF.ph==="longa"?C.l:C.s)*60000,left=PF.pRun?Math.max(0,PF.pEnd-Date.now()):(PF.pLeft||tot);return{left,tot,run:PF.pRun}}
 function pfBeep(){try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.frequency.value=880;o.connect(g);g.connect(a.destination);g.gain.setValueAtTime(.18,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+1.2);o.start();o.stop(a.currentTime+1.2)}catch(e){}}
 function pfDone(){PF.n++;const C=pfCfg();PF.ph=PF.n%C.k===0?"longa":"curta";PF.pLeft=(PF.ph==="longa"?C.l:C.s)*60000;PF.pEnd=Date.now()+PF.pLeft;PF.pRun=true;pfBeep();pfDraw(true)}
-function pfScene(ph){const W=1600,H=1000,warm=ph!=="foco";let g=`<defs>${jwHeroDefs()}<linearGradient id="pfSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0828"/><stop offset=".6" stop-color="#21165a"/><stop offset="1" stop-color="${warm?"#4a2440":"#2f1d72"}"/></linearGradient><radialGradient id="pfFire"><stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#ff7a1a" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${H}" fill="url(#pfSky)"/>`;
+function pfVolcano(ph){const W=1600,H=1000;let g=`<defs>${jwHeroDefs()}<linearGradient id="pfSkyV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#120202"/><stop offset=".55" stop-color="#3d0a04"/><stop offset="1" stop-color="#8a1f08"/></linearGradient><linearGradient id="pfVo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a120b"/><stop offset="1" stop-color="#0c0302"/></linearGradient><radialGradient id="pfCr"><stop offset="0" stop-color="#fff0a0"/><stop offset=".35" stop-color="#ffb020"/><stop offset=".7" stop-color="#ff4d1a" stop-opacity=".7"/><stop offset="1" stop-color="#ff2e1a" stop-opacity="0"/></radialGradient><linearGradient id="pfLvG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff0a0"/><stop offset=".4" stop-color="#ffb020"/><stop offset="1" stop-color="#e0360f"/></linearGradient></defs><rect width="${W}" height="${H}" fill="url(#pfSkyV)"/>`;
+  /* fumaça e cinzas caindo */
+  g+=`<g opacity=".55"><ellipse cx="1060" cy="150" rx="260" ry="70" fill="#2a120e"/><ellipse cx="1180" cy="80" rx="220" ry="60" fill="#3a1a14"/><ellipse cx="980" cy="40" rx="300" ry="60" fill="#1e0b08"/></g>`;
+  for(let i=0;i<60;i++)g+=`<circle class="pf-ash" cx="${(i*97.3)%W}" cy="${(i*41)%300}" r="${1+(i%3)*.6}" fill="${i%4?"#6b5a55":"#ff8a3d"}" opacity="${.35+(i%3)*.15}" style="--d:-${(i*.7%9).toFixed(1)}s;--t:${(7+(i%5)).toFixed(0)}s;--dx:${((i*37)%90)-30}px"/>`;
+  /* serras ao fundo, o vulcão e os rios de lava */
+  g+=`<path d="M0 ${H} V720 L220 600 L420 690 L640 560 L800 640 L1600 620 V${H}Z" fill="#240a06"/>`;
+  g+=`<g transform="translate(-280 0)">`;
+  g+=`<path d="M0 ${H} V860 L380 830 L640 760 L860 600 L1010 330 L1150 330 L1300 600 L1600 760 L1900 830 V${H}Z" fill="url(#pfVo)"/>`;
+  [["M1140 336 C1170 420 1150 500 1200 600 C1230 680 1260 760 1290 ${H}",16],["M1030 336 C1010 420 960 480 966 570 C972 660 920 760 890 ${H}",13],["M970 560 C930 620 890 660 880 740 C874 800 850 860 836 ${H}",8]].forEach(([d,w],i)=>{d=d.replace("${H}",H);g+=`<path d="${d}" stroke="#ff4d1a" stroke-width="${w+10}" fill="none" stroke-linecap="round" opacity=".35" style="filter:blur(6px)"/><path d="${d}" stroke="url(#pfLvG)" stroke-width="${w}" fill="none" stroke-linecap="round"/><path class="pf-lv" d="${d}" stroke="#fff3a0" stroke-width="${Math.max(2,w/4)}" fill="none" stroke-linecap="round" stroke-dasharray="14 46" opacity=".8" style="animation-delay:${i*.6}s"/>`});
+  g+=`<ellipse cx="1080" cy="326" rx="220" ry="90" fill="url(#pfCr)" opacity=".9"/><ellipse cx="1080" cy="334" rx="86" ry="14" fill="#ffd166"/>`;
+  for(let i=0;i<26;i++)g+=`<circle class="pf-emb" cx="${1040+(i*13)%80}" cy="330" r="${2+(i%3)}" fill="${i%3?"#ffb020":"#ff4d1a"}" style="--d:${(i*.23%3).toFixed(2)}s;--t:${(2.2+(i%4)*.5).toFixed(1)}s;--dx:${((i*37)%160)-80}px"/>`;
+  g+=`</g><path d="M0 ${H} V900 Q800 850 1600 910 V${H}Z" fill="#160604"/>`;
+  if(ph!=="foco")g+=`<g transform="translate(240 905) scale(2.2)">${jwHero(jwSit)}</g>`;
+  return`<svg class="pf-bg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${g}</svg>`}
+function pfScene(ph){if(POS())return pfVolcano(ph);const W=1600,H=1000,warm=ph!=="foco";let g=`<defs>${jwHeroDefs()}<linearGradient id="pfSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b0828"/><stop offset=".6" stop-color="#21165a"/><stop offset="1" stop-color="${warm?"#4a2440":"#2f1d72"}"/></linearGradient><radialGradient id="pfFire"><stop offset="0" stop-color="#ffd166"/><stop offset="1" stop-color="#ff7a1a" stop-opacity="0"/></radialGradient></defs><rect width="${W}" height="${H}" fill="url(#pfSky)"/>`;
   for(let i=0;i<150;i++)g+=`<circle class="pf-st" style="animation-delay:${(i%9)*.45}s" cx="${(i*97.7)%W}" cy="${(i*53.3)%600}" r="${i%6?1:2}" fill="#fff" opacity="${.25+(i%4)*.18}"/>`;
   g+=`<path class="pf-sh" d="M1300 90 l-180 70" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity="0"/>`;
   g+=`<path d="M0 ${H} V780 L260 640 L460 720 L700 560 L880 660 L1060 590 L1300 690 L1600 610 V${H}Z" fill="#1c1450"/><path d="M700 560 L672 590 L690 586 L704 600 L720 584 L736 594Z" fill="#e9e4ff" opacity=".8"/><path d="M0 ${H} V880 Q800 820 1600 890 V${H}Z" fill="#2a1d6a"/>`;
@@ -11977,8 +12059,8 @@ function pfDraw(full){const w=$("pfWrap");if(!w||w.hidden)return;const C=pfCfg()
   if(PF.ph!=="foco"&&PF.pRun&&X.left<=0){PF.ph="foco";PF.pRun=false;pfBeep();if(!TM.run){TM.mode="pomo";TM.acc=0;saveTM();A.tgo&&A.tgo()}full=true}
   const s=Math.ceil(X.left/1000),mm=pad(Math.floor(s/60)),ss=pad(s%60),fr=X.tot?1-X.left/X.tot:0,R=180,Cc=2*Math.PI*R,foco=PF.ph==="foco",k=PF.n%C.k;
   if(full||!w.querySelector(".pf-t")){let act="";try{const f=TM.tid&&findTask(TM.tid);if(f)act=`Estudando <b>${esc(SUB(f.t.sid).c||SUB(f.t.sid).n)}</b> · ${esc(taskTitle(f.t))}`}catch(e){}
-    const col=foco?["#7b3cff","#ff5f8f"]:["#2fbf6a","#7cf0a8"];let ticks="";for(let i=0;i<60;i++){const a=i/60*2*Math.PI;ticks+=`<path d="M${(210+Math.sin(a)*160).toFixed(1)} ${(210-Math.cos(a)*160).toFixed(1)} L${(210+Math.sin(a)*(i%5?154:147)).toFixed(1)} ${(210-Math.cos(a)*(i%5?154:147)).toFixed(1)}" stroke="rgba(255,255,255,${i%5?.14:.34})" stroke-width="2"/>`}
-    w.innerHTML=`${pfScene(PF.ph)}<div class="pf pfx ${PF.ph}"><button class="ibtn pf-x" data-a="pfClose" aria-label="Sair da tela cheia">${ic("close")}</button><button class="ibtn pf-gear" data-a="pfGear" aria-label="Ajustar os tempos">${ic("gear")}</button>
+    const col=POS()?(foco?["#ff4d1a","#ffd166"]:["#ff8a3d","#ffe3a0"]):foco?["#7b3cff","#ff5f8f"]:["#2fbf6a","#7cf0a8"];w.classList.toggle("pos",POS());let ticks="";for(let i=0;i<60;i++){const a=i/60*2*Math.PI;ticks+=`<path d="M${(210+Math.sin(a)*160).toFixed(1)} ${(210-Math.cos(a)*160).toFixed(1)} L${(210+Math.sin(a)*(i%5?154:147)).toFixed(1)} ${(210-Math.cos(a)*(i%5?154:147)).toFixed(1)}" stroke="rgba(255,255,255,${i%5?.14:.34})" stroke-width="2"/>`}
+    w.innerHTML=`${POS()?`<div class="pf-quake" style="position:absolute;inset:0">${pfScene(PF.ph)}</div>`:pfScene(PF.ph)}<div class="pf pfx ${PF.ph}${POS()?" pf-quake":""}"><button class="ibtn pf-x" data-a="pfClose" aria-label="Sair da tela cheia">${ic("close")}</button><button class="ibtn pf-gear" data-a="pfGear" aria-label="Ajustar os tempos">${ic("gear")}</button>
     <div class="pf-chips">${[["foco","Foco"],["curta","Pausa curta"],["longa","Pausa longa"]].map(([q,l])=>`<span class="${PF.ph===q?"on":""}">${l}</span>`).join("")}</div>
     <div class="pf-ring"><svg viewBox="0 0 420 420" aria-hidden="true"><defs><linearGradient id="pfRg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${col[0]}"/><stop offset="1" stop-color="${col[1]}"/></linearGradient>${jwHeroDefs()}</defs><circle cx="210" cy="210" r="${R}" fill="rgba(11,8,32,.45)" stroke="rgba(255,255,255,.09)" stroke-width="14"/>${ticks}<circle class="fg" cx="210" cy="210" r="${R}" fill="none" stroke="url(#pfRg)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${(Cc*fr).toFixed(1)} ${Cc.toFixed(1)}" transform="rotate(-90 210 210)" style="filter:drop-shadow(0 0 10px ${col[1]})"/>${foco?`<g transform="translate(210 ${210-R-9})"><path d="M0 0 v-24" stroke="#e9e4ff" stroke-width="2"/><path d="M1 -24 h15 l-4 5 4 5 h-15z" fill="#ffd166"/></g><g id="pfHero" transform="${pfHeroAt(fr)}">${jwHero(jwWalk(1.1))}</g>`:""}</svg>
      <div class="pf-in"><div class="pf-t">${mm}:${ss}</div><small>${foco?`FOCO · CICLO ${k+1} DE ${C.k}`:"PAUSA · RESPIRE"}</small></div></div>
@@ -12013,7 +12095,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113071219&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113072455&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -14072,6 +14154,9 @@ Object.assign(A,{
   edtAgain(){edtOpenM()},
   edtPaste(){const t=($("edTxt")||{value:""}).value.trim();if(t.length<300){toast("Cole o texto do edital primeiro");return}UI.edx={st:"ai1",txt:t,file:null};edRun()},
   edtCargo(){const s=$("edCg");if(!s||!UI.edx)return;edRead();UI.edx.cgAsked=1;edRun(s.value)},
+  tecBkPick(el){const v=(el.dataset.v||(($("tbkO")||{}).value||"")).trim();if(!v){toast("Escolha ou escreva a banca");return}const p=curPlan();if(p&&!IS_TJ){p.banca=v.slice(0,40);savePlans()}const H=UI.tbk;$("layer3").innerHTML="";
+    if(H&&H.href){let u=H.href;try{const m=u.match(/#jxcad=(.*)$/),J=JSON.parse(decodeURIComponent(m[1]));J.banca=v;u=u.slice(0,m.index)+"#jxcad="+encodeURIComponent(JSON.stringify(J))}catch(e){}window.open(u,"_blank","noopener")}
+    toast("Banca "+v+" guardada no seu concurso: os cadernos do TEC usam só questões dela");render()},
   tecFix(el){const sid=el.dataset.s,c=el.dataset.c,a=auOf(sid,c),L=tecAsLbl(sid,c);UI.tfx={sid,c};
     $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Trocar o assunto do caderno"><div class="box npm" style="max-width:560px"><h3 style="margin:0">Trocar o assunto do caderno</h3>
      <p class="muted small" style="margin:0">${esc(SUB(sid).n)} · ${esc(auLabel(sid,c))}${a&&a.d?" – "+esc(a.d.slice(0,90)):""}. Hoje o caderno usa: <b>${esc(L.a.join(" / ")||"—")}</b>.</p>
@@ -14079,7 +14164,7 @@ Object.assign(A,{
      <div class="row" style="justify-content:space-between;gap:8px;flex-wrap:wrap"><a class="btn sm" href="${esc(tecMatPage(sid)||tecUrl(sid))}" target="_blank" rel="noopener">${ic("ext")} Ver os assuntos da matéria no TEC</a><span class="row" style="gap:8px"><button class="btn" data-a="volClose">Cancelar</button><button class="btn pri" data-a="tecFixGo">Criar o caderno certo</button></span></div></div></div>`;setTimeout(()=>{const i=$("tfxA");if(i)i.focus()},40)},
   tecFixGo(){const F=UI.tfx,v=(($("tfxA")||{}).value||"").trim();if(!F||v.length<3){toast("Escreva o nome do assunto");return}const S=SUB(F.sid),a=auOf(F.sid,F.c);
     const x=(core().tecAuto||{})[F.sid+"|"+F.c];if(x)x.g=1;touch("core");
-    const it={k:F.sid+"|"+F.c,m:TECN[F.sid]||S.n,t:String((a&&a.d)||F.c).slice(0,90),a:[v],kw:[v]};$("layer3").innerHTML="";window.open(tecJobUrl([it]),"_blank","noopener");
+    const it={k:F.sid+"|"+F.c,m:TECN[F.sid]||S.n,t:String((a&&a.d)||F.c).slice(0,90),a:[v],kw:[v]};$("layer3").innerHTML="";if(!tecBanca()){tecBkAsk(tecJobUrl([it]));return}window.open(tecJobUrl([it]),"_blank","noopener");
     toast("No TEC, toque no favorito ➜ A Jornada: ele cria o caderno só com “"+v+"” e grava nesta aula.")},
   edtCgPick(el){const X=UI.edx;if(!X||!X.info)return;const c=((X.info.cargos||[]).filter(c=>c&&c.n))[+el.dataset.i];if(!c)return;X.cgAsked=1;X.st="ai1";edModal();edRun(c.n)},
   edtApply(){edtApplyM()},
