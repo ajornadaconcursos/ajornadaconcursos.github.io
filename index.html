@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611130931"></script>
+<script src="/claude-shim.js?v=202611130948"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -3104,6 +3104,33 @@ html .treg-ch select.tsel,html :root[data-skin] header.top .top-in .treg .tsel{p
 .pdfrow>.row:last-child{max-width:min(46vw,500px);flex-wrap:wrap;justify-content:flex-end;gap:6px}
 .pdfrow .btn.tecas{max-width:100%}
 @media (max-width:760px){.pdfrow>.row:last-child{max-width:none}}
+/*PE-START*/
+.pe-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.pe-cards.c5{grid-template-columns:repeat(auto-fit,minmax(118px,1fr))}.pe-cards.c4{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}.pe-cards.c2{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.pe-card{all:unset;box-sizing:border-box;cursor:pointer;display:grid;justify-items:center;align-content:center;gap:4px;text-align:center;padding:14px 10px;border-radius:14px;border:1px solid var(--line);background:rgba(124,92,255,.05);min-height:96px;transition:border-color .2s,background .2s,transform .15s}
+.pe-card svg{width:22px;height:22px;opacity:.85}.pe-card b{font-size:14px}.pe-card small{font-size:12px;opacity:.72;line-height:1.3}
+.pe-card:hover,.pe-card:focus-visible{border-color:#a78bfa;transform:translateY(-1px)}.pe-card.on{border-color:#a3e635;background:rgba(163,230,53,.10);box-shadow:0 0 0 1px #a3e635 inset}
+.pe-cards.c2 .pe-card{justify-items:start;text-align:left;min-height:84px}
+.pe-bars{display:inline-flex;align-items:flex-end;gap:3px;height:20px}.pe-bars i{width:5px;border-radius:2px;background:rgba(160,160,190,.35)}.pe-bars i.on{background:#a3e635}
+.pe-yn{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}.pe-yn>span{font-size:14px;font-weight:600;margin-right:6px}
+.pe-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.pe-salto{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:rgba(163,230,53,.10);border:1px solid rgba(163,230,53,.35);font-size:13.5px}.pe-salto b{color:#a3e635}
+.pe-box{max-width:880px;width:min(880px,calc(100vw - 24px));display:grid;gap:14px;max-height:calc(100dvh - 32px);overflow:auto}
+.pe-tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}.pe-tabs button{all:unset;cursor:pointer;padding:10px 12px;font-weight:700;font-size:14px;opacity:.7;border-bottom:2px solid transparent;white-space:nowrap}.pe-tabs button.on{opacity:1;border-color:#a78bfa}
+.pe-body{display:grid;gap:14px}
+.pe-sts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.pe-st{display:grid;gap:3px;align-content:start;padding:14px;border-radius:14px;border:1px solid var(--line);background:rgba(124,92,255,.05)}.pe-st small{font-size:11.5px;font-weight:800;letter-spacing:.04em;color:#a3e635;text-transform:uppercase}.pe-st b{font-size:15px}.pe-st .btn{margin-top:8px;justify-self:stretch}
+.pe-sti{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:rgba(124,92,255,.14);margin-bottom:4px}.pe-sti svg{width:18px;height:18px}
+.pe-sit{padding:14px;border-radius:14px;border:1px solid var(--line)}.pe-sitg{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}.pe-sitg small{display:block;font-size:12px;opacity:.7}.pe-sitg b{display:block}
+.pe-pos{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px;border-radius:14px;border:1px dashed rgba(255,122,26,.55);background:rgba(255,122,26,.07)}.pe-pos>div{display:grid;gap:3px;flex:1 1 260px}.pe-pos.on{border-style:solid;background:rgba(255,77,26,.12)}
+.pe-conh{display:grid;gap:8px}.pe-cr{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:12px;border:1px solid var(--line)}.pe-cn{display:flex;align-items:center;gap:8px;font-weight:600;min-width:0;flex:1 1 220px}.pe-cn i{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
+.pe-seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:2px}.pe-seg button{all:unset;cursor:pointer;padding:6px 10px;border-radius:999px;font-size:12.5px;opacity:.75}.pe-seg button.on{background:#7c5cff;color:#fff;opacity:1;font-weight:700}
+.pe-acts{display:flex;flex-wrap:wrap;gap:8px}
+.pe-par{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}.pe-par>div{padding:12px;border-radius:12px;border:1px solid var(--line)}.pe-par small{display:block;font-size:12px;opacity:.7}.pe-par b{font-size:17px}
+.pe-rec{margin:0;padding:10px 12px;border-radius:12px;background:rgba(255,209,102,.10);border:1px solid rgba(255,209,102,.35)}.pe-rec.ok{background:rgba(163,230,53,.10);border-color:rgba(163,230,53,.4)}
+.pe-what{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+:root[data-lav="1"] .pe-card.on{border-color:#65a30d;background:rgba(101,163,13,.10);box-shadow:0 0 0 1px #65a30d inset}:root[data-lav="1"] .pe-st small{color:#4d7c0f}:root[data-lav="1"] .pe-salto b{color:#4d7c0f}
+.box.pe-box{max-width:880px;width:min(880px,calc(100vw - 24px))}.pe-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.pe-hd>div{min-width:0}
+/*PE-END*/
 /*POS-START*/
 /* ================= Modo Pós-Edital "Vulcão": ambiente hostil de fogo (heavy metal / punk) ================= */
 :root[data-pos="1"]:not(#z):not(#y){color-scheme:dark;
@@ -4017,6 +4044,74 @@ function obDepart(){if(document.getElementById("obDep"))return;const nick=(()=>{
   const step=now=>{const f=red?.45:Math.min(1,(now-t0)/dur),p=tr.getPointAtLength(L*f*.9),k=1.9-f*1.25;H.setAttribute("transform",`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) scale(${k.toFixed(3)})`);H.innerHTML=jwHero(jwWalk((now-t0)/140));if(f<1&&!red)raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step);
   const close=()=>{cancelAnimationFrame(raf);d.classList.add("out");setTimeout(()=>d.remove(),500)};d.querySelector("#odGo").onclick=close;setTimeout(()=>{if(document.body.contains(d))close()},11000)}
 
+/* ================= Perfil do aluno (entrevista + Meu Perfil), no estilo do que o Guruja pergunta, trazido para a Jornada =================
+   Trajetória, condição, disponibilidade, área de estudo (pré/pós-edital), concurso em foco, situação profissional, conhecimentos por matéria e plataformas */
+const PE_TRAJ=[["recente","Recente","Menos de 6 meses","clock"],["tempo","Um tempo","De 6 meses a 1 ano","clock"],["bom","Um bom tempo","De 1 a 2,5 anos","clock"],["bastante","Bastante tempo","De 2,5 a 4 anos","clock"],["muito","Muito tempo","Mais de 4 anos","clock"]];
+const PE_TRAJ_MOM={recente:"Começando agora",tempo:"Estudo há menos de 1 ano",bom:"De 1 a 3 anos",bastante:"Mais de 3 anos",muito:"Mais de 3 anos"};
+const PE_DISP=[["leve","Leve","21 a 28 horas por semana",24.5,1],["normal","Normal","28 a 35 horas por semana",31.5,2],["forte","Forte","35 a 42 horas por semana",38.5,3],["extrema","Extrema","Mais de 42 horas por semana",45,4]];
+const PE_COND=[["ampla","Ampla concorrência","Disputa todas as vagas gerais"],["cotas","Cotas","Reserva de vagas (PcD, sociais e raciais)"]];
+const PE_COTAS=["PcD","Sociais e raciais"];
+const PE_AREA=[["fiscal","Fiscal","Receitas, SEFAZ, ISS, auditoria tributária"],["controle","Controle","TCU, TCEs, CGU, controladorias"],["tribunais","Tribunais","TJs, TRFs, TRTs, TREs, MP"],["policial","Policial","PF, PRF, PC, PM, penal"],["bancaria","Bancária","BB, Caixa, BNB, BNDES"],["legislativa","Legislativa","Câmaras, Assembleias, Senado"],["administrativa","Administrativa","Prefeituras, agências, ministérios"],["outra","Outra","Saúde, educação, tecnologia…"]];
+const PE_PREP=[["pre","Pré-edital","Base do básico ao avançado, para quem ainda não tem edital publicado e quer chegar pronto, com tempo."],["pos","Pós-edital","Reta final: edital publicado e prova marcada. Plano até a prova com revisões, questões e lei seca."]];
+const PE_FORM=["Ensino médio","Superior em andamento","Direito","Contabilidade","Economia","Administração","Engenharia","Tecnologia da Informação","Outros"];
+const PE_CONH=[["0","Nada"],["1","Básico"],["2","Intermediário"],["3","Avançado"]];
+const peBRL=v=>{const n=+String(v||"").replace(/\D/g,"")/100;return n?n.toLocaleString("pt-BR",{style:"currency",currency:"BRL"}):""};
+const peNum=v=>+String(v||"").replace(/\D/g,"")/100||0;
+/* cartões grandes de escolha (ícone, título, detalhe), como no Guruja */
+function peCards(k,L,cols){const M=ME();return`<div class="pe-cards${cols?" c"+cols:""}" role="radiogroup">${L.map(([v,t,d,i])=>{const on=M[k]===v;return`<button type="button" class="pe-card ${on?"on":""}" data-a="obCh" data-k="${k}" data-v="${esc(v)}" role="radio" aria-checked="${on}">${i?ic(i):""}<b>${esc(t)}</b>${d?`<small>${esc(d)}</small>`:""}</button>`}).join("")}</div>`}
+function peDispBars(n){return`<span class="pe-bars" aria-hidden="true">${[1,2,3,4].map(i=>`<i class="${i<=n?"on":""}" style="height:${4+i*4}px"></i>`).join("")}</span>`}
+function peDispCards(){const M=ME();return`<div class="pe-cards c4" role="radiogroup">${PE_DISP.map(([v,t,d,,n])=>{const on=M.disp===v;return`<button type="button" class="pe-card ${on?"on":""}" data-a="obCh" data-k="disp" data-v="${v}" role="radio" aria-checked="${on}">${peDispBars(n)}<b>${t}</b><small>${d.replace(" por semana","")}</small></button>`}).join("")}</div>`}
+function peYN(k,lbl){const M=ME();return`<div class="pe-yn"><span>${lbl}</span>${[["sim","Sim"],["nao","Não"]].map(([v,t])=>`<button type="button" class="ob-ch ${M[k]===v?"on":""}" data-a="obCh" data-k="${k}" data-v="${v}" aria-pressed="${M[k]===v}">${t}</button>`).join("")}</div>`}
+/* blocos da entrevista */
+function peSitHTML(){const M=ME(),sal=peNum(M.remP)-peNum(M.remA);return`<h3>Situação profissional</h3>
+  <div class="pe-grid"><div class="field"><label for="peForm">Formação</label><select class="inp" id="peForm"><option value="">Escolha</option>${PE_FORM.map(f=>`<option ${M.form===f?"selected":""}>${f}</option>`).join("")}</select></div>
+   <div class="field"><label for="peRemA">Remuneração atual <span class="muted">(opcional)</span></label><input class="inp" id="peRemA" inputmode="numeric" placeholder="R$ 0,00" value="${esc(peBRL(M.remA))}"></div>
+   <div class="field"><label for="peRemP">Remuneração que você busca</label><input class="inp" id="peRemP" inputmode="numeric" placeholder="R$ 0,00" value="${esc(peBRL(M.remP))}"></div></div>
+  ${peYN("trab","Está trabalhando?")}${peYN("serv","Já é servidor público?")}
+  ${sal>0?`<p class="pe-salto">${ic("target")} Salto que a aprovação traz: <b>+ ${peBRL(Math.round(sal*100))}/mês</b> · motivo que vale lembrar nos dias difíceis.</p>`:""}`}
+function peGrabSit(){const M=ME(),v=id=>{const e=$(id);return e?e.value:null};const f=v("peForm"),a=v("peRemA"),p=v("peRemP");if(f!=null)M.form=f;if(a!=null)M.remA=String(a).replace(/\D/g,"");if(p!=null)M.remP=String(p).replace(/\D/g,"")}
+function peApplyDisp(){const M=ME(),d=PE_DISP.find(x=>x[0]===M.disp);if(!d)return;try{const c=core();c.cfg=c.cfg||{};const dias=c.cfg.dias||6;c.cfg.hrs=Math.max(1,Math.round(d[3]/dias*2)/2);touch("core")}catch(e){}}
+/* ===== Meu Perfil: 4 abas ===== */
+const PE_TABS=[["status","Status"],["conh","Conhecimentos"],["plat","Outras plataformas"],["basic","Informações básicas"]];
+function peLbl(L,v){const x=L.find(y=>y[0]===v);return x?x:null}
+function peOpen(tab){UI.pet=tab||UI.pet||"status";const M=ME(),t=UI.pet,ed=k=>`<button class="btn sm" data-a="peEdit" data-k="${k}">${ic("edit")} Editar</button>`;let body="";
+  if(t==="status"){const tr=peLbl(PE_TRAJ,M.traj),ds=peLbl(PE_DISP,M.disp),cd=peLbl(PE_COND,M.cond),ar=peLbl(PE_AREA,M.area),pr=POS()?"pos":(M.prep||"pre");
+    const card=(k,ico,lab,v,d)=>`<div class="pe-st"><span class="pe-sti">${ico}</span><small>${lab}</small><b>${v?esc(v):"<span class='muted'>Não informado</span>"}</b><span class="muted small">${d?esc(d):""}</span>${ed(k)}</div>`;
+    body=`<div class="pe-sts">${card("traj",ic("clock"),"Trajetória de estudo",tr&&tr[1],tr&&tr[2])}${card("cond",ic("compass"),"Condição",cd&&(cd[0]==="cotas"&&(M.cotas||[]).length?"Cotas":cd[1]),cd&&(cd[0]==="cotas"?(M.cotas||[]).join(" e ")||cd[2]:cd[2]))}${card("disp",peDispBars(ds?ds[4]:0),"Disponibilidade",ds&&ds[1],ds&&ds[2])}${card("area",ic("concurso"),"Área de estudo",(ar?ar[1]:"")+(ar?" · ":"")+(pr==="pos"?"Pós-edital":"Pré-edital"),ar&&ar[2])}</div>
+     <div class="pe-sit"><div class="row" style="justify-content:space-between"><b>Situação profissional</b>${ed("sit")}</div><div class="pe-sitg"><div><small>Formação</small><b>${esc(M.form||"—")}</b></div><div><small>Remuneração</small><b>${M.remA?peBRL(M.remA)+" atual":"—"}</b>${M.remP?`<span class="muted small">${peBRL(M.remP)} pretendida</span>`:""}</div><div><small>Situação de trabalho</small><b>${M.trab==="sim"?"Estou trabalhando":M.trab==="nao"?"Não estou trabalhando":"—"}</b><span class="muted small">${M.serv==="sim"?"Sou servidor público":M.serv==="nao"?"Não sou servidor":""}</span></div></div></div>
+     <div class="pe-pos ${pr==="pos"?"on":""}"><div><b>${ic("flame")} ${pr==="pos"?"Você está no pós-edital":"Chegou a hora do pós-edital?"}</b><span class="muted small">${pr==="pos"?"Plano até a prova: revisões e questões primeiro, pela incidência e pelos seus erros; o ambiente virou o vulcão.":"Quando o edital sair, peça aqui a troca: a plataforma confere o edital, mostra o parecer e troca o planejamento."}</span></div><button class="btn ${pr==="pos"?"":"pri"}" data-a="posAsk">${pr==="pos"?"Voltar para o pré-edital":"Pedir a troca para o pós-edital"}</button></div>`}
+  if(t==="conh"){const K=core().conh||{};body=`<p class="muted" style="margin:0">Quanto você já sabe de cada matéria do seu concurso? Isso orienta por onde começar: matéria em que você já é forte vai mais cedo para questões e revisão; matéria nova começa pela teoria.</p>
+    <div class="pe-conh">${ED.map(S=>`<div class="pe-cr"><span class="pe-cn"><i style="background:${S.col||"var(--acc)"}"></i>${esc(S.n)}</span><span class="pe-seg" role="radiogroup" aria-label="${esc(S.n)}">${PE_CONH.map(([v,l])=>`<button type="button" class="${String(K[S.id]??"")===v?"on":""}" data-a="peConh" data-s="${S.id}" data-v="${v}" role="radio" aria-checked="${String(K[S.id]??"")===v}">${l}</button>`).join("")}</span></div>`).join("")}</div>`}
+  if(t==="plat"){body=`<p class="muted" style="margin:0">Cursos e plataformas que você usa. As metas usam as aulas, os PDFs e as questões daqui.</p>
+    <div class="ob-chips">${OB_CUR.map(v=>{const on=(M.cur||[]).includes(v);return`<button type="button" class="ob-ch ${on?"on":""}" data-a="peCur" data-v="${esc(v)}" aria-pressed="${on}">${esc(v)}${on?" ✓":""}</button>`}).join("")}</div>
+    <div class="pe-acts"><button class="btn pri" data-a="syncOpen">${ic("swap")} Sincronizar com outra plataforma</button><button class="btn" data-a="tab" data-t="materiais">${ic("materiais")} Aulas, PDFs e cadernos do TEC</button></div>`}
+  if(t==="basic"){body=`<div class="pe-grid"><div class="field"><label for="peFull">Nome completo</label><input class="inp" id="peFull" maxlength="80" value="${esc(M.full||"")}"></div><div class="field"><label for="peNick">Como quer ser chamado(a)</label><input class="inp" id="peNick" maxlength="40" value="${esc(M.nick||"")}"></div>
+    <div class="field"><label for="peTel">WhatsApp</label><input class="inp" id="peTel" type="tel" maxlength="16" value="${esc(M.tel||"")}" placeholder="(00) 00000-0000"></div><div class="field"><label>E-mail</label><input class="inp" value="${esc((window.JX_ACESSO&&window.JX_ACESSO.email)||M.email||"")}" readonly></div></div>
+    <div class="row" style="justify-content:flex-end"><button class="btn pri" data-a="peBasicSave">Salvar</button></div>`}
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Meu perfil"><div class="box pe-box"><div class="pe-hd"><div><h3 style="margin:0">Meu perfil</h3><span class="muted small">Veja e edite o que você respondeu. Tudo aqui ajusta o seu plano.</span></div><button class="btn ghost sm" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+   <div class="pe-tabs" role="tablist">${PE_TABS.map(([k,l])=>`<button role="tab" aria-selected="${t===k}" class="${t===k?"on":""}" data-a="peTab" data-k="${k}">${l}</button>`).join("")}</div><div class="pe-body">${body}</div></div></div>`}
+/* editor de cada cartão do Status (mesmas escolhas da entrevista) */
+function peEdit(k){UI.pee=k;const M=ME();let h="",t="";
+  if(k==="traj"){t="Editar trajetória";h=`<h3>Há quanto tempo você está estudando?</h3><p class="muted small">Se houve idas e vindas, sem problema: faça uma estimativa.</p>${peCards("traj",PE_TRAJ,5)}`}
+  if(k==="disp"){t="Editar disponibilidade";h=`<h3>Quantas horas por semana você quer estudar?</h3>${peDispCards()}<p class="muted small">Isso muda as horas por dia das suas próximas metas.</p>`}
+  if(k==="cond"){t="Editar condição";h=`<h3>Você concorre em qual condição?</h3>${peCards("cond",PE_COND,2)}${M.cond==="cotas"?`<p class="small" style="margin:6px 0 0">Em quais cotas você pode concorrer?</p><div class="ob-chips">${PE_COTAS.map(v=>{const on=(M.cotas||[]).includes(v);return`<button type="button" class="ob-ch ${on?"on":""}" data-a="obCh" data-k="cotas" data-m="1" data-v="${v}" aria-pressed="${on}">${v}${on?" ✓":""}</button>`}).join("")}</div>`:""}`}
+  if(k==="area"){t="Editar área de estudo";h=`<h3>Qual é a sua área de estudo?</h3>${peCards("area",PE_AREA,4)}<h3>Qual preparação você busca?</h3>${peCards("prep",PE_PREP,2)}${peYN("foco","Tem um concurso específico em foco?")}`}
+  if(k==="sit"){t="Editar situação profissional";h=peSitHTML()}
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(t)}"><div class="box pe-box"><div class="row" style="justify-content:space-between"><b>${esc(t)}</b><span class="row" style="gap:8px"><button class="btn" data-a="peEditX">Cancelar</button><button class="btn pri" data-a="peEditOk">Salvar alterações</button></span></div><div class="ob-body">${h}</div></div></div>`}
+/* troca pré → pós-edital: confere edital, mostra o parecer e troca o planejamento */
+function posParecer(){let d=null;try{d=posDias()}catch(e){}const c=core(),pr=c.prog||{},K=c.conh||{};let est=0,tot=0;ED.forEach(S=>{const n=AU(S.id).length||1;tot+=n;est+=Math.min(n,(pr[S.id]||{}).i||0)});
+  const ade=tot?Math.round(est/tot*100):0,ed=IS_TJ||!!(c.edital&&(c.edital.at||c.edital.info)),forte=ED.filter(S=>+K[S.id]>=2).length,banca=(()=>{try{return tecBanca()}catch(e){return""}})();
+  return{d,ade,ed,forte,banca,n:ED.length}}
+function posAsk(){const M=ME();if(POS()){A.posTg();M.prep="pre";savePlans();toast("De volta ao pré-edital: base completa, sem a pressão da prova");peOpen("status");return}
+  const P=posParecer();const rec=P.d!=null&&P.d<=150;
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Troca para o pós-edital"><div class="box pe-box"><h3 style="margin:0">${ic("flame")} Troca para o pós-edital</h3><p class="muted small" style="margin:0">Parecer sobre a migração: tempo até a prova, o que você já estudou, banca e edital.</p>
+   <div class="pe-par"><div><small>Até a prova</small><b>${P.d==null?"a definir":P.d+" dias"}</b></div><div><small>Do edital já estudado</small><b>${P.ade}%</b></div><div><small>Banca</small><b>${esc(P.banca||"a definir")}</b></div><div><small>Edital no plano</small><b>${P.ed?"incluído":"falta incluir"}</b></div></div>
+   <p class="pe-rec ${rec?"ok":""}">${P.d==null?"Ainda não há data de prova. A troca vale quando o edital sair: inclua o edital para a plataforma ler matérias, questões e datas.":rec?`Recomendado: faltam ${P.d} dias. Agora o plano prioriza o que a banca mais cobra e os seus erros, com mais questões e revisões; nos últimos 30 dias, reta final.`:`Faltam ${P.d} dias: ainda dá para seguir no pré-edital e trocar quando estiver a uns 4 ou 5 meses da prova. Se preferir, pode trocar já.`}</p>
+   <ul class="pe-what"><li>Matérias e assuntos pela incidência da banca e pelos seus erros</li><li>Mais questões e revisões, menos teoria nova</li><li>Nos últimos 30 dias, reta final: só revisão e questões, sem teoria nova</li><li>O ambiente vira o vulcão até a prova</li></ul>
+   <div class="row" style="justify-content:flex-end;gap:8px;flex-wrap:wrap"><button class="btn" data-a="peTab" data-k="status">Agora não</button>${P.ed?"":`<button class="btn" data-a="posEdital">${ic("edital")} Incluir o edital primeiro</button>`}<button class="btn pri" data-a="posGo">Confirmar a troca</button></div></div></div>`}
+function posGo(){const M=ME();M.prep="pos";savePlans();if(!POS())A.posTg();try{const p=curPlan();if(p&&!IS_TJ){p.posAt=today();savePlans()}else{PLANS.tjPosAt=today();savePlans()}}catch(e){}
+  $("layer3").innerHTML="";toast("🔥 Pós-edital: plano até a prova. Agora é guerra.");render()}
+
 function obWizard(step,mode){UI.obStep=step;UI.obMode=mode||UI.obMode||"novo";const M=ME(),nov=UI.obMode==="novo",tot=nov?4:3,em=(window.JX_ACESSO&&window.JX_ACESSO.email)||M.email||"";
   const bar=`<div class="ob-bar" aria-hidden="true">${[...Array(tot)].map((_,i)=>`<i class="${i<step?"on":""}"></i>`).join("")}</div><small class="ob-k">${step} de ${tot} · ${["Quem é você","Você e a Jornada","Seus cursos","Seu concurso"][step-1]}</small>`;
   const chips=(k,L,multi)=>`<div class="ob-chips" role="group">${L.map(v=>{const on=multi?(M[k]||[]).includes(v):M[k]===v;return`<button type="button" class="ob-ch ${on?"on":""}" data-a="obCh" data-k="${k}" data-v="${esc(v)}" data-m="${multi?1:""}" aria-pressed="${on}">${esc(v)}${multi&&on?" ✓":""}</button>`}).join("")}</div>`;
@@ -4027,16 +4122,18 @@ function obWizard(step,mode){UI.obStep=step;UI.obMode=mode||UI.obMode||"novo";co
     <div class="field"><label for="obN">Como quer ser chamado(a)</label><input class="inp" id="obN" autocomplete="given-name" maxlength="40" value="${esc(M.nick||(core().cfg||{}).name||UI.obName||"")}" placeholder="Seu primeiro nome"></div>
     ${em?`<div class="field"><label>E-mail</label><input class="inp" value="${esc(em)}" readonly aria-readonly="true"><small class="muted">É o e-mail da sua conta.</small></div>`:""}
     <div class="field"><label for="obTel">WhatsApp <span class="muted">(opcional)</span></label><input class="inp" id="obTel" type="tel" inputmode="tel" autocomplete="tel" maxlength="16" value="${esc(M.tel||"")}" placeholder="(00) 00000-0000"></div>
-    <label class="ob-ck"><input type="checkbox" id="obWa" ${M.waOk?"checked":""}> Quero receber lembretes de estudo e avisos de metas pelo WhatsApp.</label>`;
+    <label class="ob-ck"><input type="checkbox" id="obWa" ${M.waOk?"checked":""}> Quero receber lembretes de estudo e avisos de metas pelo WhatsApp.</label>${nov?peSitHTML():""}`;
   if(step===2)body=`<h3>Como conheceu a Jornada?</h3>${chips("orig",OB_ORIG)}
     ${M.orig==="Indicação de amigo"?`<div class="field"><label for="obInd">Quem indicou? <span class="muted">(opcional)</span></label><input class="inp" id="obInd" maxlength="60" value="${esc(M.ind||"")}" placeholder="Nome de quem indicou"></div>`:""}
-    <h3>Em que momento você está?</h3>${chips("mom",OB_MOM)}
+    <h3>Há quanto tempo você está estudando?</h3><p class="muted small" style="margin:-4px 0 0">Se houve idas e vindas, sem problema: faça uma estimativa.</p>${peCards("traj",PE_TRAJ,5)}
     <h3>Já fez alguma prova de concurso?</h3>${chips("prv",OB_PRV)}
+    <h3>Quantas horas por semana você quer estudar?</h3>${peDispCards()}
+    <h3>Você concorre em qual condição?</h3>${peCards("cond",PE_COND,2)}${M.cond==="cotas"?`<div class="ob-chips">${PE_COTAS.map(v=>{const on=(M.cotas||[]).includes(v);return`<button type="button" class="ob-ch ${on?"on":""}" data-a="obCh" data-k="cotas" data-m="1" data-v="${v}" aria-pressed="${on}">${v}${on?" ✓":""}</button>`}).join("")}</div>`:""}
     <p class="muted small">Isso ajusta o ritmo: quem está começando recebe mais teoria; quem já estuda há anos, mais questões e revisão.</p>`;
   if(step===3)body=`<h3>Quais cursos e plataformas você já tem?</h3><p class="muted">Marque todos. As metas passam a usar as aulas e os PDFs que você já tem.</p>${chips("cur",OB_CUR,1)}
     <div class="field"><label for="obOut">Outro curso ou plataforma <span class="muted">(opcional)</span></label><input class="inp" id="obOut" maxlength="60" value="${esc(M.out||"")}" placeholder="Nome do curso"></div>
     ${chips("sem",["Não tenho curso: vou pelo edital"])}`;
-  if(step===4)body=`<h3>Qual concurso você vai estudar?</h3><p class="muted">Busque na base (SEFAZ, tribunais, polícias, CGU, TCEs…) ou cadastre as matérias do seu edital. Depois a plataforma mostra como ligar os seus cursos e PDFs.</p>
+  if(step===4)body=`<h3>Qual é a sua área de estudo?</h3>${peCards("area",PE_AREA,4)}<h3>Qual preparação você busca?</h3>${peCards("prep",PE_PREP,2)}${peYN("foco","Tem um concurso específico em foco?")}<h3>Qual concurso você vai estudar?</h3><p class="muted">Busque na base (SEFAZ, tribunais, polícias, CGU, TCEs…) ou cadastre as matérias do seu edital. Depois a plataforma mostra como ligar os seus cursos e PDFs.</p>
     <button class="btn pri ob-big" data-a="obNext" data-v="5"><span>${ic("plus")}</span><span><b>Escolher ou montar o meu concurso</b><small>Você pode adicionar outros concursos depois, em “Trocar de concurso”.</small></span></button>`;
   const back=step>1?`<button class="btn ghost" data-a="obNext" data-v="${step-1}">Voltar</button>`:"";
   const skip=step===2||step===3?`<button class="btn ghost" data-a="obNext" data-v="${step+1}" data-skip="1">Pular</button>`:!nov&&step===1?`<button class="btn ghost" data-a="obLater">Agora não</button>`:"";
@@ -4046,6 +4143,7 @@ function obWizard(step,mode){UI.obStep=step;UI.obMode=mode||UI.obMode||"novo";co
 function obGrab(){const M=ME(),v=id=>{const e=$(id);return e?e.value.trim().replace(/\s+/g," "):null};
   if(UI.obStep===1){const f=v("obFull"),n=v("obN"),t=v("obTel"),w=$("obWa");if(f!=null)M.full=f.slice(0,80);if(n!=null)M.nick=(n||f.split(" ")[0]||"").slice(0,40);if(t!=null)M.tel=obPhone(t);if(w)M.waOk=!!w.checked&&!!M.tel;if(window.JX_ACESSO&&window.JX_ACESSO.email)M.email=window.JX_ACESSO.email}
   if(UI.obStep===2){const i=v("obInd");if(i!=null)M.ind=i.slice(0,60)}
+  if(UI.obStep===1)peGrabSit();if(M.traj)M.mom=PE_TRAJ_MOM[M.traj]||M.mom;
   if(UI.obStep===3){const o=v("obOut");if(o!=null)M.out=o.slice(0,60)}}
 function obApplyCursos(){const M=PLANS.me;if(!M||!(M.cur||M.out))return;const c=core();if(c.perfil&&c.perfil.fromOb)return;const P=c.perfil||{plats:{}};P.plats=P.plats||{};
   (M.cur||[]).forEach(k=>{const m=OB_PLAT[k];if(m&&!P.plats[m[0]])P.plats[m[0]]=m[1]});const extra=(M.cur||[]).filter(k=>!OB_PLAT[k]).concat(M.out?[M.out]:[]);if(extra.length&&!P.outro)P.outro=extra.join(", ");
@@ -4697,14 +4795,15 @@ function planMeta(ctx,sim){
   const cfg=core().cfg,B=cfg.hrs*cfg.dias*60,out=[];
   const mk=o=>{const t=Object.assign({id:uid(),done:null},o);out.push(t);return t};
   ED.forEach(x=>skipKnown(x.id,ctx.prog[x.id]));
-  const reta=!sim&&m85On()&&!provaTBD()&&daysToExam()<=21;
+  /* pós-edital: reta final nos últimos 30 dias (só revisão, questões e simulados); no pré, a regra do plano 85% */
+  const PSE=POS(),reta=!sim&&!provaTBD()&&((m85On()&&daysToExam()<=21)||(PSE&&daysToExam()<=30));
   const AC=matActive(ctx);
   const left=sid=>!reta&&(!AC||AC.has(sid))&&ctx.prog[sid].i<AU(sid).length;
   const anyT=ED.some(s=>left(s.id));
   const pIn=(ctx.pend||[]).map(x=>Object.assign({st:"R"},x)),pOut=[];
   if(!anyT&&!pIn.length&&(sim||!accDue(ctx,new Set()).length))return null;
   /* 1) revisão, mapeamento e questões pendentes */
-  const cap=anyT?Math.round(NT()*2/3):NT(),groups=[];
+  const cap=anyT&&!PSE?Math.round(NT()*2/3):NT(),groups=[];/* no pós-edital, revisões, mapeamentos e questões vêm sempre primeiro */
   pIn.forEach(x=>{let g=groups.find(g=>g.sid===x.sid&&g.st===x.st);if(!g)groups.push(g={sid:x.sid,st:x.st,items:[]});g.items.push(x)});
   groups.sort((a,b)=>"RMQ".indexOf(b.st)-"RMQ".indexOf(a.st));/* questões e mapeamentos mais antigos primeiro */
   groups.forEach(g=>{
@@ -4726,13 +4825,15 @@ function planMeta(ctx,sim){
   /* 1b) revisões acumuladas das aulas anteriores */
   if(!sim){const busy=new Set([...pIn,...pOut].map(x=>x.sid+":"+x.c));out.forEach(t=>aSet(t).forEach(a=>busy.add(t.sid+":"+a)));
     const due=accDue(ctx,busy),bySid={};due.forEach(x=>{(bySid[x.sid]=bySid[x.sid]||[]).push(x)});
-    const maxAcc=anyT||pIn.length?Math.max(1,Math.round(NT()/6)):NT();let made=0;ctx.rq=ctx.rq||{};
+    const maxAcc=anyT||pIn.length?Math.max(1,Math.round(NT()/(PSE?3:6))):NT();let made=0;ctx.rq=ctx.rq||{};
     Object.values(bySid).sort((a,b)=>a[0].due<b[0].due?-1:1).forEach(L=>{if(made>=maxAcc||out.length>=NT()-1)return;const g=L.slice(0,3),cs=g.map(x=>x.au.c);
       mk({ph:"R",sid:g[0].sid,aula:cs[0],aulas:cs.length>1?cs:undefined,acc:1,min:clamp(r5(15+10*cs.length),20,60)});g.forEach(x=>{ctx.rq[x.k]=x.st+1});made++})}
   /* 2) teoria nas vagas restantes */
   const tgt=clamp(Math.round(B/NT()/MINPG),3,15),wmin=clamp(r5(tgt*MINPG),15,60);
   const cnt=ctx.cnt,used=new Set();
-  const W=sid=>{const i=EDI[sid],L=AU(sid),pr=ctx.prog[sid];return Math.max(.5,qOf(ED[i]))*LVS[lvl(i)].m*auRel(sid,pr&&L[pr.i])*mwOf(sid)};
+  /* peso da teoria: incidência × nível × relevância da aula; o que o aluno diz que sabe (Meu Perfil › Conhecimentos) e, no pós-edital, os erros dele na matéria */
+  const KN=core().conh||{},ERR=PSE?(()=>{const m={};try{REV().forEach(x=>{if(x.tq||x.k==="err")m[x.sid]=(m[x.sid]||0)+1})}catch(e){}return m})():{};
+  const W=sid=>{const i=EDI[sid],L=AU(sid),pr=ctx.prog[sid],kn=KN[sid]==null?1:[1.2,1.05,.9,.7][+KN[sid]]||1,er=PSE?1+Math.min(.5,(ERR[sid]||0)*.04):1;return Math.max(.5,qOf(ED[i]))*LVS[lvl(i)].m*auRel(sid,pr&&L[pr.i])*mwOf(sid)*kn*er*(PSE?Math.max(.6,qOf(ED[i])/Math.max(1,100/ED.length)):1)};
   const takeT=(sid,want)=>{
     const L=AU(sid),pr=ctx.prog[sid];let n=0;
     const done=au=>{pushPend(pOut,sid,au,ctx.xq);pr.i++;pr.pg=1};
@@ -7430,7 +7531,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261113093157";
+const JX_BUILD="20261113094852";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7932,7 +8033,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113093157" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113094852" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -8557,7 +8658,7 @@ const dias0=(n,a,b)=>n+" "+(n===1?a:b);
 function navFoot(){try{const sf=document.querySelector(".side-foot");if(!sf)return;let el=$("navFoot");
   if(!VIS()){if(el)el.remove();const b=$("brSub");if(b&&b.dataset.o){b.textContent=b.dataset.o;delete b.dataset.o}const l=document.querySelector(".mini-count .mc-l");if(l&&l.dataset.o){l.textContent=l.dataset.o;delete l.dataset.o}return}
   if(!el){el=document.createElement("nav");el.id="navFoot";el.className="nav-foot";el.setAttribute("aria-label","Conta");sf.insertBefore(el,sf.querySelector(".sync"))}
-  el.innerHTML=[["assinatura","Assinatura","lock"],["tutorial","Tutorial","tutorial"]].map(([k,l,i])=>`<button data-a="tab" data-t="${k}" ${TAB===k?'aria-current="page"':""}>${ic(i)}<span>${l}</span></button>`).join("")+`<button data-a="posTg" class="pos-tg" aria-pressed="${POS()}">${ic("flame")}<span>${POS()?"Pós-edital ligado":"Modo Pós-Edital"}</span></button>`+`<button data-a="lavTg" class="lav-tg" aria-pressed="${LAV()}">${ic(LAV()?"moon":"sun")}<span>${LAV()?"Modo escuro":"Modo claro"}</span></button>`;
+  el.innerHTML=`<button data-a="perfOpen">${ic("motivacao")}<span>Meu perfil</span></button>`+[["assinatura","Assinatura","lock"],["tutorial","Tutorial","tutorial"]].map(([k,l,i])=>`<button data-a="tab" data-t="${k}" ${TAB===k?'aria-current="page"':""}>${ic(i)}<span>${l}</span></button>`).join("")+`<button data-a="posTg" class="pos-tg" aria-pressed="${POS()}">${ic("flame")}<span>${POS()?"Pós-edital ligado":"Modo Pós-Edital"}</span></button>`+`<button data-a="lavTg" class="lav-tg" aria-pressed="${LAV()}">${ic(LAV()?"moon":"sun")}<span>${LAV()?"Modo escuro":"Modo claro"}</span></button>`;
   {let f=$("lavFab");if(!f){f=document.createElement("button");f.id="lavFab";f.dataset.a="lavTg";document.body.appendChild(f)}f.innerHTML=ic(LAV()?"moon":"sun");f.setAttribute("aria-label",LAV()?"Ligar o modo escuro":"Ligar o modo claro")}
   const b=$("brSub");if(b){if(!b.dataset.o)b.dataset.o=b.textContent;let I={};try{I=orgInfo()}catch(e){}b.textContent=(IS_TJ?[cargoTitulo(I.cargo||""),I.sig].filter(Boolean).join(" · "):planTitulo())||b.dataset.o}
   const l=document.querySelector(".mini-count .mc-l");if(l){if(!l.dataset.o)l.dataset.o=l.textContent;l.textContent="Altímetro até a prova"}
@@ -12417,7 +12518,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113093157&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113094852&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -14488,6 +14589,17 @@ Object.assign(A,{
     const x=(core().tecAuto||{})[F.sid+"|"+F.c];if(x)x.g=1;touch("core");
     const it={k:F.sid+"|"+F.c,m:TECN[F.sid]||S.n,t:String((a&&a.d)||F.c).slice(0,90),a:[v],kw:[v]};$("layer3").innerHTML="";if(!tecBanca()){tecBkAsk(tecJobUrl([it]));return}window.open(tecJobUrl([it]),"_blank","noopener");
     toast("No TEC, toque no favorito ➜ A Jornada: ele cria o caderno só com “"+v+"” e grava nesta aula.")},
+  perfOpen(){UI.pee=null;peOpen("status")},
+  peTab(el){UI.pee=null;peOpen(el.dataset.k)},
+  peEdit(el){UI.peb=JSON.parse(JSON.stringify(ME()));peEdit(el.dataset.k)},
+  peEditX(){if(UI.peb){PLANS.me=UI.peb;UI.peb=null}UI.pee=null;peOpen("status")},
+  async peEditOk(){const k=UI.pee,M=ME();if(k==="sit")peGrabSit();if(M.traj)M.mom=PE_TRAJ_MOM[M.traj]||M.mom;if(k==="disp")peApplyDisp();UI.pee=null;UI.peb=null;await savePlans();try{await obSave()}catch(e){}
+    if(k==="area"&&(M.prep==="pos")!==POS()){if(M.prep==="pos"){posAsk();return}else{A.posTg()}}toast("Perfil atualizado");peOpen("status")},
+  peConh(el){const c=core();c.conh=c.conh||{};const s=el.dataset.s,v=el.dataset.v;if(String(c.conh[s])===v)delete c.conh[s];else c.conh[s]=+v;touch("core");peOpen("conh")},
+  peCur(el){const M=ME(),v=el.dataset.v,L=M.cur||[];M.cur=L.includes(v)?L.filter(x=>x!==v):L.concat(v);if(M.cur.length)M.sem=null;const c=core();if(c.perfil)c.perfil.fromOb=0;obApplyCursos();savePlans();peOpen("plat")},
+  async peBasicSave(){const M=ME(),v=id=>(($(id)||{}).value||"").trim();M.full=v("peFull").slice(0,80);M.nick=(v("peNick")||M.full.split(" ")[0]||"").slice(0,40);const t=v("peTel");if(t&&t.replace(/\D/g,"").length<10){toast("Confira o WhatsApp: DDD e número");return}M.tel=t?obPhone(t):"";
+    const c=core();c.cfg=c.cfg||{};c.cfg.name=M.nick;PLANS.ui=Object.assign({},PLANS.ui,{name:M.nick});touch("core");await savePlans();try{await obSave()}catch(e){}try{renderNav()}catch(e){}toast("Informações salvas")},
+  posAsk(){posAsk()},posGo(){posGo()},posEdital(){$("layer3").innerHTML="";edtOpenM()},
   edtCgPick(el){const X=UI.edx;if(!X||!X.info)return;const c=((X.info.cargos||[]).filter(c=>c&&c.n))[+el.dataset.i];if(!c)return;X.cgAsked=1;X.st="ai1";edModal();edRun(c.n)},
   edtApply(){edtApplyM()},
   edtPrev(){edtOpenM(true)},
@@ -14879,11 +14991,11 @@ Object.assign(A,{async rsRedoAll(){if(UI.rsAll)return;const L=resOld();if(!L.len
   for(const R of L){try{await genResumo(R.sid,R.aula,null,true)}catch(e){}UI.rsAll.d++;if(TAB==="resumos")render()}
   UI.rsAll=null;render();toast("Resumos refeitos com o método novo")}});
 Object.assign(A,{
-  obCh(el){obGrab();const M=ME(),k=el.dataset.k,v=el.dataset.v;if(el.dataset.m){const L=M[k]||[];M[k]=L.includes(v)?L.filter(x=>x!==v):L.concat(v);if(M[k].length)M.sem=null}else if(k==="sem"){M.sem=M.sem?null:v;if(M.sem)M.cur=[]}else M[k]=M[k]===v?null:v;obWizard(UI.obStep,UI.obMode)},
+  obCh(el){obGrab();const M=ME(),k=el.dataset.k,v=el.dataset.v;if(el.dataset.m){const L=M[k]||[];M[k]=L.includes(v)?L.filter(x=>x!==v):L.concat(v);if(M[k].length)M.sem=null}else if(k==="sem"){M.sem=M.sem?null:v;if(M.sem)M.cur=[]}else M[k]=M[k]===v?null:v;if(UI.pee){if(UI.pee==="sit")peGrabSit();peEdit(UI.pee);return}obWizard(UI.obStep,UI.obMode)},
   async obNext(el){obGrab();const M=ME(),to=+el.dataset.v;
     if(UI.obStep===1&&to>1){if(!M.full){toast("Digite o seu nome completo");const e=$("obFull");if(e)e.focus();return}if(M.tel&&M.tel.replace(/\D/g,"").length<10){toast("Confira o WhatsApp: DDD e número");return}UI.obName=M.nick;const c=core();c.cfg=c.cfg||{};c.cfg.name=M.nick;PLANS.ui=Object.assign({},PLANS.ui,{name:M.nick});try{touch("core")}catch(e){}try{renderNav()}catch(e){}}
     if(to===9){await obSave();obApplyCursos();$("layer3").innerHTML="";UI.obMode=null;render();toast("Perfil completo. Obrigado!");return}
-    if(to===5){await obSave();UI.obStep=null;A.obMine();return}
+    if(to===5){peApplyDisp();if(M.prep==="pos")M.posWant=1;await obSave();UI.obStep=null;A.obMine();return}
     obWizard(to,UI.obMode)},
   obFotoX(){obGrab();delete ME().photo;obWizard(UI.obStep,UI.obMode);try{renderNav()}catch(e){}},
   obPerfil(){obWizard(1,"perfil")},
