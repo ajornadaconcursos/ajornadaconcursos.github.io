@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611131416"></script>
+<script src="/claude-shim.js?v=202611131426"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -3105,7 +3105,8 @@ html .treg-ch select.tsel,html :root[data-skin] header.top .top-in .treg .tsel{p
 .pdfrow .btn.tecas{max-width:100%}
 @media (max-width:760px){.pdfrow>.row:last-child{max-width:none}}
 /*JANELAS-LARGAS*/@media (min-width:900px){.modal>.box:not(.ob-box){min-width:min(860px,calc(100vw - 64px));box-sizing:border-box}.modal>.box:not(.ob-box) p,.modal>.box:not(.ob-box) .muted{max-width:none}}
-/*CSREAD*/.trh{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:10px 0 0;background:rgba(124,92,255,.06)}.trh>summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}.trh-l{margin:10px 0 2px;padding-left:20px;display:grid;gap:8px;font-size:14px;line-height:1.45}.trh-l .lkbm{margin-left:4px}
+/*CSREAD*/.trh-f{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}.trh-f>summary{cursor:pointer;color:var(--acc,#a78bfa);list-style:none}.trh-q{margin:6px 0 0;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.04)}.trh-q>summary{cursor:pointer;font-weight:600;font-size:14px}.trh-q p{margin:6px 0 0;font-size:13.5px;line-height:1.45;opacity:.85}.lnk{all:unset;cursor:pointer;color:var(--acc,#a78bfa);text-decoration:underline;font-size:inherit}
+.trh{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:10px 0 0;background:rgba(124,92,255,.06)}.trh>summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}.trh-l{margin:10px 0 2px;padding-left:20px;display:grid;gap:8px;font-size:14px;line-height:1.45}.trh-l .lkbm{margin-left:4px}
 .pos-lock{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 12px;border-radius:12px;border:1px dashed rgba(255,122,26,.55);background:rgba(255,122,26,.08);font-size:13.5px}.pos-lock>svg{width:18px;height:18px;flex:none;color:#ffb060}.pos-lock span{flex:1;min-width:220px}
 .cs-io{display:grid;gap:4px;margin:8px 0 4px;font-size:13.5px}.cs-io .in{color:#7fe0a6}.cs-io .out{color:#ffb3a0}.cs-tag{display:inline-block;margin-top:4px;font-style:normal;font-size:12px;font-weight:700;padding:2px 8px;border-radius:999px}.cs-tag.in{background:rgba(63,212,122,.14);color:#7fe0a6}.cs-tag.out{background:rgba(255,120,90,.14);color:#ffb3a0}
 .cs-read{border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin:6px 0 10px;background:rgba(124,92,255,.05)}.cs-read>summary{cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;list-style:none}.cs-read>summary b{display:inline-flex;gap:6px;align-items:center}.cs-read>summary span{font-size:13px;opacity:.75}
@@ -5454,16 +5455,26 @@ function tecCadFor(t){if(!t||!t.sid)return null;{const A=tecAutoFor(t);if(A)retu
   const txt=[...aSet(t).map(c=>{const a=auOf(t.sid,c);return a?[a.d,a.t,a.n].filter(Boolean).join(" "):""}),...taskEdTopics(t),t.topic?topicName(t.topic):"",t.tit||""].filter(Boolean).map(x=>norm(String(x)));
   let best=null,bv=0;TECCAT.forEach(c=>{if(!c.m.some(w=>sub.includes(w)))return;let v=0;c.a.forEach(al=>{txt.forEach(x=>{if(x.includes(al))v=Math.max(v,al.length>10?1:.7);else{const d=cdice(nTok(al),nTok(x));if(d>=.5)v=Math.max(v,d*.9)}})});if(v>bv){bv=v;best=c}});return bv>=.6?best:null}
 /* passo a passo para o aluno trazer o resultado do caderno do TEC */
-function tecResHow(open){return`<details class="trh"${open?" open":""}><summary>${ic("target")} <b>Como trazer o resultado do TEC para cá</b> <span class="muted small">acertos, erros e cada questão errada, sem digitar</span></summary>
+const TR_FAQ=[
+ ["Apareceu “Abra o guia do seu concurso” em vez de “Mandar resultado”","O seu favorito ➜ A Jornada é o antigo. Apague ele da barra de favoritos e arraste o botão do passo 1 de novo. O novo se atualiza sozinho depois."],
+ ["Toquei no favorito e nada aconteceu","Espere a página do TEC terminar de carregar e toque de novo. Confira se você está logado no TEC. No celular, use o favorito curto (passo a passo de Importar curso); se o celular complicar, faça pelo computador."],
+ ["Apareceu “Não achei o resultado nesta página”","Você não está na tela de resultado. No TEC, abra a tela final do caderno (a que mostra acertos e erros) ou as estatísticas do caderno e toque no favorito de novo."],
+ ["Entraram só os números, sem as questões erradas","Essa tela do TEC não lista as questões. Abra a lista de questões do caderno (com o gabarito de cada uma) e mande de novo: as erradas entram em Erradas sem repetir as que já estão lá."],
+ ["A aba da Jornada não abriu","O navegador bloqueou a nova aba. No painel do favorito, toque em “A aba não abriu? Abrir A Jornada” ou permita pop-ups para o TEC."],
+ ["A tarefa sugerida não é a certa","Antes de tocar em Lançar, escolha a tarefa certa na lista “Lançar em qual tarefa de questões?”. Se não houver tarefa, escolha a matéria e os erros vão só para Erradas."],
+ ["Entrou uma questão errada por engano","Em Erradas, toque em Remover na questão: ela sai da lista e dos cards. Para trazer de volta, veja em Removidas."],
+ ["Ainda não deu certo","Na tarefa de questões, use Enviar o print do resultado (a IA lê a imagem) ou preencha os números à mão. Se continuar, fale com o suporte da Jornada."]];
+function trFaqHTML(open){return`<details class="trh-f"${open?" open":""}><summary><b>Não funcionou? Dúvidas</b></summary>${TR_FAQ.map(([q,a])=>`<details class="trh-q"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join("")}</details>`}
+function tecResHow(open,faq){return`<details class="trh"${open?" open":""}><summary>${ic("target")} <b>Como trazer o resultado do TEC para cá</b> <span class="muted small">acertos, erros e cada questão errada, sem digitar</span></summary>
   <ol class="trh-l">
    <li><b>Tenha o botão ➜ A Jornada nos favoritos</b> (é só uma vez). <b>Se o seu favorito é de antes de 13/11, apague e arraste de novo</b>: o antigo pede para abrir o guia em vez de mandar o resultado. Depois disso ele se atualiza sozinho. ${isTouchDev()?`No celular, use o favorito curto do passo a passo de <b>Importar curso</b>.`:`Arraste este botão para a barra de favoritos:<div style="margin-top:8px"><a class="lkbm" href="${esc(estBm())}" draggable="true" onclick="event.preventDefault()">➜ A Jornada</a></div>`}</li>
    <li><b>Resolva o caderno no TEC</b> e, ao terminar, fique na <b>tela de resultado</b> do caderno (ou abra as estatísticas dele).</li>
    <li><b>Toque no favorito ➜ A Jornada</b> e depois em <b>Mandar resultado para a A Jornada</b>.</li>
    <li>A Jornada abre com <b>total, acertos, erros e tempo</b>. Confira a tarefa sugerida e toque em <b>Lançar</b>: as questões erradas vão para <b>Erradas</b>, com revisões e cards, e os números já entram aqui. É só salvar.</li>
-  </ol></details>`}
+  </ol>${trFaqHTML(!!faq)}</details>`}
 function tecCadCard(c,t){const tm=tecCadMin(c),done=t&&t.done;
   return`<div class="tcad"><div class="tcad-g"><span><small>ID</small><b>${c.id}</b></span><span class="w"><small>Título</small><b>${esc(c.t)}</b></span><span><small>Banca</small><b>${esc(c.b||"Geral")}</b></span><span><small>Questões</small><b>${c.n}</b></span><span><small>Tempo ideal</small><b>${tm.i}min</b></span><span><small>Tempo máximo</small><b>${tm.x}min</b></span></div>
-   <div class="row" style="gap:8px"><a class="btn pri tcad-go" href="${esc(tecCadLink(c))}" target="_blank" rel="noopener">${ic("ext")} Resolver questões</a><span class="muted small" style="flex-basis:100%">Terminou? Na tela de resultado do TEC, toque no favorito <b>➜ A Jornada</b> › <b>Mandar resultado</b>.</span>${t&&!done?`<button class="btn" data-a="qdOpen" data-id="${t.id}">${ic("check")} Registrar desempenho</button>`:""}</div>
+   <div class="row" style="gap:8px"><a class="btn pri tcad-go" href="${esc(tecCadLink(c))}" target="_blank" rel="noopener">${ic("ext")} Resolver questões</a><span class="muted small" style="flex-basis:100%">Terminou? Na tela de resultado do TEC, toque no favorito <b>➜ A Jornada</b> › <b>Mandar resultado</b>. <button class="lnk" data-a="trHelp">Não funcionou? Dúvidas</button></span>${t&&!done?`<button class="btn" data-a="qdOpen" data-id="${t.id}">${ic("check")} Registrar desempenho</button>`:""}</div>
    <span class="muted small">${c.own?`O caderno está na sua conta do TEC${c.as?" · assuntos: "+esc(String(c.as).slice(0,160)):""}${c.g?" · questões da matéria (o TEC tem poucas do assunto)":""}.`:`No TEC, toque em “clique aqui” no aviso amarelo para salvar o caderno na sua conta e contar as resoluções.`} Terminou e quer treinar mais? Crie outro caderno no TEC com ${c.as?"esses assuntos":"o assunto "+esc(c.as||"da aula")}.</span></div>`}
 /* TEC por assunto */
 const tShort=x=>{let y=String(x).split(/[:(;]/)[0].trim();if(y.length>70)y=y.slice(0,70).replace(/\s+\S*$/,"");return y||String(x).slice(0,70)};
@@ -7675,7 +7686,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261113141627";
+const JX_BUILD="20261113142634";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -8180,7 +8191,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113141627" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113142634" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -12725,7 +12736,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113141627&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113142634&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -14602,6 +14613,7 @@ const A={
   qdOpen(el){const f=findTask(el.dataset.id);if(!f)return;const c=tecCadFor(f.t),q0=qzTask(f.t),m=(UI.tmin||{})[f.t.id]||0;UI.qd={id:f.t.id,f:q0.f||0,a:q0.f?q0.ok:0,h:Math.floor(m/60),mi:m%60,rev:"",cf:"",e:"",m:{}};qdModal()},
   qdClose(){UI.qd=null;$("layer3").innerHTML=""},
   trClose(){UI.tr=null;$("layer3").innerHTML=""},
+  trHelp(){$("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Trazer o resultado do TEC"><div class="box cs" style="max-width:680px"><div class="vh"><h3>Trazer o resultado do TEC</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>${tecResHow(true,true)}<div class="row" style="justify-content:flex-end"><button class="btn" data-a="volClose">Fechar</button></div></div></div>`},
   trGo(){const X=UI.tr;if(!X||!X.out)return;const O=X.out,tid=($("trT")||{}).value||"",f=tid?findTask(tid):null,t=f&&f.t,sid=t?t.sid:(($("trS")||{}).value||(ED[0]||{}).id);
     const seen=new Set(REV().filter(x=>x.tq&&x.sid===sid).map(x=>String(x.link||"")).filter(Boolean));let lan=0;
     O.qs.forEach(q=>{const big=q.n.length>=5,lk=big?tecQUrl(q.n):"";if(lk&&seen.has(lk))return;if(lk)seen.add(lk);addTecQ({sid,n:big?q.n:"",k:"err",as:q.as||(t?((auOf(sid,t.aula)||{}).d||"").slice(0,60):""),note:(q.res==="branco"?"Deixou em branco. ":"")+(big?"":"Questão "+(q.n||"?")+" do caderno"+(O.cad?" ("+O.cad.slice(0,60)+")":"")+". ")+"Trazida do resultado do TEC.",tid:t?t.id:"",aula:t?t.aula||"":""});lan++});
