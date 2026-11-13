@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611130734"></script>
+<script src="/claude-shim.js?v=202611130800"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -3064,6 +3064,42 @@ html .treg-ch select.tsel,html :root[data-skin] header.top .top-in .treg .tsel{p
 .pf-wrap.pos .pf-in small{color:#ffcf9a}.pf-wrap.pos .pf-camps span.on svg path{fill:#ff8a1a}
 :root[data-pos="1"] .jx-msky{border-color:rgba(255,106,26,.35)!important;background:radial-gradient(1.2px 1.2px at 12% 30%,#ffb34788,transparent 70%),radial-gradient(1.4px 1.4px at 34% 76%,#ff6a1a88,transparent 70%),radial-gradient(1.2px 1.2px at 58% 24%,#ffcf6b88,transparent 70%),radial-gradient(1.4px 1.4px at 80% 68%,#ff6a1a88,transparent 70%),radial-gradient(120% 120% at 50% 0%,#4a0c05 0%,#160403 80%)!important}
 @media (max-width:560px){.pf-chips{margin-top:52px}}
+/*OA-START*/
+.ob-art{margin:-4px 0 0;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(20,10,60,.35);flex:0 0 auto}
+.ob-art{position:relative}.ob-art svg{display:block;width:100%;height:auto;aspect-ratio:640/250}
+.oa-cap{display:flex;align-items:center;justify-content:center;gap:7px;padding:7px 10px 8px;background:rgba(15,10,40,.92);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.01em}.oa-cap i{font-style:normal;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#ffd166;color:#2b1a00;font-size:11px;font-weight:900}
+.ob-art.in{animation:oaIn .7s cubic-bezier(.2,.8,.2,1) both}@keyframes oaIn{from{opacity:0;transform:translateY(10px) scale(.985)}}
+.oa-cur{transform-box:fill-box;transform-origin:50% 0;animation:oaCur 5.5s ease-in-out infinite}.oa-cur2{animation-delay:-2.7s}@keyframes oaCur{50%{transform:skewX(3deg)}}
+.oa-fl{animation:oaFl 3.4s ease-in-out infinite}@keyframes oaFl{0%,100%{opacity:1}46%{opacity:.82}50%{opacity:.6}54%{opacity:.9}}
+.oa-sw{animation:oaSw 2.8s ease-in-out infinite}@keyframes oaSw{50%{transform:rotate(5deg)}}
+.oa-bob{animation:oaBob 3.2s ease-in-out infinite}@keyframes oaBob{50%{transform:translateY(-1.5px)}}
+.oa-dust{animation:oaDust 6s linear var(--d,0s) infinite;opacity:0}@keyframes oaDust{0%{transform:translateY(10px);opacity:0}30%{opacity:.7}100%{transform:translateY(-30px);opacity:0}}
+.oa-lace{animation:oaLace 1.2s ease-in-out infinite}@keyframes oaLace{50%{transform:translate(2px,-1px)}}
+.oa-cloud{animation:oaCl 14s linear infinite}@keyframes oaCl{from{transform:translateX(-20px)}to{transform:translateX(90px)}}
+.oa-bird{animation:oaBird 9s linear infinite}@keyframes oaBird{from{transform:translate(-10px,0)}to{transform:translate(110px,-14px)}}
+.oa-pick{animation:oaPick 1.6s ease-in-out infinite}@keyframes oaPick{50%{opacity:.55}}
+.oa-neon{animation:oaNeon 4s steps(1) infinite}@keyframes oaNeon{0%,100%{opacity:1}31%{opacity:.4}33%{opacity:1}35%{opacity:.6}37%{opacity:1}}
+.oa-it{animation:oaDrop .6s cubic-bezier(.3,1.4,.5,1) var(--d,0s) both}@keyframes oaDrop{from{transform:translateY(-40px);opacity:0}}
+.oa-tw{animation:oaTw 3s ease-in-out var(--d,0s) infinite}@keyframes oaTw{50%{opacity:.25}}
+.oa-flame{transform-box:fill-box;transform-origin:50% 100%;animation:oaFlm .5s ease-in-out infinite alternate}@keyframes oaFlm{to{transform:scale(.85,1.12)}}
+.oa-stm{animation:oaStm 2.4s ease-in-out infinite}@keyframes oaStm{0%{opacity:0;transform:translateY(4px)}50%{opacity:.7}100%{opacity:0;transform:translateY(-8px)}}
+.oa-draw{stroke-dasharray:5 4;animation:oaDraw 2.6s ease-out .2s both}@keyframes oaDraw{from{stroke-dasharray:0 100}to{stroke-dasharray:5 4}}
+.oa-wp{animation:oaWp .5s cubic-bezier(.3,1.6,.5,1) var(--d,1s) both}@keyframes oaWp{from{opacity:0;transform:scale(.2)}}
+.oa-comp{transform-box:fill-box;transform-origin:50% 50%;animation:oaComp 3s cubic-bezier(.2,.9,.3,1.2) both}@keyframes oaComp{from{transform:rotate(-540deg)}}
+.ob-dep{position:fixed;inset:0;z-index:10000;background:#1a1440;animation:oaIn .6s ease both}.ob-dep.out{opacity:0;transition:opacity .5s}
+.ob-dep svg{position:absolute;inset:0;width:100%;height:100%}
+.od-t{position:absolute;left:7%;top:9%;display:grid;gap:10px;justify-items:start;text-align:left;color:#fff;width:min(520px,calc(100% - 32px));text-shadow:0 2px 14px rgba(20,10,60,.55)}.od-t small{font-weight:900;letter-spacing:.24em;font-size:12px;color:#ffd166}.od-t .btn{margin-top:6px}
+.od-t b{font-size:clamp(26px,4.2vw,42px);line-height:1.08;letter-spacing:-.01em}.od-t span{opacity:.95;font-size:clamp(14px,1.6vw,17px);line-height:1.45}
+.od-cl{animation:odCl 40s linear infinite}@keyframes odCl{from{transform:translateX(-60px)}to{transform:translateX(160px)}}
+.od-bd{animation:odBd 12s linear infinite}@keyframes odBd{from{transform:translate(-80px,10px)}to{transform:translate(260px,-40px)}}
+.od-gs{transform-box:fill-box;transform-origin:50% 100%;animation:odGs 3.2s ease-in-out infinite}@keyframes odGs{50%{transform:skewX(-6deg)}}
+.od-fg{transform-box:fill-box;transform-origin:0 50%;animation:odFg 1.4s ease-in-out infinite}@keyframes odFg{50%{transform:scaleX(.82) skewY(4deg)}}
+.od-smk{animation:odSmk 4s ease-out infinite}@keyframes odSmk{from{transform:translate(0,6px);opacity:.2}50%{opacity:.8}to{transform:translate(8px,-14px);opacity:0}}
+.od-sun{animation:odSun 7s ease-out both}@keyframes odSun{from{transform:translateY(60px);opacity:.4}}
+@media (max-width:760px){.ob-art svg{aspect-ratio:640/300}.od-t{left:50%;top:6%;transform:translateX(-50%);justify-items:center;text-align:center}.od-t br{display:none}}
+@media (prefers-reduced-motion:reduce){.ob-art *,.ob-art.in,.ob-dep,.ob-dep *{animation:none!important}}
+.od-lamp{animation:oaFl 3s ease-in-out infinite}
+/*OA-END*/
 /*POS-START*/
 /* ================= Modo Pós-Edital "Vulcão": ambiente hostil de fogo (heavy metal / punk) ================= */
 :root[data-pos="1"]:not(#z):not(#y){color-scheme:dark;
@@ -3715,6 +3751,268 @@ const OB_CUR=["Estratégia","Gran","TEC Concursos","QConcursos","Direção","Alf
 const OB_PLAT={"Estratégia":["Estratégia Concursos","curso"],"Gran":["Gran Cursos Online","curso"],"TEC Concursos":["TEC Concursos","quest"],"QConcursos":["QConcursos","quest"],"Direção":["Direção Concursos","curso"],"AlfaCon":["Alfacon","curso"],"Focus":["Focus Concursos","curso"],"CP Iuris":["CP Iuris","curso"]};
 const ME=()=>PLANS.me||(PLANS.me={});
 const obPhone=v=>{const d=String(v||"").replace(/\D/g,"").slice(0,11);if(d.length<3)return d;if(d.length<=6)return"("+d.slice(0,2)+") "+d.slice(2);if(d.length<=10)return"("+d.slice(0,2)+") "+d.slice(2,6)+"-"+d.slice(6);return"("+d.slice(0,2)+") "+d.slice(2,7)+"-"+d.slice(7)};
+/* ================= Entrevista ilustrada: o alpinista se prepara para a expedição =================
+   1 Quem é você → em casa, escolhendo a roupa no armário · 2 Você e a Jornada → na porta, calçando as botas (as mais gastas contam a experiência)
+   3 Seus cursos → na loja de equipamentos da cidade (cada curso marcado vira um item na cesta) · 4 Seu concurso → na barraca, estudando o mapa da escalada */
+const OA_CAP=["Em casa · escolhendo a roupa","Na porta · calçando as botas","Na cidade · a loja de equipamentos","No acampamento · o mapa da escalada"];
+function oaHero(x,y,k,p){return`<g transform="translate(${x} ${y}) scale(${k})">${jwHero(p)}</g>`}
+function oaDefs(){return`<defs>${jwHeroDefs()}
+ <linearGradient id="oaWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b2d63"/><stop offset="1" stop-color="#2a1f4c"/></linearGradient>
+ <linearGradient id="oaFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a5632"/><stop offset="1" stop-color="#5e3519"/></linearGradient>
+ <linearGradient id="oaDawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f4fb0"/><stop offset=".55" stop-color="#d77aa8"/><stop offset="1" stop-color="#ffc07a"/></linearGradient>
+ <linearGradient id="oaWood" x1="0" x2="1"><stop offset="0" stop-color="#9b6438"/><stop offset=".5" stop-color="#b47645"/><stop offset="1" stop-color="#8a552c"/></linearGradient>
+ <linearGradient id="oaWoodD" x1="0" x2="1"><stop offset="0" stop-color="#6f4220"/><stop offset="1" stop-color="#8a552c"/></linearGradient>
+ <linearGradient id="oaMir" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cfe3ff"/><stop offset=".45" stop-color="#8fa9d6"/><stop offset=".5" stop-color="#e8f1ff"/><stop offset="1" stop-color="#7d93c4"/></linearGradient>
+ <radialGradient id="oaGlow"><stop offset="0" stop-color="#ffd98a" stop-opacity=".75"/><stop offset=".5" stop-color="#ffb347" stop-opacity=".22"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient>
+ <linearGradient id="oaDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fb2ff"/><stop offset="1" stop-color="#d8ecff"/></linearGradient>
+ <linearGradient id="oaTent" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2793a"/><stop offset="1" stop-color="#a8461c"/></linearGradient>
+ <linearGradient id="oaNight" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#121238"/><stop offset=".6" stop-color="#4a2a6e"/><stop offset="1" stop-color="#ff9e6b"/></linearGradient>
+ <linearGradient id="oaPaper" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6e7c4"/><stop offset="1" stop-color="#e6cf9c"/></linearGradient>
+ <pattern id="oaPap" width="22" height="22" patternUnits="userSpaceOnUse"><path d="M11 3 l4 8 -4 8 -4 -8z" fill="#fff" opacity=".045"/><circle cx="0" cy="0" r="1.2" fill="#fff" opacity=".07"/><circle cx="22" cy="22" r="1.2" fill="#fff" opacity=".07"/></pattern>
+ <pattern id="oaBrick" width="34" height="16" patternUnits="userSpaceOnUse"><rect width="34" height="16" fill="#5a3a3a"/><path d="M0 .5h34M0 8.5h34M17 .5v8M.5 8.5v8" stroke="#3e2626" stroke-width="1.4"/></pattern>
+ <pattern id="oaPeg" width="12" height="12" patternUnits="userSpaceOnUse"><rect width="12" height="12" fill="#c9a777"/><circle cx="6" cy="6" r="1.3" fill="#8f7048"/></pattern>
+</defs>`}
+/* cenário compartilhado: piso de tábuas com perspectiva */
+function oaFloor(y,h){let s=`<rect y="${y}" width="640" height="${h}" fill="url(#oaFloor)"/>`;for(let i=-6;i<=18;i++){const x=i*44;s+=`<path d="M${x+(x-320)*.25} ${y+h} L${x} ${y}" stroke="#4a2810" stroke-width="1.2" opacity=".55"/>`}
+  [8,20,36].forEach(d=>{s+=`<path d="M0 ${y+d} H640" stroke="#4a2810" stroke-width="1" opacity=".35"/>`});return s+`<rect y="${y-6}" width="640" height="7" fill="#22183f"/>`}
+function oaWin(x,y,w,h){const mx=x+w/2;return`<rect x="${x-8}" y="${y-8}" width="${w+16}" height="${h+20}" rx="3" fill="#6f4a2a"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#oaDawn)"/>
+  <circle cx="${x+w*.7}" cy="${y+h*.62}" r="${w*.12}" fill="#ffe7a8" opacity=".9"/>
+  <path d="M${x} ${y+h*.78} L${x+w*.22} ${y+h*.5} L${x+w*.34} ${y+h*.6} L${x+w*.55} ${y+h*.28} L${x+w*.74} ${y+h*.56} L${x+w*.86} ${y+h*.46} L${x+w} ${y+h*.64} V${y+h} H${x}Z" fill="#4b3b86"/>
+  <path d="M${x+w*.47} ${y+h*.37} L${x+w*.55} ${y+h*.28} L${x+w*.63} ${y+h*.39} L${x+w*.58} ${y+h*.36} L${x+w*.55} ${y+h*.4} L${x+w*.51} ${y+h*.35}Z" fill="#f4f0ff"/>
+  <path d="M${x} ${y+h*.9} Q${x+w*.3} ${y+h*.76} ${x+w*.6} ${y+h*.86} T${x+w} ${y+h*.82} V${y+h} H${x}Z" fill="#2f2560"/>
+  <path d="M${mx} ${y} V${y+h} M${x} ${y+h/2} H${x+w}" stroke="#6f4a2a" stroke-width="5"/>
+  <rect x="${x-14}" y="${y+h+6}" width="${w+28}" height="7" rx="2" fill="#86593a"/>
+  <g class="oa-cur"><path d="M${x-14} ${y-14} H${x+w*.28} Q${x+w*.16} ${y+h*.45} ${x+w*.04} ${y+h+4} Q${x-6} ${y+h+8} ${x-16} ${y+h+4}Z" fill="#c2477f"/><path d="M${x-6} ${y-10} Q${x+2} ${y+h*.5} ${x-4} ${y+h}" stroke="#9c2f63" stroke-width="2" fill="none" opacity=".7"/></g>
+  <g class="oa-cur oa-cur2"><path d="M${x+w+14} ${y-14} H${x+w*.72} Q${x+w*.84} ${y+h*.45} ${x+w*.96} ${y+h+4} Q${x+w+6} ${y+h+8} ${x+w+16} ${y+h+4}Z" fill="#c2477f"/><path d="M${x+w+6} ${y-10} Q${x+w-2} ${y+h*.5} ${x+w+4} ${y+h}" stroke="#9c2f63" stroke-width="2" fill="none" opacity=".7"/></g>
+  <rect x="${x-20}" y="${y-18}" width="${w+40}" height="5" rx="2.5" fill="#d9c08f"/>`}
+/* jaqueta pendurada num cabide */
+function oaJacket(x,y,c1,c2,puffer){let s=`<path d="M${x} ${y-8} q0 -5 4 -5 q4 0 3 4" stroke="#c9cfe6" stroke-width="1.6" fill="none"/><path d="M${x-14} ${y+2} L${x} ${y-6} L${x+14} ${y+2}" stroke="#c9cfe6" stroke-width="1.8" fill="none" stroke-linecap="round"/>`;
+  s+=`<path d="M${x-13} ${y} Q${x} ${y-6} ${x+13} ${y} L${x+19} ${y+30} L${x+14} ${y+31} L${x+12} ${y+12} L${x+12} ${y+46} H${x-12} L${x-12} ${y+12} L${x-14} ${y+31} L${x-19} ${y+30}Z" fill="${c1}"/>`;
+  s+=`<path d="M${x} ${y-3} V${y+46}" stroke="${c2}" stroke-width="1.4"/><path d="M${x-6} ${y-4} L${x} ${y+4} L${x+6} ${y-4}" fill="${c2}"/>`;
+  if(puffer)[12,22,32,41].forEach(d=>{s+=`<path d="M${x-12} ${y+d} Q${x} ${y+d+3} ${x+12} ${y+d}" stroke="${c2}" stroke-width="1.2" fill="none" opacity=".8"/>`});
+  else s+=`<rect x="${x-9}" y="${y+26}" width="6" height="7" rx="1" fill="${c2}" opacity=".7"/><rect x="${x+3}" y="${y+26}" width="6" height="7" rx="1" fill="${c2}" opacity=".7"/>`;
+  return s}
+function oaBoot(x,y,c,worn,flip){const t=flip?`translate(${x} ${y}) scale(-1 1)`:`translate(${x} ${y})`;
+  return`<g transform="${t}"><path d="M-6 -22 h10 v14 h8 q5 0 5 5 v4 h-23z" fill="${c}"/><rect x="-6" y="0" width="23" height="3.4" rx="1.4" fill="#1a1a2e"/><path d="M-3 -18 l6 2 M-3 -14 l6 2 M-3 -10 l6 2" stroke="#ffcf6b" stroke-width="1"/>${worn?`<path d="M2 -6 q4 1 7 -1 M-4 -3 q3 1 5 0" stroke="#2a1a10" stroke-width="1" fill="none" opacity=".8"/><circle cx="12" cy="-2" r="1.4" fill="#2a1a10" opacity=".6"/><path d="M-6 -22 l3 3 M4 -22 l-2 3" stroke="#2a1a10" stroke-width="1" opacity=".6"/>`:""}</g>`}
+function oaFolded(x,y,w,cs){return cs.map((c,i)=>`<rect x="${x+(i%2)}" y="${y-(i+1)*7}" width="${w}" height="7" rx="2.5" fill="${c}"/><path d="M${x+4} ${y-(i+1)*7+3.5} h${w-8}" stroke="#000" stroke-opacity=".18" stroke-width="1"/>`).join("")}
+function oaCap(t,i){return`<g transform="translate(14 14)"><rect width="${t.length*6.1+44}" height="24" rx="12" fill="rgba(15,10,40,.72)"/><circle cx="12" cy="12" r="8" fill="#ffd166"/><text x="12" y="15.6" text-anchor="middle" font-size="10.5" font-weight="900" fill="#2b1a00">${i}</text><text x="26" y="16" font-size="11" font-weight="700" fill="#fff">${esc(t)}</text></g>`}
+
+/* 1 · em casa, diante do guarda-roupa aberto */
+function oaScene1(){let s=`<rect width="640" height="250" fill="url(#oaWall)"/><rect width="640" height="250" fill="url(#oaPap)"/>`;
+  s+=`<rect y="150" width="640" height="2" fill="#000" opacity=".12"/>`;
+  s+=oaWin(52,46,104,96);
+  // vaso com planta no parapeito
+  s+=`<path d="M70 150 h20 l-3 14 h-14z" fill="#c76a3a"/><path d="M80 150 q-14 -16 -6 -28 M80 150 q2 -20 12 -26 M80 150 q-4 -10 -16 -12" stroke="#3fae6a" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="73" cy="123" rx="5" ry="3" fill="#56c47e" transform="rotate(-40 73 123)"/><ellipse cx="91" cy="125" rx="5" ry="3" fill="#56c47e" transform="rotate(30 91 125)"/>`;
+  // quadro de montanha
+  s+=`<g transform="translate(206 44)"><rect width="74" height="56" rx="2" fill="#d9c08f"/><rect x="5" y="5" width="64" height="46" fill="#9fd0ff"/><path d="M5 51 L24 22 L33 32 L45 14 L69 51Z" fill="#5c4aa8"/><path d="M40 21 L45 14 L50 21 L47 20 L45 23 L43 20Z" fill="#fff"/><path d="M45 14 V4" stroke="#333" stroke-width="1.2"/><path d="M45 4 l9 3 -9 3z" fill="#ff5f8f"/><circle cx="18" cy="15" r="5" fill="#ffd166"/></g>`;
+  // prateleira com troféu, livros e bússola
+  s+=`<rect x="196" y="120" width="96" height="6" rx="2" fill="#86593a"/><rect x="202" y="96" width="8" height="24" fill="#7b3cff"/><rect x="211" y="100" width="7" height="20" fill="#2fbf6a"/><rect x="219" y="94" width="9" height="26" fill="#ff7a1a"/><rect x="229" y="99" width="6" height="21" fill="#5ad1ff" transform="rotate(8 232 120)"/>`;
+  s+=`<g transform="translate(262 104)"><path d="M-8 -12 h16 v6 q0 9 -8 10 q-8 -1 -8 -10z" fill="#ffd166"/><path d="M-8 -9 q-6 0 -6 4 q0 4 6 4 M8 -9 q6 0 6 4 q0 4 -6 4" stroke="#ffd166" stroke-width="2" fill="none"/><rect x="-2" y="4" width="4" height="6" fill="#e0a92e"/><rect x="-7" y="10" width="14" height="5" rx="1" fill="#6f4a2a"/></g>`;
+  s+=`<g transform="translate(330 62)"><circle r="16" fill="#f4f0ff" stroke="#86593a" stroke-width="3"/><path d="M0 0 V-10 M0 0 L7 4" stroke="#3b2d63" stroke-width="2" stroke-linecap="round"/><circle r="1.6" fill="#3b2d63"/></g>`;
+  s+=oaFloor(206,44);
+  // tapete
+  s+=`<ellipse cx="300" cy="226" rx="120" ry="16" fill="#5a2bd0" opacity=".85"/><ellipse cx="300" cy="226" rx="104" ry="12" fill="none" stroke="#ffd166" stroke-width="2" stroke-dasharray="6 5" opacity=".8"/><ellipse cx="300" cy="226" rx="80" ry="8" fill="#7b3cff" opacity=".6"/>`;
+  s+=`<g transform="translate(250 236)"><ellipse cx="0" cy="0" rx="10" ry="4" fill="#7b3cff"/><ellipse cx="16" cy="2" rx="10" ry="4" fill="#7b3cff"/><ellipse cx="-2" cy="-1" rx="5" ry="2" fill="#ffe3f1"/><ellipse cx="14" cy="1" rx="5" ry="2" fill="#ffe3f1"/></g><path d="M372 238 q8 -4 16 0 q-4 5 -10 4z" fill="#2fbf6a"/>`;
+  // abajur de pé com luz quente
+  s+=`<g class="oa-fl"><ellipse cx="174" cy="108" rx="78" ry="70" fill="url(#oaGlow)"/></g><path d="M174 120 V210" stroke="#2b2347" stroke-width="3"/><ellipse cx="174" cy="211" rx="14" ry="3.5" fill="#2b2347"/><path d="M158 120 L190 120 L182 94 L166 94Z" fill="#ffcf7a"/><path d="M158 120 L190 120" stroke="#e0a92e" stroke-width="2"/>`;
+  // guarda-roupa aberto
+  const X=412,Y=34,W=170,H=176;
+  s+=`<rect x="${X-6}" y="${Y-10}" width="${W+12}" height="12" rx="3" fill="#7a4a24"/><rect x="${X}" y="${Y}" width="${W}" height="${H}" fill="url(#oaWood)"/><rect x="${X+8}" y="${Y+8}" width="${W-16}" height="${H-40}" fill="#2e1c10"/>`;
+  s+=`<rect x="${X+8}" y="${Y+8}" width="${W-16}" height="${H-40}" fill="url(#oaGlow)" opacity=".35"/>`;
+  // prateleira de cima com roupas dobradas, touca e capacete
+  s+=`<rect x="${X+8}" y="${Y+40}" width="${W-16}" height="4" fill="#6f4220"/>`;
+  s+=oaFolded(X+14,Y+40,30,["#2fbf6a","#ffd166","#5ad1ff","#e0459b"])+oaFolded(X+52,Y+40,28,["#3f4a8a","#ff7a1a","#f4f0ff"]);
+  s+=`<path d="M${X+100} ${Y+40} q0 -18 16 -18 q16 0 16 18z" fill="#ff5f8f"/><path d="M${X+100} ${Y+40} q16 -5 32 0" stroke="#a02a6c" stroke-width="2" fill="none"/><path d="M${X+138} ${Y+40} q0 -20 12 -20 q10 0 10 20z" fill="#7b3cff"/><circle cx="${X+150}" cy="${Y+18}" r="4" fill="#ffe3f1"/>`;
+  // varão com cabides
+  s+=`<path d="M${X+10} ${Y+56} H${X+W-10}" stroke="#c9cfe6" stroke-width="3" stroke-linecap="round"/>`;
+  s+=oaJacket(X+30,Y+66,"#3f7fd6","#2a5aa8",0)+oaJacket(X+62,Y+66,"#2fbf6a","#1f8a4a",1)+oaJacket(X+94,Y+66,"#ffcf3a","#e0a92e",0)+oaJacket(X+128,Y+66,"#ff7a1a","#c2541a",1);
+  // gaveta e botas no fundo
+  s+=`<rect x="${X+8}" y="${Y+H-30}" width="${W-16}" height="24" rx="2" fill="url(#oaWoodD)"/><circle cx="${X+W/2-20}" cy="${Y+H-18}" r="3" fill="#ffd166"/><circle cx="${X+W/2+20}" cy="${Y+H-18}" r="3" fill="#ffd166"/>`;
+  s+=oaBoot(X+24,Y+H-34,"#a4521a",0)+oaBoot(X+44,Y+H-34,"#7a3d12",0)+`<g transform="translate(${X+110} ${Y+H-34})"><rect x="0" y="-26" width="34" height="26" rx="7" fill="#3f4a8a"/><rect x="4" y="-14" width="26" height="9" rx="3" fill="#323b72"/><path d="M8 -26 q9 -9 18 0" stroke="#2a3263" stroke-width="3" fill="none"/></g>`;
+  // portas abertas (uma com espelho)
+  s+=`<path d="M${X} ${Y} L${X-42} ${Y+12} L${X-42} ${Y+H-6} L${X} ${Y+H}Z" fill="url(#oaWoodD)"/><path d="M${X-8} ${Y+12} L${X-34} ${Y+20} L${X-34} ${Y+H-16} L${X-8} ${Y+H-12}Z" fill="url(#oaMir)" opacity=".9"/><path d="M${X-30} ${Y+40} L${X-16} ${Y+26} M${X-30} ${Y+56} L${X-12} ${Y+38}" stroke="#fff" stroke-width="2" opacity=".55"/><circle cx="${X-6}" cy="${Y+H/2}" r="2.6" fill="#ffd166"/>`;
+  s+=`<path d="M${X+W} ${Y} L${X+W+34} ${Y+12} L${X+W+34} ${Y+H-6} L${X+W} ${Y+H}Z" fill="url(#oaWoodD)"/><rect x="${X+W+8}" y="${Y+30}" width="18" height="40" rx="2" fill="none" stroke="#5a3418" stroke-width="2" transform="skewY(18)" transform-origin="${X+W} ${Y}"/><circle cx="${X+W+5}" cy="${Y+H/2}" r="2.6" fill="#ffd166"/>`;
+  s+=`<rect x="${X-2}" y="${Y+H}" width="${W+4}" height="6" fill="#5e3519"/>`;
+  // alpinista segurando a jaqueta (a do personagem) no cabide
+  const hx=338,hy=226,k=2.05;
+  s+=`<g class="oa-bob">`+oaHero(hx,hy,k,{lt:4,lk:2,rt:-6,rk:3,la:96,le:8,ra:-10,re:-8,lean:2,nopack:1})+`</g>`;
+  // a jaqueta pendurada na mão
+  const ax=hx+20*k,ay=hy-43*k;
+  s+=`<g class="oa-sw" style="transform-origin:${ax}px ${ay}px">`+oaJacket(ax+4,ay+14,"#ff5f8f","#a02a6c",1)+`</g>`;
+  // brilho do espelho e poeira de luz
+  for(let i=0;i<9;i++)s+=`<circle class="oa-dust" cx="${80+i*28}" cy="${70+((i*37)%90)}" r="${1+(i%3)*.5}" fill="#fff" style="--d:${(i*.7).toFixed(1)}s"/>`;
+  return s}
+
+/* 2 · na porta de casa, calçando as botas */
+function oaScene2(){let mom=0;try{mom=Math.max(0,OB_MOM.indexOf(ME().mom))}catch(e){}const pair=[[66,183,"novas"],[66,183,"novas"],[122,183,"usadas"],[170,207,"gastas"]][mom]||null;let s=`<rect width="640" height="250" fill="url(#oaWall)"/><rect width="640" height="250" fill="url(#oaPap)"/>`;
+  // lambri na parte de baixo
+  s+=`<rect y="132" width="640" height="76" fill="#2b2050"/>`;for(let i=0;i<40;i++)s+=`<path d="M${i*16} 134 V206" stroke="#20183f" stroke-width="2"/>`;s+=`<rect y="128" width="640" height="6" fill="#86593a"/>`;
+  // porta aberta com a rua e a montanha ao longe
+  const DX=440,DY=26,DW=112,DH=182;
+  s+=`<rect x="${DX-10}" y="${DY-10}" width="${DW+20}" height="${DH+10}" fill="#6f4a2a"/><rect x="${DX}" y="${DY}" width="${DW}" height="${DH}" fill="url(#oaDay)"/>`;
+  s+=`<path d="M${DX} ${DY+92} L${DX+30} ${DY+58} L${DX+46} ${DY+72} L${DX+74} ${DY+34} L${DX+100} ${DY+70} L${DX+DW} ${DY+60} V${DY+DH} H${DX}Z" fill="#8fa0d8"/><path d="M${DX+66} ${DY+44} L${DX+74} ${DY+34} L${DX+83} ${DY+46} L${DX+77} ${DY+43} L${DX+73} ${DY+48}Z" fill="#fff"/>`;
+  s+=`<rect x="${DX+6}" y="${DY+96}" width="22" height="50" fill="#c96a5a"/><rect x="${DX+30}" y="${DY+84}" width="26" height="62" fill="#e6b85c"/><rect x="${DX+60}" y="${DY+102}" width="20" height="44" fill="#7c9fd6"/><rect x="${DX+82}" y="${DY+90}" width="24" height="56" fill="#d97aa8"/>`;
+  [[DX+10,DY+102],[DX+18,DY+116],[DX+34,DY+92],[DX+46,DY+92],[DX+34,DY+108],[DX+46,DY+124],[DX+64,DY+110],[DX+86,DY+98],[DX+96,DY+114]].forEach(([x,y])=>{s+=`<rect x="${x}" y="${y}" width="5" height="6" fill="#fff4c2" opacity=".85"/>`});
+  s+=`<g class="oa-cloud"><ellipse cx="${DX+30}" cy="${DY+24}" rx="16" ry="6" fill="#fff" opacity=".8"/><ellipse cx="${DX+42}" cy="${DY+20}" rx="10" ry="5" fill="#fff" opacity=".8"/></g><path class="oa-bird" d="M${DX+10} ${DY+40} q4 -4 8 0 q4 -4 8 0" stroke="#3a3f6e" stroke-width="1.6" fill="none"/>`;
+  s+=`<rect x="${DX}" y="${DY+146}" width="${DW}" height="${DH-146}" fill="#9aa0b5"/><path d="M${DX} ${DY+160} H${DX+DW}" stroke="#fff" stroke-width="2" stroke-dasharray="10 8" opacity=".7"/>`;
+  s+=`<path d="M${DX+DW} ${DY} L${DX+DW+40} ${DY+14} L${DX+DW+40} ${DY+DH+6} L${DX+DW} ${DY+DH}Z" fill="#a4683a"/><rect x="${DX+DW+10}" y="${DY+30}" width="20" height="50" fill="none" stroke="#7a4a24" stroke-width="2" transform="skewY(19)" transform-origin="${DX+DW} ${DY}"/><circle cx="${DX+DW+32}" cy="${DY+DH/2+10}" r="3" fill="#ffd166"/>`;
+  // feixe de luz entrando
+  s+=`<path d="M${DX} ${DY+DH} L${DX-120} 250 L${DX+DW-10} 250 L${DX+DW} ${DY+DH}Z" fill="#fff4c2" opacity=".14"/>`;
+  // ganchos com casacos, cachecol e corda
+  s+=`<rect x="250" y="52" width="150" height="8" rx="2" fill="#86593a"/>`;[270,306,342,378].forEach(x=>{s+=`<path d="M${x} 60 v6 q0 5 5 5" stroke="#c9cfe6" stroke-width="2" fill="none"/>`});
+  s+=`<path d="M262 66 q-2 30 2 54 h16 q4 -24 2 -54z" fill="#3f7fd6"/><path d="M300 66 q-6 20 -2 42 q6 4 12 0 q4 -22 -2 -42z" fill="#ffcf3a"/><path d="M304 70 v44 M310 70 v40" stroke="#e0a92e" stroke-width="2"/>`;
+  s+=`<circle cx="347" cy="84" r="14" fill="none" stroke="#ffcf3a" stroke-width="4"/><circle cx="347" cy="84" r="9" fill="none" stroke="#e9a812" stroke-width="3"/><path d="M372 66 q-4 18 6 30 q10 -10 6 -30z" fill="#7b3cff"/><circle cx="379" cy="64" r="4" fill="#ffe3f1"/>`;
+  s+=`<g transform="translate(410 150)"><rect x="-10" y="0" width="20" height="30" rx="3" fill="#3f4a8a"/><path d="M-4 0 V-30 q0 -6 6 -6" stroke="#ff5f8f" stroke-width="3" fill="none"/><path d="M4 0 V-24" stroke="#2a2350" stroke-width="3"/></g><g transform="translate(232 96)"><rect width="30" height="24" rx="2" fill="#d9c08f"/><rect x="3" y="3" width="24" height="18" fill="#9fd0ff"/><path d="M3 21 L12 10 L18 16 L27 7 V21Z" fill="#5c4aa8"/></g>`;
+  // calendário com dias marcados e o "Dia 1"
+  s+=`<g transform="translate(150 46)"><rect width="66" height="60" rx="4" fill="#f4f0ff"/><rect width="66" height="14" rx="4" fill="#e0459b"/><text x="33" y="10.5" text-anchor="middle" font-size="8" font-weight="900" fill="#fff">PLANO</text>`;
+  for(let r=0;r<4;r++)for(let c=0;c<6;c++){const i=r*6+c;s+=`<rect x="${5+c*10}" y="${18+r*10}" width="8" height="8" rx="1.5" fill="${i===0?"#ffd166":"#ddd6f5"}"/>`}
+  s+=`<path d="M6 21 l2.4 2.4 4 -4.4" stroke="#7b3cff" stroke-width="1.6" fill="none"/></g>`;
+  // sapateira: botas novas, usadas e muito gastas (a experiência de cada um)
+  s+=`<rect x="40" y="164" width="150" height="44" fill="url(#oaWoodD)"/><rect x="40" y="184" width="150" height="3" fill="#4a2810"/><rect x="36" y="160" width="158" height="6" rx="2" fill="#86593a"/>`;
+  s+=oaBoot(56,183,"#c47a3a",0)+oaBoot(76,183,"#c47a3a",0)+oaBoot(112,183,"#a4521a",1)+oaBoot(132,183,"#a4521a",1)+oaBoot(160,207,"#6a3410",1,1)+oaBoot(180,207,"#6a3410",1,1)+oaBoot(60,207,"#3f4a8a",0);
+  if(pair&&(()=>{try{return!!ME().mom}catch(e){return false}})())s+=`<g class="oa-pick"><rect x="${pair[0]-24}" y="${pair[1]-26}" width="48" height="28" rx="6" fill="none" stroke="#ffd166" stroke-width="2" stroke-dasharray="4 3"/><text x="${pair[0]}" y="${pair[1]-30}" text-anchor="middle" font-size="8" font-weight="900" fill="#ffd166">AS SUAS</text></g>`;
+  s+=oaFloor(212,38);
+  // capacho
+  s+=`<rect x="390" y="222" width="120" height="16" rx="3" fill="#a8461c"/><rect x="394" y="225" width="112" height="10" rx="2" fill="none" stroke="#ffd166" stroke-width="1.2" stroke-dasharray="4 3"/><text x="450" y="233.5" text-anchor="middle" font-size="8" font-weight="900" fill="#ffd166" letter-spacing="2">PARTIU</text>`;
+  // banco e alpinista sentado amarrando a bota
+  s+=`<rect x="232" y="186" width="120" height="10" rx="3" fill="#b47645"/><rect x="240" y="196" width="8" height="22" fill="#86593a"/><rect x="336" y="196" width="8" height="22" fill="#86593a"/>`;
+  s+=oaHero(296,214,1.9,{sit:1,lt:72,lk:96,rt:58,rk:70,la:66,le:-38,ra:44,re:-42,lean:14,face:"",nopack:1});
+  // cadarço sendo amarrado
+  s+=`<path class="oa-lace" d="M338 206 q6 -8 12 -2 q-4 6 -10 4" stroke="#ffcf6b" stroke-width="1.6" fill="none"/>`;
+  // mochila pronta ao lado
+  s+=`<g transform="translate(364 214)"><rect x="0" y="-40" width="30" height="40" rx="8" fill="#3f4a8a"/><rect x="4" y="-20" width="22" height="12" rx="3" fill="#323b72"/><ellipse cx="15" cy="-42" rx="12" ry="5" fill="#ffb347" stroke="#e08d1c"/><path d="M8 -46 L4 -62" stroke="#9aa3c7" stroke-width="2.2"/><path d="M0 -62 q4 -3 8 0" stroke="#d8dcef" stroke-width="2.4" fill="none"/></g>`;
+  return s}
+
+/* 3 · na cidade, dentro da loja de equipamentos de montanha */
+function oaScene3(n){let s=`<rect width="640" height="250" fill="#2a2348"/>`;
+  // vitrine com a rua da cidade e as montanhas atrás
+  s+=`<rect x="22" y="30" width="190" height="150" fill="url(#oaDay)"/><path d="M22 112 L60 76 L84 92 L120 56 L152 90 L180 74 L212 98 V180 H22Z" fill="#9aa8dc"/><path d="M112 66 L120 56 L129 68 L123 65 L119 70Z" fill="#fff"/>`;
+  s+=`<rect x="30" y="104" width="34" height="76" fill="#d97a5a"/><rect x="68" y="88" width="40" height="92" fill="#e9c46a"/><rect x="112" y="110" width="28" height="70" fill="#8db0e6"/><rect x="144" y="96" width="36" height="84" fill="#c97ab8"/><rect x="184" y="118" width="28" height="62" fill="#7ac2a0"/>`;
+  for(let i=0;i<18;i++){const x=[34,46,74,88,74,88,116,128,150,164,150,164,188,200,34,46,116,128][i],y=[112,112,96,96,116,116,118,118,104,104,124,124,126,126,134,134,138,138][i];s+=`<rect x="${x}" y="${y}" width="7" height="8" fill="#fff4c2" opacity=".85"/>`}
+  s+=`<path d="M42 180 V128 q0 -6 6 -6 h6" stroke="#2b2347" stroke-width="2.4" fill="none"/><circle cx="56" cy="124" r="4" fill="#ffd166"/><rect x="22" y="170" width="190" height="10" fill="#8a8fa5"/>`;
+  s+=`<rect x="16" y="24" width="202" height="162" fill="none" stroke="#1a1430" stroke-width="10"/><path d="M117 24 V186" stroke="#1a1430" stroke-width="5"/><path d="M40 40 L80 40 L40 80Z" fill="#fff" opacity=".12"/>`;
+  // letreiro neon
+  s+=`<g class="oa-neon"><rect x="286" y="16" width="208" height="28" rx="14" fill="#160f2e" stroke="#ff5f8f" stroke-width="2"/><text x="390" y="34" text-anchor="middle" font-size="10" font-weight="900" fill="#ffd2ec" textLength="176" lengthAdjust="spacingAndGlyphs">EQUIPAMENTOS DE MONTANHA</text></g>`;
+  // painel de furos com mosquetões e cordas
+  s+=`<rect x="240" y="56" width="180" height="98" rx="4" fill="url(#oaPeg)"/>`;
+  ["#ff5f8f","#ffd166","#5ad1ff","#2fbf6a","#ff7a1a","#7b3cff","#ff5f8f","#5ad1ff"].forEach((c,i)=>{const x=254+(i%4)*20,y=66+Math.floor(i/4)*26;s+=`<path d="M${x} ${y} v2" stroke="#666" stroke-width="1.6"/><path d="M${x-4} ${y+4} q-2 9 2 14 q6 3 8 -3 l-1 -9 q-2 -5 -9 -2z" fill="none" stroke="${c}" stroke-width="2.6"/>`});
+  [["#ffcf3a","#e9a812",352,84],["#5ad1ff","#2a8ac0",390,84],["#ff5f8f","#c2477f",352,128],["#2fbf6a","#1f8a4a",390,128]].forEach(([a,b,x,y])=>{s+=`<path d="M${x} ${y-16} v4" stroke="#666" stroke-width="1.6"/><circle cx="${x}" cy="${y}" r="13" fill="none" stroke="${a}" stroke-width="4"/><circle cx="${x}" cy="${y}" r="8" fill="none" stroke="${b}" stroke-width="3"/><circle cx="${x}" cy="${y}" r="3.5" fill="none" stroke="${a}" stroke-width="2"/>`});
+  // piquetas cruzadas
+  s+=`<path d="M434 60 L486 146 M486 60 L434 146" stroke="#9aa3c7" stroke-width="4" stroke-linecap="round"/><path d="M426 62 q8 -8 18 -2 M494 62 q-8 -8 -18 -2" stroke="#d8dcef" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="452" y="96" width="16" height="10" rx="3" fill="#ff7a1a"/>`;
+  // prateleira com capacetes e mochilas
+  s+=`<rect x="500" y="20" width="132" height="190" fill="#3a2f5c"/>`;
+  [62,118,174].forEach(y=>{s+=`<rect x="500" y="${y}" width="132" height="5" fill="#86593a"/>`});
+  [["#ffcf3a",520],["#ff5f8f",556],["#5ad1ff",592]].forEach(([c,x])=>{s+=`<path d="M${x-14} 62 q0 -24 14 -24 q14 0 14 24z" fill="${c}"/><path d="M${x-14} 62 q14 -6 28 0" stroke="#000" stroke-opacity=".25" stroke-width="2" fill="none"/><rect x="${x-4}" y="44" width="8" height="5" rx="2" fill="#fff" opacity=".6"/>`});
+  [["#3f4a8a",522],["#2fbf6a",562],["#ff7a1a",602]].forEach(([c,x])=>{s+=`<rect x="${x-14}" y="80" width="28" height="38" rx="8" fill="${c}"/><rect x="${x-10}" y="98" width="20" height="12" rx="3" fill="#000" opacity=".18"/><path d="M${x-8} 80 q8 -8 16 0" stroke="#000" stroke-opacity=".3" stroke-width="3" fill="none"/>`});
+  // barraca de exposição
+  s+=`<path d="M508 174 L548 132 L612 132 L630 174Z" fill="#ff7a1a"/><path d="M548 132 L568 174 M530 174 L548 132" stroke="#c2541a" stroke-width="2"/><path d="M548 174 L558 150 L568 174Z" fill="#2a1a10"/>`;
+  [530,578,606].forEach((x,i)=>{s+=`<g transform="translate(${x} ${i?150:146})"><rect x="-10" y="0" width="20" height="12" rx="2" fill="#ffd166"/><text x="0" y="9" text-anchor="middle" font-size="7" font-weight="900" fill="#2b1a00">R$</text></g>`});
+  s+=`<g transform="translate(450 214)"><rect x="-2" y="-12" width="4" height="12" fill="#666"/><ellipse cx="0" cy="0" rx="10" ry="3" fill="#444"/>`+oaJacket(0,-60,"#2fbf6a","#1f8a4a",1)+`<circle cx="0" cy="-68" r="7" fill="#d9d4f2"/><rect x="8" y="-40" width="16" height="9" rx="2" fill="#ffd166"/><text x="16" y="-33.5" text-anchor="middle" font-size="5.5" font-weight="900" fill="#2b1a00">R$</text></g><g transform="translate(560 226)"><ellipse rx="18" ry="6" fill="none" stroke="#ffcf3a" stroke-width="3"/><ellipse rx="12" ry="4" fill="none" stroke="#e9a812" stroke-width="2.5"/></g>`;
+  s+=oaFloor(214,36);
+  // balcão com caixa registradora
+  s+=`<rect x="240" y="160" width="160" height="54" rx="4" fill="url(#oaWood)"/><rect x="240" y="156" width="164" height="8" rx="3" fill="#6f4220"/><g transform="translate(360 156)"><rect x="-22" y="-26" width="40" height="26" rx="4" fill="#3f4a8a"/><rect x="-18" y="-22" width="22" height="9" rx="1.5" fill="#5ad1ff"/><text x="-7" y="-15" text-anchor="middle" font-size="6.5" font-weight="900" fill="#0b3a4f">OK</text><rect x="8" y="-22" width="6" height="16" rx="1.5" fill="#ffd166"/></g>`;
+  s+=`<g transform="translate(276 152)"><rect x="-12" y="-14" width="24" height="14" rx="2" fill="#f4f0ff"/><path d="M-8 -9 h16 M-8 -5 h10" stroke="#7b3cff" stroke-width="1.4"/></g>`;
+  // alpinista com a cesta: um item para cada curso marcado
+  const hx=196,hy=232,k=1.95;
+  s+=oaHero(hx,hy,k,{lt:6,lk:3,rt:-8,rk:4,la:40,le:-30,ra:-6,re:-10,lean:0});
+  const bx=hx+16*k,by=hy-26*k,its=["#ffcf3a","#5ad1ff","#ff5f8f","#2fbf6a","#ff7a1a","#7b3cff"];
+  for(let i=0;i<Math.min(n,6);i++){const x=bx-14+i*6+(i%2)*2,y=by-6-(i%3)*5;s+=`<rect class="oa-it" x="${x}" y="${y}" width="9" height="12" rx="2.5" fill="${its[i]}" style="--d:${(i*.12).toFixed(2)}s"/>`}
+  s+=`<path d="M${bx-20} ${by-8} q20 -26 40 0" stroke="#86593a" stroke-width="2.4" fill="none"/><path d="M${bx-22} ${by-4} h44 l-5 20 h-34z" fill="#c47a3a"/><path d="M${bx-20} ${by+2} h40 M${bx-18} ${by+8} h36 M${bx-16} ${by+14} h32" stroke="#86593a" stroke-width="1.4"/>`;
+  if(n)s+=`<g transform="translate(${bx+22} ${by-34})"><circle r="11" fill="#ffd166"/><text y="4" text-anchor="middle" font-size="11" font-weight="900" fill="#2b1a00">${n}</text></g>`;
+  return s}
+
+/* 4 · no acampamento, estudando o mapa da escalada */
+function oaScene4(){let s=`<rect width="640" height="250" fill="url(#oaNight)"/>`;
+  for(let i=0;i<40;i++){const x=(i*97)%640,y=(i*53)%110;s+=`<circle class="oa-tw" cx="${x}" cy="${y}" r="${.6+(i%3)*.5}" fill="#fff" style="--d:${((i*.37)%3).toFixed(2)}s"/>`}
+  // montanha alvo ao fundo com a trilha
+  s+=`<path d="M0 190 L90 130 L150 156 L250 70 L330 40 L410 92 L470 72 L560 128 L640 110 V250 H0Z" fill="#3b2a6e"/><path d="M296 60 L330 40 L362 64 L348 60 L336 70 L322 58 L310 66Z" fill="#f4f0ff"/><path d="M250 70 L330 40 L300 120 L250 160 Z" fill="#000" opacity=".12"/>`;
+  s+=`<path d="M330 40 V24" stroke="#fff" stroke-width="1.4"/><path d="M330 24 l11 4 -11 4z" fill="#ff5f8f"/><path d="M170 200 Q230 170 250 140 T300 92 T330 44" stroke="#ffd166" stroke-width="2" stroke-dasharray="3 6" fill="none" opacity=".85"/>`;
+  s+=`<path d="M0 214 Q160 188 320 206 T640 196 V250 H0Z" fill="#241a4a"/>`;
+  // barraca em primeiro plano (vista de dentro, aba aberta)
+  s+=`<path d="M0 0 H150 L40 250 H0Z" fill="url(#oaTent)"/><path d="M640 0 H470 L600 250 H640Z" fill="url(#oaTent)"/><path d="M150 0 L40 250" stroke="#7a2f10" stroke-width="5"/><path d="M470 0 L600 250" stroke="#7a2f10" stroke-width="5"/>`;
+  s+=`<path d="M150 0 Q120 70 60 112 Q30 128 0 128 V0Z" fill="#c45a24" opacity=".8"/><path d="M470 0 Q510 80 580 118 Q610 130 640 128 V0Z" fill="#c45a24" opacity=".8"/><path d="M60 112 q-8 10 -2 20 M580 118 q8 10 2 20" stroke="#ffd166" stroke-width="2.4" fill="none"/>`;
+  [30,70,110].forEach(y=>{s+=`<path d="M${150-y*.44} ${y} l-14 6" stroke="#7a2f10" stroke-width="1.4" opacity=".6"/><path d="M${470+y*.52} ${y} l14 6" stroke="#7a2f10" stroke-width="1.4" opacity=".6"/>`});
+  // lanterna pendurada
+  s+=`<g class="oa-fl"><ellipse cx="320" cy="150" rx="210" ry="90" fill="url(#oaGlow)" opacity=".9"/></g>`;
+  s+=`<path d="M560 12 V40" stroke="#2b2347" stroke-width="1.6"/><g transform="translate(560 54)"><path d="M-8 -14 h16 l-2 -4 h-12z" fill="#2b2347"/><rect x="-9" y="-14" width="18" height="24" rx="3" fill="#ffd98a" stroke="#2b2347" stroke-width="2"/><path d="M0 -10 q4 8 0 14 q-4 -6 0 -14" fill="#ff9f1c" class="oa-flame"/><rect x="-10" y="10" width="20" height="4" rx="1.5" fill="#2b2347"/></g>`;
+  s+=`<g transform="translate(560 232)"><rect x="-40" y="-10" width="80" height="16" rx="8" fill="#3f7fd6"/><path d="M-30 -10 v16 M-14 -10 v16 M2 -10 v16 M18 -10 v16" stroke="#2a5aa8" stroke-width="2"/></g>`;
+  // mesa com o mapa topográfico
+  s+=`<g class="oa-bob">`+oaHero(300,236,1.75,{lt:6,lk:3,rt:-4,rk:4,la:62,le:-6,ra:30,re:-30,lean:20})+`</g>`;
+  s+=`<path d="M120 196 L520 196 L560 234 L80 234Z" fill="#6f4220"/><path d="M80 234 L560 234 L560 242 L80 242Z" fill="#4a2810"/><rect x="104" y="242" width="10" height="8" fill="#4a2810"/><rect x="526" y="242" width="10" height="8" fill="#4a2810"/>`;
+  s+=`<path d="M170 172 L470 168 L506 226 L136 230Z" fill="url(#oaPaper)"/><path d="M170 172 L136 230" stroke="#c9a96a" stroke-width="2"/>`;
+  // curvas de nível, rio, rota e o X do cume
+  [[330,198,70,18],[330,198,52,13],[330,198,34,9],[330,198,17,4.5]].forEach(([cx,cy,rx,ry],i)=>{s+=`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${i===3?"#e8c68a":"none"}" stroke="#a87a3a" stroke-width="1.2" opacity=".8"/>`});
+  [[232,206,30,8],[232,206,16,4]].forEach(([cx,cy,rx,ry])=>{s+=`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="#a87a3a" stroke-width="1.1" opacity=".7"/>`});
+  s+=`<path d="M176 222 Q220 214 260 222 T340 222 T420 210 T490 214" stroke="#5ab8e6" stroke-width="2.4" fill="none" opacity=".85"/>`;
+  s+=`<path class="oa-route oa-draw" pathLength="100" d="M180 214 Q214 196 246 204 T300 196 T330 198" stroke="#e0263f" stroke-width="2.2" stroke-dasharray="5 4" fill="none"/><path d="M325 193 l10 10 M335 193 l-10 10" stroke="#e0263f" stroke-width="3" stroke-linecap="round"/>`;
+  [[200,207],[246,204],[288,197]].forEach(([x,y],i)=>{s+=`<g class="oa-wp" style="--d:${(.8+i*.5).toFixed(1)}s" transform="translate(${x} ${y})"><path d="M0 0 l-4 -8 h8z" fill="#7b3cff"/><circle cy="-9" r="3.4" fill="#7b3cff"/><text y="-7.4" text-anchor="middle" font-size="4.6" font-weight="900" fill="#fff">${i+1}</text></g>`});
+  s+=`<g transform="translate(462 186)"><circle r="12" fill="none" stroke="#a87a3a" stroke-width="1"/><path d="M0 -12 L3 0 L0 12 L-3 0Z" fill="#a87a3a"/><path d="M0 -12 L3 0 L-3 0Z" fill="#e0263f"/><text y="-14" text-anchor="middle" font-size="6" font-weight="900" fill="#a87a3a">N</text></g>`;
+  // bússola, caneca fumegante e lápis
+  s+=`<g transform="translate(150 214)"><circle r="11" fill="#c9cfe6" stroke="#6f7591" stroke-width="2"/><circle r="8" fill="#f4f0ff"/><path d="M0 -7 L2 0 L0 7 L-2 0Z" fill="#e0263f" class="oa-comp"/></g>`;
+  s+=`<g transform="translate(500 210)"><rect x="-10" y="-14" width="20" height="18" rx="3" fill="#7b3cff"/><path d="M10 -9 q8 0 8 6 q0 6 -8 6" stroke="#7b3cff" stroke-width="3" fill="none"/><path class="oa-stm" d="M-4 -18 q-4 -6 0 -12 q4 -6 0 -12 M4 -18 q-4 -6 0 -12" stroke="#fff" stroke-width="1.6" fill="none" opacity=".6"/></g>`;
+  s+=`<path d="M400 218 L440 204" stroke="#ffcf3a" stroke-width="4" stroke-linecap="round"/><path d="M440 204 L446 202" stroke="#ffc9a8" stroke-width="4" stroke-linecap="round"/>`;
+  // alpinista debruçado, apontando a rota no mapa
+  return s}
+
+function obArt(step){if(!VIS()&&0)return"";let n=0;try{const M=ME();n=(M.cur||[]).length+(M.out?1:0)}catch(e){}
+  const f=[oaScene1,oaScene2,oaScene3,oaScene4][step-1];if(!f)return"";
+  const fresh=UI.obArtStep!==step;UI.obArtStep=step;
+  return`<figure class="ob-art${fresh?" in":""}" aria-label="${esc(OA_CAP[step-1])}"><svg viewBox="0 0 640 250" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true">${oaDefs()}${f(n)}</svg><figcaption class="oa-cap"><i>${step}</i>${esc(OA_CAP[step-1])}</figcaption></figure>`}
+
+/* fim da entrevista: o alpinista sai de casa e parte pela trilha rumo à montanha */
+function obDepart(){if(document.getElementById("obDep"))return;const nick=(()=>{try{return ME().nick||""}catch(e){return""}})(),d=document.createElement("div");d.id="obDep";d.className="ob-dep";d.setAttribute("role","dialog");d.setAttribute("aria-label","A sua jornada começa");
+  let g=`<defs>${jwHeroDefs()}<linearGradient id="odSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2a7a"/><stop offset=".5" stop-color="#c977a8"/><stop offset=".78" stop-color="#ffb36b"/><stop offset="1" stop-color="#ffd59a"/></linearGradient>
+   <linearGradient id="odMt" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a66c9"/><stop offset=".55" stop-color="#5a48a6"/><stop offset="1" stop-color="#3f3184"/></linearGradient>
+   <linearGradient id="odFar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a48fd9"/><stop offset="1" stop-color="#8b78c8"/></linearGradient>
+   <linearGradient id="odGr1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fcf6a"/><stop offset="1" stop-color="#3f9a4e"/></linearGradient>
+   <linearGradient id="odGr2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fb85a"/><stop offset="1" stop-color="#2d7a3e"/></linearGradient>
+   <radialGradient id="odSunG"><stop offset="0" stop-color="#fff3c4"/><stop offset=".5" stop-color="#ffd27a" stop-opacity=".7"/><stop offset="1" stop-color="#ffb36b" stop-opacity="0"/></radialGradient></defs>
+   <rect y="-200" width="1200" height="900" fill="url(#odSky)"/><circle cx="980" cy="330" r="160" fill="url(#odSunG)" class="od-sun"/><circle cx="980" cy="330" r="48" fill="#fff1c2" class="od-sun"/>`;
+  /* nuvens e pássaros */
+  [[620,90,.8],[880,60,.7],[1100,150,.9]].forEach(([x,y,k],i)=>{g+=`<g class="od-cl" style="animation-delay:-${i*6}s" opacity=".85"><ellipse cx="${x}" cy="${y}" rx="${60*k}" ry="${16*k}" fill="#fff"/><ellipse cx="${x+30*k}" cy="${y-10*k}" rx="${34*k}" ry="${14*k}" fill="#fff"/><ellipse cx="${x-28*k}" cy="${y-6*k}" rx="${26*k}" ry="${11*k}" fill="#fff"/></g>`});
+  [[640,170],[668,182],[700,166]].forEach(([x,y],i)=>{g+=`<path class="od-bd" style="animation-delay:-${i*.4}s" d="M${x} ${y} q6 -6 12 0 q6 -6 12 0" stroke="#3a2f6e" stroke-width="2" fill="none" stroke-linecap="round"/>`});
+  /* serras ao fundo com neve */
+  g+=`<path d="M0 430 L140 330 L230 380 L360 280 L470 350 L560 300 L640 360 L760 300 L860 370 L980 290 L1100 360 L1200 320 V520 H0Z" fill="url(#odFar)" opacity=".85"/>`;
+  [[360,280],[560,300],[980,290]].forEach(([x,y])=>{g+=`<path d="M${x-26} ${y+20} L${x} ${y} L${x+26} ${y+20} L${x+14} ${y+16} L${x} ${y+24} L${x-12} ${y+15}Z" fill="#f4f0ff" opacity=".9"/>`});
+  /* a montanha da escalada: faces de luz e sombra, estratos de rocha, neve e a bandeira no cume */
+  g+=`<path d="M240 560 L420 400 L520 430 L640 300 L760 150 L860 260 L930 240 L1080 420 L1200 470 V600 H240Z" fill="url(#odMt)"/>`;
+  g+=`<path d="M760 150 L700 260 L660 330 L600 420 L560 520 L760 520 L800 330Z" fill="#000" opacity=".12"/>`;
+  g+=`<path d="M688 240 l40 8 M650 300 l60 6 M610 360 l80 4 M840 230 l30 12 M880 300 l60 10 M560 440 l70 0" stroke="#2f2470" stroke-width="3" stroke-linecap="round" opacity=".35"/>`;
+  g+=`<path d="M705 220 L760 150 L816 222 L795 212 L778 232 L760 206 L744 230 L726 212Z" fill="#fff"/><path d="M760 150 L744 230 L760 206Z" fill="#dcd6f5"/>`;
+  g+=`<path d="M760 150 V104" stroke="#fff" stroke-width="2.5"/><path class="od-fg" d="M760 104 l24 8 -24 9z" fill="#ff5f8f"/>`;
+  /* pinheiros no pé da montanha */
+  for(let i=0;i<26;i++){const x=300+i*32+(i%3)*6,y=548-(i%4)*6-(i>14?(i-14)*4:0),h=26+(i%5)*6;g+=`<path d="M${x} ${y-h} L${x+h*.32} ${y} H${x-h*.32}Z" fill="${i%2?"#2f6b45":"#24573a"}"/><path d="M${x} ${y-h*.7} L${x+h*.26} ${y-h*.15} H${x-h*.26}Z" fill="#3a8a55" opacity=".6"/><rect x="${x-1.5}" y="${y}" width="3" height="6" fill="#4a2e1a"/>`}
+  /* o campo de grama antes da montanha, com flores, cerca e a placa da trilha */
+  g+=`<path d="M0 520 Q240 480 520 520 T1200 540 V700 H0Z" fill="url(#odGr1)"/><path d="M0 600 Q300 560 640 600 T1200 590 V700 H0Z" fill="url(#odGr2)"/>`;
+  for(let i=0;i<140;i++){const x=(i*37.7)%1200,y=528+((i*53)%160),h=6+(i%4)*3;if(y<520+(x>520?10:0))continue;g+=`<path d="M${x} ${y} q-2 -${h} -${3+(i%2)} -${h+2} M${x} ${y} q1 -${h} ${3} -${h+3} M${x} ${y} q3 -${h*.7} ${6} -${h*.8}" stroke="${i%3?"#2f7a3e":"#4fa35a"}" stroke-width="1.6" fill="none" stroke-linecap="round" class="od-gs" style="animation-delay:-${(i%7)*.4}s"/>`}
+  for(let i=0;i<34;i++){const x=(i*61.3+20)%1200,y=560+((i*41)%120),c=["#ffd166","#ff8fb8","#fff","#c9a6ff"][i%4];g+=`<g transform="translate(${x} ${y})"><path d="M0 0 v-8" stroke="#2f7a3e" stroke-width="1.4"/><circle cx="0" cy="-9" r="3" fill="${c}"/><circle cx="0" cy="-9" r="1.2" fill="#ffb020"/></g>`}
+  g+=`<g stroke="#8a5a34" stroke-width="4" stroke-linecap="round"><path d="M880 560 v34 M930 556 v34 M980 552 v34 M1030 549 v34"/><path d="M872 570 L1040 560 M872 586 L1040 576" stroke-width="3"/></g>`;
+  g+=`<g transform="translate(360 610)"><rect x="-3" y="-40" width="6" height="42" fill="#7a4a24"/><path d="M-4 -46 h96 l12 11 -12 11 h-96z" fill="#b47645" stroke="#7a4a24" stroke-width="2"/><text x="44" y="-31" text-anchor="middle" font-size="11" font-weight="900" fill="#3a2410">TRILHA DO CUME</text></g>`;
+  /* a trilha: sai da casa, cruza o campo e sobe a montanha */
+  g+=`<path id="odTr" d="M290 672 C360 652 360 630 430 600 S560 560 610 520 S660 430 690 350 S735 220 758 158" fill="none" stroke="#ffd166" stroke-width="3.5" stroke-dasharray="2 12" stroke-linecap="round" opacity=".95"/>`;
+  /* a casa de onde ele sai */
+  g+=`<g transform="translate(215 664)">
+   <ellipse cx="0" cy="2" rx="96" ry="10" fill="#2d7a3e" opacity=".5"/>
+   <rect x="-62" y="-20" width="124" height="20" fill="#9a8e86"/>${[-56,-36,-16,4,24,44].map((x,i)=>`<rect x="${x}" y="${i%2?-19:-11}" width="${i%2?16:18}" height="8" rx="2" fill="#b8ada5"/>`).join("")}
+   <rect x="-58" y="-84" width="116" height="64" fill="#e9c99a"/>${[-76,-68,-60,-52,-44,-36,-28].map(y=>`<path d="M-58 ${y} H58" stroke="#c9a473" stroke-width="1"/>`).join("")}
+   <path d="M-74 -80 L0 -140 L74 -80 Z" fill="#b2471f"/>${[0,1,2,3,4].map(i=>`<path d="M${-66+i*6} ${-86-i*10} H${66-i*6}" stroke="#8a3214" stroke-width="2" opacity=".7"/>`).join("")}
+   <path d="M-80 -78 L0 -144 L80 -78" fill="none" stroke="#6e2a10" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/>
+   <path d="M-22 -112 h44 v18 h-44z" fill="#e9c99a"/><circle cx="0" cy="-103" r="7" fill="#ffd166" stroke="#7a4a24" stroke-width="2"/><path d="M0 -110 v14 M-7 -103 h14" stroke="#7a4a24" stroke-width="1.5"/>
+   <rect x="34" y="-138" width="14" height="32" fill="#8f3a1a"/><rect x="31" y="-142" width="20" height="6" fill="#6e2a10"/>
+   <g class="od-smk"><circle cx="41" cy="-152" r="7" fill="#fff" opacity=".7"/><circle cx="47" cy="-168" r="10" fill="#fff" opacity=".5"/><circle cx="55" cy="-186" r="12" fill="#fff" opacity=".3"/></g>
+   <path d="M-12 -20 V-50 q12 -14 24 0 V-20Z" fill="#7a4a24"/><path d="M-12 -20 V-50 q12 -14 24 0 V-20" fill="none" stroke="#5a3418" stroke-width="2.5"/><circle cx="7" cy="-34" r="1.8" fill="#ffd166"/>
+   <path d="M18 -58 v6" stroke="#333" stroke-width="1.5"/><rect x="15" y="-52" width="7" height="9" rx="2" fill="#ffd166" class="od-lamp"/>
+   ${[-44,30].map(x=>`<rect x="${x}" y="-72" width="22" height="20" fill="#ffe7a8" stroke="#7a4a24" stroke-width="2.5"/><path d="M${x+11} -72 v20 M${x} -62 h22" stroke="#7a4a24" stroke-width="2"/><rect x="${x-9}" y="-73" width="8" height="22" fill="#3f7fd6"/><rect x="${x+23}" y="-73" width="8" height="22" fill="#3f7fd6"/><rect x="${x-3}" y="-52" width="28" height="7" rx="2" fill="#7a4a24"/>${[0,1,2,3].map(k=>`<circle cx="${x+1+k*7}" cy="-54" r="3" fill="${["#ff5f8f","#ffd166","#fff","#c9a6ff"][k]}"/>`).join("")}`).join("")}
+   <rect x="-18" y="-2" width="36" height="6" fill="#9a8e86"/><rect x="-14" y="4" width="28" height="5" fill="#b8ada5"/>
+   <ellipse cx="-74" cy="-6" rx="20" ry="14" fill="#2f7a3e"/><ellipse cx="-62" cy="-12" rx="14" ry="11" fill="#3f9a4e"/>${[-80,-70,-60].map((x,i)=>`<circle cx="${x}" cy="${-10-(i%2)*6}" r="2.6" fill="#ff8fb8"/>`).join("")}
+   <ellipse cx="74" cy="-6" rx="18" ry="12" fill="#2f7a3e"/><ellipse cx="86" cy="-10" rx="11" ry="9" fill="#3f9a4e"/>
+   <g transform="translate(96 0)"><rect x="-2" y="-26" width="4" height="26" fill="#7a4a24"/><rect x="-9" y="-36" width="18" height="12" rx="5" fill="#3f4a8a"/><path d="M9 -34 v-8 h6 v4 h-6" fill="#ff5f8f"/></g></g>`;
+  g+=`<g id="odHero"></g>`;
+  d.innerHTML=`<svg viewBox="${innerWidth<700?"360 -170 760 870":"0 0 1200 700"}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${g}</svg><div class="od-t"><small>A JORNADA</small><b>${nick?esc(nick)+", a sua jornada <br>começa agora":"A sua jornada <br>começa agora"}</b><span>Roupa escolhida, equipamento na mochila <br>e o mapa na mão. Rumo ao cume.</span><button class="btn pri" id="odGo">Começar a subir</button></div>`;
+  document.body.appendChild(d);const tr=d.querySelector("#odTr"),L=tr.getTotalLength(),H=d.querySelector("#odHero");let t0=performance.now(),dur=7000,raf=0,red=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const step=now=>{const f=red?.45:Math.min(1,(now-t0)/dur),p=tr.getPointAtLength(L*f*.9),k=1.9-f*1.25;H.setAttribute("transform",`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)}) scale(${k.toFixed(3)})`);H.innerHTML=jwHero(jwWalk((now-t0)/140));if(f<1&&!red)raf=requestAnimationFrame(step)};raf=requestAnimationFrame(step);
+  const close=()=>{cancelAnimationFrame(raf);d.classList.add("out");setTimeout(()=>d.remove(),500)};d.querySelector("#odGo").onclick=close;setTimeout(()=>{if(document.body.contains(d))close()},11000)}
+
 function obWizard(step,mode){UI.obStep=step;UI.obMode=mode||UI.obMode||"novo";const M=ME(),nov=UI.obMode==="novo",tot=nov?4:3,em=(window.JX_ACESSO&&window.JX_ACESSO.email)||M.email||"";
   const bar=`<div class="ob-bar" aria-hidden="true">${[...Array(tot)].map((_,i)=>`<i class="${i<step?"on":""}"></i>`).join("")}</div><small class="ob-k">${step} de ${tot} · ${["Quem é você","Você e a Jornada","Seus cursos","Seu concurso"][step-1]}</small>`;
   const chips=(k,L,multi)=>`<div class="ob-chips" role="group">${L.map(v=>{const on=multi?(M[k]||[]).includes(v):M[k]===v;return`<button type="button" class="ob-ch ${on?"on":""}" data-a="obCh" data-k="${k}" data-v="${esc(v)}" data-m="${multi?1:""}" aria-pressed="${on}">${esc(v)}${multi&&on?" ✓":""}</button>`}).join("")}</div>`;
@@ -3739,7 +4037,7 @@ function obWizard(step,mode){UI.obStep=step;UI.obMode=mode||UI.obMode||"novo";co
   const back=step>1?`<button class="btn ghost" data-a="obNext" data-v="${step-1}">Voltar</button>`:"";
   const skip=step===2||step===3?`<button class="btn ghost" data-a="obNext" data-v="${step+1}" data-skip="1">Pular</button>`:!nov&&step===1?`<button class="btn ghost" data-a="obLater">Agora não</button>`:"";
   const next=step<4&&(nov||step<3)?`<button class="btn pri" data-a="obNext" data-v="${step+1}">Continuar</button>`:!nov&&step===3?`<button class="btn pri" data-a="obNext" data-v="9">Concluir</button>`:"";
-  $("layer3").innerHTML=`<div class="modal ob-modal" role="dialog" aria-modal="true" aria-label="Entrevista inicial"><div class="box ob-box">${bar}<div class="ob-body">${body}</div><div class="ob-foot">${back}<span class="sp"></span>${skip}${next}</div></div></div>`;
+  $("layer3").innerHTML=`<div class="modal ob-modal" role="dialog" aria-modal="true" aria-label="Entrevista inicial"><div class="box ob-box">${bar}${nov?obArt(step):""}<div class="ob-body">${body}</div><div class="ob-foot">${back}<span class="sp"></span>${skip}${next}</div></div></div>`;
   setTimeout(()=>{const e=step===1?$(M.full?"obN":"obFull"):null;if(e&&!e.value)e.focus()},40)}
 function obGrab(){const M=ME(),v=id=>{const e=$(id);return e?e.value.trim().replace(/\s+/g," "):null};
   if(UI.obStep===1){const f=v("obFull"),n=v("obN"),t=v("obTel"),w=$("obWa");if(f!=null)M.full=f.slice(0,80);if(n!=null)M.nick=(n||f.split(" ")[0]||"").slice(0,40);if(t!=null)M.tel=obPhone(t);if(w)M.waOk=!!w.checked&&!!M.tel;if(window.JX_ACESSO&&window.JX_ACESSO.email)M.email=window.JX_ACESSO.email}
@@ -6858,19 +7156,23 @@ function jwHero(p){p=Object.assign({lt:0,lk:0,rt:0,rk:0,la:6,le:-10,ra:-6,re:-10
   s+=`<ellipse cx="0" cy="1.5" rx="${p.sit?16:13}" ry="3.6" fill="rgba(0,0,0,.35)"/>`;
   s+=`<g transform="rotate(${p.lean} 0 ${hipY})">`;
   s+=jwLeg(hx-1.5,hipY,p.rt,p.rk,1);if(!p.win)s+=jwArm(-1,hipY-17,p.ra,p.re,1);
+  if(!p.nopack){
   // mochila cargueira com piqueta e corda
   s+=`<rect x="-17" y="${hipY-27}" width="13" height="23" rx="4" fill="#3f4a8a"/><rect x="-16" y="${hipY-14}" width="11" height="6" rx="2" fill="#323b72"/><path d="M-16.5 ${hipY-21} h12" stroke="#2a3263" stroke-width="1.4"/>`;
   s+=`<ellipse cx="-10.5" cy="${hipY-28.5}" rx="7" ry="3.6" fill="#ffb347" stroke="#e08d1c" stroke-width="1"/>`;
   s+=`<path d="M-15 ${hipY-38} L-12 ${hipY-6}" stroke="#9aa3c7" stroke-width="1.8" stroke-linecap="round"/><path d="M-19 ${hipY-37} q4 -3 8 0" stroke="#d8dcef" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+  }
   // jaqueta acolchoada (puffer) com faixas
   s+=`<path d="M-7 ${hipY-21} Q-8.5 ${hipY-2} -6 ${hipY+1.5} L7 ${hipY+1.5} Q9 ${hipY-2} 7.5 ${hipY-21} Q0 ${hipY-26} -7 ${hipY-21}Z" fill="url(#jwJk)"/>`;
   [-16,-11,-6,-1].forEach(d=>{s+=`<path d="M-7.6 ${hipY+d} Q0 ${hipY+d+2.2} 8 ${hipY+d}" stroke="#a02a6c" stroke-width="1.1" fill="none" opacity=".8"/>`});
   s+=`<path d="M.5 ${hipY-22} v23" stroke="#ffd2ec" stroke-width="1.1" opacity=".8"/>`;
+  if(!p.nopack){
   // corda enrolada no ombro e cadeirinha
   s+=`<path d="M-6 ${hipY-20} Q3 ${hipY-10} 6 ${hipY-1}" stroke="#ffcf3a" stroke-width="2.4" fill="none"/><path d="M-6.5 ${hipY-17} Q2 ${hipY-8} 5 ${hipY+.5}" stroke="#e9a812" stroke-width="1.4" fill="none"/>`;
   s+=`<rect x="-7.5" y="${hipY-1}" width="15" height="3.6" rx="1.6" fill="#ff7a1a"/><circle cx="3.5" cy="${hipY+3.6}" r="1.9" fill="none" stroke="#d8dcef" stroke-width="1.2"/>`;
+  }
   // alça da mochila
-  s+=`<path d="M-6 ${hipY-21} Q-2 ${hipY-12} -5 ${hipY-2}" stroke="#2a3263" stroke-width="2.4" fill="none"/>`;
+  if(!p.nopack)s+=`<path d="M-6 ${hipY-21} Q-2 ${hipY-12} -5 ${hipY-2}" stroke="#2a3263" stroke-width="2.4" fill="none"/>`;
   // cabeça sem rosto: gola alta, touca com pompom e óculos de neve na touca
   const hy=hipY-31;
   s+=`<path d="M-6 ${hy+5} h12 v6 q-6 3 -12 0z" fill="#7b3cff"/>`;
@@ -7124,7 +7426,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261113073445";
+const JX_BUILD="20261113080059";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7626,7 +7928,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113073445" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113080059" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -12111,7 +12413,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113073445&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113080059&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -14150,7 +14452,7 @@ Texto do edital:
     const id="c"+Date.now().toString(36);
     PLANS.list.push({id,name:N.name.slice(0,80),cargo:(N.cargo||"").slice(0,80),orgao:(N.orgao||"").slice(0,30),banca:(N.banca||"").slice(0,40),prova:N.prova||"",ins:N.ins||"",edUrl:N.edUrl||"",cat:N.cat||"",created:today(),ed:makeSubs(N.subs.map(x=>({n:x.n,q:x.q,t:x.t,bloco:x.bloco||""})),0)});
     if(N.ed&&N.ed.info){try{localStorage.setItem(NPE_K(id),JSON.stringify({info:N.ed.info,cargo:N.ed.cargo||N.cargo||"",file:N.ed.file||"",pages:N.ed.pages||0}))}catch(e){}}
-    if(UI.obNew){PLANS.tjOff=1;UI.obNew=0}await savePlans();UI.np=null;switchPlan(id)},
+    if(UI.obNew){PLANS.tjOff=1;UI.obNew=0;try{localStorage.setItem("jx-depart","1")}catch(e){}}await savePlans();UI.np=null;switchPlan(id)},
   plEdit(){if(IS_TJ)return;const v=k=>($(k)||{value:""}).value.trim();const n=v("peN");if(!n){toast("O nome não pode ficar vazio");return}
     Object.assign(PLAN,{name:n.slice(0,80),cargo:v("peC").slice(0,80),orgao:v("peO").slice(0,30),banca:v("peB").slice(0,40)});savePlans();render();toast("Dados do concurso salvos")},
   plDel(el){const id=el.dataset.id,p=planInfo(id);if(!p||id==="tjsp")return;
@@ -14589,4 +14891,5 @@ Object.assign(A,{
 });
 </script>
 
+<script>setTimeout(()=>{try{if(localStorage.getItem("jx-depart")){localStorage.removeItem("jx-depart");obDepart()}}catch(e){}},1600)</script>
 </body></html>
