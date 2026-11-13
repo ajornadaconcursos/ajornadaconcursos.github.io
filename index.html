@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611131054"></script>
+<script src="/claude-shim.js?v=202611131059"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -3104,6 +3104,10 @@ html .treg-ch select.tsel,html :root[data-skin] header.top .top-in .treg .tsel{p
 .pdfrow>.row:last-child{max-width:min(46vw,500px);flex-wrap:wrap;justify-content:flex-end;gap:6px}
 .pdfrow .btn.tecas{max-width:100%}
 @media (max-width:760px){.pdfrow>.row:last-child{max-width:none}}
+/*JANELAS-LARGAS*/@media (min-width:900px){.modal>.box:not(.ob-box){min-width:min(860px,calc(100vw - 64px));box-sizing:border-box}.modal>.box:not(.ob-box) p,.modal>.box:not(.ob-box) .muted{max-width:none}}
+/*CSREAD*/.cs-read{border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin:6px 0 10px;background:rgba(124,92,255,.05)}.cs-read>summary{cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;list-style:none}.cs-read>summary b{display:inline-flex;gap:6px;align-items:center}.cs-read>summary span{font-size:13px;opacity:.75}
+.cs-rd{display:grid;grid-template-columns:1fr auto;gap:4px 10px;align-items:center;padding:9px 0;border-top:1px solid var(--line)}.cs-rd small{display:block;opacity:.72;font-size:12.5px}.cs-rd>details{grid-column:1/-1}.cs-rd>details summary{cursor:pointer;font-size:13px;opacity:.85}
+.cs-rd ol{margin:6px 0 0;padding:0 0 0 22px;max-height:260px;overflow:auto;font-size:13px}.cs-rd li{padding:3px 0}.cs-rd li>span{display:inline}.cs-rd li button{all:unset;cursor:pointer;opacity:.55;margin-left:8px;vertical-align:middle}.cs-rd li button:hover{opacity:1;color:#ff5f8f}
 /*PE-START*/
 .pe-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(150px,100%),1fr));gap:10px;max-width:100%}.pe-cards.c5{grid-template-columns:repeat(auto-fit,minmax(118px,1fr))}.pe-cards.c4{grid-template-columns:repeat(auto-fill,minmax(min(140px,100%),1fr))}.pe-cards.c2{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 .pe-card{all:unset;box-sizing:border-box;cursor:pointer;display:grid;justify-items:center;align-content:center;gap:4px;text-align:center;padding:14px 10px;border-radius:14px;border:1px solid var(--line);background:rgba(124,92,255,.05);min-height:96px;transition:border-color .2s,background .2s,transform .15s}
@@ -7647,7 +7651,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261113105433";
+const JX_BUILD="20261113105939";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -8149,7 +8153,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113105433" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113105939" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -11486,6 +11490,14 @@ function csPacHTML(X){const P=X.pac||[];if(!P.length)return"";const ed=P.filter(
    <div class="cs-pacl">${(ed.length?ed:P).map(chip).join("")}</div>
    ${ed.length&&fora.length?`<details class="small"><summary>${fora.length} cursos do pacote fora do seu edital (não precisa trazer)</summary><div class="cs-pacl" style="margin-top:6px">${fora.map(chip).join("")}</div></details>`:""}
    <button class="lnk small" data-a="csAccClr">Recomeçar do zero</button></div>`}
+/* o que a plataforma leu: o aluno confere e tira o que não quer (curso inteiro ou aula por aula) */
+function csReadHTML(X){const R=X.res||[];if(!R.length)return"";const tot=R.reduce((a,r)=>a+r.aulas.length,0);
+  return`<details class="cs-read" open><summary><b>${ic("list")} O que eu li${X.link?" no link":""}</b><span>${R.length} curso${R.length>1?"s":""} · ${tot} aula${tot!==1?"s":""} · toque em Tirar no que não quiser</span></summary>
+   ${X.undo?`<div class="row" style="justify-content:flex-end"><button class="btn sm ghost" data-a="csUndo">${ic("reset")} Desfazer</button></div>`:""}
+   ${R.map((r,i)=>`<div class="cs-rd"><div style="min-width:0"><b>${esc(r.curso.slice(0,90))}</b><small>${r.prof?"Prof. "+esc(r.prof.slice(0,50))+" · ":""}${r.aulas.length?r.aulas.length+" aula"+(r.aulas.length>1?"s":""):"aulas depois"}</small></div><button class="btn sm ghost" data-a="csRmC" data-i="${i}" aria-label="Tirar ${esc(r.curso.slice(0,60))}">${ic("trash")} Tirar</button>${r.aulas.length?`<details><summary>${r.aulas.length>1?"Ver as "+r.aulas.length+" aulas":"Ver a aula"}</summary><ol>${r.aulas.map((a,j)=>`<li><span>Aula ${esc(a[0])} · ${esc(a[1])}</span><button data-a="csRmA" data-i="${i}" data-j="${j}" aria-label="Tirar a aula ${esc(a[0])}" title="Tirar esta aula">${ic("close")}</button></li>`).join("")}</ol></details>`:""}</div>`).join("")}</details>`}
+function csSnap(X){X.undo=JSON.stringify({res:X.res,map:X.map,inc:X.inc,drop:X.drop})}
+function csShift(X,i){const f=v=>{const n=+v;return n===i?null:n>i?String(n-1):String(v)};const M={};Object.entries(X.map||{}).forEach(([k,v])=>{if(v==null||v===""){M[k]=v;return}const nv=f(v);if(nv!=null)M[k]=nv});X.map=M;
+  ["inc","drop"].forEach(k=>{if(Array.isArray(X[k]))X[k]=X[k].filter(n=>n!==i).map(n=>n>i?n-1:n)})}
 function csConfHTML(X){const R=X.res||[],used=new Set(Object.values(X.map||{}).filter(v=>v!=null&&v!==""));
   const opts=(sid)=>`<option value="">Sem curso: segue o edital</option>`+R.map((r,i)=>`<option value="${i}" ${String((X.map||{})[sid])===String(i)?"selected":""}>${esc(r.curso.slice(0,70))}${r.prof?" · "+esc(r.prof.slice(0,40)):""} · ${r.aulas.length?r.aulas.length+" aulas":"aulas depois"}</option>`).join("");
   /* curso que sobrou: se é da mesma matéria de um curso já ligado, entra como secundário; se não, o aluno escolhe a matéria */
@@ -11497,6 +11509,7 @@ function csConfHTML(X){const R=X.res||[],used=new Set(Object.values(X.map||{}).f
   const selI=[...new Set([...used].map(Number).concat(...ED.map(S=>estExtra(X,S.id))))].filter(i=>R[i]),totA=R.reduce((a,r)=>a+r.aulas.length,0),selA=selI.reduce((a,i)=>a+R[i].aulas.length,0);
   return`<p class="cs-k">Passo 3 de 3 · Confira</p><h3>Encontrei ${R.length} matéria${R.length>1?"s":""} no seu curso</h3>${cq}
    <div class="cs-tot"><span><b>${R.length}</b> curso${R.length>1?"s":""} no pacote · <b>${totA}</b> aulas no total</span><span>Vão para a plataforma: <b>${selI.length}</b> curso${selI.length>1?"s":""} · <b>${selA}</b> aulas</span></div>
+   ${csReadHTML(X)}
    <p class="muted">Liguei cada matéria do curso à matéria do edital. Se alguma ficou errada, troque na lista. As aulas entram na ordem do curso.</p>
    <div class="cs-ms">${ED.map(s=>{const v=(X.map||{})[s.id],r=v!=null&&v!==""?R[+v]:null;return`<div class="cs-m ${r?"ok":""}"><span class="code" style="border-color:${s.col}">${s.c}</span><div style="min-width:0"><b>${esc(s.n)}</b><select class="inp" data-c="csMap" data-s="${s.id}" aria-label="Curso de ${esc(s.n)}">${opts(s.id)}</select>${r&&!r.aulas.length?`<small>${ic("check")} Curso ligado. As metas seguem o edital; quando quiser, adicione as aulas deste curso em Estudar.</small>`:""}${r&&r.aulas.length?(()=>{const ex=estExtra(X,s.id),dd=estCmpData(s.id,r.aulas);return`${estCand(X,s.id).map(i=>{const on=(X.inc||[]).includes(i);return`<div class="cs-sec ${on?"on":""}"><span><b>Outro curso desta matéria no seu pacote:</b> ${esc((R[i].prof?R[i].curso.replace(/\s*\(Profs?\..*$/i,""):R[i].curso).slice(0,90))}${R[i].prof?" · Prof. "+esc(R[i].prof.slice(0,40)):""}${R[i].aulas.length?" · "+R[i].aulas.length+" aulas":""}</span><button class="btn sm ${on?"":"ghost"}" data-a="estInc" data-i="${i}" aria-pressed="${on}">${on?ic("check")+" Incluído como secundário":ic("plus")+" Incluir como secundário"}</button></div>`}).join("")}<details class="cmpd"><summary>${dd.div?`<b>${dd.div} divergência${dd.div>1?"s":""}</b> com o edital: ver aula × edital`:`${ic("check")} Todas as aulas batem com o edital: ver aula × edital`}</summary>${estCmpHTML(s.id,r.aulas)}</details>`})():""}${r&&r.aulas.length?`<small>${esc(r.aulas.slice(0,2).map(a=>"Aula "+a[0]+" · "+a[1]).join("  |  ").slice(0,140))}${r.aulas.length>2?"…":""}</small>`:r?"":"<small>Segue os tópicos do edital</small>"}</div></div>`}).join("")}</div>
    ${foraI.length?`<div class="cs-fora"><b class="small">${foraI.length>1?"Estes cursos ainda não têm matéria":"Este curso ainda não tem matéria"}: escolha em qual matéria incluir</b>${foraI.map(i=>`<label class="small"><span>${esc(R[i].curso.slice(0,90))}${R[i].prof?" · Prof. "+esc(R[i].prof.slice(0,40)):""}${R[i].aulas.length?" · "+R[i].aulas.length+" aulas":""}</span><select class="inp" data-c="csExtra" data-i="${i}"><option value="">Escolha a matéria</option>${ED.map(S=>`<option value="${S.id}">${esc(S.n)}</option>`).join("")}</select></label>`).join("")}</div>`:""}
@@ -11525,9 +11538,10 @@ async function csRun(src){const X=UI.cs;if(!X)return;if(!SAMPLE){X.err="A IA nã
   catch(e){X.busy="";X.err=e&&e.code==="rate_limited"?"A IA está ocupada agora. Espere um minuto e tente de novo.":"Não consegui organizar o curso agora. Tente de novo ou use outra forma.";csModal();return}
   X.busy="";if(!src.fromLink&&!src.images){X.acc=(X.acc||[]).concat(out)}const all=src.fromLink||src.images?out:X.acc,R=csMerge(all),PK=csPac(all);
   if(!src.fromLink){X.pac=PK;if(out.length)X.txt=""}
-  const RA=src.fromLink?R:csMergeAll(all);
+  if(src.fromLink)X.pac=PK;
+  const RA=csMergeAll(all);
   if(!RA.length){if(src.fromLink){X.lkFail="semaulas";X.tb="link"}else X.err=PK.length?"Encontrei os cursos, mas nenhum bate com as matérias do seu edital. Confira se colou a página do pacote certo.":"Não achei os seus cursos nesse texto. Abra a página do seu pacote (a lista dos seus cursos), copie tudo e cole de novo.";csModal();return}
-  R.length=0;RA.filter(r=>!estOther(r.curso)).forEach(r=>R.push(r));estEnrich(R,(X.sel||[]).includes("Estratégia Concursos")||/estrategia/i.test(X.link||"")||/estrat[eé]gia/i.test(String(src.txt||"").slice(0,6000)));
+  {const keep=RA.filter(r=>!estOther(r.curso));R.length=0;keep.forEach(r=>R.push(r))}estEnrich(R,(X.sel||[]).includes("Estratégia Concursos")||/estrategia/i.test(X.link||"")||/estrat[eé]gia/i.test(String(src.txt||"").slice(0,6000)));
   if(X.pageLinks&&X.pageLinks.length)csLinkAulas(R,X.pageLinks);
   X.res=R;X.map={};const taken=new Set();
   ED.forEach(s=>{let bi=-1,bn=-1;R.forEach((r,i)=>{if(r.sid===s.id&&r.aulas.length>bn&&!taken.has(i)){bi=i;bn=r.aulas.length}});if(bi<0)R.forEach((r,i)=>{if(bi<0&&!r.sid&&!taken.has(i)&&cdice(nTok(r.curso),nTok(s.n))>=.5)bi=i});if(bi>=0){X.map[s.id]=String(bi);taken.add(bi)}});
@@ -12634,7 +12648,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113105433&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113105939&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -14409,6 +14423,9 @@ const A={
   csAccClr(){const X=UI.cs;if(!X||X.busy)return;X.acc=[];X.pac=[];X.txt="";X.err="";csModal()},
   csMore(){const X=UI.cs;if(!X)return;X.step="trazer";X.tb="colar";X.err="";csModal()},
   async csTxGo(){const X=UI.cs;csKeep();const t=(X.txt||"").trim();if(t.replace(/\s/g,"").length<120){toast("Toque em Colar (ou cole na caixa) a página do seu pacote");return}await csRun({txt:t})},
+  csRmC(el){const X=UI.cs;if(!X||!X.res)return;const i=+el.dataset.i;if(!X.res[i])return;csSnap(X);const nm=X.res[i].curso;X.res.splice(i,1);csShift(X,i);csModal();toast("Tirei "+nm.slice(0,50))},
+  csRmA(el){const X=UI.cs;if(!X||!X.res)return;const r=X.res[+el.dataset.i];if(!r)return;csSnap(X);r.aulas.splice(+el.dataset.j,1);csModal()},
+  csUndo(){const X=UI.cs;if(!X||!X.undo)return;try{Object.assign(X,JSON.parse(X.undo))}catch(e){}X.undo=null;csModal()},
   csConfOk(){const X=UI.cs;const n=csApply();X.step="mats";csModal();toast(n+" matéria"+(n>1?"s":"")+" ligada"+(n>1?"s":"")+" aos seus cursos")},
   csFim(){const n=ED.filter(s=>courseList(s.id).some(c=>c.role==="principal")).length;csSave(n?"curso":"edital");UI.cs=null;$("layer3").innerHTML="";render();toast(n?n+" matéria"+(n>1?"s seguem":" segue")+" o seu curso; as outras seguem o edital":"As metas seguem o edital até você vincular um curso")},
   tuInvGo(){$("layer3").innerHTML="";UI.tut="inicio";TUTP.s=0;TUTP.play=1;TAB="tutorial";try{history.replaceState(null,"","#tutorial")}catch(e){}render();window.scrollTo(0,0)},
