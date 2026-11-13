@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611122052"></script>
+<script src="/claude-shim.js?v=202611122058"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -7027,7 +7027,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261112205210";
+const JX_BUILD="20261112205848";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7529,7 +7529,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112205210" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112205848" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -8084,7 +8084,7 @@ function vMeta(){try{ensureCodes()}catch(e){console.error(e)}
     ${VIS()?`<div class="hj-side">${nextCardJx(r,rem)}${revMini()}</div>`:nextCard(r,rem)}</div>`;
   const mv=UI.mview||"lista";
   h+=`<div class="mvt" role="group" aria-label="Visualização da meta"><button data-a="mview" data-v="lista" aria-pressed="${mv==="lista"}">${ic("list")} Lista</button><button data-a="mview" data-v="cal" aria-pressed="${mv==="cal"}">${ic("concurso")} Calendário</button>
-    <span class="sp"></span><button class="btn sm pri" data-a="apOpen">${ic("rotina")} Ajustar plano</button><button class="btn sm" data-a="iaOpen">${ic("bulb")} Falar com a IA</button>${xtrCur()?"":`<button class="btn sm ghost" data-a="xtrOpen">${ic("plus")} Estudo extra</button>`}${(core().planB||{})[today()]?"":`<button class="btn sm ghost" data-a="pbOn">${ic("rotina")} Pouco tempo hoje</button>`}${c.gj?`<button class="btn sm" data-a="gjOpen">${ic("ext")} Sincronizar com o Guruja</button>`:r.done?"":`<button class="btn sm" data-a="more2">${ic("plus")} Adicionar 2 atividades</button>`}</div>`;
+    <span class="sp"></span><button class="btn sm pri" data-a="apOpen">${ic("rotina")} Ajustar plano</button><button class="btn sm" data-a="iaOpen">${ic("bulb")} Falar com a IA</button>${xtrCur()?"":`<button class="btn sm ghost" data-a="xtrOpen">${ic("plus")} Estudo extra</button>`}${(core().planB||{})[today()]?"":`<button class="btn sm ghost" data-a="pbOn">${ic("rotina")} Pouco tempo hoje</button>`}<button class="btn sm" data-a="syncOpen">${ic("swap")} Sincronizar com outra plataforma</button>${c.gj?`<button class="btn sm" data-a="gjOpen">${ic("ext")} Sincronizar com o Guruja</button>`:r.done?"":`<button class="btn sm" data-a="more2">${ic("plus")} Adicionar 2 atividades</button>`}</div>`;
   const RF=allRefs().filter(x=>!x.done),rfLate=RF.filter(x=>refLeft(x)<=5).length,mt=UI.mtab||"atv";
   h+=`<div class="mst" role="group" aria-label="Atividades ou reforços"><button data-a="mtab" data-v="atv" aria-pressed="${mt==="atv"}">Atividades | ${ts.length}</button><button data-a="gtab" data-t="reforcos" title="Os reforços ficam em Revisar">Reforços | ${RF.length}${rfLate?' <span class="bang" title="Reforço perto do prazo">!</span>':""} ›</button>${mt==="atv"&&mv!=="cal"?`<span class="sp"></span><select class="inp mfilt" data-c="mfilt" aria-label="Filtrar atividades"><option value="todas" ${UI.filter==="todas"?"selected":""}>Todas · ${ts.length}</option><option value="pend" ${UI.filter==="pend"?"selected":""}>Pendentes · ${ts.length-ts.filter(t=>t.done).length}</option><option value="feitas" ${UI.filter==="feitas"?"selected":""}>Cumpridas · ${ts.filter(t=>t.done).length}</option></select>`:""}</div>`;
   if(mv==="cal")h+=calHTML(r,ts,locks);
@@ -8571,7 +8571,7 @@ function asModal(){const S=UI.as;if(!S){$("layer3").innerHTML="";return}const c=
     ${S.mode==="base"?`<div class="asbase">
       <div class="row" style="gap:8px;align-items:end"><label class="small" style="display:grid;gap:4px;flex:1 1 220px">Uma meta deste concurso<select class="inp" id="asBM">${core().metas.slice().reverse().map(m=>`<option value="${m.n}">Meta ${pad(m.n)}${m.n===core().cur?" (atual)":""} · ${tasksOf(m.n).length} atividades</option>`).join("")}</select></label><button class="btn sm" data-a="asBaseMeta">Usar esta meta</button></div>
       ${allPlans().filter(p=>p.id!==ACTIVE).length?`<div class="row" style="gap:8px;align-items:end"><label class="small" style="display:grid;gap:4px;flex:1 1 220px">A meta atual de outro concurso<select class="inp" id="asBO">${allPlans().filter(p=>p.id!==ACTIVE).map(p=>`<option value="${p.id}">${esc(pName(p))}</option>`).join("")}</select></label><button class="btn sm" data-a="asBaseOther">Usar este concurso</button></div>`:""}
-      <label class="small" style="display:grid;gap:4px">Ou cole um planejamento (de outra plataforma, de um professor, de uma planilha…), uma atividade por linha<textarea class="inp" id="asBT" rows="4" placeholder="Ex.: Direito Constitucional – Aula 03 – teoria&#10;Português – revisão da Aula 02&#10;Contabilidade – 20 questões">${esc(S.baseTxt||"")}</textarea></label>
+      <label class="small" style="display:grid;gap:4px">Sincronizar com outra plataforma: cole o planejamento (da outra plataforma, de um professor, de uma planilha…), uma atividade por linha<textarea class="inp" id="asBT" rows="4" placeholder="Ex.: Direito Constitucional – Aula 03 – teoria&#10;Português – revisão da Aula 02&#10;Contabilidade – 20 questões">${esc(S.baseTxt||"")}</textarea></label>
       <div class="row"><button class="btn sm" data-a="asBaseText">${ic("list")} Montar com este texto</button></div>
       <p class="muted small" style="margin:0">O painel usa a mesma sequência de matérias e tipos de atividade, mas cada matéria continua de onde você parou, com as páginas certas.</p></div>`:""}
     ${S.confirm?`<div class="asconf" role="alertdialog" aria-label="Confirmar planejamento"><b>${ic("check")} Planejamento gerado: ${S.rows.length} atividades · ${fmtM(tot)}${nCh?" · "+nCh+" fora da ordem":""}.</b><span>Confira a lista abaixo. Está a contento? Posso ${S.tg==="cur"?"aplicar na meta atual":"salvar como a próxima meta"}?</span>
@@ -11976,7 +11976,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112205210&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112205848&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -13633,6 +13633,7 @@ const A={
   asConfEdit(){const S=UI.as;if(!S)return;S.confirm=false;S.msg="Ajuste o que quiser e toque em "+(S.tg==="cur"?"Aplicar":"Salvar")+" quando estiver pronto.";asModal()},
   asConfNo(){const S=UI.as;if(!S)return;S.confirm=false;S.rows=JSON.parse(S.orig);S.msg="Planejamento gerado descartado. Nada mudou.";asModal()},
   asBlank(){const S=UI.as;if(!S)return;S.rows=S.rows.filter(t=>t.done);S.mode="own";S.confirm=false;S.msg="Lista vazia: monte o seu planejamento com “Adicionar atividade”. O painel avisa se algo sair da ordem das aulas.";asModal()},
+  syncOpen(){asOpen();const S=UI.as;if(!S)return;S.mode="base";S.confirm=false;asModal();setTimeout(()=>{const t=$("asBT");if(t){t.focus();t.scrollIntoView({block:"center"})}},80)},
   asBaseOpen(){const S=UI.as;if(!S)return;S.mode="base";S.confirm=false;asModal()},
   asMode(el){const S=UI.as;if(!S)return;S.mode=el.dataset.v;asModal()},
   asBaseMeta(){const S=UI.as,v=($("asBM")||{}).value;if(!S||!v)return;asBaseFromMeta(+v)},
