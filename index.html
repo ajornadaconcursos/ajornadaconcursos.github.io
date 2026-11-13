@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611131005"></script>
+<script src="/claude-shim.js?v=202611131009"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -3968,6 +3968,10 @@ function oaScene3(n){let s=`<rect width="640" height="250" fill="#2a2348"/>`;
   const bx=hx+16*k,by=hy-26*k,its=["#ffcf3a","#5ad1ff","#ff5f8f","#2fbf6a","#ff7a1a","#7b3cff"];
   for(let i=0;i<Math.min(n,6);i++){const x=bx-14+i*6+(i%2)*2,y=by-6-(i%3)*5;s+=`<rect class="oa-it" x="${x}" y="${y}" width="9" height="12" rx="2.5" fill="${its[i]}" style="--d:${(i*.12).toFixed(2)}s"/>`}
   s+=`<path d="M${bx-20} ${by-8} q20 -26 40 0" stroke="#86593a" stroke-width="2.4" fill="none"/><path d="M${bx-22} ${by-4} h44 l-5 20 h-34z" fill="#c47a3a"/><path d="M${bx-20} ${by+2} h40 M${bx-18} ${by+8} h36 M${bx-16} ${by+14} h32" stroke="#86593a" stroke-width="1.4"/>`;
+  /* inventário do alpinista: cada curso ou plataforma marcado vira um item no balcão */
+  {let L=[];try{const M=ME();L=(M.cur||[]).concat(M.out?[M.out]:[])}catch(e){}s+=`<g transform="translate(246 168)"><text x="0" y="6" font-size="6.5" font-weight="900" fill="#ffe7a8" letter-spacing="1">INVENTÁRIO</text>`;
+   for(let i=0;i<6;i++){const x=(i%3)*50,y=12+Math.floor(i/3)*16,nm=L[i]?String(L[i]).replace(/ Concursos?$/,"").slice(0,10):"";s+=`<rect x="${x}" y="${y}" width="46" height="13" rx="3" fill="${nm?"#3f4a8a":"rgba(0,0,0,.18)"}" stroke="${nm?"#ffd166":"rgba(255,231,168,.35)"}" stroke-width="1" ${nm?`class="oa-it" style="--d:${(i*.12).toFixed(2)}s"`:""}/>${nm?`<text x="${x+23}" y="${y+9}" text-anchor="middle" font-size="6.2" font-weight="800" fill="#fff">${esc(nm)}</text>`:""}`}
+   s+=`</g>`}
   if(n)s+=`<g transform="translate(${bx+22} ${by-34})"><circle r="11" fill="#ffd166"/><text y="4" text-anchor="middle" font-size="11" font-weight="900" fill="#2b1a00">${n}</text></g>`;
   return s}
 
@@ -3995,6 +3999,8 @@ function oaScene4(){let s=`<rect width="640" height="250" fill="url(#oaNight)"/>
   [[232,206,30,8],[232,206,16,4]].forEach(([cx,cy,rx,ry])=>{s+=`<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="none" stroke="#a87a3a" stroke-width="1.1" opacity=".7"/>`});
   s+=`<path d="M176 222 Q220 214 260 222 T340 222 T420 210 T490 214" stroke="#5ab8e6" stroke-width="2.4" fill="none" opacity=".85"/>`;
   s+=`<path class="oa-route oa-draw" pathLength="100" d="M180 214 Q214 196 246 204 T300 196 T330 198" stroke="#e0263f" stroke-width="2.2" stroke-dasharray="5 4" fill="none"/><path d="M325 193 l10 10 M335 193 l-10 10" stroke="#e0263f" stroke-width="3" stroke-linecap="round"/>`;
+  {let ar="",pr="";try{const M=ME();ar=((typeof PE_AREA!=="undefined"&&PE_AREA.find(x=>x[0]===M.area))||[])[1]||"";pr=M.prep==="pos"?"Pós-edital":M.prep==="pre"?"Pré-edital":""}catch(e){}
+   const t=["ROTA",ar,pr].filter(Boolean).join(" · ").toUpperCase();s+=`<text x="300" y="183" text-anchor="middle" font-size="7.5" font-weight="900" fill="#7a5a2a" letter-spacing="1.2">${esc(t==="ROTA"?"ROTA ATÉ O CUME":t)}</text>`}
   [[200,207],[246,204],[288,197]].forEach(([x,y],i)=>{s+=`<g class="oa-wp" style="--d:${(.8+i*.5).toFixed(1)}s" transform="translate(${x} ${y})"><path d="M0 0 l-4 -8 h8z" fill="#7b3cff"/><circle cy="-9" r="3.4" fill="#7b3cff"/><text y="-7.4" text-anchor="middle" font-size="4.6" font-weight="900" fill="#fff">${i+1}</text></g>`});
   s+=`<g transform="translate(462 186)"><circle r="12" fill="none" stroke="#a87a3a" stroke-width="1"/><path d="M0 -12 L3 0 L0 12 L-3 0Z" fill="#a87a3a"/><path d="M0 -12 L3 0 L-3 0Z" fill="#e0263f"/><text y="-14" text-anchor="middle" font-size="6" font-weight="900" fill="#a87a3a">N</text></g>`;
   // bússola, caneca fumegante e lápis
@@ -7614,7 +7620,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261113100557";
+const JX_BUILD="20261113100953";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -8116,7 +8122,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113100557" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113100953" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -12601,7 +12607,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113100557&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113100953&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
