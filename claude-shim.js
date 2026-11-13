@@ -439,7 +439,9 @@
           if (!fs || !fs.length) break;
           const { error: re } = await sb.storage.from(BUCKET).remove(fs.map(f => UID + "/" + f.name)); if (re) throw stErr(re);
         }
+        const ts = Date.now(); try { await sb.auth.updateUser({ data: { jx_reset: ts } }); } catch (e) { }
         Object.keys(localStorage).forEach(k => { if (!/^sb-.*-auth-token$/.test(k) && k !== "jx-owner") localStorage.removeItem(k); });
+        try { localStorage.setItem("jx-reset-seen", String(ts)); } catch (e) { }
         try { indexedDB.deleteDatabase("jornada-tjsp-pdfs"); } catch (e) { }
         say("Pronto! Dados apagados. Entre de novo para escolher o seu concurso…"); try { window.jxSplash(true, "Dados apagados. Preparando a sua Jornada…"); } catch (e) { }
         try { sessionStorage.setItem("jx-msg", "Dados apagados. Entre de novo para começar do zero e escolher o seu concurso."); } catch (e) { }
@@ -602,6 +604,24 @@
   }
 
   /* ---------- início ---------- */
+  /* "Apagar meus dados e recomeçar" vale para TODOS os aparelhos: quem ainda tem a cópia antiga apaga a cópia local e não manda nada antigo de volta */
+  async function resetCheck(user, boot) {
+    try {
+      let u = user; try { const r = await sb.auth.getUser(); if (r && r.data && r.data.user) u = r.data.user; } catch (e) { }
+      if (!u) return false;
+      const rs = +((u.user_metadata || {}).jx_reset || 0), seen = +(localStorage.getItem("jx-reset-seen") || 0);
+      if (!rs || rs <= seen) return false;
+      const appKeys = Object.keys(localStorage).filter(k => !/^sb-.*-auth-token$/.test(k) && k !== "jx-owner" && k !== "jx-reset-seen");
+      if (boot && !appKeys.length) { localStorage.setItem("jx-reset-seen", String(rs)); return false; }
+      IMPORTING = true;
+      appKeys.forEach(k => localStorage.removeItem(k));
+      try { indexedDB.deleteDatabase("jornada-tjsp-pdfs"); } catch (e) { }
+      localStorage.setItem("jx-reset-seen", String(rs));
+      try { sessionStorage.setItem("jx-msg", "Os dados desta conta foram apagados. Começando do zero."); } catch (e) { }
+      try { window.jxSplash(true, "Dados apagados. Começando do zero…"); } catch (e) { }
+      setTimeout(() => location.reload(), 300); return true;
+    } catch (e) { return false; }
+  }
   async function start() {
     if (!SB_URL || !SB_KEY || !window.supabase || !window.supabase.createClient) { hideSplash(); gate("cfg", !window.supabase ? "A biblioteca do Supabase não carregou. Confira a internet." : ""); return; }
     sb = window.supabase.createClient(SB_URL, SB_KEY, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
@@ -625,6 +645,9 @@
         }
         localStorage.setItem("jx-owner", UID);
       } catch (e) { }
+      if (await resetCheck(s.user, true)) return;
+      setInterval(() => { resetCheck(null, false); }, 45000);
+      document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") resetCheck(null, false); });
       const g = $("#jx-gate"); if (g) { try { window.jxSplash(true, "Entrando na sua Jornada…"); } catch (e) { } g.style.pointerEvents = "none"; requestAnimationFrame(() => g.remove()); }
       const ok = await trialCheck(s.user);
       if (!ok) return;
