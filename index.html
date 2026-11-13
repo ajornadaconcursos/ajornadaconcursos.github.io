@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611130724"></script>
+<script src="/claude-shim.js?v=202611130734"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -3544,7 +3544,7 @@ const dirty=new Set();let saveT=0,DB=null,UID=null,BASE="",ASSETS=null,SAMPLE=nu
    bizus, leitura de PDFs/cadernos e perguntas sobre as páginas; os "pontos de atenção" da atividade de teoria ficam no Sonnet; o padrão (Claude Sonnet) fica para o que exige
    raciocínio fino: questões e simulados (incl. Certo/Errado), correção de discursiva, explicação de gabarito,
    diagnóstico, planejamento, edital e transcrição de imagens. Para trocar tudo de volta ao Sonnet, mude para "default". */
-const IA_LEVE="quick";
+const IA_LEVE="quick",IA_EDITAL="complex";
 let AI_OFF=0;window.addEventListener("jx-ai-off",()=>{if(AI_OFF)return;AI_OFF=1;SAMPLE=null;setTimeout(()=>{toast("A IA ainda não está ativa: o painel segue no modo automático, com as questões do PDF.");try{render();if(UI.openT)renderDrawer()}catch(e){}},400)});
 function touch(k){if(k==="m-0")k="ref";try{undoRec(k)}catch(e){}dirty.add(k);dirty.add("core");core().upd=Date.now();clearTimeout(saveT);saveT=setTimeout(flush,650)}
 /* os flash cards podem passar do limite do localStorage (~5 MB): nesse caso eles vão para o IndexedDB do aparelho */
@@ -4728,16 +4728,29 @@ const tecGuiaCad=sid=>IS_TJ&&TECGC[sid]?TB+"/questoes/cadernos/"+TECGC[sid]:"";
 /* guia do TEC lido pelo favorito: core().tecGuia={t,u,b,at,m:{sid:[{n,q,cad,cq,as:[{n,q,cad,qq}]}]},un:[...]} */
 const tecGuiaM=sid=>((core().tecGuia||{}).m||{})[sid]||[];
 function tecAsList(sid){return tecGuiaM(sid).flatMap(g=>(g.as||[]).filter(a=>a.cad).map(a=>Object.assign({mat:g.n},a)))}
-function tecAsCad(sid,txt){if(!txt)return null;const T=nTok(txt);let best=null,bv=0;tecAsList(sid).forEach(a=>{const v=cdice(nTok(a.n),T);if(v>bv){bv=v;best=a}});return bv>=.4?best:null}
+/* caderno do guia para um assunto: só quando o nome é o mesmo (ou quase: 85%); parecido não serve, senão "Verbo" cai em "Classes de Palavras" e vêm questões de substantivo */
+function tecAsCad(sid,txt){if(!txt)return null;const nt=norm(txt).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim(),T=nTok(txt);let best=null,bv=0;
+  tecAsList(sid).forEach(a=>{const na=norm(a.n).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();const v=na===nt?1:cdice(nTok(a.n),T);if(v>bv){bv=v;best=a}});return bv>=.85?best:null}
 function tecMatCad(sid){if(!sid)return null;const T=core().cfg.tecs||{};if(T[sid])return{url:T[sid],k:"seu"};
   {const g=tecGuiaM(sid).filter(x=>x.cad).sort((a,b)=>(b.cq||0)-(a.cq||0))[0];if(g)return{url:TB+"/questoes/cadernos/"+g.cad,k:"auto",n:g.cq,b:g.b}}
   const x=(core().tecAuto||{})[sid+"|*"];if(x&&x.id)return{url:TB+"/questoes/cadernos/"+x.id,k:"auto",n:x.n,b:x.b};
   const g=tecGuiaCad(sid);if(g)return{url:g,k:"guia"};return null}
 /* caderno da aula: o da aula (criado na conta do aluno) > o da matéria */
-function tecAulaUrl(sid,c){return tecAulaDirect(sid,c)||((m=>m?m.url:"")(tecMatCad(sid)))}
+/* questões de uma aula nunca abrem a matéria inteira: sem caderno do assunto, o link cria no TEC o caderno só desse assunto (com a banca) */
+function tecAulaUrl(sid,c){const u=tecAulaDirect(sid,c);if(u)return u;const it=tecAulaItem(sid,c);return it?tecJobUrl([it]):((m=>m?m.url:"")(tecMatCad(sid)))}
 /* caderno só do assunto da aula: o criado na conta do aluno para a aula > o assunto do guia que bate com a aula (TEC + edital) */
-function tecAulaDirect(sid,c){if(!sid||!c)return"";const x=(core().tecAuto||{})[sid+"|"+c];if(x&&x.id&&!x.g)return TB+"/questoes/cadernos/"+x.id;
-  const a=auOf(sid,c),S=SUB(sid),ga=(typeof TECGA!=="undefined"&&IS_TJ?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[]),txt=a?[...ga,a.d,...(a.tp||[]).map(j=>S.t&&S.t[j]&&S.t[j][0])].filter(Boolean):ga;
+/* cadernos antigos já criados na conta do aluno: confere se o assunto do TEC usado bate com a aula; se não bate, deixa de usar e o botão cria o certo */
+function tecAutoOk(sid,c,x){if(!x||!x.as)return true;const a=auOf(sid,c),S=SUB(sid),ga=(typeof TECGA!=="undefined"&&IS_TJ?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[]);
+  const pc=x2=>String(x2||"").includes(":")?String(x2).split(":").slice(1).join(":"):String(x2||"");
+  /* com o índice do guia (nomes do próprio TEC), compara só com ele: os tópicos do edital costumam juntar várias classes num item só */
+  const ctx=(ga.length?ga:[pc(a&&a.d),...((a&&a.tp)||[]).map(j=>S.t&&S.t[j]&&pc(S.t[j][0]))]).filter(Boolean).flatMap(t=>String(t).split(/[;,]|\s+e\s+/)).map(t=>t.trim()).filter(t=>t.length>2);
+  if(!ctx.length)return true;const L=String(x.as).split(/;\s*/).filter(Boolean);
+  return L.some(n=>ctx.some(t=>{const A=nTok(n),B=nTok(t);return cdice(A,B)>=.66||(A.size>=2&&[...A].every(w=>B.has(w)))||(B.size>=2&&[...B].every(w=>A.has(w)))}))}
+function tecAulaDirect(sid,c){if(!sid||!c)return"";const x=(core().tecAuto||{})[sid+"|"+c];if(x&&x.id&&!x.g&&tecAutoOk(sid,c,x))return TB+"/questoes/cadernos/"+x.id;
+  const a=auOf(sid,c),S=SUB(sid),ga=(typeof TECGA!=="undefined"&&IS_TJ?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[]),
+    /* o título da aula entra só pelo trecho específico (depois dos dois-pontos): "Classes de palavras: preposição" vale como "preposição", nunca como "Classes de palavras" */
+    piece=x=>String(x||"").includes(":")?String(x).split(":").slice(1).join(":"):String(x||""),
+    txt=a?[...ga,...(ga.length?[]:[piece(a.d),...(a.tp||[]).map(j=>S.t&&S.t[j]&&piece(S.t[j][0]))])].filter(Boolean):ga;
   for(const t of txt){const k=tecAsCad(sid,t);if(k)return TB+"/questoes/cadernos/"+k.cad}return""}
 /* pedido para o favorito criar no TEC o caderno só do assunto desta aula (nomes do Índice do guia do cargo primeiro, depois os do edital) */
 function tecAulaItem(sid,c){const S=SUB(sid),a=auOf(sid,c);if(!a||String(c).startsWith("x:"))return null;const ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[];
@@ -4745,7 +4758,10 @@ function tecAulaItem(sid,c){const S=SUB(sid),a=auOf(sid,c);if(!a||String(c).star
   const kw=[...new Set((a.tp||[]).flatMap(j=>S.t&&S.t[j]&&Array.isArray(S.t[j][1])?S.t[j][1]:[]).concat((a.tp||[]).map(j=>S.t&&S.t[j]&&S.t[j][0]).filter(Boolean)))].join(" ").slice(0,260);
   return al.length?{k:sid+"|"+c,m:TECN[sid]||S.n,t:String(a.d||c).slice(0,90),a:al,kw:kw?[kw]:[]}:null}
 function tecAsLbl(sid,c){const a=auOf(sid,c),S=SUB(sid),ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[];const x=(core().tecAuto||{})[sid+"|"+c];const L=x&&x.as&&!x.g?String(x.as).split(/;\s*/):ga.length?ga:a?[tShort(a.d||"")]:[];return{m:TECN[sid]||S.n,a:L.filter(Boolean).slice(0,3)}}
-function tecAulaBtn(sid,c,cls){const u=tecAulaDirect(sid,c),L=tecAsLbl(sid,c),X=(core().tecAuto||{})[sid+"|"+c]||{},bk=X.b||"",lb=`${ic("target")} Questões${bk?" "+esc(bk):""}: <b>${esc(L.m)}</b>${L.a.length?" › "+esc(L.a.join(" / ")):""}${X.ob?` <small class="tec-ob">poucas da ${esc(tecBanca()||"sua banca")} neste assunto: completado com outras bancas</small>`:""}`;if(u)return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(u)}" target="_blank" rel="noopener" title="Caderno na sua conta do TEC só com a matéria ${esc(L.m)} e o assunto ${esc(L.a.join("; "))}">${lb}</a><button class="btn sm ghost" data-a="tecFix" data-s="${sid}" data-c="${esc(c)}" title="O caderno trouxe questões de outro assunto? Diga o assunto certo e o TEC cria outro">Assunto errado?</button>`;
+function tecAulaBtn(sid,c,cls){const u=tecAulaDirect(sid,c),L=tecAsLbl(sid,c),X=(core().tecAuto||{})[sid+"|"+c]||{},bk=X.b||"",lb=`${ic("target")} Questões${bk?" "+esc(bk):""}: <b>${esc(L.m)}</b>${L.a.length?" › "+esc(L.a.join(" / ")):""}${X.ob?` <small class="tec-ob">a ${esc(tecBanca()||"sua banca")} não tem questões deste assunto: caderno com outras bancas</small>`:""}`;
+  /* banca até esgotar: quando ela tem poucas questões do assunto, o aluno faz todas e depois completa com outras bancas */
+  const C2=(core().tecAuto||{})[sid+"|"+c+"|ob"],it2=X.pb&&!C2?tecAulaItem(sid,c):null;
+  const comp=X.pb?`<small class="tec-ob">a ${esc(X.b||tecBanca()||"banca")} tem só ${X.pb} questões deste assunto: faça todas primeiro${C2?"":"; depois"}</small>${C2&&C2.id?`<a class="btn sm ghost" href="${TB}/questoes/cadernos/${C2.id}" target="_blank" rel="noopener">${ic("ext")} Outras bancas (${C2.n||""})</a>`:it2?`<a class="btn sm ghost" href="${esc(tecJobUrl([Object.assign({},it2,{k:sid+"|"+c+"|ob",ob:1})]))}" target="_blank" rel="noopener" data-tecjob="1">${ic("plus")} Completar com outras bancas</a>`:""}`:"";if(u)return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(u)}" target="_blank" rel="noopener" title="Caderno na sua conta do TEC só com a matéria ${esc(L.m)} e o assunto ${esc(L.a.join("; "))}">${lb}</a>${comp}<button class="btn sm ghost" data-a="tecFix" data-s="${sid}" data-c="${esc(c)}" title="O caderno trouxe questões de outro assunto? Diga o assunto certo e o TEC cria outro">Assunto errado?</button>`;
   const it=tecAulaItem(sid,c);if(!it)return"";return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(tecJobUrl([it]))}" target="_blank" rel="noopener" data-tecjob="1" title="Abre o TEC e cria na sua conta um caderno só com a matéria ${esc(it.m)} e o assunto: ${esc(it.a.join("; "))}">${lb}</a>`}
 document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-tecjob]");if(!a)return;if(isTouchDev()){e.preventDefault();tecMobModal(a.href);return}toast("No TEC, toque no favorito ➜ A Jornada: ele filtra a matéria e o assunto exato desta aula, cria o caderno na sua conta e volta. Da próxima vez o botão abre direto nas questões desse assunto.")},true);
 function tecKind(sid){const m=tecMatCad(sid);return m?(m.k==="auto"?"seu":m.k):TECL.sub[sid]?"guia":"busca"}
@@ -4779,7 +4795,7 @@ const TECCAT=[
 const tecCadLink=c=>c.url||TB+"/s/"+c.s;
 /* cadernos criados automaticamente na conta do aluno: core().tecAuto["sid|aula"]={id,n,b,as,g,at} */
 const tecAutoMap=()=>core().tecAuto||{};
-function tecAutoFor(t){const M=tecAutoMap();for(const c of aSet(t)){const x=M[t.sid+"|"+c];if(x&&x.id&&!x.g){const a=auOf(t.sid,c);return{id:x.id,n:x.n||25,b:x.b||"Todas",t:"A Jornada · "+(TECN[t.sid]||(SUB(t.sid)||{}).n||"")+" · "+((a&&a.d)||c),l:(a&&a.d)||"",as:x.as||"",url:TB+"/questoes/cadernos/"+x.id,own:1,g:x.g}}}return null}
+function tecAutoFor(t){const M=tecAutoMap();for(const c of aSet(t)){const x=M[t.sid+"|"+c];if(x&&x.id&&!x.g&&tecAutoOk(t.sid,c,x)){const a=auOf(t.sid,c);return{id:x.id,n:x.n||25,b:x.b||"Todas",t:"A Jornada · "+(TECN[t.sid]||(SUB(t.sid)||{}).n||"")+" · "+((a&&a.d)||c),l:(a&&a.d)||"",as:x.as||"",url:TB+"/questoes/cadernos/"+x.id,own:1,g:x.g}}}return null}
 /* uma aula por item: matéria, título e assuntos do edital ligados à aula */
 function tecJob(){const M=tecAutoMap(),items=[];ED.forEach(S=>{if(!(M[S.id+"|*"]&&M[S.id+"|*"].id)&&!(core().cfg.tecs||{})[S.id])items.push({k:S.id+"|*",m:TECN[S.id]||S.n,t:"Matéria inteira",a:[],n:60})});ED.forEach(S=>{AU(S.id).forEach(a=>{if(!a||String(a.c).startsWith("x:"))return;const k=S.id+"|"+a.c;if(M[k]&&M[k].id)return;
     const tp=(a.tp||[]).map(j=>S.t[j]&&S.t[j][0]).filter(Boolean).map(x=>tShort(x)),ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[S.id+"|"+a.c]||[]).map(z=>z[0]):[];const al=[...new Set([...ga,tShort(a.d||""),...tp].filter(x=>x&&x.length>=3))].slice(0,6);if(!al.length)return;
@@ -4827,7 +4843,7 @@ function tcaCard(){try{const M=PLANS.me;if(M&&M.at&&!M.setupOk&&PLANS.onb)return
 /* logo depois de escolher o concurso (e quando entram aulas novas), a plataforma oferece criar os cadernos sozinha, uma vez */
 function tcaAuto(){try{if(!READY||obPending())return;const L3=$("layer3");if(L3&&L3.innerHTML.trim()){setTimeout(tcaAuto,4000);return}
   const c=core(),pj=tecJob().length;if(!pj)return;if(c.tcaAsk&&pj<=(c.tcaPend||0))return;c.tcaAsk=Date.now();c.tcaPend=pj;touch("core");tcaModal()}catch(e){}}
-function tecAutoSave(P){const c=core();c.tecAuto=c.tecAuto||{};let n=0;(P.cads||[]).forEach(x=>{if(!x||!x.k||!(+x.id>0))return;c.tecAuto[x.k]={id:+x.id,n:+x.n||25,b:String(x.b||"").slice(0,30),as:String(x.as||"").slice(0,300),g:x.g?1:0,ob:x.ob?1:0,at:today()};n++});
+function tecAutoSave(P){const c=core();c.tecAuto=c.tecAuto||{};let n=0;(P.cads||[]).forEach(x=>{if(!x||!x.k||!(+x.id>0))return;c.tecAuto[x.k]={id:+x.id,n:+x.n||25,b:String(x.b||"").slice(0,30),as:String(x.as||"").slice(0,300),g:x.g?1:0,ob:x.ob?1:0,pb:+x.pb||0,xb:x.xb?1:0,at:today()};n++});
   c.tcaPend=tecJob().length;touch("core");render();const f=(P.fail||[]).length;toast(n?n+" caderno"+(n>1?"s":"")+" do TEC gravado"+(n>1?"s":"")+" nas tarefas de questões"+(f?" · "+f+" aula"+(f>1?"s":"")+" sem questões no TEC":""):"Nenhum caderno chegou do TEC")}
 /* ---------- Questões por matéria quando o edital dá o número do BLOCO, e incidência pelo TEC ----------
    Ex.: "BLOCO II: Conhecimentos em Direito – 40 questões" vale para Penal, Processo Penal, Civil… juntos.
@@ -7108,7 +7124,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261113072455";
+const JX_BUILD="20261113073445";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7610,7 +7626,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113072455" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113073445" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -12095,7 +12111,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113072455&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113073445&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -13220,7 +13236,7 @@ Para CADA matéria da lista, diga quantas questões da prova objetiva DESTE carg
 Matérias: ${subs.map(x=>x.n).join("; ")}
 Responda só com JSON: [{"n":"nome da matéria como na lista","q":número ou null,"bloco":"nome do bloco ou null","qb":total do bloco ou null}]
 Trechos:
-"""${edQWin(T)}"""`,{modelTier:"default"})}catch(e){return 0}
+"""${edQWin(T)}"""`,{modelTier:IA_EDITAL})}catch(e){return 0}
   let n=0;(Array.isArray(o)?o:[]).forEach(r=>{if(!r||!r.n)return;const x=edMatch(r.n,subs);if(!x||x.q>0)return;if(+r.q>0&&+r.q<200){x.q=Math.round(+r.q);n++}else if(+r.qb>0&&+r.qb<300){x.bloco=x.bloco||String(r.bloco||"Bloco").slice(0,80);x.qb=Math.round(+r.qb);n++}});
   if(n)edQSplit(subs);return n}
 /* nome do concurso no painel: prefeitura (ou edital com vários cargos) leva o cargo ao lado, ex.: "Prefeitura de Curitiba – Auditor Fiscal de Tributos Municipais" */
@@ -13258,7 +13274,7 @@ Responda só com um objeto JSON neste formato (use null quando o edital não dis
 Para "k": ins0 início das inscrições, ins1 último dia de inscrição, pag último dia de pagar a taxa, isen isenção ou redução da taxa, def deferimento ou homologação das inscrições, prova data da prova objetiva, gab gabarito preliminar, res resultado; os demais eventos usam "outro".
 
 Texto do edital:
-"""${txt}"""`,{modelTier:"default"});
+"""${txt}"""`,{modelTier:IA_EDITAL});
   return o&&typeof o==="object"&&!Array.isArray(o)?o:null}
 async function edSubsAI(prog,cargo,names,onp){
   const parts=edChunks(prog,14000),R=new Array(parts.length);let done=0,next=0,FAIL=0;
@@ -13269,7 +13285,7 @@ Regras: quando um bloco (ex.: "Conhecimentos Específicos – 40 questões") tra
 
 Trecho:
 """${parts[i]}"""`;
-    let ok=false;for(let k=0;k<3;k++){try{arr=await SAMPLE.json(pr,{modelTier:"default"});ok=true;break}catch(e){if(e&&e.code==="not_granted")break;await new Promise(r=>setTimeout(r,(e&&e.code==="rate_limited"?8000:3000)*(k+1)))}}
+    let ok=false;for(let k=0;k<3;k++){try{arr=await SAMPLE.json(pr,{modelTier:IA_EDITAL});ok=true;break}catch(e){if(e&&e.code==="not_granted")break;await new Promise(r=>setTimeout(r,(e&&e.code==="rate_limited"?8000:3000)*(k+1)))}}
     if(!ok||!Array.isArray(arr)){FAIL++;arr=parseEdital(parts[i]).map(x=>({n:x.n,q:x.q,t:x.t}))}
     R[i]=Array.isArray(arr)?arr:[];done++;if(onp)onp(done,parts.length)};
   const run=async()=>{while(next<parts.length){const i=next++;await one(i)}};

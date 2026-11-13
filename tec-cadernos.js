@@ -153,13 +153,15 @@
         if(whole&&mi.length){F=mi.map(function(x){return["MATERIA",x]})}
         if(!F.length){FAIL.push(it.k);continue}
         /* sempre a banca do concurso do aluno: basta ter 5 questões dela no assunto; só sem isso usa as outras bancas (e a plataforma avisa) */
-        var nb=banca?await count(F.concat([["BANCA",banca.id]])):0,useB=nb>=5,n=useB?nb:await count(F);var ob=banca&&!useB?1:0;
+        /* banca do concurso sempre primeiro, até esgotar: qualquer questão dela no assunto já vale; outras bancas só quando ela não tem nenhuma
+           ou quando o aluno pede "completar com outras bancas" (it.ob) depois de esgotar as da banca */
+        var nb=banca&&!it.ob?await count(F.concat([["BANCA",banca.id]])):0,useB=nb>=1,n=useB?nb:await count(F);var ob=banca&&!useB&&!it.ob?1:0,poucas=useB&&nb<Math.min(+it.n||N,100)?nb:0;
         /* poucas questões da banca nesse assunto: completa com o MESMO assunto em outras bancas (nunca com outra matéria) */
         if(n<1){FAIL.push(it.k);continue}
         var q=Math.min(Math.min(+it.n||N,100),n),FF=useB?F.concat([["BANCA",banca.id]]):F;
-        var nome=((whole?"A Jornada · "+it.m+" · Matéria inteira":"A Jornada · "+it.m+" › "+names.slice(0,3).join(" / "))+(useB?" · "+(banca.sigla||banca.nome):"")).replace(/\s+/g," ").slice(0,140);
+        var nome=((whole?"A Jornada · "+it.m+" · Matéria inteira":"A Jornada · "+it.m+" › "+names.slice(0,3).join(" / "))+(useB?" · "+(banca.sigla||banca.nome):it.ob?" · outras bancas":"")).replace(/\s+/g," ").slice(0,140);
         var cid=await create(FF,nome,q);
-        if(cid){var r={k:it.k,id:cid,n:q,ob:ob,b:useB?banca.sigla:"",as:names.slice(0,4).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
+        if(cid){var r={k:it.k,id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,4).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
       }catch(e){FAIL.push(it.k)}
       await sleep(250)}
     finish()})();
