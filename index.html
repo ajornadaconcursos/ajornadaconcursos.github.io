@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611122115"></script>
+<script src="/claude-shim.js?v=202611122124"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -3011,7 +3011,7 @@ html .treg-ch select.tsel,html :root[data-skin] header.top .top-in .treg .tsel{p
 .em-tag small{display:block;opacity:.7;font-size:10px}
 .em-c.on .em-tag{display:block;animation:emIn .35s ease both}
 @keyframes emIn{from{opacity:0}}
-.em-base,.em-top,.em-me{position:absolute;transform:translate(-50%,-50%);pointer-events:none;z-index:4;text-align:center}.em-me{z-index:2;transform:translate(-50%,-9px)}.em-me b{opacity:.92}.em-top{transform:translate(-50%,calc(-100% - 6px))!important}
+.em-base,.em-top,.em-me{position:absolute;transform:translate(-50%,-50%);pointer-events:none;z-index:4;text-align:center}.em-me{z-index:2;transform:translate(-50%,-9px)}.em-me b{opacity:.92}.em-me.up{display:flex;flex-direction:column-reverse;align-items:center;transform:translate(-50%,calc(-100% + 9px))}.em-me.up b{margin:0 0 6px}.em-me.sl b{transform:translateX(calc(50% - 12px))}.em-me.sr b{transform:translateX(-40%)}.em-top{transform:translate(-50%,calc(-100% - 6px))!important}
 .em-base b{display:block;padding:3px 8px;border-radius:8px;background:var(--tagbg);color:var(--tagtx);font-size:10.5px;transform:translateY(-22px)}
 .em-top{transform:translate(-50%,-100%);display:grid;justify-items:center}
 .em-top i{font-style:normal;font-size:24px;line-height:1}.em-top b{padding:3px 9px;border-radius:8px;background:var(--done);color:#2b1a00;font-size:11px;font-weight:900}
@@ -7027,7 +7027,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261112211539";
+const JX_BUILD="20261112212445";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -7529,7 +7529,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112211539" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261112212445" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -9843,7 +9843,7 @@ function edMap(extra){if(!VIS())return"";try{const T=qTot()||1,E=core().ed||{},L
     const zones=(POS()?[["Cratera","aprovação"],["Lava","os últimos detalhes"],["Rocha vulcânica","o que mais exige"],["Cinzas","meio do vulcão"],["Pé do vulcão","a base"]]:[["Cume","aprovação"],["Neve","os últimos detalhes"],["Paredão rochoso","o que mais exige"],["Campos","meio da montanha"],["Floresta","a base"]]).map(([n,d],i)=>`<span class="em-z" style="top:${K.zl[i]}%"><b>${n}</b><small>${d}</small></span>`).join("");
     return`<div class="em-v em-${kk}">${emArt(kk)}<svg class="em-tr" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="${R.d(1)}" class="em-trail"/><path d="${R.d(tMe)}" class="em-done"/></svg>
      ${zones}<div class="em-top" style="left:${pc(sx/W)};top:${pc(sy/H)}"><b>🏁 Aprovação</b>${dd?`<small>${dd}</small>`:""}</div>${cmp}
-     <div class="em-me" style="left:${pc(me[0]/W)};top:${pc(me[1]/H)}"><i></i><b>Você · ${Math.round(gp*100)}% do edital</b></div></div>`};
+     <div class="em-me${me[1]/H>.8?" up":""}${me[0]/W<.2?" sl":me[0]/W>.88?" sr":""}" style="left:${pc(me[0]/W)};top:${pc(me[1]/H)}"><i></i><b>Você · ${Math.round(gp*100)}% do edital</b></div></div>`};
   /* painéis laterais: os mesmos das Constelações */
   let pan="",chips="",foco="";
   L.forEach(x=>{const s=x.s,P=incShow(s.id),has=incHas(s.id),nt=s.t.length,sdn=sd(x),top=has?s.t.map((t,j)=>({t:t[0],p:P[j]})).sort((a,b)=>b.p-a.p).slice(0,7):[],tm=Math.max(1e-6,...top.map(o=>o.p)),k=ord.indexOf(x);
@@ -11977,7 +11977,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112211539&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261112212445&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
