@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611131059"></script>
+<script src="/claude-shim.js?v=202611131110"></script>
 <meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -4147,13 +4147,13 @@ function peOpen(tab){UI.pet=tab||UI.pet||"status";const M=ME(),t=UI.pet,ed=k=>`<
   $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Meu perfil"><div class="box pe-box"><div class="pe-hd"><div><h3 style="margin:0">Meu perfil</h3><span class="muted small">Veja e edite o que você respondeu. Tudo aqui ajusta o seu plano.</span></div><button class="btn ghost sm" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
    <div class="pe-tabs" role="tablist">${PE_TABS.map(([k,l])=>`<button role="tab" aria-selected="${t===k}" class="${t===k?"on":""}" data-a="peTab" data-k="${k}">${l}</button>`).join("")}</div><div class="pe-body">${body}</div></div></div>`}
 /* editor de cada cartão do Status (mesmas escolhas da entrevista) */
-function peEdit(k){UI.pee=k;const M=ME();let h="",t="";
+function peEdit(k){const KEEP=UI.pee===k&&document.querySelector('#layer3 .pe-box')?lyScrollGet():null;UI.pee=k;const M=ME();let h="",t="";
   if(k==="traj"){t="Editar trajetória";h=`<h3>Há quanto tempo você está estudando?</h3><p class="muted small">Se houve idas e vindas, sem problema: faça uma estimativa.</p>${peCards("traj",PE_TRAJ,5)}`}
   if(k==="disp"){t="Editar disponibilidade";h=`<h3>Quantas horas por semana você quer estudar?</h3>${peDispCards()}<p class="muted small">Isso muda as horas por dia das suas próximas metas.</p>`}
   if(k==="cond"){t="Editar condição";h=`<h3>Você concorre em qual condição?</h3>${peCards("cond",PE_COND,2)}${M.cond==="cotas"?`<p class="small" style="margin:6px 0 0">Em quais cotas você pode concorrer?</p><div class="ob-chips">${PE_COTAS.map(v=>{const on=(M.cotas||[]).includes(v);return`<button type="button" class="ob-ch ${on?"on":""}" data-a="obCh" data-k="cotas" data-m="1" data-v="${v}" aria-pressed="${on}">${v}${on?" ✓":""}</button>`}).join("")}</div>`:""}`}
   if(k==="area"){t="Editar área de estudo";h=`<h3>Qual é a sua área de estudo?</h3>${peCards("area",PE_AREA,4)}<h3>Qual preparação você busca?</h3>${peCards("prep",PE_PREP,2)}${peYN("foco","Tem um concurso específico em foco?")}`}
   if(k==="sit"){t="Editar situação profissional";h=peSitHTML()}
-  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(t)}"><div class="box pe-box"><div class="row" style="justify-content:space-between"><b>${esc(t)}</b><span class="row" style="gap:8px"><button class="btn" data-a="peEditX">Cancelar</button><button class="btn pri" data-a="peEditOk">Salvar alterações</button></span></div><div class="ob-body">${h}</div></div></div>`}
+  $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(t)}"><div class="box pe-box"><div class="row" style="justify-content:space-between"><b>${esc(t)}</b><span class="row" style="gap:8px"><button class="btn" data-a="peEditX">Cancelar</button><button class="btn pri" data-a="peEditOk">Salvar alterações</button></span></div><div class="ob-body">${h}</div></div></div>`;if(KEEP){lyScrollSet(KEEP);requestAnimationFrame(()=>lyScrollSet(KEEP))}}
 /* troca pré → pós-edital: confere edital, mostra o parecer e troca o planejamento */
 function posParecer(){let d=null;try{d=posDias()}catch(e){}const c=core(),pr=c.prog||{},K=c.conh||{};let est=0,tot=0;ED.forEach(S=>{const n=AU(S.id).length||1;tot+=n;est+=Math.min(n,(pr[S.id]||{}).i||0)});
   const ade=tot?Math.round(est/tot*100):0,ed=IS_TJ||!!(c.edital&&(c.edital.at||c.edital.info)),forte=ED.filter(S=>+K[S.id]>=2).length,banca=(()=>{try{return tecBanca()}catch(e){return""}})();
@@ -4232,7 +4232,13 @@ function anOpen(tab){UI.ant=tab||UI.ant||"cards";const H=anList().slice().sort((
     <div class="an-q"><span class="an-ring" style="--p:${dd?Math.round((1-dd/AN_DAYS)*100):100}"><b>${dd?dd+" d":"ok"}</b></span><div><small class="an-k">Cota de análises</small><b>${dd?"Renova em "+anFmtD(nxt):"Todas disponíveis"}</b><span class="muted small">Uma análise de cada tipo a cada ${AN_DAYS} dias.</span></div></div></div>
    <div class="an-g">${AN_T.map(card).join("")}<div class="an-c"><div class="an-ch"><span class="an-ic">${ic("reset")}</span><div><small class="an-k">Histórico</small><b>Análises anteriores</b></div></div>${H.length?`<p>${H.length} análise${H.length>1?"s":""} guardada${H.length>1?"s":""}. A última: ${esc((AN_T.find(x=>x[0]===H[0].k)||AN_T[0])[2])}, em ${anFmtD(H[0].at)}.</p>`:`<p class="muted">Não há análises anteriores.</p>`}<div class="row"><button class="btn" data-a="anTab" data-k="hist">Ver todas</button></div></div></div>`}</div></div>`}
 
-function obWizard(step,mode){UI.obStep=step;UI.obMode=mode||UI.obMode||"novo";const M=ME(),nov=UI.obMode==="novo",tot=nov?4:3,em=(window.JX_ACESSO&&window.JX_ACESSO.email)||M.email||"";
+/* janela redesenhada no mesmo passo: guarda e devolve a rolagem e o foco (escolher uma opção não pula para o topo) */
+function lyKey(e){return e.tagName+"."+String(e.className&&e.className.baseVal!=null?e.className.baseVal:e.className||"")}
+function lyScrollGet(){const L=$("layer3");if(!L||!L.firstElementChild)return null;const out=[];L.querySelectorAll("*").forEach(e=>{if(e.scrollTop>0)out.push([lyKey(e),e.scrollTop])});const a=document.activeElement;
+  return{out,f:a&&L.contains(a)?{id:a.id,a:a.dataset&&a.dataset.a,k:a.dataset&&a.dataset.k,v:a.dataset&&a.dataset.v}:null}}
+function lyScrollSet(S){const L=$("layer3");if(!S||!L)return;const all=[...L.querySelectorAll("*")];S.out.forEach(([k,t])=>{const e=all.find(x=>lyKey(x)===k);if(e)e.scrollTop=t});
+  if(S.f){let e=null;try{e=S.f.id?$(S.f.id):S.f.a?L.querySelector(`[data-a="${S.f.a}"]${S.f.k?`[data-k="${CSS.escape(S.f.k)}"]`:""}${S.f.v!=null?`[data-v="${CSS.escape(S.f.v)}"]`:""}`):null}catch(x){}if(e&&e.focus)e.focus({preventScroll:true})}}
+function obWizard(step,mode){const KEEP=UI.obStep===step&&!!document.querySelector("#layer3 .ob-modal")?lyScrollGet():null;UI.obStep=step;UI.obMode=mode||UI.obMode||"novo";const M=ME(),nov=UI.obMode==="novo",tot=nov?4:3,em=(window.JX_ACESSO&&window.JX_ACESSO.email)||M.email||"";
   const bar=`<div class="ob-bar" aria-hidden="true">${[...Array(tot)].map((_,i)=>`<i class="${i<step?"on":""}"></i>`).join("")}</div><small class="ob-k">${step} de ${tot} · ${["Quem é você","Você e a Jornada","Seus cursos","Seu concurso"][step-1]}</small>`;
   const chips=(k,L,multi)=>`<div class="ob-chips" role="group">${L.map(v=>{const on=multi?(M[k]||[]).includes(v):M[k]===v;return`<button type="button" class="ob-ch ${on?"on":""}" data-a="obCh" data-k="${k}" data-v="${esc(v)}" data-m="${multi?1:""}" aria-pressed="${on}">${esc(v)}${multi&&on?" ✓":""}</button>`}).join("")}</div>`;
   let body="";
@@ -4259,7 +4265,8 @@ function obWizard(step,mode){UI.obStep=step;UI.obMode=mode||UI.obMode||"novo";co
   const skip=step===2||step===3?`<button class="btn ghost" data-a="obNext" data-v="${step+1}" data-skip="1">Pular</button>`:!nov&&step===1?`<button class="btn ghost" data-a="obLater">Agora não</button>`:"";
   const next=step<4&&(nov||step<3)?`<button class="btn pri" data-a="obNext" data-v="${step+1}">Continuar</button>`:!nov&&step===3?`<button class="btn pri" data-a="obNext" data-v="9">Concluir</button>`:"";
   $("layer3").innerHTML=`<div class="modal ob-modal" role="dialog" aria-modal="true" aria-label="Entrevista inicial"><div class="box ob-box${nov?" has-art":""}">${bar}${nov?`<div class="ob-side">${obArt(step)}<ol class="ob-trip">${[["Em casa","a roupa: quem é você"],["Na porta","as botas: sua trajetória e o seu tempo"],["Na loja","o inventário: seus cursos"],["No mapa","a rota: área, fase e concurso"],["A subida","o plano começa"]].map(([a,b],i)=>`<li class="${i+1<step?"ok":i+1===step?"on":""}"><i>${i+1<step?"✓":i+1}</i><span><b>${a}</b><small>${b}</small></span></li>`).join("")}</ol></div>`:""}<div class="ob-body">${body}</div><div class="ob-foot">${back}<span class="sp"></span>${skip}${next}</div></div></div>`;
-  setTimeout(()=>{const e=step===1?$(M.full?"obN":"obFull"):null;if(e&&!e.value)e.focus()},40)}
+  if(KEEP){lyScrollSet(KEEP);requestAnimationFrame(()=>lyScrollSet(KEEP));return}
+  setTimeout(()=>{const e=step===1?$(M.full?"obN":"obFull"):null;if(e&&!e.value)e.focus({preventScroll:true})},40)}
 function obGrab(){const M=ME(),v=id=>{const e=$(id);return e?e.value.trim().replace(/\s+/g," "):null};
   if(UI.obStep===1){const f=v("obFull"),n=v("obN"),t=v("obTel"),w=$("obWa");if(f!=null)M.full=f.slice(0,80);if(n!=null)M.nick=(n||f.split(" ")[0]||"").slice(0,40);if(t!=null)M.tel=obPhone(t);if(w)M.waOk=!!w.checked&&!!M.tel;if(window.JX_ACESSO&&window.JX_ACESSO.email)M.email=window.JX_ACESSO.email}
   if(UI.obStep===2){const i=v("obInd");if(i!=null)M.ind=i.slice(0,60)}
@@ -7651,7 +7658,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261113105939";
+const JX_BUILD="20261113111039";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -8153,7 +8160,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113105939" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261113111039" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -12648,7 +12655,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113105939&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261113111039&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
