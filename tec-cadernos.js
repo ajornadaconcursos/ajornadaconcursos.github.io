@@ -118,19 +118,20 @@
         termo central = palavra longa e específica (≥ 8 letras) ou par de palavras vizinhas (ex.: "direitos fundamentais", "controle … constitucionalidade");
      2) sem família: o assunto mais parecido, com régua de 70% (semelhança com o tópico + palavras do nome presentes no contexto da aula) */
   var GEN={};"constitucional constitucionais constituicao fundamentais fundamental direitos principios organizacao administracao administrativo publica publico normas norma geral gerais conceito conceitos teoria disposicoes estado estados federal poder poderes questoes mescladas aspectos introducao nocoes legislacao processo procedimento juridica juridico sistema sistemas regime".split(" ").forEach(function(w){GEN[w]=1});
+  var MOD={};"verbal verbais nominal nominais simples composta compostas composto compostos ativa passiva ativo passivo especial especiais geral comum comuns".split(" ").forEach(function(w){MOD[w]=1});
   function words(s){return norm(s).replace(/\([^)]*\)/g," ").replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(function(w){return w.length>2&&!SW[w]})}
-  function hasAll(nome,ws){var n=" "+norm(nome).replace(/[^a-z0-9 ]/g," ")+" ";return ws.every(function(w){return n.indexOf(" "+w.slice(0,Math.min(w.length,6)))>=0})}
+  function hasAll(nome,ws){var n=" "+norm(nome).replace(/\([^)]*\)/g," ").replace(/[^a-z0-9 ]/g," ")+" ";return ws.every(function(w){return n.indexOf(" "+w.slice(0,Math.min(w.length,6)))>=0})}
   async function famPick(tp,it,mi,search){var out=[],seen={},cov={};
     /* nome só genérico (ex.: "Classes de palavras"): não vira caderno, senão puxa todas as classes para uma aula de um assunto só */
     if(!words(tp).some(function(w){return !/^(classes?|palavras?|morfologia|nocoes|gerais|parte|aula|revisao)$/.test(w)}))return [];
     var segs=String(tp).replace(/\([^)]*\)/g," ").split(/[.,;:–—]|\s-\s|\s+e\s+(?=[A-ZÁ-Ú])/).map(words).filter(function(x){return x.length});
     async function fam(ws){var q=ws.length===1?ws[0]:ws[ws.length-1],L=await search(q);
-      return L.filter(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return false;var n=norm(r.nome);return ws.length===1?(" "+n.replace(/[^a-z0-9 ]/g," ")+" ").indexOf(" "+ws[0])>=0:hasAll(r.nome,ws)})}
+      return L.filter(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return false;var n=norm(r.nome);return ws.length===1?(" "+n.replace(/\([^)]*\)/g," ").replace(/[^a-z0-9 ]/g," ")+" ").indexOf(" "+ws[0])>=0:hasAll(r.nome,ws)})}
     function add(F,ws){if(!F.length||F.length>10)return false;F.forEach(function(r){if(!seen[r.id]){seen[r.id]=1;out.push(r)}});ws.forEach(function(w){cov[w]=1});return true}
     /* pares de palavras vizinhas dentro do mesmo trecho (não atravessa vírgula ou ponto) */
-    for(var s=0;s<segs.length;s++){var W=segs[s];for(var i=0;i+1<W.length;i++){if(GEN[W[i]]&&GEN[W[i+1]])continue;add(await fam([W[i],W[i+1]]),[W[i],W[i+1]])}}
+    for(var s=0;s<segs.length;s++){var W=segs[s];for(var i=0;i+1<W.length;i++){if((GEN[W[i]]||MOD[W[i]])&&(GEN[W[i+1]]||MOD[W[i+1]]))continue;add(await fam([W[i],W[i+1]]),[W[i],W[i+1]])}}
     /* palavra longa e específica, ou o trecho de uma palavra só (ex.: "União", "Nacionalidade"), se ainda não coberta por um par */
-    for(var s2=0;s2<segs.length;s2++){var W2=segs[s2];for(var j=0;j<W2.length;j++){var w=W2[j];if(cov[w]||GEN[w])continue;if(w.length>=8||(W2.length===1&&w.length>=5))add(await fam([w]),[w])}}
+    for(var s2=0;s2<segs.length;s2++){var W2=segs[s2];for(var j=0;j<W2.length;j++){var w=W2[j];if(cov[w]||GEN[w]||MOD[w])continue;if(w.length>=8||(segs.length===1&&W2.length===1&&w.length>=5))add(await fam([w]),[w])}}
     if(out.length)return out.slice(0,10);
     var CTX=toks([it.t||""].concat(it.a||[],it.kw||[]).join(" "));function cover(nome){var N=toks(nome),k=Object.keys(N);if(!k.length)return 0;var i=0;k.forEach(function(x){if(CTX[x])i++});return i/k.length}
     var T=toks(tp),best=null,bv=0,cs=cands(tp);
@@ -144,6 +145,12 @@
       try{var mi=mats(it.m),ids=[],names=[],pick=[];
         var tops=(it.a||[]).slice(0,5);
         for(var j=0;j<tops.length;j++){var got=await famPick(tops[j],it,mi,search);got.forEach(function(r){if(ids.indexOf(r.id)<0&&ids.length<10){ids.push(r.id);names.push(r.nome);pick.push(r)}})}
+        /* nada na matéria da aula: o TEC às vezes guarda o assunto em matéria vizinha (Juros Simples em Matemática Financeira, LINDB em Legislação Civil,
+           Simples Nacional em Legislação Tributária); aceita só nome igual ao tópico ou que traz o tópico inteiro */
+        if(!ids.length&&!/\|\*$/.test(it.k)){for(var j2=0;j2<tops.length&&ids.length<3;j2++){var ph=norm(String(tops[j2]).replace(/\([^)]*\)/g," ")).replace(/[^a-z0-9 ]/g," ").replace(/^\s*(d[aoe]s?|lei n[oº]?\s*[\d.\/]+\s*)\s+/," ").replace(/\s+/g," ").trim();
+            if(ph.length<6||(ph.split(" ").length<2&&ph.length<8))continue;var L3=await search(ph),ex=null,ct=null;
+            L3.forEach(function(r){var nn=norm(String(r.nome).replace(/\([^)]*\)/g," ")).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();if(nn===ph){ex=ex||r}else if((" "+nn+" ").indexOf(" "+ph+" ")>=0&&(!ct||nn.length<norm(ct.nome).length))ct=r});
+            var rr=ex||ct;if(rr&&ids.indexOf(rr.id)<0){ids.push(rr.id);names.push(rr.nome);pick.push(rr)}}}
         /* dois ou mais assuntos irmãos (mesmo assunto-pai no TEC): usa o pai, que cobre a aula inteira sem puxar outro ramo */
         var PID=function(r){return r.idPai||r.paiId||r.idAssuntoPai||(r.pai&&r.pai.id)||(r.assuntoPai&&r.assuntoPai.id)||0},grp={};
         pick.forEach(function(r){var p=PID(r);if(p)(grp[p]=grp[p]||[]).push(r)});
@@ -163,7 +170,7 @@
         var q=Math.min(Math.min(+it.n||N,100),n),FF=useB?F.concat([["BANCA",banca.id]]):F;
         var nome=((whole?"A Jornada · "+it.m+" · Matéria inteira":"A Jornada · "+it.m+" › "+names.slice(0,3).join(" / "))+(useB?" · "+(banca.sigla||banca.nome):it.ob?" · outras bancas":"")).replace(/\s+/g," ").slice(0,140);
         var cid=await create(FF,nome,q);
-        if(cid){var r={k:it.k,id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,4).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
+        if(cid){var r={v:2,k:it.k,id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,4).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
       }catch(e){FAIL.push(it.k)}
       await sleep(250)}
     finish()})();
