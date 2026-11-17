@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611171141"></script>
+<script src="/claude-shim.js?v=202611171151"></script>
 <meta name="author" content="Raphael Romano"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -5308,7 +5308,8 @@ function tecAulaCtx(sid,c){const S=SUB(sid)||{},a=auOf(sid,c);if(!a)return{ga:[]
     parOk=par&&par.length<=60&&(()=>{const P=tecSigTok(par),M=nTok(S.n||"");return P.size&&![...P].every(w=>M.has(w))})();
   const spec=[...(parOk?[par]:[]),...tecSpecPieces(a.d)].slice(0,4),TT=new Set(spec.flatMap(x=>[...tecSigTok(x)])),gen=!TT.size;
   const tpi=(a.tp||[]).filter(j=>S.t&&S.t[j]).filter(j=>{if(gen)return true;const T=tecSigTok(S.t[j][0]);return [...T].some(w=>TT.has(w))||cdice(T,TT)>=.4});
-  const tp=tpi.map(j=>S.t[j][0]);const kw=[...new Set(tpi.flatMap(j=>Array.isArray(S.t[j][1])?S.t[j][1]:[]).concat(tp))].join(" ").slice(0,260);
+  const part=t=>gen?[t]:String(t).replace(/^[^:]{0,60}:/,"").split(/[,;]|\s+e\s+/).map(x=>x.trim()).filter(x=>{const T=tecSigTok(x);return T.size&&[...T].some(w=>TT.has(w))});
+  const tp=tpi.map(j=>S.t[j][0]);const kw=[...new Set(tpi.flatMap(j=>(Array.isArray(S.t[j][1])?S.t[j][1]:[]).filter(k=>gen||[...tecSigTok(k)].some(w=>TT.has(w)))).concat(tp.flatMap(part)))].join(" ").slice(0,260);
   return{ga,spec,tp,kw,gen}}
 function tecAulaItem(sid,c){const S=SUB(sid),a=auOf(sid,c);if(!a||String(c).startsWith("x:"))return null;const X=tecAulaCtx(sid,c);
   const tpS=X.tp.flatMap(x=>tecSpecPieces(x).slice(0,2));const al=[...new Set([...X.ga,...X.spec,...(X.ga.length&&!X.gen?[]:tpS)].filter(x=>x&&x.length>=3))].slice(0,6);
@@ -5320,7 +5321,19 @@ function tecAulaBtn(sid,c,cls){const u=tecAulaDirect(sid,c),L=tecAsLbl(sid,c),X=
   const C2=(core().tecAuto||{})[sid+"|"+c+"|ob"],it2=X.pb&&!C2?tecAulaItem(sid,c):null;
   const comp=X.pb?`<small class="tec-ob">a ${esc(X.b||tecBanca()||"banca")} tem só ${X.pb} questões deste assunto: faça todas primeiro${C2?"":"; depois"}</small>${C2&&C2.id?`<a class="btn sm ghost" href="${TB}/questoes/cadernos/${C2.id}" target="_blank" rel="noopener">${ic("ext")} Outras bancas (${C2.n||""})</a>`:it2?`<a class="btn sm ghost" href="${esc(tecJobUrl([Object.assign({},it2,{k:sid+"|"+c+"|ob",ob:1})]))}" target="_blank" rel="noopener" data-tecjob="1">${ic("plus")} Completar com outras bancas</a>`:""}`:"";if(u)return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(u)}" target="_blank" rel="noopener" title="Caderno na sua conta do TEC só com a matéria ${esc(L.m)} e o assunto ${esc(L.a.join("; "))}">${lb}</a>${comp}<button class="btn sm ghost" data-a="tecFix" data-s="${sid}" data-c="${esc(c)}" title="O caderno trouxe questões de outro assunto? Diga o assunto certo e o TEC cria outro">Assunto errado?</button>`;
   const it=tecAulaItem(sid,c);if(!it)return"";return`<a class="btn sm tecas ${cls||"pri"}" href="${esc(tecJobUrl([it]))}" target="_blank" rel="noopener" data-tecjob="1" title="Abre o TEC e cria na sua conta um caderno só com a matéria ${esc(it.m)} e o assunto: ${esc(it.a.join("; "))}">${lb}</a>`}
-document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-tecjob]");if(!a)return;if(isTouchDev()){e.preventDefault();tecMobModal(a.href);return}toast("No TEC, toque no favorito ➜ A Jornada: ele filtra a matéria e o assunto exato desta aula, cria o caderno na sua conta e volta. Da próxima vez o botão abre direto nas questões desse assunto.")},true);
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest("a[data-tecjob]");if(!a)return;if(isTouchDev()){e.preventDefault();tecMobModal(a.href);return}
+  let skip=0;try{skip=+localStorage.getItem("jx-tecjob-ok")||0}catch(x){}if(skip>=3){toast("No TEC, toque no favorito ➜ A Jornada para criar o caderno deste assunto.");return}
+  e.preventDefault();tecJobModal(a.href)},true);
+function tecJobModal(href){$("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Criar o caderno deste assunto no TEC"><div class="box cs" style="max-width:620px"><div class="vh"><h3>${ic("target")} Criar o caderno deste assunto</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>
+  <p>Este assunto ainda não tem caderno na sua conta do TEC. O TEC vai abrir na tela <b>Filtrar questões</b>; é lá que o favorito monta o caderno.</p>
+  <ol class="trh-l">
+   <li><b>Tenha o favorito ➜ A Jornada</b> na barra de favoritos. Se ainda não tem (ou se é de antes de 13/11), arraste este botão para lá:<div style="margin-top:8px"><a class="lkbm" href="${esc(estBm())}" draggable="true" onclick="event.preventDefault()">➜ A Jornada</a></div></li>
+   <li>Toque em <b>Abrir o TEC</b> aqui embaixo.</li>
+   <li>Na tela <b>Filtrar questões</b> do TEC, <b>toque no favorito ➜ A Jornada</b>. Ele escolhe a matéria e só o assunto desta aula, com a sua banca, cria o caderno e volta.</li>
+   <li>Pronto: daqui em diante, este botão abre direto as questões desse assunto.</li>
+  </ol>
+  <p class="muted small">Sem tocar no favorito, o TEC fica só na tela de filtro, sem criar nada. Isso é regra dos navegadores: um site não pode agir sozinho dentro de outro.</p>
+  <div class="row" style="justify-content:space-between;gap:8px;flex-wrap:wrap"><button class="btn sm ghost" data-a="tecJobNo">Já sei, não mostrar mais</button><a class="btn pri" href="${esc(href)}" target="_blank" rel="noopener" onclick="document.getElementById('layer3').innerHTML=''">${ic("ext")} Abrir o TEC</a></div></div></div>`}
 function tecKind(sid){const m=tecMatCad(sid);return m?(m.k==="auto"?"seu":m.k):TECL.sub[sid]?"guia":"busca"}
 function tecMatRow(s){const m=tecMatCad(s.id),b=tecBanca(),L={seu:"Seu caderno",auto:"Caderno A Jornada na sua conta",guia:"Caderno do Guia do cargo"};
   return`<span class="muted small">${m?`<b>${L[m.k]}</b> · questões ${b?esc(b)+" ":""}de ${esc(s.n)}${m.k==="guia"&&IS_TJ?" para Oficial de Justiça TJ SP":""}. Para o assunto exato, use <b>TEC: assunto desta aula</b> em cada aula abaixo. Errou? Lance os números das questões: vão para Erradas e viram reforço.`:`Ainda não há caderno de ${esc(s.n)} no TEC: a plataforma cria um na sua conta, com as questões ${b?"da "+esc(b):"da banca"}.`}</span><span class="row" style="gap:6px">${m?`<a class="btn sm pri" href="${esc(m.url)}" target="_blank" rel="noopener">${ic("ext")} Questões no TEC</a><button class="btn sm" data-a="tbOpen" data-s="${s.id}">${ic("plus")} Lançar erros</button>`:`<button class="btn sm pri" data-a="tcaOpen">${ic("target")} Criar caderno no TEC</button><a class="btn sm" href="${esc(tecUrl(s.id))}" target="_blank" rel="noopener">${ic("ext")} Buscar no TEC</a>`}</span>`}
@@ -7705,7 +7718,7 @@ function checkinHTML(){const c=core(),td=today(),last=c.ck||"",due=!last||dbet(l
    <ul class="ck-l">${tips.map(t=>`<li>${t}</li>`).join("")}</ul>
    <div class="row" style="gap:8px"><button class="btn sm pri" data-a="ckMentor">${ic("bulb")} Ajustar a próxima semana</button></div></section>`}
 /* ---------- aviso de versão nova da plataforma ---------- */
-const JX_BUILD="20261117114100";
+const JX_BUILD="20261117115134";
 async function jxUpdCheck(){try{if(document.getElementById("jxUpd")||!/^https?:/.test(location.protocol))return;const t=await (await fetch("/index.html?v="+Date.now(),{cache:"no-store"})).text();const m=t.match(/const JX_BUILD="(\d{8,})"/);
   if(m&&/^\d+$/.test(JX_BUILD)&&m[1]>JX_BUILD){const b=document.createElement("div");b.id="jxUpd";b.innerHTML=`<span>Há uma versão nova da plataforma.</span><button class="btn sm pri">Atualizar</button>`;b.querySelector("button").onclick=()=>{try{flush()}catch(e){}setTimeout(()=>location.reload(),500)};document.body.appendChild(b)}}catch(e){}}
 setTimeout(jxUpdCheck,60000);setInterval(jxUpdCheck,15*60000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)jxUpdCheck()});
@@ -8210,7 +8223,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("tour5"))tourShow
 function lxOpen(o){o=o||{};try{const t5=$("tour5");if(t5)t5.remove()}catch(e){}if(o.tid)UI.lxTask={tid:o.tid,pid:o.pid};
   if(!o.inFrame&&core().cfg.lxWin!==false&&lxPopup(o)){if(o.tid&&o.pid){const tk=findTask(o.tid);lxArtPage(pdf(o.pid),tk&&tk.t).then(ap=>{if(ap&&ap!==o.pa){const go=()=>{try{const W=LXW;if(W&&!W.closed&&W.JXL&&W.JXL.ready){W.JXL.open(o.pid,ap);return true}}catch(e){}return false};let n=0;const t=setInterval(()=>{if(go()||++n>60)clearInterval(t)},300)}})}return}
   let w=$("lxWrap");
-  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261117114100" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
+  if(!w){w=document.createElement("div");w.id="lxWrap";w.className="lx-wrap";w.innerHTML=`<iframe id="lxFrame" title="Scribax" src="lexis/index.html?v=20261117115134" allow="autoplay; clipboard-write"></iframe>`;document.body.appendChild(w);LXF=$("lxFrame")}
   w.hidden=false;document.documentElement.classList.add("lx-on");
   const go=()=>{try{const W=LXF.contentWindow;if(W&&W.JXL&&W.JXL.ready){if(o.pid)W.JXL.open(o.pid,o.pa||1);else W.JXL.home();return true}}catch(e){}return false};
   if(!go()){let n=0;const t=setInterval(()=>{if(go()||++n>80)clearInterval(t)},250)}}
@@ -12755,7 +12768,7 @@ let LXW=null;
 function lxArtPage(p,t){return(async()=>{try{const g=(t&&t.gx&&t.gx.assuntos||[]).join(" ")+" "+(t&&t.topic?topicName(t.topic):"");const m=g.match(/arts?\.?\s*(\d{1,4})/i);if(!m||!p||!p.pages)return 0;
   const a=Math.max(1,(t&&t.pa)||1),b=Math.min(p.pages,Math.max(a,(t&&t.pb)||p.pages));const re=new RegExp("Art\\.?\\s*"+m[1]+"\\s*[º°o]?\\b","i");
   for(let i=a;i<=b;i++){const x=await pagesText(p,i,i,6000).catch(()=>"");if(re.test(x))return i}}catch(e){}return 0})()}
-function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261117114100&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
+function lxPopup(o){if(TIER()==="basico"&&!premOk("popup",true))return false;const u="lexis/index.html?v=20261117115134&win=1"+(o.pid?"&pid="+encodeURIComponent(o.pid)+"&pa="+(o.pa||1):"")+(o.tid?"&tid="+encodeURIComponent(o.tid):"");
   const W=Math.min(1280,screen.availWidth||1280),H=Math.min(900,screen.availHeight||900);
   try{LXW=window.open(u,"scribax","popup=yes,width="+W+",height="+H+",left="+Math.max(0,((screen.availWidth||W)-W)/2)+",top=20")}catch(e){LXW=null}
   if(!LXW)return false;try{LXW.focus()}catch(e){}
@@ -14657,6 +14670,7 @@ const A={
   qdOpen(el){const f=findTask(el.dataset.id);if(!f)return;const c=tecCadFor(f.t),q0=qzTask(f.t),m=(UI.tmin||{})[f.t.id]||0;UI.qd={id:f.t.id,f:q0.f||0,a:q0.f?q0.ok:0,h:Math.floor(m/60),mi:m%60,rev:"",cf:"",e:"",m:{}};qdModal()},
   qdClose(){UI.qd=null;$("layer3").innerHTML=""},
   trClose(){UI.tr=null;$("layer3").innerHTML=""},
+  tecJobNo(){try{localStorage.setItem("jx-tecjob-ok","3")}catch(e){}$("layer3").innerHTML="";toast("Certo. No TEC, toque no favorito ➜ A Jornada para criar o caderno.")},
   trHelp(){$("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Trazer o resultado do TEC"><div class="box cs" style="max-width:680px"><div class="vh"><h3>Trazer o resultado do TEC</h3><button class="ibtn" data-a="volClose" aria-label="Fechar">${ic("close")}</button></div>${tecResHow(true,true)}<div class="row" style="justify-content:flex-end"><button class="btn" data-a="volClose">Fechar</button></div></div></div>`},
   trGo(){const X=UI.tr;if(!X||!X.out)return;const O=X.out,tid=($("trT")||{}).value||"",f=tid?findTask(tid):null,t=f&&f.t,sid=t?t.sid:(($("trS")||{}).value||(ED[0]||{}).id);
     const seen=new Set(REV().filter(x=>x.tq&&x.sid===sid).map(x=>String(x.link||"")).filter(Boolean));let lan=0;
