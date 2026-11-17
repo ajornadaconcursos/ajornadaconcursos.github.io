@@ -121,6 +121,8 @@
   function words(s){return norm(s).replace(/\([^)]*\)/g," ").replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(function(w){return w.length>2&&!SW[w]})}
   function hasAll(nome,ws){var n=" "+norm(nome).replace(/[^a-z0-9 ]/g," ")+" ";return ws.every(function(w){return n.indexOf(" "+w.slice(0,Math.min(w.length,6)))>=0})}
   async function famPick(tp,it,mi,search){var out=[],seen={},cov={};
+    /* nome só genérico (ex.: "Classes de palavras"): não vira caderno, senão puxa todas as classes para uma aula de um assunto só */
+    if(!words(tp).some(function(w){return !/^(classes?|palavras?|morfologia|nocoes|gerais|parte|aula|revisao)$/.test(w)}))return [];
     var segs=String(tp).replace(/\([^)]*\)/g," ").split(/[.,;:–—]|\s-\s|\s+e\s+(?=[A-ZÁ-Ú])/).map(words).filter(function(x){return x.length});
     async function fam(ws){var q=ws.length===1?ws[0]:ws[ws.length-1],L=await search(q);
       return L.filter(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return false;var n=norm(r.nome);return ws.length===1?(" "+n.replace(/[^a-z0-9 ]/g," ")+" ").indexOf(" "+ws[0])>=0:hasAll(r.nome,ws)})}
