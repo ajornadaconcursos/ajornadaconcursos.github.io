@@ -7351,7 +7351,7 @@ const TUT=[
   d:["Use o Arquivo para reabrir o comando de uma aula antes de revisar.","Compare metas: o tempo por atividade mostra onde você está mais lento.","Nada some: até as atividades do Plano B ficam registradas."]},
 
  {id:"assinatura",t:"Sua assinatura",ic:"lock",go:"assinatura",
-  p:"Toda conta nova tem 7 dias grátis com tudo liberado. Depois, escolha em Assinatura, no menu principal, entre o Básico (mensal ou anual) e o Premium (mensal, trimestral, semestral ou anual): o pagamento é pela Kiwify e o acesso libera sozinho. O Premium libera tudo; no Básico, o Scribax em janela própria, o Tire sua dúvida, o Incluir no resumo com IA, a Matriz de prioridade, o ranking do Comparativo e a Análise aprofundada da lei seca têm alguns usos grátis para você experimentar. A IA tem um limite diário para manter tudo rápido: 80 pedidos por dia no Premium, 50 no Básico e 60 no teste grátis; no dia seguinte libera de novo. Se a assinatura vencer, os seus dados continuam guardados.",
+  p:"Toda conta nova tem 7 dias grátis com tudo liberado. Depois, escolha em Assinatura, no menu principal, entre o Básico (mensal ou anual) e o Premium (mensal, semestral ou anual): o pagamento é pela Kiwify e o acesso libera sozinho. O Premium libera tudo; no Básico, o Scribax em janela própria, o Tire sua dúvida, o Incluir no resumo com IA, a Matriz de prioridade, o ranking do Comparativo e a Análise aprofundada da lei seca têm alguns usos grátis para você experimentar. A IA tem um limite diário para manter tudo rápido: 50 pedidos por dia no Premium, 30 no Básico e 50 no teste grátis; no dia seguinte libera de novo. Se a assinatura vencer, os seus dados continuam guardados.",
   s:`<div class="tu-card"><div class="tu-row"><span class="tu-chip ok" data-k="tr">👣 Teste grátis · faltam <b data-k="dl">0</b> dias</span></div>
      <div class="tu-res tu-rv" data-k="pl"><span class="tu-chip">Básico</span><span class="tu-chip ok">Premium</span><span class="tu-chip">Mensal</span><span class="tu-chip">Anual</span></div>
      <div class="tu-row tu-rv" data-k="ia"><span class="tu-lbl">IA hoje</span><span class="tu-prog" style="--w:30%"><i data-k="iab"></i></span><small><b data-k="ian">0</b> de 80</small></div></div>`,
@@ -8157,7 +8157,7 @@ ${(mat||"(nenhum trecho do material bateu com a dúvida)").slice(0,16000)}
 </material>
 ${jur?"<jurisprudencia>\n"+jur.slice(0,10000)+"\n</jurisprudencia>":""}`;
     X.busy="O professor está escrevendo…";duvModal();
-    const r=await SAMPLE(prompt,{modelTier:"default",onText:({text})=>{if(UI.duv!==X)return;X.ans=text;const o=$("duvOut");if(o)o.innerHTML=mdLite(text);else duvModal()}});
+    const r=await SAMPLE(prompt,{modelTier:IA_LEVE,onText:({text})=>{if(UI.duv!==X)return;X.ans=text;const o=$("duvOut");if(o)o.innerHTML=mdLite(text);else duvModal()}});
     if(UI.duv!==X)return;const src=[lei,mat,jur].join("\n\n"),C=duvCheck(resClean(String(r&&r.text||"")),src);
     X.ans=C.txt.trim()||"Não consegui responder agora.";X.cut=C.cut;X.busy="";T.n++;touch("core");
     DUV().items.push({id:uid(),sid:X.sid,c:X.c||"",q,a:X.ans,at:Date.now()});if(DUV().items.length>200)DUV().items=DUV().items.slice(-200);touch("duv");duvModal()}
@@ -8643,7 +8643,7 @@ document.addEventListener("keydown",e=>{if(TAB!=="arena"||!UI.ar||$("layer3").in
   else if(arCE(c)&&S.pick==null&&(e.key==="c"||e.key==="e")){e.preventDefault();A.arPick({dataset:{v:e.key==="c"?"1":"0"}})}});
 
 /* ================= Assinatura: planos, status, pagamento (Hotmart/Kiwify) e termos ================= */
-const ASN_PL=[["mensal","Premium mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","79,90"],["trimestral","Premium trimestral","trimestre",3,"","179,70"],["semestral","Premium semestral","semestre",6,"","299,40"],["anual","Premium anual","ano",12,"","478,80"]];
+const ASN_PL=[["mensal","Premium mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","79,90"],["semestral","Premium semestral","semestre",6,"","299,40"],["anual","Premium anual","ano",12,"","549,90"]];
 const ASN_BAS=[["basico_mensal","Básico mensal","mês",1,"Cobrança todo mês. Cancele quando quiser.","49,90"],["basico_anual","Básico anual","ano",12,"","358,80"]];
 /* O que só o Premium tem. O Básico experimenta cada um algumas vezes (degustação) antes do bloqueio. */
 const PREM_F={popup:["Scribax em janela própria",3],duvida:["Tire sua dúvida",3],resIA:["Incluir no resumo com IA",3],prio:["Matriz de prioridade",2],comp:["Desvio por matéria e ranking do Comparativo",1],lzAn:["Análise aprofundada da lei seca",3]};
@@ -8659,6 +8659,7 @@ function premModal(k){const F=PREM_F[k]||["Este recurso"];$("layer3").innerHTML=
 function premLock(k,txt){const F=PREM_F[k],n=premLeft(k);return`<section class="card prem-lock"><div class="card-b"><span class="chip">${ic("lock")} Premium</span><b>${esc(F[0])}</b><p class="muted small" style="margin:0">${txt}</p>
   <div class="row" style="gap:8px">${n?`<button class="btn sm" data-a="premTry" data-k="${k}">Ver uma amostra grátis (${n} restante${n>1?"s":""})</button>`:""}<button class="btn sm pri" data-a="premGo">${ic("star")} Conhecer o Premium</button></div></div></section>`}
 const ASN_CFG=[...ASN_BAS.map(p=>["preco_"+p[0],"Preço do "+p[1]+" (R$)",p[5]]),...ASN_BAS.map(p=>["checkout_"+p[0],"Link de pagamento do "+p[1]+" (o nome da oferta precisa ter “Básico”)","https://pay.hotmart.com/..."]),...ASN_PL.map(p=>["preco_"+p[0],"Preço do "+p[1].toLowerCase()+" (R$)",p[5]]),...ASN_PL.map(p=>["checkout_"+p[0],"Link de pagamento do "+p[1].toLowerCase()+" (Hotmart ou Kiwify)","https://pay.hotmart.com/..."]),
+  ["bf_preco_anual","Black Friday: preço do Premium anual (R$). Deixe vazio para desligar","449,90"],["bf_ate","Black Friday: último dia da oferta (dd/mm/aaaa)","30/11/2026"],["checkout_bf_anual","Black Friday: link de pagamento da oferta do Premium anual (Hotmart ou Kiwify)","https://pay.hotmart.com/..."],
   ["empresa","Razão social (aparece nos termos)","Sua Empresa Ltda"],["cnpj","CNPJ","00.000.000/0001-00"],["suporte_email","E-mail de suporte","suporte@seudominio.com.br"],["whatsapp","WhatsApp de atendimento (com DDD)","65 99999-9999"],["termos_versao","Versão dos termos (mude para pedir novo aceite)","2026-11"]];
 const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Trilha da Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte à Jornada","Lei seca com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
 function asnNum(v){return parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0}
@@ -8668,9 +8669,9 @@ function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_
    :A.st==="ativo"?`<span class="chip ok">Assinatura ativa</span><p>Plano <b>${/^basico_/.test(A.plano)?"Básico "+A.plano.slice(7):["mensal","trimestral","semestral","anual"].includes(A.plano)?"Premium "+A.plano:"cortesia"}</b>${ate?" · válido até <b>"+ate+"</b>":""}${A.origem?" · pago pela "+(A.origem==="hotmart"?"Hotmart":"Kiwify"):""}. A renovação é automática; para cancelar, use a plataforma onde você comprou.</p>`
    :A.st==="teste"?`<span class="chip warn">Teste grátis</span><p>${A.left<=1?"O seu teste termina <b>hoje</b>.":"Faltam <b>"+A.left+" dias</b> de teste."} Assine para não perder o ritmo: seus dados continuam todos com você.</p>`
    :`<span class="chip bad">Sem acesso</span><p>O seu acesso terminou. Assine para continuar.</p>`;
-  const cap=A.st==="dono"?"sem limite":A.st==="teste"?60:TIER()==="basico"?50:80;
-  const pb=V.preco_basico_mensal||"49,90",plan=(t,nome,per,mes,sub0,def)=>{const preco=V["preco_"+t]||def,u=window.jxCheckout?window.jxCheckout(t):"",best=t==="anual",bm=/^basico/.test(t)?pb:pm,eco=mes>1&&asnNum(bm)?Math.round((1-asnNum(preco)/(asnNum(bm)*mes))*100):0,sub=sub0||("Equivale a R$ "+(asnNum(preco)/mes).toFixed(2).replace(".",",")+" por mês."+(eco>0?" Economize "+eco+"%.":""));
-    return`<div class="asn-p ${best?"best":""}">${best?`<span class="asn-tag">Melhor preço</span>`:t==="semestral"?`<span class="asn-tag pop">Mais escolhido</span>`:""}<b>${nome}</b><div class="asn-v"><small>R$</small>${esc(preco)}<em>/${per}</em></div><p class="muted small">${sub}</p>
+  const cap=A.st==="dono"?"sem limite":A.st==="teste"?50:TIER()==="basico"?30:50;
+  const pb=V.preco_basico_mensal||"49,90",plan=(t,nome,per,mes,sub0,def)=>{const bfA=t==="anual"&&window.jxBf?window.jxBf():null,preco=bfA?bfA.p:(V["preco_"+t]||def),u=window.jxCheckout?window.jxCheckout(t):"",best=t==="anual",bm=/^basico/.test(t)?pb:pm,eco=mes>1&&asnNum(bm)?Math.round((1-asnNum(preco)/(asnNum(bm)*mes))*100):0,sub=sub0||("Equivale a R$ "+(asnNum(preco)/mes).toFixed(2).replace(".",",")+" por mês."+(eco>0?" Economize "+eco+"%.":""));
+    return`<div class="asn-p ${best?"best":""}">${bfA?`<span class="asn-tag">Black Friday até ${bfA.d}</span>`:best?`<span class="asn-tag">Melhor preço</span>`:""}<b>${nome}</b>${bfA?`<span class="muted small" style="text-decoration:line-through">R$ ${esc(V.preco_anual||def)}</span>`:""}<div class="asn-v"><small>R$</small>${esc(preco)}<em>/${per}</em></div><p class="muted small">${sub}</p>
     ${A.st==="dono"?`<span class="muted small">${u?"Link configurado ✓":"Link ainda não configurado"}</span>`:u?`<a class="btn ${best?"pri":""}" href="${esc(u)}" target="_blank" rel="noopener">${A.st==="ativo"?"Trocar para o "+nome.toLowerCase():"Assinar o "+nome.toLowerCase()}</a>`:`<span class="muted small">Pagamento em breve.</span>`}</div>`};
   const cfg=A.st!=="dono"?"":`<section class="card"><div class="card-h"><h2>${ic("gear")} Configuração da venda</h2><span class="r muted small">só você vê</span></div><div class="card-b" style="display:grid;gap:12px">
     <p class="muted small" style="margin:0">Crie o produto (assinatura mensal e anual) no Hotmart ou na Kiwify, cole aqui os links de pagamento e configure o aviso de compra (webhook) com o endereço abaixo.</p>
@@ -9960,7 +9961,7 @@ Use SOMENTE o conteúdo do material abaixo; não invente artigos, prazos nem nú
 ${mat}
 </material>
 Responda só com um array JSON: [{"s":"Sobre ...: afirmação","v":true,"e":"explicação"}]`;
-      const arr=await SAMPLE.json(prompt,{modelTier:"default"});if(Array.isArray(arr))L=arr.filter(x=>x&&x.s&&gOk(x.s+" "+(x.e||""),mat)).slice(0,8).map(x=>({s:String(x.s).slice(0,400),v:!!x.v,e:String(x.e||"").slice(0,500)}))}
+      const arr=await SAMPLE.json(prompt,{modelTier:IA_LEVE});if(Array.isArray(arr))L=arr.filter(x=>x&&x.s&&gOk(x.s+" "+(x.e||""),mat)).slice(0,8).map(x=>({s:String(x.s).slice(0,400),v:!!x.v,e:String(x.e||"").slice(0,500)}))}
     else{L=CARDS().filter(c=>c.tid===t.id||(c.sid===t.sid&&c.aula===t.aula)).slice(0,5).map(c=>({s:c.f,v:null,e:c.b}))}
     if(L.length){t.fix={L,at:Date.now()};touch("m-"+(findTask(t.id)||{n:0}).n)}else toast("Ainda não há material para a fixação desta atividade")
   }catch(e){toast(e&&e.code==="not_granted"?"Você não permitiu usar a IA para a fixação.":"Não consegui montar a fixação agora")}

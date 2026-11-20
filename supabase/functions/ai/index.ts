@@ -5,7 +5,7 @@
 // Segredos (Supabase → Edge Functions → Secrets):
 //   ANTHROPIC_API_KEY  (obrigatório)  sua chave da API da Anthropic
 //   ALLOWED_EMAILS     (recomendado)  e-mails do dono, com IA sempre liberada (os demais: só no teste de 7 dias ou com plano)
-//   IA_LIMITE_TESTE / IA_LIMITE_DIA (opcional) pedidos de IA por dia no teste (60) e na assinatura (80)
+//   IA_LIMITE_TESTE / IA_LIMITE_DIA (opcional) pedidos de IA por dia no teste (50), no Básico (30) e no Premium (50)
 //   MODEL_QUICK / MODEL_DEFAULT / MODEL_COMPLEX  (opcional) para trocar os modelos sem mexer no código
 
 const MODELS: Record<string, string> = {
@@ -65,7 +65,7 @@ Deno.serve(async (req) => {
       return json(403, { error: (["mensal", "trimestral", "semestral", "anual"].includes(plano) || bas) ? "A sua assinatura venceu. Renove na aba Assinatura para voltar a usar a IA." : "O seu teste grátis de 7 dias terminou. Assine na aba Assinatura para continuar usando a IA." });
     }
     if (plano !== "dono") {
-      const cap = Number(Deno.env.get(bas ? "IA_LIMITE_BASICO" : pago ? "IA_LIMITE_DIA" : "IA_LIMITE_TESTE") ?? (bas ? 50 : pago ? 80 : 60));
+      const cap = Number(Deno.env.get(bas ? "IA_LIMITE_BASICO" : pago ? "IA_LIMITE_DIA" : "IA_LIMITE_TESTE") ?? (bas ? 30 : pago ? 50 : 50));
       const ur = await fetch(`${base}/rest/v1/uso_ia?user_id=eq.${user.id}&dia=eq.${new Date().toISOString().slice(0, 10)}&select=chamadas`, { headers: hd });
       const n = ur.ok ? ((await ur.json())[0]?.chamadas ?? 0) : 0;
       if (n >= cap) return json(429, { error: `Você usou o limite de ${cap} pedidos de IA de hoje${pago ? "" : " no teste grátis"}. Amanhã libera de novo.` });

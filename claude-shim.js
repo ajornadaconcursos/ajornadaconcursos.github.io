@@ -576,8 +576,9 @@
     addCSS(); const t = el(`<div role="status" style="position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:2147483400;max-width:calc(100vw - 32px);background:#160f33;color:#f1ecff;border:1px solid rgba(160,107,255,.45);border-radius:12px;padding:12px 16px;font:600 14px "Source Sans 3",Figtree,sans-serif;box-shadow:0 12px 34px rgba(0,0,0,.4)">Você está no teste grátis da Jornada: ${left <= 1 ? "ele termina hoje" : "faltam " + left + " dias"}. Assine em Meu plano › Assinatura.</div>`);
     document.body.appendChild(t); setTimeout(() => t.remove(), 6500);
   }
+  window.jxBf = function () { const V = window.JX_VENDA || {}; const p=String(V.bf_preco_anual||"").trim();if(!p)return null;const m=String(V.bf_ate||"").match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);const end=m?Date.parse(m[3]+"-"+m[2].padStart(2,"0")+"-"+m[1].padStart(2,"0")+"T23:59:59-04:00"):0;if(!end||Date.now()>end)return null;return{p:p,d:m[1].padStart(2,"0")+"/"+m[2].padStart(2,"0")} };
   window.jxCheckout = function (tipo) {
-    const V = window.JX_VENDA || {}, u = V["checkout_" + tipo]; if (!u) return "";
+    const V = window.JX_VENDA || {}, bf = tipo === "anual" ? window.jxBf() : null, u = (bf && V.checkout_bf_anual) || V["checkout_" + tipo]; if (!u) return "";
     try { const x = new URL(u); if (EMAIL) { x.searchParams.set("email", EMAIL); } return x.toString(); } catch (e) { return u; }
   };
   function trialEnded(A) {
@@ -591,7 +592,7 @@
         <p class="jx-sub">${venc ? "O acesso terminou em" : "Os 7 dias de teste acabaram em"} ${qd.toLocaleDateString("pt-BR", { day: "numeric", month: "long" })}. Seus concursos, metas, progresso e PDFs continuam guardados: nada foi apagado.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:6px 0 4px">${pl("basico_mensal", "Básico mensal", V.preco_basico_mensal || "49,90", "mês", "")}${pl("basico_anual", "Básico anual", V.preco_basico_anual || "358,80", "ano", "")}</div>
         <p style="margin:10px 0 4px;font-weight:700;color:#e6dcff">Premium: tudo do Básico, mais Scribax em janela, Tire sua dúvida, Incluir no resumo com IA, matriz de prioridade e ranking do Comparativo</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:6px 0 4px">${pl("mensal", "Premium mensal", V.preco_mensal || "79,90", "mês", "")}${pl("trimestral", "Premium trimestral", V.preco_trimestral || "179,70", "trimestre", "")}${pl("semestral", "Premium semestral", V.preco_semestral || "299,40", "semestre", "")}${pl("anual", "Premium anual", V.preco_anual || "478,80", "ano", "Melhor preço")}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:6px 0 4px">${pl("mensal", "Premium mensal", V.preco_mensal || "79,90", "mês", "")}${pl("semestral", "Premium semestral", V.preco_semestral || "299,40", "semestre", "")}${(() => { const b = window.jxBf(); return pl("anual", "Premium anual", b ? b.p : (V.preco_anual || "549,90"), "ano", b ? "Black Friday até " + b.d : "Melhor preço"); })()}</div>
         <p style="margin:8px 0 0;color:#c3c4e6;font-size:13px">Use no pagamento o mesmo e-mail da sua conta (${EMAIL.replace(/[<>&]/g, "")}). A liberação é automática em poucos minutos. Você tem 7 dias para desistir da compra e receber o valor de volta (art. 49 do CDC).</p>
         <div class="jx-row"><button class="jx-btn ghost" type="button" data-k="chk">Já paguei: verificar</button><button class="jx-btn ghost" type="button" data-k="exp">Baixar cópia dos meus dados</button></div>
         <div class="jx-row" style="margin-top:10px"><button class="jx-btn ghost" type="button" data-k="out">Sair</button></div>
