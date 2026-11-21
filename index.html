@@ -7587,9 +7587,10 @@ function jwScene(theme,tod,sm,D){const W=sm?640:1100,sx=W/1100,H=300;
     for(let i=0;i<16;i++){const dx=((i*37)%90)-45,r=1.6+(i%3);g+=`<circle cx="${cx+((i*13)%30)-15}" cy="118" r="${r}" fill="${i%3?"#ffb020":"#ff4d1a"}" class="jw-emb" style="--d:${((i*.31)%2.4).toFixed(2)}s;--t:${(1.8+(i%4)*.5).toFixed(1)}s;--dx:${dx}px"/>`}
     g+=jwForestFire(sx);
     g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#0a0302" stroke-width="${sm?18:14}" stroke-linecap="round" opacity=".7"/><path d="${jwCurve(P,0,6)}" fill="none" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round" opacity=".85"/>`}
-  else if(theme==="cume"){P=[80,240,395,545,690,830,960].map((x,i)=>[Math.round(x*sx),[254,246,234,218,196,164,112][i]]);vb=`0 ${sm?40:46} ${W} ${sm?264:254}`;
-    g+=`<rect y="-90" width="${W}" height="${H+90}" fill="url(#${sky})"/>`+(tod==="noite"?jwStars(46,W)+jwMoon(300*sx,110):tod==="tarde"?jwSun(300*sx,150):jwSun(320*sx,112));
-    g+=`<g transform="scale(${sx} 1)"><path d="M0 250 L140 180 L260 222 L400 150 L540 204 L660 142 L780 192 L1100 168 V300 H0Z" fill="url(#jwM2)" opacity=".85"/><path d="M0 300 V266 L80 266 L240 258 L395 246 L545 230 L690 208 L830 176 L960 98 L1010 140 L1060 176 L1100 194 V300Z" fill="url(#jwCm)"/>
+  else if(theme==="cume"){/* no computador a montanha fica achatada (k) para o cartão ocupar menos altura */const k=sm?1:.6,Y=v=>Math.round(H-(H-v)*k);
+    P=[80,240,395,545,690,830,960].map((x,i)=>[Math.round(x*sx),Y([254,246,234,218,196,164,112][i])]);vb=sm?`0 40 ${W} 264`:`0 122 ${W} 190`;
+    g+=`<rect y="-90" width="${W}" height="${H+90}" fill="url(#${sky})"/>`+(tod==="noite"?jwStars(46,W)+jwMoon((sm?300:620)*sx,sm?110:168):tod==="tarde"?jwSun((sm?300:620)*sx,sm?150:184):jwSun((sm?320:620)*sx,sm?112:168));
+    g+=`<g transform="translate(0 ${H*(1-k)}) scale(${sx} ${k})"><path d="M0 250 L140 180 L260 222 L400 150 L540 204 L660 142 L780 192 L1100 168 V300 H0Z" fill="url(#jwM2)" opacity=".85"/><path d="M0 300 V266 L80 266 L240 258 L395 246 L545 230 L690 208 L830 176 L960 98 L1010 140 L1060 176 L1100 194 V300Z" fill="url(#jwCm)"/>
      <path d="M960 98 L936 124 L948 121 L958 130 L968 120 L980 127 L992 120Z" fill="#f1ecff" opacity=".92"/><path d="M960 98 L1010 140 L1060 176" stroke="#fff" stroke-opacity=".16" stroke-width="2" fill="none"/></g>`;
     g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#120b30" stroke-width="${sm?18:14}" stroke-linecap="round" opacity=".55"/><path d="${jwCurve(P,0,6)}" fill="none" stroke="#c9b8ff" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round" opacity=".8"/>`}
   else{P=[90,250,385,530,660,800,920].map((x,i)=>[Math.round(x*sx),[240,234,226,218,210,203,196][i]]);vb=`0 ${sm?104:116} ${W} ${sm?178:160}`;
