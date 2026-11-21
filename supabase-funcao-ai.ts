@@ -53,13 +53,25 @@ Deno.serve(async (req) => {
   const allowed = (Deno.env.get("ALLOWED_EMAILS") ?? "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
   if (!allowed.includes(String(user.email ?? "").toLowerCase())) {
     const sk = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
-    const pr = await fetch(`${Deno.env.get("SUPABASE_URL")}/rest/v1/perfis?user_id=eq.${user.id}&select=plano,teste_ate`, {
+    const pr = await fetch(`${Deno.env.get("SUPABASE_URL")}/rest/v1/perfis?user_id=eq.${user.id}&select=plano,plano_ate,teste_ate`, {
       headers: { apikey: sk, authorization: `Bearer ${sk}` },
     });
     const p = pr.ok ? (await pr.json())[0] : null;
     const fim = p?.teste_ate ? Date.parse(p.teste_ate) : Date.parse(user.created_at ?? "") + 7 * 864e5;
-    if (!p?.plano && !(fim > Date.now())) {
+    // Plano só vale até plano_ate (quando preenchido): assinatura vencida não usa a IA, igual ao que o painel mostra.
+    const planoOk = !!p?.plano && (!p?.plano_ate || Date.parse(p.plano_ate) > Date.now());
+    if (!planoOk && !(fim > Date.now())) {
       return json(403, { error: "O seu teste grátis de 7 dias terminou. Fale com a equipe da A Jornada para liberar o acesso." });
+    }
+    // Limite diário no servidor (o mesmo do painel): teste 50, Básico 30, Premium 50 pedidos por dia.
+    const limite = planoOk && /^basico_/.test(String(p?.plano ?? "")) ? 30 : 50;
+    const hoje = new Date().toISOString().slice(0, 10);
+    const ur = await fetch(`${Deno.env.get("SUPABASE_URL")}/rest/v1/uso_ia?user_id=eq.${user.id}&dia=eq.${hoje}&select=chamadas`, {
+      headers: { apikey: sk, authorization: `Bearer ${sk}` },
+    });
+    const usados = ur.ok ? Number((await ur.json())[0]?.chamadas ?? 0) : 0;
+    if (usados >= limite) {
+      return json(429, { error: `Você usou os ${limite} pedidos de IA de hoje. Amanhã libera de novo.` });
     }
   }
 
