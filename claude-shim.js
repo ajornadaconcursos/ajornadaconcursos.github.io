@@ -305,7 +305,8 @@
 #jx-gate .jx-film{display:block;width:100%;max-width:880px;aspect-ratio:1280/552;object-fit:cover;background:#09091a;border-radius:16px;border:1px solid rgba(180,140,255,.18);box-shadow:0 24px 60px -24px rgba(0,0,0,.85)}
 #jx-gate .jx-hasfilm .jx-copy,#jx-gate .jx-hasfilm .jx-film{margin-left:auto;margin-right:auto;width:100%;max-width:880px}
 #jx-gate .jx-wrap .jx-top{justify-content:center!important;margin-left:auto!important;margin-right:auto!important;width:100%}
-@media (max-height:760px){#jx-gate .jx-hasfilm .jx-copy ul{display:none}}
+@media (min-width:1101px){#jx-gate .jx-hasfilm{display:grid;grid-template-columns:minmax(240px,.72fr) minmax(0,1.28fr);align-items:center;gap:clamp(28px,3vw,48px)}#jx-gate .jx-hasfilm .jx-copy,#jx-gate .jx-hasfilm .jx-film{max-width:none;margin:0}#jx-gate .jx-hasfilm .jx-copy h2{font-size:clamp(30px,2.8vw,46px)}#jx-gate .jx-hasfilm .jx-film{aspect-ratio:16/10}}
+@media (max-height:640px) and (max-width:1100px){#jx-gate .jx-hasfilm .jx-copy ul{display:none}}
 @media (max-width:900px){#jx-gate .jx-hasfilm{height:auto!important;padding:16px}#jx-gate .jx-hasfilm .jx-copy{display:none}#jx-gate .jx-film{border-radius:12px}}
 @media (prefers-reduced-motion:reduce){#jx-gate .jx-film{display:none}#jx-gate .jx-hasfilm .jx-scene{display:block;position:relative;height:auto;aspect-ratio:1}}
 `;
