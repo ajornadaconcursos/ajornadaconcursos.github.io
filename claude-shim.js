@@ -302,7 +302,9 @@
 #jx-gate .jx-hasfilm .jx-scene{display:none}
 #jx-gate .jx-hasfilm .jx-copy{position:relative;left:auto;top:auto;max-width:none;order:-1}
 #jx-gate .jx-hasfilm .jx-copy h2{font-size:clamp(28px,3.2vw,46px);margin-bottom:12px}
-#jx-gate .jx-film{display:block;width:100%;max-width:980px;aspect-ratio:16/9;object-fit:cover;background:#000;border-radius:18px;border:1px solid rgba(180,140,255,.25);box-shadow:0 30px 80px -20px rgba(0,0,0,.8),0 0 60px -10px rgba(143,92,255,.45)}
+#jx-gate .jx-film{display:block;width:100%;max-width:880px;aspect-ratio:1280/552;object-fit:cover;background:#09091a;border-radius:16px;border:1px solid rgba(180,140,255,.18);box-shadow:0 24px 60px -24px rgba(0,0,0,.85)}
+#jx-gate .jx-hasfilm .jx-copy,#jx-gate .jx-hasfilm .jx-film{margin-left:auto;margin-right:auto;width:100%;max-width:880px}
+#jx-gate .jx-wrap .jx-top{justify-content:center!important;margin-left:auto!important;margin-right:auto!important;width:100%}
 @media (max-height:760px){#jx-gate .jx-hasfilm .jx-copy ul{display:none}}
 @media (max-width:900px){#jx-gate .jx-hasfilm{height:auto!important;padding:16px}#jx-gate .jx-hasfilm .jx-copy{display:none}#jx-gate .jx-film{border-radius:12px}}
 @media (prefers-reduced-motion:reduce){#jx-gate .jx-film{display:none}#jx-gate .jx-hasfilm .jx-scene{display:block;position:relative;height:auto;aspect-ratio:1}}
