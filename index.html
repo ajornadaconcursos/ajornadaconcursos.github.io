@@ -7485,14 +7485,14 @@ function jwHero(p){p=Object.assign({lt:0,lk:0,rt:0,rk:0,la:6,le:-10,ra:-6,re:-10
     s+=`<path d="M${(hx2-1).toFixed(1)} ${(hy2-4).toFixed(1)} L${(hx2+5).toFixed(1)} ${(-0.5-p.bob*0).toFixed(1)}" stroke="#c9cfe6" stroke-width="1.8" stroke-linecap="round"/>`}
   s+=`</g>`;return s}
 /* pós-edital: a floresta do pé do vulcão — uma parte já queimada (troncos carbonizados, brasas e cinza) e a outra pegando fogo */
-function jwForestFire(sx){let s=`<defs><radialGradient id="jwFF"><stop offset="0" stop-color="#ffdf7a"/><stop offset=".45" stop-color="#ff7a1a" stop-opacity=".75"/><stop offset="1" stop-color="#ff2e1a" stop-opacity="0"/></radialGradient></defs><g transform="scale(${sx} 1)">`;
-  const yAt=x=>x<240?268-(x/240)*6:x<395?262-((x-240)/155)*12:x<545?250-((x-395)/150)*16:234-((x-545)/145)*22;
+function jwForestFire(sx,Y=v=>v){let s=`<defs><radialGradient id="jwFF"><stop offset="0" stop-color="#ffdf7a"/><stop offset=".45" stop-color="#ff7a1a" stop-opacity=".75"/><stop offset="1" stop-color="#ff2e1a" stop-opacity="0"/></radialGradient></defs><g transform="scale(${sx} 1)">`;
+  const yAt=x=>Y(x<240?268-(x/240)*6:x<395?262-((x-240)/155)*12:x<545?250-((x-395)/150)*16:234-((x-545)/145)*22);
   /* parte queimada: troncos pretos, galhos quebrados, chão de cinza com brasas */
-  s+=`<path d="M0 300 V276 Q120 266 250 268 T420 258 V300Z" fill="#1a0d0a"/>`;
+  s+=`<path d="M0 300 V${Y(276)} Q120 ${Y(266)} 250 ${Y(268)} T420 ${Y(258)} V300Z" fill="#1a0d0a"/>`;
   [18,46,70,98,126,150,176,204,232,262,292,318,346,374,400].forEach((x,i)=>{const y=yAt(x)+8,h=16+(i*7)%12,l=i%2?-1:1;
     s+=`<path d="M${x} ${y} l${l*.6} -${h}" stroke="#0c0605" stroke-width="${2.4+(i%3)*.5}" stroke-linecap="round"/><path d="M${x+l*.3} ${y-h*.55} l${l*5} -${4+i%3}" stroke="#0c0605" stroke-width="1.4" stroke-linecap="round"/>${i%3?`<path d="M${x+l*.4} ${y-h*.8} l${-l*4} -3" stroke="#0c0605" stroke-width="1.2" stroke-linecap="round"/>`:""}<path d="M${x-1} ${y-h*.4} v-2" stroke="#ff5a1a" stroke-width="1" opacity=".75" class="jw-ash" style="animation-delay:${(i*.37%2.6).toFixed(2)}s"/>`});
   for(let i=0;i<22;i++){const x=(i*19.3)%410+6,y=yAt(x)+10+(i%3);s+=`<circle cx="${x}" cy="${y}" r="${.9+(i%3)*.4}" fill="${i%2?"#ff6a1a":"#ffb347"}" class="jw-ash" style="animation-delay:${(i*.29%2.4).toFixed(2)}s"/>`}
-  for(let i=0;i<5;i++)s+=`<ellipse cx="${40+i*80}" cy="${236-(i%2)*8}" rx="26" ry="9" fill="#3a2a26" opacity=".35" class="jw-wisp" style="animation-delay:${i*1.3}s"/>`;
+  for(let i=0;i<5;i++)s+=`<ellipse cx="${40+i*80}" cy="${Y(236-(i%2)*8)}" rx="26" ry="9" fill="#3a2a26" opacity=".35" class="jw-wisp" style="animation-delay:${i*1.3}s"/>`;
   /* parte em chamas: árvores ainda verdes escuras com fogo subindo */
   [430,452,474,498,522,548,572,598,624,650].forEach((x,i)=>{const y=yAt(x)+8,h=20+(i*5)%10;
     s+=`<ellipse cx="${x}" cy="${y-h*.55}" rx="${h*.75}" ry="${h*.7}" fill="url(#jwFF)" opacity=".55" class="jw-glow" style="animation-delay:${(i*.21).toFixed(2)}s"/>`;
@@ -7572,26 +7572,27 @@ function jwScene(theme,tod,sm,D){const W=sm?640:1100,sx=W/1100,H=300;
     g+=(tod==="noite"?jwMoon(W-120*sx-30,132):jwSun(W-120*sx-30,132,.65));
     g+=`<g transform="translate(${W-40} 214)"><circle r="18" fill="none" stroke="#8682b5" stroke-width="1.5"/><path d="M0 -18 L5 0 L0 18 L-5 0Z" fill="#ff5f8f"/><text y="-26" text-anchor="middle" font-size="11" font-weight="800" fill="#c9a8ff" font-family="Source Sans 3">N</text></g>`;
     g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#c9a8ff" stroke-width="${sm?4:3}" stroke-dasharray="9 8" stroke-linecap="round" opacity=".7"/>`}
-  else if(theme==="vulcao"){P=[80,240,395,545,690,830,960].map((x,i)=>[Math.round(x*sx),[256,248,236,220,198,166,120][i]]);vb=`0 ${sm?40:46} ${W} ${sm?264:254}`;
+  else if(theme==="vulcao"){/* pós-edital: mesma montanha achatada do cartão normal no computador */const k=sm?1:.6,Y=v=>Math.round(H-(H-v)*k);
+    P=[80,240,395,545,690,830,960].map((x,i)=>[Math.round(x*sx),Y([256,248,236,220,198,166,120][i])]);vb=sm?`0 40 ${W} 264`:`0 128 ${W} 180`;
     const cx=960*sx;
     g+=lavaDefs("jwV")+`<defs><linearGradient id="jwSkyV" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a0302"/><stop offset=".55" stop-color="#4a0c05"/><stop offset="1" stop-color="#8a1f08"/></linearGradient><linearGradient id="jwVo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a120b"/><stop offset=".5" stop-color="#1e0907"/><stop offset="1" stop-color="#0e0403"/></linearGradient><radialGradient id="jwLavaG"><stop offset="0" stop-color="#fff0a0"/><stop offset=".35" stop-color="#ffb020"/><stop offset=".7" stop-color="#ff4d1a" stop-opacity=".8"/><stop offset="1" stop-color="#ff2e1a" stop-opacity="0"/></radialGradient></defs>`;
-    g+=`<rect y="-90" width="${W}" height="${H+90}" fill="url(#jwSkyV)"/><circle cx="${300*sx}" cy="112" r="40" fill="#ff3d1a" opacity=".35"/><circle cx="${300*sx}" cy="112" r="15" fill="#ff7a3d" opacity=".8"/>`;
-    g+=`<g class="jw-smk" opacity=".7" filter="url(#jwVSm)"><ellipse cx="${cx-30}" cy="44" rx="${70*sx+30}" ry="26" fill="#3a1a14"/><ellipse cx="${cx+40}" cy="20" rx="${60*sx+24}" ry="22" fill="#4a241a"/><ellipse cx="${cx}" cy="-6" rx="${80*sx+30}" ry="24" fill="#2e1510"/></g><g class="jw-smk2" opacity=".5" filter="url(#jwVSm)"><ellipse cx="${cx+10}" cy="70" rx="${40*sx+18}" ry="16" fill="#ff6a2a" opacity=".35"/><ellipse cx="${cx-50}" cy="10" rx="${50*sx+20}" ry="18" fill="#2a120e"/></g>`;
-    g+=`<g transform="scale(${sx} 1)"><path d="M0 250 L120 200 L230 232 L360 176 L480 222 L600 172 L720 212 L1100 190 V300 H0Z" fill="#240a06" opacity=".95"/>
+    g+=`<rect y="-90" width="${W}" height="${H+90}" fill="url(#jwSkyV)"/><circle cx="${300*sx}" cy="${sm?112:168}" r="40" fill="#ff3d1a" opacity=".35"/><circle cx="${300*sx}" cy="${sm?112:168}" r="15" fill="#ff7a3d" opacity=".8"/>`;
+    g+=`<g class="jw-smk" opacity=".7" filter="url(#jwVSm)"><ellipse cx="${cx-30}" cy="${Y(44)}" rx="${70*sx+30}" ry="26" fill="#3a1a14"/><ellipse cx="${cx+40}" cy="${Y(20)}" rx="${60*sx+24}" ry="22" fill="#4a241a"/><ellipse cx="${cx}" cy="${Y(-6)}" rx="${80*sx+30}" ry="24" fill="#2e1510"/></g><g class="jw-smk2" opacity=".5" filter="url(#jwVSm)"><ellipse cx="${cx+10}" cy="${Y(70)}" rx="${40*sx+18}" ry="16" fill="#ff6a2a" opacity=".35"/><ellipse cx="${cx-50}" cy="${Y(10)}" rx="${50*sx+20}" ry="18" fill="#2a120e"/></g>`;
+    g+=`<g transform="translate(0 ${H*(1-k)}) scale(${sx} ${k})"><path d="M0 250 L120 200 L230 232 L360 176 L480 222 L600 172 L720 212 L1100 190 V300 H0Z" fill="#240a06" opacity=".95"/>
      <path d="M0 300 V268 L240 262 L395 250 L545 234 L690 212 L830 180 L928 122 L992 122 L1052 176 L1100 196 V300Z" fill="url(#jwVo)"/>
      <g>${lavaFlow("jwV","M988 126 C1002 152 994 178 1014 214 C1028 242 1040 268 1052 304",9)}${lavaFlow("jwV","M936 126 C926 152 904 170 907 204 C910 234 884 260 870 304",7)}${lavaFlow("jwV","M906 206 C890 222 872 236 866 262 C862 280 852 292 846 304",4,.7)}</g>
      <path d="M928 122 L940 114 L960 110 L982 114 L992 122" fill="none" stroke="#3a120b" stroke-width="5" stroke-linecap="round"/></g>
-     <ellipse cx="${cx}" cy="116" rx="${84*sx+16}" ry="34" fill="#ff5a12" opacity=".35" filter="url(#jwVBl)" class="jw-crater"/>
-     <ellipse cx="${cx}" cy="120" rx="${30*sx+8}" ry="7" fill="url(#jwVLk)"/>
-     ${[0,1,2,3].map(i=>`<circle cx="${cx-14+i*9}" cy="${119+(i%2)}" r="${1.6+(i%2)}" fill="#fff3a0" class="jw-bub" style="animation-delay:${(i*.45).toFixed(2)}s"/>`).join("")}`;
-    for(let i=0;i<16;i++){const dx=((i*37)%90)-45,r=1.6+(i%3);g+=`<circle cx="${cx+((i*13)%30)-15}" cy="118" r="${r}" fill="${i%3?"#ffb020":"#ff4d1a"}" class="jw-emb" style="--d:${((i*.31)%2.4).toFixed(2)}s;--t:${(1.8+(i%4)*.5).toFixed(1)}s;--dx:${dx}px"/>`}
-    g+=jwForestFire(sx);
+     <ellipse cx="${cx}" cy="${Y(116)}" rx="${84*sx+16}" ry="${34*k}" fill="#ff5a12" opacity=".35" filter="url(#jwVBl)" class="jw-crater"/>
+     <ellipse cx="${cx}" cy="${Y(120)}" rx="${30*sx+8}" ry="7" fill="url(#jwVLk)"/>
+     ${[0,1,2,3].map(i=>`<circle cx="${cx-14+i*9}" cy="${Y(119)+(i%2)}" r="${1.6+(i%2)}" fill="#fff3a0" class="jw-bub" style="animation-delay:${(i*.45).toFixed(2)}s"/>`).join("")}`;
+    for(let i=0;i<16;i++){const dx=((i*37)%90)-45,r=1.6+(i%3);g+=`<circle cx="${cx+((i*13)%30)-15}" cy="${Y(118)}" r="${r}" fill="${i%3?"#ffb020":"#ff4d1a"}" class="jw-emb" style="--d:${((i*.31)%2.4).toFixed(2)}s;--t:${(1.8+(i%4)*.5).toFixed(1)}s;--dx:${dx}px"/>`}
+    g+=jwForestFire(sx,Y);if(!sm)g+=`<rect y="299" width="${W}" height="40" fill="#0e0403"/><rect y="299" width="${420*sx}" height="40" fill="#1a0d0a"/>`;
     g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#0a0302" stroke-width="${sm?18:14}" stroke-linecap="round" opacity=".7"/><path d="${jwCurve(P,0,6)}" fill="none" stroke="#ff8a3d" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round" opacity=".85"/>`}
   else if(theme==="cume"){/* no computador a montanha fica achatada (k) para o cartão ocupar menos altura */const k=sm?1:.6,Y=v=>Math.round(H-(H-v)*k);
     P=[80,240,395,545,690,830,960].map((x,i)=>[Math.round(x*sx),Y([254,246,234,218,196,164,112][i])]);vb=sm?`0 40 ${W} 264`:`0 122 ${W} 190`;
     g+=`<rect y="-90" width="${W}" height="${H+90}" fill="url(#${sky})"/>`+(tod==="noite"?jwStars(46,W)+jwMoon((sm?300:620)*sx,sm?110:168):tod==="tarde"?jwSun((sm?300:620)*sx,sm?150:184):jwSun((sm?320:620)*sx,sm?112:168));
     g+=`<g transform="translate(0 ${H*(1-k)}) scale(${sx} ${k})"><path d="M0 250 L140 180 L260 222 L400 150 L540 204 L660 142 L780 192 L1100 168 V300 H0Z" fill="url(#jwM2)" opacity=".85"/><path d="M0 300 V266 L80 266 L240 258 L395 246 L545 230 L690 208 L830 176 L960 98 L1010 140 L1060 176 L1100 194 V300Z" fill="url(#jwCm)"/>
-     <path d="M960 98 L936 124 L948 121 L958 130 L968 120 L980 127 L992 120Z" fill="#f1ecff" opacity=".92"/><path d="M960 98 L1010 140 L1060 176" stroke="#fff" stroke-opacity=".16" stroke-width="2" fill="none"/></g>`;
+     <path d="M960 98 L936 124 L948 121 L958 130 L968 120 L980 127 L992 120Z" fill="#f1ecff" opacity=".92"/><path d="M960 98 L1010 140 L1060 176" stroke="#fff" stroke-opacity=".16" stroke-width="2" fill="none"/></g>`+(sm?"":`<rect y="299" width="${W}" height="40" fill="#1a1042"/>`);
     g+=`<path d="${jwCurve(P,0,6)}" fill="none" stroke="#120b30" stroke-width="${sm?18:14}" stroke-linecap="round" opacity=".55"/><path d="${jwCurve(P,0,6)}" fill="none" stroke="#c9b8ff" stroke-width="2" stroke-dasharray="3 9" stroke-linecap="round" opacity=".8"/>`}
   else{P=[90,250,385,530,660,800,920].map((x,i)=>[Math.round(x*sx),[240,234,226,218,210,203,196][i]]);vb=`0 ${sm?104:116} ${W} ${sm?178:160}`;
     g+=`<rect width="${W}" height="${H}" fill="url(#${sky})"/>`+(tod==="noite"?jwStars(46,W)+jwMoon(700*sx,150):tod==="tarde"?jwSun(640*sx,186):jwSun(700*sx,148));
