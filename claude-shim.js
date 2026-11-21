@@ -569,7 +569,7 @@
   }
   /* Aceite dos Termos de Uso e da Política de Privacidade (uma vez por versão) */
   function termsCheck() {
-    const v = (window.JX_VENDA && window.JX_VENDA.termos_versao) || "2026-12";
+    const v = (window.JX_VENDA && window.JX_VENDA.termos_versao) || "2026-11";
     if (!window.JX_ACESSO || window.JX_ACESSO.aceite === v) return true;
     return new Promise(res => {
       hideSplash(); addCSS(); const old = $("#jx-gate"); if (old) old.remove();
