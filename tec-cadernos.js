@@ -120,13 +120,43 @@
   var GEN={};"constitucional constitucionais constituicao fundamentais fundamental direitos principios organizacao administracao administrativo publica publico normas norma geral gerais conceito conceitos teoria disposicoes estado estados federal poder poderes questoes mescladas aspectos introducao nocoes legislacao processo procedimento juridica juridico sistema sistemas regime".split(" ").forEach(function(w){GEN[w]=1});
   var MOD={};"verbal verbais nominal nominais simples composta compostas composto compostos ativa passiva ativo passivo especial especiais geral comum comuns".split(" ").forEach(function(w){MOD[w]=1});
   function words(s){return norm(s).replace(/\([^)]*\)/g," ").replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(function(w){return w.length>2&&!SW[w]})}
-  function hasAll(nome,ws){var n=" "+norm(nome).replace(/\([^)]*\)/g," ").replace(/[^a-z0-9 ]/g," ")+" ";return ws.every(function(w){return n.indexOf(" "+w.slice(0,Math.min(w.length,6)))>=0})}
+  /* singular de cada palavra: "verbos" acha "Verbo", "vozes" acha "Vozes"/"Voz", "verbais" acha "Verbal" (antes o plural fazia a aula ficar sem caderno) */
+  function sing(w){w=String(w||"");if(w.length<5)return w;return w.replace(/zes$/,"z").replace(/[oa]es$/,"ao").replace(/([rs])es$/,"$1").replace(/([aeo])is$/,"$1l").replace(/s$/,"")}
+  function sws(s){return norm(s).replace(/\([^)]*\)/g," ").replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(Boolean).map(sing)}
+  function hasAll(nome,ws){var N=sws(nome);return ws.every(function(w){var k=sing(w).slice(0,Math.min(sing(w).length,6));return N.some(function(x){return x.indexOf(k)===0})})}
+  /* ===== Língua Portuguesa: dicionário fixo aula → assuntos do TEC =====
+     Português tem os mesmos assuntos em todo concurso. Em vez de adivinhar pelo texto, cada palavra-chave da aula aponta para
+     o nome do assunto no TEC (nomes do Índice do próprio TEC). "*" = começo de palavra (interjei* acha Interjeição/Interjeições).
+     need = palavra que também tem de estar no nome do assunto. */
+  var LPD=[
+    [/\bsubstantiv/,["substantivo"]],[/\badjetiv/,["adjetivo"]],[/\badverbi/,["adverbio"]],[/\bartigos?\b/,["artigo"]],[/\bnumera(l|is)\b/,["numeral"]],[/\binterj/,["interjei*"]],
+    [/\bpreposi/,["preposi*"]],[/\bconjunc|\bconjunco/,["conjun*"]],[/\bpronomes?\b/,["pronome"]],[/colocacao (pronominal|dos pronomes)|\bproclise|\bmesoclise|\benclise/,["colocacao pronominal"]],
+    [/\bverbos?\b|tempos? (e modos )?verba|modos? verba|flexao verbal|emprego dos tempos/,["verbo"]],[/\bvoz(es)?\b|voz passiva/,["vozes","voz passiva"]],[/\bcorrelac/,["correlacao"]],
+    [/\bpontuac|\bvirgula/,["pontuacao"]],[/\bconcordanc/,["concordancia"]],[/\bregenc/,["regencia"]],[/\bcrase/,["crase"]],
+    [/\bcoes(ao|iva)/,["coesao"]],[/\bcoerenc/,["coerencia"]],[/\bsinonim|\bantonim/,["sinonim*","antonim*"]],[/\bhomonim|\bparonim/,["homonim*","paronim*"]],
+    [/significac/,["significacao"]],[/\bsemantic/,["semantica"]],[/figuras? de linguagem|linguagem figurada/,["figuras de linguagem"]],[/\bdenotac|\bconotac/,["denota*","conota*"]],[/\bpolissem/,["polissem*"]],
+    [/\binterpreta|\bcompreens/,["interpretacao","compreensao"]],[/\btipologia|tipos? (de texto|textuais)/,["tipologia"]],[/\bgeneros? (textua|do discurso|de texto)/,["generos",{q:"genero",need:"text"}]],
+    [/\bortograf/,["ortografia"]],[/\bacentuac/,["acentuacao"]],[/\bhifen/,["hifen"]],[/\bporques?\b/,["porque"]],
+    [/(formacao|estrutura) (das|de) palavras/,[{q:"formacao",need:"palavra"},{q:"estrutura",need:"palavra"}]],
+    [/\bsujeito/,["sujeito"]],[/\bpredicad|\bpredicativ/,["predica*"]],[/termos? (da|das) orac|termos (essenciais|integrantes|acessorios)/,["termos"]],[/\baposto|\bvocativo/,["aposto","vocativo"]],[/\badjuntos?\b/,["adjunto"]],[/\bobjetos? (direto|indireto)/,["objeto"]],[/complemento nominal/,["complemento nominal"]],
+    [/\bcoordenac|\bcoordenad/,["coordena*"]],[/\bsubordinac|\bsubordinad/,["subordina*"]],[/periodo composto/,["periodo composto"]],
+    [/variac(ao|oes) linguistic|niveis de linguagem|variantes? linguistic/,["variacao linguistica","niveis de linguagem"]],[/redacao oficial|correspondencia oficial|manual de redacao/,["redacao oficial"]],
+    [/\bparalelismo/,["paralelismo"]],[/\breescrit|\breescritur/,["reescrit*"]],[/discurso (direto|indireto)/,["discurso"]],[/funcoes da linguagem/,["funcoes da linguagem"]],[/\bfonolog|\bfonetic/,["fonologia","fonetica"]]];
+  /* lê primeiro o título da aula (o mais preciso); só se ele não tiver palavra-chave usa os tópicos do edital ligados à aula */
+  async function lpPick(it,mi){var fx=function(x){return" "+norm(x).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ")+" "},txt=fx(it.t||""),out=[],seen={};
+    if(!LPD.some(function(d){return d[0].test(txt)}))txt=fx((it.a||[]).join(" "));
+    for(var d=0;d<LPD.length;d++){if(!LPD[d][0].test(txt))continue;var T=LPD[d][1];
+      for(var t=0;t<T.length;t++){var o=typeof T[t]==="string"?{q:T[t]}:T[t],st=/\*$/.test(o.q),q=o.q.replace(/\*$/,""),qw=q.split(" ").map(sing),L=await search(st?q:sing(q)),hit=[];
+        L.forEach(function(r){if(mi.length&&!(r.materia&&mi.indexOf(r.materia.id)>=0))return;var N=sws(r.nome);if(o.need&&!N.some(function(x){return x.indexOf(o.need)===0}))return;
+          var ok=qw.every(function(w){return N.some(function(x){return st?x.indexOf(w)===0:x===w})});if(!ok)return;hit.push({r:r,s:(N[0]&&(st?N[0].indexOf(qw[0])===0:N[0]===qw[0])?0:1),l:N.length})});
+        hit.sort(function(a,b){return a.s-b.s||a.l-b.l});hit.slice(0,3).forEach(function(h){if(!seen[h.r.id]&&out.length<10){seen[h.r.id]=1;out.push(h.r)}})}}
+    return out}
   async function famPick(tp,it,mi,search){var out=[],seen={},cov={};
     /* nome só genérico (ex.: "Classes de palavras"): não vira caderno, senão puxa todas as classes para uma aula de um assunto só */
     if(!words(tp).some(function(w){return !/^(classes?|palavras?|morfologia|nocoes|gerais|parte|aula|revisao)$/.test(w)}))return [];
     var segs=String(tp).replace(/\([^)]*\)/g," ").split(/[.,;:–—]|\s-\s|\s+e\s+(?=[A-ZÁ-Ú])/).map(words).filter(function(x){return x.length});
-    async function fam(ws){var q=ws.length===1?ws[0]:ws[ws.length-1],L=await search(q);
-      return L.filter(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return false;var n=norm(r.nome);return ws.length===1?(" "+n.replace(/\([^)]*\)/g," ").replace(/[^a-z0-9 ]/g," ")+" ").indexOf(" "+ws[0])>=0:hasAll(r.nome,ws)})}
+    async function fam(ws){var q=sing(ws.length===1?ws[0]:ws[ws.length-1]),L=await search(q);
+      return L.filter(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return false;if(ws.length>1)return hasAll(r.nome,ws);var k=sing(ws[0]);return sws(r.nome).some(function(x){return x.indexOf(k)===0})})}
     function add(F,ws){if(!F.length||F.length>10)return false;F.forEach(function(r){if(!seen[r.id]){seen[r.id]=1;out.push(r)}});ws.forEach(function(w){cov[w]=1});return true}
     /* pares de palavras vizinhas dentro do mesmo trecho (não atravessa vírgula ou ponto) */
     for(var s=0;s<segs.length;s++){var W=segs[s];for(var i=0;i+1<W.length;i++){if((GEN[W[i]]||MOD[W[i]])&&(GEN[W[i+1]]||MOD[W[i+1]]))continue;add(await fam([W[i],W[i+1]]),[W[i],W[i+1]])}}
@@ -143,7 +173,9 @@
     for(var i=0;i<J.items.length;i++){if(STOP)break;var it=J.items[i];if(!it||!it.k||DONE[it.k])continue;
       prog(i,J.items.length,it.m+" · "+it.t);
       try{var mi=mats(it.m),ids=[],names=[],pick=[];
-        var tops=(it.a||[]).slice(0,5);
+        var tops=(it.a||[]).slice(0,5),isLP=/portugu/.test(norm(it.m))&&!/\|\*$/.test(it.k),lpd=0;
+        /* Português: primeiro o dicionário fixo (assunto certo sempre); só se ele não achar nada usa a busca por semelhança */
+        if(isLP){var lg=await lpPick(it,mi);lg.forEach(function(r){if(ids.indexOf(r.id)<0){ids.push(r.id);names.push(r.nome);pick.push(r)}});if(ids.length){lpd=1;tops=[]}}
         for(var j=0;j<tops.length;j++){var got=await famPick(tops[j],it,mi,search);got.forEach(function(r){if(ids.indexOf(r.id)<0&&ids.length<10){ids.push(r.id);names.push(r.nome);pick.push(r)}})}
         /* nada na matéria da aula: o TEC às vezes guarda o assunto em matéria vizinha (Juros Simples em Matemática Financeira, LINDB em Legislação Civil,
            Simples Nacional em Legislação Tributária); aceita só nome igual ao tópico ou que traz o tópico inteiro */
@@ -153,7 +185,8 @@
             var rr=ex||ct;if(rr&&ids.indexOf(rr.id)<0){ids.push(rr.id);names.push(rr.nome);pick.push(rr)}}}
         /* dois ou mais assuntos irmãos (mesmo assunto-pai no TEC): usa o pai, que cobre a aula inteira sem puxar outro ramo */
         var PID=function(r){return r.idPai||r.paiId||r.idAssuntoPai||(r.pai&&r.pai.id)||(r.assuntoPai&&r.assuntoPai.id)||0},grp={};
-        pick.forEach(function(r){var p=PID(r);if(p)(grp[p]=grp[p]||[]).push(r)});
+        /* com o dicionário de Português não troca pelo pai: "Substantivo, Adjetivo…" viraria "Classes de Palavras" inteira (com verbo, pronome…) */
+        if(!lpd)pick.forEach(function(r){var p=PID(r);if(p)(grp[p]=grp[p]||[]).push(r)});
         Object.keys(grp).forEach(function(p){var g=grp[p];if(g.length<2)return;var par=g[0].pai||g[0].assuntoPai||null,pn=par&&par.nome?par.nome:"";if(!pn)return;
           ids=ids.filter(function(x){return!g.some(function(r){return r.id===x})});names=names.filter(function(x){return!g.some(function(r){return r.nome===x})});ids.unshift(+p);names.unshift(pn)});
         /* nunca troca o assunto pela matéria inteira: sem assunto encontrado, a aula fica de fora e a plataforma avisa */
@@ -170,7 +203,7 @@
         var q=Math.min(Math.min(+it.n||N,100),n),FF=useB?F.concat([["BANCA",banca.id]]):F;
         var nome=((whole?"A Jornada · "+it.m+" · Matéria inteira":"A Jornada · "+it.m+" › "+names.slice(0,3).join(" / "))+(useB?" · "+(banca.sigla||banca.nome):it.ob?" · outras bancas":"")).replace(/\s+/g," ").slice(0,140);
         var cid=await create(FF,nome,q);
-        if(cid){var r={v:2,k:it.k,id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,4).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
+        if(cid){var r={v:3,k:it.k,id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,4).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
       }catch(e){FAIL.push(it.k)}
       await sleep(250)}
     finish()})();
