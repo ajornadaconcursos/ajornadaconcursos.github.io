@@ -3621,7 +3621,8 @@ const curPlan=()=>IS_TJ?TJ_INFO:PLAN;
 const prot=x=>String(x).replace(/Oficial de Justiça/g,"Oficial de\u2060 Justiça").replace(/TJ([ -]?)SP/g,"TJ\u2060$1SP").replace(/VUNESP/g,"VUN\u2060ESP");
 const pName=p=>p.id==="tjsp"?prot("Oficial de Justiça TJSP"):fixName(p.name);
 /* O Auditor e o TJ ficam em aplicativos separados (cada um com o seu espaço de arquivos). APP_LINK leva ao outro. */
-const APP_LINK={url:"https://claude.ai/artifact/C2Q4NGvhUnqv1T7DTatTpy",name:"Auditor Fiscal (Regular)"};
+/* Versão nacional: cada aluno troca de concurso dentro da própria conta; o link para o app antigo (artefato privado) foi desligado. */
+const APP_LINK=null;
 const APP_SUB="";
 const xpName=id=>pName(planInfo(id)||{name:(PLANS.gone||{})[id]||"outro concurso"});
 const pDesc=p=>{const x=[p.cargo,p.orgao,p.banca].filter(Boolean).join(" · ");return p.id==="tjsp"?prot(x):x};
@@ -8726,7 +8727,7 @@ const ASN_CFG=[...ASN_BAS.map(p=>["preco_"+p[0],"Preço do "+p[1]+" (R$)",p[5]])
   ["empresa","Razão social (aparece nos termos)","Sua Empresa Ltda"],["cnpj","CNPJ","00.000.000/0001-00"],["suporte_email","E-mail de suporte","suporte@seudominio.com.br"],["whatsapp","WhatsApp de atendimento (com DDD)","65 99999-9999"],["termos_versao","Versão dos termos (mude para pedir novo aceite)","2026-11"]];
 const ASN_FEAT=["Metas diárias montadas a partir do edital e da sua rotina","Resumos, flash cards e mapas mentais com IA a partir dos seus PDFs","Trilha da Jornada: revisão espaçada com Certo ou Errado","Simulados com IA, reforços com diagnóstico e Pergunte à Jornada","Lei seca com o texto oficial do Planalto","Desempenho, padrão de erros e arquivo das metas"];
 function asnNum(v){return parseFloat(String(v||"0").replace(/\./g,"").replace(",","."))||0}
-function vAssinatura(){const A=window.JX_ACESSO||{st:"dono",plano:"",left:99,ia_hoje:0},V=window.JX_VENDA||{},pm=V.preco_mensal||"79,90";
+function vAssinatura(){const A=window.JX_ACESSO||(window.jxAcesso?{st:"teste",plano:"",left:7,ia_hoje:0}:{st:"dono",plano:"",left:99,ia_hoje:0}),V=window.JX_VENDA||{},pm=V.preco_mensal||"79,90";
   const ate=A.plano_ate?new Date(A.plano_ate).toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"}):"";
   const stH=A.st==="dono"?`<span class="chip ok">Conta de administrador</span><p>Acesso livre e vitalício nesta conta, sem limite de IA. Aqui você também configura os preços, os links de pagamento e os dados da empresa.</p>`
    :A.st==="ativo"?`<span class="chip ok">Assinatura ativa</span><p>Plano <b>${/^basico_/.test(A.plano)?"Básico "+A.plano.slice(7):["mensal","trimestral","semestral","anual"].includes(A.plano)?"Premium "+A.plano:"cortesia"}</b>${ate?" · válido até <b>"+ate+"</b>":""}${A.origem?" · pago pela "+(A.origem==="hotmart"?"Hotmart":"Kiwify"):""}. A renovação é automática; para cancelar, use a plataforma onde você comprou.</p>`
