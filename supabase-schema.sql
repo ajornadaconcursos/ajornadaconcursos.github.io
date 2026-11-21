@@ -72,3 +72,24 @@ do $$ begin
       with check (bucket_id = 'arquivos' and (storage.foldername(name))[1] = auth.uid()::text);
   end if;
 end $$;
+
+-- Relatório semanal de cadastros (só números, nenhum dado pessoal). Só a conta de administrador (plano 'dono') consegue chamar.
+create or replace function public.relatorio_semanal() returns json language plpgsql security definer set search_path = public as $$
+declare r json;
+begin
+  if not exists (select 1 from public.perfis where user_id = auth.uid() and plano = 'dono') then
+    raise exception 'permission denied';
+  end if;
+  select json_build_object(
+    'novos_7d',          (select count(*) from public.perfis where criado_em >= now() - interval '7 days' and coalesce(plano,'') <> 'dono'),
+    'novos_7d_anterior', (select count(*) from public.perfis where criado_em >= now() - interval '14 days' and criado_em < now() - interval '7 days' and coalesce(plano,'') <> 'dono'),
+    'em_teste',          (select count(*) from public.perfis where coalesce(plano,'') = '' and teste_ate > now()),
+    'teste_venceu',      (select count(*) from public.perfis where coalesce(plano,'') = '' and teste_ate <= now()),
+    'assinantes',        (select count(*) from public.perfis where coalesce(plano,'') not in ('', 'dono')),
+    'total',             (select count(*) from public.perfis where coalesce(plano,'') <> 'dono'),
+    'gerado_em',         now()
+  ) into r;
+  return r;
+end $$;
+revoke execute on function public.relatorio_semanal() from public, anon;
+grant execute on function public.relatorio_semanal() to authenticated;
