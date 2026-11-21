@@ -283,7 +283,7 @@ body>*:not(.bgv):not(.nav){position:relative;z-index:1}.nav{z-index:20}
 </div></section>
 
 <footer><div class="w">
- <div><a class="brand" href="planos.html"><img src="logo-jornada.svg" alt=""><b>A JORNADA</b></a><p>Sua trilha diária até a aprovação, para quem estuda com autonomia.</p><p id="emp"></p></div>
+ <div><a class="brand" href="planos.html"><img src="logo-jornada.svg" alt=""><b>A JORNADA</b></a><p>Sua trilha diária até a aprovação, para quem estuda com autonomia.</p><p id="emp"></p><p id="pat" class="small" hidden></p></div>
  <div><h4>Navegação</h4><a href="#plataforma">Plataforma</a><a href="#recursos">Recursos</a><a href="#planos">Planos</a><a href="#duvidas">Dúvidas</a></div>
  <div><h4>Consentimento</h4><a href="termos.html#termos">Termos de Uso</a><a href="termos.html#privacidade">Política de Privacidade</a></div>
  <div><h4>Acessar plataforma</h4><a class="btn pri pill" style="color:#fff;display:inline-flex" href="./?entrar">Entrar ›</a><a href="./?cadastro" style="margin-top:12px">Criar conta grátis</a></div>
@@ -313,6 +313,7 @@ body>*:not(.bgv):not(.nav){position:relative;z-index:1}.nav{z-index:20}
     <a class="btn ${k==="anual"?"pri":""}" href="./?cadastro&plano=${k}">Começar 7 dias grátis</a></div>`}).join("");
   const wa=String(V.whatsapp||"").replace(/\D/g,"");if(wa){const a=document.getElementById("wa");a.href="https://wa.me/"+(wa.length<=11?"55"+wa:wa);a.target="_blank";a.rel="noopener"}
   if(V.suporte_email){const e=document.getElementById("em");e.href="mailto:"+V.suporte_email}
+  {const ps=["ouro","prata","bronze"].filter(k=>V["pat_"+k+"_nome"]).map(k=>{const n=esc(V["pat_"+k+"_nome"]),l=V["pat_"+k+"_link"];return l?`<a href="${esc(l)}" target="_blank" rel="noopener sponsored">${n}</a>`:n});const pe=document.getElementById("pat");if(ps.length){pe.innerHTML="Patrocínio: "+ps.join(" · ");pe.hidden=false}}
   if(V.empresa)document.getElementById("emp").textContent=V.empresa+(V.cnpj?" · CNPJ "+V.cnpj:"")+(V.suporte_email?" · "+V.suporte_email:"");}
  draw({});
  try{const C=window.JORNADA_CONFIG||{};fetch(C.SUPABASE_URL+"/rest/v1/config_app?select=k,v",{headers:{apikey:C.SUPABASE_ANON_KEY,authorization:"Bearer "+C.SUPABASE_ANON_KEY}}).then(r=>r.ok?r.json():[]).then(L=>{const o={};L.forEach(x=>o[x.k]=x.v);draw(o)}).catch(()=>{})}catch(e){}
