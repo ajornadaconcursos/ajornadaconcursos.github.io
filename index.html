@@ -923,6 +923,11 @@ table.tb{width:100%;border-collapse:collapse;font-size:14px}
 .upm-ic.warn{background:#d98a12}.upm-ic.bad{background:#d14343}
 .upm-ic.busy{border:5px solid var(--line);border-top-color:var(--lime);animation:upspin .9s linear infinite}
 @keyframes upspin{to{transform:rotate(360deg)}}
+.upm-pg{display:flex;align-items:center;gap:12px}
+.upm-bar{flex:1;height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.upm-bar i{display:block;width:0;height:100%;border-radius:inherit;background:var(--lime);transition:width .35s ease}
+.upm-pg b{min-width:4ch;text-align:right;font-size:14px;font-variant-numeric:tabular-nums;color:var(--lime-txt)}
+@media (prefers-reduced-motion:reduce){.upm-bar i{transition:none}}
 .upm-l{display:grid;gap:8px;text-align:left;max-height:40vh;overflow:auto}
 .upm-r{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid var(--line);border-radius:12px}
 .upm-r .d{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;background:#1f9d4c}
@@ -5649,11 +5654,10 @@ function ensurePdfjs(){
   if(PDFJS_P)return PDFJS_P;
   PDFJS_P=(async()=>{
     const W=[["https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js","https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"],["https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js","https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js"],["https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js","https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js"]];
-    await waitFor(()=>window.pdfjsLib,4000);
     for(const [a,w] of W){
       if(!window.pdfjsLib)await loadScript(a);
       if(!window.pdfjsLib)continue;
-      if(!window.pdfjsWorker){await waitFor(()=>window.pdfjsWorker,2500);if(!window.pdfjsWorker)await loadScript(w)}
+      if(!window.pdfjsWorker)await loadScript(w);
       if(window.pdfjsWorker){try{pdfjsLib.GlobalWorkerOptions.workerSrc=w}catch(e){}return true}
     }
     return!!window.pdfjsLib;
@@ -5661,14 +5665,18 @@ function ensurePdfjs(){
   PDFJS_P.then(ok=>{if(!ok)PDFJS_P=null});
   return PDFJS_P;
 }
+/* devolve a vez ao navegador para a barra de progresso aparecer enquanto o PDF é lido */
+const yieldUI=()=>new Promise(r=>setTimeout(r,0));
 async function extractPdf(buf,sid,onp){
+  if(onp){onp(-1,0);await yieldUI()}
   if(!(await ensurePdfjs()))throw new Error("leitor");
   const doc=await pdfjsLib.getDocument({data:buf,isEvalSupported:false}).promise;
   const n=doc.numPages,heads=[],LP=[],TXT=[],RP=[];
+  if(onp){onp(0,n);await yieldUI()}let tY=performance.now();
   const ol=await outlineOf(doc);let qc=0;
   ol.forEach(o=>{if(!qc&&o.p>2&&QC.test(o.t))qc=o.p});
   for(let p=1;p<=n;p++){
-    if(onp)onp(p,n);
+    if(onp){onp(p,n);if(performance.now()-tY>50){await yieldUI();tY=performance.now()}}
     const pg_=await doc.getPage(p),tc=await pg_.getTextContent();try{RP.push({p,L:richLines(tc,pg_.getViewport({scale:1}).height)})}catch(e){}
     const lines=[];let cur="",y=null;
     for(const it of tc.items){if(typeof it.str!=="string")continue;const yy=it.transform[5];if(y!==null&&Math.abs(yy-y)>3){lines.push(cur);cur=""}y=yy;cur+=(cur&&!/\s$/.test(cur)&&!/^\s/.test(it.str)?" ":"")+it.str}
@@ -5687,6 +5695,7 @@ async function extractPdf(buf,sid,onp){
   })}
   const hits={},i=EDI[sid];
   if(i!==undefined)ED[i].t.forEach((tp,j)=>{let c=0;const pgs=[];TXT.forEach((x,pi)=>{let h=0;tp[1].forEach(k=>{h+=x.split(norm(k)).length-1});if(h){c+=h;if(pgs.length<40)pgs.push(pi+1)}});if(c>=2)hits[i+":"+j]=pgs});
+  if(onp){onp(n+1,n);await yieldUI()}
   /* conferência: matéria, número da aula e assunto do PDF */
   const ALL=TXT.join(" "),cnt=(k)=>{const x=norm(k);if(x.length<4)return 0;let c=0,i=-1;while((i=ALL.indexOf(x,i+1))>=0&&c<40)c++;return c};
   const sscore={};ED.forEach(S=>{sscore[S.id]=S.t.reduce((a,tp)=>a+tp[1].reduce((b,k)=>b+cnt(k),0),0)});
@@ -5719,23 +5728,27 @@ function sidScore(txt){const T=" "+norm(txt).replace(/[^a-z0-9]+/g," ")+" ";cons
   return R[0]&&R[0].sc>=4&&R[0].sc>(R[1]?R[1].sc:0)?R[0].id:""}
 async function pdfHead(f){try{if(!(await ensurePdfjs()))return"";const doc=await pdfjsLib.getDocument({data:await f.arrayBuffer(),isEvalSupported:false}).promise;let t="";for(let p=1;p<=Math.min(3,doc.numPages);p++){const tc=await(await doc.getPage(p)).getTextContent();t+=" "+tc.items.map(x=>x.str).join(" ")}return t.slice(0,6000)}catch(e){return""}}
 async function addPdfsAll(files){const fs=files.filter(f=>/\.pdf$/i.test(f.name)||f.type==="application/pdf");if(!fs.length){toast("Nenhum PDF nessa seleção");return}
-  upModal(`<div class="upm-ic busy" aria-hidden="true"></div><h3>Separando ${fs.length} PDF${fs.length>1?"s":""} por matéria</h3><p class="muted" id="upmTx" style="margin:0">Lendo os nomes…</p>`);
+  upModal(`<div class="upm-ic busy" aria-hidden="true"></div><h3>Separando ${fs.length} PDF${fs.length>1?"s":""} por matéria</h3>${UPBAR}<p class="muted" id="upmTx" style="margin:0">Lendo os nomes…</p>`);setPct(0);
   const fb="",miss=[];let k=0;
-  for(const f of fs){k++;setUp(`Identificando a matéria: ${k} de ${fs.length}`);let id=sidScore((f.webkitRelativePath||"")+" "+f.name);if(!id)id=sidScore(await pdfHead(f));if(!id)id=fb;if(id)f._sid=id;else miss.push(f)}
+  for(const f of fs){k++;setUp(`Identificando a matéria: ${k} de ${fs.length}`);setPct(100*(k-1)/fs.length);let id=sidScore((f.webkitRelativePath||"")+" "+f.name);if(!id)id=sidScore(await pdfHead(f));if(!id)id=fb;if(id)f._sid=id;else miss.push(f)}
   const ok=fs.filter(f=>f._sid);ok.sort((a,b)=>ED.findIndex(s=>s.id===a._sid)-ED.findIndex(s=>s.id===b._sid)||a.name.localeCompare(b.name,"pt",{numeric:true}));
   addPdfs.miss=miss;if(ok.length)await addPdfs(ok,ok[0]._sid,"");else{addPdfs.miss=null;LASTRES={RES:miss.map(f=>({bad:1,name:f.name,msg:"Não consegui descobrir a matéria deste PDF. Escolha a matéria na lista e envie de novo."})),NEWP:[]};renderUpResult()}}
 async function addPdfs(files,SID0,aulaSel,assetId){let sid=SID0;
   const fresh=!!core().cur&&!started(core().cur);
   let added=0;const RES=[],NEWP=[];
-  upModal(`<div class="upm-ic busy" aria-hidden="true"></div><h3>Carregando PDF</h3><p class="muted" id="upmTx" style="margin:0">Recebendo o arquivo…</p>`);
+  upModal(`<div class="upm-ic busy" aria-hidden="true"></div><h3>Carregando PDF${files.length>1?"s":""}</h3>${UPBAR}<p class="muted" id="upmTx" style="margin:0">Recebendo o arquivo…</p>`);setPct(0);let fi=-1;
+  const fpct=fr=>setPct(94*(fi+fr)/files.length),fname=f=>(files.length>1?`Arquivo ${fi+1} de ${files.length} · `:"")+f.name;
+  const onp=f=>(p,n)=>{if(p<0){fpct(.06);setUp(`${fname(f)}: preparando o leitor de PDF…`)}else if(p===0){fpct(.1);setUp(`${fname(f)}: ${n} página${n===1?"":"s"} encontrada${n===1?"":"s"}`)}else if(p>n){fpct(.96);setUp(`${fname(f)}: organizando teoria, questões e assuntos do edital…`)}else{fpct(.1+.86*(p-1)/n);setUp(`${fname(f)}: página ${p} de ${n}`)}};
   if(addPdfs.miss){addPdfs.miss.forEach(f=>RES.push({bad:1,name:f.name,msg:"Não consegui descobrir a matéria deste PDF. Escolha a matéria na lista e envie de novo."}));addPdfs.miss=null}
-  for(const f of files){sid=f._sid||SID0;
+  for(const f of files){sid=f._sid||SID0;fi++;fpct(0);
     if(!/\.pdf$/i.test(f.name)&&f.type!=="application/pdf"){RES.push({bad:1,name:f.name,msg:"Não é um arquivo PDF."});continue}
-    setUp(`Lendo ${f.name}…`);
+    setUp(`${fname(f)}: abrindo o arquivo…`);
     let buf,info,raw=false;
     try{buf=await f.arrayBuffer()}catch(e){RES.push({bad:1,name:f.name,msg:"Não consegui abrir o arquivo neste aparelho."});continue}
-    try{info=await extractPdf(buf.slice(0),sid,(p,n)=>setUp(`Lendo ${f.name}: página ${p} de ${n}`))}
-    catch(e0){try{setUp(`Lendo ${f.name} de novo…`);PDFJS_P=null;await new Promise(r=>setTimeout(r,700));info=await extractPdf(buf.slice(0),sid,(p,n)=>setUp(`Lendo ${f.name}: página ${p} de ${n}`))}catch(e){info=null}}
+    fpct(.04);
+    try{info=await extractPdf(buf.slice(0),sid,onp(f))}
+    catch(e0){try{setUp(`${fname(f)}: tentando ler de novo…`);PDFJS_P=null;await new Promise(r=>setTimeout(r,700));info=await extractPdf(buf.slice(0),sid,onp(f))}catch(e){info=null}}
+    fpct(1);
     if(!info){raw=true;info={pages:0,qc:0,secs:[],qs:[],hits:{}};setUp(f.name+": guardei o arquivo, mas não consegui ler as páginas ("+(window.pdfjsLib?"PDF protegido ou com imagem":"leitor de PDF não carregou")+"). As metas desta aula seguem por página informada.")}
     const aula=aulaSel||detectAula(sid,f.name);
     {const same=aula&&pdfsOf(sid).find(q=>q.aula===aula&&q.size===f.size&&(q.pages||0)===(info.pages||0));if(same){RES.push({raw:1,name:f.name,where:SUB(sid).n+" · "+auLabel(sid,aula),msg:"Este mesmo PDF já está nesta aula ("+same.name+"). Não foi adicionado de novo."});continue}}
@@ -5757,7 +5770,7 @@ async function addPdfs(files,SID0,aulaSel,assetId){let sid=SID0;
     simCache.key="";
     if(fresh&&replanCurrent())toast("A meta atual foi refeita com as páginas do novo material");
     else if(PDFS().some(p=>ALT[p.sid]&&ALT[p.sid][p.aula]))recalcAfterEdital();
-    setUp("Guardando na sua conta para abrir no computador, no celular e no tablet…");
+    setPct(96);setUp("Guardando na sua conta para abrir no computador, no celular e no tablet…");
     try{const cs=await cloudSaveNow(RES.filter(r=>r.pid).map(r=>r.pid));RES.forEach(r=>{if(r.pid&&cs[r.pid])r.cloud=cs[r.pid]})}catch(e){}
   }
   render();
@@ -5821,6 +5834,8 @@ async function importInbox(){
       await addPdfs([new File([b],x.name||"Aula.pdf",{type:"application/pdf"})],x.sid||"lp",x.aula||"",x.asset)}
   }catch(e){}
 }
+const UPBAR=`<div class="upm-pg" id="upmPg" role="progressbar" aria-label="Progresso" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="upm-bar"><i id="upmBar"></i></div><b id="upmPc">0%</b></div>`;
+function setPct(v){v=Math.max(0,Math.min(100,Math.round(v)));const b=$("upmBar"),c=$("upmPc"),g=$("upmPg");if(b)b.style.width=v+"%";if(c)c.textContent=v+"%";if(g)g.setAttribute("aria-valuenow",v)}
 let upMsg="";function setUp(m){upMsg=m;const t=$("upmTx");if(t&&m)t.textContent=m;const el=$("upst");if(el)el.textContent=m||"Você também pode arrastar os arquivos para cá."}
 
 /* Leitor de PDF */
