@@ -568,7 +568,7 @@
   }
   /* Aceite dos Termos de Uso e da Política de Privacidade (uma vez por versão) */
   function termsCheck() {
-    const v = (window.JX_VENDA && window.JX_VENDA.termos_versao) || "2026-11";
+    const v = (window.JX_VENDA && window.JX_VENDA.termos_versao) || "2026-12";
     if (!window.JX_ACESSO || window.JX_ACESSO.aceite === v) return true;
     return new Promise(res => {
       hideSplash(); addCSS(); const old = $("#jx-gate"); if (old) old.remove();
@@ -576,10 +576,11 @@
       g.innerHTML = `${ART}<div class="jx-wrap"><div class="jx-top"><div class="jx-tile">${LOGO}</div><span class="jx-name">A JORNADA</span></div>
         <div class="jx-card jx-hero"><h1>Antes de começar</h1><p class="jx-sub">Para usar a A Jornada, leia e aceite os nossos termos. Eles explicam o que a plataforma faz, como cuidamos dos seus dados (LGPD) e as regras da assinatura.</p>
         <p style="margin:0 0 10px"><a href="termos.html#termos" target="_blank" rel="noopener" style="color:#c9b2ff">Termos de Uso ↗</a> &nbsp;·&nbsp; <a href="termos.html#privacidade" target="_blank" rel="noopener" style="color:#c9b2ff">Política de Privacidade ↗</a></p>
-        <label style="display:flex;gap:10px;align-items:flex-start;color:#e6dcff;cursor:pointer"><input type="checkbox" data-k="ck" style="width:20px;height:20px;margin-top:2px;accent-color:#8f5cff"><span>Li e aceito os Termos de Uso e a Política de Privacidade, e sei que o conteúdo gerado pela IA deve ser conferido no material oficial.</span></label>
+        <label style="display:flex;gap:10px;align-items:flex-start;color:#e6dcff;cursor:pointer"><input type="checkbox" data-k="ck" style="width:20px;height:20px;margin-top:2px;accent-color:#8f5cff"><span>Li e aceito os Termos de Uso e a Política de Privacidade, e sei que o conteúdo gerado pela IA pode conter erro e deve ser conferido no material oficial.</span></label>
+        <label style="display:flex;gap:10px;align-items:flex-start;color:#e6dcff;cursor:pointer;margin-top:10px"><input type="checkbox" data-k="ck2" style="width:20px;height:20px;margin-top:2px;accent-color:#8f5cff"><span>Tenho 18 anos ou mais, ou tenho menos de 18 e o meu responsável autorizou o uso.</span></label>
         <div class="jx-row"><button class="jx-btn" type="button" data-k="ok" disabled>Aceitar e continuar</button></div>
         <div class="jx-row" style="margin-top:10px"><button class="jx-btn ghost" type="button" data-k="out">Sair</button></div><div class="jx-msg" role="status" aria-live="polite"></div></div></div>`;
-      const ck = g.querySelector('[data-k="ck"]'), okb = g.querySelector('[data-k="ok"]'); ck.onchange = () => { okb.disabled = !ck.checked; okb.style.cursor = ck.checked ? "pointer" : "not-allowed"; };
+      const ck = g.querySelector('[data-k="ck"]'), ck2 = g.querySelector('[data-k="ck2"]'), okb = g.querySelector('[data-k="ok"]'); ck.onchange = ck2.onchange = () => { const ok = ck.checked && ck2.checked; okb.disabled = !ok; okb.style.cursor = ok ? "pointer" : "not-allowed"; };
       okb.onclick = async () => { okb.disabled = true; try { await window.jxAceitar(v); g.remove(); res(true); } catch (e) { okb.disabled = false; g.querySelector(".jx-msg").textContent = "Não deu para registrar o aceite. Confira a internet e tente de novo."; } };
       g.querySelector('[data-k="out"]').onclick = () => jxOut();
     });
