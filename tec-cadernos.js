@@ -38,7 +38,7 @@
     show('<p style="margin:0"><b>'+RES.length+' cadernos</b> prontos na sua conta do TEC'+(FAIL.length?' ('+FAIL.length+' aula'+(FAIL.length>1?'s':'')+' sem questões suficientes no TEC)':'')+'. Volte à plataforma para gravar cada caderno na tarefa de questões da aula.</p><a href="'+esc(url)+'" target="_blank" rel="noopener" style="'+BTN+'">Voltar para A Jornada</a>');
     try{sessionStorage.removeItem("jxcad");sessionStorage.removeItem("jxcad-res")}catch(e){}}
   (async function(){
-    if(J.mode==="inc"||J.mode==="guia")show('<p style="margin:0">Lendo matérias e bancas do TEC…</p>');else prog(0,J.items.length,"Lendo matérias e bancas do TEC…");
+    if(J.mode==="inc"||J.mode==="guia"||J.mode==="lpmap")show('<p style="margin:0">Lendo matérias e bancas do TEC…</p>');else prog(0,J.items.length,"Lendo matérias e bancas do TEC…");
     var M=[],B=[];try{M=(await getJSON("/api/materias?formato=OBJETIVA&nome=&universo=")).materias||[]}catch(e){}try{B=(await getJSON("/api/bancas?formato=OBJETIVA&nome=&universo=")).bancas||[]}catch(e){}
     if(!M.length){show('<p style="margin:0">Não consegui ler o TEC. Confira se você está logado no TEC Concursos e toque de novo no favorito ➜ A Jornada.</p>');return}
     var bn=norm(J.banca||"").replace(/[^a-z0-9 ]/g," ").trim(),banca=null;
@@ -168,6 +168,14 @@
     for(var c=0;c<cs.length;c++){var L2=await search(cs[c]);L2.forEach(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return;var nk=Object.keys(toks(r.nome)).length,ex=norm(r.nome)===norm(tp)||norm(r.nome)===norm(cs[c]);
         var v=ex?1:Math.min(dice(T,toks(r.nome))*.55+cover(r.nome)*.45+(norm(r.nome).indexOf(norm(cs[c]))>=0?.1:0),.99);if(!ex&&nk<=1)v=Math.min(v,.5);if(!mi.length&&v<.9)return;if(v>bv){bv=v;best=r}});if(bv>=.95)break}
     return best&&bv>=.7?[best]:[]}
+    /* diagnóstico (suporte): lista TODOS os assuntos de Língua Portuguesa do TEC, com número e assunto-pai, para fixar o assunto certo de cada aula. Não cria nada. */
+    if(J.mode==="lpmap"){var lpM=M.filter(function(x){return/portugu/.test(norm(x.nome))}).map(function(x){return x.id}),ALL={},raw0="",qs="a e i o u ca co de en es ia ra re ta to ver pro con nom".split(" ");
+      for(var qi=0;qi<qs.length;qi++){show('<p style="margin:0">Lendo os assuntos de Português no TEC… ('+(qi+1)+' de '+qs.length+')</p>');var LL=await search(qs[qi]);
+        LL.forEach(function(r){if(!(r.materia&&lpM.indexOf(r.materia.id)>=0))return;if(!raw0)raw0=JSON.stringify(r).slice(0,400);if(!ALL[r.id])ALL[r.id]=r});await sleep(200)}
+      var PIDf=function(r){return r.idPai||r.paiId||r.idAssuntoPai||(r.pai&&r.pai.id)||(r.assuntoPai&&r.assuntoPai.id)||""};
+      var out="TEC-LP v1 · materias "+lpM.join(",")+" · "+Object.keys(ALL).length+" assuntos\nexemplo: "+raw0+"\n"+Object.keys(ALL).map(function(k){var r=ALL[k];return r.id+"|"+String(r.nome).replace(/\s+/g," ")+"|"+PIDf(r)}).sort(function(a,b){return a.split("|")[1]<b.split("|")[1]?-1:1}).join("\n");
+      show('<p style="margin:0 0 8px"><b>'+Object.keys(ALL).length+' assuntos de Português</b> lidos no TEC. Toque em <b>Copiar</b> e cole na conversa com o suporte da A Jornada.</p><textarea id="jxLp" readonly style="width:100%;height:220px;background:#0b0820;color:#f1ecff;border:1px solid #a06bff;border-radius:10px;font:12px/1.4 monospace">'+esc(out)+'</textarea><button id="jxLpC" style="'+BTN+'">Copiar</button>');
+      var cb=D.getElementById("jxLpC");if(cb)cb.onclick=function(){var t=D.getElementById("jxLp");t.select();try{navigator.clipboard.writeText(out)}catch(e){}try{D.execCommand("copy")}catch(e){}cb.textContent="Copiado ✓"};try{sessionStorage.removeItem("jxcad")}catch(e){}return}
     if(J.mode==="guia"){await guiaRun();return}
     if(J.mode==="inc"){await incRun();return}
     for(var i=0;i<J.items.length;i++){if(STOP)break;var it=J.items[i];if(!it||!it.k||DONE[it.k])continue;
