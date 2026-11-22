@@ -34,8 +34,10 @@
     return fetch("/questoes/filtrar",{method:"POST",body:p,credentials:"include",headers:{"Content-Type":"application/x-www-form-urlencoded"}}).then(function(r){return+((r.url.match(/cadernos\/(\d+)/)||[])[1]||0)})}
   var SC={};function search(term){var k=norm(term);if(SC[k])return SC[k];SC[k]=getJSON("/api/assuntos?formato=OBJETIVA&hierarquico=false&nome="+encodeURIComponent(k)+"&universo=").then(function(j){return(j&&j.assuntos)||[]}).catch(function(){return[]});return SC[k]}
   function prog(i,tot,cur){var pc=Math.round(i/tot*100);show('<p style="margin:0 0 8px">Criando na sua conta do TEC um caderno de '+N+' questões para cada aula do seu edital. Deixe esta aba aberta.</p><div style="height:8px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden"><i style="display:block;height:100%;width:'+pc+'%;background:linear-gradient(90deg,#7b3cff,#ff5f8f)"></i></div><p style="margin:8px 0 0;font-size:13px;color:#c2b6df">'+i+' de '+tot+' aulas · '+RES.length+' cadernos prontos'+(FAIL.length?' · '+FAIL.length+' sem questões no TEC':'')+'</p><p style="margin:6px 0 0;font-size:13px">'+esc(cur||"")+'</p><button id="jxcS" style="'+BTN+';background:#2a2350">Parar</button>');var s=D.getElementById("jxcS");if(s)s.onclick=function(){STOP=1}}
+  /* conferência: cada aula com os assuntos do TEC que entraram no caderno */
+  function report(){var T={};(J.items||[]).forEach(function(i){T[i.k]=i.t||i.k});return'<details style="margin-top:10px"><summary style="cursor:pointer">Conferir aula por aula</summary><ol style="margin:6px 0 0;padding-left:18px;font-size:13px;max-height:220px;overflow:auto">'+RES.map(function(r){return'<li><b>'+esc(T[r.k]||r.k)+'</b><br>→ '+esc(r.as||"")+'</li>'}).join("")+FAIL.map(function(k){return'<li><b>'+esc(T[k]||k)+'</b><br>→ sem assunto certo no TEC (não criei caderno)</li>'}).join("")+'</ol></details>'}
   function finish(){var url=O+"/#jxestr="+encodeURIComponent(JSON.stringify({v:1,src:"teccad",cads:RES,fail:FAIL,n:N}));
-    show('<p style="margin:0"><b>'+RES.length+' cadernos</b> prontos na sua conta do TEC'+(FAIL.length?' ('+FAIL.length+' aula'+(FAIL.length>1?'s':'')+' sem questões suficientes no TEC)':'')+'. Volte à plataforma para gravar cada caderno na tarefa de questões da aula.</p><a href="'+esc(url)+'" target="_blank" rel="noopener" style="'+BTN+'">Voltar para A Jornada</a>');
+    show('<p style="margin:0"><b>'+RES.length+' cadernos</b> prontos na sua conta do TEC'+(FAIL.length?' ('+FAIL.length+' aula'+(FAIL.length>1?'s':'')+' sem questões suficientes no TEC)':'')+'. Volte à plataforma para gravar cada caderno na tarefa de questões da aula.</p><a href="'+esc(url)+'" target="_blank" rel="noopener" style="'+BTN+'">Voltar para A Jornada</a>'+report());
     try{sessionStorage.removeItem("jxcad");sessionStorage.removeItem("jxcad-res")}catch(e){}}
   (async function(){
     if(J.mode==="inc"||J.mode==="guia"||J.mode==="lpmap")show('<p style="margin:0">Lendo matérias e bancas do TEC…</p>');else prog(0,J.items.length,"Lendo matérias e bancas do TEC…");
@@ -143,9 +145,12 @@
     [/variac(ao|oes) linguistic|niveis de linguagem|variantes? linguistic/,["variacao linguistica","niveis de linguagem"]],[/redacao oficial|correspondencia oficial|manual de redacao/,["redacao oficial"]],
     [/\bparalelismo/,["paralelismo"]],[/\breescrit|\breescritur/,["reescrit*"]],[/discurso (direto|indireto)/,["discurso"]],[/funcoes da linguagem/,["funcoes da linguagem"]],[/\bfonolog|\bfonetic/,["fonologia","fonetica"]]];
   /* lê primeiro o título da aula (o mais preciso); só se ele não tiver palavra-chave usa os tópicos do edital ligados à aula */
+  /* título genérico (sem assunto específico): usa o assunto-mãe do TEC */
+  var LPG=[[/classes? de palavras|\bmorfologia/,["classes de palavras","morfologia"]],[/\bsintaxe/,["sintaxe"]],[/\bortografia|\bortoepia/,["ortografia"]],[/\btextos?\b|\bleitura/,["interpretacao"]]];
   async function lpPick(it,mi){var fx=function(x){return" "+norm(x).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ")+" "},txt=fx(it.t||""),out=[],seen={};
-    if(!LPD.some(function(d){return d[0].test(txt)}))txt=fx((it.a||[]).join(" "));
-    for(var d=0;d<LPD.length;d++){if(!LPD[d][0].test(txt))continue;var T=LPD[d][1];
+    /* só o título da aula: os tópicos do edital ligados à aula costumam listar outros assuntos (ex.: "classes de palavras… vozes verbais") e puxavam assunto errado */
+    var DL=LPD.filter(function(d){return d[0].test(txt)});if(!DL.length)DL=LPG.filter(function(d){return d[0].test(txt)}).slice(0,1);
+    for(var d=0;d<DL.length;d++){var T=DL[d][1];
       for(var t=0;t<T.length;t++){var o=typeof T[t]==="string"?{q:T[t]}:T[t],st=/\*$/.test(o.q),q=o.q.replace(/\*$/,""),qw=q.split(" ").map(sing),L=await search(st?q:sing(q)),hit=[];
         L.forEach(function(r){if(mi.length&&!(r.materia&&mi.indexOf(r.materia.id)>=0))return;var N=sws(r.nome);if(o.need&&!N.some(function(x){return x.indexOf(o.need)===0}))return;
           var ok=qw.every(function(w){return N.some(function(x){return st?x.indexOf(w)===0:x===w})});if(!ok)return;hit.push({r:r,s:(N[0]&&(st?N[0].indexOf(qw[0])===0:N[0]===qw[0])?0:1),l:N.length})});
@@ -183,11 +188,11 @@
       try{var mi=mats(it.m),ids=[],names=[],pick=[];
         var tops=(it.a||[]).slice(0,5),isLP=/portugu/.test(norm(it.m))&&!/\|\*$/.test(it.k),lpd=0;
         /* Português: primeiro o dicionário fixo (assunto certo sempre); só se ele não achar nada usa a busca por semelhança */
-        if(isLP){var lg=await lpPick(it,mi);lg.forEach(function(r){if(ids.indexOf(r.id)<0){ids.push(r.id);names.push(r.nome);pick.push(r)}});if(ids.length){lpd=1;tops=[]}}
+        if(isLP){var lg=await lpPick(it,mi);lg.forEach(function(r){if(ids.indexOf(r.id)<0){ids.push(r.id);names.push(r.nome);pick.push(r)}});lpd=1;tops=[]}
         for(var j=0;j<tops.length;j++){var got=await famPick(tops[j],it,mi,search);got.forEach(function(r){if(ids.indexOf(r.id)<0&&ids.length<10){ids.push(r.id);names.push(r.nome);pick.push(r)}})}
         /* nada na matéria da aula: o TEC às vezes guarda o assunto em matéria vizinha (Juros Simples em Matemática Financeira, LINDB em Legislação Civil,
            Simples Nacional em Legislação Tributária); aceita só nome igual ao tópico ou que traz o tópico inteiro */
-        if(!ids.length&&!/\|\*$/.test(it.k)){for(var j2=0;j2<tops.length&&ids.length<3;j2++){var ph=norm(String(tops[j2]).replace(/\([^)]*\)/g," ")).replace(/[^a-z0-9 ]/g," ").replace(/^\s*(d[aoe]s?|lei n[oº]?\s*[\d.\/]+\s*)\s+/," ").replace(/\s+/g," ").trim();
+        if(!ids.length&&!lpd&&!/\|\*$/.test(it.k)){for(var j2=0;j2<tops.length&&ids.length<3;j2++){var ph=norm(String(tops[j2]).replace(/\([^)]*\)/g," ")).replace(/[^a-z0-9 ]/g," ").replace(/^\s*(d[aoe]s?|lei n[oº]?\s*[\d.\/]+\s*)\s+/," ").replace(/\s+/g," ").trim();
             if(ph.length<6||(ph.split(" ").length<2&&ph.length<8))continue;var L3=await search(ph),ex=null,ct=null;
             L3.forEach(function(r){var nn=norm(String(r.nome).replace(/\([^)]*\)/g," ")).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();if(nn===ph){ex=ex||r}else if((" "+nn+" ").indexOf(" "+ph+" ")>=0&&(!ct||nn.length<norm(ct.nome).length))ct=r});
             var rr=ex||ct;if(rr&&ids.indexOf(rr.id)<0){ids.push(rr.id);names.push(rr.nome);pick.push(rr)}}}
@@ -211,7 +216,7 @@
         var q=Math.min(Math.min(+it.n||N,100),n),FF=useB?F.concat([["BANCA",banca.id]]):F;
         var nome=((whole?"A Jornada · "+it.m+" · Matéria inteira":"A Jornada · "+it.m+" › "+names.slice(0,3).join(" / "))+(useB?" · "+(banca.sigla||banca.nome):it.ob?" · outras bancas":"")).replace(/\s+/g," ").slice(0,140);
         var cid=await create(FF,nome,q);
-        if(cid){var r={v:3,k:it.k,id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,4).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
+        if(cid){var r={v:4,k:it.k,t:String(it.t||"").slice(0,90),id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,8).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
       }catch(e){FAIL.push(it.k)}
       await sleep(250)}
     finish()})();

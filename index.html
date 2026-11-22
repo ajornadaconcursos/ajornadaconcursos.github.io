@@ -5328,9 +5328,31 @@ function tecMatCad(sid){if(!sid)return null;const T=core().cfg.tecs||{};if(T[sid
 function tecAulaUrl(sid,c){const u=tecAulaDirect(sid,c);if(u)return u;const it=tecAulaItem(sid,c);return it?tecJobUrl([it]):((m=>m?m.url:"")(tecMatCad(sid)))}
 /* caderno só do assunto da aula: o criado na conta do aluno para a aula > o assunto do guia que bate com a aula (TEC + edital) */
 /* cadernos antigos já criados na conta do aluno: confere se o assunto do TEC usado bate com a aula; se não bate, deixa de usar e o botão cria o certo */
-/* Português ganhou lista fixa aula → assunto do TEC (21/11): os cadernos de Português feitos antes (v<3) são refeitos uma vez, com o assunto certo */
+/* Português: a mesma lista fixa do favorito (tec-cadernos.js). O app só usa um caderno de Português se TODOS os assuntos dele
+   estiverem entre os assuntos que o TÍTULO da aula pede (ex.: aula "Classes de palavras" nunca abre caderno de "Vozes verbais"). */
+const LPDX=[
+    [/\bsubstantiv/,["substantivo"]],[/\badjetiv/,["adjetivo"]],[/\badverbi/,["adverbio"]],[/\bartigos?\b/,["artigo"]],[/\bnumera(l|is)\b/,["numeral"]],[/\binterj/,["interjei*"]],
+    [/\bpreposi/,["preposi*"]],[/\bconjunc|\bconjunco/,["conjun*"]],[/\bpronomes?\b/,["pronome"]],[/colocacao (pronominal|dos pronomes)|\bproclise|\bmesoclise|\benclise/,["colocacao pronominal"]],
+    [/\bverbos?\b|tempos? (e modos )?verba|modos? verba|flexao verbal|emprego dos tempos/,["verbo"]],[/\bvoz(es)?\b|voz passiva/,["vozes","voz passiva"]],[/\bcorrelac/,["correlacao"]],
+    [/\bpontuac|\bvirgula/,["pontuacao"]],[/\bconcordanc/,["concordancia"]],[/\bregenc/,["regencia"]],[/\bcrase/,["crase"]],
+    [/\bcoes(ao|iva)/,["coesao"]],[/\bcoerenc/,["coerencia"]],[/\bsinonim|\bantonim/,["sinonim*","antonim*"]],[/\bhomonim|\bparonim/,["homonim*","paronim*"]],
+    [/significac/,["significacao"]],[/\bsemantic/,["semantica"]],[/figuras? de linguagem|linguagem figurada/,["figuras de linguagem"]],[/\bdenotac|\bconotac/,["denota*","conota*"]],[/\bpolissem/,["polissem*"]],
+    [/\binterpreta|\bcompreens/,["interpretacao","compreensao"]],[/\btipologia|tipos? (de texto|textuais)/,["tipologia"]],[/\bgeneros? (textua|do discurso|de texto)/,["generos",{q:"genero",need:"text"}]],
+    [/\bortograf/,["ortografia"]],[/\bacentuac/,["acentuacao"]],[/\bhifen/,["hifen"]],[/\bporques?\b/,["porque"]],
+    [/(formacao|estrutura) (das|de) palavras/,[{q:"formacao",need:"palavra"},{q:"estrutura",need:"palavra"}]],
+    [/\bsujeito/,["sujeito"]],[/\bpredicad|\bpredicativ/,["predica*"]],[/termos? (da|das) orac|termos (essenciais|integrantes|acessorios)/,["termos"]],[/\baposto|\bvocativo/,["aposto","vocativo"]],[/\badjuntos?\b/,["adjunto"]],[/\bobjetos? (direto|indireto)/,["objeto"]],[/complemento nominal/,["complemento nominal"]],
+    [/\bcoordenac|\bcoordenad/,["coordena*"]],[/\bsubordinac|\bsubordinad/,["subordina*"]],[/periodo composto/,["periodo composto"]],
+    [/variac(ao|oes) linguistic|niveis de linguagem|variantes? linguistic/,["variacao linguistica","niveis de linguagem"]],[/redacao oficial|correspondencia oficial|manual de redacao/,["redacao oficial"]],
+    [/\bparalelismo/,["paralelismo"]],[/\breescrit|\breescritur/,["reescrit*"]],[/discurso (direto|indireto)/,["discurso"]],[/funcoes da linguagem/,["funcoes da linguagem"]],[/\bfonolog|\bfonetic/,["fonologia","fonetica"]]];
+const LPGX=[[/classes? de palavras|\bmorfologia/,["classes de palavras","morfologia"]],[/\bsintaxe/,["sintaxe"]],[/\bortografia|\bortoepia/,["ortografia"]],[/\btextos?\b|\bleitura/,["interpretacao"]]];
+function lpSing(w){w=String(w||"");if(w.length<5)return w;return w.replace(/zes$/,"z").replace(/[oa]es$/,"ao").replace(/([rs])es$/,"$1").replace(/([aeo])is$/,"$1l").replace(/s$/,"")}
+const lpSws=s=>norm(s).replace(/\([^)]*\)/g," ").replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter(Boolean).map(lpSing);
+function lpTerms(title){const tx=" "+norm(title||"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ")+" ";let DL=LPDX.filter(d=>d[0].test(tx));if(!DL.length)DL=LPGX.filter(d=>d[0].test(tx)).slice(0,1);return DL.flatMap(d=>d[1]).map(o=>typeof o==="string"?{q:o}:o)}
+function lpNameOk(nome,T){const N=lpSws(nome);return T.some(o=>{const st=/\*$/.test(o.q),qw=o.q.replace(/\*$/,"").split(" ").map(lpSing);if(o.need&&!N.some(x=>x.indexOf(o.need)===0))return false;return qw.every(w=>N.some(x=>st?x.indexOf(w)===0:x===w))})}
+function lpAsOk(sid,c,x){const a=auOf(sid,c);if(!a)return false;const T=lpTerms(a.d||"");if(!T.length)return false;if(x.t&&norm(x.t).slice(0,40)!==norm(String(a.d||"").slice(0,90)).slice(0,40))return false;const L=String(x.as||"").split(/;\s*/).filter(Boolean);return L.length>0&&L.every(n=>lpNameOk(n,T))}
+/* cadernos de Português: só os do favorito novo (v4, que lê só o título da aula) e que passam na conferência acima; os outros são refeitos */
 const tecIsLP=sid=>/portugu/.test(norm(tecMatName(sid)||(SUB(sid)||{}).n||""));
-function tecAutoOk(sid,c,x){if(x&&x.id&&+x.v<3&&tecIsLP(sid))return false;if(!x||!x.as)return true;/* caderno criado pelo favorito novo (v2) já é só da aula: não reprova, senão o link volta sempre para a tela de filtro */if(+x.v>=2)return true;const a=auOf(sid,c),S=SUB(sid),ga=(typeof TECGA!=="undefined"&&IS_TJ?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[]);
+function tecAutoOk(sid,c,x){if(x&&x.id&&tecIsLP(sid)&&String(c)!=="*")return +x.v>=4&&lpAsOk(sid,c,x);if(!x||!x.as)return true;/* caderno criado pelo favorito novo (v2) já é só da aula: não reprova, senão o link volta sempre para a tela de filtro */if(+x.v>=2)return true;const a=auOf(sid,c),S=SUB(sid),ga=(typeof TECGA!=="undefined"&&IS_TJ?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[]);
   const pc=x2=>String(x2||"").includes(":")?String(x2).split(":").slice(1).join(":"):String(x2||"");
   /* com o índice do guia (nomes do próprio TEC), compara só com ele: os tópicos do edital costumam juntar várias classes num item só */
   const X=tecAulaCtx(sid,c);const ctx=(ga.length?ga:[...X.spec,...X.tp.map(pc)]).filter(Boolean).map(t=>String(t).replace(/\([^)]*\)/g," ")).flatMap(t=>String(t).split(/[;,]|\s+e\s+/)).map(t=>t.trim()).filter(t=>t.length>2);
@@ -5467,7 +5489,7 @@ function tcaCard(){try{const M=PLANS.me;if(M&&M.at&&!M.setupOk&&PLANS.onb)return
 /* logo depois de escolher o concurso (e quando entram aulas novas), a plataforma oferece criar os cadernos sozinha, uma vez */
 function tcaAuto(){try{if(!READY||obPending())return;const L3=$("layer3");if(L3&&L3.innerHTML.trim()){setTimeout(tcaAuto,4000);return}
   const c=core(),pj=tecJob().length;if(!pj)return;if(c.tcaAsk&&pj<=(c.tcaPend||0))return;c.tcaAsk=Date.now();c.tcaPend=pj;touch("core");tcaModal()}catch(e){}}
-function tecAutoSave(P){const c=core();c.tecAuto=c.tecAuto||{};let n=0;(P.cads||[]).forEach(x=>{if(!x||!x.k||!(+x.id>0))return;c.tecAuto[x.k]={id:+x.id,n:+x.n||25,b:String(x.b||"").slice(0,30),as:String(x.as||"").slice(0,300),g:x.g?1:0,ob:x.ob?1:0,pb:+x.pb||0,xb:x.xb?1:0,v:+x.v||0,at:today()};n++});
+function tecAutoSave(P){const c=core();c.tecAuto=c.tecAuto||{};let n=0;(P.cads||[]).forEach(x=>{if(!x||!x.k||!(+x.id>0))return;c.tecAuto[x.k]={id:+x.id,n:+x.n||25,b:String(x.b||"").slice(0,30),as:String(x.as||"").slice(0,300),g:x.g?1:0,ob:x.ob?1:0,pb:+x.pb||0,xb:x.xb?1:0,v:+x.v||0,t:String(x.t||"").slice(0,90),at:today()};n++});
   c.tcaPend=tecJob().length;touch("core");render();const f=(P.fail||[]).length;toast(n?n+" caderno"+(n>1?"s":"")+" do TEC gravado"+(n>1?"s":"")+" nas tarefas de questões"+(f?" · "+f+" aula"+(f>1?"s":"")+" sem questões no TEC":""):"Nenhum caderno chegou do TEC")}
 /* ---------- Questões por matéria quando o edital dá o número do BLOCO, e incidência pelo TEC ----------
    Ex.: "BLOCO II: Conhecimentos em Direito – 40 questões" vale para Penal, Processo Penal, Civil… juntos.
