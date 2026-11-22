@@ -1,0 +1,15 @@
+/sw.js
+  Cache-Control: no-cache
+  Service-Worker-Allowed: /
+/
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/config.js
+  Cache-Control: no-cache
+/claude-shim.js
+  Cache-Control: no-cache
+/planos
+  Cache-Control: no-cache
+/planos.html
+  Cache-Control: no-cache
