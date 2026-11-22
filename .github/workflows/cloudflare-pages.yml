@@ -1,5 +1,5 @@
 # Publica o site no Cloudflare Pages (ajornadaconcursos.pages.dev) a cada mudança no main.
-# Precisa de dois segredos no repositório: CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID.
+# Precisa do segredo CLOUDFLARE_API_TOKEN no repositório (chave com permissão Cloudflare Pages: Editar).
 name: Publicar no Cloudflare Pages
 on:
   push:
@@ -20,5 +20,5 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          accountId: 5d7ca56423bf9faeca6132eeb8844414
           command: pages deploy _site --project-name=ajornadaconcursos --branch=main --commit-dirty=true
