@@ -145,6 +145,13 @@
     [/variac(ao|oes) linguistic|niveis de linguagem|variantes? linguistic/,["variacao linguistica","niveis de linguagem"]],[/redacao oficial|correspondencia oficial|manual de redacao/,["redacao oficial"]],
     [/\bparalelismo/,["paralelismo"]],[/\breescrit|\breescritur/,["reescrit*"]],[/discurso (direto|indireto)/,["discurso"]],[/funcoes da linguagem/,["funcoes da linguagem"]],[/\bfonolog|\bfonetic/,["fonologia","fonetica"]]];
   /* lê primeiro o título da aula (o mais preciso); só se ele não tiver palavra-chave usa os tópicos do edital ligados à aula */
+  /* ===== conferência pelo título (todas as matérias): um assunto do TEC só entra no caderno se tiver palavra própria em comum com o título da aula
+     (ou com os nomes do Índice do guia, no Oficial de Justiça). Palavras genéricas (lei, direito, artigos, noções…) não contam; "8.112" vira "8112". ===== */
+  var TGW={};"classes classe palavras palavra nocoes nocao aspectos gerais geral parte partes arts art artigos artigo lei leis direito direitos teoria conceito conceitos introducao disposicoes normas norma estudo estudos revisao exercicios questoes aula aulas modulo topicos resumo parte especial principios principio regras regra tipos especies".split(" ").forEach(function(w){TGW[w]=1});
+  function tsig(x){return(String(x).match(/\b[A-Z]{2,5}\b/g)||[]).map(function(w){return w.toLowerCase()}).filter(function(w){return!/^(art|arts|cf|cc|cp|cpc|cpp|lei)$/.test(w)}).concat(tsig0(x))}
+  function tsig0(x){return norm(x).replace(/(\d)\.(\d{3})/g,"$1$2").replace(/[^a-z0-9 ]/g," ").split(/\s+/).map(sing).filter(function(w){return w&&(/^\d{3,}$/.test(w)||(w.length>3&&!SW[w]&&!TGW[w]))}).map(function(w){return /^\d/.test(w)?w:w.slice(0,6)})}
+  function titleOk(nome,it){var A=tsig(String(nome)),B=tsig([it.t||""].concat(it.a||[]).join(" "));if(!A.length||!B.length)return false;
+    return A.some(function(w){return B.some(function(v){return w===v||(w.length>=5&&v.length>=5&&(w.indexOf(v)===0||v.indexOf(w)===0))})})}
   /* título genérico (sem assunto específico): usa o assunto-mãe do TEC */
   var LPG=[[/classes? de palavras|\bmorfologia/,["classes de palavras","morfologia"]],[/\bsintaxe/,["sintaxe"]],[/\bortografia|\bortoepia/,["ortografia"]],[/\btextos?\b|\bleitura/,["interpretacao"]]];
   async function lpPick(it,mi){var fx=function(x){return" "+norm(x).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ")+" "},txt=fx(it.t||""),out=[],seen={};
@@ -161,12 +168,12 @@
     if(!words(tp).some(function(w){return !/^(classes?|palavras?|morfologia|nocoes|gerais|parte|aula|revisao)$/.test(w)}))return [];
     var segs=String(tp).replace(/\([^)]*\)/g," ").split(/[.,;:–—]|\s-\s|\s+e\s+(?=[A-ZÁ-Ú])/).map(words).filter(function(x){return x.length});
     async function fam(ws){var q=sing(ws.length===1?ws[0]:ws[ws.length-1]),L=await search(q);
-      return L.filter(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return false;if(ws.length>1)return hasAll(r.nome,ws);var k=sing(ws[0]);return sws(r.nome).some(function(x){return x.indexOf(k)===0})})}
+      return L.filter(function(r){var inM=r.materia&&mi.indexOf(r.materia.id)>=0;if(mi.length&&!inM)return false;if(ws.length>1)return hasAll(r.nome,ws);var k=sing(ws[0]);return sws(String(r.nome).replace(/[()]/g," ")).some(function(x){return x.indexOf(k)===0})})}
     function add(F,ws){if(!F.length||F.length>10)return false;F.forEach(function(r){if(!seen[r.id]){seen[r.id]=1;out.push(r)}});ws.forEach(function(w){cov[w]=1});return true}
     /* pares de palavras vizinhas dentro do mesmo trecho (não atravessa vírgula ou ponto) */
     for(var s=0;s<segs.length;s++){var W=segs[s];for(var i=0;i+1<W.length;i++){if((GEN[W[i]]||MOD[W[i]])&&(GEN[W[i+1]]||MOD[W[i+1]]))continue;add(await fam([W[i],W[i+1]]),[W[i],W[i+1]])}}
     /* palavra longa e específica, ou o trecho de uma palavra só (ex.: "União", "Nacionalidade"), se ainda não coberta por um par */
-    for(var s2=0;s2<segs.length;s2++){var W2=segs[s2];for(var j=0;j<W2.length;j++){var w=W2[j];if(cov[w]||GEN[w]||MOD[w])continue;if(w.length>=8||(segs.length===1&&W2.length===1&&w.length>=5))add(await fam([w]),[w])}}
+    for(var s2=0;s2<segs.length;s2++){var W2=segs[s2];for(var j=0;j<W2.length;j++){var w=W2[j];if(cov[w]||GEN[w]||MOD[w])continue;if(w.length>=8||(segs.length===1&&W2.length===1&&w.length>=3))add(await fam([w]),[w])}}
     if(out.length)return out.slice(0,10);
     var CTX=toks([it.t||""].concat(it.a||[],it.kw||[]).join(" "));function cover(nome){var N=toks(nome),k=Object.keys(N);if(!k.length)return 0;var i=0;k.forEach(function(x){if(CTX[x])i++});return i/k.length}
     var T=toks(tp),best=null,bv=0,cs=cands(tp);
@@ -203,6 +210,8 @@
         Object.keys(grp).forEach(function(p){var g=grp[p];if(g.length<2)return;var par=g[0].pai||g[0].assuntoPai||null,pn=par&&par.nome?par.nome:"";if(!pn)return;
           ids=ids.filter(function(x){return!g.some(function(r){return r.id===x})});names=names.filter(function(x){return!g.some(function(r){return r.nome===x})});ids.unshift(+p);names.unshift(pn)});
         /* nunca troca o assunto pela matéria inteira: sem assunto encontrado, a aula fica de fora e a plataforma avisa */
+        /* fora de Português, confere cada assunto escolhido contra o título da aula; o que não bate sai do caderno */
+        if(!lpd&&!/\|\*$/.test(it.k)){var kI=[],kN=[];ids.forEach(function(x,i){if(titleOk(names[i]||"",it)){kI.push(x);kN.push(names[i])}});ids=kI;names=kN}
         var F=ids.map(function(x){return["ASSUNTO",x]}),geral=0,whole=/\|\*$/.test(it.k);
         /* o caderno da "matéria inteira" é o único que usa a matéria toda */
         if(whole&&mi.length){F=mi.map(function(x){return["MATERIA",x]})}
