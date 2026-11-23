@@ -41,6 +41,8 @@ Deno.serve(async (req) => {
   const key = Deno.env.get("ANTHROPIC_API_KEY");
   if (!key) return json(500, { error: "Falta o segredo ANTHROPIC_API_KEY na função ai." });
 
+  let body: any;
+  try { body = await req.json(); } catch { return json(400, { error: "pedido inválido" }); }
   // Quem está pedindo? (o Supabase já recusa pedidos sem login válido; aqui lemos o e-mail)
   const auth = req.headers.get("authorization") ?? "";
   const ures = await fetch(`${Deno.env.get("SUPABASE_URL")}/auth/v1/user`, {
@@ -61,7 +63,36 @@ Deno.serve(async (req) => {
     // Plano só vale até plano_ate (quando preenchido): assinatura vencida não usa a IA, igual ao que o painel mostra.
     const planoOk = !!p?.plano && (!p?.plano_ate || Date.parse(p.plano_ate) > Date.now());
     if (!planoOk && !(fim > Date.now())) {
-      return json(403, { error: "O seu teste grátis de 7 dias terminou. Fale com a equipe da A Jornada para liberar o acesso." });
+      // Modo grátis depois do teste: só 1 pedido por dia, só para gerar 5 questões, com o modelo rápido e prompt montado aqui.
+      if (body?.mode !== "gratis") {
+        return json(403, { error: "O seu teste grátis de 7 dias terminou. Assine para liberar tudo, ou resolva as 5 questões grátis do dia." });
+      }
+      const hojeG = new Date().toISOString().slice(0, 10);
+      const ug = await fetch(`${Deno.env.get("SUPABASE_URL")}/rest/v1/uso_ia?user_id=eq.${user.id}&dia=eq.${hojeG}&select=chamadas`, {
+        headers: { apikey: sk, authorization: `Bearer ${sk}` },
+      });
+      const usadosG = ug.ok ? Number((await ug.json())[0]?.chamadas ?? 0) : 0;
+      if (usadosG >= 1) return json(429, { error: "As 5 questões grátis de hoje já foram usadas. Amanhã tem mais, ou assine para liberar tudo." });
+      const materia = String(body.materia || "Língua Portuguesa").replace(/[^\p{L}\p{N} ,.()-]/gu, "").slice(0, 60);
+      const banca = String(body.banca || "").replace(/[^\p{L}\p{N} ,.()-]/gu, "").slice(0, 40);
+      const rg = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json" },
+        body: JSON.stringify({
+          model: MODELS.quick, max_tokens: 2500,
+          messages: [{ role: "user", content: `Crie 5 questões inéditas de múltipla escolha, nível de concurso público brasileiro, de ${materia}${banca ? `, no estilo da banca ${banca}` : ""}. Cada uma com 5 alternativas (A a E), uma só correta e uma explicação curta e correta (até 3 frases). Não copie questões reais. Responda só com JSON, sem mais nada: {"questoes":[{"enunciado":"...","alternativas":["...","...","...","...","..."],"correta":"A","explicacao":"..."}]}` }],
+        }),
+      });
+      const jg = await rg.json().catch(() => null);
+      if (!rg.ok || !jg) return json(502, { error: "Não deu para gerar agora. Tente de novo em alguns minutos." });
+      try { await registrar(user.id, jg.usage?.input_tokens ?? 0, jg.usage?.output_tokens ?? 0); } catch { /* ignora */ }
+      const tg = (jg.content || []).filter((c: any) => c.type === "text").map((c: any) => c.text).join("\n");
+      const mg = tg.match(/\{[\s\S]*\}/);
+      let og: any = {}; try { og = mg ? JSON.parse(mg[0]) : {}; } catch { /* ignora */ }
+      const qs = (Array.isArray(og.questoes) ? og.questoes : []).filter((q: any) => q && typeof q.enunciado === "string" && Array.isArray(q.alternativas) && q.alternativas.length === 5 && /^[A-E]$/.test(String(q.correta))).slice(0, 5)
+        .map((q: any) => ({ enunciado: String(q.enunciado).slice(0, 2000), alternativas: q.alternativas.map((a: any) => String(a).slice(0, 600)), correta: String(q.correta), explicacao: String(q.explicacao || "").slice(0, 1200) }));
+      if (!qs.length) return json(502, { error: "Não deu para gerar agora. Tente de novo em alguns minutos." });
+      return json(200, { materia, questoes: qs });
     }
     // Limite diário no servidor (o mesmo do painel): teste 50, Básico 30, Premium 50 pedidos por dia.
     const limite = planoOk && /^basico_/.test(String(p?.plano ?? "")) ? 30 : 50;
@@ -75,8 +106,6 @@ Deno.serve(async (req) => {
     }
   }
 
-  let body: any;
-  try { body = await req.json(); } catch { return json(400, { error: "pedido inválido" }); }
   // ---------- Lei seca: texto oficial no Planalto ----------
   // lei_texto: baixa a página da lei (só planalto.gov.br), tira o que foi revogado (texto riscado) e devolve o texto limpo.
   // lei_busca: acha a página oficial da lei no Planalto com a busca na web da Anthropic.
