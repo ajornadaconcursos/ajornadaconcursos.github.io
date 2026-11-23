@@ -15,7 +15,7 @@
   function show(h){box.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px"><b style="font-size:17px">➜ A Jornada · '+(J&&J.mode==="inc"?"incidência no TEC":J&&J.mode==="guia"?"guia do seu concurso":"cadernos do TEC")+'</b><button id="jxcX" style="background:none;border:0;color:#c2b6df;font-size:20px;cursor:pointer" aria-label="Fechar">×</button></div>'+h+'<p id="jxWait" style="margin:6px 0 0;font-size:13px;color:#ffcf6b"></p>';var x=D.getElementById("jxcX");if(x)x.onclick=function(){STOP=1;box.remove()}}
   if(!J||!J.items||!J.items.length){show('<p style="margin:0">Não chegou a lista de aulas. Volte à plataforma e toque em <b>Abrir o TEC e criar os cadernos</b>; depois toque de novo no favorito ➜ A Jornada aqui.</p>');return}
   try{sessionStorage.setItem("jxcad",raw)}catch(e){}
-  var STOP=0,O=J.o||"",N=Math.max(20,Math.min(30,J.n||25)),DONE={},RES=[],FAIL=[];
+  var BLOCK=0,STOP=0,O=J.o||"",N=Math.max(20,Math.min(30,J.n||25)),DONE={},RES=[],FAIL=[];
   try{(JSON.parse(sessionStorage.getItem("jxcad-res")||"[]")||[]).forEach(function(r){if(r&&r.k){DONE[r.k]=1;RES.push(r)}})}catch(e){}
   var SW={};"a o e de da do das dos em na no nas nos por para com sem sua seu suas seus um uma ao aos as os que se lei leis art arts artigo artigos sobre entre ou como pela pelo pelas pelos nocoes basicas basicos conceito conceitos geral gerais parte aula aulas cf cc cp cpc cpp".split(" ").forEach(function(w){SW[w]=1});
   function norm(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")}
@@ -26,7 +26,7 @@
     var lg=w.filter(function(x){return!SW[norm(x)]}).sort(function(a,b){return b.length-a.length})[0]||"";var out=[cut(3),cut(2),lg],u={};if(norm(lg).length>7)out.push(norm(lg).slice(0,6));var lei=String(t||"").match(/\b\d{1,2}\.\d{3}\b/);if(lei)out.unshift(lei[0]);return out.filter(function(x){x=x.trim();if(x.length<4||u[norm(x)])return false;u[norm(x)]=1;return true})}
   function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
   /* o TEC limita a quantidade de pedidos (erro 429): espera e tenta de novo, sem acelerar */
-  async function tf(u,o){var w=[4000,12000,30000,60000];for(var k=0;;k++){var r=await fetch(u,o);if(r.status!==429||k>=w.length)return r;var b=D.getElementById("jxWait");if(b)b.textContent="O TEC pediu uma pausa, continuando em "+Math.round(w[k]/1000)+" s…";await sleep(w[k]);if(b)b.textContent=""}}
+  async function tf(u,o){var w=[4000,12000,30000,60000];for(var k=0;;k++){var r=await fetch(u,o);if(r.status===403||r.status===405){BLOCK=1;STOP=1}if(r.status!==429||k>=w.length)return r;var b=D.getElementById("jxWait");if(b)b.textContent="O TEC pediu uma pausa, continuando em "+Math.round(w[k]/1000)+" s…";await sleep(w[k]);if(b)b.textContent=""}}
   function getJSON(u){return tf(u,{credentials:"include"}).then(function(r){if(!r.ok)throw new Error("http "+r.status);return r.json()})}
   function form(F,extra){var p=new URLSearchParams();p.append("universo","");p.append("formato","OBJETIVA");Object.keys(extra||{}).forEach(function(k){p.append(k,extra[k])});F.forEach(function(f,i){p.append("filtros["+i+"].tipo",f[0]);p.append("filtros["+i+"].id",String(f[1]))});return p}
   function count(F){var p=form(F,{gerarEmSerie:"false",caderno:""});return sleep(150).then(function(){return tf("/api/questoes/contagem/filtros",{method:"POST",body:p,credentials:"include",headers:{"Content-Type":"application/x-www-form-urlencoded"}})}).then(function(r){return r.json()}).then(function(j){return+(j&&j.int)||0}).catch(function(){return 0})}
@@ -36,7 +36,8 @@
   function prog(i,tot,cur){var pc=Math.round(i/tot*100);show('<p style="margin:0 0 8px">Criando na sua conta do TEC um caderno de '+N+' questões para cada aula do seu edital. Deixe esta aba aberta.</p><div style="height:8px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden"><i style="display:block;height:100%;width:'+pc+'%;background:linear-gradient(90deg,#7b3cff,#ff5f8f)"></i></div><p style="margin:8px 0 0;font-size:13px;color:#c2b6df">'+i+' de '+tot+' aulas · '+RES.length+' cadernos prontos'+(FAIL.length?' · '+FAIL.length+' sem questões no TEC':'')+'</p><p style="margin:6px 0 0;font-size:13px">'+esc(cur||"")+'</p><button id="jxcS" style="'+BTN+';background:#2a2350">Parar</button>');var s=D.getElementById("jxcS");if(s)s.onclick=function(){STOP=1}}
   /* conferência: cada aula com os assuntos do TEC que entraram no caderno */
   function report(){var T={};(J.items||[]).forEach(function(i){T[i.k]=i.t||i.k});return'<details style="margin-top:10px"><summary style="cursor:pointer">Conferir aula por aula</summary><ol style="margin:6px 0 0;padding-left:18px;font-size:13px;max-height:220px;overflow:auto">'+RES.map(function(r){return'<li><b>'+esc(T[r.k]||r.k)+'</b><br>→ '+esc(r.as||"")+'</li>'}).join("")+FAIL.map(function(k){return'<li><b>'+esc(T[k]||k)+'</b><br>→ sem assunto certo no TEC (não criei caderno)</li>'}).join("")+'</ol></details>'}
-  function finish(){var url=O+"/#jxestr="+encodeURIComponent(JSON.stringify({v:1,src:"teccad",cads:RES,fail:FAIL,n:N}));
+  function finish(){if(BLOCK)FAIL=[];var url=O+"/#jxestr="+encodeURIComponent(JSON.stringify({v:1,src:"teccad",cads:RES,fail:FAIL,n:N}));
+    if(BLOCK){show('<p style="margin:0"><b>O TEC pediu para confirmar que você é humano.</b> Os '+RES.length+' cadernos criados até aqui já estão salvos. Recarregue esta página do TEC, faça a verificação e toque de novo no favorito ➜ A Jornada: ele continua de onde parou.</p><a href="'+esc(url)+'" target="_blank" rel="noopener" style="'+BTN+'">Voltar para A Jornada e gravar os '+RES.length+'</a>');return}
     show('<p style="margin:0"><b>'+RES.length+' cadernos</b> prontos na sua conta do TEC'+(FAIL.length?' ('+FAIL.length+' aula'+(FAIL.length>1?'s':'')+' sem questões suficientes no TEC)':'')+'. Volte à plataforma para gravar cada caderno na tarefa de questões da aula.</p><a href="'+esc(url)+'" target="_blank" rel="noopener" style="'+BTN+'">Voltar para A Jornada</a>'+report());
     try{sessionStorage.removeItem("jxcad");sessionStorage.removeItem("jxcad-res")}catch(e){}}
   (async function(){
@@ -270,6 +271,8 @@
         var cid=await create(FF,nome,q);
         if(cid){var r={v:5,k:it.k,t:String(it.t||"").slice(0,160),ids:lpd?ids.slice(0,10):[],id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,8).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
       }catch(e){FAIL.push(it.k)}
-      await sleep(250)}
+      if(BLOCK){FAIL=FAIL.filter(function(x){return x!==it.k});break}
+      /* devagar de propósito: muitas consultas seguidas fazem o TEC pedir a verificação de "humano" */
+      await sleep(1500)}
     finish()})();
 })();
