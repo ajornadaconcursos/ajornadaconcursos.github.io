@@ -234,7 +234,7 @@
              aceita nome igual ou um começando pelo outro, sempre na matéria da aula e com os artigos e a lei da aula batendo */
           for(var g=0;g<it.ga.length&&ids.length<10;g++){var gn=nk(it.ga[g]),gw=String(it.ga[g]).replace(/\([^)]*\)/g," ").split(/\s+/).filter(Boolean),Q=[it.ga[g].replace(/\([^)]*\)/g," ").trim(),gw.slice(0,4).join(" "),gw.slice(0,3).join(" "),gw.slice(0,2).join(" ")].filter(function(x,ix,A){return x&&x.length>=4&&A.indexOf(x)===ix}),best=[];
             for(var qq=0;qq<Q.length&&!best.length;qq++){var LG=await search(Q[qq]);LG.forEach(function(r){var rn=nk(r.nome),inM=!mi.length||(r.materia&&mi.indexOf(r.materia.id)>=0);if(!rn)return;
-                var ex=rn===gn,pre=rn.length>=6&&(gn.indexOf(rn)===0||rn.indexOf(gn)===0);if(!(ex||pre))return;if(!inM&&!ex)return;if(!artOk(r.nome,it.t)||!leiOk(r.nome,it.t))return;best.push({r:r,s:(ex?0:1)+(inM?0:2)+Math.abs(rn.length-gn.length)/1000})})}
+                var ex=rn===gn,pre=rn.length>=6&&(gn.indexOf(rn)===0||rn.indexOf(gn)===0);if(!(ex||pre))return;if(!inM&&!ex&&gn.split(" ").filter(function(w){return w.length>3}).length<3)return;if(!artOk(r.nome,it.t)||!leiOk(r.nome,it.t))return;best.push({r:r,s:(ex?0:1)+(inM?0:2)+Math.abs(rn.length-gn.length)/1000})})}
             best.sort(function(a,b){return a.s-b.s});best.slice(0,2).forEach(function(b){if(ids.indexOf(b.r.id)<0&&ids.length<10){ids.push(b.r.id);names.push(b.r.nome)}})}
           lpd=1;tops=[]}
         for(var j=0;j<tops.length;j++){var got=await famPick(tops[j],it,mi,search);got.forEach(function(r){if(ids.indexOf(r.id)<0&&ids.length<10){ids.push(r.id);names.push(r.nome);pick.push(r)}})}
