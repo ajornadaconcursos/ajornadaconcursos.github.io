@@ -5,6 +5,7 @@
 // Segredos (Supabase → Edge Functions → Secrets):
 //   ANTHROPIC_API_KEY  (obrigatório)  sua chave da API da Anthropic
 //   ALLOWED_EMAILS     (recomendado)  e-mails do dono, com IA sempre liberada (os demais: só no teste de 7 dias ou com plano)
+//   IA_LIMITE_TESTE / IA_LIMITE_DIA (opcional) pedidos de IA por dia no teste (50), no Básico (30) e no Premium (50)
 //   MODEL_QUICK / MODEL_DEFAULT / MODEL_COMPLEX  (opcional) para trocar os modelos sem mexer no código
 
 const MODELS: Record<string, string> = {
@@ -50,26 +51,24 @@ Deno.serve(async (req) => {
   });
   if (!ures.ok) return json(401, { error: "Entre na sua conta." });
   const user = await ures.json();
-  // Quem pode usar a IA: os e-mails de ALLOWED_EMAILS (o dono) sempre; os demais durante o teste grátis
-  // de 7 dias (perfis.teste_ate) ou com um plano liberado (perfis.plano preenchido).
+  // Quem pode usar a IA: os e-mails de ALLOWED_EMAILS e quem tem plano "dono" sempre; assinantes (mensal/trimestral/semestral/anual/cortesia)
+  // até plano_ate; os demais durante o teste grátis (perfis.teste_ate). Há um limite de chamadas por dia para proteger os créditos.
   const allowed = (Deno.env.get("ALLOWED_EMAILS") ?? "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
   if (!allowed.includes(String(user.email ?? "").toLowerCase())) {
-    const sk = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
-    const pr = await fetch(`${Deno.env.get("SUPABASE_URL")}/rest/v1/perfis?user_id=eq.${user.id}&select=plano,plano_ate,teste_ate`, {
-      headers: { apikey: sk, authorization: `Bearer ${sk}` },
-    });
+    const sk = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "", base = Deno.env.get("SUPABASE_URL");
+    const hd = { apikey: sk, authorization: `Bearer ${sk}` };
+    const pr = await fetch(`${base}/rest/v1/perfis?user_id=eq.${user.id}&select=plano,plano_ate,teste_ate`, { headers: hd });
     const p = pr.ok ? (await pr.json())[0] : null;
+    const now = Date.now(), plano = String(p?.plano ?? "");
+    const bas = /^basico_/.test(plano);
+    const pago = plano === "dono" || ((["mensal", "trimestral", "semestral", "anual", "cortesia"].includes(plano) || bas) && (!p?.plano_ate || Date.parse(p.plano_ate) > now));
     const fim = p?.teste_ate ? Date.parse(p.teste_ate) : Date.parse(user.created_at ?? "") + 7 * 864e5;
-    // Plano só vale até plano_ate (quando preenchido): assinatura vencida não usa a IA, igual ao que o painel mostra.
-    const planoOk = !!p?.plano && (!p?.plano_ate || Date.parse(p.plano_ate) > Date.now());
-    if (!planoOk && !(fim > Date.now())) {
-      // Modo grátis depois do teste: só 1 pedido por dia, só para gerar 5 questões, com o modelo rápido e prompt montado aqui.
-      if (body?.mode !== "gratis") {
-        return json(403, { error: "O seu teste grátis de 7 dias terminou. Assine para liberar tudo, ou resolva as 5 questões grátis do dia." });
-      }
+    if (!pago && !(fim > now)) {
+      if (body?.mode === "gratis") {
+        // Modo grátis depois do teste: só 1 pedido por dia, só para gerar 5 questões, com o modelo rápido e prompt montado aqui.
       const hojeG = new Date().toISOString().slice(0, 10);
       const ug = await fetch(`${Deno.env.get("SUPABASE_URL")}/rest/v1/uso_ia?user_id=eq.${user.id}&dia=eq.${hojeG}&select=chamadas`, {
-        headers: { apikey: sk, authorization: `Bearer ${sk}` },
+        headers: hd,
       });
       const usadosG = ug.ok ? Number((await ug.json())[0]?.chamadas ?? 0) : 0;
       if (usadosG >= 1) return json(429, { error: "As 5 questões grátis de hoje já foram usadas. Amanhã tem mais, ou assine para liberar tudo." });
@@ -93,16 +92,14 @@ Deno.serve(async (req) => {
         .map((q: any) => ({ enunciado: String(q.enunciado).slice(0, 2000), alternativas: q.alternativas.map((a: any) => String(a).slice(0, 600)), correta: String(q.correta), explicacao: String(q.explicacao || "").slice(0, 1200) }));
       if (!qs.length) return json(502, { error: "Não deu para gerar agora. Tente de novo em alguns minutos." });
       return json(200, { materia, questoes: qs });
+      }
+      return json(403, { error: (["mensal", "trimestral", "semestral", "anual"].includes(plano) || bas) ? "A sua assinatura venceu. Renove na aba Assinatura para voltar a usar a IA." : "O seu teste grátis de 7 dias terminou. Assine na aba Assinatura para continuar usando a IA." });
     }
-    // Limite diário no servidor (o mesmo do painel): teste 50, Básico 30, Premium 50 pedidos por dia.
-    const limite = planoOk && /^basico_/.test(String(p?.plano ?? "")) ? 30 : 50;
-    const hoje = new Date().toISOString().slice(0, 10);
-    const ur = await fetch(`${Deno.env.get("SUPABASE_URL")}/rest/v1/uso_ia?user_id=eq.${user.id}&dia=eq.${hoje}&select=chamadas`, {
-      headers: { apikey: sk, authorization: `Bearer ${sk}` },
-    });
-    const usados = ur.ok ? Number((await ur.json())[0]?.chamadas ?? 0) : 0;
-    if (usados >= limite) {
-      return json(429, { error: `Você usou os ${limite} pedidos de IA de hoje. Amanhã libera de novo.` });
+    if (plano !== "dono") {
+      const cap = Number(Deno.env.get(bas ? "IA_LIMITE_BASICO" : pago ? "IA_LIMITE_DIA" : "IA_LIMITE_TESTE") ?? (bas ? 30 : pago ? 50 : 50));
+      const ur = await fetch(`${base}/rest/v1/uso_ia?user_id=eq.${user.id}&dia=eq.${new Date().toISOString().slice(0, 10)}&select=chamadas`, { headers: hd });
+      const n = ur.ok ? ((await ur.json())[0]?.chamadas ?? 0) : 0;
+      if (n >= cap) return json(429, { error: `Você usou o limite de ${cap} pedidos de IA de hoje${pago ? "" : " no teste grátis"}. Amanhã libera de novo.` });
     }
   }
 
@@ -153,6 +150,40 @@ Deno.serve(async (req) => {
     let o: any = {}; try { o = m ? JSON.parse(m[0]) : {}; } catch { /* ignora */ }
     const url = typeof o.url === "string" && /^https?:\/\/(www\.)?planalto\.gov\.br\//i.test(o.url) ? o.url : "";
     return json(200, { url, nome: String(o.nome || "").slice(0, 200) });
+  }
+
+  // ---------- Curso do aluno: lê a página do curso pelo link que ele colou ----------
+  // Só páginas públicas (as da área do aluno pedem login) e só endereços com domínio de verdade (nada de IP ou rede interna).
+  if (body.mode === "curso_texto") {
+    let u: URL;
+    try { u = new URL(String(body.url || "").trim()); } catch { return json(400, { error: "link inválido" }); }
+    const h = u.hostname.toLowerCase();
+    if (!/^https?:$/.test(u.protocol) || !/^[a-z0-9.-]+\.[a-z]{2,}$/.test(h) || /^\d+(\.\d+){3}$/.test(h) || /(^|\.)(localhost|local|internal|supabase\.co|supabase\.in)$/.test(h)) return json(400, { error: "use o link da página do curso" });
+    u.protocol = "https:";
+    let pr: Response;
+    try { pr = await fetch(u.toString(), { headers: { "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36 AJornada/1.0", accept: "text/html,application/xhtml+xml", "accept-language": "pt-BR,pt;q=0.9" }, redirect: "follow", signal: AbortSignal.timeout(15000) }); }
+    catch { return json(200, { ok: false, motivo: "naoabriu" }); }
+    if (!pr.ok) return json(200, { ok: false, motivo: pr.status === 401 || pr.status === 403 ? "bloqueado" : "naoabriu", status: pr.status });
+    const buf = new Uint8Array(await pr.arrayBuffer());
+    if (buf.length > 10_000_000) return json(200, { ok: false, motivo: "grande" });
+    const html = new TextDecoder("utf-8").decode(buf);
+    const titulo = ((html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || "").replace(/\s+/g, " ").trim().slice(0, 200);
+    // muitos sites mandam a lista de aulas em dados embutidos (Next.js, JSON-LD) e não no texto
+    const dados0 = [...html.matchAll(/<script[^>]*(?:id=["']__NEXT_DATA__["']|type=["']application\/(?:ld\+)?json["'])[^>]*>([\s\S]*?)<\/script>/gi)].map((m) => m[1]).join("\n");
+    // Next.js novo (app router) manda a página em pedaços "self.__next_f.push"; Nuxt usa window.__NUXT__
+    const flight = [...html.matchAll(/self\.__next_f\.push\(\[\d+,\s*"((?:\\.|[^"\\])*)"\]\)/g)].map((m) => { try { return JSON.parse('"' + m[1] + '"'); } catch { return ""; } }).join("\n");
+    const nuxt = (html.match(/window\.__NUXT__\s*=\s*([\s\S]*?)<\/script>/) || [])[1] || "";
+    const dados = [dados0, flight, nuxt].filter(Boolean).join("\n").slice(0, 400_000);
+    const t = html
+      .replace(/<(script|style|head|noscript|svg)[\s\S]*?<\/\1>/gi, " ")
+      .replace(/<br\s*\/?>/gi, "\n").replace(/<\/(p|div|tr|li|h\d|table|section|article|ul|ol|a|span)>/gi, "\n")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/g, " ").replace(/&quot;/g, '"').replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&#(\d+);/g, (_m, d) => String.fromCharCode(+d))
+      .replace(/[ \t]+/g, " ").replace(/\n\s*\n+/g, "\n").trim();
+    const login = t.length < 8000 && /(fa[cç]a (o )?login|entre na sua conta|esqueci (a |minha )?senha|acesse sua conta)/i.test(t);
+    const molde = (t.match(/\{\{[^}]{1,60}\}\}/g) || []).length >= 3;
+    const ok = !login && (t.length > 1500 || dados.length > 1500) && !(molde && dados.length < 1500);
+    return json(200, { ok, motivo: login ? "login" : molde ? "dinamico" : ok ? "" : "vazio", titulo, url: pr.url || u.toString(), texto: t.slice(0, 300_000), dados });
   }
 
   const messages = Array.isArray(body.messages) ? body.messages : [];
