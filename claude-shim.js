@@ -612,10 +612,33 @@
         <div class="jx-row" style="margin-top:10px"><button class="jx-btn ghost" type="button" data-k="out">Sair</button></div>
         <p style="margin:12px 0 0;font-size:12.5px"><a href="termos.html#termos" target="_blank" rel="noopener" style="color:#c9b2ff">Termos de Uso</a> · <a href="termos.html#privacidade" target="_blank" rel="noopener" style="color:#c9b2ff">Política de Privacidade</a>${V.suporte_email ? ` · Suporte: ${String(V.suporte_email).replace(/[<>&]/g, "")}` : ""}</p>
         <div class="jx-msg" role="status" aria-live="polite"></div></div>
+      <div class="jx-card" id="jx-free"><h2 style="margin:0 0 6px;font-size:18px">Enquanto isso: 5 questões grátis por dia</h2>
+        <p class="jx-sub" style="margin:0 0 10px">Escolha a matéria e treine. As questões são criadas por IA e corrigidas na hora. Volta amanhã com mais 5.</p>
+        <div class="jx-row" style="margin:0"><select data-k="fm" aria-label="Matéria" style="flex:1 1 200px;min-height:46px;border-radius:10px;background:#1a1338;color:#efe9ff;border:1px solid rgba(160,107,255,.4);padding:0 10px">${["Língua Portuguesa","Direito Constitucional","Direito Administrativo","Raciocínio Lógico","Informática","Direito Penal","Direito Processual Penal","Direito Civil","Contabilidade","Legislação (Lei 8.112/90)"].map(m => `<option>${m}</option>`).join("")}</select><button class="jx-btn" type="button" data-k="fq" style="flex:1 1 160px">Gerar as 5 de hoje</button></div>
+        <div data-k="fqs" aria-live="polite"></div></div>
       <div class="jx-band"><b>A JORNADA</b><span>Sua trilha até a aprovação</span></div></div>`;
     g.querySelector('[data-k="exp"]').onclick = () => exportAll();
     g.querySelector('[data-k="chk"]').onclick = async () => { const m = g.querySelector(".jx-msg"); m.textContent = "Verificando…"; const { data } = await sb.auth.getUser(); const B = await loadAcesso(data.user); if (B.st === "ativo" || B.st === "dono") { m.textContent = "Pagamento confirmado! Abrindo…"; setTimeout(() => location.reload(), 900); } else m.textContent = "Ainda não chegou a confirmação. No Pix e no cartão costuma levar poucos minutos; no boleto, até 3 dias úteis."; };
     g.querySelector('[data-k="out"]').onclick = () => jxOut();
+    { const box = g.querySelector('[data-k="fqs"]'), bt = g.querySelector('[data-k="fq"]'), E = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+      bt.onclick = async () => {
+        bt.disabled = true; box.innerHTML = '<p class="jx-sub" style="margin:12px 0 0">Criando as questões…</p>';
+        try {
+          const r = await nativeFetch(SB_URL + "/functions/v1/ai", { method: "POST", headers: { Authorization: "Bearer " + TOKEN, apikey: SB_KEY, "content-type": "application/json" }, body: JSON.stringify({ mode: "gratis", materia: g.querySelector('[data-k="fm"]').value }) });
+          const j = await r.json().catch(() => ({}));
+          if (!r.ok) throw new Error(j.error || "Não deu para gerar agora.");
+          const Q = j.questoes || [];
+          box.innerHTML = `<p style="margin:12px 0 6px;font-size:12px;color:#c9b2ff">${E(j.materia)} · questões criadas por IA, confira com o seu material</p>` + Q.map((q, i) => `<div style="border-top:1px solid rgba(160,107,255,.25);padding:12px 0" data-q="${i}"><p style="margin:0 0 8px;color:#efe9ff"><b>${i + 1}.</b> ${E(q.enunciado)}</p>${q.alternativas.map((a, k) => { const L = "ABCDE"[k]; return `<button type="button" data-l="${L}" style="display:block;width:100%;text-align:left;margin:4px 0;padding:9px 12px;border-radius:9px;border:1px solid rgba(160,107,255,.35);background:rgba(143,92,255,.06);color:#e6dcff;cursor:pointer;font:inherit">${L}) ${E(a)}</button>`; }).join("")}<p data-k="ex" hidden style="margin:8px 0 0;color:#c3c4e6;font-size:13.5px"></p></div>`).join("") + '<p data-k="fsc" class="jx-sub" style="margin:8px 0 0"></p>';
+          let ok = 0, done = 0;
+          box.querySelectorAll("[data-q]").forEach(d => { const q = Q[+d.dataset.q]; d.querySelectorAll("[data-l]").forEach(b => b.onclick = () => {
+            if (d.dataset.ans) return; d.dataset.ans = b.dataset.l; done++; const certo = b.dataset.l === q.correta; if (certo) ok++;
+            d.querySelectorAll("[data-l]").forEach(x => { if (x.dataset.l === q.correta) { x.style.borderColor = "#3ddc97"; x.style.background = "rgba(61,220,151,.14)"; } else if (x === b) { x.style.borderColor = "#ff5f8f"; x.style.background = "rgba(255,95,143,.12)"; } });
+            const ex = d.querySelector('[data-k="ex"]'); ex.hidden = false; ex.innerHTML = `<b>${certo ? "Certo!" : "Resposta: " + q.correta}</b> ${E(q.explicacao)}`;
+            if (done === Q.length) box.querySelector('[data-k="fsc"]').innerHTML = `Você acertou <b>${ok} de ${Q.length}</b>. Com a assinatura, a A Jornada monta as metas do dia pelo seu edital e guarda o que você errou para revisar.`;
+          }); });
+        } catch (e) { box.innerHTML = `<p class="jx-sub" style="margin:12px 0 0">${E(e.message)}</p>`; bt.disabled = false; }
+      };
+    }
   }
 
   /* ---------- início ---------- */
