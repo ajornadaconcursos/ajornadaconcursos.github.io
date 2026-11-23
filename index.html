@@ -5399,10 +5399,17 @@ const TGWX=new Set("classes classe palavras palavra nocoes nocao aspectos gerais
 const TSW=new Set("a o e de da do das dos em na no nas nos por para com sem sua seu suas seus um uma ao aos as os que se sobre entre ou como pela pelo pelas pelos cf cc cp cpc cpp".split(" "));
 const tSigX=x=>(String(x).match(/\b[A-Z]{2,5}\b/g)||[]).map(w=>w.toLowerCase()).filter(w=>!/^(art|arts|cf|cc|cp|cpc|cpp|lei)$/.test(w)).concat(tSigX0(x));
 const tSigX0=x=>norm(x).replace(/(\d)\.(\d{3})/g,"$1$2").replace(/[^a-z0-9 ]/g," ").split(/\s+/).map(lpSing).filter(w=>w&&(/^\d{3,}$/.test(w)||(w.length>3&&!TSW.has(w)&&!TGWX.has(w)))).map(w=>/^\d/.test(w)?w:w.slice(0,6));
+function tArts(x){var out=[],re=/\barts?\.?\s*((?:\d{1,2}\.\d{3}|\d{1,4})(?:\s*[ºo°]|-[a-z])?(?:\s*(?:,|e|a|ao|à|-)\s*(?:\d{1,2}\.\d{3}|\d{1,4})(?:\s*[ºo°]|-[a-z])?)*)/gi,m;
+    while((m=re.exec(String(x)))){var nums=m[1].replace(/(\d)\.(\d{3})/g,"$1$2").split(/\s*(,|\be\b)\s*/);nums.forEach(function(seg){var r=seg.match(/(\d+)\D*(?:\s(?:a|ao|à)\s|-)\s*(\d+)/);if(r)out.push([+r[1],+r[2]]);else{var n=seg.match(/\d+/);if(n)out.push([+n[0],+n[0]])}})}
+    return out.filter(function(r){return r[0]>0&&r[0]<=3000&&r[1]>=r[0]})}
+  function tArtOk(nome,tit){var A=tArts(nome),B=tArts(tit);if(!A.length||!B.length)return true;return A.some(function(a){return B.some(function(b){return a[0]<=b[1]&&b[0]<=a[1]})})}
+  /* lei: se a aula cita uma lei (8.112, 9.099…) e o assunto do TEC cita outra, não serve */
+  function tLeis(x){return(String(x).replace(/(\d{1,2})\.(\d{3})/g,"$1$2").match(/\blei(?: complementar| estadual| federal)?\s*(?:n[ºo°.]*\s*)?(\d{3,5})/gi)||[]).map(function(m){return m.match(/(\d{3,5})/)[1]})}
+  function tLeiOk(nome,tit){var A=tLeis(nome),B=tLeis(tit);if(!A.length||!B.length)return true;return A.some(function(a){return B.indexOf(a)>=0})}
 function tecTitleOk(sid,c,x){const a=auOf(sid,c);if(!a)return false;const ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[];
   if(x.t&&norm(x.t).slice(0,40)!==norm(String(a.d||"").slice(0,90)).slice(0,40))return false;
   const B=tSigX([String(a.d||"").replace(/^\s*aula\s*\d+\s*[-–:.]\s*/i,""),...ga].join(" "));const L=String(x.as||"").split(/;\s*/).filter(Boolean);if(!B.length||!L.length)return false;
-  return L.every(n=>{const A=tSigX(String(n));return A.some(w=>B.some(v=>w===v||(w.length>=5&&v.length>=5&&(w.startsWith(v)||v.startsWith(w)))))})}
+  return L.every(n=>{if(!ga.length&&(!tArtOk(n,a.d||"")||!tLeiOk(n,a.d||"")))return false;const A=tSigX(String(n));return A.some(w=>B.some(v=>w===v||(w.length>=5&&v.length>=5&&(w.startsWith(v)||v.startsWith(w)))))})}
 function tecAutoOk(sid,c,x){if(x&&x.id&&String(c)!=="*"&&!String(c).endsWith("|ob")){if(tecIsLP(sid))return +x.v>=5?lpIdsOk(sid,c,x):+x.v===4&&lpAsOk(sid,c,x);if(x.g)return false;return tecTitleOk(sid,c,x)}if(!x||!x.as)return true;/* caderno criado pelo favorito novo (v2) já é só da aula: não reprova, senão o link volta sempre para a tela de filtro */if(+x.v>=2)return true;const a=auOf(sid,c),S=SUB(sid),ga=(typeof TECGA!=="undefined"&&IS_TJ?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[]);
   const pc=x2=>String(x2||"").includes(":")?String(x2).split(":").slice(1).join(":"):String(x2||"");
   /* com o índice do guia (nomes do próprio TEC), compara só com ele: os tópicos do edital costumam juntar várias classes num item só */
@@ -5438,7 +5445,7 @@ function tecAulaCtx(sid,c){const S=SUB(sid)||{},a=auOf(sid,c);if(!a)return{ga:[]
 function tecAulaItem(sid,c){const S=SUB(sid),a=auOf(sid,c);if(!a||String(c).startsWith("x:"))return null;const X=tecAulaCtx(sid,c);
   /* só o título da aula (e o Índice do guia do cargo, no Oficial de Justiça): os tópicos do edital ligados à aula citam outros assuntos e puxavam caderno errado */
   const al=[...new Set([...X.ga,...X.spec].filter(x=>x&&x.length>=3))].slice(0,6);
-  return al.length?{k:sid+"|"+c,m:tecMatName(sid)||TECN[sid]||S.n,t:String(a.d||c).slice(0,90),a:al,kw:[]}:null}
+  return al.length?{k:sid+"|"+c,m:tecMatName(sid)||TECN[sid]||S.n,t:String(a.d||c).slice(0,160),a:al,ga:X.ga.slice(0,6),kw:[]}:null}
 function tecAsLbl(sid,c){const a=auOf(sid,c),S=SUB(sid),ga=IS_TJ&&typeof TECGA!=="undefined"?(TECGA[sid+"|"+c]||[]).map(z=>z[0]):[];const x=(core().tecAuto||{})[sid+"|"+c];const L=x&&x.as&&!x.g&&tecAutoOk(sid,c,x)?String(x.as).split(/;\s*/):ga.length?ga:a?tecSpecPieces(a.d).slice(0,2):[];return{m:TECN[sid]||S.n,a:L.filter(Boolean).slice(0,3)}}
 function tecAulaBtn(sid,c,cls){const u=tecAulaDirect(sid,c),L=tecAsLbl(sid,c),X=(core().tecAuto||{})[sid+"|"+c]||{},bk=X.b||"",lb=`${ic("target")} Questões${bk?" "+esc(bk):""}: <b>${esc(L.m)}</b>${L.a.length?" › "+esc(L.a.slice(0,2).map(x=>x.replace(/\s*\((arts?\.|art\.)[^)]*\)/i,"")).join(" / "))+(L.a.length>2?" +"+(L.a.length-2):""):""}${X.ob?` <small class="tec-ob">a ${esc(tecBanca()||"sua banca")} não tem questões deste assunto: caderno com outras bancas</small>`:""}`;
   /* banca até esgotar: quando ela tem poucas questões do assunto, o aluno faz todas e depois completa com outras bancas */
@@ -5540,7 +5547,7 @@ function tcaCard(){try{const M=PLANS.me;if(M&&M.at&&!M.setupOk&&PLANS.onb)return
 /* logo depois de escolher o concurso (e quando entram aulas novas), a plataforma oferece criar os cadernos sozinha, uma vez */
 function tcaAuto(){try{if(!READY||obPending())return;const L3=$("layer3");if(L3&&L3.innerHTML.trim()){setTimeout(tcaAuto,4000);return}
   const c=core(),pj=tecJob().length;if(!pj)return;if(c.tcaAsk&&pj<=(c.tcaPend||0))return;c.tcaAsk=Date.now();c.tcaPend=pj;touch("core");tcaModal()}catch(e){}}
-function tecAutoSave(P){const c=core();c.tecAuto=c.tecAuto||{};let n=0;(P.cads||[]).forEach(x=>{if(!x||!x.k||!(+x.id>0))return;c.tecAuto[x.k]={id:+x.id,n:+x.n||25,b:String(x.b||"").slice(0,30),as:String(x.as||"").slice(0,300),g:x.g?1:0,ob:x.ob?1:0,pb:+x.pb||0,xb:x.xb?1:0,v:+x.v||0,t:String(x.t||"").slice(0,90),ids:(Array.isArray(x.ids)?x.ids:[]).map(Number).filter(n=>n>0).slice(0,10),at:today()};n++});
+function tecAutoSave(P){const c=core();c.tecAuto=c.tecAuto||{};let n=0;(P.cads||[]).forEach(x=>{if(!x||!x.k||!(+x.id>0))return;c.tecAuto[x.k]={id:+x.id,n:+x.n||25,b:String(x.b||"").slice(0,30),as:String(x.as||"").slice(0,300),g:x.g?1:0,ob:x.ob?1:0,pb:+x.pb||0,xb:x.xb?1:0,v:+x.v||0,t:String(x.t||"").slice(0,160),ids:(Array.isArray(x.ids)?x.ids:[]).map(Number).filter(n=>n>0).slice(0,10),at:today()};n++});
   c.tcaPend=tecJob().length;touch("core");render();const f=(P.fail||[]).length;toast(n?n+" caderno"+(n>1?"s":"")+" do TEC gravado"+(n>1?"s":"")+" nas tarefas de questões"+(f?" · "+f+" aula"+(f>1?"s":"")+" sem questões no TEC":""):"Nenhum caderno chegou do TEC")}
 /* ---------- Questões por matéria quando o edital dá o número do BLOCO, e incidência pelo TEC ----------
    Ex.: "BLOCO II: Conhecimentos em Direito – 40 questões" vale para Penal, Processo Penal, Civil… juntos.

@@ -150,7 +150,16 @@
   var TGW={};"classes classe palavras palavra nocoes nocao aspectos gerais geral parte partes arts art artigos artigo lei leis direito direitos teoria conceito conceitos introducao disposicoes normas norma estudo estudos revisao exercicios questoes aula aulas modulo topicos resumo parte especial principios principio regras regra tipos especies".split(" ").forEach(function(w){TGW[w]=1});
   function tsig(x){return(String(x).match(/\b[A-Z]{2,5}\b/g)||[]).map(function(w){return w.toLowerCase()}).filter(function(w){return!/^(art|arts|cf|cc|cp|cpc|cpp|lei)$/.test(w)}).concat(tsig0(x))}
   function tsig0(x){return norm(x).replace(/(\d)\.(\d{3})/g,"$1$2").replace(/[^a-z0-9 ]/g," ").split(/\s+/).map(sing).filter(function(w){return w&&(/^\d{3,}$/.test(w)||(w.length>3&&!SW[w]&&!TGW[w]))}).map(function(w){return /^\d/.test(w)?w:w.slice(0,6)})}
-  function titleOk(nome,it){var A=tsig(String(nome)),B=tsig([it.t||""].concat(it.a||[]).join(" "));if(!A.length||!B.length)return false;
+  /* artigos: "arts. 42 a 53 e 64 a 66" vira faixas; se a aula e o assunto do TEC citam artigos, as faixas têm de se cruzar
+     (assim "Competência (arts. 42 a 53)" nunca puxa "Competência Originária dos Tribunais (arts. 926 a 993)") */
+  function arts(x){var out=[],re=/\barts?\.?\s*((?:\d{1,2}\.\d{3}|\d{1,4})(?:\s*[ºo°]|-[a-z])?(?:\s*(?:,|e|a|ao|à|-)\s*(?:\d{1,2}\.\d{3}|\d{1,4})(?:\s*[ºo°]|-[a-z])?)*)/gi,m;
+    while((m=re.exec(String(x)))){var nums=m[1].replace(/(\d)\.(\d{3})/g,"$1$2").split(/\s*(,|\be\b)\s*/);nums.forEach(function(seg){var r=seg.match(/(\d+)\D*(?:\s(?:a|ao|à)\s|-)\s*(\d+)/);if(r)out.push([+r[1],+r[2]]);else{var n=seg.match(/\d+/);if(n)out.push([+n[0],+n[0]])}})}
+    return out.filter(function(r){return r[0]>0&&r[0]<=3000&&r[1]>=r[0]})}
+  function artOk(nome,tit){var A=arts(nome),B=arts(tit);if(!A.length||!B.length)return true;return A.some(function(a){return B.some(function(b){return a[0]<=b[1]&&b[0]<=a[1]})})}
+  /* lei: se a aula cita uma lei (8.112, 9.099…) e o assunto do TEC cita outra, não serve */
+  function leis(x){return(String(x).replace(/(\d{1,2})\.(\d{3})/g,"$1$2").match(/\blei(?: complementar| estadual| federal)?\s*(?:n[ºo°.]*\s*)?(\d{3,5})/gi)||[]).map(function(m){return m.match(/(\d{3,5})/)[1]})}
+  function leiOk(nome,tit){var A=leis(nome),B=leis(tit);if(!A.length||!B.length)return true;return A.some(function(a){return B.indexOf(a)>=0})}
+  function titleOk(nome,it){if(!artOk(nome,it.t)||!leiOk(nome,it.t))return false;var A=tsig(String(nome)),B=tsig([it.t||""].concat(it.a||[]).join(" "));if(!A.length||!B.length)return false;
     return A.some(function(w){return B.some(function(v){return w===v||(w.length>=5&&v.length>=5&&(w.indexOf(v)===0||v.indexOf(w)===0))})})}
 /* Português: números fixos dos assuntos do TEC (Língua Portuguesa = matéria 3), conferidos no TEC em 23/11/2026.
      Cada palavra-chave do TÍTULO da aula aponta para o número do assunto: sem busca, sem adivinhação. */
@@ -219,6 +228,12 @@
         var tops=(it.a||[]).slice(0,5),isLP=/portugu/.test(norm(it.m))&&!/\|\*$/.test(it.k),lpd=0;
         /* Português: primeiro o dicionário fixo (assunto certo sempre); só se ele não achar nada usa a busca por semelhança */
         if(isLP){lpIds(it.t).forEach(function(x){ids.push(x);names.push(LPIDN[x]||String(x))});lpd=1;tops=[]}
+        /* Oficial de Justiça: nomes do Índice do guia do TEC para a aula (já conferidos): só aceita o assunto do TEC com o MESMO nome, sem semelhança */
+        else if(it.ga&&it.ga.length){var nk=function(x){return norm(String(x).replace(/\([^)]*\)/g," ")).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim()};
+          for(var g=0;g<it.ga.length&&ids.length<10;g++){var gn=nk(it.ga[g]),LG=await search(gn.split(" ").filter(function(w){return w.length>3}).slice(0,3).join(" ")||gn),hitG=null;
+            LG.forEach(function(r){if(!hitG&&nk(r.nome)===gn&&(!mi.length||(r.materia&&mi.indexOf(r.materia.id)>=0)))hitG=r});
+            if(!hitG)LG.forEach(function(r){if(!hitG&&nk(r.nome)===gn)hitG=r});if(hitG&&ids.indexOf(hitG.id)<0){ids.push(hitG.id);names.push(hitG.nome)}}
+          lpd=1;tops=[]}
         for(var j=0;j<tops.length;j++){var got=await famPick(tops[j],it,mi,search);got.forEach(function(r){if(ids.indexOf(r.id)<0&&ids.length<10){ids.push(r.id);names.push(r.nome);pick.push(r)}})}
         /* nada na matéria da aula: o TEC às vezes guarda o assunto em matéria vizinha (Juros Simples em Matemática Financeira, LINDB em Legislação Civil,
            Simples Nacional em Legislação Tributária); aceita só nome igual ao tópico ou que traz o tópico inteiro */
@@ -248,7 +263,7 @@
         var q=Math.min(Math.min(+it.n||N,100),n),FF=useB?F.concat([["BANCA",banca.id]]):F;
         var nome=((whole?"A Jornada · "+it.m+" · Matéria inteira":"A Jornada · "+it.m+" › "+names.slice(0,3).join(" / "))+(useB?" · "+(banca.sigla||banca.nome):it.ob?" · outras bancas":"")).replace(/\s+/g," ").slice(0,140);
         var cid=await create(FF,nome,q);
-        if(cid){var r={v:5,k:it.k,t:String(it.t||"").slice(0,90),ids:lpd?ids.slice(0,10):[],id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,8).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
+        if(cid){var r={v:5,k:it.k,t:String(it.t||"").slice(0,160),ids:lpd?ids.slice(0,10):[],id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,8).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
       }catch(e){FAIL.push(it.k)}
       await sleep(250)}
     finish()})();
