@@ -152,6 +152,29 @@
   function tsig0(x){return norm(x).replace(/(\d)\.(\d{3})/g,"$1$2").replace(/[^a-z0-9 ]/g," ").split(/\s+/).map(sing).filter(function(w){return w&&(/^\d{3,}$/.test(w)||(w.length>3&&!SW[w]&&!TGW[w]))}).map(function(w){return /^\d/.test(w)?w:w.slice(0,6)})}
   function titleOk(nome,it){var A=tsig(String(nome)),B=tsig([it.t||""].concat(it.a||[]).join(" "));if(!A.length||!B.length)return false;
     return A.some(function(w){return B.some(function(v){return w===v||(w.length>=5&&v.length>=5&&(w.indexOf(v)===0||v.indexOf(w)===0))})})}
+/* Português: números fixos dos assuntos do TEC (Língua Portuguesa = matéria 3), conferidos no TEC em 23/11/2026.
+     Cada palavra-chave do TÍTULO da aula aponta para o número do assunto: sem busca, sem adivinhação. */
+  var LPID=[
+   [/\bsubstantiv/,[5640]],[/\badjetiv/,[5649]],[/\badverbi/,[5651]],[/\bartigos?\b/,[5647]],[/\bnumera(l|is)\b/,[5648]],[/\binterj/,[5653]],
+   [/\bpreposi/,[5650]],[/\bconjunc|\bconjunco/,[5652]],[/pronomes? relativ/,[9507,6237]],[/\bpronomes?\b(?! relativ)/,[5654]],[/colocacao (pronominal|dos pronomes)|\bproclise|\bmesoclise|\benclise/,[330]],
+   [/\bverbos?\b|tempos? (e modos )?verba|modos? verba|flexao verbal|emprego dos tempos|conjugac/,[5641]],[/locuc(ao|oes) verba/,[5669]],[/\bvoz(es)?\b|voz passiva/,[306]],[/\bcorrelac/,[5668]],
+   [/\bpontuac|\bvirgula/,[294]],[/\bconcordanc/,[335]],[/\bregenc/,[332]],[/\bcrase/,[333]],
+   [/\bcoes(ao|iva)|\bcoerenc|\bconectores|\banafora|\bcatafora|referenciac/,[344]],[/\bsinonim|\bantonim/,[342]],[/\bhomonim|\bparonim/,[341]],[/\bdenotac|\bconotac/,[339]],[/\bpolissem/,[1499]],
+   [/significac/,[3844]],[/\bsemantic/,[338]],[/figuras? de linguagem|linguagem figurada/,[346]],[/vicios? de linguagem|\bpleonasm|\bambiguidade/,[347]],[/funcoes da linguagem|elementos da comunicacao/,[4635]],
+   [/\binterpreta|\bcompreens/,[348]],[/\btipologia|tipos? (de texto|textuais)|\bgeneros? (textua|do discurso|de texto)/,[3818]],[/ordenac(ao|ão) de paragrafos|\bparagrafos/,[5637]],
+   [/\bortograf/,[5629]],[/\bacentuac/,[5628]],[/\bhifen/,[5630]],[/\bporques?\b|\baonde\b/,[5635]],[/maiuscula/,[5639]],[/\bfonetic|\bfonolog|\bfonema|separacao silabica|\bsilab/,[288]],
+   [/(formacao|estrutura) (das|de) palavras/,[295]],
+   [/\bsujeito/,[8205]],[/\bpredicad|\bpredicativ/,[8206]],[/termos essenciais/,[8204]],[/termos integrantes|\btransitividade|\bobjetos? (direto|indireto)|complemento nominal/,[8207]],[/termos acessorios|\badjuntos?\b|\baposto|\bvocativo/,[8208]],
+   [/termos? (da|das) orac/,[6230]],[/frase,? oracao|oracao e periodo/,[6229]],
+   [/\bcoordenac|\bcoordenad/,[6232]],[/subordinadas? substantiva/,[6233]],[/subordinadas? adjetiva/,[6234]],[/subordinadas? adverbia/,[6235]],[/oracoes reduzidas|\breduzidas/,[6236]],
+   [/variac(ao|oes) linguistic|niveis de linguagem|variantes? linguistic|variac(ao|oes) da linguagem/,[4501]],[/linguagem formal|\binformal\b|norma culta/,[3594]],[/discurso (direto|indireto)|tipos de discurso/,[3779]],
+   [/particula se\b|\bfuncoes do se\b|\bpronome se\b/,[5655]],[/(vocabulo|palavra|funcoes do) que\b/,[5656]],[/(vocabulo|palavra) como\b/,[5657]],
+   [/\bparalelismo/,[349]],[/\breescrit|\breescritur|substituicao de palavras/,[5631]],[/\bclareza/,[351]]];
+  /* título que só diz o assunto-mãe */
+  var LPIDG=[[/subordina/,[6233,6234,6235]],[/classes? de palavras/,[303]],[/\bmorfologia/,[296]],[/\bsintaxe/,[317]],[/\blinguagem\b/,[3593]],[/\btextos?\b|\bleitura/,[348]]];
+  var LPIDN={5640:"Substantivo",5649:"Adjetivo",5651:"Advérbio",5647:"Artigo",5648:"Numeral",5653:"Interjeição",5650:"Preposição",5652:"Conjunção",9507:"Pronomes Relativos",6237:"Funções Sintáticas dos Pronomes Relativos",5654:"Pronomes",330:"Colocação Pronominal",5641:"Verbo",5669:"Locução Verbal",306:"Vozes (Voz Passiva e Voz Ativa)",5668:"Correlação Verbal",294:"Pontuação",335:"Concordância (Verbal e Nominal)",332:"Regência Nominal e Verbal",333:"Crase",344:"Coerência. Coesão",342:"Sinônimos e Antônimos",341:"Homônimos e Parônimos",339:"Denotação e Conotação",1499:"Polissemia",3844:"Significação de Vocábulo e Expressões",338:"Semântica",346:"Figuras de Linguagem",347:"Vícios de Linguagem",4635:"Elementos da Comunicação e Funções da Linguagem",348:"Interpretação de Textos (Compreensão)",3818:"Tipologia e Gênero Textual",5637:"Ordenação de Parágrafos",5629:"Ortografia",5628:"Acentuação",5630:"Uso do Hífen",5635:"Fatos da Língua (Porquês, Onde/Aonde, Há/A)",5639:"Inicial Maiúscula",288:"Fonética. Separação Silábica",295:"Formação e Estrutura das Palavras",8205:"Sujeito",8206:"Predicado",8204:"Termos Essenciais da Oração",8207:"Transitividade Verbal e Termos Integrantes",8208:"Termos Acessórios. Vocativo",6230:"Funções Sintáticas",6229:"Frase, Oração e Período",6232:"Orações Coordenadas",6233:"Orações Subordinadas Substantivas",6234:"Orações Subordinadas Adjetivas",6235:"Orações Subordinadas Adverbiais",6236:"Orações Reduzidas",4501:"Variações da Linguagem",3594:"Linguagem Formal e Informal",3779:"Tipos de Discurso",5655:"Partícula \"Se\"",5656:"Vocábulo \"Que\"",5657:"Vocábulo \"Como\"",349:"Paralelismo",5631:"Reescrita de Frases",351:"Clareza e Correção",303:"Classes de Palavras",296:"Morfologia",317:"Sintaxe",3593:"Linguagem"};
+  function lpIds(title){var tx=" "+norm(title||"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ")+" ",out=[];LPID.forEach(function(d){if(d[0].test(tx))d[1].forEach(function(i){if(out.indexOf(i)<0)out.push(i)})});
+    if(!out.length)LPIDG.some(function(d){if(d[0].test(tx)){out=d[1].slice();return true}return false});return out.slice(0,10)}
   /* título genérico (sem assunto específico): usa o assunto-mãe do TEC */
   var LPG=[[/classes? de palavras|\bmorfologia/,["classes de palavras","morfologia"]],[/\bsintaxe/,["sintaxe"]],[/\bortografia|\bortoepia/,["ortografia"]],[/\btextos?\b|\bleitura/,["interpretacao"]]];
   async function lpPick(it,mi){var fx=function(x){return" "+norm(x).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ")+" "},txt=fx(it.t||""),out=[],seen={};
@@ -195,7 +218,7 @@
       try{var mi=mats(it.m),ids=[],names=[],pick=[];
         var tops=(it.a||[]).slice(0,5),isLP=/portugu/.test(norm(it.m))&&!/\|\*$/.test(it.k),lpd=0;
         /* Português: primeiro o dicionário fixo (assunto certo sempre); só se ele não achar nada usa a busca por semelhança */
-        if(isLP){var lg=await lpPick(it,mi);lg.forEach(function(r){if(ids.indexOf(r.id)<0){ids.push(r.id);names.push(r.nome);pick.push(r)}});lpd=1;tops=[]}
+        if(isLP){lpIds(it.t).forEach(function(x){ids.push(x);names.push(LPIDN[x]||String(x))});lpd=1;tops=[]}
         for(var j=0;j<tops.length;j++){var got=await famPick(tops[j],it,mi,search);got.forEach(function(r){if(ids.indexOf(r.id)<0&&ids.length<10){ids.push(r.id);names.push(r.nome);pick.push(r)}})}
         /* nada na matéria da aula: o TEC às vezes guarda o assunto em matéria vizinha (Juros Simples em Matemática Financeira, LINDB em Legislação Civil,
            Simples Nacional em Legislação Tributária); aceita só nome igual ao tópico ou que traz o tópico inteiro */
@@ -225,7 +248,7 @@
         var q=Math.min(Math.min(+it.n||N,100),n),FF=useB?F.concat([["BANCA",banca.id]]):F;
         var nome=((whole?"A Jornada · "+it.m+" · Matéria inteira":"A Jornada · "+it.m+" › "+names.slice(0,3).join(" / "))+(useB?" · "+(banca.sigla||banca.nome):it.ob?" · outras bancas":"")).replace(/\s+/g," ").slice(0,140);
         var cid=await create(FF,nome,q);
-        if(cid){var r={v:4,k:it.k,t:String(it.t||"").slice(0,90),id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,8).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
+        if(cid){var r={v:5,k:it.k,t:String(it.t||"").slice(0,90),ids:lpd?ids.slice(0,10):[],id:cid,n:q,ob:ob,pb:poucas,xb:it.ob?1:0,b:useB?banca.sigla:"",as:names.slice(0,8).join("; ").slice(0,300),g:geral};RES.push(r);try{sessionStorage.setItem("jxcad-res",JSON.stringify(RES))}catch(e){}}else FAIL.push(it.k);
       }catch(e){FAIL.push(it.k)}
       await sleep(250)}
     finish()})();
