@@ -84,6 +84,21 @@
 
 /* Botão Continuar: palavra centralizada, setas no canto direito */
 #fmGo.fmgo{position:relative;justify-content:center!important;padding-left:42px!important;padding-right:42px!important}#fmGo.fmgo>span{text-align:center}#fmGo.fmgo>svg{position:absolute;right:14px;top:50%;transform:translateY(-50%)}
+
+/* Plano do Mentor (pós-edital) */
+.mp{display:grid;gap:14px}.mp-sec{display:grid;gap:8px;padding:12px 14px;border:1px solid var(--line,rgba(127,127,127,.3));border-radius:12px}
+.mp-sec h4{margin:0;font-size:15px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.mp-tier{display:grid;grid-template-columns:64px 1fr;gap:2px 10px;align-items:start}.mp-tier>.muted{grid-column:2}.mp-tier .mp-chips{grid-column:2;display:flex;flex-wrap:wrap;gap:6px}
+.mp-tier>b{grid-row:1/3}.mp-chip{font-size:12.5px;padding:3px 9px;border-radius:999px;border:1px solid currentColor;opacity:.92}
+.mp-chip.t1{color:#e8590c;background:color-mix(in srgb,#e8590c 12%,transparent)}.mp-chip.t2{color:inherit;background:color-mix(in srgb,currentColor 6%,transparent)}.mp-chip.t3{color:inherit;opacity:.6}
+.mp-ciclo{margin:0;padding-left:22px;display:grid;gap:5px}.mp-ciclo li{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:13.5px}
+.mp-tp{font-size:11px;font-weight:700;letter-spacing:.02em;padding:1px 7px;border-radius:6px;background:color-mix(in srgb,currentColor 10%,transparent)}
+.mp-tp.questoes,.mp-tp.simulado{color:#2b8a3e}.mp-tp.revisao{color:#1971c2}.mp-tp.teoria{color:#9c36b5}.mp-tp.lei_seca,.mp-tp.juris{color:#e8590c}.mp-tp.discursiva,.mp-tp.taf{color:#c2255c}
+:root[data-pos] .mp-tp.questoes,:root[data-pos] .mp-tp.simulado{color:#8ce99a}:root[data-pos] .mp-tp.revisao{color:#74c0fc}:root[data-pos] .mp-tp.teoria{color:#e599f7}:root[data-pos] .mp-tp.lei_seca,:root[data-pos] .mp-tp.juris,:root[data-pos] .mp-chip.t1{color:#ffa94d}:root[data-pos] .mp-tp.discursiva,:root[data-pos] .mp-tp.taf{color:#faa2c1}
+.mp-reta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}.mp-reta>div{display:grid;gap:4px;align-content:start}.mp-reta ul{margin:2px 0 0;padding-left:18px;font-size:13px}
+.mp-regras{margin:0;padding-left:20px;display:grid;gap:6px;font-size:13.5px}
+.jw-mp{white-space:nowrap}@media (max-width:640px){.jw-mp{display:none}}
+@media (max-width:520px){.mp-tier{grid-template-columns:1fr}.mp-tier>.muted,.mp-tier .mp-chips{grid-column:1}.mp-tier>b{grid-row:auto}}
 </style><script>try{if(localStorage.getItem("jx-lav")==="1"&&localStorage.getItem("jornada-skin")!=="classic"){document.documentElement.dataset.lav="1";document.documentElement.style.colorScheme="light"}}catch(e){}</script>
 </head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
@@ -4172,7 +4187,7 @@ function peOpen(tab){UI.pet=tab||UI.pet||"status";const M=ME(),t=UI.pet,ed=k=>`<
     const card=(k,ico,lab,v,d)=>`<div class="pe-st"><span class="pe-sti">${ico}</span><small>${lab}</small><b>${v?esc(v):"<span class='muted'>Não informado</span>"}</b><span class="muted small">${d?esc(d):""}</span>${ed(k)}</div>`;
     body=`<div class="pe-sts">${card("traj",ic("clock"),"Trajetória de estudo",tr&&tr[1],tr&&tr[2])}${card("cond",ic("compass"),"Condição",cd&&(cd[0]==="cotas"&&(M.cotas||[]).length?"Cotas":cd[1]),cd&&(cd[0]==="cotas"?(M.cotas||[]).join(" e ")||cd[2]:cd[2]))}${card("disp",peDispBars(ds?ds[4]:0),"Disponibilidade",ds&&ds[1],ds&&ds[2])}${card("area",ic("concurso"),"Área de estudo",(ar?ar[1]:"")+(ar?" · ":"")+(pr==="pos"?"Pós-edital":"Pré-edital"),ar&&ar[2])}</div>
      <div class="pe-sit"><div class="row" style="justify-content:space-between"><b>Situação profissional</b>${ed("sit")}</div><div class="pe-sitg"><div><small>Formação</small><b>${esc(M.form||"—")}</b></div><div><small>Remuneração</small><b>${M.remA?peBRL(M.remA)+" atual":"—"}</b>${M.remP?`<span class="muted small">${peBRL(M.remP)} pretendida</span>`:""}</div><div><small>Situação de trabalho</small><b>${M.trab==="sim"?"Estou trabalhando":M.trab==="nao"?"Não estou trabalhando":"—"}</b><span class="muted small">${M.serv==="sim"?"Sou servidor público":M.serv==="nao"?"Não sou servidor":""}</span></div></div></div>
-     <div class="pe-pos ${pr==="pos"?"on":""}"><div><b>${ic("flame")} ${pr==="pos"?"Você está no pós-edital":"Chegou a hora do pós-edital?"}</b><span class="muted small">${pr==="pos"?"Plano até a prova: revisões e questões primeiro, pela incidência e pelos seus erros; o ambiente virou o vulcão.":"Quando o edital sair, peça aqui a troca: a plataforma confere o edital, mostra o parecer e troca o planejamento."}</span></div><button class="btn ${pr==="pos"?"":"pri"}" data-a="posAsk">${pr==="pos"?"Voltar para o pré-edital":"Pedir a troca para o pós-edital"}</button></div>`}
+     <div class="pe-pos ${pr==="pos"?"on":""}"><div><b>${ic("flame")} ${pr==="pos"?"Você está no pós-edital":"Chegou a hora do pós-edital?"}</b><span class="muted small">${pr==="pos"?"Plano até a prova: revisões e questões primeiro, pela incidência e pelos seus erros; o ambiente virou o vulcão.":"Quando o edital sair, peça aqui a troca: a plataforma confere o edital, mostra o parecer e troca o planejamento."}</span></div><span class="row" style="gap:8px;flex-wrap:wrap">${pr==="pos"&&POS()?`<button class="btn pri" data-a="mpView">${ic("flame")} Plano do Mentor</button>`:""}<button class="btn ${pr==="pos"?"":"pri"}" data-a="posAsk">${pr==="pos"?"Voltar para o pré-edital":"Pedir a troca para o pós-edital"}</button></span></div>`}
   if(t==="conh"){const K=core().conh||{};body=`<p class="muted" style="margin:0">Quanto você já sabe de cada matéria do seu concurso? Isso orienta por onde começar: matéria em que você já é forte vai mais cedo para questões e revisão; matéria nova começa pela teoria.</p>
     <div class="pe-conh">${ED.map(S=>`<div class="pe-cr"><span class="pe-cn"><i style="background:${S.col||"var(--acc)"}"></i>${esc(S.n)}</span><span class="pe-seg" role="radiogroup" aria-label="${esc(S.n)}">${PE_CONH.map(([v,l])=>`<button type="button" class="${String(K[S.id]??"")===v?"on":""}" data-a="peConh" data-s="${S.id}" data-v="${v}" role="radio" aria-checked="${String(K[S.id]??"")===v}">${l}</button>`).join("")}</span></div>`).join("")}</div>`}
   if(t==="plat"){body=`<p class="muted" style="margin:0">Cursos e plataformas que você usa. As metas usam as aulas, os PDFs e as questões daqui.</p>
@@ -4210,7 +4225,8 @@ function posAsk(){const M=ME();if(POS()){A.posTg();M.prep="pre";savePlans();toas
    <ul class="pe-what"><li>Matérias e assuntos pela incidência da banca e pelos seus erros</li><li>Mais questões e revisões, menos teoria nova</li><li>Nos últimos 30 dias, reta final: só revisão e questões, sem teoria nova</li><li>O ambiente vira o vulcão até a prova</li></ul>
    <div class="row" style="justify-content:flex-end;gap:8px;flex-wrap:wrap"><button class="btn" data-a="peTab" data-k="status">Agora não</button>${P.ed||!posLib().ok?"":`<button class="btn" data-a="posEdital">${ic("edital")} Incluir o edital primeiro</button>`}${posLib().ok?`<button class="btn pri" data-a="posGo">Confirmar a troca</button>`:`<button class="btn pri" disabled title="Inclua o edital para liberar">${ic("lock")} Trancado até o edital sair</button>`}</div>${posLib().ok?"":posLockHTML()}</div></div>`}
 function posGo(){if(!posLib().ok){toast("O pós-edital abre quando o edital sair: inclua o edital para liberar");return}const M=ME();M.prep="pos";savePlans();if(!POS())A.posTg();try{const p=curPlan();if(p&&!IS_TJ){p.posAt=today();savePlans()}else{PLANS.tjPosAt=today();savePlans()}}catch(e){}
-  $("layer3").innerHTML="";toast("🔥 Pós-edital: plano até a prova. Agora é guerra.");render()}
+  $("layer3").innerHTML="";toast("🔥 Pós-edital: plano até a prova. Agora é guerra.");render();
+  if(SAMPLE&&!core().gj){A.mtOpen();if(UI.mt)A.mtAI()}/* o Mentor monta o plano até a prova com o que o aluno já cadastrou */}
 
 /* ================= Minhas análises: a leitura da IA sobre o estudo do aluno, cada uma por um ângulo =================
    Como estou? (presente) · O que mudou? (variação) · Minha trajetória · Por que erro? (causa) · Pronto para o pós-edital? (decisão) · Histórico
@@ -6284,6 +6300,7 @@ function mentorAuto(M){const avg=100/Math.max(1,M.L.length),w={},why={};
     else if(x.share<avg*.6&&x.cov>60){v-=.15;R.push("pesa pouco e já está bem adiantada")}
     if(M.ratio<1&&x.share<avg*.5){v-=.1;R.push("o tempo não cobre tudo: matéria de pouco peso perde espaço")}
     w[x.sid]=Math.round(clamp(v,.6,1.6)*100)/100;why[x.sid]=R.join("; ")||"ritmo mantido"});
+  if(POS()&&mentorArea()==="fiscal")mpFiscalW(w,"fiscal");/* pós-edital fiscal: legislação tributária específica com tempo de sobra */
   return{w,why,resumo:M.ratio<1?`No ritmo atual faltam ${M.need} metas e até a prova cabem cerca de ${M.avail}. A Jornada concentrou o tempo nas matérias que mais pesam e nas que você mais erra.`:`O planejamento cabe até a prova (${M.need} metas para ${M.avail} disponíveis). A Jornada ajustou a prioridade pelo seu acerto e pelo peso de cada matéria.`,src:"auto"}}
 async function mentorAIPlan(M){const rows=M.L.map(x=>`${x.sid} | ${x.n} | ${x.q} questões (${pv1(x.share)}% da prova) | edital estudado ${Math.round(x.cov)}% | aulas restantes ${x.left}/${x.aulas} | acerto ${x.acc==null?"sem dados":Math.round(x.acc)+"% em "+x.f+" questões"} | nível ${x.lv}`).join("\n");
   const prompt=`Você é um mentor especialista em aprovação em concursos públicos (${IS_TJ?"Oficial de Justiça do TJSP, banca VUNESP":[PLAN.cargo||PLAN.name,PLAN.banca?"banca "+PLAN.banca:""].filter(Boolean).join(", ")}).
@@ -6295,14 +6312,115 @@ Responda só com JSON: {"w":{"id":1.2,...},"motivo":{"id":"até 15 palavras",...
   const r=await SAMPLE.json(prompt,{modelTier:"default"});if(!r||typeof r!=="object"||!r.w)throw new Error("formato");
   const w={},why={};M.L.forEach(x=>{const v=+r.w[x.sid];w[x.sid]=v>0?Math.round(clamp(v,.6,1.6)*100)/100:1;why[x.sid]=String((r.motivo||{})[x.sid]||"").slice(0,140)});
   return{w,why,resumo:String(r.resumo||"").slice(0,600),alerta:String(r.alerta||"").slice(0,240),src:"ia"}}
+/* ================= Mentor Especialista do pós-edital =================
+   O prompt do Mentor (aprovado pelo presidente) guia o plano até a prova em qualquer concurso. O aluno não cola nada:
+   órgão, cargo, banca, data, horas, nível por matéria e edital vêm do que ele já cadastrou, e o bloco de diretrizes
+   da área (tribunais, fiscal, policial, controle, administrativa) é escolhido pela carreira. A resposta traz as
+   prioridades (Tier 1, 2 e 3, que viram o peso de cada matéria nas metas), o ciclo semanal, a reta final e as regras de ouro. */
+const MENTOR_AREAS={
+  tribunais:{n:"Tribunais",d:["Foco absoluto na literalidade da Lei Seca (Constituição, Códigos e Regimento Interno).","Cobrança pesada de jurisprudência recente (Informativos do STF e STJ, além de Súmulas dos Tribunais Superiores do ramo, como TST ou TSE).","O peso das matérias específicas (Direito Processual Civil/Penal/Trabalho) costuma ser maior ou ter nota de corte mais exigente que as básicas.","Inclua blocos diários obrigatórios de 30 a 45 minutos exclusivos para leitura de Lei Seca e treino de discursiva/estudo de caso (se houver)."]},
+  fiscal:{n:"Fiscal",d:["Edital extenso e multidisciplinar: aplique rigorosamente o princípio de Pareto (80/20) para não travar em matérias gigantes como Contabilidade Avançada e Direito Tributário.","Priorize a resolução massiva de questões de cálculo e exatas (Contabilidade, Estatística, Raciocínio Lógico, Matemática Financeira) para ganhar velocidade de prova.","Legislação Tributária Específica (Estadual ou Municipal) é o diferencial da aprovação: reserve pelo menos 25% da carga horária total para ela e para memorização de prazos/alíquotas.","Não perca tempo com doutrina extensa; foque em resumos direcionados, mapas mentais e bateria de questões da banca."]},
+  policial:{n:"Policial",d:["Equilíbrio entre disciplinas jurídicas (Penal, Processo Penal, Legislação Penal Especial) e matérias não-jurídicas de alto peso (Contabilidade, Informática/TI, RLM e Português).","Se a banca for Cebraspe (Certo/Errado), inclua treino específico de gestão de risco (quando deixar em branco) e atenção extrema a palavras restritivas/ampliativas.","Inclua no planejamento semanal a reserva de tempo para o TAF (Teste de Aptidão Física), garantindo que o treino físico não prejudique o rendimento cognitivo das horas líquidas de estudo.","Foco em jurisprudência criminal recente (STF/STJ) e literalidade das leis penais extravagantes."]},
+  controle:{n:"Controle",d:["Foco em matérias de alta complexidade técnica: Auditoria Governamental, Contabilidade Pública (CASP), Administração Financeira e Orçamentária (AFO) e Controle Externo.","A prova exige capacidade analítica e interdisciplinaridade (ex: cruzar AFO com Lei de Responsabilidade Fiscal e Nova Lei de Licitações).","A prova discursiva (peça técnica ou questões dissertativas) tem peso decisivo: inclua treino semanal de escrita técnica e estruturação de pareceres/relatórios.","Priorize o entendimento dos manuais técnicos (MCASP, NBC TSP) e jurisprudência dos Tribunais de Contas."]},
+  administrativa:{n:"Administrativa",d:["Concorrência altíssima e notas de corte elevadas: o erro em matérias básicas (Português, RLM, Informática) elimina o candidato. O foco deve ser gabaritar as básicas.","Nas específicas, priorize Direito Administrativo (Licitações, Atos, Poderes, Agentes Públicos), Direito Constitucional (Art. 5º e Administração Pública) e Administração Geral/Pública.","Estudo baseado em repetição espaçada, flashcards para conceitos teóricos de Administração e resolução exaustiva de questões anteriores da banca para mapear o padrão de cobrança.","Se houver Redação sobre atualidades, reserve 1 bloco semanal para leitura de eixos temáticos e produção de texto."]}};
+/* a área sai da carreira do concurso; se o nome não disser, vale a área marcada no cadastro; sem nada, administrativa */
+function mentorArea(){const txt=norm([IS_TJ?"oficial de justica tribunal de justica tjsp":"",PLAN&&PLAN.cargo,PLAN&&PLAN.orgao,PLAN&&PLAN.name].filter(Boolean).join(" "));
+  const R=[["controle",/tribunal de contas|\btc[uem]\b|\btce-|\bcgu\b|controlador|controle externo|controle interno/],["fiscal",/fiscal|receita|sefaz|fazenda|tribut|\biss\b|\bicms\b|fisco|\brfb\b/],["policial",/polici|delegad|escrivao|investigador|papiloscop|perito criminal|agente penal|penitenciar|\bprf\b|\bpf\b|\bpc-|\bpm-/],["tribunais",/tribunal|\btj|\btrf|\btrt|\btre\b|\btre-|\bstj\b|\bstf\b|\btst\b|ministerio publico|\bmp[a-z]{0,2}\b|judiciari|oficial de justica|defensoria/],["administrativa",/prefeitura|agencia|ministerio|inss|administrativ|camara|assembleia|senado|banco|caixa/]];
+  for(const[k,r]of R)if(r.test(txt))return k;const a=(PLANS.me||{}).area;return MENTOR_AREAS[a]?a:"administrativa"}
+const MP_LV=["Nada (nunca vi)","Básico","Intermediário","Avançado"];
+/* nota de 0 a 10 por matéria: o que o aluno disse que sabe e, com 20 questões ou mais, o acerto real */
+function mentorNota(x){const K=(core().conh||{})[x.sid];let n=K!=null&&K!==""?[1,4,6,8][+K]:({"Iniciante":3,"Básico":4,"Intermediário":6,"Avançado":8}[x.lv]||5);
+  if(x.acc!=null&&x.f>=20)n=Math.round((n+x.acc/10)/2);return clamp(n,0,10)}
+function mentorHoras(){const c=core();try{if(c.rotUse&&rotHas()){const m=RWS.map((d,w)=>[d,rotMin(w,MYC)]).filter(v=>v[1]>0);if(m.length)return m.map(([d,v])=>d+" "+fmtHs(v)).join(", ")+" (rotina da plataforma)"}}catch(e){}
+  return`${c.cfg.hrs}h líquidas por dia de estudo`}
+const mpD=d=>{const p=String(d||"").split("-");return p.length===3?p[2]+"/"+p[1]+"/"+p[0]:"a definir"};
+function mentorDados(M){M=M||mentorStats();const area=mentorArea(),A=MENTOR_AREAS[area],c=core();
+  const cargo=IS_TJ?"Oficial de Justiça - TJSP (Tribunal de Justiça de São Paulo)":[PLAN.cargo||PLAN.name,PLAN.orgao].filter(Boolean).join(" - ")||"concurso do aluno";
+  const niv=M.L.map(x=>{const n=mentorNota(x);return`${x.n} (${n}${n<=1?" - nunca vi":""}${x.acc!=null&&x.f>=20?", acerto "+Math.round(x.acc)+"% em "+x.f+" questões":""})`}).join(", ");
+  const cap=Math.max(300,Math.floor(14000/Math.max(1,ED.length)));/* todas as matérias entram, cada uma com a sua parte do espaço */
+  const ed=ED.map(S=>{const ts=[...new Set((S.t||[]).map(y=>String(Array.isArray(y)?y[0]:y).replace(/\s+/g," ").trim()).filter(Boolean))];let s=ts.join("; ");if(s.length>cap)s=s.slice(0,cap).replace(/;[^;]*$/,"")+"; …";return`- ${S.n} (${qOf(S)} questões na prova): ${s||"tópicos não informados"}`});
+  return{area,A,cargo,banca:IS_TJ||PLAN.banca?dsBanca():"não informada (use o padrão das bancas que mais aplicam provas para este cargo)",prova:provaTBD()?"a definir (estimativa da plataforma: "+mpD(prova())+")":mpD(prova()),horas:mentorHoras(),niv,edital:ed.join("\n"),dias:M.dl}}
+function mentorPosPrompt(M){const X=mentorDados(M);
+  const rows=M.L.map(x=>`${x.sid} | ${x.n} | ${x.q} questões (${pv1(x.share)}% da prova) | edital estudado ${Math.round(x.cov)}% | aulas restantes ${x.left}/${x.aulas} | acerto ${x.acc==null?"sem dados":Math.round(x.acc)+"% em "+x.f+" questões"}`).join("\n");
+  const system="Atue como um Mentor Especialista em Concursos Públicos de Alta Performance, com domínio em neurociência da aprendizagem, análise estatística de bancas e estratégias de reta final (pós-edital). Escreva em português do Brasil, direto e em linguagem simples, falando com o aluno por \"você\".";
+  const user=`Meu objetivo é criar um plano de estudos cirúrgico, realista e focado em maximizar minha pontuação até o dia da prova.
+
+DADOS DO MEU CONCURSO:
+- Órgão/Cargo: ${X.cargo}
+- Banca Examinadora: ${X.banca}
+- Data da Prova: ${X.prova}${X.dias?" (faltam "+X.dias+" dias)":""}
+- Horas líquidas disponíveis por dia: ${X.horas}
+- Meu nível atual nas matérias (0 a 10): ${X.niv}
+
+DIRETRIZES ESPECÍFICAS DA MINHA ÁREA (${X.A.n}):
+${X.A.d.map(s=>"- "+s).join("\n")}
+
+CONTEÚDO PROGRAMÁTICO DO EDITAL:
+${X.edital}
+
+ENTREGÁVEIS QUE VOCÊ DEVE GERAR:
+1. Análise de Peso e Prioridade: Classifique as matérias em Tier 1 (alta incidência/peso), Tier 2 (média) e Tier 3 (baixa/custo-benefício ruim) com base no histórico da banca para este cargo.
+2. Ciclo de Estudos Semanal: Monte um ciclo dinâmico (não grade fixa de horário, mas sequência de blocos de 50min a 1h30) equilibrando teoria acelerada (apenas para tópicos inéditos/fracos), bateria de questões e revisão ativa.
+3. Estratégia de Reta Final (Últimas 3 semanas): Defina o cronograma de simulados, lei seca, informativos/jurisprudência e revisão de erros.
+4. Regras de Ouro: Me dê 3 alertas críticos sobre as "pegadinhas" mais comuns dessa banca nessa área.
+
+COMO A PLATAFORMA VAI USAR A SUA RESPOSTA:
+A plataforma monta as metas sozinha (no pós-edital: blocos curtos de teoria seguidos das questões do mesmo assunto, revisões e simulados). Ela precisa da prioridade de cada matéria, de 0.6 (menos tempo) a 1.6 (mais tempo), sendo 1 o ritmo normal; o Tier 1 fica acima de 1 e o Tier 3 abaixo. Situação atual por matéria (id | matéria | peso | edital estudado | aulas restantes | acerto):
+${rows}
+O ciclo semanal deve caber nas horas informadas. Use os ids acima nos campos "id"; blocos que não são de uma matéria (lei seca de várias leis, simulado, discursiva, TAF) ficam com "id":"".
+
+Responda só com JSON, neste formato:
+{"tiers":{"1":[{"id":"…","porque":"até 15 palavras"}],"2":[…],"3":[…]},
+"w":{"id":1.3,…},
+"ciclo":{"blocos":[{"id":"…","tipo":"teoria|questoes|revisao|lei_seca|juris|discursiva|simulado|taf","min":50,"foco":"até 12 palavras"}],"obs":"1 a 2 frases sobre como girar o ciclo"},
+"reta":{"semanas":[{"n":"3 semanas antes","foco":"1 frase","itens":["até 4 itens curtos"]},{"n":"2 semanas antes",…},{"n":"Última semana",…}]},
+"regras":["alerta 1","alerta 2","alerta 3"],
+"resumo":"2 a 3 frases com a estratégia até a prova",
+"alerta":"1 frase, ou vazio"}`;
+  return{system,user,dados:X}}
+/* Fiscal: a legislação tributária do estado ou do município fica sempre com tempo de sobra (diretriz dos 25%) */
+const mpLegTrib=n=>/legisla[cç][aã]o tribut[aá]ria (estadual|municipal|do estado|do munic)|legisla[cç][aã]o (estadual|municipal)|\bicms\b|\biss(qn)?\b|\bipva\b|\bitcmd\b|tributos (estaduais|municipais)/i.test(n);
+function mpFiscalW(w,area){if(area!=="fiscal")return w;ED.forEach(S=>{if(mpLegTrib(S.n))w[S.id]=Math.max(w[S.id]||1,1.5)});return w}
+async function mentorPosPlan(M){const P=mentorPosPrompt(M);
+  const r=await SAMPLE.json(P.user,{system:P.system,modelTier:"default",maxTokens:6000});if(!r||typeof r!=="object"||!r.w)throw new Error("formato");
+  const ids=new Set(M.L.map(x=>x.sid)),w={},why={},tier={};
+  ["1","2","3"].forEach(t=>((r.tiers||{})[t]||[]).forEach(o=>{if(o&&ids.has(o.id)){tier[o.id]=+t;why[o.id]="Tier "+t+(o.porque?": "+String(o.porque).slice(0,120):"")}}));
+  M.L.forEach(x=>{let v=+r.w[x.sid];if(!(v>0))v=tier[x.sid]===1?1.3:tier[x.sid]===3?.75:1;w[x.sid]=Math.round(clamp(v,.6,1.6)*100)/100;if(!why[x.sid])why[x.sid]="ritmo mantido"});
+  mpFiscalW(w,P.dados.area);
+  const TP=new Set(["teoria","questoes","revisao","lei_seca","juris","discursiva","simulado","taf"]);
+  const blocos=(((r.ciclo||{}).blocos)||[]).slice(0,40).map(b=>({id:ids.has(b&&b.id)?b.id:"",tipo:TP.has(b&&b.tipo)?b.tipo:"questoes",min:clamp(Math.round(+b.min||50),20,120),foco:String((b&&b.foco)||"").slice(0,120)}));
+  const mp={at:today(),area:P.dados.area,cargo:P.dados.cargo,banca:P.dados.banca,prova:P.dados.prova,horas:P.dados.horas,
+    tiers:{1:M.L.filter(x=>tier[x.sid]===1).map(x=>x.sid),2:M.L.filter(x=>tier[x.sid]===2).map(x=>x.sid),3:M.L.filter(x=>tier[x.sid]===3).map(x=>x.sid)},
+    ciclo:{blocos,obs:String((r.ciclo||{}).obs||"").slice(0,400)},
+    reta:(((r.reta||{}).semanas)||[]).slice(0,4).map(s=>({n:String(s.n||"").slice(0,40),foco:String(s.foco||"").slice(0,240),itens:(s.itens||[]).slice(0,5).map(i=>String(i).slice(0,160))})),
+    regras:(r.regras||[]).slice(0,3).map(s=>String(s).slice(0,320)),alerta:String(r.alerta||"").slice(0,240)};
+  return{w,why,resumo:String(r.resumo||"").slice(0,600),alerta:String(r.alerta||"").slice(0,240),src:"ia",mp}}
+const MP_TIPO={teoria:"Teoria acelerada",questoes:"Bateria de questões",revisao:"Revisão ativa",lei_seca:"Lei seca",juris:"Jurisprudência",discursiva:"Discursiva",simulado:"Simulado",taf:"TAF"};
+function mentorPlanHTML(mp){if(!mp)return"";const nm=id=>id?esc(SUB(id).n):"";const tot=sum(mp.ciclo.blocos.map(b=>b.min));
+  const tierRow=(t,lab)=>mp.tiers[t]&&mp.tiers[t].length?`<div class="mp-tier"><b>Tier ${t}</b><span class="muted small">${lab}</span><div class="mp-chips">${mp.tiers[t].map(id=>`<span class="mp-chip t${t}">${nm(id)}</span>`).join("")}</div></div>`:"";
+  return`<div class="mp">
+   <p class="muted small" style="margin:0">Mentor do pós-edital · ${esc(mp.cargo)} · banca ${esc(String(mp.banca).replace(/ \(.*\)$/,""))} · prova ${esc(String(mp.prova).replace(/ \(.*\)$/,""))} · diretrizes da área <b>${esc((MENTOR_AREAS[mp.area]||{}).n||"")}</b> · gerado em ${mpD(mp.at)}</p>
+   <div class="mp-sec"><h4>1. Peso e prioridade</h4>${tierRow(1,"alta incidência e peso")}${tierRow(2,"média")}${tierRow(3,"baixa ou custo-benefício ruim")}</div>
+   ${mp.ciclo.blocos.length?`<div class="mp-sec"><h4>2. Ciclo semanal <span class="muted small">${mp.ciclo.blocos.length} blocos · ${fmtHs(tot)} por volta</span></h4><ol class="mp-ciclo">${mp.ciclo.blocos.map(b=>`<li><span class="mp-tp ${b.tipo}">${MP_TIPO[b.tipo]}</span><b>${nm(b.id)||esc(MP_TIPO[b.tipo])}</b><span class="muted">${b.min} min${b.foco?" · "+esc(b.foco):""}</span></li>`).join("")}</ol>${mp.ciclo.obs?`<p class="small" style="margin:6px 0 0">${esc(mp.ciclo.obs)}</p>`:""}</div>`:""}
+   ${mp.reta.length?`<div class="mp-sec"><h4>3. Reta final (últimas 3 semanas)</h4><div class="mp-reta">${mp.reta.map(s=>`<div><b>${esc(s.n)}</b><span class="small">${esc(s.foco)}</span>${s.itens.length?`<ul>${s.itens.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`:""}</div>`).join("")}</div></div>`:""}
+   ${mp.regras.length?`<div class="mp-sec"><h4>4. Regras de ouro da banca</h4><ol class="mp-regras">${mp.regras.map(s=>`<li>${esc(s)}</li>`).join("")}</ol></div>`:""}
+  </div>`}
+/* o plano do Mentor salvo, para o aluno rever quando quiser */
+function mpViewModal(){const mp=core().mentorPos;$("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Plano do Mentor"><div class="box" style="width:min(900px,96vw);max-height:92vh;overflow:auto;display:grid;gap:12px">
+  <div class="row" style="justify-content:space-between"><h3 style="margin:0">${ic("flame")} Plano do Mentor até a prova</h3><button class="ibtn" data-a="mtClose" aria-label="Fechar">${ic("close")}</button></div>
+  ${mp?(core().mw&&core().mw.resumo?`<div class="tsb" style="gap:6px"><span>${esc(core().mw.resumo)}</span>${mp.alerta?`<span class="badc small">${esc(mp.alerta)}</span>`:""}</div>`:"")+mentorPlanHTML(mp):`<p class="muted" style="margin:0">Ainda não há plano do Mentor. Ele usa o que você já cadastrou (concurso, banca, data da prova, horas, seu nível em cada matéria e o edital) e monta prioridades, ciclo semanal, reta final e as pegadinhas da banca.</p>`}
+  <div class="row" style="justify-content:flex-end;gap:8px"><button class="btn ghost" data-a="mtClose">Fechar</button>${SAMPLE?`<button class="btn pri" data-a="mpRedo">${ic("bulb")} ${mp?"Refazer com os dados de hoje":"Gerar o plano do Mentor"}</button>`:""}</div></div></div>`}
+/* quem entra no pós-edital pelo cadastro: o plano do Mentor é feito e aplicado sozinho, sem tela */
+async function mentorPosAuto(){try{if(!SAMPLE||!POS()||core().gj||core().mentorPos)return;const M=mentorStats();const P=await mentorPosPlan(M);const c=core();
+  c.mw={w:P.w,why:P.why,resumo:P.resumo,src:"ia",at:today()};c.mentorPos=P.mp;delete c.nextDraft;touch("core");simCache.key="";try{replanCurrent()}catch(e){}render();toast("🔥 Plano do Mentor pronto: prioridades, ciclo semanal e reta final ajustados ao seu concurso")}catch(e){}}
 function mentorModal(){const X=UI.mt;if(!X){$("layer3").innerHTML="";return}const M=X.M,P=X.P;
   const rows=M.L.map(x=>{const nw=P?P.w[x.sid]:x.w0,d=nw-x.w0,ar=Math.abs(d)<.05?"=":d>0?"▲":"▼";return`<tr><td><span class="code" style="margin-right:6px">${esc(x.c)}</span>${esc(x.n)}</td><td>${x.q}</td><td>${Math.round(x.cov)}%</td><td>${x.acc==null?"–":Math.round(x.acc)+"%"}</td><td>${x.left}/${x.aulas}</td><td><b class="${d>.04?"badc":d<-.04?"okc":""}">${ar} ${nw.toFixed(2).replace(".",",")}</b></td><td class="small muted">${esc(P?P.why[x.sid]||"":"")}</td></tr>`}).join("");
   $("layer3").innerHTML=`<div class="modal" role="dialog" aria-modal="true" aria-label="Recalcular plano"><div class="box" style="width:min(900px,96vw);max-height:92vh;overflow:auto;display:grid;gap:12px">
-    <div class="row" style="justify-content:space-between"><h3 style="margin:0">${ic("bulb")} Recalcular até a prova</h3><button class="ibtn" data-a="mtClose" aria-label="Fechar">${ic("close")}</button></div>
+    <div class="row" style="justify-content:space-between"><h3 style="margin:0">${POS()?ic("flame")+" Plano do Mentor até a prova":ic("bulb")+" Recalcular até a prova"}</h3><button class="ibtn" data-a="mtClose" aria-label="Fechar">${ic("close")}</button></div>
     <p class="muted small" style="margin:0">Faltam <b>${M.dl}</b> dias para a prova · ${M.hrs} h por dia · no ritmo atual faltam <b>${M.need}</b> metas e cabem cerca de <b>${M.avail}</b> (com a última semana livre para revisão).</p>
-    ${X.busy?'<p class="muted"><span class="spin"></span> A Jornada está analisando…</p>':P?`<div class="tsb" style="gap:6px"><b>${P.src==="ia"?"Análise da Jornada (IA)":"Análise da Jornada"}</b><span>${esc(P.resumo)}</span>${P.alerta?`<span class="badc small">${esc(P.alerta)}</span>`:""}</div>`:""}
+    ${X.busy?`<p class="muted"><span class="spin"></span> ${POS()?"O Mentor está montando o seu plano até a prova (prioridades, ciclo semanal, reta final e pegadinhas da banca)…":"A Jornada está analisando…"}</p>`:P?`<div class="tsb" style="gap:6px"><b>${P.mp?"Plano do Mentor (IA)":P.src==="ia"?"Análise da Jornada (IA)":"Análise da Jornada"}</b><span>${esc(P.resumo)}</span>${P.alerta?`<span class="badc small">${esc(P.alerta)}</span>`:""}</div>${P.mp?mentorPlanHTML(P.mp):""}`:""}
     <div class="tbw"><table class="tb"><thead><tr><th>Matéria</th><th>Questões</th><th>Edital estudado</th><th>Acerto</th><th>Aulas restantes</th><th>Prioridade</th><th>Motivo</th></tr></thead><tbody>${rows}</tbody></table></div>
-    <div class="row" style="justify-content:flex-end;gap:8px">${SAMPLE&&!X.busy&&(!P||P.src!=="ia")?`<button class="btn" data-a="mtAI">${ic("bulb")} Pedir a análise da IA</button>`:""}<button class="btn ghost" data-a="mtClose">Cancelar</button><button class="btn pri" data-a="mtApply" ${P&&!X.busy?"":"disabled"}>${ic("check")} Aplicar ao planejamento</button></div>
+    <div class="row" style="justify-content:flex-end;gap:8px">${SAMPLE&&!X.busy&&(!P||P.src!=="ia")?`<button class="btn" data-a="mtAI">${ic("bulb")} ${POS()?"Pedir o plano do Mentor":"Pedir a análise da IA"}</button>`:""}<button class="btn ghost" data-a="mtClose">Cancelar</button><button class="btn pri" data-a="mtApply" ${P&&!X.busy?"":"disabled"}>${ic("check")} Aplicar ao planejamento</button></div>
     <p class="muted small" style="margin:0">Aplicar muda a distribuição da teoria nas próximas metas (e na meta atual, se ela ainda não começou). O que você já fez não muda.</p></div></div>`}
 /* projeção do acerto na prova, se o planejamento for cumprido */
 const PJ_MIN=50;/* sem pelo menos 50 questões feitas, a projeção seria um chute: não aparece */
@@ -6320,7 +6438,7 @@ function projHTML(){try{const X=projData();if(!X.L.length)return"";if(!X.ok)retu
     ${gain.length?`<p class="small" style="margin:0"><b>Onde ganhar mais pontos:</b> ${gain.map(v=>esc(v.x.n)+" (+"+v.g.toFixed(1).replace(".",",")+" questões possíveis)").join(" · ")}</p>`:""}
     <p class="muted small" style="margin:0">Como é calculado: para cada matéria, a parte do edital que estará estudada na data da prova (pelo seu planejamento e pela incidência dos assuntos) vezes o seu acerto nas questões já resolvidas (com um ganho pelas revisões; sem dados, 72%), mais o chute no que ficar de fora${X.cebr?" (no Cebraspe o chute vale zero, porque o erro anula um acerto)":" ("+Math.round(X.chance*100)+"% numa questão de múltipla escolha)"}. É uma estimativa: quanto mais questões você resolver, mais fiel ela fica.</p>
     ${m85HTML()}
-    <div class="row"><button class="btn sm" data-a="mtOpen">${ic("bulb")} Recalcular plano</button></div></div></section>`}catch(e){return""}}
+    <div class="row" style="gap:8px">${POS()?`<button class="btn sm pri" data-a="mpView">${ic("flame")} Plano do Mentor</button>`:""}<button class="btn sm" data-a="mtOpen">${ic("bulb")} Recalcular plano</button></div></div></section>`}catch(e){return""}}
 
 /* ================= Navegação e renderização ================= */
 /* ================= Discursiva e Redação ================= */
@@ -7032,7 +7150,7 @@ function renderNav(){
   const due=dueRevs().length;
   const LXB=`<button class="nav-lx" data-a="${VIS()?"tab":"lxOpen"}" ${VIS()?'data-t="scribax"':""} ${TAB==="scribax"?'aria-current="page"':""} title="Scribax: ler e ouvir os seus PDFs"><span class="lx-ic">${LX_ICO}</span><span>Scribax</span><em>Ouvir</em></button>`;
   $("nav").innerHTML=NAV.filter(([k])=>!(VIS()&&(k==="assinatura"||k==="tutorial"))).map(([k,l])=>`<button data-a="tab" data-t="${k}" title="${l}" ${k==="motivacao"?'class="nav-mot"':""} ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${ic(k==="assinatura"?"lock":k)}<span>${l}</span>${k==="revisoes"&&due+errPend()?`<span class="cnt">${due+errPend()}</span>`:k==="arena"&&arNowN()?`<span class="cnt">${arNowN()}</span>`:""}</button>`+(VIS()&&GROUPS[k]&&(GP[TAB]||TAB)===k?navSub(k):"")+(k==="materiais"?LXB:"")).join("");navAlt();navFoot();
-  $("mtabs").innerHTML=("")+NAV.map(([k,l])=>`<button data-a="tab" data-t="${k}" ${k==="motivacao"?'class="mt-mot"':""} ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${k==="motivacao"?"🤍 ":""}${l}${k==="revisoes"&&due+errPend()?" · "+(due+errPend()):""}</button>`+(k==="materiais"?`<button class="mt-lx" data-a="lxOpen">🎧 Scribax</button>`:"")).join("")+`<button data-a="anOpen">Minhas análises</button><button data-a="posTg" aria-pressed="${POS()}">${POS()?"🔥 Pós-edital ligado":"Modo Pós-Edital"}</button>`;
+  $("mtabs").innerHTML=("")+NAV.map(([k,l])=>`<button data-a="tab" data-t="${k}" ${k==="motivacao"?'class="mt-mot"':""} ${(GP[TAB]||TAB)===k?'aria-current="page"':""}>${k==="motivacao"?"🤍 ":""}${l}${k==="revisoes"&&due+errPend()?" · "+(due+errPend()):""}</button>`+(k==="materiais"?`<button class="mt-lx" data-a="lxOpen">🎧 Scribax</button>`:"")).join("")+`<button data-a="anOpen">Minhas análises</button><button data-a="posTg" aria-pressed="${POS()}">${POS()?"🔥 Pós-edital ligado":"Modo Pós-Edital"}</button>`+(POS()?`<button data-a="mpView">Plano do Mentor</button>`:"");
   const c=core(),es=edStats(),PG=progData(),p=Math.round(PG.tot);
   $("av").style.setProperty("--p",p);{const ph=PLANS.me&&PLANS.me.photo,an=$("avn");if(ph){an.innerHTML=`<img src="${esc(ph)}" alt="">`;an.classList.add("ph")}else{an.classList.remove("ph");an.textContent=(c.cfg.name||"?").trim().charAt(0).toUpperCase()||"?"}}
   $("whoName").textContent=c.cfg.name||"Você";try{const w=document.querySelector(".who");let ch=$("asnChipW");if(!ch&&w){ch=document.createElement("div");ch.id="asnChipW";w.appendChild(ch)}if(ch)ch.innerHTML=asnChip()}catch(e){}$("whoSub").textContent=(PG.src==="gj"?"Planejamento: ":"Edital estudado: ")+(PG.src==="gj"?pctTxt(PG.tot):p+"%");
@@ -7741,7 +7859,7 @@ function jwCard(){try{setTimeout(()=>{window.jwFadeOn=0},0);const D=jwData(),th=
   const flag=ps.flag?`<g transform="translate(${ps.flag.x+22*(sm?1.4:1)} ${ps.flag.y})"><path d="M0 0 v${sm?-70:-52}" stroke="#e9e4ff" stroke-width="2.6" stroke-linecap="round"/><path d="M1 ${sm?-70:-52} h${sm?28:22} l-6 8 l6 8 h-${sm?28:22}z" fill="#ff5f8f"/></g><ellipse cx="${ps.flag.x-1}" cy="${ps.flag.y-3}" rx="${sm?20:15}" ry="${sm?8:6}" fill="#3b3a7a"/>`:"";
   const dim=D.broken&&D.wd<6?`<path d="${jwCurve(Sc.P,Math.max(0,D.wd),6)}" fill="none" stroke="#0d0c22" stroke-opacity=".35" stroke-width="18" stroke-linecap="round"/>`:"";
   const ico=D.broken?"🚩":"👣";
-  return`<section class="card jw jw-${th}" aria-label="Sua jornada da semana"><div class="jw-h"><div class="jw-t"><h2>Sua jornada da semana</h2><p>${jwMsg(D)}</p></div><div class="jw-n"><b>${ico} ${D.streak} ${D.streak===1?"dia":"dias"}</b><small>seguidos</small><button class="ibtn sm jw-pk" data-a="jwPick" aria-label="Trocar a paisagem" title="Trocar a paisagem">🎨</button></div></div>
+  return`<section class="card jw jw-${th}" aria-label="Sua jornada da semana"><div class="jw-h"><div class="jw-t"><h2>Sua jornada da semana</h2><p>${jwMsg(D)}</p></div><div class="jw-n"><b>${ico} ${D.streak} ${D.streak===1?"dia":"dias"}</b><small>seguidos</small>${POS()?`<button class="btn sm jw-mp" data-a="mpView" title="Prioridades, ciclo semanal, reta final e pegadinhas da banca">🔥 Plano do Mentor</button>`:""}<button class="ibtn sm jw-pk" data-a="jwPick" aria-label="Trocar a paisagem" title="Trocar a paisagem">🎨</button></div></div>
    <svg class="jw-s${window.jwFadeOn?" jw-fade":""}" data-tod="${tod}" viewBox="${Sc.vb}" role="img" aria-label="${esc(D.st.map((s,i)=>JW_D[i]+": "+({ok:"estudou",no:"não estudou",fo:"folga",td:"hoje",fu:"ainda vai chegar"})[s]).join(", "))}">${Sc.svg}${dim}${flag}${glory}<g id="jwWk" class="${D.win?"jw-hw":""}" transform="translate(${ps.pt.x} ${ps.pt.y+1}) scale(${Sc.sc})">${jwHero(pose)}</g></svg>
    ${th==="cume"?`<div class="jw-f"><span><b>${D.streak} ${D.streak===1?"dia":"dias"}</b> seguidos · melhor: ${D.best} · <button class="lnk" data-a="jwLem">⏰ Lembrete</button></span><span class="jw-r">Cada semana é uma montanha: domingo é o topo · <button class="lnk" data-a="jwMes">ver o mês inteiro</button></span></div>`:`<div class="jw-f"><span>Melhor sequência: <b>${D.best} ${D.best===1?"dia":"dias"}</b><span class="jw-r"> · o dia conta com ${JW_MIN} min de estudo</span></span><span><button class="lnk" data-a="jwLem">⏰ Lembrete</button> · <button class="lnk" data-a="jwMes">Ver o mês inteiro →</button></span></div>`}</section>`}catch(e){console.error(e);return""}}
 /* animação: quando o dia de hoje acaba de contar, o alpinista caminha até ele */
@@ -9579,7 +9697,7 @@ function POS(){try{return IS_TJ?!!PLANS.tjPos:!!(PLAN&&PLAN.pos)}catch(e){return
 /* quem escolheu "pós-edital" no cadastro já começa no pós, em qualquer concurso com edital publicado (ou incluído); sem edital, liga quando ele sair */
 function posWantGo(){try{const M=PLANS.me;if(!M||!M.posWant||M.prep!=="pos"||POS()||!posLib().ok)return;
   if(IS_TJ){PLANS.tjPos=1;PLANS.tjPosAt=today()}else if(PLAN){PLAN.pos=1;PLAN.posAt=today()}else return;M.posWant=0;savePlans();
-  setTimeout(()=>{try{applyPos();navFoot();render();toast("🔥 Pós-edital ligado, como você escolheu no cadastro: menos teoria, mais questões e revisões")}catch(e){}},0)}catch(e){}}
+  setTimeout(()=>{try{applyPos();navFoot();render();toast("🔥 Pós-edital ligado, como você escolheu no cadastro: menos teoria, mais questões e revisões");mentorPosAuto()}catch(e){}},0)}catch(e){}}
 function posDias(){try{if(provaTBD())return null;return Math.max(0,Math.ceil((pd(prova())-new Date())/864e5))}catch(e){return null}}
 function applyPos(){const r=document.documentElement;if(POS()&&r.dataset.vis==="jornada"){r.dataset.pos="1";delete r.dataset.lav;r.style.colorScheme="dark";let fx=document.getElementById("posFx");
     if(!fx){fx=document.createElement("div");fx.id="posFx";fx.setAttribute("aria-hidden","true");fx.innerHTML=Array.from({length:22},(_,i)=>`<i style="left:${(i*47+11)%100}%;--d:${((i*.77)%7).toFixed(2)}s;--t:${(5+(i%6)*.9).toFixed(1)}s;--s:${2+(i%3)}px"></i>`).join("");document.body.appendChild(fx)}
@@ -14591,10 +14709,12 @@ const A={
     UI.arNs=sid;addCard({sid,tid:"",aula:"",f:(ce?"Certo ou errado? ":"")+F,b:(ce?(UI.arNv===0?"ERRADO. ":"CERTO. "):"")+B,src:"meu"});$("layer3").innerHTML="";toast("Card criado: já está na fila da Trilha da Jornada");render()},
   arqOpen(el){const n=+el.dataset.n;UI.arqOpen=UI.arqOpen===n?null:n;render();if(UI.arqOpen!=null)setTimeout(()=>{const d=document.querySelector(".arq-det");if(d)d.scrollIntoView({behavior:"smooth",block:"start"})},60)},
   arqSm(el){UI.smOpen=el.dataset.id;TAB="simulados";render();scrollTo(0,0)},
+  mpView(){mpViewModal()},
+  mpRedo(){A.mtOpen();if(UI.mt)A.mtAI()},
   mtOpen(){if(core().gj){toast("Com o planejamento do Guruja, as metas vêm de lá");return}const M=mentorStats();UI.mt={M,P:mentorAuto(M),busy:0};mentorModal()},
   mtClose(){UI.mt=null;$("layer3").innerHTML=""},
-  async mtAI(){const X=UI.mt;if(!X||!SAMPLE)return;X.busy=1;mentorModal();try{X.P=await mentorAIPlan(X.M)}catch(e){toast("A IA não respondeu agora; ficou a análise automática")}X.busy=0;mentorModal()},
-  mtApply(){const X=UI.mt;if(!X||!X.P)return;const c=core();c.mw={w:X.P.w,why:X.P.why,resumo:X.P.resumo,src:X.P.src,at:today()};delete c.nextDraft;touch("core");simCache.key="";
+  async mtAI(){const X=UI.mt;if(!X||!SAMPLE)return;X.busy=1;mentorModal();try{X.P=await (POS()?mentorPosPlan:mentorAIPlan)(X.M)}catch(e){toast("A IA não respondeu agora; ficou a análise automática")}X.busy=0;mentorModal()},
+  mtApply(){const X=UI.mt;if(!X||!X.P)return;const c=core();c.mw={w:X.P.w,why:X.P.why,resumo:X.P.resumo,src:X.P.src,at:today()};if(X.P.mp)c.mentorPos=X.P.mp;delete c.nextDraft;touch("core");simCache.key="";
     const re=replanCurrent();UI.mt=null;$("layer3").innerHTML="";render();toast(re?"Meta atual e próximas metas recalculadas":"Próximas metas recalculadas (a meta atual já começou e fica como está)")},
   qfSt(el){const f=UI[el.dataset.k];if(!f)return;f.st=el.dataset.v;UI[el.dataset.pk]=0;UI.qzKeep=null;rerenderQz()},
   rsAIv(el){UI.rsAIv=+el.dataset.v;render()},
