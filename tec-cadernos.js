@@ -229,6 +229,8 @@
         /* Português: primeiro o dicionário fixo (assunto certo sempre); só se ele não achar nada usa a busca por semelhança */
         if(isLP){lpIds(it.t).forEach(function(x){ids.push(x);names.push(LPIDN[x]||String(x))});lpd=1;tops=[]}
         /* Oficial de Justiça: nomes do Índice do guia do TEC para a aula (já conferidos): só aceita o assunto do TEC com o MESMO nome, sem semelhança */
+        /* Índice do TEC por aula (Auditor Fiscal e cursos parecidos): a plataforma já manda os números exatos dos assuntos; usa só eles */
+        else if(it.gi&&it.gi.length){it.gi.slice(0,10).forEach(function(x){if(ids.indexOf(+x[0])<0){ids.push(+x[0]);names.push(String(x[1]||x[0]))}});lpd=1;tops=[]}
         else if(it.ga&&it.ga.length){var nk=function(x){return norm(String(x).replace(/\([^)]*\)/g," ")).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim()};
           /* o nome do Índice e o do assunto no TEC podem diferir só no fim ("Dos Princípios Fundamentais da Constituição" x "Dos Princípios Fundamentais (arts. 1º a 4º)"):
              aceita nome igual ou um começando pelo outro, sempre na matéria da aula e com os artigos e a lei da aula batendo */
