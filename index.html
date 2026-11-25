@@ -15650,4 +15650,117 @@ Object.assign(A,{
 
 <script>setTimeout(()=>{try{if(localStorage.getItem("jx-depart")){localStorage.removeItem("jx-depart");obDepart()}}catch(e){}},1600)</script>
 <script>document.addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target&&(e.target.id==="av"||e.target.id==="whoName")){e.preventDefault();try{A.perfOpen()}catch(x){}}})</script>
+<!-- Selo Grupo RP + animações (igual à versão oficial, 25/11/2026) -->
+<style>@media (min-width:901px){#rp-selo-fim{display:none}}aside.side>*{order:2}aside.side>:first-child{order:0}aside.side>.rp-selo-wrap.rp-in{order:1;padding:0;justify-content:center}:root[data-navc="1"] aside.side>.rp-selo-wrap{display:none}</style>
+<script>window.RP_SELO={alvos:["aside.side"],fimDaPagina:true};</script>
+<!-- Selo Grupo RP (assinatura do grupo em todas as plataformas) -->
+<style id="rp-selo-css">
+.rp-selo{display:inline-flex;align-items:center;gap:9px;padding:6px 14px 6px 8px;border-radius:999px;background:#0E0C08;border:1px solid rgba(229,184,92,.45);color:#E9D9AE;font:500 12.5px/1.2 "Inter","Helvetica Neue",Arial,sans-serif;letter-spacing:.01em;text-decoration:none;white-space:nowrap;box-shadow:0 6px 16px -10px rgba(0,0,0,.6)}
+.rp-selo img{width:24px;height:22px;display:block;flex:none}
+.rp-selo b{font:inherit;font-weight:800;letter-spacing:.08em;color:#E5B85C}
+.rp-selo-wrap{display:flex;justify-content:center;padding:14px 12px 18px}
+.rp-selo-wrap.rp-in{padding:10px 0 0;justify-content:flex-start}
+.rp-selo-wrap.rp-in .rp-selo{font-size:11.5px;padding:5px 12px 5px 7px}
+.rp-selo-wrap.rp-in .rp-selo img{width:20px;height:18px}
+@media print{.rp-selo{box-shadow:none}}
+</style>
+<script>
+(function(){var LOGO="data:image/webp;base64,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";var C=window.RP_SELO||{};var alvos=C.alvos||[];
+function selo(){var a=document.createElement('span');a.className='rp-selo';a.setAttribute('role','note');a.setAttribute('aria-label','Uma empresa do Grupo RP, Grupo Romano e Passos');a.innerHTML='<img src="'+LOGO+'" alt="" width="24" height="22"><span>Uma empresa do <b>GRUPO RP</b></span>';return a}
+function poe(){var achou=false;alvos.forEach(function(sel){document.querySelectorAll(sel).forEach(function(el){achou=true;if(el.querySelector(':scope > .rp-selo-wrap'))return;var w=document.createElement('div');w.className='rp-selo-wrap rp-in';w.appendChild(selo());el.appendChild(w)})});
+ if(C.fimDaPagina!==false&&!document.getElementById('rp-selo-fim')){var w=document.createElement('div');w.id='rp-selo-fim';w.className='rp-selo-wrap';w.appendChild(selo());(document.body).appendChild(w)}}
+var t=null;function agenda(){if(t)return;t=setTimeout(function(){t=null;poe()},120)}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',poe);else poe();
+new MutationObserver(agenda).observe(document.documentElement,{childList:true,subtree:true});})();
+</script>
+<!-- Refino Grupo RP: animações de tela, gráficos, letras e botões (não muda cores nem funções) -->
+<style id="rpf-css">
+:root{--rpf-ease:cubic-bezier(.22,.8,.24,1);--rpf-t:340ms}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+h1,h2,h3,h4{text-wrap:balance}
+p,li,dd,figcaption{text-wrap:pretty}
+td,th,[class*="valor"],[class*="price"],[class*="preco"],[class*="kpi"],[class*="num"]{font-variant-numeric:tabular-nums}
+img{max-width:100%}
+:where(button,[role="button"],a[class*="btn"],.btn,input[type="submit"],input[type="button"]){transition:transform .16s var(--rpf-ease),box-shadow .22s var(--rpf-ease),background-color .22s,border-color .22s,color .22s,filter .22s,opacity .22s;-webkit-tap-highlight-color:transparent}
+@media (hover:hover){:where(button,[role="button"],a[class*="btn"],.btn):not(:disabled):not([aria-disabled="true"]):hover{filter:brightness(1.05) saturate(1.04)}}
+:where(button,[role="button"],a[class*="btn"],.btn):not(:disabled):active{transform:scale(.97)}
+:where(button,a,[role="button"],input,select,textarea,[tabindex]):focus-visible{outline:2px solid currentColor;outline-offset:2px}
+:where(a[class*="card"],button[class*="card"],[class*="card"][role="button"],[class*="card"][onclick],[class*="card"][data-go],[class*="card"][data-goto]){transition:transform .22s var(--rpf-ease),box-shadow .22s var(--rpf-ease)}
+@media (hover:hover){:where(a[class*="card"],button[class*="card"],[class*="card"][role="button"],[class*="card"][onclick]):hover{transform:translateY(-2px)}}
+:where(input,select,textarea){transition:border-color .2s,box-shadow .2s,background-color .2s}
+@keyframes rpf-tela{from{opacity:0;transform:translate3d(0,14px,0)}to{opacity:1;transform:none}}
+@keyframes rpf-lado{from{opacity:0;transform:translate3d(22px,0,0)}to{opacity:1;transform:none}}
+@keyframes rpf-pop{from{opacity:0;transform:translate3d(0,10px,0) scale(.97)}to{opacity:1;transform:none}}
+@keyframes rpf-sub{from{opacity:0;transform:translate3d(0,10px,0)}to{opacity:1;transform:none}}
+@keyframes rpf-x{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes rpf-y{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes rpf-fade{from{opacity:0}to{opacity:1}}
+.rpf-tela{animation:rpf-tela var(--rpf-t) var(--rpf-ease) both}
+.rpf-lado{animation:rpf-lado var(--rpf-t) var(--rpf-ease) both}
+.rpf-pop{animation:rpf-pop 280ms var(--rpf-ease) both}
+.rpf-sub{animation:rpf-sub 420ms var(--rpf-ease) both;animation-delay:calc(var(--rpf-i,0) * 45ms)}
+.rpf-x{transform-origin:left center;animation:rpf-x 900ms var(--rpf-ease) both;animation-delay:calc(var(--rpf-i,0) * 60ms)}
+.rpf-y{transform-origin:center bottom;transform-box:fill-box;animation:rpf-y 800ms var(--rpf-ease) both;animation-delay:calc(var(--rpf-i,0) * 50ms)}
+.rpf-fade{animation:rpf-fade 700ms ease both}
+@media (prefers-reduced-motion:reduce){.rpf-tela,.rpf-lado,.rpf-pop,.rpf-sub,.rpf-x,.rpf-y,.rpf-fade{animation:none!important}.rpf-linha{stroke-dasharray:none!important;stroke-dashoffset:0!important;transition:none!important}}
+</style>
+<script>
+(function(){
+if(window.__rpf)return;window.__rpf=1;
+var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(RM)return;
+var C=window.RP_ANIM||{};
+var TELA=(C.telas||[]).concat(['main > *','[role="tabpanel"]','[class~="view"]','[class*="screen"]','[class*="tela"]','[class*="page"]:not(html):not(body)','[class*="pane"]','[class*="panel"]','section[id]']).join(',');
+var POP=(C.janelas||[]).concat(['[role="dialog"]','dialog','[class*="modal"]','[class*="sheet"]','[class*="drawer"]','[class*="popup"]','[class*="overlay"] > *']).join(',');
+var BARX='[class*="bar"] > [style*="width"],[class*="fill"][style*="width"],[class*="track"] > [style*="width"],[class*="progress"] > [style*="width"],[class*="meter"] > [style*="width"]';
+var BARY='[class*="bar"][style*="height"],[class*="col"][style*="height"]';
+var GRAF='[class*="chart"],[class*="graf"],[class*="spark"],[class*="grafico"],[class*="bars"]';
+var visto=new WeakMap(),ultimo=new WeakMap();
+function vis(el){if(!el.isConnected)return false;var r=el.getClientRects();if(!r.length)return false;var cs=getComputedStyle(el);return cs.visibility!=='hidden'&&cs.display!=='none'}
+function grande(el){var r=el.getBoundingClientRect();return r.width>=160&&r.height>=90}
+function temFixo(el){return !!el.querySelector('[class*="fab"],[class*="toast"]')}
+function anima(el,cls){if(C.ignorar&&el.closest(C.ignorar))return;if(el.closest('.leaflet-container,.maplibregl-map,.mapboxgl-map,[class*="leaflet-"]'))return;if(cls==='rpf-tela'&&el.parentElement&&el.parentElement.closest('.rpf-tela,.rpf-pop,.rpf-sub'))return;var t=performance.now();if(ultimo.has(el)&&t-ultimo.get(el)<500)return;ultimo.set(el,t);
+ el.classList.remove('rpf-tela','rpf-lado','rpf-pop');void el.offsetWidth;el.classList.add(cls);
+ var fim=function(){el.classList.remove(cls);el.removeEventListener('animationend',fim)};el.addEventListener('animationend',fim);setTimeout(fim,900);
+ if(cls!=='rpf-pop'){var filhos=[].slice.call(el.children).filter(function(c){return vis(c)}).slice(0,8);
+  if(filhos.length>1&&filhos.length<=8){filhos.forEach(function(c,i){if(i===0)return;c.style.setProperty('--rpf-i',i);c.classList.add('rpf-sub');var f2=function(){c.classList.remove('rpf-sub');c.removeEventListener('animationend',f2)};c.addEventListener('animationend',f2);setTimeout(f2,1200)})}}
+ graficos(el)}
+var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.unobserve(e.target);cresce(e.target)}})},{threshold:.2}):null;
+function cresce(el){if(el.__rpfg)return;el.__rpfg=1;
+ var i=0;el.querySelectorAll(BARX).forEach(function(b){if(b.closest('.rp-selo'))return;b.style.setProperty('--rpf-i',Math.min(i++,8));b.classList.add('rpf-x');setTimeout(function(){b.classList.remove('rpf-x')},1500)});
+ i=0;el.querySelectorAll(BARY).forEach(function(b){b.style.setProperty('--rpf-i',Math.min(i++,12));b.classList.add('rpf-y');setTimeout(function(){b.classList.remove('rpf-y')},1600)});
+ el.querySelectorAll('svg').forEach(function(s){
+  i=0;s.querySelectorAll('rect').forEach(function(r){var h=+r.getAttribute('height')||0,w=+r.getAttribute('width')||0;if(h>2&&w>0&&w<80){r.style.setProperty('--rpf-i',Math.min(i++,14));r.classList.add('rpf-y');setTimeout(function(){r.classList.remove('rpf-y')},1700)}});
+  s.querySelectorAll('path,polyline,line').forEach(function(p){var cs=getComputedStyle(p);if(cs.fill!=='none'&&p.tagName==='path'&&!(p.getAttribute('fill')==='none'))return;if(!p.getTotalLength)return;var L;try{L=p.getTotalLength()}catch(e){return}if(!L||L<40)return;
+   p.style.strokeDasharray=L;p.style.strokeDashoffset=L;p.classList.add('rpf-linha');p.getBoundingClientRect();p.style.transition='stroke-dashoffset 1.1s cubic-bezier(.22,.8,.24,1)';p.style.strokeDashoffset='0';
+   setTimeout(function(){p.style.transition='';p.style.strokeDasharray='';p.style.strokeDashoffset='';p.classList.remove('rpf-linha')},1300)});
+  s.querySelectorAll('circle[stroke-dasharray],path[stroke-dasharray]').forEach(function(c){c.classList.add('rpf-fade');setTimeout(function(){c.classList.remove('rpf-fade')},800)});
+ })}
+function graficos(raiz){var lista=[];if(raiz.matches&&raiz.matches(GRAF))lista.push(raiz);raiz.querySelectorAll(GRAF).forEach(function(g){lista.push(g)});
+ lista.forEach(function(g){g.__rpfg=0;if(io)io.observe(g);else cresce(g)})}
+function checa(el){if(!(el instanceof Element))return;
+ var antes=visto.get(el),agora=vis(el);visto.set(el,agora);
+ if(agora&&antes===false){
+  if(el.matches(POP)){anima(el,'rpf-pop');return}
+  if(el.matches(TELA)&&grande(el)&&!temFixo(el)){anima(el,'rpf-tela')}
+ }}
+function varre(){document.querySelectorAll(TELA+','+POP).forEach(function(el){if(!visto.has(el))visto.set(el,vis(el))})}
+var pend=new Set(),tm=null;
+function agenda(el){pend.add(el);if(tm)return;tm=requestAnimationFrame(function(){tm=null;var l=Array.from(pend);pend.clear();l.forEach(function(el){
+  if(!el.isConnected)return;
+  if(el.matches&&(el.matches(TELA)||el.matches(POP)))checa(el);
+  if(el.querySelectorAll)el.querySelectorAll(TELA+','+POP).forEach(function(c){if(!visto.has(c)){var v=vis(c);visto.set(c,v);if(v&&el.__rpfNovo){if(c.matches(POP))anima(c,'rpf-pop')}}else checa(c)})})})}
+var mo=new MutationObserver(function(ms){ms.forEach(function(m){
+ if(m.type==='attributes'){var t=m.target;if(t.closest&&t.closest('.rp-selo'))return;agenda(t);if(t.parentElement)agenda(t.parentElement)}
+ else{m.addedNodes.forEach(function(n){if(n.nodeType!==1||n.classList.contains('rp-selo-wrap'))return;
+   if(n.matches(POP)){requestAnimationFrame(function(){if(vis(n))anima(n,'rpf-pop')});return}
+   var alvo=n.matches(TELA)?n:(m.target.matches&&m.target.matches(TELA)?m.target:null);
+   if(alvo&&alvo!==document.body){requestAnimationFrame(function(){if(vis(alvo)&&grande(alvo)&&!temFixo(alvo))anima(alvo,'rpf-tela')})}
+   else{requestAnimationFrame(function(){if(n.isConnected)graficos(n)})}
+  })}
+})});
+function inicio(){varre();graficos(document.body);
+ mo.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:['hidden','class','style','open','aria-hidden']})}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',inicio);else inicio();
+})();
+</script>
 </body></html>
