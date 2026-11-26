@@ -1,11 +1,11 @@
--- A Jornada — Painel de Gestão (aba "Gestão", só para a equipe do Grupo RP).
+-- A Jornada — Centro de Controle (aba "Gestão", só para a equipe do Grupo RP).
 -- Uma função só de leitura. Só contas com plano = 'dono' (administrador) conseguem chamar;
 -- qualquer outra conta recebe "permission denied". Não altera nem apaga nada.
--- Rodar uma vez: Supabase → SQL Editor → colar → Run.
+-- Rodar uma vez: Supabase → SQL Editor → colar → Run. Pode rodar de novo sem problema.
 
 create or replace function public.painel_gestao() returns json
 language plpgsql stable security definer set search_path = public as $$
-declare r json;
+declare r json; hoje date := (now() at time zone 'America/Campo_Grande')::date;
 begin
   if not exists (select 1 from public.perfis where user_id = auth.uid() and plano = 'dono') then
     raise exception 'permission denied';
@@ -22,17 +22,29 @@ begin
         when (p.plano in ('mensal','trimestral','semestral','anual','cortesia') or p.plano like 'basico\_%') then 'venceu'
         when coalesce(p.teste_ate, p.criado_em + interval '7 days') > now() then 'teste'
         else 'teste_venceu'
-      end as st
+      end as st,
+      (p.criado_em at time zone 'America/Campo_Grande')::date as dia_cad
     from public.perfis p
   ),
   al as (select * from pf where st <> 'admin'),
+  -- dias em que cada aluno usou a plataforma (cadastro, IA ou dados salvos)
+  atv as (
+    select user_id, dia_cad as d from al
+    union select user_id, dia from public.uso_ia
+    union select user_id, (updated_at at time zone 'America/Campo_Grande')::date from public.docs
+  ),
+  ult as (select user_id, max(d) d from atv group by user_id),
+  ia30 as (select user_id, sum(chamadas) n from public.uso_ia where dia > hoje - 30 group by user_id),
   cp as (
     select c.*,
       (c.bruto::text like '%example@store.domain%' or c.bruto::text like '%"email": "example@%') as teste,
       case
         when c.evento ~* '(refund|chargeback|reembols)' then 'reembolso'
         when c.evento ~* 'cancel' then 'cancelamento'
+        when c.evento ~* '(late|overdue|atras)' then 'atraso'
         when c.evento ~* '(approved|renewed|complete|aprovad)' then 'venda'
+        when c.evento ~* '(billet|boleto|pix_created|waiting|pending|aguard)' then 'pendente'
+        when c.evento ~* '(rejected|refused|recus)' then 'recusado'
         else 'outro'
       end as tipo,
       coalesce(
@@ -44,14 +56,23 @@ begin
       coalesce(
         nullif(c.bruto->'Commissions'->>'my_commission','')::numeric / 100,
         nullif(c.bruto->'data'->'commissions'->0->>'value','')::numeric
-      ) as liquido
+      ) as liquido,
+      coalesce(c.bruto->>'payment_method', c.bruto->'data'->'purchase'->'payment'->>'type') as metodo,
+      (c.criado_em at time zone 'America/Campo_Grande')::date as dia
     from public.compras c
   ),
   cr as (select * from cp where not teste),
-  meses as (select generate_series(date_trunc('month', now()) - interval '11 months', date_trunc('month', now()), interval '1 month') as m),
-  dias as (select generate_series(current_date - 29, current_date, interval '1 day')::date as d)
+  meses as (select generate_series(date_trunc('month', hoje) - interval '11 months', date_trunc('month', hoje), interval '1 month')::date as m),
+  dias as (select generate_series(hoje - 29, hoje, interval '1 day')::date as d),
+  coh as (select date_trunc('week', dia_cad)::date w, user_id from al where dia_cad >= date_trunc('week', hoje)::date - 35),
+  ret as (
+    select c.w, k, count(*) n,
+      count(*) filter (where exists (select 1 from atv a where a.user_id = c.user_id and a.d >= c.w + 7*k and a.d < c.w + 7*k + 7)) ok
+    from coh c cross join generate_series(0, 3) k group by c.w, k
+  )
   select json_build_object(
     'gerado_em', now(),
+    'hoje', hoje,
     'alunos', json_build_object(
       'total',        (select count(*) from al),
       'teste',        (select count(*) from al where st = 'teste'),
@@ -59,26 +80,38 @@ begin
       'assinantes',   (select count(*) from al where st = 'assinante'),
       'cortesia',     (select count(*) from al where st = 'cortesia'),
       'venceu',       (select count(*) from al where st = 'venceu'),
-      'novos_7d',     (select count(*) from al where criado_em >= now() - interval '7 days'),
-      'novos_30d',    (select count(*) from al where criado_em >= now() - interval '30 days'),
+      'novos_7d',     (select count(*) from al where dia_cad > hoje - 7),
+      'novos_7d_ant', (select count(*) from al where dia_cad > hoje - 14 and dia_cad <= hoje - 7),
+      'novos_30d',    (select count(*) from al where dia_cad > hoje - 30),
+      'teste_acaba_2d', (select count(*) from al where st = 'teste' and teste_ate <= now() + interval '2 days'),
       'admins',       (select count(*) from pf where st = 'admin'),
       'aceitaram_termos', (select count(*) from al where aceite_termos is not null),
       'por_plano',    (select coalesce(json_object_agg(plano, n), '{}'::json) from (select plano, count(*) n from al where st = 'assinante' group by plano) x),
-      'por_origem',   (select coalesce(json_object_agg(o, n), '{}'::json) from (select coalesce(nullif(origem,''),'sem origem') o, count(*) n from al where st = 'assinante' group by 1) x),
-      'ativos_7d',    (select count(distinct d.user_id) from public.docs d join al on al.user_id = d.user_id where d.updated_at >= now() - interval '7 days'),
-      'ativos_30d',   (select count(distinct d.user_id) from public.docs d join al on al.user_id = d.user_id where d.updated_at >= now() - interval '30 days')
+      'ativos_7d',    (select count(*) from ult join al using (user_id) where ult.d > hoje - 7),
+      'ativos_30d',   (select count(*) from ult join al using (user_id) where ult.d > hoje - 30)
     ),
-    'cadastros_dia', (select json_agg(json_build_object('d', d, 'n', (select count(*) from al where criado_em::date = dias.d)) order by d) from dias),
-    'cadastros_mes', (select json_agg(json_build_object('m', to_char(m,'YYYY-MM'), 'n', (select count(*) from al where date_trunc('month', criado_em) = meses.m)) order by m) from meses),
+    'lista', (select coalesce(json_agg(x order by x.cad desc), '[]'::json) from (
+        select al.nome, al.email, al.plano, al.st, al.criado_em cad, al.teste_ate, al.plano_ate, al.origem,
+          ult.d ultimo, coalesce(ia30.n, 0) ia
+        from al left join ult using (user_id) left join ia30 using (user_id)
+        order by al.criado_em desc limit 500) x),
+    'cadastros_dia', (select json_agg(json_build_object('d', d, 'n', (select count(*) from al where dia_cad = dias.d)) order by d) from dias),
+    'ativos_dia', (select json_agg(json_build_object('d', d, 'n', (select count(distinct a.user_id) from atv a join al using (user_id) where a.d = dias.d)) order by d) from dias),
+    'retencao', (select coalesce(json_agg(json_build_object('w', w, 'n', n, 'p', p) order by w desc), '[]'::json) from (
+        select w, max(n) n, json_agg(case when w + 7*k > hoje then null when w + 7*k + 7 > hoje then -1 else round(ok * 100.0 / n) end order by k) p
+        from ret group by w) x),
     'vendas_mes', (select json_agg(json_build_object('m', to_char(m,'YYYY-MM'),
-        'n',        (select count(*) from cr where tipo='venda' and date_trunc('month', criado_em) = meses.m),
-        'bruto',    (select coalesce(sum(valor),0) from cr where tipo='venda' and date_trunc('month', criado_em) = meses.m),
-        'liquido',  (select coalesce(sum(coalesce(liquido, valor)),0) from cr where tipo='venda' and date_trunc('month', criado_em) = meses.m),
-        'reembolso',(select coalesce(sum(valor),0) from cr where tipo='reembolso' and date_trunc('month', criado_em) = meses.m)
+        'n',        (select count(*) from cr where tipo='venda' and date_trunc('month', dia) = meses.m),
+        'bruto',    (select coalesce(sum(valor),0) from cr where tipo='venda' and date_trunc('month', dia) = meses.m),
+        'liquido',  (select coalesce(sum(coalesce(liquido, valor)),0) from cr where tipo='venda' and date_trunc('month', dia) = meses.m),
+        'reembolso',(select coalesce(sum(valor),0) from cr where tipo='reembolso' and date_trunc('month', dia) = meses.m),
+        'novos',    (select count(*) from al where date_trunc('month', dia_cad) = meses.m)
       ) order by m) from meses),
+    'vendas_dia', (select json_agg(json_build_object('d', d, 'v', (select coalesce(sum(valor),0) from cr where tipo='venda' and cr.dia = dias.d), 'n', (select count(*) from cr where tipo='venda' and cr.dia = dias.d)) order by d) from dias),
     'vendas_plano', (select coalesce(json_agg(json_build_object('plano', plano, 'bf', bf, 'n', n, 'bruto', b) order by b desc), '[]'::json) from (
         select coalesce(plano,'?') plano, (plano = 'anual' and valor between 440 and 460) bf, count(*) n, sum(valor) b
         from cr where tipo='venda' group by 1, 2) x),
+    'metodos', (select coalesce(json_object_agg(m, n), '{}'::json) from (select coalesce(metodo,'outro') m, count(*) n from cr where tipo='venda' group by 1) x),
     'totais', json_build_object(
       'bruto',        (select coalesce(sum(valor),0) from cr where tipo='venda'),
       'liquido',      (select coalesce(sum(coalesce(liquido, valor)),0) from cr where tipo='venda'),
@@ -86,20 +119,24 @@ begin
       'reembolsos',   (select count(*) from cr where tipo='reembolso'),
       'reembolsos_valor', (select coalesce(sum(valor),0) from cr where tipo='reembolso'),
       'cancelamentos',(select count(*) from cr where tipo='cancelamento'),
-      'mes_atual',    (select coalesce(sum(valor),0) from cr where tipo='venda' and criado_em >= date_trunc('month', now())),
-      'mes_anterior', (select coalesce(sum(valor),0) from cr where tipo='venda' and criado_em >= date_trunc('month', now()) - interval '1 month' and criado_em < date_trunc('month', now())),
+      'atrasos',      (select count(*) from cr where tipo='atraso' and dia > hoje - 30),
+      'pendentes',    (select count(*) from cr where tipo='pendente' and dia > hoje - 7),
+      'semana',       (select coalesce(sum(valor),0) from cr where tipo='venda' and dia > hoje - 7),
+      'semana_ant',   (select coalesce(sum(valor),0) from cr where tipo='venda' and dia > hoje - 14 and dia <= hoje - 7),
+      'mes_atual',    (select coalesce(sum(valor),0) from cr where tipo='venda' and dia >= date_trunc('month', hoje)),
+      'mes_anterior', (select coalesce(sum(valor),0) from cr where tipo='venda' and dia >= date_trunc('month', hoje) - interval '1 month' and dia < date_trunc('month', hoje)),
       'testes_ignorados', (select count(*) from cp where teste)
     ),
-    'recentes', (select coalesce(json_agg(x order by x.em desc), '[]'::json) from (
-        select criado_em em, tipo, evento, plano, valor, origem,
-          case when email like '%@%' then left(split_part(email, '@', 1), 2) || '***@' || split_part(email, '@', 2) else '' end as email
-        from cr order by criado_em desc limit 25) x),
+    'pagamentos', (select coalesce(json_agg(x order by x.em desc), '[]'::json) from (
+        select criado_em em, tipo, evento, plano, valor, liquido, metodo, origem, email, ate
+        from cr order by criado_em desc limit 200) x),
     'ia', json_build_object(
-      'hoje',      (select coalesce(sum(chamadas),0) from public.uso_ia where dia = current_date),
-      'd30',       (select coalesce(sum(chamadas),0) from public.uso_ia where dia > current_date - 30),
-      'tok_in_30', (select coalesce(sum(tokens_entrada),0) from public.uso_ia where dia > current_date - 30),
-      'tok_out_30',(select coalesce(sum(tokens_saida),0) from public.uso_ia where dia > current_date - 30),
-      'usuarios_30', (select count(distinct user_id) from public.uso_ia where dia > current_date - 30),
+      'hoje',      (select coalesce(sum(chamadas),0) from public.uso_ia where dia = hoje),
+      'd7',        (select coalesce(sum(chamadas),0) from public.uso_ia where dia > hoje - 7),
+      'd30',       (select coalesce(sum(chamadas),0) from public.uso_ia where dia > hoje - 30),
+      'tok_in_30', (select coalesce(sum(tokens_entrada),0) from public.uso_ia where dia > hoje - 30),
+      'tok_out_30',(select coalesce(sum(tokens_saida),0) from public.uso_ia where dia > hoje - 30),
+      'usuarios_30', (select count(distinct user_id) from public.uso_ia where dia > hoje - 30),
       'por_dia',   (select json_agg(json_build_object('d', d, 'n', (select coalesce(sum(chamadas),0) from public.uso_ia u where u.dia = dias.d)) order by d) from dias)
     )
   ) into r;

@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611260150"></script>
+<script src="/claude-shim.js?v=202611260200"></script>
 <meta name="author" content="Raphael Romano"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -100,14 +100,41 @@
 .jw-mp{white-space:nowrap}@media (max-width:640px){.jw-mp{display:none}}
 @media (max-width:520px){.mp-tier{grid-template-columns:1fr}.mp-tier>.muted,.mp-tier .mp-chips{grid-column:1}.mp-tier>b{grid-row:auto}}
 
-.gs-k{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.gs-t{border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:grid;gap:4px;background:var(--panel)}.gs-t>small{color:var(--mute);font-weight:600}.gs-t>b{font-size:26px;line-height:1.1;font-family:var(--f-display,inherit);font-variant-numeric:tabular-nums}.gs-t.ok>b{color:var(--ok)}.gs-t.bad>b{color:var(--bad)}.gs-t.warn>b{color:var(--warn)}.gs-k4 .gs-t{background:var(--sunk)}
-.gs-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px}.gs-h{font-size:14px;margin:0 0 10px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.gs-h small{font-weight:400}
-.gs-cols{display:grid;grid-template-columns:auto 1fr;gap:8px;height:170px}.gs-ax{display:flex;flex-direction:column;justify-content:space-between;font-size:11px;color:var(--mute);padding-bottom:18px;text-align:right;font-variant-numeric:tabular-nums}
-.gs-plot{display:flex;align-items:stretch;gap:2px;border-bottom:1px solid var(--line2);background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 50%;padding-bottom:0}.gs-c{flex:1;display:flex;flex-direction:column;justify-content:flex-end;position:relative;min-width:0;outline:none;cursor:default}
-.gs-c i{display:block;background:var(--lime);border-radius:4px 4px 0 0;min-height:0;transition:opacity .15s}.gs-c:hover i,.gs-c:focus-visible i{opacity:.75}.gs-c small{position:absolute;top:100%;left:50%;transform:translateX(-50%);font-size:10px;color:var(--mute);white-space:nowrap;margin-top:3px}.gs-cols{padding-bottom:16px}
-.gs-bars{display:grid;gap:8px}.gs-br{display:grid;grid-template-columns:minmax(110px,1.1fr) 2fr auto;gap:10px;align-items:center;font-size:13px}.gs-br i{height:10px;background:var(--sunk);border-radius:5px;overflow:hidden}.gs-br s{display:block;height:100%;background:var(--lime);border-radius:5px}.gs-br em{font-style:normal;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
-.gs-stack{display:flex;gap:2px;height:16px;border-radius:8px;overflow:hidden}.gs-stack i{min-width:4px}.gs-leg{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:13px;color:var(--fg2)}.gs-leg span{display:inline-flex;align-items:center;gap:6px}.gs-leg i{width:10px;height:10px;border-radius:3px;display:inline-block}
-.gs-tb{width:100%;font-size:13px}.gs-tb td,.gs-tb th{white-space:nowrap}.gs-num{text-align:right;font-variant-numeric:tabular-nums}.gs-tb .chip{display:inline-flex;width:auto}.gs-al{margin:0;padding-left:18px;display:grid;gap:6px;font-size:14px}
+.gs-cc{display:grid;grid-template-columns:230px minmax(0,1fr);gap:22px;align-items:start}
+.gs-sd{position:sticky;top:12px;display:grid;gap:14px;padding:16px 12px;border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:var(--shadow)}
+.gs-kk{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.gs-sd nav{display:grid;gap:4px}.gs-sd nav button{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:12px;font-weight:600;color:var(--fg2)}
+.gs-sd nav button:hover{background:var(--sunk)}.gs-sd nav button:focus-visible{box-shadow:var(--ring)}.gs-sd nav button[aria-current="page"]{background:var(--lime-soft);color:var(--fg)}
+.gs-ic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--sunk);color:var(--lime-txt);flex:none}.gs-ic svg{width:17px;height:17px}.gs-sd nav button[aria-current="page"] .gs-ic{background:var(--lime);color:var(--lime-ink)}
+.gs-sd nav em{margin-left:auto;font-style:normal;font-size:12px;font-weight:700;min-width:20px;height:20px;padding:0 6px;box-sizing:border-box;border-radius:10px;display:grid;place-items:center;background:var(--lime);color:var(--lime-ink)}
+.gs-hl{all:unset;cursor:pointer;display:grid;gap:4px;padding:14px;border-radius:16px;background:linear-gradient(150deg,var(--lime),color-mix(in srgb,var(--lime) 55%,#000));color:#fff}.gs-hl .gs-kk{color:rgba(255,255,255,.8)}.gs-hl b{font-size:17px;line-height:1.2}.gs-hl span:last-child{font-size:13px;opacity:.9}.gs-hl:focus-visible{box-shadow:var(--ring)}
+.gs-hl.calm{cursor:default;background:var(--sunk);color:var(--fg)}.gs-hl.calm .gs-kk{color:var(--ok)}
+.gs-mn{display:grid;gap:18px;min-width:0}.gs-hd{display:grid;gap:8px}.gs-hd h1{margin:0;font-family:var(--f-display,inherit);font-size:clamp(28px,4vw,44px);line-height:1.05;letter-spacing:-.01em}.gs-hd p{margin:0;color:var(--fg2);max-width:62ch}
+.gs-demo{padding:12px 16px;border-radius:14px;border:1px dashed var(--hot);background:var(--warn-soft);font-size:14px;line-height:1.45}
+.gs-pl{display:flex;flex-wrap:wrap;gap:8px}.gs-pl button{all:unset;cursor:pointer;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font-size:13px}.gs-pl button:hover{border-color:var(--lime)}
+.gs-kps{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.gs-kp{display:grid;gap:6px;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:var(--panel);box-shadow:var(--shadow)}.gs-kp small{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--fg2)}.gs-kp small i{width:9px;height:9px;border-radius:50%;flex:none}
+.gs-kp b{font-family:var(--f-display,inherit);font-size:clamp(24px,2.4vw,34px);white-space:nowrap;line-height:1;font-variant-numeric:tabular-nums}.gs-kp span{font-size:13px;color:var(--mute)}
+.gs-g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px}
+.gs-cd{border:1px solid var(--line);border-radius:20px;background:var(--panel);padding:18px 20px;box-shadow:var(--shadow);min-width:0;display:grid;gap:12px;align-content:start}
+.gs-cdh{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.gs-cdh h3{margin:0;font-family:var(--f-display,inherit);font-size:19px}.gs-cdh>span{color:var(--mute);font-size:13px}.gs-cdh .gs-seg,.gs-cdh .gs-r{margin-left:auto}
+.gs-seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}.gs-seg button{all:unset;cursor:pointer;padding:4px 10px;font-size:12px;font-weight:600;color:var(--mute)}.gs-seg button[aria-pressed="true"]{background:var(--lime-soft);color:var(--fg)}
+.gs-ln{width:100%;height:auto;display:block;overflow:visible}.gs-gr line{stroke:var(--line);stroke-width:1}.gs-gr line.b{stroke:var(--line2)}.gs-ar{fill:var(--lime-soft)}.gs-lp{fill:none;stroke:var(--lime);stroke-width:2.5;stroke-linecap:round}
+.gs-pt circle{fill:var(--panel);stroke:var(--lime);stroke-width:2.5}.gs-pt text{font-size:14px;font-weight:700;fill:var(--fg);text-anchor:middle}.gs-pt:hover circle,.gs-pt:focus circle{fill:var(--lime)}.gs-pt{outline:none}.gs-xl{font-size:14px;fill:var(--mute);text-anchor:middle}
+.gs-rt{width:100%;border-collapse:collapse;font-size:14px}.gs-rt th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:700;text-align:left;padding:6px;border-bottom:1px solid var(--line2);white-space:nowrap}
+.gs-rt td{padding:10px 6px;border-bottom:1px solid var(--line);white-space:nowrap}.gs-rt td[style]{background:color-mix(in srgb,var(--lime) calc(var(--a)*100%),transparent);text-align:center;font-weight:600;font-variant-numeric:tabular-nums}.gs-rt td.hi{color:var(--lime-ink)}.gs-rn{color:var(--mute);font-size:12px;text-align:center}
+.gs-note{margin:0;font-size:12px;color:var(--mute);line-height:1.45}.gs-h4{margin:6px 0 0;font-size:14px}
+.gs-cols{display:grid;grid-template-columns:auto 1fr;gap:8px;height:180px;padding-bottom:16px}.gs-ax{display:flex;flex-direction:column;justify-content:space-between;font-size:11px;color:var(--mute);padding-bottom:2px;text-align:right;font-variant-numeric:tabular-nums}
+.gs-plot{display:flex;align-items:stretch;gap:2px;border-bottom:1px solid var(--line2);background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 50%}.gs-c{flex:1;display:flex;flex-direction:column;justify-content:flex-end;position:relative;min-width:0;outline:none}
+.gs-c i{display:block;background:var(--lime);border-radius:4px 4px 0 0}.gs-c:hover i,.gs-c:focus-visible i{opacity:.75}.gs-c small{position:absolute;top:100%;left:50%;transform:translateX(-50%);font-size:10px;color:var(--mute);white-space:nowrap;margin-top:3px}
+.gs-bars{display:grid;gap:9px}.gs-br{display:grid;grid-template-columns:minmax(110px,1.1fr) 2fr auto;gap:10px;align-items:center;font-size:13px}.gs-br i{height:10px;background:var(--sunk);border-radius:5px;overflow:hidden}.gs-br s{display:block;height:100%;background:var(--lime);border-radius:5px}.gs-br em{font-style:normal;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.gs-stack{display:flex;gap:2px;height:16px;border-radius:8px;overflow:hidden}.gs-stack i{min-width:4px}.gs-leg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--fg2)}.gs-leg span{display:inline-flex;align-items:center;gap:6px}.gs-leg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.gs-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}.gs-fil{display:flex;flex-wrap:wrap;gap:6px}.gs-fil button{all:unset;cursor:pointer;padding:6px 11px;border-radius:999px;border:1px solid var(--line);font-size:13px;color:var(--fg2)}.gs-fil button[aria-pressed="true"]{background:var(--lime);border-color:var(--lime);color:var(--lime-ink);font-weight:600}.gs-fil button:focus-visible{box-shadow:var(--ring)}
+.gs-q{max-width:260px;flex:1 1 200px}
+.gs-tw{overflow-x:auto;margin:0 -4px}.gs-tb{width:100%;border-collapse:collapse;font-size:13px}.gs-tb th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:700;text-align:left;padding:8px;border-bottom:1px solid var(--line2);white-space:nowrap}
+.gs-tb td{padding:10px 8px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}.gs-tb td small{display:block;color:var(--mute);font-size:12px}.gs-tb tbody tr:hover{background:var(--sunk)}.gs-num{text-align:right!important;font-variant-numeric:tabular-nums}
+.gs-chip{display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}.gs-chip.ok{background:var(--ok-soft);color:var(--ok)}.gs-chip.bad{background:var(--bad-soft);color:var(--bad)}.gs-chip.warn{background:var(--warn-soft);color:var(--warn)}.gs-chip.k1{background:color-mix(in srgb,var(--k1) 16%,transparent);color:var(--k1)}.gs-chip.k2{background:color-mix(in srgb,var(--k2) 16%,transparent);color:var(--k2)}.gs-chip.mute{background:var(--sunk);color:var(--mute)}
+@media (max-width:900px){.gs-cc{grid-template-columns:1fr}.gs-sd{position:static;padding:10px}.gs-sd>.gs-kk{display:none}.gs-sd nav{display:flex;overflow-x:auto;gap:6px}.gs-sd nav button{flex:none;padding:6px 10px 6px 6px}.gs-ic{width:28px;height:28px}}
 </style><script>try{if(localStorage.getItem("jx-lav")==="1"&&localStorage.getItem("jornada-skin")!=="classic"){document.documentElement.dataset.lav="1";document.documentElement.style.colorScheme="light"}}catch(e){}</script>
 </head><body>
 <style>#jx-splash{position:fixed;inset:0;z-index:2147483550;display:grid;place-items:center;color:#f1ecff;font:600 15px Figtree,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(900px 620px at 50% 40%,rgba(160,107,255,.30),transparent 62%),linear-gradient(160deg,#120d2b 0%,#0c0a1d 55%,#0a0817 100%);transition:opacity .28s ease}
@@ -4397,76 +4424,160 @@ function patHTML(nv){const V=window.JX_VENDA||{},n=V["pat_"+nv+"_nome"];if(!n)re
 {const _vmat=vMateriais;vMateriais=function(){return _vmat()+patHTML("ouro")+patHTML("prata")}}
 {const _vt=vTutorial;vTutorial=function(){return _vt()+patHTML("prata")}}
 {const _va=vAssinatura;vAssinatura=function(){const h=_va();const A=window.JX_ACESSO||{};if(A.st!=="dono")return h;setTimeout(obAdmLoad,60);const k=`<section class="card"><div class="card-h"><h2>${ic("desempenho")} Entrevistas dos alunos</h2><button class="btn sm ghost r" data-a="obAdm">${ic("reset")} Atualizar</button></div><div class="card-b" id="obAdm"></div></section>`;const i=h.indexOf("</div>",h.indexOf('class="hello"'));return i>0?h.slice(0,i+6)+k+h.slice(i+6):k+h}}
-/* ===== Gestão: aba só da equipe do Grupo RP (contas de administrador, plano "dono").
-   Os números vêm da função painel_gestao no Supabase, que recusa qualquer outra conta: esconder a aba é só conforto, a proteção está no banco. ===== */
-const GS_PL={mensal:["Premium mensal",79.90,1],semestral:["Premium semestral",299.40,6],anual:["Premium anual",549.90,12],trimestral:["Premium trimestral (antigo)",179.90,3],basico_mensal:["Básico mensal",49.90,1],basico_anual:["Básico anual",358.80,12]};
-const GS_MES=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+/* ===== Gestão · Centro de Controle: aba só da equipe do Grupo RP (contas de administrador, plano "dono").
+   Os números vêm da função painel_gestao no Supabase, que recusa qualquer outra conta: esconder a aba é só conforto, a proteção está no banco.
+   Enquanto a função não estiver ligada, a tela mostra números de exemplo, marcados como exemplo. ===== */
+const GS_PL={mensal:["Premium mensal",79.90,1],semestral:["Premium semestral",299.40,6],anual:["Premium anual",549.90,12],trimestral:["Premium trimestral (antigo)",179.90,3],basico_mensal:["Básico mensal",49.90,1],basico_anual:["Básico anual",358.80,12],cortesia:["Cortesia",0,1]};
+const GS_MES=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"],GS_SEM=["Dom","Seg","Ter","Qua","Qui","Sex","Sáb"];
+const GS_ST={assinante:["Assinante","ok"],teste:["Em teste","k1"],cortesia:["Cortesia","k2"],teste_venceu:["Teste venceu","mute"],venceu:["Assinatura venceu","bad"]};
+const GS_TP={venda:["Venda","ok"],pendente:["Aguardando pagamento","warn"],atraso:["Em atraso","bad"],reembolso:["Reembolso","bad"],cancelamento:["Cancelamento","warn"],recusado:["Recusado","mute"],outro:["Outro","mute"]};
+const GS_MT={credit_card:"Cartão",pix:"Pix",boleto:"Boleto",billet:"Boleto",outro:"Outro"};
 const gsAdm=()=>(window.JX_ACESSO||{}).st==="dono";
 const gsBRL=v=>"R$ "+Number(v||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
 const gsBRL0=v=>"R$ "+Math.round(Number(v||0)).toLocaleString("pt-BR");
 const gsN=v=>Number(v||0).toLocaleString("pt-BR");
-const gsPlNome=(p,bf)=>bf?"Premium anual (Black Friday)":(GS_PL[p]||[p||"?"])[0];
+const gsPl=(p,bf)=>bf?"Premium anual (Black Friday)":p?(GS_PL[p]||[p==="teste"?"Teste grátis":p])[0]:"Teste grátis";
+const gsD=s=>{const x=new Date(String(s).length===10?s+"T12:00:00":s);return isNaN(x)?null:x};
+const gsDM=s=>{const x=gsD(s);return x?String(x.getDate()).padStart(2,"0")+"/"+String(x.getMonth()+1).padStart(2,"0"):"—"};
+const gsDMA=s=>{const x=gsD(s);return x?x.toLocaleDateString("pt-BR"):"—"};
 const gsMesL=m=>{const[y,mm]=String(m).split("-");return GS_MES[+mm-1]+"/"+String(y).slice(2)};
-const gsDia=d=>{const x=String(d).slice(0,10).split("-");return x[2]+"/"+x[1]};
-/* colunas verticais: uma série, valor no toque/hover, rótulos do eixo espaçados */
-function gsCols(L,o){const mx=Math.max(1,...L.map(o.v)),step=Math.max(1,Math.ceil(L.length/(o.lbls||6)));
+const gsVar=(a,b)=>b>0?Math.round((a-b)/b*100):null;
+const gsPct=v=>v==null?"":(v>=0?"+":"")+v+"%";
+const gsS=(n,a,b)=>gsN(n)+" "+(n===1?a:b);
+
+/* ---------- números de exemplo (só aparecem enquanto o banco não está ligado) ---------- */
+function gsDemo(){let sd=7;const rnd=()=>(sd=(sd*9301+49297)%233280)/233280,ri=(a,b)=>a+Math.floor(rnd()*(b-a+1));
+  const hoje=new Date(),iso=d=>d.toISOString().slice(0,10),dias=Array.from({length:30},(_,i)=>{const d=new Date(hoje);d.setDate(d.getDate()-29+i);return iso(d)});
+  const nomes=["Ana Souza","Bruno Lima","Carla Mendes","Diego Rocha","Elisa Prado","Felipe Arruda","Gabriela Nunes","Henrique Dias","Isabela Costa","João Pedro Alves","Karen Martins","Lucas Ferreira","Mariana Gomes","Natália Ribeiro","Otávio Sales","Paula Teixeira","Rafael Moura","Sabrina Duarte","Tiago Barros","Vanessa Lopes"];
+  const sts=["assinante","assinante","teste","teste","teste_venceu","assinante","teste","venceu","assinante","teste_venceu"],pls=["anual","mensal","semestral","basico_mensal","anual","basico_anual"];
+  const lista=nomes.map((n,i)=>{const st=sts[i%sts.length],cad=new Date(hoje);cad.setDate(cad.getDate()-(st==="teste"?ri(0,6):ri(8,40)));const ta=new Date(cad);ta.setDate(ta.getDate()+7);const ul=new Date(hoje);ul.setDate(ul.getDate()-ri(0,9));
+    return{nome:n,email:n.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/ /g,".")+"@exemplo.com",plano:st==="assinante"||st==="venceu"?pls[i%pls.length]:"teste",st,cad:cad.toISOString(),teste_ate:ta.toISOString(),plano_ate:st==="assinante"?new Date(hoje.getTime()+ri(5,300)*864e5).toISOString():null,ultimo:iso(ul),ia:ri(0,140)}}).sort((a,b)=>b.cad.localeCompare(a.cad));
+  const cnt=s=>lista.filter(x=>x.st===s).length,pp={};lista.filter(x=>x.st==="assinante").forEach(x=>pp[x.plano]=(pp[x.plano]||0)+1);
+  const pag=[];for(let i=0;i<16;i++){const d=new Date(hoje);d.setDate(d.getDate()-ri(0,28));const p=pls[ri(0,5)],t=i%7===3?"pendente":i%9===5?"reembolso":"venda",bf=p==="anual"&&rnd()<.6,v=bf?449.9:GS_PL[p][1];pag.push({em:d.toISOString(),tipo:t,plano:p,valor:v,liquido:+(v*.91).toFixed(2),metodo:["credit_card","pix","boleto"][ri(0,2)],email:lista[ri(0,19)].email})}
+  pag.sort((a,b)=>b.em.localeCompare(a.em));const vend=pag.filter(x=>x.tipo==="venda"),sum=L=>L.reduce((s,x)=>s+x.valor,0);
+  const meses=Array.from({length:12},(_,i)=>{const d=new Date(hoje.getFullYear(),hoje.getMonth()-11+i,1);const on=i>=9;const n=on?ri(4,18):0,b=on?n*ri(140,260):0;return{m:d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"),n,bruto:b,liquido:b*.91,reembolso:on&&i===10?79.9:0,novos:on?ri(10,60):0}});
+  const wk=d=>{const x=new Date(d);x.setDate(x.getDate()-((x.getDay()+6)%7));return iso(x)},w0=wk(hoje);
+  const ret=[0,1,2,3,4,5].map(k=>{const d=new Date(w0+"T12:00:00");d.setDate(d.getDate()-7*k);return{w:iso(d),n:ri(6,22),p:[0,1,2,3].map(j=>j>k?null:j===k?-1:j===0?100:ri(48,92)-j*7)}});
+  return{exemplo:true,gerado_em:hoje.toISOString(),hoje:iso(hoje),
+    alunos:{total:lista.length,teste:cnt("teste"),teste_venceu:cnt("teste_venceu"),assinantes:cnt("assinante"),cortesia:0,venceu:cnt("venceu"),novos_7d:9,novos_7d_ant:6,novos_30d:24,teste_acaba_2d:3,admins:2,aceitaram_termos:18,por_plano:pp,ativos_7d:14,ativos_30d:19},
+    lista,cadastros_dia:dias.map(d=>({d,n:ri(0,4)})),ativos_dia:dias.map((d,i)=>({d,n:ri(6,14)+Math.round(i/4)})),retencao:ret,vendas_mes:meses,vendas_dia:dias.map(d=>{const n=ri(0,2);return{d,n,v:n*ri(80,450)}}),
+    vendas_plano:[{plano:"anual",bf:true,n:6,bruto:2699.4},{plano:"mensal",bf:false,n:9,bruto:719.1},{plano:"semestral",bf:false,n:3,bruto:898.2},{plano:"basico_mensal",bf:false,n:5,bruto:249.5},{plano:"basico_anual",bf:false,n:1,bruto:358.8}],
+    metodos:{credit_card:15,pix:7,boleto:2},
+    totais:{bruto:sum(vend),liquido:sum(vend)*.91,vendas:vend.length,reembolsos:1,reembolsos_valor:79.9,cancelamentos:1,atrasos:1,pendentes:2,semana:sum(vend.filter(x=>Date.now()-new Date(x.em)<7*864e5)),semana_ant:812.6,mes_atual:meses[11].bruto,mes_anterior:meses[10].bruto,testes_ignorados:0},
+    pagamentos:pag,ia:{hoje:64,d7:410,d30:1630,tok_in_30:2400000,tok_out_30:610000,usuarios_30:17,por_dia:dias.map(d=>({d,n:ri(20,90)}))}}}
+
+/* ---------- gráficos ---------- */
+/* linha suave com área, rótulo nos pontos quando há poucos dias */
+function gsLine(L,o){const W=560,H=260,pl=14,pr=14,pt=30,pb=34,n=L.length,vs=L.map(o.v),mx=Math.max(1,...vs)*1.12;
+  const X=i=>pl+(n<2?0:i*(W-pl-pr)/(n-1)),Y=v=>pt+(H-pt-pb)*(1-v/mx),P=vs.map((v,i)=>[X(i),Y(v)]);
+  let d=`M${P[0][0]},${P[0][1]}`;for(let i=0;i<n-1;i++){const p0=P[i-1]||P[i],p1=P[i],p2=P[i+1],p3=P[i+2]||p2;d+=` C${p1[0]+(p2[0]-p0[0])/6},${Math.min(H-pb,p1[1]+(p2[1]-p0[1])/6)} ${p2[0]-(p3[0]-p1[0])/6},${Math.min(H-pb,p2[1]-(p3[1]-p1[1])/6)} ${p2[0]},${p2[1]}`}
+  const few=n<=10,step=Math.max(1,Math.ceil(n/7)),mi=vs.indexOf(Math.max(...vs)),grid=[.25,.5,.75,1].map(f=>`<line x1="${pl}" x2="${W-pr}" y1="${Y(mx/1.12*f)}" y2="${Y(mx/1.12*f)}"/>`).join("");
+  return`<svg class="gs-ln" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria||"")}"><g class="gs-gr">${grid}<line class="b" x1="${pl}" x2="${W-pr}" y1="${H-pb}" y2="${H-pb}"/></g>
+  <path class="gs-ar" d="${d} L${P[n-1][0]},${H-pb} L${P[0][0]},${H-pb} Z"/><path class="gs-lp" d="${d}"/>
+  ${P.map((p,i)=>`<g class="gs-pt" data-tip="${esc(o.tip(L[i]))}" tabindex="0"><rect x="${p[0]-(W/n)/2}" y="0" width="${W/n}" height="${H-pb}" fill="transparent"/>${few||i===mi||i===n-1?`<circle cx="${p[0]}" cy="${p[1]}" r="5"/><text x="${p[0]}" y="${p[1]-11}">${esc(o.f?o.f(vs[i]):gsN(vs[i]))}</text>`:""}</g>`).join("")}
+  ${L.map((x,i)=>i%step===0||i===n-1?`<text class="gs-xl" x="${Math.min(W-18,Math.max(18,X(i)))}" y="${H-8}">${esc(o.l(x))}</text>`:"").join("")}</svg>`}
+/* colunas: uma série, valor no toque */
+function gsCols(L,o){const mx=Math.max(1,...L.map(o.v)),step=Math.max(1,Math.ceil(L.length/(o.lbls||12)));
   return`<div class="gs-cols" role="img" aria-label="${esc(o.aria||"")}"><div class="gs-ax"><span>${o.fy?o.fy(mx):gsN(mx)}</span><span>0</span></div><div class="gs-plot">${L.map((x,i)=>{const v=o.v(x),h=v>0?Math.max(2,v/mx*100):0;return`<div class="gs-c" data-tip="${esc(o.tip(x))}" tabindex="0"><i style="height:${h}%"></i><small>${i%step===0||i===L.length-1?esc(o.l(x)):""}</small></div>`}).join("")}</div></div>`}
-/* barras horizontais com rótulo e valor */
 function gsBars(E,fmt){if(!E.length)return'<p class="muted small" style="margin:0">Ainda sem dados.</p>';const mx=Math.max(1,...E.map(e=>e[1]));
   return`<div class="gs-bars">${E.map(([k,n,sub])=>`<div class="gs-br"><span>${esc(k)}</span><i><s style="width:${Math.max(1,n/mx*100)}%"></s></i><em>${fmt?fmt(n):gsN(n)}${sub?` <small class="muted">${esc(sub)}</small>`:""}</em></div>`).join("")}</div>`}
-function gsTile(l,v,s,tone){return`<div class="gs-t${tone?" "+tone:""}"><small>${l}</small><b>${v}</b>${s?`<span class="muted small">${s}</span>`:""}</div>`}
-function gsCSV(R){const L=[["mes","vendas","receita_bruta","receita_liquida","reembolsos","novos_alunos"]];(R.vendas_mes||[]).forEach((x,i)=>L.push([x.m,x.n,x.bruto,x.liquido,x.reembolso,((R.cadastros_mes||[])[i]||{}).n||0]));
-  const b=new Blob(["﻿"+L.map(r=>r.join(";")).join("\n")],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="a-jornada-gestao-"+new Date().toISOString().slice(0,10)+".csv";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
-function gsHTML(R){const Al=R.alunos||{},T=R.totais||{},I=R.ia||{},VM=R.vendas_mes||[];
-  const pp=Object.entries(Al.por_plano||{}),mrr=pp.reduce((s,[p,n])=>s+(GS_PL[p]?GS_PL[p][1]/GS_PL[p][2]*n:0),0);
-  const conv=(Al.assinantes+Al.venceu+Al.teste_venceu)?Math.round((Al.assinantes+Al.venceu)/(Al.assinantes+Al.venceu+Al.teste_venceu)*100):null;
-  const dm=T.mes_anterior>0?Math.round((T.mes_atual-T.mes_anterior)/T.mes_anterior*100):null;
-  const seg=[["Assinantes",Al.assinantes,"var(--ok)"],["Em teste grátis",Al.teste,"var(--k1)"],["Cortesia",Al.cortesia,"var(--k2)"],["Teste venceu sem assinar",Al.teste_venceu,"var(--line2)"],["Assinatura venceu",Al.venceu,"var(--bad)"]].filter(s=>s[1]>0),tot=Math.max(1,Al.total||0);
-  const alerta=[];if(Al.teste_venceu>0)alerta.push(`<b>${gsN(Al.teste_venceu)}</b> ${Al.teste_venceu===1?"pessoa terminou":"pessoas terminaram"} o teste grátis sem assinar. Vale um contato pelo WhatsApp com a oferta.`);
-  if(T.reembolsos>0)alerta.push(`<b>${gsN(T.reembolsos)}</b> reembolso${T.reembolsos>1?"s":""} (${gsBRL(T.reembolsos_valor)}). Veja o motivo na Kiwify.`);
-  if(T.cancelamentos>0)alerta.push(`<b>${gsN(T.cancelamentos)}</b> cancelamento${T.cancelamentos>1?"s":""} de assinatura.`);
-  if(Al.venceu>0)alerta.push(`<b>${gsN(Al.venceu)}</b> assinatura${Al.venceu>1?"s":""} vencida${Al.venceu>1?"s":""} sem renovação.`);
-  if(!T.vendas)alerta.push("Nenhuma venda registrada ainda. As vendas entram aqui sozinhas quando a Kiwify avisa o pagamento.");
-  const rec=(R.recentes||[]).map(x=>`<tr><td>${new Date(x.em).toLocaleDateString("pt-BR")}</td><td>${x.tipo==="venda"?'<span class="chip ok">Venda</span>':x.tipo==="reembolso"?'<span class="chip bad">Reembolso</span>':x.tipo==="cancelamento"?'<span class="chip warn">Cancelamento</span>':esc(x.evento||"")}</td><td>${esc(gsPlNome(x.plano,x.plano==="anual"&&x.valor>=440&&x.valor<=460))}</td><td class="gs-num">${gsBRL(x.valor)}</td><td class="muted">${esc(x.email||"")}</td></tr>`).join("");
-  return`<div class="gs-k">
-    ${gsTile("Alunos",gsN(Al.total),`+${gsN(Al.novos_7d)} nos últimos 7 dias`)}
-    ${gsTile("Assinantes ativos",gsN(Al.assinantes),conv==null?"conversão aparece com os primeiros testes encerrados":`${conv}% de quem terminou o teste assinou`,"ok")}
-    ${gsTile("Em teste grátis",gsN(Al.teste),`${gsN(Al.ativos_7d)} estudaram nos últimos 7 dias`)}
-    ${gsTile("Receita do mês",gsBRL(T.mes_atual),dm==null?"mês anterior: "+gsBRL(T.mes_anterior):(dm>=0?"+":"")+dm+"% sobre o mês anterior")}
-    ${gsTile("Receita recorrente por mês",gsBRL(mrr),"estimativa pelos planos ativos")}
+function gsKpi(dot,l,v,s){return`<div class="gs-kp"><small><i style="background:${dot}"></i>${l}</small><b>${v}</b><span>${s||""}</span></div>`}
+function gsCard(t,sub,body,act){return`<section class="gs-cd"><div class="gs-cdh"><h3>${t}</h3>${sub?`<span>${sub}</span>`:""}${act||""}</div>${body}</section>`}
+function gsChip(m,k){const x=m[k]||[k||"—","mute"];return`<span class="gs-chip ${x[1]}">${esc(x[0])}</span>`}
+
+/* ---------- seções ---------- */
+function gsPend(R){const A=R.alunos||{},T=R.totais||{},L=[];
+  if(A.teste_acaba_2d)L.push({n:A.teste_acaba_2d,t:A.teste_acaba_2d===1?"teste acaba em até 2 dias":"testes acabam em até 2 dias",s:"Mande a oferta antes de acabar",go:"alunos",f:"acaba"});
+  if(T.pendentes)L.push({n:T.pendentes,t:T.pendentes===1?"pagamento aguardando":"pagamentos aguardando",s:"Pix ou boleto gerado e não pago",go:"pagamentos",f:"pendente"});
+  if(T.atrasos)L.push({n:T.atrasos,t:T.atrasos===1?"assinatura em atraso":"assinaturas em atraso",s:"Cobrança da renovação falhou",go:"pagamentos",f:"atraso"});
+  if(A.teste_venceu)L.push({n:A.teste_venceu,t:A.teste_venceu===1?"teste venceu sem assinar":"testes venceram sem assinar",s:"Vale um contato pelo WhatsApp",go:"alunos",f:"teste_venceu"});
+  if(T.reembolsos)L.push({n:T.reembolsos,t:T.reembolsos===1?"reembolso":"reembolsos",s:"Veja o motivo na Kiwify",go:"pagamentos",f:"reembolso"});
+  return L}
+function gsPainel(R){const A=R.alunos||{},T=R.totais||{},C=window.UI_GS,rng=C.rng||7,AD=(R.ativos_dia||[]).slice(-rng),VD=(R.vendas_dia||[]).slice(-rng);
+  const vA=gsVar(A.novos_7d,A.novos_7d_ant),vS=gsVar(T.semana,T.semana_ant),wd=x=>rng<=7?GS_SEM[gsD(x.d).getDay()]:gsDM(x.d);
+  const seg=[["Assinantes",A.assinantes,"var(--ok)"],["Em teste grátis",A.teste,"var(--k1)"],["Cortesia",A.cortesia,"var(--k2)"],["Teste venceu",A.teste_venceu,"var(--line2)"],["Assinatura venceu",A.venceu,"var(--bad)"]].filter(s=>s[1]>0),tot=Math.max(1,A.total||0);
+  const rt=(R.retencao||[]).slice(0,5),cell=v=>v==null?'<td class="gs-rn"></td>':v<0?'<td class="gs-rn">em curso</td>':`<td style="--a:${(.12+v/100*.88).toFixed(2)}" class="${v>=60?"hi":""}">${v}%</td>`;
+  const rng7=`<div class="gs-seg" role="group" aria-label="Período">${[[7,"7 dias"],[30,"30 dias"]].map(([k,l])=>`<button data-gs="rng" data-v="${k}" aria-pressed="${rng===k}">${l}</button>`).join("")}</div>`;
+  return`<div class="gs-kps">
+    ${gsKpi("var(--k1)","Alunos novos na semana",gsN(A.novos_7d),vA==null?"semana anterior: "+gsN(A.novos_7d_ant):gsPct(vA)+" sobre a semana anterior")}
+    ${gsKpi("var(--ok)","Assinantes ativos",gsN(A.assinantes),"de "+gsS(A.total,"aluno","alunos")+" no total")}
+    ${gsKpi("var(--lime)","Vendas da semana",gsBRL0(T.semana),vS==null?"semana anterior: "+gsBRL0(T.semana_ant):gsPct(vS)+" sobre a semana anterior")}
+    ${gsKpi("var(--hot)","Em teste grátis",gsN(A.teste),A.teste_acaba_2d?gsN(A.teste_acaba_2d)+" acabam em até 2 dias":"nenhum acaba nos próximos 2 dias")}
   </div>
-  <section class="card"><div class="card-h"><h2>${ic("desempenho")} Alunos</h2><span class="r muted small">contas da equipe não entram</span></div><div class="card-b" style="display:grid;gap:18px">
-    <div><div class="gs-stack" role="img" aria-label="Situação dos alunos">${seg.map(([l,n,c])=>`<i style="flex:${n};background:${c}" data-tip="${esc(l)}: ${n} (${Math.round(n/tot*100)}%)"></i>`).join("")||'<i style="flex:1;background:var(--line)"></i>'}</div>
-      <div class="gs-leg">${seg.map(([l,n,c])=>`<span><i style="background:${c}"></i>${esc(l)} <b>${gsN(n)}</b></span>`).join("")}</div></div>
-    <div class="gs-2"><div><h3 class="gs-h">Cadastros por dia <small class="muted">últimos 30 dias · ${gsN(Al.novos_30d)} no total</small></h3>${gsCols(R.cadastros_dia||[],{v:x=>x.n,l:x=>gsDia(x.d),tip:x=>gsDia(x.d)+": "+x.n+" cadastro"+(x.n===1?"":"s"),aria:"Cadastros por dia nos últimos 30 dias"})}</div>
-      <div><h3 class="gs-h">Assinantes por plano</h3>${gsBars(pp.sort((a,b)=>b[1]-a[1]).map(([p,n])=>[gsPlNome(p),n]))}
-      <h3 class="gs-h" style="margin-top:16px">Estudaram na plataforma</h3>${gsBars([["Últimos 7 dias",Al.ativos_7d||0],["Últimos 30 dias",Al.ativos_30d||0],["Aceitaram os termos",Al.aceitaram_termos||0]])}</div></div>
-  </div></section>
-  <section class="card"><div class="card-h"><h2>${ic("gear")} Financeiro</h2><button class="btn sm ghost r" data-gs="csv">Baixar planilha</button></div><div class="card-b" style="display:grid;gap:18px">
-    <div class="gs-k gs-k4">${gsTile("Vendido no total",gsBRL(T.bruto),gsN(T.vendas)+" venda"+(T.vendas===1?"":"s"))}${gsTile("Recebido após taxas",gsBRL(T.liquido),"o que a Kiwify repassa")}${gsTile("Reembolsos",gsBRL(T.reembolsos_valor),gsN(T.reembolsos)+" pedido"+(T.reembolsos===1?"":"s"),T.reembolsos?"bad":"")}${gsTile("Cancelamentos",gsN(T.cancelamentos),"assinaturas canceladas",T.cancelamentos?"warn":"")}</div>
-    <div class="gs-2"><div><h3 class="gs-h">Receita por mês <small class="muted">vendas aprovadas, últimos 12 meses</small></h3>${gsCols(VM,{v:x=>x.bruto,l:x=>gsMesL(x.m),fy:gsBRL0,lbls:12,tip:x=>gsMesL(x.m)+": "+gsBRL(x.bruto)+" em "+x.n+" venda"+(x.n===1?"":"s")+(x.reembolso?" · reembolsos "+gsBRL(x.reembolso):""),aria:"Receita por mês"})}</div>
-      <div><h3 class="gs-h">Vendas por plano</h3>${gsBars((R.vendas_plano||[]).map(x=>[gsPlNome(x.plano,x.bf),x.bruto,x.n+" venda"+(x.n===1?"":"s")]),gsBRL)}</div></div>
-    <div><h3 class="gs-h">Últimas movimentações</h3>${rec?`<div style="overflow-x:auto"><table class="cmpt gs-tb"><thead><tr><th>Data</th><th>Tipo</th><th>Plano</th><th class="gs-num">Valor</th><th>Aluno</th></tr></thead><tbody>${rec}</tbody></table></div>`:'<p class="muted small" style="margin:0">Nenhuma venda ainda.</p>'}
-    <p class="muted small" style="margin:8px 0 0">Os dados vêm do aviso de compra da Kiwify.${T.testes_ignorados?` ${gsN(T.testes_ignorados)} aviso${T.testes_ignorados>1?"s":""} de teste da Kiwify ficou${T.testes_ignorados>1?"ram":""} de fora das contas.`:""} O e-mail aparece cortado para proteger o aluno.</p></div>
-  </div></section>
-  <section class="card"><div class="card-h"><h2>${ic("target")} Gerência</h2></div><div class="card-b" style="display:grid;gap:18px">
-    <div><h3 class="gs-h">Pontos de atenção</h3>${alerta.length?`<ul class="gs-al">${alerta.map(a=>`<li>${a}</li>`).join("")}</ul>`:'<p class="muted small" style="margin:0">Nada pedindo atenção agora.</p>'}</div>
-    <div class="gs-2"><div><h3 class="gs-h">Uso da IA por dia <small class="muted">pedidos, últimos 30 dias</small></h3>${gsCols(I.por_dia||[],{v:x=>x.n,l:x=>gsDia(x.d),tip:x=>gsDia(x.d)+": "+x.n+" pedido"+(x.n===1?"":"s"),aria:"Pedidos de IA por dia"})}</div>
-      <div><h3 class="gs-h">IA em números</h3>${gsBars([["Pedidos hoje",I.hoje||0],["Pedidos em 30 dias",I.d30||0],["Alunos que usaram (30 dias)",I.usuarios_30||0]])}
-      <p class="muted small" style="margin:10px 0 0">Texto processado em 30 dias: ${gsN(Math.round((I.tok_in_30||0)/1000))} mil tokens de entrada e ${gsN(Math.round((I.tok_out_30||0)/1000))} mil de saída. O custo exato fica no painel da Anthropic.</p></div></div>
-    <div><h3 class="gs-h">Atalhos</h3><div class="row" style="gap:8px;flex-wrap:wrap"><a class="btn sm" href="https://dashboard.kiwify.com.br" target="_blank" rel="noopener">Kiwify (vendas)</a><a class="btn sm" href="https://supabase.com/dashboard/project/zbrgvbikmujbhhbcwscr" target="_blank" rel="noopener">Supabase (banco)</a><a class="btn sm" href="https://console.anthropic.com" target="_blank" rel="noopener">Anthropic (custo da IA)</a><button class="btn sm" data-a="tab" data-t="assinatura">Preços e links de venda</button></div></div>
-  </div></section>
-  <p class="muted small">Atualizado às ${new Date(R.gerado_em||Date.now()).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}. Contas da equipe não entram nos números.</p>`}
-async function gsLoad(force){const box=$("gsBox");if(!box)return;const C=window.UI_GS;
-  if(C&&!force&&Date.now()-C.t<120000){box.innerHTML=gsHTML(C.r);return}
-  if(!C||force)box.innerHTML='<p class="muted"><span class="spin"></span> Carregando os números…</p>';
-  try{if(!window.jxGestao)throw new Error("offline");const r=await window.jxGestao();window.UI_GS={t:Date.now(),r};const b=$("gsBox");if(b)b.innerHTML=gsHTML(r)}
-  catch(e){const b=$("gsBox");if(!b)return;const m=String(e&&e.message||e);b.innerHTML=/permission|denied/i.test(m)?'<section class="card"><div class="card-b"><p style="margin:0">Esta área é só da equipe do Grupo RP.</p></div></section>':/painel_gestao|function|404|PGRST202/i.test(m)?'<section class="card"><div class="card-b"><p style="margin:0">Falta ligar a função <b>painel_gestao</b> no Supabase (arquivo supabase-gestao.sql: SQL Editor › colar › Run).</p></div></section>':'<section class="card"><div class="card-b"><p style="margin:0">Não deu para carregar os números agora. Toque em Atualizar.</p></div></section>'}}
+  <div class="gs-g2">
+    ${gsCard("Alunos estudando por dia",(R.exemplo?"exemplo · ":"")+"últimos "+rng+" dias",gsLine(AD,{v:x=>x.n,l:wd,tip:x=>gsDMA(x.d)+": "+gsS(x.n,"aluno usou","alunos usaram")+" a plataforma",aria:"Alunos que usaram a plataforma por dia"}),rng7)}
+    ${gsCard("Quem volta a estudar",(R.exemplo?"exemplo · ":"")+"retorno por semana de cadastro",rt.length?`<div style="overflow-x:auto"><table class="gs-rt"><thead><tr><th>Semana</th><th>Alunos</th><th>Sem 1</th><th>Sem 2</th><th>Sem 3</th><th>Sem 4</th></tr></thead><tbody>${rt.map(x=>`<tr><td>${gsDM(x.w)}</td><td class="gs-num">${gsN(x.n)}</td>${(x.p||[]).map(cell).join("")}</tr>`).join("")}</tbody></table></div><p class="gs-note">Percentual de quem entrou naquela semana e voltou a estudar (usou a IA ou salvou progresso) em cada semana seguinte.</p>`:'<p class="muted small">Aparece quando houver cadastros nas últimas semanas.</p>')}
+  </div>
+  <div class="gs-g2">
+    ${gsCard("Vendas por dia",(R.exemplo?"exemplo · ":"")+"últimos "+rng+" dias",gsLine(VD,{v:x=>x.v,l:wd,f:gsBRL0,tip:x=>gsDMA(x.d)+": "+gsBRL(x.v)+" em "+gsS(x.n,"venda","vendas"),aria:"Vendas por dia"}))}
+    ${gsCard("Situação dos alunos",gsS(A.total,"aluno","alunos"),`<div class="gs-stack" role="img" aria-label="Situação dos alunos">${seg.map(([l,n,c])=>`<i style="flex:${n};background:${c}" data-tip="${esc(l)}: ${n} (${Math.round(n/tot*100)}%)"></i>`).join("")||'<i style="flex:1;background:var(--line)"></i>'}</div>
+      <div class="gs-leg">${seg.map(([l,n,c])=>`<span><i style="background:${c}"></i>${esc(l)} <b>${gsN(n)}</b></span>`).join("")}</div>
+      <h4 class="gs-h4">Assinantes por plano</h4>${gsBars(Object.entries(A.por_plano||{}).sort((a,b)=>b[1]-a[1]).map(([p,n])=>[gsPl(p),n]))}`)}
+  </div>`}
+function gsAlunos(R){const C=window.UI_GS,f=C.fil.alunos||"todos",q=(C.q.alunos||"").toLowerCase(),now=Date.now(),A=R.alunos||{};
+  const F={todos:["Todos",()=>1],acaba:["Teste acaba em 2 dias",x=>x.st==="teste"&&new Date(x.teste_ate)-now<=2*864e5],teste:["Em teste",x=>x.st==="teste"],assinante:["Assinantes",x=>x.st==="assinante"],teste_venceu:["Teste venceu",x=>x.st==="teste_venceu"],venceu:["Assinatura venceu",x=>x.st==="venceu"],parado:["Sem estudar há 7 dias",x=>!x.ultimo||(now-gsD(x.ultimo))>7*864e5]};
+  const all=R.lista||[],L=all.filter(F[f][1]).filter(x=>!q||(String(x.nome||"")+" "+String(x.email||"")).toLowerCase().includes(q));
+  const vence=x=>x.st==="teste"?"teste até "+gsDM(x.teste_ate):x.plano_ate?gsDMA(x.plano_ate):x.st==="assinante"?"renova sozinho":"—";
+  return`<div class="gs-kps">${gsKpi("var(--k1)","Alunos",gsN(A.total),"+"+gsN(A.novos_30d)+" nos últimos 30 dias")}${gsKpi("var(--ok)","Estudaram na semana",gsN(A.ativos_7d),gsN(A.ativos_30d)+" nos últimos 30 dias")}${gsKpi("var(--hot)","Aceitaram os termos",gsN(A.aceitaram_termos),"de "+gsN(A.total))}${gsKpi("var(--line2)","Teste venceu sem assinar",gsN(A.teste_venceu),"público para recuperar")}</div>
+  ${gsCard("Cadastros por dia",(R.exemplo?"exemplo · ":"")+"últimos 30 dias",gsCols(R.cadastros_dia||[],{v:x=>x.n,l:x=>gsDM(x.d),lbls:8,tip:x=>gsDMA(x.d)+": "+gsS(x.n,"cadastro","cadastros"),aria:"Cadastros por dia"}))}
+  ${gsCard("Controle de alunos",gsS(L.length,"aluno","alunos")+(L.length!==all.length?" de "+gsN(all.length):""),`<div class="gs-tools"><div class="gs-fil">${Object.entries(F).map(([k,[l]])=>`<button data-gs="fil" data-k="alunos" data-v="${k}" aria-pressed="${f===k}">${l}</button>`).join("")}</div><input class="inp gs-q" data-gs-q="alunos" placeholder="Buscar por nome ou e-mail" value="${esc(C.q.alunos||"")}"></div>
+    ${L.length?`<div class="gs-tw"><table class="gs-tb"><thead><tr><th>Aluno</th><th>Situação</th><th>Plano</th><th>Cadastro</th><th>Último estudo</th><th class="gs-num">IA (30 dias)</th><th>Vence</th></tr></thead><tbody>${L.slice(0,300).map(x=>`<tr><td><b>${esc(x.nome||"Sem nome")}</b><small>${esc(x.email||"")}</small></td><td>${gsChip(GS_ST,x.st)}</td><td>${esc(gsPl(x.plano))}</td><td>${gsDMA(x.cad)}</td><td>${x.ultimo?gsDMA(x.ultimo):"—"}</td><td class="gs-num">${gsN(x.ia)}</td><td>${esc(vence(x))}</td></tr>`).join("")}</tbody></table></div>`:'<p class="muted small" style="margin:0">Nenhum aluno neste filtro.</p>'}`,`<button class="btn sm ghost gs-r" data-gs="csv" data-v="alunos">Baixar lista</button>`)}`}
+function gsPagamentos(R){const C=window.UI_GS,f=C.fil.pagamentos||"todos",q=(C.q.pagamentos||"").toLowerCase(),T=R.totais||{},all=R.pagamentos||[];
+  const ks=["todos","venda","pendente","atraso","reembolso","cancelamento"],L=all.filter(x=>f==="todos"||x.tipo===f).filter(x=>!q||String(x.email||"").toLowerCase().includes(q));
+  return`<div class="gs-kps">${gsKpi("var(--ok)","Vendas aprovadas",gsN(T.vendas),gsBRL(T.bruto)+" no total")}${gsKpi("var(--hot)","Aguardando pagamento",gsN(T.pendentes),"Pix ou boleto dos últimos 7 dias")}${gsKpi("var(--bad)","Em atraso",gsN(T.atrasos),"renovações dos últimos 30 dias")}${gsKpi("var(--line2)","Reembolsos",gsN(T.reembolsos),gsBRL(T.reembolsos_valor)+" devolvidos")}</div>
+  ${gsCard("Pagamentos",gsS(L.length,"registro","registros")+" · Kiwify",`<div class="gs-tools"><div class="gs-fil">${ks.map(k=>`<button data-gs="fil" data-k="pagamentos" data-v="${k}" aria-pressed="${f===k}">${k==="todos"?"Todos":GS_TP[k][0]}</button>`).join("")}</div><input class="inp gs-q" data-gs-q="pagamentos" placeholder="Buscar por e-mail" value="${esc(C.q.pagamentos||"")}"></div>
+    ${L.length?`<div class="gs-tw"><table class="gs-tb"><thead><tr><th>Data</th><th>Situação</th><th>Plano</th><th>Forma</th><th class="gs-num">Valor</th><th class="gs-num">Recebido</th><th>Aluno</th></tr></thead><tbody>${L.map(x=>`<tr><td>${gsDMA(x.em)}</td><td>${gsChip(GS_TP,x.tipo)}</td><td>${esc(gsPl(x.plano,x.plano==="anual"&&x.valor>=440&&x.valor<=460))}</td><td>${esc(GS_MT[x.metodo]||x.metodo||"—")}</td><td class="gs-num">${gsBRL(x.valor)}</td><td class="gs-num">${x.tipo==="venda"?gsBRL(x.liquido==null?x.valor:x.liquido):"—"}</td><td>${esc(x.email||"")}</td></tr>`).join("")}</tbody></table></div>`:'<p class="muted small" style="margin:0">Nenhum pagamento neste filtro. As vendas entram aqui sozinhas quando a Kiwify avisa o pagamento.</p>'}
+    ${T.testes_ignorados?`<p class="gs-note">${gsS(T.testes_ignorados,"aviso de teste da Kiwify ficou","avisos de teste da Kiwify ficaram")} de fora.</p>`:""}`,`<button class="btn sm ghost gs-r" data-gs="csv" data-v="pagamentos">Baixar lista</button>`)}`}
+function gsFinancas(R){const A=R.alunos||{},T=R.totais||{},VM=R.vendas_mes||[],pp=Object.entries(A.por_plano||{});
+  const mrr=pp.reduce((s,[p,n])=>s+(GS_PL[p]?GS_PL[p][1]/GS_PL[p][2]*n:0),0),tk=T.vendas?T.bruto/T.vendas:0,dm=gsVar(T.mes_atual,T.mes_anterior),tx=Math.max(0,(T.bruto||0)-(T.liquido||0));
+  return`<div class="gs-kps">${gsKpi("var(--lime)","Receita do mês",gsBRL(T.mes_atual),dm==null?"mês anterior: "+gsBRL(T.mes_anterior):gsPct(dm)+" sobre o mês anterior")}${gsKpi("var(--ok)","Receita recorrente por mês",gsBRL(mrr),"estimativa pelos planos ativos · "+gsBRL0(mrr*12)+" por ano")}${gsKpi("var(--k1)","Ticket médio",gsBRL(tk),"valor médio por venda")}${gsKpi("var(--line2)","Taxas da Kiwify",gsBRL(tx),"recebido após taxas: "+gsBRL(T.liquido))}</div>
+  ${gsCard("Receita por mês",(R.exemplo?"exemplo · ":"")+"vendas aprovadas, últimos 12 meses",gsCols(VM,{v:x=>x.bruto,l:x=>gsMesL(x.m),fy:gsBRL0,tip:x=>gsMesL(x.m)+": "+gsBRL(x.bruto)+" em "+gsS(x.n,"venda","vendas")+" · recebido "+gsBRL(x.liquido)+(x.reembolso?" · reembolsos "+gsBRL(x.reembolso):""),aria:"Receita por mês"}),`<button class="btn sm ghost gs-r" data-gs="csv" data-v="meses">Baixar planilha</button>`)}
+  <div class="gs-g2">${gsCard("Vendas por plano","valor vendido",gsBars((R.vendas_plano||[]).map(x=>[gsPl(x.plano,x.bf),x.bruto,gsS(x.n,"venda","vendas")]),gsBRL))}
+  ${gsCard("Formas de pagamento","vendas aprovadas",gsBars(Object.entries(R.metodos||{}).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[GS_MT[k]||k,n])))}</div>
+  ${gsCard("Resumo do mês a mês","",`<div class="gs-tw"><table class="gs-tb"><thead><tr><th>Mês</th><th class="gs-num">Novos alunos</th><th class="gs-num">Vendas</th><th class="gs-num">Vendido</th><th class="gs-num">Recebido</th><th class="gs-num">Reembolsos</th></tr></thead><tbody>${VM.slice().reverse().filter((x,i)=>i<6||x.n||x.novos).map(x=>`<tr><td>${gsMesL(x.m)}</td><td class="gs-num">${gsN(x.novos)}</td><td class="gs-num">${gsN(x.n)}</td><td class="gs-num">${gsBRL(x.bruto)}</td><td class="gs-num">${gsBRL(x.liquido)}</td><td class="gs-num">${x.reembolso?gsBRL(x.reembolso):"—"}</td></tr>`).join("")}</tbody></table></div>`)}`}
+function gsIA(R){const I=R.ia||{},top=(R.lista||[]).filter(x=>x.ia>0).sort((a,b)=>b.ia-a.ia).slice(0,8);
+  return`<div class="gs-kps">${gsKpi("var(--lime)","Pedidos hoje",gsN(I.hoje),gsN(I.d7)+" nos últimos 7 dias")}${gsKpi("var(--k1)","Pedidos em 30 dias",gsN(I.d30),gsS(I.usuarios_30,"aluno usou","alunos usaram"))}${gsKpi("var(--hot)","Média por aluno",gsN(I.usuarios_30?Math.round(I.d30/I.usuarios_30):0),"pedidos em 30 dias")}${gsKpi("var(--line2)","Texto processado",gsN(Math.round(((I.tok_in_30||0)+(I.tok_out_30||0))/1000))+" mil","tokens em 30 dias · custo no painel da Anthropic")}</div>
+  <div class="gs-g2">${gsCard("Pedidos de IA por dia",(R.exemplo?"exemplo · ":"")+"últimos 30 dias",gsLine(I.por_dia||[],{v:x=>x.n,l:x=>gsDM(x.d),tip:x=>gsDMA(x.d)+": "+gsS(x.n,"pedido","pedidos"),aria:"Pedidos de IA por dia"}))}
+  ${gsCard("Quem mais usa a IA","últimos 30 dias",gsBars(top.map(x=>[x.nome||x.email||"Aluno",x.ia])))}</div>
+  <div class="row" style="gap:8px;flex-wrap:wrap"><a class="btn sm" href="https://dashboard.kiwify.com.br" target="_blank" rel="noopener">Kiwify</a><a class="btn sm" href="https://supabase.com/dashboard/project/zbrgvbikmujbhhbcwscr" target="_blank" rel="noopener">Supabase</a><a class="btn sm" href="https://console.anthropic.com" target="_blank" rel="noopener">Anthropic (custo da IA)</a><button class="btn sm" data-a="tab" data-t="assinatura">Preços e links de venda</button></div>`}
+const GS_SEC=[["painel","Painel","meta"],["alunos","Alunos","rotina"],["pagamentos","Pagamentos","lock"],["financas","Finanças","desempenho"],["ia","Uso da IA","resumos"]];
+function gsHTML(R){const C=window.UI_GS,sec=C.sec||"painel",A=R.alunos||{},T=R.totais||{},P=gsPend(R),p0=P[0];
+  const badge={alunos:A.teste_acaba_2d||0,pagamentos:(T.pendentes||0)+(T.atrasos||0)};
+  const body={painel:gsPainel,alunos:gsAlunos,pagamentos:gsPagamentos,financas:gsFinancas,ia:gsIA}[sec](R);
+  return`<div class="gs-cc">
+  <aside class="gs-sd"><span class="gs-kk">Centro de controle</span><nav>${GS_SEC.map(([k,l,i])=>`<button data-gs="sec" data-v="${k}" aria-current="${sec===k?"page":"false"}"><span class="gs-ic">${ic(i)}</span>${l}${badge[k]?`<em>${badge[k]}</em>`:""}</button>`).join("")}</nav>
+    ${p0?`<button class="gs-hl" data-gs="go" data-v="${p0.go}" data-f="${p0.f}"><span class="gs-kk">Pede atenção</span><b>${gsN(p0.n)} ${esc(p0.t)}</b><span>${esc(p0.s)}</span></button>`:`<div class="gs-hl calm"><span class="gs-kk">Tudo em dia</span><b>Nada pendente</b><span>Nenhum teste acabando nem pagamento travado.</span></div>`}</aside>
+  <div class="gs-mn">
+    <div class="gs-hd"><span class="gs-kk">Centro de controle</span><h1>Como a semana está na A Jornada</h1><p>Alunos, pagamentos e finanças da plataforma.${R.exemplo?" <b>Números de exemplo.</b>":""} Atualizado às ${new Date(R.gerado_em||Date.now()).toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"})}.</p>
+      <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn sm" data-gs="up">${ic("reset")} Atualizar</button></div></div>
+    ${R.exemplo?`<div class="gs-demo"><b>Estes números são de exemplo.</b> Para ver os dados reais, rode uma vez no Supabase o arquivo <b>supabase-gestao.sql</b> (SQL Editor › colar › Run). Ele só lê os dados; não muda nem apaga nada.</div>`:""}
+    ${sec==="painel"&&P.length>1?`<div class="gs-pl">${P.slice(1).map(x=>`<button data-gs="go" data-v="${x.go}" data-f="${x.f}"><b>${gsN(x.n)}</b> ${esc(x.t)}</button>`).join("")}</div>`:""}
+    ${body}
+    <p class="gs-note">Contas da equipe (${gsN(A.admins)}) não entram nos números. Só a equipe do Grupo RP vê esta área.</p>
+  </div></div>`}
+function gsPaint(){const b=$("gsBox"),C=window.UI_GS;if(!b||!C||!C.r)return;const ae=document.activeElement,qk=ae&&ae.dataset&&ae.dataset.gsQ,pos=qk?ae.selectionStart:0;b.innerHTML=gsHTML(C.r);
+  if(qk){const i=b.querySelector(`[data-gs-q="${qk}"]`);if(i){i.focus();try{i.setSelectionRange(pos,pos)}catch(e){}}}}
+async function gsLoad(force){const box=$("gsBox");if(!box)return;window.UI_GS=window.UI_GS||{sec:"painel",fil:{},q:{},rng:7};const C=window.UI_GS;
+  if(C.r&&!force&&Date.now()-C.t<120000){gsPaint();return}
+  if(!C.r)box.innerHTML='<p class="muted"><span class="spin"></span> Carregando os números…</p>';
+  try{if(!window.jxGestao)throw new Error("offline");const r=await window.jxGestao();C.r=r;C.t=Date.now();gsPaint();if(force)try{toast("Números atualizados")}catch(e){}}
+  catch(e){const m=String(e&&e.message||e);const b=$("gsBox");if(!b)return;
+    if(/permission|denied/i.test(m)){b.innerHTML='<section class="card"><div class="card-b"><p style="margin:0">Esta área é só da equipe do Grupo RP.</p></div></section>';return}
+    C.r=gsDemo();C.t=Date.now();gsPaint()}}
+function gsCSV(k){const R=(window.UI_GS||{}).r;if(!R)return;let L;
+  if(k==="alunos")L=[["nome","email","situacao","plano","cadastro","ultimo_estudo","ia_30_dias","teste_ate","plano_ate"],...(R.lista||[]).map(x=>[x.nome,x.email,(GS_ST[x.st]||[x.st])[0],gsPl(x.plano),gsDMA(x.cad),x.ultimo?gsDMA(x.ultimo):"",x.ia,x.teste_ate?gsDMA(x.teste_ate):"",x.plano_ate?gsDMA(x.plano_ate):""])];
+  else if(k==="pagamentos")L=[["data","situacao","plano","forma","valor","recebido","email"],...(R.pagamentos||[]).map(x=>[gsDMA(x.em),(GS_TP[x.tipo]||[x.tipo])[0],gsPl(x.plano),GS_MT[x.metodo]||x.metodo||"",String(x.valor).replace(".",","),x.liquido==null?"":String(x.liquido).replace(".",","),x.email])];
+  else L=[["mes","novos_alunos","vendas","vendido","recebido","reembolsos"],...(R.vendas_mes||[]).map(x=>[x.m,x.novos,x.n,String(x.bruto).replace(".",","),String(x.liquido).replace(".",","),String(x.reembolso).replace(".",",")])];
+  const cs=v=>{const s=String(v??"");return/[;"\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
+  const b=new Blob(["﻿"+L.map(r=>r.map(cs).join(";")).join("\n")],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="a-jornada-"+k+"-"+new Date().toISOString().slice(0,10)+(R.exemplo?"-exemplo":"")+".csv";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
 function vGestao(){if(!gsAdm()){setTimeout(()=>{if(TAB==="gestao"){TAB="meta";render()}},0);return""}
   setTimeout(()=>gsLoad(false),30);
-  return`<div class="hello"><h1>Gestão</h1><p>Alunos, vendas e uso da plataforma. Só a equipe do Grupo RP vê esta aba.</p><div class="row" style="gap:8px;margin-top:10px"><button class="btn sm" data-gs="up">${ic("reset")} Atualizar</button></div></div><div id="gsBox" style="display:grid;gap:16px"><p class="muted"><span class="spin"></span> Carregando os números…</p></div>`}
+  return`<div id="gsBox"><p class="muted"><span class="spin"></span> Carregando os números…</p></div>`}
 window.jxGoGestao=()=>{if(!gsAdm())return;TAB="gestao";try{history.replaceState(null,"",location.pathname+"#gestao")}catch(e){}const go=()=>{try{render();window.scrollTo(0,0)}catch(e){}};go();setTimeout(()=>{if(TAB==="meta"&&gsAdm()){TAB="gestao";go()}},1500)};
-document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-gs]");if(!b)return;if(b.dataset.gs==="up")gsLoad(true);else if(b.dataset.gs==="csv"&&window.UI_GS)gsCSV(window.UI_GS.r)});
+document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-gs]");if(!b)return;const C=window.UI_GS;if(!C)return;const k=b.dataset.gs,v=b.dataset.v;
+  if(k==="up")gsLoad(true);else if(k==="csv")gsCSV(v);else if(k==="sec"){C.sec=v;gsPaint();window.scrollTo(0,0)}else if(k==="rng"){C.rng=+v;gsPaint()}
+  else if(k==="fil"){C.fil[b.dataset.k]=v;gsPaint()}else if(k==="go"){C.sec=v;C.fil[v]=b.dataset.f;gsPaint();window.scrollTo(0,0)}});
+document.addEventListener("input",e=>{const k=e.target&&e.target.dataset&&e.target.dataset.gsQ;if(!k||!window.UI_GS)return;window.UI_GS.q[k]=e.target.value;clearTimeout(window.UI_GS.qt);window.UI_GS.qt=setTimeout(gsPaint,200)});
 function obName(){const e=$("obN"),v=((e?e.value:"")||(PLANS.me&&PLANS.me.nick)||UI.obName||"").trim().replace(/\s+/g," ").slice(0,40);UI.obName=v;if(v){const c=core();c.cfg=c.cfg||{};c.cfg.name=v;touch("core");PLANS.ui=Object.assign({},PLANS.ui,{name:v})}return v}
 /* Lista de concursos: salva neste navegador e na conta */
 const PDOC=()=>"data/users/"+UID+"/plans";
