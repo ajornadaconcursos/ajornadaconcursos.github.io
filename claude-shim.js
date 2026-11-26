@@ -338,14 +338,15 @@
       up: ["Comece a sua jornada", "Crie a sua conta e monte o plano de estudos do seu concurso."],
       reset: ["Recuperar a senha", "Enviaremos um link para o seu e-mail."],
       newpw: ["Nova senha", "Escolha a nova senha de acesso."],
+      adm: ["Área do gestor", "Acesso só para a equipe do Grupo RP. Entre com a sua conta de gestor para abrir o painel de gestão."],
       cfg: ["Falta configurar", "Preencha o arquivo config.js com o endereço e a chave pública do seu Supabase."]
     }[mode];
     const em = mode !== "newpw" && mode !== "cfg";
-    const pws = mode === "in" ? pwField("jx-pw", "Senha", "current-password")
+    const pws = mode === "in" || mode === "adm" ? pwField("jx-pw", "Senha", "current-password")
       : mode === "up" || mode === "newpw" ? pwField("jx-pw", mode === "up" ? "Crie uma senha" : "Nova senha", "new-password", "Pelo menos 6 caracteres.") + pwField("jx-pw2", "Confirme a senha", "new-password") : "";
     const mini = mode === "in" ? [["up", "Criar conta", "Primeira vez aqui? Cadastre-se e escolha o seu concurso."], ["reset", "Esqueci a senha", "Receba um link no e-mail para criar outra."]]
       : mode === "up" ? [["in", "Já tenho conta", "Entre com o seu e-mail e a sua senha."], ["reset", "Esqueci a senha", "Receba um link no e-mail para criar outra."]]
-        : mode === "cfg" ? [] : [["in", "Voltar para entrar", "Entre com o seu e-mail e a sua senha."], ["up", "Criar conta", "Primeira vez aqui? Cadastre-se."]];
+        : mode === "cfg" ? [] : mode === "adm" ? [["in", "Sou aluno", "Entrar na área de estudos com o seu e-mail e a sua senha."], ["reset", "Esqueci a senha", "Receba um link no e-mail para criar outra."]] : [["in", "Voltar para entrar", "Entre com o seu e-mail e a sua senha."], ["up", "Criar conta", "Primeira vez aqui? Cadastre-se."]];
     g.innerHTML = `${ART}<div class="jx-wrap">
       <div class="jx-top"><div class="jx-tile">${LOGO}</div><span class="jx-name">A JORNADA</span>
 </div>
@@ -353,11 +354,11 @@
         <h1>${T0[0]}</h1><p class="jx-sub">${T0[1]}</p>
         ${em ? '<label for="jx-em">E-mail</label><div class="jx-in"><input id="jx-em" type="email" autocomplete="email" inputmode="email" required></div>' : ""}
         ${pws}
-        ${mode !== "cfg" ? `<div class="jx-row"><button class="jx-btn" type="submit">${{ in: "Entrar", up: "Criar minha conta", reset: "Enviar link", newpw: "Salvar a nova senha" }[mode]}</button></div>` : ""}
+        ${mode !== "cfg" ? `<div class="jx-row"><button class="jx-btn" type="submit">${{ in: "Entrar", adm: "Entrar na Gestão", up: "Criar minha conta", reset: "Enviar link", newpw: "Salvar a nova senha" }[mode]}</button></div>` : ""}
         <div class="jx-msg" role="status" aria-live="polite">${msg || ""}</div>
       </form>
       ${mini.length ? `<div class="jx-duo">${mini.map(([m, t, d]) => `<button type="button" class="jx-card jx-mini" data-m="${m}"><b>${t}</b><span>${d}</span></button>`).join("")}</div>` : ""}
-      ${mode === "in" || mode === "up" ? `<p style="text-align:center;margin:14px 0 0"><a href="planos.html" style="color:#c9b2ff;font-weight:600">Ver planos e preços →</a></p>` : ""}
+      ${mode === "in" || mode === "up" ? `<p style="text-align:center;margin:14px 0 0"><a href="planos.html" style="color:#c9b2ff;font-weight:600">Ver planos e preços →</a></p><p style="text-align:center;margin:10px 0 0"><button type="button" data-m="adm" style="all:unset;cursor:pointer;color:#cbbfe8;font-size:13px;text-decoration:underline;text-underline-offset:3px">Área do gestor (equipe do Grupo RP)</button></p>` : ""}
     </div>`;
     g.querySelectorAll("[data-m]").forEach(a => a.onclick = () => gate(a.dataset.m));
     g.querySelectorAll("[data-eye]").forEach(b => b.onclick = () => {
@@ -373,11 +374,21 @@
       if (em && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { say("Digite um e-mail válido."); g.querySelector("#jx-em").focus(); return; }
       if ((mode === "up" || mode === "newpw") && password.length < 6) { say("A senha precisa ter pelo menos 6 caracteres."); g.querySelector("#jx-pw").focus(); return; }
       if (password2 !== undefined && password !== password2) { say("As senhas não são iguais. Digite a mesma senha nos dois campos."); g.querySelector("#jx-pw2").focus(); return; }
-      if (mode === "in" && !password) { say("Digite a sua senha."); g.querySelector("#jx-pw").focus(); return; }
+      if ((mode === "in" || mode === "adm") && !password) { say("Digite a sua senha."); g.querySelector("#jx-pw").focus(); return; }
       b.disabled = true;
       try {
         let r;
         if (mode === "in") r = await sb.auth.signInWithPassword({ email, password });
+        else if (mode === "adm") {
+          /* Área do gestor: só segue se a conta for de administrador (plano "dono" no banco). Os dados da Gestão também são travados no banco. */
+          let done; window.__jxAdmChk = new Promise(res => done = res);
+          r = await sb.auth.signInWithPassword({ email, password });
+          if (r.error) { done(false); window.__jxAdmChk = null; throw r.error; }
+          let dono = false; try { const { data } = await sb.rpc("meu_acesso"); dono = !!data && data.plano === "dono"; } catch (x) { }
+          if (dono) { try { sessionStorage.setItem("jx-dest", "gestao"); } catch (x) { } done(true); return; }
+          done(false); window.__jxAdmChk = null; await sb.auth.signOut();
+          gate("adm", "Esta conta não tem acesso de gestor. Se você é aluno, use “Sou aluno”."); return;
+        }
         else if (mode === "up") { r = await sb.auth.signUp({ email, password, options: { emailRedirectTo: location.origin + location.pathname } }); if (!r.error && !r.data.session) { gate("in", "Conta criada! Abra o e-mail que enviamos, clique no link de confirmação e depois entre aqui."); return; } }
         else if (mode === "reset") { r = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname }); if (!r.error) { say("Link enviado. Confira o seu e-mail.", true); b.disabled = false; return; } }
         else if (mode === "newpw") { r = await sb.auth.updateUser({ password }); if (!r.error) { say("Senha alterada.", true); setTimeout(() => location.replace(location.pathname), 900); return; } }
@@ -671,8 +682,10 @@
       if (!s) { if (started) location.reload(); else if (!$("#jx-gate")) { let m = ""; try { m = sessionStorage.getItem("jx-msg") || ""; sessionStorage.removeItem("jx-msg"); } catch (e) { }
         /* quem não está conectado vê primeiro a página inicial (planos e preços); "Entrar" e "Criar conta" voltam com ?entrar / ?cadastro */
         const q = location.search; let seen = ""; try { seen = localStorage.getItem("jx-owner") || ""; } catch (e) { }
+        if (/[?&]gestor\b/.test(q)) { gate("adm", m); requestAnimationFrame(() => requestAnimationFrame(hideSplash)); return; }
         if (!m && !/[?&](entrar|cadastro)\b/.test(q) && ev !== "PASSWORD_RECOVERY" && !/type=recovery|access_token|error_description/.test(location.hash)) { location.replace("planos.html"); return; }
         gate(/[?&]cadastro\b/.test(q) && !m ? "up" : "in", m); requestAnimationFrame(() => requestAnimationFrame(hideSplash)); const mm = $("#jx-gate .jx-msg"); if (m && mm) mm.className = "jx-msg ok"; } return; }
+      if (window.__jxAdmChk) { const okAdm = await window.__jxAdmChk; window.__jxAdmChk = null; if (!okAdm) return; }
       TOKEN = s.access_token; swPost();
       if (started) return; started = true;
       UID = s.user.id; EMAIL = s.user.email || "";
@@ -692,6 +705,9 @@
       const ok = await trialCheck(s.user);
       if (!ok) return;
       await swStart(); fab(); readyRes();
+      /* entrou pela Área do gestor (ou abriu ?gestor já conectado): vai direto para a aba Gestão */
+      try { if (/[?&]gestor\b/.test(location.search)) sessionStorage.setItem("jx-dest", "gestao"); } catch (e) { }
+      try { if (sessionStorage.getItem("jx-dest") === "gestao") { sessionStorage.removeItem("jx-dest"); if (window.JX_ACESSO && window.JX_ACESSO.st === "dono" && window.jxGoGestao) window.jxGoGestao(); } } catch (e) { }
     };
     sb.auth.onAuthStateChange((ev, s) => { setTimeout(() => onSession(ev, s), 0); });
     const { data } = await sb.auth.getSession();
