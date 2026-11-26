@@ -144,3 +144,33 @@ begin
 end $$;
 revoke execute on function public.painel_gestao() from public, anon;
 grant execute on function public.painel_gestao() to authenticated;
+
+-- ---------- Finanças da Gestão: custos, contas e metas da empresa ----------
+-- Só contas de administrador (plano = 'dono') leem e gravam. Alunos não enxergam nada desta tabela.
+create or replace function public.e_gestor() returns boolean
+language sql stable security definer set search_path = public as $$
+  select exists (select 1 from public.perfis where user_id = auth.uid() and plano = 'dono');
+$$;
+revoke execute on function public.e_gestor() from public, anon;
+grant execute on function public.e_gestor() to authenticated;
+
+create table if not exists public.gestao_lanc (
+  id         bigserial primary key,
+  tipo       text not null default 'despesa' check (tipo in ('despesa', 'receita', 'meta')),
+  nome       text not null,
+  categoria  text,
+  valor      numeric(12,2) not null default 0,
+  mes        text,                 -- mês de referência, ex.: 2026-11 (metas não usam)
+  dia        date,                 -- vencimento
+  fixo       boolean not null default false,   -- custo que se repete todo mês
+  pago       boolean not null default false,
+  pago_em    timestamptz,
+  criado_por uuid default auth.uid(),
+  criado_em  timestamptz not null default now()
+);
+create index if not exists gestao_lanc_mes on public.gestao_lanc (mes);
+alter table public.gestao_lanc enable row level security;
+revoke all on public.gestao_lanc from anon;
+drop policy if exists "só a equipe do grupo" on public.gestao_lanc;
+create policy "só a equipe do grupo" on public.gestao_lanc for all to authenticated
+  using (public.e_gestor()) with check (public.e_gestor());

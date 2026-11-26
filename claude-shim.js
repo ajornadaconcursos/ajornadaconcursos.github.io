@@ -567,6 +567,12 @@
   };
   /* Painel de Gestão: a função recusa quem não é administrador (plano "dono") */
   window.jxGestao = async () => { const { data, error } = await sb.rpc("painel_gestao"); if (error) throw error; return data || {}; };
+  /* Finanças da Gestão: custos e metas (tabela gestao_lanc, só administradores leem e gravam) */
+  window.jxFin = {
+    listar: async () => { const { data, error } = await sb.from("gestao_lanc").select("*").order("dia", { ascending: true }); if (error) throw error; return data || []; },
+    salvar: async o => { const r = o.id ? await sb.from("gestao_lanc").update(o).eq("id", o.id) : await sb.from("gestao_lanc").insert(o); if (r.error) throw r.error; },
+    apagar: async id => { const { error } = await sb.from("gestao_lanc").delete().eq("id", id); if (error) throw error; }
+  };
   window.jxRelatorio = async () => { const { data, error } = await sb.rpc("relatorio_semanal"); if (error) throw error; return data || {}; };
   window.jxAceitar = async v => { const { error } = await sb.rpc("aceitar_termos", { versao: v }); if (error) throw error; if (window.JX_ACESSO) window.JX_ACESSO.aceite = v; };
   async function trialCheck(u) {

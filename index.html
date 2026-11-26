@@ -4,7 +4,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="A Jornada">
 <script src="/config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="/claude-shim.js?v=202611260200"></script>
+<script src="/claude-shim.js?v=202611261020"></script>
 <meta name="author" content="Raphael Romano"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
 .jw-s.jw-fade{animation:jwFade 1s ease}@keyframes jwFade{from{opacity:.35}}@media (prefers-reduced-motion:reduce){.jw-s.jw-fade{animation:none}}
 
@@ -134,6 +134,27 @@
 .gs-tw{overflow-x:auto;margin:0 -4px}.gs-tb{width:100%;border-collapse:collapse;font-size:13px}.gs-tb th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:700;text-align:left;padding:8px;border-bottom:1px solid var(--line2);white-space:nowrap}
 .gs-tb td{padding:10px 8px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}.gs-tb td small{display:block;color:var(--mute);font-size:12px}.gs-tb tbody tr:hover{background:var(--sunk)}.gs-num{text-align:right!important;font-variant-numeric:tabular-nums}
 .gs-chip{display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}.gs-chip.ok{background:var(--ok-soft);color:var(--ok)}.gs-chip.bad{background:var(--bad-soft);color:var(--bad)}.gs-chip.warn{background:var(--warn-soft);color:var(--warn)}.gs-chip.k1{background:color-mix(in srgb,var(--k1) 16%,transparent);color:var(--k1)}.gs-chip.k2{background:color-mix(in srgb,var(--k2) 16%,transparent);color:var(--k2)}.gs-chip.mute{background:var(--sunk);color:var(--mute)}
+.gs-mbar{display:flex;align-items:center;gap:10px;justify-self:start;border:1px solid var(--line);border-radius:14px;padding:4px 6px;background:var(--panel)}.gs-mbar b{min-width:150px;text-align:center;font-family:var(--f-display,inherit);font-size:16px}
+.gs-fh{display:grid;grid-template-columns:minmax(300px,1.15fr) minmax(0,1fr);gap:18px}.gs-f4{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.gs-kk i{display:inline-block;width:7px;height:7px;border-radius:2px;background:var(--ok);margin-right:8px;vertical-align:middle}
+.gs-bal{gap:14px;align-content:center}.gs-big{font-family:var(--f-display,inherit);font-size:clamp(40px,5vw,64px);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}.gs-big.neg,.neg{color:var(--bad)}.pos{color:var(--ok)}
+.gs-pills{display:flex;flex-wrap:wrap;gap:8px}.gs-pills span{border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-weight:700;font-size:14px;font-variant-numeric:tabular-nums}.gs-pills small{font-weight:500;color:var(--mute)}.gs-pills .up{color:var(--ok)}.gs-pills .dn{color:var(--fg)}.gs-pills .rc{color:var(--hot);border-color:color-mix(in srgb,var(--hot) 40%,transparent)}.gs-pills .pg{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 40%,transparent)}.gs-bal p{margin:0;color:var(--fg2)}
+.gs-prog{height:10px;border-radius:5px;background:var(--sunk);overflow:hidden}.gs-prog s{display:block;height:100%;background:var(--ok);border-radius:5px}.gs-prog.c s{background:var(--k1)}
+.gs-ls{display:grid}.gs-li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)}.gs-li:last-child{border-bottom:0}.gs-li>span{display:grid;gap:3px;min-width:0}.gs-li small{color:var(--mute);font-size:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}.gs-li em{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}.gs-li>.gs-la{display:flex;gap:4px;flex-wrap:nowrap;white-space:nowrap}.gs-la .btn{width:auto;flex:none}
+.gs-ok{color:var(--ok)!important;border-color:color-mix(in srgb,var(--ok) 45%,transparent)!important}.gs-ext .gs-li{grid-template-columns:minmax(0,1fr) auto}.gs-ext{max-height:440px;overflow:auto;padding-right:6px}
+.gs-pl1{all:unset;cursor:pointer;font-size:13px;font-weight:600;color:var(--lime-txt);padding:4px 0}.gs-pl1:hover{text-decoration:underline}
+.gs-ff{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;padding:12px;border:1px dashed var(--line2);border-radius:14px;align-items:center}.gs-ck{display:flex;gap:6px;align-items:center;font-size:13px}
+.gs-dre{width:100%;border-collapse:collapse;font-size:14px}.gs-dre td{padding:8px 4px;border-bottom:1px solid var(--line)}.gs-dre tr.s td,.gs-dre tr.r td{font-weight:700;border-top:1px solid var(--line2)}.gs-dre tr.r td{font-size:15px}.gs-dre tr.t td{font-weight:600}.gs-dre-g{align-items:start}
+.gs-g21{grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr)}
+.gs-rcs{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;height:220px}.gs-rcm{display:grid;grid-template-rows:1fr auto auto;gap:4px;text-align:center;border-radius:12px;padding:6px 4px;outline:none}.gs-rcm.on{background:var(--sunk)}.gs-rcb{display:flex;align-items:flex-end;justify-content:center;gap:4px;border-bottom:1px solid var(--line2)}
+.gs-rcb i{width:34%;max-width:26px;border-radius:4px 4px 0 0;min-height:1px}.gs-rcb i.r{background:var(--ok)}.gs-rcb i.c{background:var(--k1)}.gs-rcm b{font-size:12px;font-variant-numeric:tabular-nums}.gs-rcm b.neg{color:var(--bad)}.gs-rcm small{font-size:11px;color:var(--mute)}
+.gs-hs{display:grid;gap:10px}.gs-gauge{width:100%;max-width:260px;justify-self:center}.gs-gv{font-family:var(--f-display,inherit);font-size:44px;font-weight:700;fill:var(--fg);text-anchor:middle}.gs-gs{font-size:11px;fill:var(--mute);text-anchor:middle}
+.gs-hb{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:13px}.gs-hb em{font-style:normal;font-weight:600;font-variant-numeric:tabular-nums}.gs-hb i{grid-column:1/-1;height:7px;border-radius:4px;background:var(--sunk);overflow:hidden}.gs-hb s{display:block;height:100%;border-radius:4px}
+.gs-mts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.gs-mt{all:unset;cursor:pointer;display:grid;justify-items:center;gap:6px;padding:14px 10px;border:1px solid var(--line);border-radius:16px;text-align:center;background:var(--sunk)}.gs-mt:hover{border-color:var(--lime)}.gs-mt:focus-visible{box-shadow:var(--ring)}.gs-mt b{font-size:14px}.gs-mt span{font-size:12px;color:var(--mute)}div.gs-mt{cursor:default}.gs-mt .inp{max-width:160px;text-align:center}
+.gs-ring{width:84px;height:84px}.gs-ring text{font-size:16px;font-weight:700;fill:var(--fg);text-anchor:middle}
+.gs-dg{list-style:none;margin:0;padding:0;display:grid;gap:10px}.gs-dg li{display:flex;gap:10px;align-items:baseline;font-size:14px;line-height:1.45}.gs-dg .gs-chip{flex:none;min-width:58px;justify-content:center}
+@media (max-width:900px){.gs-fh,.gs-g21{grid-template-columns:1fr}.gs-li{grid-template-columns:minmax(0,1fr) auto}.gs-la{grid-column:1/-1;justify-content:flex-end}}
+
 @media (max-width:900px){.gs-cc{grid-template-columns:1fr}.gs-sd{position:static;padding:10px}.gs-sd>.gs-kk{display:none}.gs-sd nav{display:flex;overflow-x:auto;gap:6px}.gs-sd nav button{flex:none;padding:6px 10px 6px 6px}.gs-ic{width:28px;height:28px}}
 </style><script>try{if(localStorage.getItem("jx-lav")==="1"&&localStorage.getItem("jornada-skin")!=="classic"){document.documentElement.dataset.lav="1";document.documentElement.style.colorScheme="light"}}catch(e){}</script>
 </head><body>
@@ -4433,8 +4454,8 @@ const GS_ST={assinante:["Assinante","ok"],teste:["Em teste","k1"],cortesia:["Cor
 const GS_TP={venda:["Venda","ok"],pendente:["Aguardando pagamento","warn"],atraso:["Em atraso","bad"],reembolso:["Reembolso","bad"],cancelamento:["Cancelamento","warn"],recusado:["Recusado","mute"],outro:["Outro","mute"]};
 const GS_MT={credit_card:"Cartão",pix:"Pix",boleto:"Boleto",billet:"Boleto",outro:"Outro"};
 const gsAdm=()=>(window.JX_ACESSO||{}).st==="dono";
-const gsBRL=v=>"R$ "+Number(v||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
-const gsBRL0=v=>"R$ "+Math.round(Number(v||0)).toLocaleString("pt-BR");
+const gsBRL=v=>(Number(v)<0?"− ":"")+"R$ "+Math.abs(Number(v||0)).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const gsBRL0=v=>(Number(v)<0?"− ":"")+"R$ "+Math.abs(Math.round(Number(v||0))).toLocaleString("pt-BR");
 const gsN=v=>Number(v||0).toLocaleString("pt-BR");
 const gsPl=(p,bf)=>bf?"Premium anual (Black Friday)":p?(GS_PL[p]||[p==="teste"?"Teste grátis":p])[0]:"Teste grátis";
 const gsD=s=>{const x=new Date(String(s).length===10?s+"T12:00:00":s);return isNaN(x)?null:x};
@@ -4528,13 +4549,128 @@ function gsPagamentos(R){const C=window.UI_GS,f=C.fil.pagamentos||"todos",q=(C.q
   ${gsCard("Pagamentos",gsS(L.length,"registro","registros")+" · Kiwify",`<div class="gs-tools"><div class="gs-fil">${ks.map(k=>`<button data-gs="fil" data-k="pagamentos" data-v="${k}" aria-pressed="${f===k}">${k==="todos"?"Todos":GS_TP[k][0]}</button>`).join("")}</div><input class="inp gs-q" data-gs-q="pagamentos" placeholder="Buscar por e-mail" value="${esc(C.q.pagamentos||"")}"></div>
     ${L.length?`<div class="gs-tw"><table class="gs-tb"><thead><tr><th>Data</th><th>Situação</th><th>Plano</th><th>Forma</th><th class="gs-num">Valor</th><th class="gs-num">Recebido</th><th>Aluno</th></tr></thead><tbody>${L.map(x=>`<tr><td>${gsDMA(x.em)}</td><td>${gsChip(GS_TP,x.tipo)}</td><td>${esc(gsPl(x.plano,x.plano==="anual"&&x.valor>=440&&x.valor<=460))}</td><td>${esc(GS_MT[x.metodo]||x.metodo||"—")}</td><td class="gs-num">${gsBRL(x.valor)}</td><td class="gs-num">${x.tipo==="venda"?gsBRL(x.liquido==null?x.valor:x.liquido):"—"}</td><td>${esc(x.email||"")}</td></tr>`).join("")}</tbody></table></div>`:'<p class="muted small" style="margin:0">Nenhum pagamento neste filtro. As vendas entram aqui sozinhas quando a Kiwify avisa o pagamento.</p>'}
     ${T.testes_ignorados?`<p class="gs-note">${gsS(T.testes_ignorados,"aviso de teste da Kiwify ficou","avisos de teste da Kiwify ficaram")} de fora.</p>`:""}`,`<button class="btn sm ghost gs-r" data-gs="csv" data-v="pagamentos">Baixar lista</button>`)}`}
-function gsFinancas(R){const A=R.alunos||{},T=R.totais||{},VM=R.vendas_mes||[],pp=Object.entries(A.por_plano||{});
-  const mrr=pp.reduce((s,[p,n])=>s+(GS_PL[p]?GS_PL[p][1]/GS_PL[p][2]*n:0),0),tk=T.vendas?T.bruto/T.vendas:0,dm=gsVar(T.mes_atual,T.mes_anterior),tx=Math.max(0,(T.bruto||0)-(T.liquido||0));
-  return`<div class="gs-kps">${gsKpi("var(--lime)","Receita do mês",gsBRL(T.mes_atual),dm==null?"mês anterior: "+gsBRL(T.mes_anterior):gsPct(dm)+" sobre o mês anterior")}${gsKpi("var(--ok)","Receita recorrente por mês",gsBRL(mrr),"estimativa pelos planos ativos · "+gsBRL0(mrr*12)+" por ano")}${gsKpi("var(--k1)","Ticket médio",gsBRL(tk),"valor médio por venda")}${gsKpi("var(--line2)","Taxas da Kiwify",gsBRL(tx),"recebido após taxas: "+gsBRL(T.liquido))}</div>
+/* ---------- Finanças: balanço, contas a pagar, demonstrativo, saúde, metas e diagnóstico ----------
+   Receitas vêm da Kiwify (automático). Custos e metas são lançados pela equipe e ficam na tabela gestao_lanc, que só administradores leem. */
+const GS_CAT=["IA (Anthropic)","Hospedagem e domínio","Banco de dados (Supabase)","Marketing e anúncios","Equipe e serviços","Contabilidade e impostos","Ferramentas","Outros"];
+const GS_META=[["alunos","Alunos na plataforma",""],["assinantes","Assinantes ativos",""],["receita_mes","Receita do mês","R$"],["mrr","Receita recorrente por mês","R$"]];
+const GS_MESF=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+const gsMesAdd=(m,k)=>{const[y,mm]=m.split("-").map(Number),d=new Date(y,mm-1+k,1);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")};
+const gsMesNome=m=>{const[y,mm]=m.split("-");return GS_MESF[+mm-1]+" "+y};
+const gsClamp=v=>Math.max(0,Math.min(100,Math.round(v)));
+function gsFinDemo(m){const p=gsMesAdd(m,-1),pp=gsMesAdd(m,-2),d=(mm,dd)=>mm+"-"+String(dd).padStart(2,"0");let id=1;
+  const base=[["Claude (IA dos alunos)","IA (Anthropic)",380,5],["Supabase Pro","Banco de dados (Supabase)",135,8],["Domínio e e-mail","Hospedagem e domínio",40,10],["Anúncios Meta","Marketing e anúncios",350,15],["Contador","Contabilidade e impostos",250,20],["Editor de vídeo","Ferramentas",60,22]];
+  const R=[];[pp,p,m].forEach((mm,k)=>base.forEach(([n,c,v,dd])=>R.push({id:id++,tipo:"despesa",nome:n,categoria:c,valor:v+(k===2&&c.startsWith("IA")?70:0),mes:mm,dia:d(mm,dd),fixo:true,pago:k<2||dd<=8})));
+  R.push({id:id++,tipo:"despesa",nome:"Vídeo com ator (campanha)",categoria:"Marketing e anúncios",valor:200,mes:m,dia:d(m,12),fixo:false,pago:true});
+  [["alunos",200],["assinantes",60],["receita_mes",5000],["mrr",4000]].forEach(([k,v])=>R.push({id:id++,tipo:"meta",nome:k,categoria:k,valor:v}));return R}
+async function gsFinLoad(){const C=window.UI_GS;if(!C)return;C.fm=C.fm||(C.r&&C.r.hoje?C.r.hoje.slice(0,7):new Date().toISOString().slice(0,7));
+  if(C.r&&C.r.exemplo){C.fin={rows:gsFinDemo(C.fm),demo:true};return}
+  try{if(!window.jxFin)throw new Error("x");C.fin={rows:await window.jxFin.listar(),demo:false}}catch(e){C.fin={rows:[],demo:true,falta:true}}}
+async function gsFinSave(o){const C=window.UI_GS,F=C.fin;if(F.demo){if(o.id){const r=F.rows.find(x=>x.id===o.id);Object.assign(r,o)}else F.rows.push(Object.assign({id:Date.now()+Math.random()},o));return}
+  await window.jxFin.salvar(o);F.rows=await window.jxFin.listar()}
+async function gsFinDel(id){const F=window.UI_GS.fin;if(F.demo){F.rows=F.rows.filter(x=>x.id!==id);return}await window.jxFin.apagar(id);F.rows=await window.jxFin.listar()}
+function gsGauge(v){const N=44,on=Math.round(v/100*N),col=v>=75?"var(--ok)":v>=50?"var(--hot)":"var(--bad)";let t="";
+  for(let i=0;i<N;i++){const a=Math.PI*(1-i/(N-1)),x1=110+Math.cos(a)*78,y1=104-Math.sin(a)*78,x2=110+Math.cos(a)*96,y2=104-Math.sin(a)*96;t+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${i<on?col:"var(--line)"}" stroke-width="4" stroke-linecap="round"/>`}
+  return`<svg viewBox="0 0 220 124" class="gs-gauge" role="img" aria-label="Saúde financeira ${v} de 100">${t}<text x="110" y="96" class="gs-gv">${v}</text><text x="18" y="122" class="gs-gs">0</text><text x="202" y="122" class="gs-gs">100</text></svg>`}
+function gsRing(p,col){const r=34,c=2*Math.PI*r,v=Math.max(0,Math.min(100,p));return`<svg viewBox="0 0 84 84" class="gs-ring"><circle cx="42" cy="42" r="${r}" stroke="var(--line)" stroke-width="7" fill="none"/><circle cx="42" cy="42" r="${r}" stroke="${col}" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="${(c*v/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 42 42)"/><text x="42" y="47">${Math.round(p)}%</text></svg>`}
+function gsFinancas(R){const C=window.UI_GS,F=C.fin;if(!F){gsFinLoad().then(gsPaint);return'<p class="muted"><span class="spin"></span> Carregando as finanças…</p>'}
+  const m=C.fm,hoje=R.hoje||new Date().toISOString().slice(0,10),A=R.alunos||{},VM=R.vendas_mes||[],vm=VM.find(x=>x.m===m)||{m,n:0,bruto:0,liquido:0,reembolso:0,novos:0};
+  const rows=F.rows||[],cost=rows.filter(x=>x.tipo==="despesa"&&x.mes===m).sort((a,b)=>String(a.dia).localeCompare(String(b.dia))),metas={};rows.filter(x=>x.tipo==="meta").forEach(x=>metas[x.categoria]=x);
+  const extra=rows.filter(x=>x.tipo==="receita"&&x.mes===m);
+  const taxa=Math.max(0,(vm.bruto||0)-(vm.liquido||0)),recExtra=extra.reduce((s,x)=>s+ +x.valor,0),recLiq=(vm.liquido||0)-(vm.reembolso||0)+recExtra;
+  const cTot=cost.reduce((s,x)=>s+ +x.valor,0),cPago=cost.filter(x=>x.pago).reduce((s,x)=>s+ +x.valor,0),aPagar=cTot-cPago,sobra=recLiq-cPago;
+  /* a receber: pagamentos aguardando no mês + renovações previstas até o fim do mês */
+  const fimMes=gsMesAdd(m,1)+"-01",pend=(R.pagamentos||[]).filter(x=>x.tipo==="pendente"&&String(x.em).slice(0,7)===m);
+  const ren=(R.lista||[]).filter(x=>x.st==="assinante"&&x.plano_ate&&String(x.plano_ate).slice(0,10)>=hoje&&String(x.plano_ate).slice(0,10)<fimMes&&GS_PL[x.plano]);
+  const entradas=[...pend.map(x=>({n:"Pagamento aguardando · "+gsPl(x.plano),s:x.email||"",d:String(x.em).slice(0,10),v:+x.valor||0,k:"pend"})),...ren.map(x=>({n:"Renovação · "+gsPl(x.plano),s:x.nome||x.email||"",d:String(x.plano_ate).slice(0,10),v:GS_PL[x.plano][1],k:"ren"}))].sort((a,b)=>a.d.localeCompare(b.d));
+  const aReceber=entradas.reduce((s,x)=>s+x.v,0),previsto=recLiq+aReceber-cTot;
+  const pp=Object.entries(A.por_plano||{}),mrr=pp.reduce((s,[p,n])=>s+(GS_PL[p]?GS_PL[p][1]/GS_PL[p][2]*n:0),0),fixos=cost.filter(x=>x.fixo).reduce((s,x)=>s+ +x.valor,0);
+  const margem=recLiq>0?Math.round(sobra/recLiq*100):null,ia=cost.filter(x=>/^IA/.test(x.categoria||"")).reduce((s,x)=>s+ +x.valor,0);
+  const cancM=(R.pagamentos||[]).filter(x=>(x.tipo==="cancelamento"||x.tipo==="reembolso")&&String(x.em).slice(0,7)===m).length,churn=A.assinantes?cancM/A.assinantes*100:0;
+  const conv=(A.assinantes+A.venceu+A.teste_venceu)?(A.assinantes+A.venceu)/(A.assinantes+A.venceu+A.teste_venceu)*100:0;
+  const vencidas=cost.filter(x=>!x.pago&&x.dia&&x.dia<hoje),devidas=cost.filter(x=>x.dia&&x.dia<=hoje),emDia=devidas.length?devidas.filter(x=>x.pago).length/devidas.length*100:100;
+  const comp=[["Margem do mês",margem==null?0:gsClamp(margem/30*100),margem==null?"sem receita":margem+"%"],["Conversão do teste",gsClamp(conv/25*100),Math.round(conv)+"%"],["Retenção (sem cancelar)",gsClamp(100-churn*10),Math.round(100-churn)+"%"],["Contas em dia",gsClamp(emDia),Math.round(emDia)+"%"]];
+  const score=Math.round(comp.reduce((s,c)=>s+c[1],0)/comp.length),lbl=score>=75?["Saudável","ok"]:score>=50?["Moderado","warn"]:["Pede atenção","bad"];
+  /* para onde vai o dinheiro */
+  const cats={};cost.forEach(x=>cats[x.categoria||"Outros"]=(cats[x.categoria||"Outros"]||0)+ +x.valor);if(taxa)cats["Taxas da Kiwify"]=taxa;if(vm.reembolso)cats["Reembolsos"]=vm.reembolso;
+  const catE=Object.entries(cats).sort((a,b)=>b[1]-a[1]),catT=catE.reduce((s,x)=>s+x[1],0);
+  /* receita x custos x sobra, 6 meses */
+  const M6=Array.from({length:6},(_,i)=>gsMesAdd(m,i-5)).map(k=>{const v=VM.find(x=>x.m===k)||{liquido:0,reembolso:0},c=rows.filter(x=>x.tipo==="despesa"&&x.mes===k).reduce((s,x)=>s+ +x.valor,0),r=(v.liquido||0)-(v.reembolso||0)+rows.filter(x=>x.tipo==="receita"&&x.mes===k).reduce((s,x)=>s+ +x.valor,0);return{k,r,c,s:r-c}});
+  const mx=Math.max(1,...M6.map(x=>Math.max(x.r,x.c))),mn=Math.min(0,...M6.map(x=>x.s));
+  const rcs=`<div class="gs-rcs" role="img" aria-label="Receita, custos e sobra por mês">${M6.map(x=>`<div class="gs-rcm${x.k===m?" on":""}" data-tip="${esc(gsMesL(x.k))}: receita ${gsBRL(x.r)} · custos ${gsBRL(x.c)} · sobra ${gsBRL(x.s)}" tabindex="0"><div class="gs-rcb"><i class="r" style="height:${x.r/mx*100}%"></i><i class="c" style="height:${x.c/mx*100}%"></i></div><b class="${x.s<0?"neg":""}">${x.s?gsBRL0(x.s):"—"}</b><small>${esc(gsMesL(x.k))}</small></div>`).join("")}</div>
+    <div class="gs-leg"><span><i style="background:var(--ok)"></i>Receita líquida</span><span><i style="background:var(--k1)"></i>Custos</span><span><b>R$</b> sobra do mês</span></div>`;
+  /* metas */
+  const atual={alunos:A.total||0,assinantes:A.assinantes||0,receita_mes:vm.bruto||0,mrr};
+  const metaH=GS_META.map(([k,l,u],i)=>{const t=metas[k],alvo=t?+t.valor:0,pc=alvo?atual[k]/alvo*100:0,col=["var(--ok)","var(--k1)","var(--hot)","var(--lime)"][i],f=u?gsBRL0:gsN;
+    return C.metaEd===k?`<div class="gs-mt"><b>${l}</b><label class="small muted">Meta</label><input class="inp" id="gsMetaV" inputmode="decimal" value="${alvo||""}" placeholder="${u?"ex.: 5000":"ex.: 200"}"><div class="row" style="gap:6px;justify-content:center"><button class="btn sm pri" data-gs="fmetaok" data-v="${k}">Salvar</button><button class="btn sm ghost" data-gs="fmeta" data-v="">Cancelar</button></div></div>`
+    :`<button class="gs-mt" data-gs="fmeta" data-v="${k}" title="Definir a meta">${gsRing(pc,col)}<b>${l}</b><span>${f(atual[k])} de ${alvo?f(alvo):"meta não definida"}</span></button>`}).join("");
+  /* diagnóstico */
+  const dg=[];
+  if(margem!=null)dg.push(margem>=20?["ok",`Sobrou ${margem}% da receita do mês. A meta saudável é pelo menos 20%.`]:["bad",`Sobrou só ${margem}% da receita do mês. O ideal é pelo menos 20%.`]);else dg.push(["warn","Ainda não entrou receita neste mês."]);
+  if(vencidas.length)dg.push(["bad",`${gsS(vencidas.length,"conta vencida","contas vencidas")} sem marcar como paga (${gsBRL(vencidas.reduce((s,x)=>s+ +x.valor,0))}).`]);
+  if(recLiq>0&&ia/recLiq>.25)dg.push(["bad",`A IA está levando ${Math.round(ia/recLiq*100)}% da receita. Vale revisar os limites de uso por plano.`]);else if(ia)dg.push(["ok",`A IA custou ${gsBRL(ia)}, ${recLiq>0?Math.round(ia/recLiq*100)+"% da receita":"sem receita para comparar"}.`]);
+  if(cancM)dg.push(["warn",`${gsS(cancM,"cancelamento ou reembolso","cancelamentos ou reembolsos")} no mês (${churn.toFixed(1).replace(".",",")}% dos assinantes).`]);
+  if(A.teste_venceu)dg.push(["warn",`${gsS(A.teste_venceu,"pessoa terminou","pessoas terminaram")} o teste sem assinar. É o público mais fácil de recuperar.`]);
+  const mt=metas.receita_mes;if(mt&&+mt.valor){const dia=+hoje.slice(8,10),dm=new Date(+m.slice(0,4),+m.slice(5,7),0).getDate(),ritmo=(vm.bruto||0)/Math.max(1,m===hoje.slice(0,7)?dia:dm)*dm;dg.push(ritmo>=+mt.valor?["ok",`No ritmo atual, o mês fecha em ${gsBRL0(ritmo)} e bate a meta de ${gsBRL0(mt.valor)}.`]:["warn",`No ritmo atual, o mês fecha em ${gsBRL0(ritmo)}, abaixo da meta de ${gsBRL0(mt.valor)}.`])}
+  if(!cost.length)dg.push(["warn","Nenhum custo lançado neste mês. Lance os custos para o balanço ficar certo."]);
+  /* demonstrativo (DRE simples) */
+  const dre=[["Vendas (receita bruta)",vm.bruto||0,"t"],["(−) Reembolsos",-(vm.reembolso||0)],["(−) Taxas da Kiwify",-taxa],...(recExtra?[["(+) Outras entradas",recExtra]]:[]),["= Receita líquida",recLiq,"s"],...Object.entries(cost.reduce((o,x)=>(o[x.categoria||"Outros"]=(o[x.categoria||"Outros"]||0)+ +x.valor,o),{})).sort((a,b)=>b[1]-a[1]).map(([k,v])=>["(−) "+k,-v]),["= Resultado do mês (com todas as contas)",recLiq-cTot,"r"]];
+  const ext=[...(R.pagamentos||[]).filter(x=>String(x.em).slice(0,7)===m&&(x.tipo==="venda"||x.tipo==="reembolso")).map(x=>({d:String(x.em).slice(0,10),n:(x.tipo==="venda"?"Venda · ":"Reembolso · ")+gsPl(x.plano),v:x.tipo==="venda"?+(x.liquido==null?x.valor:x.liquido):-x.valor})),...extra.map(x=>({d:x.dia||m+"-01",n:x.nome,v:+x.valor})),...cost.filter(x=>x.pago).map(x=>({d:String(x.pago_em||x.dia||m+"-01").slice(0,10),n:x.nome,v:-x.valor}))].sort((a,b)=>b.d.localeCompare(a.d));
+  const st=x=>x.pago?`<span class="gs-chip ok">paga</span>`:!x.dia?"":x.dia<hoje?`<span class="gs-chip bad">vencida há ${Math.round((gsD(hoje)-gsD(x.dia))/864e5)} dias</span>`:x.dia===hoje?`<span class="gs-chip warn">vence hoje</span>`:`<span class="gs-chip mute">vence ${gsDM(x.dia)}</span>`;
+  const form=C.fForm?`<div class="gs-ff"><input class="inp" id="gsFn" placeholder="Nome da conta (ex.: Anúncios Meta)" maxlength="60"><select class="inp" id="gsFc">${GS_CAT.map(c=>`<option>${c}</option>`).join("")}</select><input class="inp" id="gsFv" inputmode="decimal" placeholder="Valor (R$)"><input class="inp" id="gsFd" type="date" value="${m===hoje.slice(0,7)?hoje:m+"-10"}"><label class="gs-ck"><input type="checkbox" id="gsFx" checked> Repete todo mês</label><label class="gs-ck"><input type="checkbox" id="gsFp"> Já paga</label><div class="row" style="gap:6px"><button class="btn sm pri" data-gs="fsalva">Salvar conta</button><button class="btn sm ghost" data-gs="fform">Cancelar</button></div></div>`:"";
+  const prevFix=rows.filter(x=>x.tipo==="despesa"&&x.fixo&&x.mes===gsMesAdd(m,-1)),faltaFix=prevFix.filter(p=>!cost.some(c=>c.nome===p.nome));
+  return`${F.demo?`<div class="gs-demo">${F.falta&&!R.exemplo?"<b>Falta ligar os custos e metas.</b> Rode no Supabase o arquivo supabase-gestao.sql atualizado (SQL Editor › colar › Run). Até lá, o que você lançar aqui não fica salvo.":"<b>Custos e metas de exemplo.</b> O que você lançar aqui agora não fica salvo."}</div>`:""}
+  <div class="gs-mbar"><button class="btn sm ghost" data-gs="fmes" data-v="-1" aria-label="Mês anterior">‹</button><b>${gsMesNome(m)}</b><button class="btn sm ghost" data-gs="fmes" data-v="1" aria-label="Próximo mês">›</button></div>
+  <div class="gs-fh">
+    <section class="gs-cd gs-bal"><span class="gs-kk"><i></i>Balanço do mês</span><b class="gs-big ${sobra<0?"neg":""}">${gsBRL(sobra)}</b>
+      <div class="gs-pills"><span class="up">↗ ${gsBRL(recLiq)} <small>entrou</small></span><span class="dn">↘ ${gsBRL(cPago)} <small>saiu</small></span></div>
+      <div class="gs-pills"><span class="rc">${gsBRL(aReceber)} <small>a receber</small></span><span class="pg">${gsBRL(aPagar)} <small>a pagar</small></span></div>
+      <p>Saldo previsto do mês: <b>${gsBRL(previsto)}</b></p></section>
+    <div class="gs-f4">
+      ${gsKpi("var(--ok)","Receita recorrente",gsBRL0(mrr),"por mês, pelos planos ativos")}
+      ${gsKpi("var(--k1)","Custos fixos",gsBRL0(fixos),gsS(cost.filter(x=>x.fixo).length,"conta que se repete","contas que se repetem"))}
+      ${gsKpi("var(--hot)","Renovações a receber",gsBRL0(ren.reduce((s,x)=>s+GS_PL[x.plano][1],0)),gsS(ren.length,"assinatura vence","assinaturas vencem")+" até o fim do mês")}
+      ${gsKpi("var(--lime)","Margem do mês",margem==null?"—":margem+"%","quanto sobra de cada R$ 100 recebidos")}
+    </div></div>
+  <div class="gs-g2">
+    ${gsCard("Entradas do mês",`falta receber ${gsBRL(aReceber)}`,`<div class="gs-prog"><s style="width:${recLiq+aReceber>0?recLiq/(recLiq+aReceber)*100:0}%"></s></div><p class="gs-note">Recebido ${gsBRL(recLiq)} de ${gsBRL(recLiq+aReceber)} previstos. As vendas entram sozinhas pela Kiwify.</p>
+      ${entradas.length?`<div class="gs-ls">${entradas.slice(0,12).map(x=>`<div class="gs-li"><span><b>${esc(x.n)}</b><small>${esc(x.s)} · <span class="gs-chip ${x.k==="pend"?"warn":"mute"}">${x.k==="pend"?"aguardando pagamento":"previsto "+gsDM(x.d)}</span></small></span><em class="pos">+ ${gsBRL(x.v)}</em></div>`).join("")}</div>${entradas.length>12?`<p class="gs-note">e mais ${entradas.length-12}.</p>`:""}`:'<p class="muted small" style="margin:0">Nada previsto para entrar até o fim do mês.</p>'}`)}
+    ${gsCard("Contas do mês",`falta pagar ${gsBRL(aPagar)}`,`<div class="gs-prog c"><s style="width:${cTot?cPago/cTot*100:0}%"></s></div><p class="gs-note">Pago ${gsBRL(cPago)} de ${gsBRL(cTot)} · ${gsS(cost.filter(x=>!x.pago).length,"conta em aberto","contas em aberto")}.</p>
+      ${faltaFix.length?`<button class="gs-pl1" data-gs="fcopia">Trazer ${gsS(faltaFix.length,"conta fixa","contas fixas")} de ${gsMesL(gsMesAdd(m,-1))} para este mês</button>`:""}
+      ${form}
+      ${cost.length?`<div class="gs-ls">${cost.map(x=>`<div class="gs-li"><span><b>${esc(x.nome)}</b><small>${esc(x.categoria||"Outros")}${x.fixo?" · fixa":""} · ${st(x)}</small></span><em>${gsBRL(x.valor)}</em>${C.fDel===x.id?`<span class="gs-la"><button class="btn sm" data-gs="fdelok" data-v="${x.id}">Remover</button><button class="btn sm ghost" data-gs="fdel" data-v="">Não</button></span>`:`<span class="gs-la">${x.pago?`<button class="btn sm ghost" data-gs="fpago" data-v="${x.id}" data-p="0" title="Desfazer">Desfazer</button>`:`<button class="btn sm gs-ok" data-gs="fpago" data-v="${x.id}" data-p="1">✓ Paguei</button>`}<button class="btn sm ghost" data-gs="fdel" data-v="${x.id}" title="Remover" aria-label="Remover ${esc(x.nome)}">×</button></span>`}</div>`).join("")}</div>`:'<p class="muted small" style="margin:0">Nenhuma conta lançada neste mês.</p>'}`,
+      `<span class="gs-r row" style="gap:6px">${cost.some(x=>!x.pago)?`<button class="btn sm ghost" data-gs="fpagotodas">Marcar todas como pagas</button>`:""}${C.fForm?"":`<button class="btn sm" data-gs="fform">+ Conta</button>`}</span>`)}
+  </div>
+  ${gsCard("Demonstrativo do mês","o que entrou e o que saiu em "+gsMesNome(m).toLowerCase(),`<div class="gs-g2 gs-dre-g"><table class="gs-dre"><tbody>${dre.map(([l,v,k])=>`<tr class="${k||""}"><td>${esc(l)}</td><td class="gs-num ${v<0?"neg":""}">${v<0?"− "+gsBRL(-v):gsBRL(v)}</td></tr>`).join("")}</tbody></table>
+    <div><h4 class="gs-h4" style="margin:0 0 8px">Extrato</h4>${ext.length?`<div class="gs-ls gs-ext">${ext.slice(0,40).map(x=>`<div class="gs-li"><span><b>${esc(x.n)}</b><small>${gsDMA(x.d)}</small></span><em class="${x.v<0?"neg":"pos"}">${x.v<0?"− "+gsBRL(-x.v):"+ "+gsBRL(x.v)}</em></div>`).join("")}</div>`:'<p class="muted small" style="margin:0">Nada entrou nem saiu neste mês ainda.</p>'}</div></div>
+    <p class="gs-note">O resultado considera todas as contas do mês, pagas ou não. O balanço lá em cima considera só o que já saiu.</p>`,`<button class="btn sm ghost gs-r" data-gs="csv" data-v="dre">Baixar demonstrativo</button>`)}
+  <div class="gs-g2 gs-g21">
+    ${gsCard("Receita x custos",(F.demo?"exemplo · ":"")+"últimos 6 meses",rcs)}
+    ${gsCard("Saúde financeira","",`<div class="gs-hs">${gsGauge(score)}<span class="gs-chip ${lbl[1]}" style="justify-self:center">${lbl[0]}</span>${comp.map(([l,v,t])=>`<div class="gs-hb"><span>${l}</span><em>${t}</em><i><s style="width:${v}%;background:${v>=75?"var(--ok)":v>=50?"var(--hot)":"var(--bad)"}"></s></i></div>`).join("")}</div>`)}
+  </div>
+  <div class="gs-g2">
+    ${gsCard("Para onde vai o dinheiro",gsBRL(catT)+" no mês",catE.length?`<div class="gs-bars">${catE.map(([k,v])=>`<div class="gs-br"><span>${esc(k)}</span><i><s style="width:${Math.max(1,v/catE[0][1]*100)}%"></s></i><em>${Math.round(v/catT*100)}% <small class="muted">${gsBRL0(v)}</small></em></div>`).join("")}</div>`:'<p class="muted small" style="margin:0">Lance os custos do mês para ver a divisão.</p>')}
+    ${gsCard("Metas","toque para definir",`<div class="gs-mts">${metaH}</div>`)}
+  </div>
+  ${gsCard("Diagnóstico do mês","",`<ul class="gs-dg">${dg.map(([k,t])=>`<li><span class="gs-chip ${k}">${k==="ok"?"OK":k==="bad"?"Alerta":"Atenção"}</span>${esc(t)}</li>`).join("")}</ul>`)}
   ${gsCard("Receita por mês",(R.exemplo?"exemplo · ":"")+"vendas aprovadas, últimos 12 meses",gsCols(VM,{v:x=>x.bruto,l:x=>gsMesL(x.m),fy:gsBRL0,tip:x=>gsMesL(x.m)+": "+gsBRL(x.bruto)+" em "+gsS(x.n,"venda","vendas")+" · recebido "+gsBRL(x.liquido)+(x.reembolso?" · reembolsos "+gsBRL(x.reembolso):""),aria:"Receita por mês"}),`<button class="btn sm ghost gs-r" data-gs="csv" data-v="meses">Baixar planilha</button>`)}
   <div class="gs-g2">${gsCard("Vendas por plano","valor vendido",gsBars((R.vendas_plano||[]).map(x=>[gsPl(x.plano,x.bf),x.bruto,gsS(x.n,"venda","vendas")]),gsBRL))}
-  ${gsCard("Formas de pagamento","vendas aprovadas",gsBars(Object.entries(R.metodos||{}).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[GS_MT[k]||k,n])))}</div>
-  ${gsCard("Resumo do mês a mês","",`<div class="gs-tw"><table class="gs-tb"><thead><tr><th>Mês</th><th class="gs-num">Novos alunos</th><th class="gs-num">Vendas</th><th class="gs-num">Vendido</th><th class="gs-num">Recebido</th><th class="gs-num">Reembolsos</th></tr></thead><tbody>${VM.slice().reverse().filter((x,i)=>i<6||x.n||x.novos).map(x=>`<tr><td>${gsMesL(x.m)}</td><td class="gs-num">${gsN(x.novos)}</td><td class="gs-num">${gsN(x.n)}</td><td class="gs-num">${gsBRL(x.bruto)}</td><td class="gs-num">${gsBRL(x.liquido)}</td><td class="gs-num">${x.reembolso?gsBRL(x.reembolso):"—"}</td></tr>`).join("")}</tbody></table></div>`)}`}
+  ${gsCard("Formas de pagamento","vendas aprovadas",gsBars(Object.entries(R.metodos||{}).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[GS_MT[k]||k,n])))}</div>`}
+async function gsFinAct(k,b){const C=window.UI_GS,F=C.fin;if(!F)return;const v=b.dataset.v,rows=F.rows,m=C.fm;
+  try{
+  if(k==="fmes"){C.fm=gsMesAdd(m,+v);if(F.demo&&(C.r||{}).exemplo)C.fin={rows:gsFinDemo(C.fm),demo:true};}
+  else if(k==="fform")C.fForm=!C.fForm;
+  else if(k==="fsalva"){const n=($("gsFn")||{}).value||"",val=parseFloat(String(($("gsFv")||{}).value||"").replace(/\./g,"").replace(",","."))||0,d=($("gsFd")||{}).value||null;
+    if(!n.trim()||!val){toast("Preencha o nome e o valor");return}
+    await gsFinSave({tipo:"despesa",nome:n.trim(),categoria:($("gsFc")||{}).value,valor:val,mes:d?d.slice(0,7):m,dia:d,fixo:!!($("gsFx")||{}).checked,pago:!!($("gsFp")||{}).checked,pago_em:($("gsFp")||{}).checked?new Date().toISOString():null});C.fForm=false;toast("Conta lançada")}
+  else if(k==="fpago"){const r=rows.find(x=>String(x.id)===v);if(r)await gsFinSave({id:r.id,pago:b.dataset.p==="1",pago_em:b.dataset.p==="1"?new Date().toISOString():null})}
+  else if(k==="fpagotodas"){for(const r of rows.filter(x=>x.tipo==="despesa"&&x.mes===m&&!x.pago))await gsFinSave({id:r.id,pago:true,pago_em:new Date().toISOString()});toast("Contas do mês marcadas como pagas")}
+  else if(k==="fdel")C.fDel=v?(isNaN(+v)?v:+v):null;
+  else if(k==="fdelok"){const r=rows.find(x=>String(x.id)===v);if(r)await gsFinDel(r.id);C.fDel=null}
+  else if(k==="fcopia"){const prev=rows.filter(x=>x.tipo==="despesa"&&x.fixo&&x.mes===gsMesAdd(m,-1)&&!rows.some(c=>c.tipo==="despesa"&&c.mes===m&&c.nome===x.nome));for(const p of prev)await gsFinSave({tipo:"despesa",nome:p.nome,categoria:p.categoria,valor:p.valor,mes:m,dia:p.dia?m+p.dia.slice(7):null,fixo:true,pago:false});toast(gsS(prev.length,"conta fixa trazida","contas fixas trazidas"))}
+  else if(k==="fmeta")C.metaEd=v||null;
+  else if(k==="fmetaok"){const val=parseFloat(String(($("gsMetaV")||{}).value||"").replace(/\./g,"").replace(",","."))||0,ex=rows.find(x=>x.tipo==="meta"&&x.categoria===v);await gsFinSave(ex?{id:ex.id,valor:val}:{tipo:"meta",nome:v,categoria:v,valor:val});C.metaEd=null;toast("Meta salva")}
+  }catch(e){toast("Não deu para salvar agora: "+(e&&e.message||e))}
+  gsPaint()}
 function gsIA(R){const I=R.ia||{},top=(R.lista||[]).filter(x=>x.ia>0).sort((a,b)=>b.ia-a.ia).slice(0,8);
   return`<div class="gs-kps">${gsKpi("var(--lime)","Pedidos hoje",gsN(I.hoje),gsN(I.d7)+" nos últimos 7 dias")}${gsKpi("var(--k1)","Pedidos em 30 dias",gsN(I.d30),gsS(I.usuarios_30,"aluno usou","alunos usaram"))}${gsKpi("var(--hot)","Média por aluno",gsN(I.usuarios_30?Math.round(I.d30/I.usuarios_30):0),"pedidos em 30 dias")}${gsKpi("var(--line2)","Texto processado",gsN(Math.round(((I.tok_in_30||0)+(I.tok_out_30||0))/1000))+" mil","tokens em 30 dias · custo no painel da Anthropic")}</div>
   <div class="gs-g2">${gsCard("Pedidos de IA por dia",(R.exemplo?"exemplo · ":"")+"últimos 30 dias",gsLine(I.por_dia||[],{v:x=>x.n,l:x=>gsDM(x.d),tip:x=>gsDMA(x.d)+": "+gsS(x.n,"pedido","pedidos"),aria:"Pedidos de IA por dia"}))}
@@ -4560,13 +4696,14 @@ function gsPaint(){const b=$("gsBox"),C=window.UI_GS;if(!b||!C||!C.r)return;cons
 async function gsLoad(force){const box=$("gsBox");if(!box)return;window.UI_GS=window.UI_GS||{sec:"painel",fil:{},q:{},rng:7};const C=window.UI_GS;
   if(C.r&&!force&&Date.now()-C.t<120000){gsPaint();return}
   if(!C.r)box.innerHTML='<p class="muted"><span class="spin"></span> Carregando os números…</p>';
-  try{if(!window.jxGestao)throw new Error("offline");const r=await window.jxGestao();C.r=r;C.t=Date.now();gsPaint();if(force)try{toast("Números atualizados")}catch(e){}}
+  try{if(!window.jxGestao)throw new Error("offline");const r=await window.jxGestao();C.r=r;C.t=Date.now();if(force)C.fin=null;gsPaint();if(force)try{toast("Números atualizados")}catch(e){}}
   catch(e){const m=String(e&&e.message||e);const b=$("gsBox");if(!b)return;
     if(/permission|denied/i.test(m)){b.innerHTML='<section class="card"><div class="card-b"><p style="margin:0">Esta área é só da equipe do Grupo RP.</p></div></section>';return}
-    C.r=gsDemo();C.t=Date.now();gsPaint()}}
+    C.r=gsDemo();C.t=Date.now();C.fin=null;gsPaint()}}
 function gsCSV(k){const R=(window.UI_GS||{}).r;if(!R)return;let L;
   if(k==="alunos")L=[["nome","email","situacao","plano","cadastro","ultimo_estudo","ia_30_dias","teste_ate","plano_ate"],...(R.lista||[]).map(x=>[x.nome,x.email,(GS_ST[x.st]||[x.st])[0],gsPl(x.plano),gsDMA(x.cad),x.ultimo?gsDMA(x.ultimo):"",x.ia,x.teste_ate?gsDMA(x.teste_ate):"",x.plano_ate?gsDMA(x.plano_ate):""])];
   else if(k==="pagamentos")L=[["data","situacao","plano","forma","valor","recebido","email"],...(R.pagamentos||[]).map(x=>[gsDMA(x.em),(GS_TP[x.tipo]||[x.tipo])[0],gsPl(x.plano),GS_MT[x.metodo]||x.metodo||"",String(x.valor).replace(".",","),x.liquido==null?"":String(x.liquido).replace(".",","),x.email])];
+  else if(k==="dre"){const t=[...document.querySelectorAll(".gs-dre tr")].map(r=>[...r.cells].map(c=>c.textContent.replace(/R\$\s?/,"").trim()));L=[["linha","valor"],...t]}
   else L=[["mes","novos_alunos","vendas","vendido","recebido","reembolsos"],...(R.vendas_mes||[]).map(x=>[x.m,x.novos,x.n,String(x.bruto).replace(".",","),String(x.liquido).replace(".",","),String(x.reembolso).replace(".",",")])];
   const cs=v=>{const s=String(v??"");return/[;"\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
   const b=new Blob(["﻿"+L.map(r=>r.map(cs).join(";")).join("\n")],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="a-jornada-"+k+"-"+new Date().toISOString().slice(0,10)+(R.exemplo?"-exemplo":"")+".csv";document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
@@ -4576,7 +4713,7 @@ function vGestao(){if(!gsAdm()){setTimeout(()=>{if(TAB==="gestao"){TAB="meta";re
 window.jxGoGestao=()=>{if(!gsAdm())return;TAB="gestao";try{history.replaceState(null,"",location.pathname+"#gestao")}catch(e){}const go=()=>{try{render();window.scrollTo(0,0)}catch(e){}};go();setTimeout(()=>{if(TAB==="meta"&&gsAdm()){TAB="gestao";go()}},1500)};
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-gs]");if(!b)return;const C=window.UI_GS;if(!C)return;const k=b.dataset.gs,v=b.dataset.v;
   if(k==="up")gsLoad(true);else if(k==="csv")gsCSV(v);else if(k==="sec"){C.sec=v;gsPaint();window.scrollTo(0,0)}else if(k==="rng"){C.rng=+v;gsPaint()}
-  else if(k==="fil"){C.fil[b.dataset.k]=v;gsPaint()}else if(k==="go"){C.sec=v;C.fil[v]=b.dataset.f;gsPaint();window.scrollTo(0,0)}});
+  else if(k==="fil"){C.fil[b.dataset.k]=v;gsPaint()}else if(/^f(mes|form|salva|pago|pagotodas|del|delok|copia|meta|metaok)$/.test(k))gsFinAct(k,b);else if(k==="go"){C.sec=v;C.fil[v]=b.dataset.f;gsPaint();window.scrollTo(0,0)}});
 document.addEventListener("input",e=>{const k=e.target&&e.target.dataset&&e.target.dataset.gsQ;if(!k||!window.UI_GS)return;window.UI_GS.q[k]=e.target.value;clearTimeout(window.UI_GS.qt);window.UI_GS.qt=setTimeout(gsPaint,200)});
 function obName(){const e=$("obN"),v=((e?e.value:"")||(PLANS.me&&PLANS.me.nick)||UI.obName||"").trim().replace(/\s+/g," ").slice(0,40);UI.obName=v;if(v){const c=core();c.cfg=c.cfg||{};c.cfg.name=v;touch("core");PLANS.ui=Object.assign({},PLANS.ui,{name:v})}return v}
 /* Lista de concursos: salva neste navegador e na conta */
