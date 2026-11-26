@@ -155,6 +155,15 @@
 .gs-dg{list-style:none;margin:0;padding:0;display:grid;gap:10px}.gs-dg li{display:flex;gap:10px;align-items:baseline;font-size:14px;line-height:1.45}.gs-dg .gs-chip{flex:none;min-width:58px;justify-content:center}
 @media (max-width:900px){.gs-fh,.gs-g21{grid-template-columns:1fr}.gs-li{grid-template-columns:minmax(0,1fr) auto}.gs-la{grid-column:1/-1;justify-content:flex-end}}
 
+@keyframes gsUpY{from{transform:scaleY(0)}}@keyframes gsUpX{from{transform:scaleX(0)}}@keyframes gsDraw{from{stroke-dashoffset:1}}@keyframes gsFade{from{opacity:0}}@keyframes gsPop{from{opacity:0;transform:scale(.4)}}@keyframes gsRing{from{stroke-dasharray:0 999}}@keyframes gsRise{from{opacity:0;transform:translateY(10px)}}
+.gs-anim .gs-c i,.gs-anim .gs-rcb i{transform-origin:50% 100%;animation:gsUpY .75s cubic-bezier(.22,.8,.24,1) both}
+.gs-anim .gs-br s,.gs-anim .gs-hb s,.gs-anim .gs-prog s{transform-origin:0 50%;animation:gsUpX .9s cubic-bezier(.22,.8,.24,1) both}
+.gs-anim .gs-stack i{transform-origin:0 50%;animation:gsUpX .9s cubic-bezier(.22,.8,.24,1) both}
+.gs-lp{stroke-dasharray:1;stroke-dashoffset:0}.gs-anim .gs-lp{animation:gsDraw 1.3s cubic-bezier(.4,0,.2,1) both}.gs-anim .gs-ar{animation:gsFade 1.2s .35s both}
+.gs-pt circle,.gs-pt text{transform-box:fill-box;transform-origin:center}.gs-anim .gs-pt circle,.gs-anim .gs-pt text{animation:gsPop .45s cubic-bezier(.3,1.4,.5,1) both}
+.gs-anim .gs-gauge line{animation:gsFade .25s both}.gs-anim .gs-ring .gs-rp{animation:gsRing 1.2s cubic-bezier(.22,.8,.24,1) both}
+.gs-anim .gs-rt td[style]{animation:gsFade .5s both}.gs-anim .gs-kp,.gs-anim .gs-bal{animation:gsRise .5s cubic-bezier(.22,.8,.24,1) both}
+@media (prefers-reduced-motion:reduce){.gs-anim *{animation:none!important}}
 @media (max-width:900px){.gs-cc{grid-template-columns:1fr}.gs-sd{position:static;padding:10px}.gs-sd>.gs-kk{display:none}.gs-sd nav{display:flex;overflow-x:auto;gap:6px}.gs-sd nav button{flex:none;padding:6px 10px 6px 6px}.gs-ic{width:28px;height:28px}}
 </style><script>try{if(localStorage.getItem("jx-lav")==="1"&&localStorage.getItem("jornada-skin")!=="classic"){document.documentElement.dataset.lav="1";document.documentElement.style.colorScheme="light"}}catch(e){}</script>
 </head><body>
@@ -4494,7 +4503,7 @@ function gsLine(L,o){const W=560,H=260,pl=14,pr=14,pt=30,pb=34,n=L.length,vs=L.m
   let d=`M${P[0][0]},${P[0][1]}`;for(let i=0;i<n-1;i++){const p0=P[i-1]||P[i],p1=P[i],p2=P[i+1],p3=P[i+2]||p2;d+=` C${p1[0]+(p2[0]-p0[0])/6},${Math.min(H-pb,p1[1]+(p2[1]-p0[1])/6)} ${p2[0]-(p3[0]-p1[0])/6},${Math.min(H-pb,p2[1]-(p3[1]-p1[1])/6)} ${p2[0]},${p2[1]}`}
   const few=n<=10,step=Math.max(1,Math.ceil(n/7)),mi=vs.indexOf(Math.max(...vs)),grid=[.25,.5,.75,1].map(f=>`<line x1="${pl}" x2="${W-pr}" y1="${Y(mx/1.12*f)}" y2="${Y(mx/1.12*f)}"/>`).join("");
   return`<svg class="gs-ln" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria||"")}"><g class="gs-gr">${grid}<line class="b" x1="${pl}" x2="${W-pr}" y1="${H-pb}" y2="${H-pb}"/></g>
-  <path class="gs-ar" d="${d} L${P[n-1][0]},${H-pb} L${P[0][0]},${H-pb} Z"/><path class="gs-lp" d="${d}"/>
+  <path class="gs-ar" d="${d} L${P[n-1][0]},${H-pb} L${P[0][0]},${H-pb} Z"/><path class="gs-lp" pathLength="1" d="${d}"/>
   ${P.map((p,i)=>`<g class="gs-pt" data-tip="${esc(o.tip(L[i]))}" tabindex="0"><rect x="${p[0]-(W/n)/2}" y="0" width="${W/n}" height="${H-pb}" fill="transparent"/>${few||i===mi||i===n-1?`<circle cx="${p[0]}" cy="${p[1]}" r="5"/><text x="${p[0]}" y="${p[1]-11}">${esc(o.f?o.f(vs[i]):gsN(vs[i]))}</text>`:""}</g>`).join("")}
   ${L.map((x,i)=>i%step===0||i===n-1?`<text class="gs-xl" x="${Math.min(W-18,Math.max(18,X(i)))}" y="${H-8}">${esc(o.l(x))}</text>`:"").join("")}</svg>`}
 /* colunas: uma série, valor no toque */
@@ -4571,8 +4580,8 @@ async function gsFinDel(id){const F=window.UI_GS.fin;if(F.demo){F.rows=F.rows.fi
 function gsGauge(v){const N=44,on=Math.round(v/100*N),col=v>=75?"var(--ok)":v>=50?"var(--hot)":"var(--bad)";let t="";
   for(let i=0;i<N;i++){const a=Math.PI*(1-i/(N-1)),x1=110+Math.cos(a)*78,y1=104-Math.sin(a)*78,x2=110+Math.cos(a)*96,y2=104-Math.sin(a)*96;t+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${i<on?col:"var(--line)"}" stroke-width="4" stroke-linecap="round"/>`}
   return`<svg viewBox="0 0 220 124" class="gs-gauge" role="img" aria-label="Saúde financeira ${v} de 100">${t}<text x="110" y="96" class="gs-gv">${v}</text><text x="18" y="122" class="gs-gs">0</text><text x="202" y="122" class="gs-gs">100</text></svg>`}
-function gsRing(p,col){const r=34,c=2*Math.PI*r,v=Math.max(0,Math.min(100,p));return`<svg viewBox="0 0 84 84" class="gs-ring"><circle cx="42" cy="42" r="${r}" stroke="var(--line)" stroke-width="7" fill="none"/><circle cx="42" cy="42" r="${r}" stroke="${col}" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="${(c*v/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 42 42)"/><text x="42" y="47">${Math.round(p)}%</text></svg>`}
-function gsFinancas(R){const C=window.UI_GS,F=C.fin;if(!F){gsFinLoad().then(gsPaint);return'<p class="muted"><span class="spin"></span> Carregando as finanças…</p>'}
+function gsRing(p,col){const r=34,c=2*Math.PI*r,v=Math.max(0,Math.min(100,p));return`<svg viewBox="0 0 84 84" class="gs-ring"><circle cx="42" cy="42" r="${r}" stroke="var(--line)" stroke-width="7" fill="none"/><circle class="gs-rp" cx="42" cy="42" r="${r}" stroke="${col}" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="${(c*v/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 42 42)"/><text x="42" y="47">${Math.round(p)}%</text></svg>`}
+function gsFinancas(R){const C=window.UI_GS,F=C.fin;if(!F){gsFinLoad().then(()=>{C.anim=true;gsPaint()});return'<p class="muted"><span class="spin"></span> Carregando as finanças…</p>'}
   const m=C.fm,hoje=R.hoje||new Date().toISOString().slice(0,10),A=R.alunos||{},VM=R.vendas_mes||[],vm=VM.find(x=>x.m===m)||{m,n:0,bruto:0,liquido:0,reembolso:0,novos:0};
   const rows=F.rows||[],cost=rows.filter(x=>x.tipo==="despesa"&&x.mes===m).sort((a,b)=>String(a.dia).localeCompare(String(b.dia))),metas={};rows.filter(x=>x.tipo==="meta").forEach(x=>metas[x.categoria]=x);
   const extra=rows.filter(x=>x.tipo==="receita"&&x.mes===m);
@@ -4657,7 +4666,7 @@ function gsFinancas(R){const C=window.UI_GS,F=C.fin;if(!F){gsFinLoad().then(gsPa
   ${gsCard("Formas de pagamento","vendas aprovadas",gsBars(Object.entries(R.metodos||{}).sort((a,b)=>b[1]-a[1]).map(([k,n])=>[GS_MT[k]||k,n])))}</div>`}
 async function gsFinAct(k,b){const C=window.UI_GS,F=C.fin;if(!F)return;const v=b.dataset.v,rows=F.rows,m=C.fm;
   try{
-  if(k==="fmes"){C.fm=gsMesAdd(m,+v);if(F.demo&&(C.r||{}).exemplo)C.fin={rows:gsFinDemo(C.fm),demo:true};}
+  if(k==="fmes"){C.fm=gsMesAdd(m,+v);C.anim=true;if(F.demo&&(C.r||{}).exemplo)C.fin={rows:gsFinDemo(C.fm),demo:true};}
   else if(k==="fform")C.fForm=!C.fForm;
   else if(k==="fsalva"){const n=($("gsFn")||{}).value||"",val=parseFloat(String(($("gsFv")||{}).value||"").replace(/\./g,"").replace(",","."))||0,d=($("gsFd")||{}).value||null;
     if(!n.trim()||!val){toast("Preencha o nome e o valor");return}
@@ -4691,15 +4700,24 @@ function gsHTML(R){const C=window.UI_GS,sec=C.sec||"painel",A=R.alunos||{},T=R.t
     ${body}
     <p class="gs-note">Contas da equipe (${gsN(A.admins)}) não entram nos números. Só a equipe do Grupo RP vê esta área.</p>
   </div></div>`}
-function gsPaint(){const b=$("gsBox"),C=window.UI_GS;if(!b||!C||!C.r)return;const ae=document.activeElement,qk=ae&&ae.dataset&&ae.dataset.gsQ,pos=qk?ae.selectionStart:0;b.innerHTML=gsHTML(C.r);
+/* animação ao abrir: barras crescem, linhas se desenham, anéis e medidor enchem, números contam */
+function gsCount(el){const t=el.textContent,m=t.match(/\d[\d.]*(,\d+)?/);if(!m)return;const raw=m[0],dec=(raw.split(",")[1]||"").length,val=parseFloat(raw.replace(/\./g,"").replace(",","."));if(!val)return;
+  const pre=t.slice(0,m.index),suf=t.slice(m.index+raw.length),fmt=v=>pre+v.toLocaleString("pt-BR",{minimumFractionDigits:dec,maximumFractionDigits:dec})+suf,t0=performance.now(),D=900;
+  const step=n=>{const k=Math.min(1,(n-t0)/D),e=1-Math.pow(1-k,3);el.textContent=fmt(val*e);if(k<1)requestAnimationFrame(step);else el.textContent=t};el.textContent=fmt(0);requestAnimationFrame(step);setTimeout(()=>{el.textContent=t},D+150)}
+function gsAnimate(b){try{if(matchMedia("(prefers-reduced-motion:reduce)").matches)return}catch(e){}
+  b.classList.remove("gs-anim");void b.offsetWidth;b.classList.add("gs-anim");clearTimeout(gsAnimate.t);gsAnimate.t=setTimeout(()=>b.classList.remove("gs-anim"),2200);
+  const dl=(sel,ms,max)=>b.querySelectorAll(sel).forEach((e,i)=>e.style.animationDelay=Math.min(i*ms,max||900)+"ms");
+  dl(".gs-c i",22);dl(".gs-rcb i",60);dl(".gs-br s",70);dl(".gs-hb s",90);dl(".gs-gauge line",14);dl(".gs-rt td[style]",45);dl(".gs-pt circle,.gs-pt text",60);dl(".gs-ring .gs-rp",120);dl(".gs-kp",60,300);
+  b.querySelectorAll(".gs-kp b,.gs-big,.gs-gv,.gs-ring text,.gs-mt span").forEach(gsCount)}
+function gsPaint(){const b=$("gsBox"),C=window.UI_GS;if(!b||!C||!C.r)return;const ae=document.activeElement,qk=ae&&ae.dataset&&ae.dataset.gsQ,pos=qk?ae.selectionStart:0;b.innerHTML=gsHTML(C.r);if(C.anim){C.anim=false;gsAnimate(b)}
   if(qk){const i=b.querySelector(`[data-gs-q="${qk}"]`);if(i){i.focus();try{i.setSelectionRange(pos,pos)}catch(e){}}}}
 async function gsLoad(force){const box=$("gsBox");if(!box)return;window.UI_GS=window.UI_GS||{sec:"painel",fil:{},q:{},rng:7};const C=window.UI_GS;
-  if(C.r&&!force&&Date.now()-C.t<120000){gsPaint();return}
+  if(C.r&&!force&&Date.now()-C.t<120000){C.anim=true;gsPaint();return}
   if(!C.r)box.innerHTML='<p class="muted"><span class="spin"></span> Carregando os números…</p>';
-  try{if(!window.jxGestao)throw new Error("offline");const r=await window.jxGestao();C.r=r;C.t=Date.now();if(force)C.fin=null;gsPaint();if(force)try{toast("Números atualizados")}catch(e){}}
+  try{if(!window.jxGestao)throw new Error("offline");const r=await window.jxGestao();C.r=r;C.t=Date.now();if(force)C.fin=null;C.anim=true;gsPaint();if(force)try{toast("Números atualizados")}catch(e){}}
   catch(e){const m=String(e&&e.message||e);const b=$("gsBox");if(!b)return;
     if(/permission|denied/i.test(m)){b.innerHTML='<section class="card"><div class="card-b"><p style="margin:0">Esta área é só da equipe do Grupo RP.</p></div></section>';return}
-    C.r=gsDemo();C.t=Date.now();C.fin=null;gsPaint()}}
+    C.r=gsDemo();C.t=Date.now();C.fin=null;C.anim=true;gsPaint()}}
 function gsCSV(k){const R=(window.UI_GS||{}).r;if(!R)return;let L;
   if(k==="alunos")L=[["nome","email","situacao","plano","cadastro","ultimo_estudo","ia_30_dias","teste_ate","plano_ate"],...(R.lista||[]).map(x=>[x.nome,x.email,(GS_ST[x.st]||[x.st])[0],gsPl(x.plano),gsDMA(x.cad),x.ultimo?gsDMA(x.ultimo):"",x.ia,x.teste_ate?gsDMA(x.teste_ate):"",x.plano_ate?gsDMA(x.plano_ate):""])];
   else if(k==="pagamentos")L=[["data","situacao","plano","forma","valor","recebido","email"],...(R.pagamentos||[]).map(x=>[gsDMA(x.em),(GS_TP[x.tipo]||[x.tipo])[0],gsPl(x.plano),GS_MT[x.metodo]||x.metodo||"",String(x.valor).replace(".",","),x.liquido==null?"":String(x.liquido).replace(".",","),x.email])];
@@ -4712,8 +4730,8 @@ function vGestao(){if(!gsAdm()){setTimeout(()=>{if(TAB==="gestao"){TAB="meta";re
   return`<div id="gsBox"><p class="muted"><span class="spin"></span> Carregando os números…</p></div>`}
 window.jxGoGestao=()=>{if(!gsAdm())return;TAB="gestao";try{history.replaceState(null,"",location.pathname+"#gestao")}catch(e){}const go=()=>{try{render();window.scrollTo(0,0)}catch(e){}};go();setTimeout(()=>{if(TAB==="meta"&&gsAdm()){TAB="gestao";go()}},1500)};
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-gs]");if(!b)return;const C=window.UI_GS;if(!C)return;const k=b.dataset.gs,v=b.dataset.v;
-  if(k==="up")gsLoad(true);else if(k==="csv")gsCSV(v);else if(k==="sec"){C.sec=v;gsPaint();window.scrollTo(0,0)}else if(k==="rng"){C.rng=+v;gsPaint()}
-  else if(k==="fil"){C.fil[b.dataset.k]=v;gsPaint()}else if(/^f(mes|form|salva|pago|pagotodas|del|delok|copia|meta|metaok)$/.test(k))gsFinAct(k,b);else if(k==="go"){C.sec=v;C.fil[v]=b.dataset.f;gsPaint();window.scrollTo(0,0)}});
+  if(k==="up")gsLoad(true);else if(k==="csv")gsCSV(v);else if(k==="sec"){C.sec=v;C.anim=true;gsPaint();window.scrollTo(0,0)}else if(k==="rng"){C.rng=+v;C.anim=true;gsPaint()}
+  else if(k==="fil"){C.fil[b.dataset.k]=v;gsPaint()}else if(/^f(mes|form|salva|pago|pagotodas|del|delok|copia|meta|metaok)$/.test(k))gsFinAct(k,b);else if(k==="go"){C.sec=v;C.fil[v]=b.dataset.f;C.anim=true;gsPaint();window.scrollTo(0,0)}});
 document.addEventListener("input",e=>{const k=e.target&&e.target.dataset&&e.target.dataset.gsQ;if(!k||!window.UI_GS)return;window.UI_GS.q[k]=e.target.value;clearTimeout(window.UI_GS.qt);window.UI_GS.qt=setTimeout(gsPaint,200)});
 function obName(){const e=$("obN"),v=((e?e.value:"")||(PLANS.me&&PLANS.me.nick)||UI.obName||"").trim().replace(/\s+/g," ").slice(0,40);UI.obName=v;if(v){const c=core();c.cfg=c.cfg||{};c.cfg.name=v;touch("core");PLANS.ui=Object.assign({},PLANS.ui,{name:v})}return v}
 /* Lista de concursos: salva neste navegador e na conta */
